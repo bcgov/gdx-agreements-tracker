@@ -37,12 +37,6 @@ parameters:
     displayName: "Unique Identifier"
     description: "A unique identifier to allow for multiple instances (i.e. '-01')."
     value: ""
-  - name: APP_DOMAIN
-    displayName: "Application Hostname"
-    description:
-      "The exposed hostname that will route to the the React frontend, if left blank a
-      value will be defaulted."
-    value: "gdx-agreements-tracker-dev.apps.silver.devops.gov.bc.ca"
   - name: APP_PORT
     displayName: "Application Port"
     description: "The port used to communicate with the Pod"
@@ -68,57 +62,6 @@ parameters:
     description: "Maximum amount of memory the container can use."
     value: "2Gi"
 objects:
-  - kind: Service
-    apiVersion: v1
-    metadata:
-      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
-      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
-      annotations:
-        description: Exposes and load balances the application pods.
-      labels:
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
-        app: ${APP_NAME}
-        role: ${ROLE_NAME}
-        env: ${ENV_NAME}
-    spec:
-      ports:
-        - name: ${APP_PORT}-tcp
-          port: ${{APP_PORT}}
-          protocol: TCP
-          targetPort: ${{APP_PORT}}
-      selector:
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
-        app: ${APP_NAME}
-        role: ${ROLE_NAME}
-        env: ${ENV_NAME}
-      sessionAffinity: None
-      type: ClusterIP
-  - kind: Route
-    apiVersion: route.openshift.io/v1
-    metadata:
-      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
-      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
-      labels:
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
-        app: ${APP_NAME}
-        role: ${ROLE_NAME}
-        env: ${ENV_NAME}
-      annotations:
-        description: The Route for the React application in ${ENV_NAME}
-    spec:
-      host: ${APP_DOMAIN}
-      port:
-        targetPort: ${APP_PORT}-tcp
-      tls:
-        insecureEdgeTerminationPolicy: Redirect
-        termination: edge
-        caCertificate: ""
-        certificate: ""
-        key: ""
-      to:
-        kind: Service
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
-        weight: 100
   - kind: Deployment
     apiVersion: apps/v1
     metadata:
@@ -143,7 +86,7 @@ objects:
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}
               image: >-
-                image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}@sha256:69c2e98c46bf9b4e8eca8344e7c3627a464df969046a2ff3fc83cf781fc0c930
+                image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}@sha256:8cc727d67aa089c2dfe88c4f8052a27ad32ba1e5f3a49d147b588211e7b53b64
               ports:
                 - containerPort: 8080
                   protocol: TCP

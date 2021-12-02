@@ -1,0 +1,97 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: gdx-agreements-tracker-app-routes
+  resourceVersion: "v1.0.0"
+  annotations:
+    openshift.io/display-name: Deployment routes - GDX agreements tracker app.
+    description: Deployment routes for GDX agreements tracker app.
+    tags: pmo,app,gdx,agreements-tracker,routes,deployment
+parameters:
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "app"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "dev"
+  - name: INSTANCE
+    displayName: "Unique Identifier"
+    description: "A unique identifier to allow for multiple instances (i.e. '-01')."
+    value: ""
+  - name: APP_DOMAIN
+    displayName: "Application Hostname"
+    description:
+      "The exposed hostname that will route to the the React frontend, if left blank a
+      value will be defaulted."
+    value: "gdx-agreements-tracker-dev.apps.silver.devops.gov.bc.ca"
+  - name: APP_PORT
+    displayName: "Application Port"
+    description: "The port used to communicate with the Pod"
+    value: "8080"
+objects:
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Exposes and load balances the application pods.
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      ports:
+        - name: ${APP_PORT}-tcp
+          port: ${{APP_PORT}}
+          protocol: TCP
+          targetPort: ${{APP_PORT}}
+      selector:
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+      sessionAffinity: None
+      type: ClusterIP
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+      annotations:
+        description: The Route for the React application in ${ENV_NAME}
+    spec:
+      host: ${APP_DOMAIN}
+      wildcardPolicy: None
+      port:
+        targetPort: ${APP_PORT}-tcp
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+        caCertificate: ""
+        certificate: ""
+        key: ""
+      to:
+        kind: Service
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        weight: 100
