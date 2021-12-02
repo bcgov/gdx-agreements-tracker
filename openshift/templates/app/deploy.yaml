@@ -1,0 +1,157 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: gdx-agreements-tracker-app-deployment
+  resourceVersion: "v1.0.0"
+  annotations:
+    openshift.io/display-name: Deployment GDX agreements tracker app.
+    description: Deployment for GDX agreements tracker app.
+    tags: pmo,app,gdx,agreements-tracker
+parameters:
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "app"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "dev"
+  - name: IMAGE_DEPLOY
+    displayName: "Image deploy name"
+    description: "This is the name of the deploy image."
+    required: true
+    value: "deploy"
+  - name: INSTANCE
+    displayName: "Unique Identifier"
+    description: "A unique identifier to allow for multiple instances (i.e. '-01')."
+    value: ""
+  - name: APP_DOMAIN
+    displayName: "Application Hostname"
+    description:
+      "The exposed hostname that will route to the the React frontend, if left blank a
+      value will be defaulted."
+    value: "gdx-agreements-tracker-dev.apps.silver.devops.gov.bc.ca"
+  - name: APP_PORT
+    displayName: "Application Port"
+    description: "The port used to communicate with the Pod"
+    value: "8080"
+  - name: REPLICAS
+    displayName: "Pod Replicas"
+    description: "Number of pod replicas to run"
+    value: "1"
+  - name: CPU_REQUEST
+    displayName: "CPU Request"
+    description: "Starting amount of CPU the container can use."
+    value: "100m"
+  - name: CPU_LIMIT
+    displayName: "CPU Limit"
+    description: "Maximum amount of CPU the container can use."
+    value: "1"
+  - name: MEMORY_REQUEST
+    displayName: "Memory Request"
+    description: "Starting amount of memory the container can use."
+    value: "100Mi"
+  - name: MEMORY_LIMIT
+    displayName: "Memory Limit"
+    description: "Maximum amount of memory the container can use."
+    value: "2Gi"
+objects:
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Exposes and load balances the application pods.
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      ports:
+        - name: ${APP_PORT}-tcp
+          port: ${{APP_PORT}}
+          protocol: TCP
+          targetPort: ${{APP_PORT}}
+      selector:
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+      sessionAffinity: None
+      type: ClusterIP
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+      annotations:
+        description: The Route for the React application in ${ENV_NAME}
+    spec:
+      host: ${APP_DOMAIN}
+      port:
+        targetPort: ${APP_PORT}-tcp
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+        caCertificate: ""
+        certificate: ""
+        key: ""
+      to:
+        kind: Service
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        weight: 100
+  - kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+          app: ${APP_NAME}
+          role: ${ROLE_NAME}
+          env: ${ENV_NAME}
+      template:
+        metadata:
+          labels:
+            name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+            app: ${APP_NAME}
+            role: ${ROLE_NAME}
+            env: ${ENV_NAME}
+        spec:
+          containers:
+            - name: ${APP_NAME}-${ROLE_NAME}
+              image: >-
+                image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}@sha256:69c2e98c46bf9b4e8eca8344e7c3627a464df969046a2ff3fc83cf781fc0c930
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
+  

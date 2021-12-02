@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Prevent running assemble in builders different than official STI image.
+# The official nodejs:8-onbuild already run npm install and use different
+# application folder.
+echo "starting assemble"
+ls -la /tmp/src
+ls -la /usr/src/app
+[ -d "/usr/src/app" ] && exit 0
+
+set -e
+
+shopt -s dotglob
+echo "---> Installing application source ..."
+mv /tmp/src/* ./
+
+echo "---> Installing application dependencies"
+npm install
+
+echo "---> Removing node modules from image"
+rm -rf ./node_modules
+
+echo "---> Fix source directory permissions"
+fix-permissions ./
+
+echo "---> Done assemble"
