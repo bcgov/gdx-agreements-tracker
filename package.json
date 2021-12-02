@@ -1,6 +1,7 @@
 {
   "name": "gdx-agreements-tracker-front-end",
   "version": "1.0.0",
+  "license" : "Apache-2.0",
   "dependencies": {
     "@bcgov/bc-sans": "^1.0.1",
     "axios": "^0.24.0",

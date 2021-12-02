@@ -37,6 +37,12 @@ parameters:
     displayName: "Unique Identifier"
     description: "A unique identifier to allow for multiple instances (i.e. '-01')."
     value: ""
+  - name: APP_DOMAIN
+    displayName: "Application Hostname"
+    description:
+      "The exposed hostname that will route to the the React frontend, if left blank a
+      value will be defaulted."
+    value: "gdx-agreements-tracker-dev.apps.silver.devops.gov.bc.ca"
   - name: APP_PORT
     displayName: "Application Port"
     description: "The port used to communicate with the Pod"
@@ -87,6 +93,32 @@ objects:
         env: ${ENV_NAME}
       sessionAffinity: None
       type: ClusterIP
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+      annotations:
+        description: The Route for the React application in ${ENV_NAME}
+    spec:
+      host: ${APP_DOMAIN}
+      port:
+        targetPort: ${APP_PORT}-tcp
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+        caCertificate: ""
+        certificate: ""
+        key: ""
+      to:
+        kind: Service
+        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        weight: 100
   - kind: Deployment
     apiVersion: apps/v1
     metadata:

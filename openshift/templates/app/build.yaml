@@ -83,7 +83,13 @@ objects:
         env: ${ENV_NAME}
     spec:
       strategy:
-        type: Docker
+        type: Source
+        sourceStrategy:
+          from:
+            kind: DockerImage
+            name: 'docker-remote.artifacts.developer.gov.bc.ca/node:16.0-alpine'
+          pullSecret:
+            name: artifactory-docker-remote-creds
       source:
         type: Git
         git:
@@ -118,7 +124,13 @@ objects:
         env: ${ENV_NAME}
     spec:
       strategy:
-        type: Docker
+        type: Source
+        sourceStrategy:
+          from:
+            kind: DockerImage
+            name: 'docker-remote.artifacts.developer.gov.bc.ca/nginx:stable'
+          pullSecret:
+            name: artifactory-docker-remote-creds
       source:
         type: Git
         git:

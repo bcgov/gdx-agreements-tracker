@@ -1,0 +1,30 @@
+kind: Template
+apiVersion: v1
+name: allow-from-openshift-ingress
+parameters:
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "dev"
+objects:
+  - kind: NetworkPolicy
+    apiVersion: networking.k8s.io/v1
+    metadata:
+      name: allow-from-openshift-ingress
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      selfLink: >-
+        /apis/networking.k8s.io/v1/namespaces/${PROJECT_NAMESPACE}-${ENV_NAME}/networkpolicies/allow-from-openshift-ingress
+    spec:
+      ingress:
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  network.openshift.io/policy-group: ingress
+      policyTypes:
+        - Ingress
