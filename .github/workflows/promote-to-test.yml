@@ -1,0 +1,18 @@
+name: Promote to Test
+on:
+  workflow_dispatch:
+defaults:
+  run:
+    working-directory: ./
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Promote to test
+        uses: redhat-developer/openshift-actions@v1.1
+        with:
+          version: "latest"
+          openshift_server_url: ${{ secrets.OpenShiftServerURL}}
+          parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
+          cmd: |
+            oc project acd38d-test
