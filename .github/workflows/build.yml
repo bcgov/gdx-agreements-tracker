@@ -1,7 +1,8 @@
 name: Build image.
 on:
-  pull_request:
-    branches: ['development']
+  push:
+    branches: 
+      - development
   workflow_dispatch:
 defaults:
   run:
@@ -14,7 +15,7 @@ jobs:
         uses: redhat-developer/openshift-actions@v1.1
         with:
           version: "latest"
-          openshift_server_url: ${{ secrets.OpenShiftServerURL}}
+          openshift_server_url: ${{ secrets.OpenShiftServerURL }}
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
             oc project acd38d-tools
