@@ -67,6 +67,9 @@ objects:
     metadata:
       name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        image.openshift.io/triggers: >-
+          [{"from":{"kind":"ImageStreamTag","name":"gdx-agreements-tracker-app-deploy:dev","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"gdx-agreements-tracker-app\")].image"}]
     spec:
       replicas: 1
       selector:
