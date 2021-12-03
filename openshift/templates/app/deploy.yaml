@@ -85,8 +85,7 @@ objects:
         spec:
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}
-              image: >-
-                image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}@sha256:8cc727d67aa089c2dfe88c4f8052a27ad32ba1e5f3a49d147b588211e7b53b64
+              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-deploy:dev
               ports:
                 - containerPort: 8080
                   protocol: TCP
