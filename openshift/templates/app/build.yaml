@@ -59,16 +59,31 @@ objects:
     metadata:
       name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_BUILD}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_BUILD}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
   - kind: ImageStream
     apiVersion: image.openshift.io/v1
     metadata:
       name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_NGINX}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_NGINX}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
   - kind: ImageStream
     apiVersion: image.openshift.io/v1
     metadata:
       name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
   - kind: BuildConfig
     apiVersion: build.openshift.io/v1
     metadata:
@@ -83,11 +98,11 @@ objects:
         env: ${ENV_NAME}
     spec:
       strategy:
-        type: Source
-        sourceStrategy:
+        type: Docker
+        dockerStrategy:
           from:
             kind: DockerImage
-            name: 'docker-remote.artifacts.developer.gov.bc.ca/node:16.0-alpine'
+            name: 'artifacts.developer.gov.bc.ca/docker-remote/library/node:16.0-alpine'
           pullSecret:
             name: artifactory-docker-remote-creds
       source:
@@ -124,11 +139,11 @@ objects:
         env: ${ENV_NAME}
     spec:
       strategy:
-        type: Source
-        sourceStrategy:
+        type: Docker
+        dockerStrategy:
           from:
             kind: DockerImage
-            name: 'docker-remote.artifacts.developer.gov.bc.ca/nginx:stable'
+            name: 'artifacts.developer.gov.bc.ca/docker-remote/library/nginx:stable'
           pullSecret:
             name: artifactory-docker-remote-creds
       source:
