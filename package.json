@@ -15,7 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/ --ext .jsx,.js,.ts,.tsx --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix"
   },
   "eslintConfig": {
     "plugins": [
@@ -25,6 +27,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:prettier/recommended",
         "react-app",
         "react-app/jest"
     ],
