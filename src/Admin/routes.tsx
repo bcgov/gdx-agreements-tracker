@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route } from "react-router-dom";
 import { Login, Admin, Contacts, Suppliers, SubContractors, Resources, Ministries, User } from './index';
 
@@ -5,8 +6,8 @@ import { Login, Admin, Contacts, Suppliers, SubContractors, Resources, Ministrie
  * Routes for Admin pages.
  */
 const routes = [
-    <Route path="login" element={<Login />} />,
-    <Route path="admin" element={<Admin />} >
+    <Route key="login" path="login" element={<Login />} />,
+    <Route key="admin" path="admin" element={<Admin />} >
         <Route path="contacts" element={<Contacts />} />
         <Route path="suppliers" element={<Suppliers />} />
         <Route path="subcontractors" element={<SubContractors />} />

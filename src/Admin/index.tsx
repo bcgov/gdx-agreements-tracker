@@ -1,3 +1,4 @@
+import React from 'react';
 import { useParams, Outlet } from "react-router-dom";
 
 export const Admin = () => {

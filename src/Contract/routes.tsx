@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route } from "react-router-dom";
 import { Contract, List, Details, Resources, Deliverables, InternalCoding, Amendments } from './index';
 
@@ -5,7 +6,7 @@ import { Contract, List, Details, Resources, Deliverables, InternalCoding, Amend
  * Routes for Contracts
  */
 const routes = [
-    <Route path="contract" element={<Contract />} >
+    <Route key="contract" path="contract" element={<Contract />} >
         <Route path="list" element={<List />} />
         <Route path=":contractId" >
             <Route path="" element={<Details />} />

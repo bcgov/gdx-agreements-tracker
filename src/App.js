@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import '@bcgov/bc-sans/css/BCSans.css';
 import './styles/App.scss';

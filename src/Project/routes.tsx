@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route } from "react-router-dom";
 import { Project, List, Details, Status, ChangeRequest, Billing, LessonsLearned, CloseOut } from './index';
 
@@ -5,7 +6,7 @@ import { Project, List, Details, Status, ChangeRequest, Billing, LessonsLearned,
  * Routes for Projects
  */
 const routes = [
-    <Route path="project" element={<Project />}>
+    <Route key="project" path="project" element={<Project />}>
         <Route path="list" element={<List />} />
         <Route path=":projectId" >
             <Route path="" element={<Details />} />
