@@ -15,13 +15,9 @@ function App() {
           <h2>GDX Agreements Tracker</h2>
           <nav>
             <ButtonNav to={`/project/list`}>Project List</ButtonNav>
-            <ButtonNav to={`/project/34/details`}>
-              Project Item Sample
-            </ButtonNav>
+            <ButtonNav to={`/project/34/details`}>Project Item Sample</ButtonNav>
             <ButtonNav to={`/contract/list`}>Contract List</ButtonNav>
-            <ButtonNav to={`/contract/34/details`}>
-              Contract Item Sample
-            </ButtonNav>
+            <ButtonNav to={`/contract/34/details`}>Contract Item Sample</ButtonNav>
             <ButtonNav to={`/reports`}>Reports</ButtonNav>
             <ButtonNav to={`/admin`}>Administration Forms</ButtonNav>
           </nav>
