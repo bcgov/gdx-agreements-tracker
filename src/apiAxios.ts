@@ -1,12 +1,7 @@
 import axios from "axios";
 
 let userToken = "";
-/**
- * Gets the user token.
- *
- * @todo To be implemented
- * @return  {[type]}  [return description]
- */
+
 export const getUserToken = () => {
   return userToken ?? "test-token";
 };
