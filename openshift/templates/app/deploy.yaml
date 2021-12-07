@@ -71,7 +71,7 @@ objects:
         image.openshift.io/triggers: >-
           [{"from":{"kind":"ImageStreamTag","name":"gdx-agreements-tracker-app-deploy:dev","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"gdx-agreements-tracker-app\")].image"}]
     spec:
-      replicas: 1
+      replicas: ${{REPLICAS}}
       selector:
         matchLabels:
           name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
@@ -90,7 +90,7 @@ objects:
             - name: ${APP_NAME}-${ROLE_NAME}
               image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-deploy:dev
               ports:
-                - containerPort: 8080
+                - containerPort: ${{APP_PORT}}
                   protocol: TCP
               resources:
                 requests:
@@ -99,4 +99,3 @@ objects:
                 limits:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
-  
