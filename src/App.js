@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "@bcgov/bc-sans/css/BCSans.css";
 import "./styles/App.scss";
@@ -6,8 +6,20 @@ import ProjectRoutes from "./Project/routes";
 import ContractRoutes from "./Contract/routes";
 import AdminRoutes from "./Admin/routes";
 import ButtonNav from "./components/ButtonNav";
+import apiAxios from "./apiAxios";
 
 function App() {
+  useEffect(() => {
+    let axioResponse = apiAxios();
+    axioResponse
+      .get("users")
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <div className="pmo-app default-theme">
       <aside>
