@@ -12,6 +12,9 @@ package-lock.json
 # production
 /build
 
+#IDEs
+.idea
+
 # misc
 .DS_Store
 
