@@ -1,0 +1,93 @@
+@import '../../styles/App';
+
+.pmo-app {
+    aside {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;;
+        padding: 1rem;
+
+        h2 {
+            margin-top: 0;
+        }
+
+        img {
+            max-width: 200px;
+        }
+    }
+
+    .subnav {
+        a {
+            &, &:visited, &:hover, &:active, &:focus {
+                
+                padding: 1rem;
+                display: inline-block;
+            }
+            
+            &.active {
+                border: 1px solid;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    &.default-theme, &.light-theme {
+
+        a {
+            &, &:visited, &:hover, &:active, &:focus {
+                color: $link-color;
+            }
+        }
+        
+        .main-section {
+            header {
+                background-color: $primary-color;
+            }
+            main {
+
+
+            }
+            footer {
+                background-color: $primary-color;
+                color: $white;
+            }
+        }
+    }
+    &.dark-theme {
+        color: $white;
+        background-color: $text-color;
+        a {
+            &, &:visited, &:hover, &:active, &:focus {
+                color: $white;
+            }
+        }
+        aside {
+
+        }
+        .main-section {
+            header {
+
+            }
+            main {
+
+
+            }
+            footer {
+
+            }
+        }
+    }
+    @media (min-width: $breakpoint-xl ) {
+        
+    }
+    @media (min-width: $breakpoint-lg ) {
+        
+    }
+    @media (min-width: $breakpoint-md ) {
+        flex-direction: row;
+    }
+    @media (min-width: $breakpoint-sm ) {
+        
+    }
+}

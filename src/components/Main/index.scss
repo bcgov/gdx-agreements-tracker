@@ -1,0 +1,26 @@
+@import '../../styles/App.scss';
+
+.main-section {
+    width: 100%;
+    height: 100%;
+
+    header {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        min-height: 50px;
+        background-color: $primary-color;
+        
+    }
+
+    main {
+
+    }
+
+    // footer {
+    //     min-height: 50px;
+    //     padding-top: 0.5rem;
+    //     padding-bottom: 0.5rem;
+    //     background-color: $primary-color;
+        
+    // }
+}
