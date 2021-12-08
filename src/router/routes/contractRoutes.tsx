@@ -8,7 +8,7 @@ import {
   Deliverables,
   InternalCoding,
   Amendments,
-} from "./index";
+} from "../../pages/Contract/index";
 
 /**
  * Routes for Contracts

@@ -1,0 +1,27 @@
+@import '../../styles/App';
+
+aside {
+    background-color: $nav-background;
+    color: $white;
+    a {
+        display: block;
+        padding: 0.5rem;
+
+        &, &:visited, &:hover, &:active, &:focus {
+            color: $white;
+        }
+        &.active {
+            font-weight: bold;
+        }
+    }
+    h2 {
+        &:after {
+            content: " ";
+            display: block;
+            margin-top: 0.5rem;
+            height: 3px;
+            background-color: $yellow;
+        }
+        
+    }
+}

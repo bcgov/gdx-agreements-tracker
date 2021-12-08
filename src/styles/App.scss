@@ -1,146 +1,19 @@
-@import './variables';
-
+@import './components/variables';
 
 body {
-
+    margin: 0;
     font-family: BCSans, Calibri, Arial, sans serif;
 }
 
 .pmo-app {
     color: $text-color;
     display: flex;
-    flex-direction: column;
     /*flex-flow: nowrap;*/
     margin: 0 auto;
     width: 100%;
-    aside {
-        h2 {
-            margin-top: 0;
-        }
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;;
-        padding: 1rem;
-        img {
-            max-width: 200px;
-        }
-    }
-    .main-section {
-        width: 100%;
-        header {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            min-height: 50px;
-            
-        }
-        main {
-            min-height: 600px;
-        }
-        footer {
-            min-height: 50px;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-        }
-       
-    }
-    .subnav {
-        a {
-            &, &:visited, &:hover, &:active, &:focus {
-                
-                padding: 1rem;
-                display: inline-block;
-            }
-            
-            &.active {
-                border: 1px solid;
-            }
-            &:hover {
-                text-decoration: none;
-            }
-        }
-    }
-    &.default-theme, &.light-theme {
-
-        a {
-            &, &:visited, &:hover, &:active, &:focus {
-                color: $link-color;
-            }
-        }
-        
-        aside {
-            background-color: $nav-background;
-            color: $white;
-            a {
-                display: block;
-                padding: 0.5rem;
-
-                &, &:visited, &:hover, &:active, &:focus {
-                    color: $white;
-                }
-                &.active {
-                    font-weight: bold;
-                }
-            }
-            h2 {
-                &:after {
-                    content: " ";
-                    display: block;
-                    margin-top: 0.5rem;
-                    height: 3px;
-                    background-color: $yellow;
-                }
-                
-            }
-        }
-        .main-section {
-            header {
-                background-color: $primary-color;
-            }
-            main {
-
-
-            }
-            footer {
-                background-color: $primary-color;
-                color: $white;
-            }
-        }
-    }
-    &.dark-theme {
-        color: $white;
-        background-color: $text-color;
-        a {
-            &, &:visited, &:hover, &:active, &:focus {
-                color: $white;
-            }
-        }
-        aside {
-
-        }
-        .main-section {
-            header {
-
-            }
-            main {
-
-
-            }
-            footer {
-
-            }
-        }
-    }
-    @media (min-width: $breakpoint-xl ) {
-        
-    }
-    @media (min-width: $breakpoint-lg ) {
-        
-    }
-    @media (min-width: $breakpoint-md ) {
-        flex-direction: row;
-    }
-    @media (min-width: $breakpoint-sm ) {
-        
-    }
+    height: 100%;
 }
 
+.main-section {
+
+}
