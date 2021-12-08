@@ -5,7 +5,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 
 const LoginPage: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
 
