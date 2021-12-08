@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes } from "react-router-dom";
-import AdminRoutes from '../pages/Admin/routes';
+import AdminRoutes from "../pages/Admin/routes";
 
 test("renders Admin page", () => {
   render(

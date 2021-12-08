@@ -1,15 +1,16 @@
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { ReactKeycloakProvider } from '@react-keycloak/web'
-import keycloak from './keycloak'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { ReactKeycloakProvider } from "@react-keycloak/web";
+import keycloak from "./keycloak";
 
 ReactDOM.render(
-  <ReactKeycloakProvider authClient={keycloak} >
-      <App />
+  <ReactKeycloakProvider authClient={keycloak}>
+    <App />
   </ReactKeycloakProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

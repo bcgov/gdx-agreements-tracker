@@ -1,6 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { Contract, List, Details, Resources, Deliverables, InternalCoding, Amendments } from '../../pages/Contract/index';
+import {
+  Contract,
+  List,
+  Details,
+  Resources,
+  Deliverables,
+  InternalCoding,
+  Amendments,
+} from "../../pages/Contract/index";
 
 /**
  * Routes for Contracts
