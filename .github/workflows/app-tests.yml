@@ -8,6 +8,7 @@ defaults:
     working-directory: ./
 jobs:
   static_checks:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,3 +34,12 @@ jobs:
 
       - name: Run Tests
         run: npm run test
+
+  draft-static_checks:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == true
+    timeout-minutes: 1
+
+    steps:
+      - name: Run a one-line script
+        run: echo Draft PR, you are good.
