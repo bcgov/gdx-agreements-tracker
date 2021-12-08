@@ -43,11 +43,4 @@ jobs:
       - name: Run Tests
         run: npm run test
 
-  draft-static_checks:
-    runs-on: ubuntu-latest
-    if: github.repository_owner == 'bcgov' && github.event.pull_request.draft == false
-    timeout-minutes: 1
-    steps:
-      - name: Run a one-line script
-        run: echo Draft PR, you are good.
 
