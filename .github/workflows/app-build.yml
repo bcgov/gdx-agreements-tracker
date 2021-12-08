@@ -4,16 +4,19 @@ on:
     branches: 
       - development
     paths:
-      - "src/**/*"
-      - "public/**/*"
-      - "package.json"
-      - "Dockerfile"
+      - "frontend/**/*"
+      - "!frontend/Dockerfile"
+      - "!frontend/tsconfig.json"
+      - "!frontend/tslint.json"
+      - "!frontend/.prettierrc.js"
+
   workflow_dispatch:
 defaults:
   run:
     working-directory: ./
 jobs:
   deploy:
+    if: github.repository_owner == 'bcgov'
     runs-on: ubuntu-latest
     steps:
       - name: Image Build for gdx-agreements-tracker-app-build

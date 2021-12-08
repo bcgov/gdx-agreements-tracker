@@ -28,6 +28,7 @@ parameters:
     description: "The name for this environment [dev, test, prod, tools]"
     required: true
     value: "tools"
+
   - name: GIT_URL
     displayName: "GIT Source Repo URL"
     description: "A GIT URL to your source code."
@@ -38,6 +39,12 @@ parameters:
     description: "The git reference or branch."
     required: true
     value: "development"
+  - name: SOURCE_CONTEXT_DIR
+    displayName: "Source Context Directory"
+    description: "The source context directory."
+    required: false
+    value: "frontend"
+
   - name: IMAGE_BUILD
     displayName: "Image build name"
     description: "This is the name of the React app build image."
@@ -53,6 +60,7 @@ parameters:
     description: "This is the name of the deploy image."
     required: true
     value: "deploy"
+
 objects:
   - kind: ImageStream
     apiVersion: image.openshift.io/v1
@@ -64,6 +72,7 @@ objects:
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
+
   - kind: ImageStream
     apiVersion: image.openshift.io/v1
     metadata:
@@ -74,6 +83,7 @@ objects:
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
+
   - kind: ImageStream
     apiVersion: image.openshift.io/v1
     metadata:
@@ -84,6 +94,7 @@ objects:
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
+
   - kind: BuildConfig
     apiVersion: build.openshift.io/v1
     metadata:
@@ -110,6 +121,7 @@ objects:
         git:
           uri: ${GIT_URL}
           ref: ${GIT_REF}
+        contextDir: ${SOURCE_CONTEXT_DIR}
       output:
         to:
           kind: ImageStreamTag
@@ -125,6 +137,7 @@ objects:
       triggers:
         - type: ConfigChange
       runPolicy: Serial
+
   - kind: BuildConfig
     apiVersion: build.openshift.io/v1
     metadata:
@@ -166,6 +179,7 @@ objects:
       triggers:
         - type: ConfigChange
       runPolicy: Serial
+
   - kind: BuildConfig
     apiVersion: build.openshift.io/v1
     metadata:
