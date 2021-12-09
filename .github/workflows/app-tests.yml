@@ -13,10 +13,11 @@ on:
   workflow_dispatch:
 defaults:
   run:
-    working-directory: ./
+    working-directory: frontend/
 jobs:
   static_checks:
     if: github.repository_owner == 'bcgov' && github.event.pull_request.draft == false
+    timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
