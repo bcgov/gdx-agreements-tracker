@@ -1,0 +1,107 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: gdx-agreements-tracker-api-deployment
+  resourceVersion: "v1.0.0"
+  annotations:
+    openshift.io/display-name: Deployment GDX agreements tracker api.
+    description: Deployment for GDX agreements tracker api.
+    tags: pmo,api,gdx,agreements-tracker
+parameters:
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "api"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "dev"
+  - name: DEPLOYMENT_TAG
+    displayName: "Deployment tag"
+    description: "Deployment tag on the runtime ImageStream"
+    required: true
+    value: "dev"
+
+
+  - name: INSTANCE
+    displayName: "Unique Identifier"
+    description: "A unique identifier to allow for multiple instances (i.e. '-01')."
+    value: ""
+  - name: APP_PORT
+    displayName: "Application Port"
+    description: "The port used to communicate with the Pod"
+    value: "8080"
+  - name: REPLICAS
+    displayName: "Pod Replicas"
+    description: "Number of pod replicas to run"
+    value: '1'
+  - name: CPU_REQUEST
+    displayName: "CPU Request"
+    description: "Starting amount of CPU the container can use."
+    value: "100m"
+  - name: CPU_LIMIT
+    displayName: "CPU Limit"
+    description: "Maximum amount of CPU the container can use."
+    value: "1"
+  - name: MEMORY_REQUEST
+    displayName: "Memory Request"
+    description: "Starting amount of memory the container can use."
+    value: "100Mi"
+  - name: MEMORY_LIMIT
+    displayName: "Memory Limit"
+    description: "Maximum amount of memory the container can use."
+    value: "2Gi"
+
+objects:
+  - kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        image.openshift.io/triggers: >-
+          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-${ROLE_NAME}-deploy:${DEPLOYMENT_TAG}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}\")].image"}]
+    spec:
+      replicas: ${{REPLICAS}}
+      selector:
+        matchLabels:
+          name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+          app: ${APP_NAME}
+          role: ${ROLE_NAME}
+          env: ${ENV_NAME}
+      template:
+        metadata:
+          annotations:
+            alpha.image.policy.openshift.io/resolve-names: '*'
+          labels:
+            name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+            app: ${APP_NAME}
+            role: ${ROLE_NAME}
+            env: ${ENV_NAME}
+            app.kubernetes.io/part-of: ${APP_NAME}-${ROLE_NAME}
+        spec:
+          containers:
+            - name: ${APP_NAME}-${ROLE_NAME}
+              image: ${APP_NAME}-${ROLE_NAME}-deploy:${DEPLOYMENT_TAG}
+              ports:
+                - containerPort: ${{APP_PORT}}
+                  protocol: TCP
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}

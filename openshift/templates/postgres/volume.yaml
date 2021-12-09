@@ -1,0 +1,46 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: gdx-agreements-tracker-api-postgres-pvc
+  resourceVersion: "v1.0.0"
+  annotations:
+    openshift.io/display-name: Deployment database persistent volume claim - GDX agreements tracker API.
+    description: Deployment database persistent volume claim for GDX agreements tracker API.
+    tags: pmo,api,gdx,agreements-tracker,deployment,pvc
+parameters:
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "api"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "dev"
+
+objects:
+  # PVC for the runtime image.
+  - kind: "PersistentVolumeClaim"
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-postgres
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+    spec:
+      accessModes:
+        - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: "10Gi"
+      storageClassName: netapp-block-standard
+      volumeMode: Filesystem
