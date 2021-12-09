@@ -1,0 +1,29 @@
+name: Build API Image.
+on:
+  push:
+    branches:
+      - development
+    paths:
+      - "backend/**/*"
+      - "!backend/.eslintrc.json"
+      - "!backend/Dockerfile"
+      - "!backend/.dockerignore"
+
+  workflow_dispatch:
+defaults:
+  run:
+    working-directory: ./
+jobs:
+  deploy:
+    if: github.repository_owner == 'bcgov'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Image Build for gdx-agreements-tracker-api-build
+        uses: redhat-developer/openshift-actions@v1.1
+        with:
+          version: "latest"
+          openshift_server_url: ${{ secrets.OpenShiftServerURL }}
+          parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
+          cmd: |
+            oc project acd38d-tools
+            oc start-build gdx-agreements-tracker-api-build --follow

@@ -1,0 +1,98 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: nodejs-s2i
+parameters:
+  - name: NAME
+    displayName: "Name"
+    description: "Name of the image."
+    required: true
+    value: "nodejs-16"
+
+  - name: GIT_URL
+    displayName: "Git Repo URL"
+    description: "A GIT URL to your source code."
+    required: true
+    value: "https://github.com/bcgov/gdx-agreements-tracker.git"
+  - name: GIT_REF
+    displayName: "Git Reference"
+    description: "The git reference or branch."
+    required: true
+    value: "development"
+  - name: SOURCE_CONTEXT_DIR
+    displayName: "Source Context Directory"
+    description: "The source context directory."
+    required: true
+    value: "openshift/s2i/nodejs/"
+  - name: OUTPUT_IMAGE_TAG
+    displayName: "Output Image Tag"
+    description: "The tag given to the built image."
+    required: true
+    value: "latest"
+
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "api"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "tools"
+
+objects:
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Keeps track of NodeJS 16 images that originate from Dockerhub
+      labels:
+        name: basic-node-images
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+        source: dockerhub
+
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-${NAME}
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    strategy:
+      dockerStrategy:
+        forcePull: true
+    spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+      runPolicy: Serial
+      source:
+        type: Git
+        git:
+          ref: ${GIT_REF}
+          uri: ${GIT_URL}
+        contextDir: ${SOURCE_CONTEXT_DIR}
+      strategy:
+        type: Docker
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${NAME}:${OUTPUT_IMAGE_TAG}
+      resources: {}
+      postCommit: {}

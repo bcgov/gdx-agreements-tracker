@@ -1,0 +1,26 @@
+#!/bin/sh -e
+cat <<EOF
+This is the alpine-nodejs S2I image:
+To use it, install S2I: https://github.com/openshift/source-to-image
+
+Sample invocation:
+
+s2i build <source code path/URL> alpine-nodejs <application image>
+
+You can then run the resulting image via:
+docker run -p 3000:3000 <application image>
+
+This base image also provides the default user you should use to run your
+application. Your Dockerfile should include this instruction after you finish
+installing software:
+
+USER default
+
+The default directory for installing your application sources is
+'/opt/app-root/src' and the WORKDIR and HOME for the 'default' user is set
+to this directory as well. In your S2I scripts, you don't have to use absolute
+path, but rather rely on the relative path.
+
+In Openshift if you want to checkout code with an untrusted CA do this
+oc set env bc/<service-name> --env=GIT_SSL_NO_VERIFY=true
+EOF

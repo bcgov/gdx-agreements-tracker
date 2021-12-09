@@ -1,0 +1,117 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: gdx-agreements-tracker-postgres-build
+  annotations:
+    openshift.io/display-name: API PostgreSQL build
+    description: Build template for PostgreSQL build
+    tags: pmo,api,gdx,agreements-tracker
+parameters:
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "api"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "tools"
+
+  - name: GIT_URL
+    displayName: "GIT Source Repo URL"
+    description: "A GIT URL to your source code."
+    required: true
+    value: "https://github.com/bcgov/gdx-agreements-tracker.git"
+  - name: GIT_REF
+    displayName: "Git Reference"
+    description: "The git reference or branch."
+    required: true
+    value: "development"
+  - name: SOURCE_CONTEXT_DIR
+    displayName: "Source Context Directory"
+    description: "The source context directory."
+    required: false
+    value: "/openshift/templates/postgres"
+
+  - name: OUTPUT_IMAGE_TAG
+    displayName: "Output Image Tag"
+    description: "The tag given to the built image."
+    required: true
+    value: "latest"
+
+  - name: CPU_LIMIT
+    displayName: "Resources CPU Limit"
+    description: "The resources CPU limit (in cores) for this build."
+    value: "1"
+  - name: MEMORY_LIMIT
+    displayName: "Memory Limit"
+    description: "Maximum amount of memory the container can use."
+    value: "6Gi"
+
+objects:
+   # Image stream for the runtime image.
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-postgres
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Keeps track of changes to the final runtime deploy image
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-postgres
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      lookupPolicy:
+        local: true
+
+  # The build config that will be created and be named for the branch you created it for.
+  # See https://docs.openshift.com/container-platform/4.8/cicd/builds/advanced-build-operations.html#builds-chaining-builds_advanced-build-operations
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-postgres
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: PostgreSQL runtime container
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-postgres
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+      runPolicy: Serial
+      completionDeadlineSeconds: 1800
+      strategy:
+        type: Docker
+        dockerStrategy:
+          dockerfilePath: Dockerfile
+        postCommit: { }
+      source:
+        type: Git
+        git:
+          uri: ${GIT_URL}
+          ref: ${GIT_REF}
+        contextDir: ${SOURCE_CONTEXT_DIR}
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP_NAME}-${ROLE_NAME}-postgres:${OUTPUT_IMAGE_TAG}
+      resources:
+        limits:
+          cpu: ${CPU_LIMIT}
+          memory: ${MEMORY_LIMIT}

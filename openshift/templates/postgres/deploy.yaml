@@ -1,0 +1,160 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: gdx-agreements-tracker-api-postgres-deployment
+  resourceVersion: "v1.0.0"
+  annotations:
+    openshift.io/display-name: Deployment GDX agreements tracker postgres database.
+    description: Deployment for GDX agreements tracker postgres database.
+    tags: pmo,api,gdx,agreements-tracker,postgres
+parameters:
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "api"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "dev"
+
+  - name: APP_PORT
+    displayName: "Application Port"
+    description: "The port used to communicate with the Pod"
+    value: "5432"
+  - name: REPLICAS
+    displayName: "Pod Replicas"
+    description: "Number of pod replicas to run"
+    value: "1"
+  - name: CPU_REQUEST
+    displayName: "CPU Request"
+    description: "Starting amount of CPU the container can use."
+    value: "100m"
+  - name: CPU_LIMIT
+    displayName: "CPU Limit"
+    description: "Maximum amount of CPU the container can use."
+    value: "1"
+  - name: MEMORY_REQUEST
+    displayName: "Memory Request"
+    description: "Starting amount of memory the container can use."
+    value: "100Mi"
+  - name: MEMORY_LIMIT
+    displayName: "Memory Limit"
+    description: "Maximum amount of memory the container can use."
+    value: "2Gi"
+
+objects:
+  - kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-postgres
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+    spec:
+      replicas: ${{REPLICAS}}
+      selector:
+        matchLabels:
+          name: ${APP_NAME}-${ROLE_NAME}-postgres
+          app: ${APP_NAME}
+          role: ${ROLE_NAME}
+          env: ${ENV_NAME}
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            alpha.image.policy.openshift.io/resolve-names: '*'
+          labels:
+            name: ${APP_NAME}-${ROLE_NAME}-postgres
+            app: ${APP_NAME}
+            role: ${ROLE_NAME}
+            env: ${ENV_NAME}
+            app.kubernetes.io/part-of: ${APP_NAME}-${ROLE_NAME}
+        spec:
+          volumes:
+            - name: postgres-configmap-volume
+              configMap:
+                name: 0-${APP_NAME}-${ROLE_NAME}-postgres-file-config
+                items:
+                  - key: postgresql.conf
+                    path: postgresql.conf
+                defaultMode: 420
+            - name: postgres-secrets-volume
+              secret:
+                secretName: 0-${APP_NAME}-${ROLE_NAME}-postgres-secrets
+                items:
+                  - key: POSTGRES_PASSWORD
+                    path: postgres_password
+                defaultMode: 420
+            - name: database-volume
+              persistentVolumeClaim:
+                claimName: ${APP_NAME}-${ROLE_NAME}-postgres
+          containers:
+            - name: ${APP_NAME}-${ROLE_NAME}-postgres
+              image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/${APP_NAME}-${ROLE_NAME}-postgres:latest
+              envFrom:
+                - configMapRef:
+                    name: 0-${APP_NAME}-${ROLE_NAME}-postgres-env-config
+              env:
+                - name: POSTGRES_PASSWORD_FILE
+                  value: "/run/secrets/postgres_password"
+              ports:
+                - containerPort: ${{APP_PORT}}
+                  protocol: TCP
+              volumeMounts:
+                - name: postgres-configmap-volume
+                  mountPath: /etc/postgresql/postgresql.conf
+                  subPath: postgresql.conf
+                - name: postgres-secrets-volume
+                  readOnly: true
+                  mountPath: /run/secrets/postgres_password
+                  subPath: postgres_password
+                - name: database-volume
+                  mountPath: /var/lib/postgresql
+                  subPath: postgres-data
+                - name: database-volume
+                  mountPath: /var/run
+                  subPath: postgres-run
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
+
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-postgres
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Exposes and load balances the application pods.
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-postgres
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      ports:
+        - name: ${APP_PORT}-tcp
+          port: ${{APP_PORT}}
+          protocol: TCP
+          targetPort: ${{APP_PORT}}
+      selector:
+        name: ${APP_NAME}-${ROLE_NAME}-postgres
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+      sessionAffinity: None
+      type: ClusterIP
