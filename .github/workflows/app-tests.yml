@@ -1,13 +1,22 @@
 name: Test React Application
 on:
   pull_request:
-    branches: [ development ]
+    branches:
+      - development
+    paths:
+      - "frontend/**/*"
+      - "!frontend/Dockerfile"
+      - "!frontend/tsconfig.json"
+      - "!frontend/tslint.json"
+      - "!frontend/.prettierrc.js"
+
   workflow_dispatch:
 defaults:
   run:
     working-directory: ./
 jobs:
   static_checks:
+    if: github.repository_owner == 'bcgov' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,3 +42,5 @@ jobs:
 
       - name: Run Tests
         run: npm run test
+
+

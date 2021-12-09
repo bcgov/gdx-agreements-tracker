@@ -11,6 +11,7 @@ defaults:
     working-directory: ./
 jobs:
   deploy:
+    if: github.repository_owner == 'bcgov'
     runs-on: ubuntu-latest
     steps:
       - name: Image Build for gdx-agreements-tracker-app-nginx-runtime

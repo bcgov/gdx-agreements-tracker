@@ -6,6 +6,7 @@ defaults:
     working-directory: ./
 jobs:
   deploy:
+    if: github.repository_owner == 'bcgov'
     runs-on: ubuntu-latest
     steps:
       - name: Promote to test

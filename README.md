@@ -4,13 +4,13 @@
 
 ## Installation
 * ```git clone https://github.com/bcgov/gdx-agreements-tracker-front-end.git```
-* ```cd gdx-agreements-tracker-front-end```
+* ```cd gdx-agreements-tracker-front-end/frontend```
 * ```yarn install```
 * Commands
     * ```yarn start``` - starts front end app on localhost:3000
     * ```yarn build``` - builds for production deployment
 
 ## Build
-* ```cd gdx-agreements-tracker-front-end```
+* ```cd gdx-agreements-tracker-front-end/frontend```
 * ```docker build -t gdx-agreements-tracker-front-end:latest .```
 * Test build by running ```docker run -p 8081:80 --rm gdx-agreements-tracker-front-end```
