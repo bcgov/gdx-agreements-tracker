@@ -6,6 +6,7 @@ on:
     paths:
       - "frontend/**/*"
       - "!frontend/Dockerfile"
+      - "!frontend/Docker/*"
       - "!frontend/tsconfig.json"
       - "!frontend/tslint.json"
       - "!frontend/.prettierrc.js"
