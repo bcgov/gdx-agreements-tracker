@@ -1,18 +1,15 @@
 import React from "react";
-import { useParams, Outlet } from "react-router-dom";
-
-export const Contract = () => {
-  return (
-    <>
-      <Outlet />
-    </>
-  );
-};
+import { useParams } from "react-router-dom";
+import Sidebar from "../../components/Sidebar";
+import Main from "../../components/Main";
 
 export const List = () => {
   return (
     <>
-      <h2>Contract List</h2>
+      <Sidebar />
+      <Main>
+        <h2>Contract List</h2>
+      </Main>
     </>
   );
 };
@@ -21,7 +18,10 @@ export const Details = () => {
   let { contractId } = useParams();
   return (
     <>
-      <h2>Contract Details {contractId}</h2>
+      <Sidebar />
+      <Main>
+        <h2>Contract Details {contractId}</h2>
+      </Main>
     </>
   );
 };
@@ -30,7 +30,10 @@ export const Resources = () => {
   let { contractId } = useParams();
   return (
     <>
-      <h2>Resources {contractId} </h2>
+      <Sidebar />
+      <Main>
+        <h2>Resources {contractId} </h2>
+      </Main>
     </>
   );
 };
@@ -39,7 +42,10 @@ export const Deliverables = () => {
   let { contractId } = useParams();
   return (
     <>
-      <h2>Deliverables {contractId}</h2>
+      <Sidebar />
+      <Main>
+        <h2>Deliverables {contractId}</h2>
+      </Main>
     </>
   );
 };
@@ -48,7 +54,10 @@ export const InternalCoding = () => {
   let { contractId } = useParams();
   return (
     <>
-      <h2>Internal Coding {contractId}</h2>
+      <Sidebar />
+      <Main>
+        <h2>Internal Coding {contractId}</h2>
+      </Main>
     </>
   );
 };
@@ -57,7 +66,10 @@ export const Amendments = () => {
   let { contractId } = useParams();
   return (
     <>
-      <h2>Amendments {contractId}</h2>
+      <Sidebar />
+      <Main>
+        <h2>Amendments {contractId}</h2>
+      </Main>
     </>
   );
 };
