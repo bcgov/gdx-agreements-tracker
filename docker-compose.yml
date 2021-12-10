@@ -1,13 +1,67 @@
-version: '3'
+# A basic deployment, useful for getting started with development
 # Use docker compose up --build
-
+# Find the server at http://localhost:82/
+version: '3'
 services:
-    front-end:
+    frontend:
         build:
-            context: ./frontend/
-            dockerfile: ./frontend/Dockerfile
+            context: frontend/
+            dockerfile: Dockerfile
         restart: always
+        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then yarn install; fi; yarn start > /var/log/app.log 2> /var/log/error.log']
+        volumes:
+            - ./frontend:/app
+            - ./docker/log/frontend:/var/log
         depends_on:
-            - api
+            - backend
         ports:
-            - 8080:80
+            - "3001:3000"
+        networks:
+            - gat-node
+    backend:
+        build:
+            context: backend/
+            dockerfile: Dockerfile
+        restart: always
+        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then npm install; fi; npm run start > /var/log/app.log 2> /var/log/error.log']
+        volumes:
+            - ./backend:/usr/scr/app
+            - ./docker/log/backend:/var/log
+        depends_on:
+            - db
+        ports:
+            - "3002:8080"
+        networks:
+             - gat-node
+             - gat-db
+    db:
+        image: "postgres:14-alpine"
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+        volumes:
+            - ./docker/postgres:/var/lib/postgresql/data
+        networks:
+            - gat-db
+        ports:
+            - "15432:5432"
+    web:
+        image: "nginx:1-alpine"
+        restart: always
+        volumes:
+            - ./frontend/Docker/nginx.conf:/etc/nginx/nginx.conf
+            - ./docker/log/nginx:/var/log/nginx
+        depends_on:
+            - backend
+            - frontend
+        networks:
+            - gat-node
+        ports:
+            - "82:80"
+
+networks:
+    gat-db:
+        driver: bridge
+    gat-node:
+        driver: bridge
