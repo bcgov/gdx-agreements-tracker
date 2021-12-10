@@ -1,11 +1,8 @@
 import "./styles/App.scss";
 import React, { FC, useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import LoginPage from "./pages/LoginPage";
-import ProtectedRoute from "./router/ProtectedRoute";
-// import projectRoutes from "./router/routes/projectRoutes";
+import { BrowserRouter } from "react-router-dom";
 import apiAxios from "./apiAxios";
+import AppRouter from "./router/AppRouter";
 
 const App: FC = () => {
   useEffect(() => {
@@ -23,10 +20,7 @@ const App: FC = () => {
   return (
     <BrowserRouter>
       <div className="pmo-app">
-        <Routes>
-          <Route path="/" element={<ProtectedRoute component={Home} />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
+        <AppRouter />
       </div>
     </BrowserRouter>
   );
