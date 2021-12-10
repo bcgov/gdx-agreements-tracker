@@ -5,6 +5,16 @@
 ## Installation
 * ```git clone https://github.com/bcgov/gdx-agreements-tracker.git```
 
+## Development Quick Start
+If you have Docker:
+```bash
+cd gdx-agreements-tracker
+docker compose up --build -d
+```
+Logs end up in `docker/logs/` in `backend`, `frontend`, and `nginx` subdirectories for your debugging convenience.
+
+If you haven't done a `yarn install` or `npm install` in the frontend or backend subdirectories before executing the above, the docker-compose will handle that for you. This is useful if your local node/npm are not the right version.
+
 ## Front End
 
 ### Setup

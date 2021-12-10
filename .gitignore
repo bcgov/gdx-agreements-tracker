@@ -11,6 +11,9 @@ backend/package-lock.json
 backend/.pnp
 backend/.pnp.js
 
+# development
+docker/*
+
 # testing
 frontend/coverage
 
