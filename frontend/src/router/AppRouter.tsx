@@ -5,7 +5,7 @@ import projectRoutes from "./routes/projectRoutes";
 import contractRoutes from "./routes/contractRoutes";
 import adminRoutes from "./routes/adminRoutes";
 import Home from "../pages/Home";
-import LoginPage from "../pages/LoginPage";
+import Login from "../pages/Login";
 import PageNotFound from "../pages/PageNotFound";
 
 const AppRouter: FC = () => {
@@ -15,7 +15,7 @@ const AppRouter: FC = () => {
       {projectRoutes}
       {contractRoutes}
       {adminRoutes}
-      <Route path="/login" element={<LoginPage />} />
+      <Route path="/login" element={<Login />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

@@ -15,38 +15,15 @@ import {
  * Routes for Admin pages.
  */
 const routes = [
-  <Route key="admin" path="/admin" element={<ProtectedRoute component={Admin} />} />,
-  <Route
-    key="adminContacts"
-    path="/admin/contacts"
-    element={<ProtectedRoute component={Contacts} />}
-  />,
-  <Route
-    key="adminSuppliers"
-    path="/admin/suppliers"
-    element={<ProtectedRoute component={Suppliers} />}
-  />,
-  <Route
-    key="adminSubcontractors"
-    path="/admin/subcontractors"
-    element={<ProtectedRoute component={SubContractors} />}
-  />,
-  <Route
-    key="adminResources"
-    path="/admin/resources"
-    element={<ProtectedRoute component={Resources} />}
-  />,
-  <Route
-    key="adminMinistries"
-    path="/admin/ministries"
-    element={<ProtectedRoute component={Ministries} />}
-  />,
-  <Route key="adminUserList" path="/admin/user" element={<ProtectedRoute component={User} />} />,
-  <Route
-    key="adminUser"
-    path="/admin/user/:userId"
-    element={<ProtectedRoute component={User} />}
-  />,
+  <Route key="admin" path="/admin" element={<ProtectedRoute component={Admin} />}>
+    <Route path="contacts" element={<ProtectedRoute component={Contacts} />} />
+    <Route path="suppliers" element={<ProtectedRoute component={Suppliers} />} />
+    <Route path="subcontractors" element={<ProtectedRoute component={SubContractors} />} />
+    <Route path="resources" element={<ProtectedRoute component={Resources} />} />
+    <Route path="ministries" element={<ProtectedRoute component={Ministries} />} />
+    <Route path="user" element={<ProtectedRoute component={User} />} />
+    <Route path="user/:userId" element={<ProtectedRoute component={User} />} />
+  </Route>,
 ];
 
 export default routes;
