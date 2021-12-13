@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 
-const LoginPage: FC = () => {
+const Login: FC = () => {
   const [searchParams] = useSearchParams();
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
@@ -32,4 +32,4 @@ const LoginPage: FC = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

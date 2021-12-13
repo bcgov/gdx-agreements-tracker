@@ -1,8 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
-// import { ProtectedRoute } from '../ProtectedRoute';
+import ProtectedRoute from "../ProtectedRoute";
 import {
-  Project,
   List,
   Details,
   Status,
@@ -10,26 +9,29 @@ import {
   Billing,
   LessonsLearned,
   CloseOut,
-} from "../../pages/Project/index";
+} from "../../pages/Project";
 
-/**
- * Routes for Projects
- */
-const projectRoutes = () => {
-  return (
-    <Route path="project" element={<Project />}>
-      <Route path="list" element={<List />} />
-      <Route path=":projectId">
-        <Route path="" element={<Details />} />
-        <Route path="details" element={<Details />} />
-        <Route path="status" element={<Status />} />
-        <Route path="change-request" element={<ChangeRequest />} />
-        <Route path="billing" element={<Billing />} />
-        <Route path="lessons-learned" element={<LessonsLearned />} />
-        <Route path="close-out" element={<CloseOut />} />
-      </Route>
-    </Route>
-  );
-};
+const projectRoutes = [
+  <Route key="project" path="/project" element={<ProtectedRoute component={List} />}>
+    <Route path=":projectId" element={<ProtectedRoute component={Details} />} />
+    <Route path=":projectId/status" element={<ProtectedRoute component={Status} />} />
+    <Route
+      path=":projectId/change-request"
+      element={<ProtectedRoute component={ChangeRequest} />}
+    />
+    <Route path=":projectId/billing" element={<ProtectedRoute component={Billing} />} />,
+    <Route
+      key="projectLessonsLearned"
+      path=":projectId/lessons-learned"
+      element={<ProtectedRoute component={LessonsLearned} />}
+    />
+    ,
+    <Route
+      key="projectCloseOut"
+      path=":projectId/close-out"
+      element={<ProtectedRoute component={CloseOut} />}
+    />
+  </Route>,
+];
 
 export default projectRoutes;
