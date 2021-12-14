@@ -1,6 +1,8 @@
-# A basic deployment, useful for getting started with development
-# Use docker compose up --build
-# Find the server at http://localhost:82/
+# A basic deployment, useful for getting started with development. Don't use this directly for production, but gain inspiration from it, perhaps.
+# To start it up, run: "docker compose up --build -d" without the quotes
+# To stop it, run: "docker compose stop"
+# To stop it and remove container instances, run: "docker compose down"
+# Find the server at http://localhost/
 version: '3'
 services:
     frontend:
@@ -15,7 +17,7 @@ services:
         depends_on:
             - backend
         ports:
-            - "3001:3000"
+            - "3000:3000"
         networks:
             - gat-node
     backend:
@@ -30,7 +32,7 @@ services:
         depends_on:
             - db
         ports:
-            - "3002:8080"
+            - "8080:8080"
         networks:
              - gat-node
              - gat-db
@@ -59,7 +61,7 @@ services:
         networks:
             - gat-node
         ports:
-            - "82:80"
+            - "80:80"
 
 networks:
     gat-db:
