@@ -1,84 +1,75 @@
-require('dotenv').config({ path:  '.env' })
-const cors = require('cors');
-const express = require('express')
-const app = express()
+require('dotenv').config({ path: '.env' });
+const userRoutes = require('./routes/user');
+const authPreHandler = require('./helpers/auth');
 const port = process.env.SERVER_PORT || 8080;
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger.json');
-const audit = require('express-request-audit');
-const winston = require('winston');
-
-/**
- * Put all the api options in one place.
- */
-const apiOptions = {}
-
-/**
- * This is the logger that is used, with various levels of output.  Currently it only goes to console, 
- * but could be outputted to files.
- */
-const logger  = winston.createLogger({
-    level: 'test' === process.env.NODE_ENV ? 'warn' : process.env.LOG_LEVEL || 'debug',
-    format: winston.format.combine(
-        winston.format.simple(),
-        winston.format.prettyPrint()
-    ),
-    transports: [
-        new winston.transports.Console(),
-    ],
+const fastifyCors = require('fastify-cors');
+const fastify = require('fastify')({
+    logger: {
+        level: 'info',
+        // We can output logs to a file with fastify's default logger.
+        // file: '/path/to/file'
+    }
 });
 
-/** Middleware */
-
-app.use(cors(apiOptions.cors))
-
 /**
- * The Audit middleware, which is called every time an api call is made.
- * This is what is used to write to db for the api calls.
+ * CORS options.
  */
-app.use(audit({
-    auditor: event => {
-        logger.silly(event);
-    },
-    excludeURLs: [],
-    request: {
-        excludeBody: ['*'],
-    },
-    response: {
-        excludeHeaders: ['*'],
-    },
-
-}))
-
-
-/**
- * sets up endpoint for api-docs.
- */
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-/** API endpoints */
-
-/**
- * Root endpoint, not currently being used, redirects 404.
- */
-app.get('/', (req, res) => {
-    res.send('ok');
-})
-
-/**
- * Simple health api endpoint.
- */
-app.get('/api/health', (req, res) => {
-    res.send('ok')
-})
-
-/**
- * The listener that starts the server.
- */
-const server = app.listen(port, () => {
-    logger.info(`GDX Agreements Tracker API listening at http://localhost:${port}`)
-    logger.debug(process.env.NODE_ENV)
-    logger.debug(apiOptions);
+fastify.register(fastifyCors, { 
+    /**
+     * Put all the api options in one place.
+     */
 });
 
-module.exports = server;
+/**
+ * Fastify global hooks allow us to hook into the pre-
+ * request handler. This is one of the many options we have
+ * for authorizing responses.
+ * 
+ * @link https://www.fastify.io/docs/latest/Hooks/
+ */
+fastify.addHook('preHandler', async (request, reply) => {
+    request.log.info('I  am running on each request');
+    const isAuth = await authPreHandler(false);
+    if ( isAuth ) {
+        reply
+        .code(401)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ message: "Not authorized." });
+    } else {
+        reply.code(200);
+    }
+});
+
+// Register root route.
+fastify.route({
+  method: 'GET',
+  url: '/',
+  handler: async () => {
+    return { hello: 'world' }
+  }
+});
+
+// Register all the user routes.
+userRoutes.forEach((route, index) => {
+    fastify.route(route);
+});
+
+fastify.route({
+    method: 'GET',
+    url: '/api/health',
+    handler: async () => {
+      return { health: 'good' }
+    }
+});
+
+// Start the server.
+const start = async () => {
+  try {
+    await fastify.listen(port);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+}
+
+start();

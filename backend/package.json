@@ -23,6 +23,8 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-request-audit": "^1.0.3",
+    "fastify": "^3.24.1",
+    "fastify-cors": "^6.0.2",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
   },
