@@ -18,6 +18,9 @@ Logs end up in `docker/logs/` in `backend`, `frontend`, and `nginx` subdirectori
 If you haven't done a `yarn install` or `npm install` in the frontend or backend subdirectories before executing the above, the docker-compose will handle that for you. This is useful if your local node/npm are not the right version.
 
 ### Various Actions Useful for Development
+#### To Stop and Remove All Development Containers
+`docker compose down`
+
 #### To Update Packages After Changing `package.json`
 * Frontend: `docker compose exec frontend yarn install`
 * Backend: `docker compose exec backend npm install`
