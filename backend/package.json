@@ -24,7 +24,11 @@
     "express": "^4.17.1",
     "express-request-audit": "^1.0.3",
     "fastify": "^3.24.1",
+    "fastify-auth": "^1.1.0",
     "fastify-cors": "^6.0.2",
+    "fastify-jwt": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-client": "^1.4.0",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
   },

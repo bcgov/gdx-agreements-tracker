@@ -1,8 +1,10 @@
 require('dotenv').config({ path: '.env' });
 const userRoutes = require('./routes/user');
-const authPreHandler = require('./helpers/auth');
+const { validateToken } = require('./helpers/auth');
 const port = process.env.SERVER_PORT || 8080;
+const jwksUri = process.env.JWKSURI;
 const fastifyCors = require('fastify-cors');
+const fastifyAuth = require('fastify-auth');
 const fastify = require('fastify')({
     logger: {
         level: 'info',
@@ -11,56 +13,38 @@ const fastify = require('fastify')({
     }
 });
 
-/**
- * CORS options.
- */
-fastify.register(fastifyCors, { 
-    /**
-     * Put all the api options in one place.
-     */
-});
+// Fastify server config.
+fastify
+  .decorate('verifyJWT', (req, res, done) => {
+      validateToken(jwksUri, req)
+        .then(() => done())
+        .catch((err) => done(new Error(err)));
+  })
+  .register(fastifyAuth)
+  .register(fastifyCors, {})
+  .register(userRoutes)
+  .after(() => {
+    fastify.addHook('preHandler', fastify.auth([
+        fastify.verifyJWT
+    ]));
 
-/**
- * Fastify global hooks allow us to hook into the pre-
- * request handler. This is one of the many options we have
- * for authorizing responses.
- * 
- * @link https://www.fastify.io/docs/latest/Hooks/
- */
-fastify.addHook('preHandler', async (request, reply) => {
-    request.log.info('I  am running on each request');
-    const isAuth = await authPreHandler(false);
-    if ( isAuth ) {
-        reply
-        .code(401)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ message: "Not authorized." });
-    } else {
-        reply.code(200);
-    }
-});
+    // Register root route.
+    fastify.route({
+        method: 'GET',
+        url: '/',
+        handler: async () => {
+            return { hello: 'world' }
+        }
+    });
 
-// Register root route.
-fastify.route({
-  method: 'GET',
-  url: '/',
-  handler: async () => {
-    return { hello: 'world' }
-  }
-});
-
-// Register all the user routes.
-userRoutes.forEach((route, index) => {
-    fastify.route(route);
-});
-
-fastify.route({
-    method: 'GET',
-    url: '/api/health',
-    handler: async () => {
-      return { health: 'good' }
-    }
-});
+    fastify.route({
+        method: 'GET',
+        url: '/api/health',
+        handler: async () => {
+          return { health: 'good' }
+        }
+    });
+  })
 
 // Start the server.
 const start = async () => {

@@ -3,7 +3,7 @@ const getUserValidator = {
     params: {
         id: { type: 'string' }
     },
-    // Response validation.
+    // Response validation. 
     response: {
         200: {
             type: 'object',
