@@ -10,7 +10,7 @@ services:
             context: frontend/
             dockerfile: Dockerfile
         restart: always
-        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then yarn install; fi; yarn start > /var/log/app.log 2> /var/log/error.log']
+        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then yarn install; fi; yarn start > /dev/stdout 2>&1']
         volumes:
             - ./frontend:/app
             - ./docker/log/frontend:/var/log
@@ -25,7 +25,7 @@ services:
             context: backend/
             dockerfile: Dockerfile
         restart: always
-        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then npm install; fi; npm run start > /var/log/app.log 2> /var/log/error.log']
+        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then npm install; fi; npm run start > /dev/stdout 2>&1']
         volumes:
             - ./backend:/usr/scr/app
             - ./docker/log/backend:/var/log
