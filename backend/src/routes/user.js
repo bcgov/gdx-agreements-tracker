@@ -1,3 +1,4 @@
+const fastify = require('fastify');
 const userController = require('../controllers/user');
 const userValidators = require('../validators/user');
 
@@ -28,6 +29,12 @@ const routes = [
         url: '/api/user/:id',
         handler: userController.deleteUser
     }
-]
+];
 
-module.exports = routes;
+const userRoutes = (fastify, options, done) => {
+    // Register all the user routes.
+    routes.forEach(route => fastify.route(route));
+    done();
+}
+
+module.exports = userRoutes;
