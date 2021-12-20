@@ -1,0 +1,24 @@
+@import '../../styles/components/variables';
+
+.debug {
+    padding: 1rem;
+    font-size: 0.9rem;
+    table {
+        border-collapse: collapse;
+        td, th {
+            text-align: left;
+            padding: 0.5rem 1rem 0.5rem 0.2rem;
+            border-bottom: 1px solid $components-color;
+            vertical-align: top;
+        }
+    }
+    .keycloak-token {
+        font-size: 10px;
+        padding: 1rem 0 3rem;
+        overflow: hidden;
+        .token-string {
+            max-width: 100%;
+        }
+
+    }
+}

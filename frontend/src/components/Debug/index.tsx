@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import type { KeycloakInstance } from "keycloak-js";
+import "./index.scss";
 
 interface Props {
   keycloak?: KeycloakInstance;
