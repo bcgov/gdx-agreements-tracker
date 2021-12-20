@@ -9,12 +9,48 @@ body {
 .pmo-app {
     color: $text-color;
     display: flex;
+    flex: 1;
     /*flex-flow: nowrap;*/
-    margin: 0 auto;
-    width: 100%;
-    height: 100%;
+    //margin: 0 auto;
+    //max-width: 100%;
+    //height: 100%;
 }
 
-.main-section {
+main {
+    padding: 1rem;
+    display: flex;
+    > * {
+        width: 50%;
+    }
 
+}
+
+.debug {
+    padding: 1rem;
+    font-size: 0.9rem;
+    table {
+        border-collapse: collapse;
+        td, th {
+            text-align: left;
+            padding: 0.5rem 1rem 0.5rem 0.2rem;
+            border-bottom: 1px solid $components-color;
+            vertical-align: top;
+        }
+    }
+    .keycloak-token {
+        font-size: 10px;
+        padding: 1rem 0 3rem;
+        overflow: hidden;
+        .token-string {
+            max-width: 100%;
+        }
+
+    }
+}
+
+// Not sure what this iframe with no src does, but it seems to overlay everything.
+iframe {
+    &:not(src) {
+        display: none;
+    }
 }
