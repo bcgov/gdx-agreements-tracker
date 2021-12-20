@@ -1,4 +1,4 @@
-@import '../../styles/App.scss';
+@import '../../styles/components/variables';
 
 .main-section {
     width: 100%;
@@ -11,16 +11,4 @@
         background-color: $primary-color;
         
     }
-
-    main {
-
-    }
-
-    // footer {
-    //     min-height: 50px;
-    //     padding-top: 0.5rem;
-    //     padding-bottom: 0.5rem;
-    //     background-color: $primary-color;
-        
-    // }
 }

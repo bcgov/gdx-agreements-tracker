@@ -1,8 +1,12 @@
 import axios from "axios";
-require("dotenv").config({ path: ".env" });
+require("dotenv").config({ path: "../.env" });
 
 export const getApiUrl = () => {
-  return process.env.API_URL || "http://localhost:8080/api";
+  let url = "/api";
+  if (process.env.REACT_APP_API_URL) {
+    url = process.env.REACT_APP_API_URL;
+  }
+  return url;
 };
 
 /**
