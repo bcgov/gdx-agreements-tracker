@@ -1,3 +1,4 @@
+import keycloak from "../keycloak";
 import axios from "axios";
 require("dotenv").config({ path: "../.env" });
 
@@ -16,7 +17,7 @@ export const getApiUrl = () => {
  * @param {String|undefined} authToken
  * @returns
  */
-export const apiAxios = (authToken: String | undefined) => {
+export const apiAxios = () => {
   const apiUrl = getApiUrl();
   const axiosInstance = axios.create({
     baseURL: apiUrl,
@@ -25,8 +26,8 @@ export const apiAxios = (authToken: String | undefined) => {
 
   // All requests should pass an authorization header.
   axiosInstance.interceptors.request.use((req) => {
-    if (req.headers && authToken) {
-      req.headers.Authorization = `Bearer ${authToken}`;
+    if (req.headers && keycloak.authenticated && keycloak.token) {
+      req.headers.Authorization = `Bearer ${keycloak.token}`;
     }
     return req;
   });
