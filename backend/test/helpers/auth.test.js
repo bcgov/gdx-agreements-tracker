@@ -1,10 +1,9 @@
-// const createJWKSMock = require("mock-jwks");
-const { serverConfig } = require('../../src/server');
-const { getBearerTokenFromRequest } = require("../../src/helpers/auth");
+const serverConfig = require('../../src/helpers/config');
+const { getBearerTokenFromRequest, verifyToken } = require("../../src/helpers/auth");
 let app;
 
 describe("Unauthorized routes.", () => {
-    beforeAll(() => {
+    beforeEach(() => {
         app = serverConfig();
     });
 
@@ -19,7 +18,7 @@ describe("Unauthorized routes.", () => {
 
         expect(response.statusCode).toBe(401);
         expect(JSON.parse(response.body).message).toBe("Couldn't parse out valid key ID.");
-    })
+    });
 });
 
 describe("Parse bearer token from request", () => {
@@ -47,13 +46,23 @@ describe("Parse bearer token from request", () => {
     })
 })
 
+/**
+ * Still need to test verifyToken function.
+ */
 // describe("Authorized routes", () => {
-//     const jwks = createJWKSMock("https://oidc.gov.bc.ca/auth/realms/aaoozhcp/protocol/openid-connect/certs");
+//     const jwks = createJWKSMock.default("https://oidc.gov.bc.ca/auth/realms/aaoozhcp/protocol/openid-connect/certs");
 
 //     beforeEach(() => {
 //       jwks.start();
 //     });
 
+//     it("should verify the token", async () => {
+//         const token = jwks.token({});
+      
+//         const data = await verifyToken(token, "https://oidc.gov.bc.ca/auth/realms/aaoozhcp/protocol/openid-connect/certs");
+      
+//         expect(data).toEqual({});
+//     });
 
   
 //     afterEach(() => {

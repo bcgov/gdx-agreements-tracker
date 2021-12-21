@@ -76,7 +76,7 @@ const updateUser = async (req) => {
  * @returns {Object}
  */
 const deleteUser = async (req) => {
-    return { msg: `Deleted user with ID ${req.params.id}` };
+    return { message: `Deleted user with ID ${req.params.id}` };
 }
 
 module.exports = {

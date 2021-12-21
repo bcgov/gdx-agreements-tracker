@@ -4,8 +4,10 @@
   "description": "GDX Agreements Tracker API",
   "main": "src/server.js",
   "scripts": {
+    "start": "NODE_ENV=development nodemon src/server.js",
     "test": "jest --watch",
-    "start": "NODE_ENV=development nodemon src/server.js"
+    "test:coverage": "jest --coverage",
+    "test:debug": "jest --detectOpenHandles"
   },
   "keywords": [
     "api",
@@ -30,7 +32,6 @@
   "devDependencies": {
     "eslint": "^8.1.0",
     "jest": "^27.4.5",
-    "mock-jwks": "^1.0.1",
     "nodemon": "^2.0.14"
   }
 }

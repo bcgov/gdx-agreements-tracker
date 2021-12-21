@@ -49,7 +49,7 @@ const verifyToken = (token, jwksUri = null) => {
                             reject(new Error(`Couldn't verify token. ${err}`));
                         } else {
                             // Successful authentication.
-                            resolve();
+                            resolve(true);
                         }
                     });
                 }

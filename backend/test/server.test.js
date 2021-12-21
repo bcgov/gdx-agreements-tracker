@@ -1,4 +1,4 @@
-const { serverConfig } = require('../src/server');
+const serverConfig = require('../src/helpers/config');
 let app;
 
 describe("Attempting to access any server route without a bearer token.", () => {
@@ -15,5 +15,4 @@ describe("Attempting to access any server route without a bearer token.", () => 
         expect(response.statusCode).toBe(401);
         expect(JSON.parse(response.body).message).toBe("Error: Couldn't parse bearer token.");
     });
-
 });
