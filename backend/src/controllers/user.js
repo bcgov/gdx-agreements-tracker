@@ -28,9 +28,9 @@ const getAll = async () => {
 }
 
 /**
- * Get a specific user.
+ * Get a specific user by ID.
  * 
- * @param {*} req 
+ * @param {HttpServerRequest} req 
  * @returns {Object}
  */
 const getUser = async (req) => {
@@ -40,8 +40,9 @@ const getUser = async (req) => {
 }
 
 /**
+ * Add a user based on request body info.
  * 
- * @param {*} req 
+ * @param {HttpServerRequest} req 
  * @returns {Object}
  */
 const addUser = async (req) => {
@@ -54,8 +55,9 @@ const addUser = async (req) => {
 }
 
 /**
+ * Update a user by ID. Use passed info from the request body.
  * 
- * @param {*} req 
+ * @param {HttpServerRequest} req 
  * @returns {Object}
  */
 const updateUser = async (req) => {
@@ -68,12 +70,13 @@ const updateUser = async (req) => {
 }
 
 /**
+ * Delete a user by user ID.
  * 
- * @param {*} req 
+ * @param {HttpServerRequest} req 
  * @returns {Object}
  */
 const deleteUser = async (req) => {
-    return { msg: `Deleted user with ID ${req.params.id}` };
+    return { message: `Deleted user with ID ${req.params.id}` };
 }
 
 module.exports = {
