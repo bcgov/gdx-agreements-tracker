@@ -1,57 +1,46 @@
 import React, { FC, useState, useEffect } from "react";
-import { Outlet, useParams, useOutletContext } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import apiAxios from "../../utils/apiAxios";
-import { useKeycloak } from "@react-keycloak/web";
 import Sidebar from "../../components/Sidebar";
 import Main from "../../components/Main";
 import Debug from "../../components/Debug";
-import type { KeycloakInstance } from "keycloak-js";
-
-interface OutletContext {
-  initialized: boolean;
-  keycloak: KeycloakInstance;
-}
 
 export const Admin: FC = () => {
-  const { initialized, keycloak } = useKeycloak();
   return (
     <>
       <Sidebar />
       <Main>
-        <Outlet context={{ initialized, keycloak }} />
-        <Debug keycloak={keycloak} />
+        <Outlet />
+        <Debug />
       </Main>
     </>
   );
 };
 
 export const User: FC = () => {
-  const { initialized, keycloak } = useOutletContext<OutletContext>();
-  const [apiData, setApiData] = useState({});
   let { userId } = useParams();
+  const [userData, setUserData] = useState({});
   useEffect(() => {
-    if (initialized && keycloak.authenticated) {
-      const axiosResponse = apiAxios(keycloak.token);
-      let uri = "user";
-      if (userId) {
-        uri = `${uri}/${userId}`;
-      }
-      axiosResponse
-        .get(uri)
-        .then((data) => {
-          setApiData(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    const axiosResponse = apiAxios();
+    let uri = "user";
+    if (userId) {
+      uri = `${uri}/${userId}`;
     }
-  }, [initialized, keycloak, userId]);
+    axiosResponse
+      .get(uri)
+      .then((data) => {
+        setUserData(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userId]);
 
   return (
     <div>
       <h2>User {userId}</h2>
       <div>
-        <pre>{JSON.stringify(apiData, null, 2)}</pre>
+        <pre>{JSON.stringify(userData, null, 2)}</pre>
       </div>
     </div>
   );

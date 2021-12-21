@@ -1,19 +1,14 @@
 import React, { FC } from "react";
-import type { KeycloakInstance } from "keycloak-js";
 import "./index.scss";
-
-interface Props {
-  keycloak?: KeycloakInstance;
-}
+import keycloak from "../../keycloak";
 
 /**
  * This is a debug component that return keycloak information, and bearer token.
  * This is not to be used in production.
  *
- * @param keycloak  The keycloak instance.
  * @returns {JSXNode}
  */
-const Debug: FC<Props> = ({ keycloak }) => {
+const Debug: FC = () => {
   /**
    * Parses the object of keycloak.idTokenParsed, to give a list of all tokens.
    *
