@@ -1,5 +1,5 @@
 require('dotenv').config({ path: '../.env' });
-const userRoutes = require('../routes/user');
+const { userRoutes } = require('../routes/users');
 const { getBearerTokenFromRequest, verifyToken } = require('./auth');
 const jwksUri = process.env.JWKSURI;
 const fastify = require('fastify');

@@ -5,7 +5,7 @@ const db = dbConnection.knex;
 const table = "users";
 
 // Get all.
-const find = () => {
+const findAll = () => {
   return db(table);
 };
 
@@ -35,7 +35,7 @@ const remove = (id) => {
 };
 
 module.exports = {
-  find,
+  findAll,
   findById,
   add,
   update,

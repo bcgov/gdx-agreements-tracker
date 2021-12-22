@@ -27,8 +27,7 @@ it("tests an asynchronous function", async () => {
 });
 ```
 
-## Database Stuff
-### Creating Database Migrations
+## Database
 #### Migrations
 * Create a new migration:
     * `docker compose exec backend npx knex migrate:make <name_of_migration>`

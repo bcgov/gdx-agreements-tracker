@@ -122,24 +122,6 @@ class DatabaseConnection {
   }
 
   /**
-   * @function checkModel
-   * Attaches the Objection model to the existing knex connection.
-   * @returns {boolean} True if successful, otherwise false.
-   */
-  /*
-  checkModel() {
-    try {
-      Model.knex(this.knex);
-      log.verbose('Database models ok', { function: 'checkModel' });
-      return true;
-    } catch (err) {
-      log.error(`Error attaching Model to connection: ${err.message}`, { error: err, function: 'checkModel' });
-      return false;
-    }
-  }
-  */
-
-  /**
    * @function close
    * Will close the DatabaseConnection.
    * @param {function} [cb] Optional callback.

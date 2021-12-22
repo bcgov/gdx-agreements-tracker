@@ -1,14 +1,14 @@
-const User = require("../models/user.js");
+const Model = require("../models/users.js");
 const what = { single: 'user', plural: 'users' };
 
 /**
- * Get all users.
+ * Get all items.
  * 
  * @returns {Object}
  */
 const getAll = async (request, reply) => {
   try {
-    const result = await User.find();
+    const result = await Model.findAll();
     if (!result) {
       return [];
     }
@@ -20,17 +20,16 @@ const getAll = async (request, reply) => {
 }
 
 /**
- * Get a specific user by ID.
+ * Get a specific item by ID.
  *
  * @param request
  * @param reply
  * @returns {Object}
  */
-const getUser = async (request, reply) => {
+const getOne = async (request, reply) => {
   const targetId = Number(request.params.id);
   try {
-    const result = await User.findById(targetId);
-    console.log("getuser", result);
+    const result = await Model.findById(targetId);
     if (!result || !result.length) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
@@ -44,18 +43,18 @@ const getUser = async (request, reply) => {
 }
 
 /**
- * Add a user based on request body info.
+ * Add an item based on request body info.
  *
  * @param request
  * @param reply
  * @returns {Object}
  */
-const addUser = async (request, reply) => {
+const addOne = async (request, reply) => {
   const target = {
       name: request.body.name
   }
   try {
-    const result = await User.add(target);
+    const result = await Model.add(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be added.` };
@@ -69,19 +68,19 @@ const addUser = async (request, reply) => {
 }
 
 /**
- * Update a user by ID. Use passed info from the request body.
+ * Update an item by ID. Use passed info from the request body.
  *
  * @param request
  * @param reply
  * @returns {Object}
  */
-const updateUser = async (request, reply) => {
+const updateOne = async (request, reply) => {
   const target = {
       id: Number(request.params.id),
       name: request.body.name
   }
   try {
-    const result = await User.update(target);
+    const result = await Model.update(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be updated.` };
@@ -101,13 +100,13 @@ const updateUser = async (request, reply) => {
  * @param reply
  * @returns {Object}
  */
-const deleteUser = async (request, reply) => {
+const deleteOne = async (request, reply) => {
   const target = {
     id: Number(request.params.id),
     name: request.body.name
   }
   try {
-    const result = await User.remove(target);
+    const result = await Model.remove(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be added.` };
@@ -122,8 +121,8 @@ const deleteUser = async (request, reply) => {
 
 module.exports = {
     getAll,
-    getUser,
-    addUser,
-    updateUser,
-    deleteUser
+    getOne,
+    addOne,
+    updateOne,
+    deleteOne
 }

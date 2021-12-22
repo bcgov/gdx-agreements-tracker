@@ -12,7 +12,7 @@ describe("Attempting to access any server route without a bearer token.", () => 
     it("Returns 401 and can't parse token when no authorization header is passed.", async () => {
         const response = await app.inject({
             method: 'GET',
-            url: '/api/user',
+            url: '/api/users',
         });
 
         expect(response.statusCode).toBe(401);
@@ -28,10 +28,10 @@ describe("Access user routes", () => {
         authHelper.verifyToken.mockResolvedValue(true);
     });
 
-    it("Should get a list of users when you hit /api/user", async () => {
+    it("Should get a list of users when you hit /api/users", async () => {
         const response = await app.inject({
             method: 'GET',
-            url: '/api/user',
+            url: '/api/users',
         });
         const responseBody = JSON.parse(response.body);
 
@@ -40,10 +40,10 @@ describe("Access user routes", () => {
         responseBody.forEach((userObject) => expect("id" in userObject).toBe(true));
     });
 
-    it("Should get a single user object when you hit /api/user/:id with a valid ID", async () => {
+    it("Should get a single user object when you hit /api/users/:id with a valid ID", async () => {
         const response = await app.inject({
             method: 'GET',
-            url: '/api/user/1',
+            url: '/api/users/1',
         });
         const responseBody = JSON.parse(response.body);
 
