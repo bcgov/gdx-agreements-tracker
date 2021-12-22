@@ -63,6 +63,11 @@ parameters:
     displayName: "Memory Limit"
     description: "Maximum amount of memory the container can use."
     value: "2Gi"
+  - name: GIT_REF
+    displayName: "Git Reference"
+    description: "The git reference or branch."
+    required: true
+    value: "development"
 
 objects:
   - kind: Deployment
@@ -72,7 +77,7 @@ objects:
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         image.openshift.io/triggers: >-
-          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-${ROLE_NAME}-deploy:${DEPLOYMENT_TAG}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}\")].image"}]
+          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}\")].image"}]
     spec:
       replicas: ${{REPLICAS}}
       selector:
@@ -94,7 +99,7 @@ objects:
         spec:
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}
-              image: ${APP_NAME}-${ROLE_NAME}-deploy:${DEPLOYMENT_TAG}
+              image: ${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}
               ports:
                 - containerPort: ${{APP_PORT}}
                   protocol: TCP

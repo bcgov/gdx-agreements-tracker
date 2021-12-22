@@ -26,4 +26,4 @@ jobs:
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
             oc project acd38d-tools
-            oc start-build gdx-agreements-tracker-api-build --follow
+            oc start-build gdx-agreements-tracker-api-build.development --follow
