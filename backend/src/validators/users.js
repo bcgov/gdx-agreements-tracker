@@ -1,4 +1,4 @@
-const getUserValidator = {
+const getOneValidator = {
     // Request parameters.
     params: {
         id: { type: 'string' }
@@ -16,5 +16,5 @@ const getUserValidator = {
 }
 
 module.exports = {
-    getUserValidator
+  getOneValidator
 }

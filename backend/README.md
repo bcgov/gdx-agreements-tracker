@@ -26,3 +26,18 @@ it("tests an asynchronous function", async () => {
     const result = await functionToTest();
 });
 ```
+
+## Database
+#### Migrations
+* Create a new migration:
+    * `docker compose exec backend npx knex migrate:make <name_of_migration>`
+* Bring your database up to the changes in the latest migration
+    * `docker compose exec backend npx knex migrate:latest`
+* Undo the last migration (may end up with data loss)
+    * `docker compose exec backend npx knex migrate:rollback`
+
+#### Seeds
+* Make a new seeder
+    * `docker compose exec backend npx knex seed:make 01_users`
+* Execute all seeds
+    * `docker compose exec backend npx knex seed:run`
