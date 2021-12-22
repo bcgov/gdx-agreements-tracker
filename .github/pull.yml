@@ -1,0 +1,6 @@
+## auto-pull upstream for forks - https://github.com/wei/pull#readme
+version: "1"
+rules:
+  - base: development
+    upstream: bcgov:development
+    mergeMethod: hardreset

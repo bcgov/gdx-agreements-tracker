@@ -52,7 +52,7 @@ const fastifyAuth = require('fastify-auth');
 
             app.route({
                 method: 'GET',
-                url: '/api/health',
+                url: '/health',
                 handler: async () => {
                 return { health: 'good' }
                 }

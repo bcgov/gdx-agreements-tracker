@@ -4,7 +4,7 @@
   "description": "GDX Agreements Tracker API",
   "main": "src/server.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon src/server.js",
+    "start": "NODE_ENV=development nodemon --watch src/ src/server.js",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:debug": "jest --detectOpenHandles"
@@ -27,7 +27,9 @@
     "fastify-auth": "^1.1.0",
     "fastify-cors": "^6.0.2",
     "jsonwebtoken": "^8.5.1",
-    "jwks-client": "^1.4.0"
+    "jwks-client": "^1.4.0",
+    "knex": "^0.95.14",
+    "pg": "^8.7.1"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
