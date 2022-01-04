@@ -41,3 +41,9 @@ it("tests an asynchronous function", async () => {
     * `docker compose exec backend npx knex seed:make 01_users`
 * Execute all seeds
     * `docker compose exec backend npx knex seed:run`
+
+### The .env file settings
+```JWKSURI= #The JSON Web Key Set (keycloak ) endpoint https://mykeycloak.com/realms/my-realm/protocol/openid-connect/certs```
+
+### Folder structure
+.content comming soon.

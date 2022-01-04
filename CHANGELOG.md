@@ -1,2 +1,9 @@
-### 1.0.0 January 1, 2022
-* 
+## Developer Changelog
+
+### January 4, 2022
+* update pullrequest template
+* updated docker-compose file to include db variables
+* frontend
+    * fixed user endpoint user -> users
+* backend
+    * added knexfile.js to nodeman watch
