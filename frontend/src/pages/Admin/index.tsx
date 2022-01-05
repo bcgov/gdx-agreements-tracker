@@ -22,7 +22,7 @@ export const User: FC = () => {
   const [userData, setUserData] = useState({});
   useEffect(() => {
     const axiosResponse = apiAxios();
-    let uri = "user";
+    let uri = "users";
     if (userId) {
       uri = `${uri}/${userId}`;
     }

@@ -10,3 +10,6 @@ Although some of these things can only be done after merged, please ensure all i
     * Did you execute the appropriate `oc process` command on the template to put the configmap/secret in openshift?
 * Did changes trigger Openshift image rebuilds?
     * Check Openshift instance of application to ensure your changes are working.
+* Did you update the changelog CHANGELOG.md. 
+    * used to keep track of development changes including (env changes, docker changes, functionality changes)
+    * help developers keep track of new/updating changes in code.

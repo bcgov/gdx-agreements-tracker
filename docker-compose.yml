@@ -25,6 +25,13 @@ services:
             context: backend/
             dockerfile: Dockerfile.dev
         restart: always
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            DATABASE_AUTO_DEPLOY: 1
+            POSTGRES_HOST: db
+            POSTGRES_PORT: 5432
+            POSTGRES_DATABASE: gat_db
         command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then npm install; fi; npm run start 2>&1 | tee /var/log/node.log > /dev/stdout']
         volumes:
             - ./backend:/usr/scr/app

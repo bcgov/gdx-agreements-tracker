@@ -4,7 +4,7 @@
   "description": "GDX Agreements Tracker API",
   "main": "src/server.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --watch src/ src/server.js",
+    "start": "NODE_ENV=development nodemon --watch src/ src/server.js knexfile.js",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:debug": "jest --detectOpenHandles"
