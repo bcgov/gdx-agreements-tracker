@@ -63,7 +63,7 @@ services:
         volumes:
             - ./frontend/build:/var/www
             - ./web/nginx.conf:/etc/nginx/nginx.conf
-            - ./docker/log:/var/log
+            - ./docker/log/web:/var/log/nginx
         #depends_on:
         #    - backend
         #    - frontend
