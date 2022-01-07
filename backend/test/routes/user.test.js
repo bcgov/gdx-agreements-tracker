@@ -1,9 +1,12 @@
 const serverConfig = require('../../src/helpers/config');
 const authHelper = require("../../src/helpers/auth");
+const userModel = require("../../src/models/users.js");
 let app;
 
-// For mocking authentication so we can test routes themselves.
+// Mock authentication so we can test routes themselves.
 jest.mock("../../src/helpers/auth");
+// Mock user DB methods.
+jest.mock("../../src/models/users");
 
 describe("Attempting to access any server route without a bearer token.", () => {
     beforeEach(() => {
@@ -29,9 +32,10 @@ describe("Access user routes", () => {
     });
 
     it("Should get a list of users when you hit /api/users", async () => {
+        userModel.findAllUsers.mockResolvedValue([{ id: 1, name: 'Alex' }]);
         const response = await app.inject({
             method: 'GET',
-            url: '/api/users',
+            url: '/users',
         });
         const responseBody = JSON.parse(response.body);
 
@@ -41,9 +45,10 @@ describe("Access user routes", () => {
     });
 
     it("Should get a single user object when you hit /api/users/:id with a valid ID", async () => {
+        userModel.findUserById.mockResolvedValue([{ id: 1, name: 'Alex' }]);
         const response = await app.inject({
             method: 'GET',
-            url: '/api/users/1',
+            url: '/users/1',
         });
         const responseBody = JSON.parse(response.body);
 

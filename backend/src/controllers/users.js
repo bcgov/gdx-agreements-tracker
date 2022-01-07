@@ -8,7 +8,7 @@ const what = { single: 'user', plural: 'users' };
  */
 const getAll = async (request, reply) => {
   try {
-    const result = await Model.findAll();
+    const result = await Model.findAllUsers();
     if (!result) {
       return [];
     }
@@ -29,7 +29,7 @@ const getAll = async (request, reply) => {
 const getOne = async (request, reply) => {
   const targetId = Number(request.params.id);
   try {
-    const result = await Model.findById(targetId);
+    const result = await Model.findUserById(targetId);
     if (!result || !result.length) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
@@ -54,7 +54,7 @@ const addOne = async (request, reply) => {
       name: request.body.name
   }
   try {
-    const result = await Model.add(target);
+    const result = await Model.addUser(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be added.` };
@@ -80,7 +80,7 @@ const updateOne = async (request, reply) => {
       name: request.body.name
   }
   try {
-    const result = await Model.update(target);
+    const result = await Model.updateUser(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be updated.` };
@@ -103,10 +103,9 @@ const updateOne = async (request, reply) => {
 const deleteOne = async (request, reply) => {
   const target = {
     id: Number(request.params.id),
-    name: request.body.name
   }
   try {
-    const result = await Model.remove(target);
+    const result = await Model.removeUser(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be added.` };

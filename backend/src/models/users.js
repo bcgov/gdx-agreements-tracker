@@ -5,22 +5,33 @@ const db = dbConnection.knex;
 const table = "users";
 
 // Get all.
-const findAll = () => {
+const findAllUsers = () => {
   return db(table);
 };
 
 // Get specific one by id.
-const findById = (id) => {
+const findUserById = (id) => {
   return db(table).where("id", id);
 };
 
+// Get specific user by email.
+const findUserByEmail = (email) => {
+  return db(table).where("email", email);
+}
+
 // Add one.
-const add = (target) => {
-  return db(table).insert(target, "id");
+const addUser = (userInfo) => {
+  console.log('it me ', userInfo)
+  const newUser = {
+    name: userInfo.name,
+    email: userInfo.email,
+    username: userInfo.preferred_username
+  }
+  return db(table).insert(newUser, "id");
 };
 
 // Update one.
-const update = (id, target) => {
+const updateUser = (id, target) => {
   return db(table)
     .where("id", id)
     .update(target);
@@ -28,16 +39,17 @@ const update = (id, target) => {
 
 // Remove one.
 // TODO: change to soft delete.
-const remove = (id) => {
+const removeUser = (id) => {
   return db(table)
     .where("id", id)
     .del();
 };
 
 module.exports = {
-  findAll,
-  findById,
-  add,
-  update,
-  remove
+  findAllUsers,
+  findUserById,
+  findUserByEmail,
+  addUser,
+  updateUser,
+  removeUser
 };
