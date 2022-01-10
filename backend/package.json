@@ -26,6 +26,7 @@
     "fastify": "^3.24.1",
     "fastify-auth": "^1.1.0",
     "fastify-cors": "^6.0.2",
+    "fastify-plugin": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwks-client": "^1.4.0",
     "knex": "^0.95.14",

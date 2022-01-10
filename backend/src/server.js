@@ -15,7 +15,7 @@ process.on('exit', () => {
 // Save server configuration and enable logging.
 const server = serverConfig(({
   logger: {
-    level: 'info',
+    level: 'debug',
     // We can output logs to a file with fastify's default logger.
     // file: '/path/to/file'
   }

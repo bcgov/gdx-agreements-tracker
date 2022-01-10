@@ -90,9 +90,33 @@ const verifyUserExists = (token) => {
         }
     });
 }
+
+/**
+ * Gets the User info based off the keycloak bearer token, and eventually the database information.
+ *
+ * @var {object}  req  The request object.
+ * @todo  Get user info from the database, and merge with return object.
+ * @todo  Add tests after logic becomes more stable.
+ *
+ * @returns {object}  The User object.
+ * 
+ */
+const getUserInfo = req => {
+    const token = getBearerTokenFromRequest(req)
+    const decodedToken = jwt.decode(token, { complete: true });
+    const payload = decodedToken.payload
+    return {
+        name: payload.name,
+        email: payload.email,
+        preferred_username: payload.preferred_username,
+        roles: payload.realm_access.roles,
+        role: 'admin'
+    }
+}
     
 module.exports = {
     getBearerTokenFromRequest,
     verifyToken,
-    verifyUserExists
+    verifyUserExists,
+    getUserInfo,
 }
