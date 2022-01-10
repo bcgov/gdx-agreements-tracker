@@ -1,6 +1,7 @@
 const jwksClient = require('jwks-client');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/users');
+const { getCapability } = require('./capability');
 
 /**
  * Parse the request header for the authorization token.
@@ -104,14 +105,20 @@ const verifyUserExists = (token) => {
 const getUserInfo = req => {
     const token = getBearerTokenFromRequest(req)
     const decodedToken = jwt.decode(token, { complete: true });
-    const payload = decodedToken.payload
-    return {
-        name: payload.name,
-        email: payload.email,
-        preferred_username: payload.preferred_username,
-        roles: payload.realm_access.roles,
-        role: 'admin'
+    if (decodedToken) {
+        const payload = decodedToken.payload
+        // This role will eventually come from the database.
+        role = 'admin'
+        return {
+            name: payload.name,
+            email: payload.email,
+            preferred_username: payload.preferred_username,
+            roles: payload.realm_access?.roles,
+            role,
+            capability: getCapability(role)
+        }
     }
+    return
 }
     
 module.exports = {

@@ -1,7 +1,6 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const { getCapability } = require('../../helpers/capability')
 const { getUserInfo } = require('../../helpers/auth')
 
 /**
@@ -32,8 +31,9 @@ async function fastifyRoles (fastify, opts) {
    */
   function onRequest(request, reply, done){
     user = getUserInfo(request);
-    capability = user.capability = getCapability(user.role)
-    request.user = user
+    if (user) {
+      request.user = user
+    }
     done()
   }
 

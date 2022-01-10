@@ -29,11 +29,11 @@ const fastifyRoles = require ('../plugins/fastify-roles')
             if (token) {
                 verifyToken(token, jwksUri)
                     .then((res) => {
-                        req.log.info(res);
+                        req.log.debug(res);
                         return verifyUserExists(token);
                     })
                     .then((res) => {
-                        req.log.info(res);
+                        req.log.debug(res);
                         done();
                     })
                     .catch((err) => done(err));
@@ -44,7 +44,7 @@ const fastifyRoles = require ('../plugins/fastify-roles')
         .register(fastifyAuth)
         .register(fastifyCors, {})
         .register(userRoutes)
-        .register(fastifyRoles, { user })
+        .register(fastifyRoles)
         .after(() => {
             app.addHook('preHandler', app.auth([
                 app.verifyJWT
