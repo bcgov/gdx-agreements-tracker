@@ -1,8 +1,9 @@
 ## Developer Changelog
 
-## January 7, 2022
+## January 10, 2022
 * fix log volume issue for nginx reverse proxy
 * flesh out readmes a bit more
+* add user to DB on first login
 
 ### January 4, 2022
 * update pullrequest template

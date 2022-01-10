@@ -54,7 +54,7 @@ const addOne = async (request, reply) => {
       name: request.body.name
   }
   try {
-    const result = await Model.add(target);
+    const result = await Model.addOne(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be added.` };
@@ -80,7 +80,7 @@ const updateOne = async (request, reply) => {
       name: request.body.name
   }
   try {
-    const result = await Model.update(target);
+    const result = await Model.updateOne(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be updated.` };
@@ -103,10 +103,9 @@ const updateOne = async (request, reply) => {
 const deleteOne = async (request, reply) => {
   const target = {
     id: Number(request.params.id),
-    name: request.body.name
   }
   try {
-    const result = await Model.remove(target);
+    const result = await Model.removeOne(target);
     if (!result) {
       reply.code(403);
       return { message: `The ${what.single} could not be added.` };

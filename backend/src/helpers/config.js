@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '../.env' });
 const { userRoutes } = require('../routes/users');
-const { getBearerTokenFromRequest, verifyToken } = require('./auth');
+const { getBearerTokenFromRequest, verifyToken, verifyUserExists } = require('./auth');
 const jwksUri = process.env.JWKSURI;
 const fastify = require('fastify');
 const fastifyCors = require('fastify-cors');
@@ -27,7 +27,14 @@ const fastifyAuth = require('fastify-auth');
             const token = getBearerTokenFromRequest(req);
             if (token) {
                 verifyToken(token, jwksUri)
-                    .then(() => done())
+                    .then((res) => {
+                        req.log.info(res);
+                        return verifyUserExists(token);
+                    })
+                    .then((res) => {
+                        req.log.info(res);
+                        done();
+                    })
                     .catch((err) => done(err));
             } else {
                 done(new Error("Error: Couldn't parse bearer token."))

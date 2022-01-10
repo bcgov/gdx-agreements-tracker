@@ -8,22 +8,22 @@ exports.seed = function(knex) {
       return knex(tableName).insert([
         {
           username: 'alex',
-          email: 'Alexander.Wintschel@gov.bc.ca',
+          email: 'alexander.wintschel@gov.bc.ca',
           name: 'Alex'
         },
         {
           username: 'shawn',
-          email: 'Shawn.Turple@gov.bc.ca',
+          email: 'shawn.turple@gov.bc.ca',
           name: 'Shawn'
         },
         {
           username: 'craig',
-          email: 'Craig.Robertson@gov.bc.ca',
+          email: 'craig.robertson@gov.bc.ca',
           name: 'Craig'
         },
         {
           username: 'adam',
-          email: 'Adam.Spiteri@gov.bc.ca',
+          email: 'adam.spiteri@gov.bc.ca',
           name: 'Adam'
         }
       ]);

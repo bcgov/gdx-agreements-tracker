@@ -14,13 +14,23 @@ const findById = (id) => {
   return db(table).where("id", id);
 };
 
+// Get specific user by email.
+const findByEmail = (email) => {
+  return db(table).where("email", email);
+}
+
 // Add one.
-const add = (target) => {
-  return db(table).insert(target, "id");
+const addOne = (userInfo) => {
+  const newUser = {
+    name: userInfo.name,
+    email: userInfo.email,
+    username: userInfo.preferred_username
+  }
+  return db(table).insert(newUser, "id");
 };
 
 // Update one.
-const update = (id, target) => {
+const updateOne = (id, target) => {
   return db(table)
     .where("id", id)
     .update(target);
@@ -28,7 +38,7 @@ const update = (id, target) => {
 
 // Remove one.
 // TODO: change to soft delete.
-const remove = (id) => {
+const removeOne = (id) => {
   return db(table)
     .where("id", id)
     .del();
@@ -37,7 +47,8 @@ const remove = (id) => {
 module.exports = {
   findAll,
   findById,
-  add,
-  update,
-  remove
+  findByEmail,
+  addOne,
+  updateOne,
+  removeOne
 };

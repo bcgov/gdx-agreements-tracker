@@ -1,5 +1,6 @@
 const jwksClient = require('jwks-client');
 const jwt = require('jsonwebtoken');
+const userModel = require('../models/users');
 
 /**
  * Parse the request header for the authorization token.
@@ -18,9 +19,10 @@ const getBearerTokenFromRequest = (req) => {
 }
 
 /**
- * 
+ * Verify the token so the user can be authenticated.
  * 
  * @param {String} token 
+ * @param {String|null} jwksUri
  * @returns {Promise}
  */
 const verifyToken = (token, jwksUri = null) => {
@@ -49,7 +51,7 @@ const verifyToken = (token, jwksUri = null) => {
                             reject(new Error(`Couldn't verify token. ${err}`));
                         } else {
                             // Successful authentication.
-                            resolve(true);
+                            resolve("Successfully verified jwt.");
                         }
                     });
                 }
@@ -59,8 +61,38 @@ const verifyToken = (token, jwksUri = null) => {
         }
     });
 }
+
+/**
+ * Verify if the user already has an entry in the database.
+ * If not, create one.
+ * 
+ * @param {Object} token 
+ * @returns {Promise}
+ */
+const verifyUserExists = (token) => {
+    return new Promise((resolve, reject) => {
+        const decodedToken = jwt.decode(token, { complete: true });
+        if (decodedToken?.payload && decodedToken?.payload?.email) {
+            const userPayload = decodedToken?.payload;
+            userModel.findByEmail(userPayload.email)
+                .then((user) => {
+                    if (0 === user.length) {
+                        userModel.addOne(userPayload)
+                            .then(id => resolve(`New user added to database. ID ${id}`))
+                            .catch(error => reject(error));
+                    } else {
+                        resolve("User already exists in database.");
+                    }
+                })
+                .catch((error) => reject(error));
+        } else {
+            reject("Could not parse user JWT payload.");
+        }
+    });
+}
     
 module.exports = {
     getBearerTokenFromRequest,
-    verifyToken
+    verifyToken,
+    verifyUserExists
 }
