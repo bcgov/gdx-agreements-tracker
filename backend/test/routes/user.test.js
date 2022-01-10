@@ -32,7 +32,7 @@ describe("Access user routes", () => {
     });
 
     it("Should get a list of users when you hit /api/users", async () => {
-        userModel.findAllUsers.mockResolvedValue([{ id: 1, name: 'Alex' }]);
+        userModel.findAll.mockResolvedValue([{ id: 1, name: 'Alex' }]);
         const response = await app.inject({
             method: 'GET',
             url: '/users',
@@ -45,7 +45,7 @@ describe("Access user routes", () => {
     });
 
     it("Should get a single user object when you hit /api/users/:id with a valid ID", async () => {
-        userModel.findUserById.mockResolvedValue([{ id: 1, name: 'Alex' }]);
+        userModel.findById.mockResolvedValue([{ id: 1, name: 'Alex' }]);
         const response = await app.inject({
             method: 'GET',
             url: '/users/1',

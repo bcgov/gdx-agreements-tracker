@@ -1,6 +1,6 @@
 const jwksClient = require('jwks-client');
 const jwt = require('jsonwebtoken');
-const { findUserByEmail, addUser } = require('../models/users');
+const userModel = require('../models/users');
 
 /**
  * Parse the request header for the authorization token.
@@ -19,9 +19,10 @@ const getBearerTokenFromRequest = (req) => {
 }
 
 /**
- * 
+ * Verify the token so the user can be authenticated.
  * 
  * @param {String} token 
+ * @param {String|null} jwksUri
  * @returns {Promise}
  */
 const verifyToken = (token, jwksUri = null) => {
@@ -73,10 +74,10 @@ const verifyUserExists = (token) => {
         const decodedToken = jwt.decode(token, { complete: true });
         if (decodedToken?.payload && decodedToken?.payload?.email) {
             const userPayload = decodedToken?.payload;
-            findUserByEmail(userPayload.email)
+            userModel.findByEmail(userPayload.email)
                 .then((user) => {
                     if (0 === user.length) {
-                        addUser(userPayload)
+                        userModel.addOne(userPayload)
                             .then(id => resolve(`New user added to database. ID ${id}`))
                             .catch(error => reject(error));
                     } else {
