@@ -11,6 +11,9 @@ If you have Docker:
 cd gdx-agreements-tracker
 docker compose up --build -d
 ```
+
+**Note**: If this is your first time starting the app, you can populate the database by running the provided migrations and seeders. See the README within the backend directory for more information.
+
 The app is then available at [http://localhost/](http://localhost/). For your reference, the API is available at [http://localhost/api/](http://localhost/api/). The websocket for the frontend react is available at http://localhost:3000/ and as long as the `frontend/.env` file (or other similar facility) specifies the WDS_SOCKET_PORT as 3000, the React live-refresh-upon-code-change feature should work in your browser. 
 
 Logs end up in `docker/logs/` in `backend`, `frontend`, and `nginx` subdirectories for your debugging convenience.

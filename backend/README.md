@@ -28,6 +28,16 @@ it("tests an asynchronous function", async () => {
 ```
 
 ## Database
+
+To connect to a database GUI tool during development, use the following parameters:
+
+- Server host: `localhost`
+- Server port: `15432`
+- Username: `postgres`
+- Password: `postgres`
+
+If using the docker-compose.yml file to develop locally, you'll need to populate your database once the containers are up and running. Make sure to run these migrate and seed commands from within the `backend` directory so that the knex command can find `knexfile.js`.
+
 #### Migrations
 * Create a new migration:
     * `docker compose exec backend npx knex migrate:make <name_of_migration>`
