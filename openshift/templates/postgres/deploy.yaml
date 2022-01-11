@@ -101,7 +101,7 @@ objects:
                 claimName: ${APP_NAME}-${ROLE_NAME}-postgres
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}-postgres
-              image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/${APP_NAME}-${ROLE_NAME}-postgres:latest
+              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-postgres:latest
               envFrom:
                 - configMapRef:
                     name: 0-${APP_NAME}-${ROLE_NAME}-postgres-env-config
