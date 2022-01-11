@@ -6,8 +6,10 @@
       * updated fastify to use new logger
       * updated database to use new logger
     * moved database auto-deploy logic to a more appropriate spot (startup, not every db check)
+    * cleanup server.js: moved shutdown handlers into daemon.js
     * restructuring
       * new directory: facilities: for full-on components, not just helpers
+      * moved daemon.js to facilities directory
       * helpers/auth.js -> facilities/keycloak.js because keycloak items are what is in there, and it is more than helpers
       * helpers/server.js -> facilities/fastify.js because fastify configuration items are in there, and fastify is not just a helper
 
