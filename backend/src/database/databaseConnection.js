@@ -1,3 +1,4 @@
+const log = require('../facilities/logging.js')(module.filename);
 const Knex = require("knex");
 const knexConfig = require("../../knexfile");
 
@@ -57,12 +58,21 @@ class DatabaseConnection {
    * @returns {boolean} True if successful, otherwise false.
    */
   async checkAll() {
-    const connectOk = await this.checkConnection();
+    let connectOk = await this.checkConnection();
     const schemaOk = await this.checkSchema();
     //const modelsOk = this.checkModel();
 
-    console.log(`Connect OK: ${connectOk}, Schema OK: ${schemaOk}`, { function: 'checkAll' });
-    this._connected = connectOk && schemaOk;
+    //If the database does not exist, and we have been requested to auto-deploy, then try.
+    if (-1 === connectOk && '1' === process.env.DATABASE_AUTO_DEPLOY) {
+      log.info(`db bootstrap: database "${knexConfig.connection.database}" not found. attempting to auto-bootstrap it...`);
+      if (await this.bootstrapDatabase(knexConfig.connection.database)) {
+        // If the bootstrapping seemed successful, see if we can connect properly now.
+        connectOk = await this.checkConnection();
+      }
+    }
+
+    log.debug(`Connect OK: ${connectOk}, Schema OK: ${schemaOk}`, { function: 'checkAll' });
+    this._connected = !!connectOk && schemaOk;
     return this._connected;
   }
 
@@ -70,28 +80,24 @@ class DatabaseConnection {
    * @function checkConnection
    * Checks the current knex connection to Postgres.
    * If the connected DB is in read-only mode, transaction_read_only will not be off.
-   * @returns {boolean} True if successful, otherwise false.
+   * @returns {boolean} True if successful, -1 if the intended database is missing, otherwise false.
    */
-  async checkConnection(no_bootstrap = false) {
+  async checkConnection() {
     try {
       const data = await this.knex.raw('show transaction_read_only');
       const result = data && data.rows && data.rows[0].transaction_read_only === 'off';
       if (result) {
-        console.log('Database connection ok', { function: 'checkConnection' });
+        log.trace('Database connection ok', { function: 'checkConnection' });
       } else {
-        console.log('Database connection is read-only', { function: 'checkConnection' });
+        log.warn('Database connection is read-only', { function: 'checkConnection' });
       }
       return result;
     } catch (err) {
-      console.log(`Error with database connection: ${err.message}`, { function: 'checkConnection' });
+      log.error(`Error with database connection: ${err.message}`, { function: 'checkConnection' });
 
-      // If the database does not exist, and auto-deploy is enabled, attempt to bootstrap the database.
-      if (!no_bootstrap && process.env.DATABASE_AUTO_DEPLOY === '1' && err.message === `database "${knexConfig.connection.database}" does not exist`) {
-        console.log(`db bootstrap: database "${knexConfig.connection.database}" not found. attempting to auto-bootstrap it...`);
-        if (await this.bootstrapDatabase(knexConfig.connection.database)) {
-          // If the bootstrapping seemed successful, call ourself to see if we can connect properly now, but don't try to bootstrap again.
-          return this.checkConnection(true);
-        }
+      // If the problem is simply that the database does not exist, signal differently.
+      if (err.message === `database "${knexConfig.connection.database}" does not exist`) {
+        return -1;
       }
 
       return false;
@@ -111,12 +117,12 @@ class DatabaseConnection {
         .then(exists => exists.every(x => x))
         .then(result => {
           if (result) {
-            console.log('Database schema ok', { function: 'checkSchema' });
+            log.debug('Database schema ok', { function: 'checkSchema' });
           }
           return result;
         });
     } catch (err) {
-      console.log(`Error with database schema: ${err.message}`, { error: err, function: 'checkSchema' });
+      log.error(`Error with database schema: ${err.message}`, { error: err, function: 'checkSchema' });
       return false;
     }
   }
@@ -131,11 +137,11 @@ class DatabaseConnection {
       try {
         this.knex.destroy(() => {
           this._connected = false;
-          console.log('Disconnected', { function: 'close' });
+          log.info('Disconnected', { function: 'close' });
           if (cb) cb();
         });
       } catch (e) {
-        console.log('Failed to close', { error: e, function: 'recoverMessage' });
+        log.error('Failed to close', { error: e, function: 'recoverMessage' });
       }
     }
   }
@@ -145,7 +151,7 @@ class DatabaseConnection {
    * Invalidates and reconnects existing knex connection.
    */
   resetConnection() {
-    console.log('Attempting to reset database connection pool...', { function: 'resetConnection' });
+    log.warn('Attempting to reset database connection pool...', { function: 'resetConnection' });
     this.knex.destroy(() => {
       this.knex.initialize();
     });
@@ -156,7 +162,7 @@ class DatabaseConnection {
    * Bootstraps the database if it hasn't been set up yet.
    */
   async bootstrapDatabase(databaseName) {
-    console.log(`db bootstrap: attempting to create database "${databaseName}".`);
+    log.info(`db bootstrap: attempting to create database "${databaseName}".`);
 
     // If we try to connect with a database set in the config, we will get the same connection errors
     // that brought us here, so clear it out so that we can do anything we want.
@@ -177,10 +183,10 @@ class DatabaseConnection {
         "TABLESPACE = pg_default\n" +
         "CONNECTION LIMIT = -1;"
       );
-      console.log(`db bootstrap: database "${databaseName}" created.`);
+      log.info(`db bootstrap: database "${databaseName}" created.`);
       result = true;
     } catch(err) {
-      console.log(`db bootstrap: there was a problem creating database "${databaseName}": `, err);
+      log.error(`db bootstrap: there was a problem creating database "${databaseName}": `, err);
       result = false;
     } finally {
       await bootstrapKnex.destroy();

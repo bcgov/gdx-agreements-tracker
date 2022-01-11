@@ -30,7 +30,8 @@
     "jsonwebtoken": "^8.5.1",
     "jwks-client": "^1.4.0",
     "knex": "^0.95.14",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "pino": "^7.6.0"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
