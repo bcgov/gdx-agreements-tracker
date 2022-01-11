@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '../.env' });
 const { userRoutes } = require('../routes/users');
-const { getBearerTokenFromRequest, verifyToken, verifyUserExists } = require('./auth');
+const { getBearerTokenFromRequest, verifyToken, verifyUserExists } = require('../facilities/keycloak');
 const jwksUri = process.env.JWKSURI;
 const fastify = require('fastify');
 const fastifyCors = require('fastify-cors');
@@ -22,7 +22,7 @@ const fastifyRoles = require ('../plugins/fastify-roles')
  * @param {Object} options
  * @returns {FastifyInstance}
  */
- const serverConfig = (options) => {
+ const fastifyInstance = (options) => {
     const app = fastify(options);
     app.decorate('verifyJWT', (req, res, done) => {
             const token = getBearerTokenFromRequest(req);
@@ -71,4 +71,4 @@ const fastifyRoles = require ('../plugins/fastify-roles')
     return app;
 }
 
-module.exports = serverConfig;
+module.exports = fastifyInstance;

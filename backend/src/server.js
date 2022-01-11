@@ -1,29 +1,21 @@
 require('dotenv').config({ path: '.env' });
-const serverConfig = require("./helpers/config");
+const log = require('./facilities/logging.js')(module.filename);
+const fastifyInstance = require("./facilities/fastify");
 const port = process.env.SERVER_PORT || 8080;
-const { shutdown, initializeConnections } = require('./helpers/daemon');
+const daemon = require('./facilities/daemon');
 
-// Graceful shutdown support.
-process.on('SIGTERM', shutdown);
-process.on('SIGINT', shutdown);
-process.on('SIGUSR1', shutdown);
-process.on('SIGUSR2', shutdown);
-process.on('exit', () => {
-  console.log('Exiting...');
-});
-
-// Save server configuration and enable logging.
-const server = serverConfig(({
-  logger: {
-    level: 'debug',
-    // We can output logs to a file with fastify's default logger.
-    // file: '/path/to/file'
-  }
+// Load server configuration and enable logging.
+const server = fastifyInstance(({
+  // If you are looking to add serializers or pretty printing, please do it in logging.js, they are actually pino features.
+  logger: log
 }));
 
 // Start the server.
 const start = async () => {
-  initializeConnections();
+  // Registers signal handlers for graceful shutdown.
+  daemon.registerSignalHandlers();
+  // Initialize connections to external services.
+  daemon.initializeConnections();
   try {
     await server.listen(port, '0.0.0.0');
   } catch (err) {

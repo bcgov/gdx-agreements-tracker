@@ -1,7 +1,7 @@
 const jwksClient = require('jwks-client');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/users');
-const { getCapability } = require('./capability');
+const { getCapability } = require('../helpers/capability');
 
 /**
  * Parse the request header for the authorization token.
@@ -12,7 +12,7 @@ const { getCapability } = require('./capability');
 const getBearerTokenFromRequest = (req) => {
     const authHeader = req?.headers?.authorization;
     // Strip out the token string from the request headers.
-    if (authHeader && authHeader.indexOf('Bearer ') == 0) {
+    if (authHeader && authHeader.indexOf('Bearer ') === 0) {
         return authHeader.split(' ')[1];
     } else {
         return false;
