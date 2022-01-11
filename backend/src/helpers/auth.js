@@ -103,12 +103,12 @@ const verifyUserExists = (token) => {
  * 
  */
 const getUserInfo = req => {
-    const token = getBearerTokenFromRequest(req)
+    const token = getBearerTokenFromRequest(req);
     const decodedToken = jwt.decode(token, { complete: true });
     if (decodedToken) {
-        const payload = decodedToken.payload
+        const payload = decodedToken.payload;
         // This role will eventually come from the database.
-        role = 'admin'
+        const role = 'admin';
         return {
             name: payload.name,
             email: payload.email,
@@ -118,7 +118,7 @@ const getUserInfo = req => {
             capability: getCapability(role)
         }
     }
-    return
+    return;
 }
     
 module.exports = {

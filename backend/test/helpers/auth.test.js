@@ -3,6 +3,7 @@ const { getBearerTokenFromRequest, verifyToken, verifyUserExists, getUserInfo } 
 const userModel = require("../../src/models/users.js");
 let app;
 let exampleToken;
+let request;
 
 // Mock user DB methods.
 jest.mock("../../src/models/users");
@@ -82,8 +83,8 @@ describe("Get the user information from the Bearer token", () => {
     });
   
     it("Get User information roles, capability", () => {
-       const user = getUserInfo(request)
-       expect(Array.isArray(user.capability)).toBe(true)
+       const user = getUserInfo(request);
+       expect(Array.isArray(user.capability)).toBe(true);
     });
 });
 

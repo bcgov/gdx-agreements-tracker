@@ -4,7 +4,7 @@
 The role of this plugin, might change in the future, but it does the following.
 * gets the user from the request token
 * adds the user to the request object so that the controllers have a user object with capabilities.
-* the payload now becomes an object with attributes of 
+* the reply payload now becomes an object with attributes of 
 ```
 {
     data: payload,
@@ -15,3 +15,4 @@ The role of this plugin, might change in the future, but it does the following.
         capability: [] /* This is the capabilities determined by the capability.js rules based on the role.
     }
 }
+```
