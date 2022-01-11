@@ -8,8 +8,12 @@ const getOneValidator = {
         200: {
             type: 'object',
             properties: {
-                id: { type: 'integer' },
-                name: { type: 'string' }
+                data: {
+                    id: { type: 'integer' },
+                    name: { type: 'string' }
+                },
+                permission: { type: 'string' },
+                user: { }
             }
         }
     }

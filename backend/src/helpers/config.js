@@ -5,6 +5,7 @@ const jwksUri = process.env.JWKSURI;
 const fastify = require('fastify');
 const fastifyCors = require('fastify-cors');
 const fastifyAuth = require('fastify-auth');
+const fastifyRoles = require ('../plugins/fastify-roles')
 
 /**
  * Fastify server configuration.
@@ -28,11 +29,11 @@ const fastifyAuth = require('fastify-auth');
             if (token) {
                 verifyToken(token, jwksUri)
                     .then((res) => {
-                        req.log.info(res);
+                        req.log.debug(res);
                         return verifyUserExists(token);
                     })
                     .then((res) => {
-                        req.log.info(res);
+                        req.log.debug(res);
                         done();
                     })
                     .catch((err) => done(err));
@@ -43,6 +44,7 @@ const fastifyAuth = require('fastify-auth');
         .register(fastifyAuth)
         .register(fastifyCors, {})
         .register(userRoutes)
+        .register(fastifyRoles)
         .after(() => {
             app.addHook('preHandler', app.auth([
                 app.verifyJWT

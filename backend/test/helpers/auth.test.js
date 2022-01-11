@@ -1,8 +1,9 @@
 const serverConfig = require('../../src/helpers/config');
-const { getBearerTokenFromRequest, verifyToken, verifyUserExists } = require("../../src/helpers/auth");
+const { getBearerTokenFromRequest, verifyToken, verifyUserExists, getUserInfo } = require("../../src/helpers/auth");
 const userModel = require("../../src/models/users.js");
 let app;
 let exampleToken;
+let request;
 
 // Mock user DB methods.
 jest.mock("../../src/models/users");
@@ -20,7 +21,6 @@ describe("Unauthorized routes.", () => {
                 authorization: 'Bearer 234fake23543token'
             }
         });
-
         expect(response.statusCode).toBe(401);
         expect(JSON.parse(response.body).message).toBe("Couldn't parse out valid key ID.");
     });
@@ -70,6 +70,21 @@ describe("Verify user exists in DB and if not, add user.", () => {
         const result = await verifyUserExists(exampleToken);
 
         expect(result).toBe("User already exists in database.");
+    });
+});
+
+describe("Get the user information from the Bearer token", () => {
+    beforeEach(() => {
+        request = {
+            headers: {
+                authorization: "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJtQTA1NjIyLVowVWlxeTM3YzV6R0pmLUUwRlRCOW5BamNPSnZZR21Zd193In0.eyJleHAiOjE2NDE1ODE0NTYsImlhdCI6MTY0MTU4MTE1NiwiYXV0aF90aW1lIjoxNjQxNTgxMTQ3LCJqdGkiOiI2NDU2YzIyMS04MzVhLTQ4YWUtOTU5MC1mZDNkOWU1MWUzYWYiLCJpc3MiOiJodHRwczovL29pZGMuZ292LmJjLmNhL2F1dGgvcmVhbG1zL2Fhb296aGNwIiwic3ViIjoiMDFjNWRiMjgtMjkwOC00MjI4LWI4NjEtNmMxYTBkMjViZTVmIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZ2R4LWFncmVlbWVudHMtdHJhY2tlciIsIm5vbmNlIjoiNzNiNzEyYTAtYjQwYS00MDIyLThiOTgtMmEyODYxMTEwMDk0Iiwic2Vzc2lvbl9zdGF0ZSI6ImNhYTRiMzg0LWUzZTgtNDNkYy1iYmJhLWMzYzk3Y2FjODE3NCIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiKiJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiQWxleGFuZGVyIFdpbnRzY2hlbCIsInByZWZlcnJlZF91c2VybmFtZSI6ImF3aW50c2NoQGlkaXIiLCJnaXZlbl9uYW1lIjoiQWxleGFuZGVyIiwiZmFtaWx5X25hbWUiOiJXaW50c2NoZWwiLCJlbWFpbCI6ImFsZXhhbmRlci53aW50c2NoZWxAZ292LmJjLmNhIn0.M1_ZIeGZSO1pdMF6_DmSwB5J6BNWP4SX7vFQhoAjx_rOOaCykNQ5l6KvE01gWm1UeE-cD60fEFtwSxzgQ0jIMfvmuz20s3izYGvu1dz4ysNphuMYfxfTHGhaX9N6b8GfwzYXLx76_Ccl1dFHviEbCEU3He84cSM3GgUj-SDJgqc9uI014QdqjvYJoHQLtehqVO0_uWCKPji5N3g5KECHPfPuWreDdE1p9UvB-v6Am636DkvjnB_uTyByD9O7CfeQAb3A8i7nQAnESlVvn75bhVIb1NH8Xs67MZ0uMIJdbnskOYJuzuu_lvT5hvQ5OiyYoW0CCUB31w105Wksmj3UnQ"
+            }
+        } 
+    });
+  
+    it("Get User information roles, capability", () => {
+       const user = getUserInfo(request);
+       expect(Array.isArray(user.capability)).toBe(true);
     });
 });
 

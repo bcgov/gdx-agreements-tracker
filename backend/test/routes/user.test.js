@@ -38,10 +38,9 @@ describe("Access user routes", () => {
             url: '/users',
         });
         const responseBody = JSON.parse(response.body);
-
         expect(response.statusCode).toBe(200);
-        expect(Array.isArray(responseBody)).toBe(true);
-        responseBody.forEach((userObject) => expect("id" in userObject).toBe(true));
+        expect(Array.isArray(responseBody.data)).toBe(true);
+        responseBody.data.forEach((userObject) => expect("id" in userObject).toBe(true));
     });
 
     it("Should get a single user object when you hit /api/users/:id with a valid ID", async () => {
@@ -53,7 +52,7 @@ describe("Access user routes", () => {
         const responseBody = JSON.parse(response.body);
 
         expect(response.statusCode).toBe(200);
-        expect("id" in responseBody).toBe(true);
-        expect("name" in responseBody).toBe(true);
+        expect("id" in responseBody.data).toBe(true);
+        expect("name" in responseBody.data).toBe(true);
     })
 });
