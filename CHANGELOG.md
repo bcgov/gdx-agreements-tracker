@@ -3,6 +3,13 @@
 ### January 11, 2022 WD-3815
 * backend
     * added unified logger (facilities/logging.js)
+      * set environment variable NODE_ENV to 'production' when deploying to production
+      * uses pino library for logging in the whole app (fastify uses it, and it is pretty slick)
+        * there is one logger instance, with the option to use child logger instances 
+          * conveniently group log entries by file/role/request
+          * usage: `const log = require('../facilities/logging.js')(module.filename);` at the top of your file that needs logging
+            * the `module.filename` makes a new child logger for you that will group all log messages in that file for you
+            * use `log.child({ subcomponent: 'someUniqueStringYouLike' })` to make a sub-child log if you need. perhaps for logging individual requests/sessions.
       * updated fastify to use new logger
       * updated database to use new logger
     * moved database auto-deploy logic to a more appropriate spot (startup, not every db check)
