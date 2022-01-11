@@ -6,6 +6,7 @@ const daemon = require('./facilities/daemon');
 
 // Load server configuration and enable logging.
 const server = fastifyInstance(({
+  // If you are looking to add serializers or pretty printing, please do it in logging.js, they are actually pino features.
   logger: log
 }));
 
