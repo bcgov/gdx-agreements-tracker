@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const { getUserInfo } = require('../../helpers/auth')
+const { getUserInfo } = require('../../facilities/keycloak')
 
 /**
  * Fastify Roles plugin, that inserts user object into the request object for each api call.

@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { loadSecretFileOrUseEnv } = require('./src/helpers/secrets');
 
 module.exports = {
   client: "pg",
@@ -7,7 +8,8 @@ module.exports = {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT || 5432,
     user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
+    // OpenShift secret-file support for database password
+    password: loadSecretFileOrUseEnv('/run/secrets/postgres_password', 'POSTGRES_PASSWORD'),
     database: process.env.POSTGRES_DATABASE
   },
   searchPath: ['pmo', 'public'],

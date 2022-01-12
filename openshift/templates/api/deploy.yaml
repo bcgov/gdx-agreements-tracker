@@ -34,7 +34,6 @@ parameters:
     required: true
     value: "dev"
 
-
   - name: INSTANCE
     displayName: "Unique Identifier"
     description: "A unique identifier to allow for multiple instances (i.e. '-01')."
@@ -97,12 +96,39 @@ objects:
             env: ${ENV_NAME}
             app.kubernetes.io/part-of: ${APP_NAME}-${ROLE_NAME}
         spec:
+          volumes:
+            - name: postgres-secrets-volume
+              secret:
+                secretName: 0-${APP_NAME}-${ROLE_NAME}-postgres-secrets
+                items:
+                  - key: POSTGRES_PASSWORD
+                    path: postgres_password
+                defaultMode: 420
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}
               image: ${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}
               ports:
                 - containerPort: ${{APP_PORT}}
                   protocol: TCP
+              env:
+                - name: POSTGRES_DATABASE
+                  valueFrom:
+                    configMapKeyRef:
+                      name: 0-${APP_NAME}-${ROLE_NAME}-postgres-env-config
+                      key: POSTGRES_DB
+                - name: POSTGRES_USER
+                  valueFrom:
+                    configMapKeyRef:
+                      name: 0-${APP_NAME}-${ROLE_NAME}-postgres-env-config
+                      key: POSTGRES_USER
+              envFrom:
+                - configMapRef:
+                    name: 0-${APP_NAME}-${ROLE_NAME}-env-config
+              volumeMounts:
+                - name: postgres-secrets-volume
+                  readOnly: true
+                  mountPath: /run/secrets/postgres_password
+                  subPath: postgres_password
               resources:
                 requests:
                   cpu: ${CPU_REQUEST}

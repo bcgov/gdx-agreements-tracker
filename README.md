@@ -16,7 +16,7 @@ docker compose up --build -d
 
 The app is then available at [http://localhost/](http://localhost/). For your reference, the API is available at [http://localhost/api/](http://localhost/api/). The websocket for the frontend react is available at http://localhost:3000/ and as long as the `frontend/.env` file (or other similar facility) specifies the WDS_SOCKET_PORT as 3000, the React live-refresh-upon-code-change feature should work in your browser. 
 
-Logs end up in `docker/logs/` in `backend`, `frontend`, and `nginx` subdirectories for your debugging convenience.
+Logs end up in `docker/logs/` in `backend`, `frontend`, and `web` subdirectories for your debugging convenience.
 
 If you haven't done a `yarn install` or `npm install` in the frontend or backend subdirectories before executing the above, the docker-compose will handle that for you. This is useful if your local node/npm are not the right version.
 

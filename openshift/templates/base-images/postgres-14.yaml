@@ -54,9 +54,3 @@ objects:
             name: "docker-remote.artifacts.developer.gov.bc.ca/postgres:14.1"
           referencePolicy:
             type: Local
-        - name: "16-alpine"
-          from:
-            kind: DockerImage
-            name: "docker-remote.artifacts.developer.gov.bc.ca/postgres:14.1-alpine"
-          referencePolicy:
-            type: Local

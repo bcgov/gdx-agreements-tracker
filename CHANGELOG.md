@@ -1,5 +1,18 @@
 ## Developer Changelog
 
+### January 11, 2022 WD-3815 part 2
+* backend
+  * added secretfile support for openshift database password
+  * auth fix
+  * autodeploy fix
+* openshift
+  * removed postgres alpine image from imagestream; alpine won't work for postgres on openshift without needless suffering. we will probably use hosted postgres eventually.
+  * added configmap for keycloak endpoint, and database config parameters
+  * changed backend deploy to use database and keycloak params
+* other
+  * deduplicated parameters in docker-compose.yml
+  * migrated docker web directory to the docker directory to clean up the root
+
 ### January 11, 2022 WD-3815
 * backend
     * added unified logger (facilities/logging.js)

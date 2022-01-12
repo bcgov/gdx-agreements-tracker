@@ -19,6 +19,9 @@ oc process -f s2i/nodejs/nodejs.yaml -p GIT_REF="development" | oc apply -f -
 # Build the api base image, and runtime image.
 oc process -f templates/api/build.yaml -p GIT_REF="development" | oc apply -f -
 
+# Configure the API deployment.
+oc process -f templates/api/config.yaml | oc apply -f -
+
 # Initialize the API container deployment.
 oc process -f templates/api/deploy.yaml | oc apply -f -
 
@@ -29,7 +32,7 @@ oc process -f templates/api/deploy-route.yaml | oc apply -f -
 oc process -f templates/postgres/config.yaml -p POSTGRES_REGULAR_USER_PASSWORD=changeTHISstring -p POSTGRES_ROOT_PASSWORD=changeTHISstringTOO | oc apply -f -
 
 # PostgreSQL persistent storage setup.
-oc process -f templates/postgres/deploy.yaml | oc apply -f -
+oc process -f templates/postgres/volume.yaml | oc apply -f -
 
 # Build the PostgreSQL containers.
 oc process -f templates/posgres/build.yaml | oc apply -f -

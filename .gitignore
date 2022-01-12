@@ -13,6 +13,7 @@ backend/.pnp.js
 
 # development
 docker/*
+!docker/web
 
 # testing
 frontend/coverage

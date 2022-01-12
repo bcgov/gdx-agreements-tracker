@@ -59,8 +59,6 @@ class DatabaseConnection {
    */
   async checkAll() {
     let connectOk = await this.checkConnection();
-    const schemaOk = await this.checkSchema();
-    //const modelsOk = this.checkModel();
 
     //If the database does not exist, and we have been requested to auto-deploy, then try.
     if (-1 === connectOk && '1' === process.env.DATABASE_AUTO_DEPLOY) {
@@ -70,6 +68,9 @@ class DatabaseConnection {
         connectOk = await this.checkConnection();
       }
     }
+
+    const schemaOk = await this.checkSchema();
+    //const modelsOk = this.checkModel();
 
     log.debug(`Connect OK: ${connectOk}, Schema OK: ${schemaOk}`, { function: 'checkAll' });
     this._connected = !!connectOk && schemaOk;
