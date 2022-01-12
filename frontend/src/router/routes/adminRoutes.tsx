@@ -8,8 +8,8 @@ import {
   SubContractors,
   Resources,
   Ministries,
-  User,
 } from "../../pages/Admin/index";
+import { Users } from "../../pages/Users";
 
 /**
  * Routes for Admin pages.
@@ -21,8 +21,8 @@ const routes = [
     <Route path="subcontractors" element={<ProtectedRoute component={SubContractors} />} />
     <Route path="resources" element={<ProtectedRoute component={Resources} />} />
     <Route path="ministries" element={<ProtectedRoute component={Ministries} />} />
-    <Route path="user" element={<ProtectedRoute component={User} />} />
-    <Route path="user/:userId" element={<ProtectedRoute component={User} />} />
+    <Route path="user" element={<ProtectedRoute component={Users} />} />
+    <Route path="user/:userId" element={<ProtectedRoute component={Users} />} />
   </Route>,
 ];
 

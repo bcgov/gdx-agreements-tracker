@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import apiAxios from "../../utils/apiAxios";
 import Sidebar from "../../components/Sidebar";
 import Main from "../../components/Main";
 import Debug from "../../components/Debug";
@@ -11,40 +10,14 @@ export const Admin: FC = () => {
       <Sidebar />
       <Main>
         <Outlet />
-        <Debug />
       </Main>
     </>
   );
 };
 
-export const User: FC = () => {
-  let { userId } = useParams();
-  const [userData, setUserData] = useState({});
-  useEffect(() => {
-    const axiosResponse = apiAxios();
-    let uri = "users";
-    if (userId) {
-      uri = `${uri}/${userId}`;
-    }
-    axiosResponse
-      .get(uri)
-      .then((data) => {
-        setUserData(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userId]);
-
-  return (
-    <div>
-      <h2>User {userId}</h2>
-      <div>
-        <pre>{JSON.stringify(userData, null, 2)}</pre>
-      </div>
-    </div>
-  );
-};
+export const AdminDebug: FC = () => {
+  return <Debug />;
+}
 
 export const Contacts: FC = () => {
   let { id } = useParams();
