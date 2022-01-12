@@ -1,8 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { List } from "../pages/Contract";
-import Sidebar from "../components/Sidebar";
-import Main from "../components/Main";
+import { List } from "../../pages/Contract";
+import Sidebar from "../../components/Sidebar";
+import Main from "../../components/Main";
 
 describe("Contract <List /> component", () => {
   const contractList = shallow(<List />);

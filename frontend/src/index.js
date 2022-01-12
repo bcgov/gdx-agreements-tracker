@@ -5,10 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./keycloak";
+import bcgovTheme from "./bcgovTheme";
+import { ThemeProvider } from "@mui/material/styles";
 
 ReactDOM.render(
   <ReactKeycloakProvider authClient={keycloak}>
-    <App />
+    <ThemeProvider theme={bcgovTheme}>
+      <App />
+    </ThemeProvider>
   </ReactKeycloakProvider>,
   document.getElementById("root")
 );
