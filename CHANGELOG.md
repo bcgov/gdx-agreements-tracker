@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### January 12, 2022 WD-3691
+* add material UI, including theming, icons
+* add users table and related components
+
 ### January 11, 2022 WD-3815 part 2
 * backend
   * added secretfile support for openshift database password
