@@ -77,7 +77,7 @@ services:
         networks:
             - gat-node
         ports:
-            - "80:80"
+            - "81:80"
 
 networks:
     gat-db:
