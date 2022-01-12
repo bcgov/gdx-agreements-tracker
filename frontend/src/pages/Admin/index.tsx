@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import Main from "../../components/Main";
@@ -17,7 +17,7 @@ export const Admin: FC = () => {
 
 export const AdminDebug: FC = () => {
   return <Debug />;
-}
+};
 
 export const Contacts: FC = () => {
   let { id } = useParams();

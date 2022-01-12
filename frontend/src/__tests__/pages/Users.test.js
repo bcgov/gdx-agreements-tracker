@@ -1,6 +1,4 @@
-import React from "react";
-import { shallow } from "enzyme";
-import { User } from "../../pages/Admin";
+// import { User } from "../../pages/Admin";
 
 jest.mock("react-router-dom", () => ({
   useParams: () => ({ userId: null }),
@@ -13,7 +11,7 @@ describe("User Api call", () => {
   //   expect(user.find("div pre")).toHaveLength(1);
   // });
 
-  it('is a dummy test', () => {
+  it("is a dummy test", () => {
     expect(true).toBe(true);
-  })
+  });
 });
