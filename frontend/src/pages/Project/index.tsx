@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet, useParams } from "react-router-dom";
 import Main from "../../components/Main";
 import Sidebar from "../../components/Sidebar";
-
 export const List = () => {
   return (
     <>
