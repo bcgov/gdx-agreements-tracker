@@ -1,6 +1,7 @@
 kind: Template
 apiVersion: v1
-name: allow-same-namespace
+name: allow-database-port-tcp-5432
+description: Permit containers with the net-database-client label to connect to containers with the net-database-server label on port 5432
 parameters:
   - name: PROJECT_NAMESPACE
     displayName: "OpenShift Project Namespace"
@@ -16,12 +17,17 @@ objects:
   - kind: NetworkPolicy
     apiVersion: networking.k8s.io/v1
     metadata:
-      name: allow-same-namespace
+      name: allow-database-port-tcp-5432
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
     spec:
-      podSelector: { }
+      podSelector:
+        matchLabels:
+          connection: net-database-server
       ingress:
-        - from:
-            - podSelector: { }
-      policyTypes:
-        - Ingress
+      - from:
+        - podSelector:
+            matchLabels:
+              connection: net-database-client
+        ports:
+        - protocol: TCP
+          port: 5432

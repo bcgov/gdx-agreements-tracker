@@ -58,6 +58,7 @@ class DatabaseConnection {
    * @returns {boolean} True if successful, otherwise false.
    */
   async checkAll() {
+    log.info('Connecting to database... %o', { ...this.knex.context.client.config.connection, password: '*** ***' });
     let connectOk = await this.checkConnection();
 
     //If the database does not exist, and we have been requested to auto-deploy, then try.

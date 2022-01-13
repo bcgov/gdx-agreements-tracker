@@ -69,7 +69,11 @@ objects:
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         image.openshift.io/triggers: >-
-          [{"from":{"kind":"ImageStreamTag","name":"gdx-agreements-tracker-app-deploy:dev","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"gdx-agreements-tracker-app\")].image"}]
+          [{"from":{"kind":"ImageStreamTag","name":"gdx-agreements-tracker-app-deploy:dev","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}${INSTANCE}\")].image"}]
+      labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
+        app.openshift.io/runtime: nodejs
+        app.kubernetes.io/component: frontend
     spec:
       replicas: ${{REPLICAS}}
       selector:
@@ -89,6 +93,7 @@ objects:
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}
               image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-deploy:dev
+              imagePullPolicy: Always
               ports:
                 - containerPort: ${{APP_PORT}}
                   protocol: TCP

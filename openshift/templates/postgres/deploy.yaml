@@ -60,6 +60,11 @@ objects:
     metadata:
       name: ${APP_NAME}-${ROLE_NAME}-postgres
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
+        app.openshift.io/runtime: postgresql
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/instance: coreDB
     spec:
       replicas: ${{REPLICAS}}
       selector:
@@ -79,7 +84,7 @@ objects:
             app: ${APP_NAME}
             role: ${ROLE_NAME}
             env: ${ENV_NAME}
-            app.kubernetes.io/part-of: ${APP_NAME}-${ROLE_NAME}
+            connection: net-database-server
         spec:
           volumes:
             - name: postgres-configmap-volume
@@ -102,6 +107,7 @@ objects:
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}-postgres
               image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-postgres:latest
+              imagePullPolicy: Always
               envFrom:
                 - configMapRef:
                     name: 0-${APP_NAME}-${ROLE_NAME}-postgres-env-config
