@@ -1,15 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
-import { PageLink } from "../../pages/reusable/PageLink";
-import {
-  Details,
-  List,
-  Resources,
-  Deliverables,
-  InternalCoding,
-  Amendments,
-} from "../../pages/Contract";
+import { PageLink } from "../../components/PageLink";
+import { Details, List } from "../../pages/Contract";
 
 const contractRoutes = [
   <Route key="contract" path="/contract" element={<ProtectedRoute component={List} />}>
@@ -22,12 +15,47 @@ const contractRoutes = [
           }}
         />
       }
-   >
-      
-      <Route path="resources" element={<ProtectedRoute component={Resources} />} />
-      <Route path="deliverables" element={<ProtectedRoute component={Deliverables} />} />
-      <Route path="internal-coding" element={<ProtectedRoute component={InternalCoding} />} />
-      <Route path="amendments" element={<ProtectedRoute component={Amendments} />} />
+    >
+      <Route
+        path="resources"
+        element={
+          <ProtectedRoute
+            component={() => {
+              return PageLink("Resources");
+            }}
+          />
+        }
+      />
+      <Route
+        path="deliverables"
+        element={
+          <ProtectedRoute
+            component={() => {
+              return PageLink("Deliverables");
+            }}
+          />
+        }
+      />
+      <Route
+        path="internal-coding"
+        element={
+          <ProtectedRoute
+            component={() => {
+              return PageLink("InternalCoding");
+            }}
+          />
+        }
+      />
+      <Route
+        path="amendments"
+        element={
+          <ProtectedRoute
+            component={() => {
+              return PageLink("Amendments");
+            }}
+          />
+        }
+      />
     </Route>
   </Route>,
 ];

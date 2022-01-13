@@ -24,23 +24,3 @@ export const Details = () => {
     </>
   );
 };
-
-export const Resources = () => {
-  let { contractId } = useParams();
-  return <h2>Resources {contractId} </h2>;
-};
-
-export const Deliverables = () => {
-  let { contractId } = useParams();
-  return <h2>Deliverables {contractId}</h2>;
-};
-
-export const InternalCoding = () => {
-  let { contractId } = useParams();
-  return <h2>Internal Coding {contractId}</h2>;
-};
-
-export const Amendments = () => {
-  let { contractId } = useParams();
-  return <h2>Amendments {contractId}</h2>;
-};
