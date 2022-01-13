@@ -9,21 +9,21 @@ Configure each environment project namespace (DEV, TEST, PROD).
 ```bash
 oc project acd38d-dev
 oc process -f deny-by-default.yaml | oc create --save-config=true -f -
-oc process -f allow-5432.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
+oc process -f allow-database-port-tcp-5432.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
 oc process -f allow-from-openshift-ingress.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
 ```
 ## NSP -> Test
 ```bash
 oc project acd38d-test
 oc process -f deny-by-default.yaml | oc create --save-config=true -f -
-oc process -f allow-5432.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
+oc process -f allow-database-port-tcp-5432.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
 oc process -f allow-from-openshift-ingress.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
 ```
 ## NSP -> Production
 ```bash
 oc project acd38d-prod
 oc process -f deny-by-default.yaml | oc create --save-config=true -f -
-oc process -f allow-5432.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
+oc process -f allow-database-port-tcp-5432.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
 oc process -f allow-from-openshift-ingress.yaml -p ENV_NAME=dev | oc create --save-config=true -f -
 ```
 
