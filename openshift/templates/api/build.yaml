@@ -106,10 +106,11 @@ objects:
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
     spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
       runPolicy: Parallel
       completionDeadlineSeconds: 1800
       triggers:
-        - type: ImageChange
         - type: ConfigChange
       source:
         type: Git
@@ -171,6 +172,10 @@ objects:
       completionDeadlineSeconds: 1800
       triggers:
         - type: ImageChange
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-${ROLE_NAME}-build.${GIT_REF}:latest"
         - type: ConfigChange
       source:
         type: Dockerfile

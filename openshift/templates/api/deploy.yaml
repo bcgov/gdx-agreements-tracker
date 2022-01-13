@@ -72,11 +72,16 @@ objects:
   - kind: Deployment
     apiVersion: apps/v1
     metadata:
-      name: ${APP_NAME}-${ROLE_NAME}
+      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         image.openshift.io/triggers: >-
-          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}\")].image"}]
+          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}${INSTANCE}\")].image"}]
+      labels:
+        app.kubernetes.io/part-of: ${APP_NAME}
+        app.openshift.io/runtime: nodejs
+        app.kubernetes.io/component: backend
+        app.openshift.io/connects-to: coreDB
     spec:
       replicas: ${{REPLICAS}}
       selector:
@@ -94,7 +99,7 @@ objects:
             app: ${APP_NAME}
             role: ${ROLE_NAME}
             env: ${ENV_NAME}
-            app.kubernetes.io/part-of: ${APP_NAME}-${ROLE_NAME}
+            connection: net-database-client
         spec:
           volumes:
             - name: postgres-secrets-volume
@@ -106,7 +111,8 @@ objects:
                 defaultMode: 420
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}
-              image: ${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}
+              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}
+              imagePullPolicy: Always
               ports:
                 - containerPort: ${{APP_PORT}}
                   protocol: TCP

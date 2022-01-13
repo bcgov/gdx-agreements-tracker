@@ -108,6 +108,8 @@ objects:
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
     spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
       strategy:
         type: Docker
         dockerStrategy:
@@ -151,6 +153,8 @@ objects:
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
     spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
       strategy:
         type: Docker
         dockerStrategy:
@@ -186,13 +190,15 @@ objects:
       name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
-        description: Combines the Nginx runtime with the React build.
+        description: Combines the Nginx runtime with the resulting assets from the React build.
       labels:
         name: ${APP_NAME}-${ROLE_NAME}-${IMAGE_DEPLOY}
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
     spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
       strategy:
         type: Docker
         dockerStrategy:
