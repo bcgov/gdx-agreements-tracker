@@ -6,10 +6,12 @@ on:
     paths:
       - "frontend/**/*"
       - "!frontend/Dockerfile*"
-      - "!frontend/Docker/*"
       - "!frontend/tsconfig.json"
       - "!frontend/tslint.json"
       - "!frontend/.prettierrc.js"
+      - "!frontend/docs"
+      - "!frontend/README.md"
+      - "!frontend/.dockerignore"
 
   workflow_dispatch:
 defaults:
@@ -44,5 +46,3 @@ jobs:
 
       - name: Run Tests
         run: npm run test
-
-
