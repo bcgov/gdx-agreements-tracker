@@ -11,6 +11,7 @@ on:
       - "!frontend/.prettierrc.js"
       - "!frontend/docs"
       - "!frontend/README.md"
+      - "!frontend/.dockerignore"
 
   workflow_dispatch:
 defaults:
