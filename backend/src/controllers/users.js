@@ -1,16 +1,39 @@
 const Model = require("../models/users.js");
 const what = { single: 'user', plural: 'users' };
 
+/**
+ * Checks to see if a user access a route based on the allowedRole.
+ *
+ * @param {object}  request The request object, which should have the user capability via the fastify-roles plugin.
+ * @param {string}  allowedRole Is the name of the role that is required to access the route.
+ *
+ * @returns {boolean}
+ */
 const userCan = (request, allowedRole) => {
   const capability = request?.user?.capability || [];
   return capability.includes(allowedRole);
 }
 
+/**
+ * This is a helper function that returns 401 with generic message if user is not allowed to access route.
+ *
+ * @param   {object}  reply  The reply object, in order to set the status code.
+ *
+ * @return  {object}
+ */
 const notAllowed = (reply) => {
   reply.code(401);
   return {message: `You don't have the correct permission`};
 }
 
+/**
+ * For roles that might require only if mine, however this still needs to be implemented.
+ *
+ * @param   {object}  request  The request object
+ * @todo  Add functionality to call db to see if the owner is the current user.
+ *
+ * @return  {boolean}
+ */
 const checkMine = (request) => {
   return true;
 }

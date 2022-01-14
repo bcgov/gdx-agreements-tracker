@@ -1,4 +1,10 @@
 ## Developer Changelog
+### January 14, 222 WD-3774
+* backend
+    * added user role checking for the user controller.
+    * updated tests.
+* removed frontend/.env file and consolidated .gitignore
+
 ### January 14, 2022 WD-3815 part 3
 * backend
     * added logging for when connected to database, but the schema is wrong
