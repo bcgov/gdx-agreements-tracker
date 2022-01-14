@@ -108,14 +108,16 @@ const getUserInfo = req => {
     if (decodedToken) {
         const payload = decodedToken.payload;
         // This role will eventually come from the database.
-        const role = 'admin';
+        const role = 'none';
+        const realmAccessRoles = payload.realm_access?.roles || [];
+        const capability = getCapability(role, realmAccessRoles)
         return {
             name: payload.name,
             email: payload.email,
             preferred_username: payload.preferred_username,
             roles: payload.realm_access?.roles,
             role,
-            capability: getCapability(role)
+            capability
         }
     }
     return;

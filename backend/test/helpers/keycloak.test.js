@@ -1,5 +1,5 @@
-const serverConfig = require('../../src/helpers/config');
-const { getBearerTokenFromRequest, verifyToken, verifyUserExists, getUserInfo } = require("../../src/helpers/auth");
+const serverConfig = require('../../src/facilities/fastify');
+const { getBearerTokenFromRequest, verifyToken, verifyUserExists, getUserInfo } = require("../../src/facilities/keycloak");
 const userModel = require("../../src/models/users.js");
 let app;
 let exampleToken;
