@@ -6,8 +6,10 @@ on:
     paths:
       - "backend/**/*"
       - "!backend/.eslintrc.json"
-      - "!backend/Dockerfile"
+      - "!backend/Dockerfile*"
       - "!backend/.dockerignore"
+      - "!backend/docs"
+      - "!backend/README.md"
 
   workflow_dispatch:
 defaults:

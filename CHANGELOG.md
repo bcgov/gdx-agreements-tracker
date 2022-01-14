@@ -1,5 +1,17 @@
 ## Developer Changelog
-### January 11, 2022 WD-3815 part 2
+### January 14, 2022 WD-3815 part 3
+* backend
+    * added logging for when connected to database, but the schema is wrong
+* openshift
+    * api
+      * attempt a database migration to the latest migration on startup 
+    * templates: a build automation fix
+* github workflows
+  * fix overlooked item: don't rebuild containers on non-code file changes
+* local dev environment
+  * fix overlooked item: don't copy new transients into container builds
+
+### January 12, 2022 WD-3815 part 2
 * backend
     * added info to log about database being connected to
 * openshift

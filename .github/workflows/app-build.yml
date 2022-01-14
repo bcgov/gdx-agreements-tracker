@@ -5,10 +5,12 @@ on:
       - development
     paths:
       - "frontend/**/*"
-      - "!frontend/Dockerfile"
+      - "!frontend/Dockerfile*"
       - "!frontend/tsconfig.json"
       - "!frontend/tslint.json"
       - "!frontend/.prettierrc.js"
+      - "!frontend/docs"
+      - "!frontend/README.md"
 
   workflow_dispatch:
 defaults:

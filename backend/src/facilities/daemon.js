@@ -55,6 +55,8 @@ const initializeConnections = () => {
 
       if (state.connections.data) {
         log.info('DatabaseConnection Reachable', { function: 'initializeConnections' });
+      } else {
+        log.info('DatabaseConnection Connected but not ready', { function: 'initializeConnections' });
       }
     })
     .catch(error => {
