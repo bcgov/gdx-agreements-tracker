@@ -1,4 +1,10 @@
 ## Developer Changelog
+### January 14, 2022 WD-3772
+* backend
+    * added new migrations and seeds for roles, user_roles, role_capabilities, and capabilities tables
+    * added temporary demo endpoint to show resolution of capabilities, given a user id
+      * /api/capabilities_demo
+
 ### January 14, 2022 WD-3815 part 3
 * backend
     * added logging for when connected to database, but the schema is wrong

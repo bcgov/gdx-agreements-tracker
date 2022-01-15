@@ -7,7 +7,8 @@
     "start": "NODE_ENV=development nodemon --watch src/ src/server.js knexfile.js",
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:debug": "jest --detectOpenHandles"
+    "test:debug": "jest --detectOpenHandles",
+    "lint": "eslint src/ --ext .jsx,.js,.ts,.tsx --max-warnings 0"
   },
   "keywords": [
     "api",

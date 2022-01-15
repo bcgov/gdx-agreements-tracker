@@ -5,7 +5,8 @@ const jwksUri = process.env.JWKSURI;
 const fastify = require('fastify');
 const fastifyCors = require('fastify-cors');
 const fastifyAuth = require('fastify-auth');
-const fastifyRoles = require ('../plugins/fastify-roles')
+const fastifyRoles = require ('../plugins/fastify-roles');
+const capabilitiesModel = require("../models/capabilities.js");
 
 /**
  * Fastify server configuration.
@@ -66,6 +67,16 @@ const fastifyRoles = require ('../plugins/fastify-roles')
                 return { health: 'good' }
                 }
             });
+
+            app.route({
+              method: 'GET',
+              url: '/capabilities_demo',
+              handler: async () => {
+                return capabilitiesModel.findAllByUserId(1);
+              }
+            });
+
+
     })
 
     return app;
