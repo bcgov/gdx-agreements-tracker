@@ -29,12 +29,11 @@ async function fastifyRoles(fastify, opts) {
    *
    * @return  {[type]}           [return description]
    */
-  function onRequest(request, reply, done) {
-    user = getUserInfo(request);
+  async function onRequest(request, reply) {
+    user = await getUserInfo(request);
     if (user) {
       request.user = user;
     }
-    done();
   }
 
   /**

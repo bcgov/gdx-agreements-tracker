@@ -82,9 +82,9 @@ describe("Get the user information from the Bearer token", () => {
         } 
     });
   
-    it("Get User information roles, capability", () => {
-       const user = getUserInfo(request);
-       expect(Array.isArray(user.capability)).toBe(true);
+    it("Get User information roles, capability", async () => {
+      const user = await getUserInfo(request);
+      expect(Array.isArray(user.capabilities)).toBe(true);
     });
 });
 

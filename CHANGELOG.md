@@ -1,9 +1,15 @@
 ## Developer Changelog
+
+### January 17, 2022 WD-3772
+* backend
+    * added new migrations and seeds for roles, user_roles, role_capabilities, and capabilities tables
+    * added resolution of capabilities via database.
+
 ### January 17, 2022 WD-3815 part 4
 * backend
     * various small changes to please the linter in preparation for enabling backend linting check github action.
 
-### January 14, 222 WD-3774
+### January 14, 2022 WD-3774
 * backend
     * added user role checking for the user controller.
     * updated tests.
