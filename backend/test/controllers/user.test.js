@@ -8,7 +8,7 @@ describe("Testing user controllers", () => {
         userModel.findAll.mockResolvedValue([{ id: 1, name: 'Jimbo' }]);
         const sampleRequest = {
             user: {
-                capability: [
+                capabilities: [
                     'users_read_all'
                 ]
             }
@@ -24,7 +24,7 @@ describe("Testing user controllers", () => {
         const sampleRequest = { 
             params: { id: 2 },
             user: {
-                capability: [
+                capabilities: [
                     'users_read_all'
                 ]
             }
@@ -40,7 +40,7 @@ describe("Testing user controllers", () => {
         const sampleRequest = { 
             body: { name: "Jimbo Jones"},
             user: {
-                capability: [
+                capabilities: [
                     'users_create_all'
                 ]
             }
@@ -62,7 +62,7 @@ describe("Testing user controllers", () => {
                 name: "Delroy Lindo"
             },
             user: {
-                capability: [
+                capabilities: [
                     'users_update_all'
                 ]
             }
@@ -79,7 +79,7 @@ describe("Testing user controllers", () => {
                 id: 2
             },
             user: {
-                capability: [
+                capabilities: [
                     'users_delete_all'
                 ]
             }

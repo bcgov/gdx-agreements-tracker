@@ -1,3 +1,4 @@
+const log = require("../facilities/logging.js")(module.filename);
 const Model = require("../models/users.js");
 const what = { single: "user", plural: "users" };
 
@@ -5,13 +6,13 @@ const what = { single: "user", plural: "users" };
  * Checks to see if a user access a route based on the allowedRole.
  *
  * @param {object}  request The request object, which should have the user capability via the fastify-roles plugin.
- * @param {string}  allowedRole Is the name of the role that is required to access the route.
+ * @param {string}  capability Is the name of the role that is required to access the route.
  *
  * @returns {boolean}
  */
-const userCan = (request, allowedRole) => {
-  const capability = request?.user?.capability || [];
-  return capability.includes(allowedRole);
+const userCan = (request, capability) => {
+  const userCapabilities = request?.user?.capabilities || [];
+  return userCapabilities.includes(capability);
 };
 
 /**
@@ -56,6 +57,7 @@ const getAll = async (request, reply) => {
       return { message: `There was a problem looking up ${what.plural}.` };
     }
   } else {
+    log.trace('user lacks capability "users_read_all"');
     return notAllowed(reply);
   }
 };
@@ -86,6 +88,7 @@ const getOne = async (request, reply) => {
       return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
+    log.trace('user lacks capability "users_read_all" || "users_read_mine"');
     return notAllowed(reply);
   }
 };
@@ -115,6 +118,7 @@ const addOne = async (request, reply) => {
       return { message: `There was a problem adding this ${what.single}.` };
     }
   } else {
+    log.trace('user lacks capability "users_create_all" || "users_create_mine"');
     return notAllowed(reply);
   }
 };
@@ -148,6 +152,7 @@ const updateOne = async (request, reply) => {
       return { message: `There was a problem updating this ${what.single}.` };
     }
   } else {
+    log.trace('user lacks capability "users_update_all" || "users_update_mine"');
     return notAllowed(reply);
   }
 };
@@ -177,6 +182,7 @@ const deleteOne = async (request, reply) => {
       return { message: `There was a problem deleting this ${what.single}.` };
     }
   } else {
+    log.trace('user lacks capability "users_delete_all"');
     return notAllowed(reply);
   }
 };

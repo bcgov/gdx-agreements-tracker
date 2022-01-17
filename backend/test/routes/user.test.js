@@ -35,7 +35,7 @@ describe("Access user routes with valid user", () => {
             preferred_username: 'preferred_test-name',
             roles: [],
             role: 'admin',
-            capability: [
+            capabilities: [
                 'users_create_all',
                 'users_update_all',
                 'users_delete_all',
