@@ -1,7 +1,7 @@
-'use strict'
+"use strict";
 
-const fp = require('fastify-plugin')
-const { getUserInfo } = require('../../facilities/keycloak')
+const fp = require("fastify-plugin");
+const { getUserInfo } = require("../../facilities/keycloak");
 
 /**
  * Fastify Roles plugin, that inserts user object into the request object for each api call.
@@ -12,13 +12,13 @@ const { getUserInfo } = require('../../facilities/keycloak')
  *
  * @return  {[type]}           [return description]
  */
-async function fastifyRoles (fastify, opts) {
-  opts = opts || {}
-  let permission = 'none' // none || read || write
+async function fastifyRoles(fastify, opts) {
+  opts = opts || {};
+  let permission = "none"; // none || read || write
   //let capability = []
-  let user = {}
-  fastify.addHook('preSerialization', preSerialization)
-  fastify.addHook('onRequest', onRequest)
+  let user = {};
+  fastify.addHook("preSerialization", preSerialization);
+  fastify.addHook("onRequest", onRequest);
 
   /**
    * Fastify hook for onRequest, which basically gets the role from the user, and assigns capabilities.
@@ -29,12 +29,12 @@ async function fastifyRoles (fastify, opts) {
    *
    * @return  {[type]}           [return description]
    */
-  function onRequest(request, reply, done){
+  function onRequest(request, reply, done) {
     user = getUserInfo(request);
     if (user) {
-      request.user = user
+      request.user = user;
     }
-    done()
+    done();
   }
 
   /**
@@ -49,20 +49,18 @@ async function fastifyRoles (fastify, opts) {
    *
    * @return  {[type]}           [return description]
    */
-  function preSerialization (request, reply, payload, done) {
+  function preSerialization(request, reply, payload, done) {
     const err = null;
     payload = {
       data: payload,
       permission,
       user,
-    }
-    done(err, payload)
+    };
+    done(err, payload);
   }
 }
 
-
-
 module.exports = fp(fastifyRoles, {
-  fastify: '3.x',
-  name: 'fastify-roles',
-})
+  fastify: "3.x",
+  name: "fastify-roles",
+});
