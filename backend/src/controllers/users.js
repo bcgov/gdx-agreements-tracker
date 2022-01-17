@@ -1,5 +1,5 @@
 const Model = require("../models/users.js");
-const what = { single: 'user', plural: 'users' };
+const what = { single: "user", plural: "users" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.
@@ -12,7 +12,7 @@ const what = { single: 'user', plural: 'users' };
 const userCan = (request, allowedRole) => {
   const capability = request?.user?.capability || [];
   return capability.includes(allowedRole);
-}
+};
 
 /**
  * This is a helper function that returns 401 with generic message if user is not allowed to access route.
@@ -23,8 +23,8 @@ const userCan = (request, allowedRole) => {
  */
 const notAllowed = (reply) => {
   reply.code(401);
-  return {message: `You don't have the correct permission`};
-}
+  return { message: `You don't have the correct permission` };
+};
 
 /**
  * For roles that might require only if mine, however this still needs to be implemented.
@@ -36,15 +36,15 @@ const notAllowed = (reply) => {
  */
 const checkMine = (request) => {
   return true;
-}
+};
 
 /**
  * Get all items.
- * 
+ *
  * @returns {Object}
  */
 const getAll = async (request, reply) => {
-  if (userCan(request, 'users_read_all')) {
+  if (userCan(request, "users_read_all")) {
     try {
       const result = await Model.findAll();
       if (!result) {
@@ -58,7 +58,7 @@ const getAll = async (request, reply) => {
   } else {
     return notAllowed(reply);
   }
-}
+};
 
 /**
  * Get a specific item by ID.
@@ -69,8 +69,8 @@ const getAll = async (request, reply) => {
  */
 const getOne = async (request, reply) => {
   if (
-  userCan(request, 'users_read_all') ||
-  (userCan(request, 'users_read_mine') && checkMine(request))
+    userCan(request, "users_read_all") ||
+    (userCan(request, "users_read_mine") && checkMine(request))
   ) {
     const targetId = Number(request.params.id);
     try {
@@ -88,8 +88,7 @@ const getOne = async (request, reply) => {
   } else {
     return notAllowed(reply);
   }
-  
-}
+};
 
 /**
  * Add an item based on request body info.
@@ -99,13 +98,10 @@ const getOne = async (request, reply) => {
  * @returns {Object}
  */
 const addOne = async (request, reply) => {
-  if (
-    userCan(request, 'users_create_all') ||
-    userCan(request, 'users_create_mine')
-  ) {
+  if (userCan(request, "users_create_all") || userCan(request, "users_create_mine")) {
     const target = {
-      name: request.body.name
-    }
+      name: request.body.name,
+    };
     try {
       const result = await Model.addOne(target);
       if (!result) {
@@ -121,8 +117,7 @@ const addOne = async (request, reply) => {
   } else {
     return notAllowed(reply);
   }
-
-}
+};
 
 /**
  * Update an item by ID. Use passed info from the request body.
@@ -133,13 +128,13 @@ const addOne = async (request, reply) => {
  */
 const updateOne = async (request, reply) => {
   if (
-    userCan(request, 'users_update_all') ||
-    (userCan(request, 'users_update_mine') && checkMine(request))
-  ){
+    userCan(request, "users_update_all") ||
+    (userCan(request, "users_update_mine") && checkMine(request))
+  ) {
     const target = {
       id: Number(request.params.id),
-      name: request.body.name
-    }
+      name: request.body.name,
+    };
     try {
       const result = await Model.updateOne(target);
       if (!result) {
@@ -155,8 +150,7 @@ const updateOne = async (request, reply) => {
   } else {
     return notAllowed(reply);
   }
-
-}
+};
 
 /**
  * Delete a user by user ID.
@@ -166,10 +160,10 @@ const updateOne = async (request, reply) => {
  * @returns {Object}
  */
 const deleteOne = async (request, reply) => {
-  if (userCan(request, 'users_delete_all')){
+  if (userCan(request, "users_delete_all")) {
     const target = {
       id: Number(request.params.id),
-    }
+    };
     try {
       const result = await Model.removeOne(target);
       if (!result) {
@@ -185,12 +179,12 @@ const deleteOne = async (request, reply) => {
   } else {
     return notAllowed(reply);
   }
-}
+};
 
 module.exports = {
-    getAll,
-    getOne,
-    addOne,
-    updateOne,
-    deleteOne
-}
+  getAll,
+  getOne,
+  addOne,
+  updateOne,
+  deleteOne,
+};

@@ -4,7 +4,10 @@
         "es2021": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
     "parserOptions": {
         "ecmaVersion": 13,
         "sourceType": "module"
@@ -23,6 +26,7 @@
           }
         ],
         "yoda": [ "error", "always", { "onlyEquality" : true } ],
-        "eqeqeq": ["error", "always" ]
+        "eqeqeq": ["error", "always" ],
+        "no-unused-vars": ["error", { "args": "none" }]
     }
 }

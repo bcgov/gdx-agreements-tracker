@@ -1,4 +1,4 @@
-const DatabaseConnection = require('../database/databaseConnection');
+const DatabaseConnection = require("../database/databaseConnection");
 const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
@@ -17,31 +17,27 @@ const findById = (id) => {
 // Get specific user by email.
 const findByEmail = (email) => {
   return db(table).where("email", email);
-}
+};
 
 // Add one.
 const addOne = (userInfo) => {
   const newUser = {
     name: userInfo.name,
     email: userInfo.email,
-    username: userInfo.preferred_username
-  }
+    username: userInfo.preferred_username,
+  };
   return db(table).insert(newUser, "id");
 };
 
 // Update one.
 const updateOne = (id, target) => {
-  return db(table)
-    .where("id", id)
-    .update(target);
+  return db(table).where("id", id).update(target);
 };
 
 // Remove one.
 // TODO: change to soft delete.
 const removeOne = (id) => {
-  return db(table)
-    .where("id", id)
-    .del();
+  return db(table).where("id", id).del();
 };
 
 module.exports = {
@@ -50,5 +46,5 @@ module.exports = {
   findByEmail,
   addOne,
   updateOne,
-  removeOne
+  removeOne,
 };

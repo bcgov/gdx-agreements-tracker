@@ -1,9 +1,9 @@
-const pino = require('pino');
-const { parse } = require('path');
+const pino = require("pino");
+const { parse } = require("path");
 
 const coreLogInstance = pino({
   // Set NODE_ENV environment variable to 'production' for OpenShift
-  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  level: "production" === process.env.NODE_ENV ? "info" : "debug",
 });
 
 const getLogInstance = (filename) => {
