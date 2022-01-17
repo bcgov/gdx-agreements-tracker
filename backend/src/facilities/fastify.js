@@ -47,7 +47,7 @@ const fastifyRoles = require ('../plugins/fastify-roles')
         .register(fastifyRoles)
         .after(() => {
             app.addHook('preHandler', app.auth([
-                app.verifyJWT
+                app.verifyJWT,
             ]));
 
             // Register root route.
@@ -56,7 +56,7 @@ const fastifyRoles = require ('../plugins/fastify-roles')
                 url: '/',
                 handler: async () => {
                     return { hello: 'world' }
-                }
+                },
             });
 
             app.route({
@@ -64,7 +64,7 @@ const fastifyRoles = require ('../plugins/fastify-roles')
                 url: '/health',
                 handler: async () => {
                 return { health: 'good' }
-                }
+                },
             });
     })
 

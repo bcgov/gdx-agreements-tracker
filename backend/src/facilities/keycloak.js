@@ -12,7 +12,7 @@ const { getCapability } = require('../helpers/capability');
 const getBearerTokenFromRequest = (req) => {
     const authHeader = req?.headers?.authorization;
     // Strip out the token string from the request headers.
-    if (authHeader && authHeader.indexOf('Bearer ') === 0) {
+    if (authHeader && 0 === authHeader.indexOf('Bearer ')) {
         return authHeader.split(' ')[1];
     } else {
         return false;
@@ -31,7 +31,7 @@ const verifyToken = (token, jwksUri = null) => {
         const decodedToken = jwt.decode(token, { complete: true });
         const client = jwksClient({
             strictSsl: true,
-            jwksUri: jwksUri
+            jwksUri: jwksUri,
         });
         
         /**
@@ -117,7 +117,7 @@ const getUserInfo = req => {
             preferred_username: payload.preferred_username,
             roles: payload.realm_access?.roles,
             role,
-            capability
+            capability,
         }
     }
     return;

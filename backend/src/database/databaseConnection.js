@@ -87,7 +87,7 @@ class DatabaseConnection {
   async checkConnection() {
     try {
       const data = await this.knex.raw('show transaction_read_only');
-      const result = data && data.rows && data.rows[0].transaction_read_only === 'off';
+      const result = data && data.rows && 'off' === data.rows[0].transaction_read_only;
       if (result) {
         log.trace('Database connection ok', { function: 'checkConnection' });
       } else {

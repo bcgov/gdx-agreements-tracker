@@ -6,29 +6,29 @@ const routes = [
     {
         method: 'GET',
         url: `/${what}`,
-        handler: controller.getAll
+        handler: controller.getAll,
     },
     {
         method: 'GET',
         url: `/${what}/:id`,
         schema: validators.getOneValidator,
-        handler: controller.getOne
+        handler: controller.getOne,
     },
     {
         method: 'POST',
         url: `/${what}`,
-        handler: controller.addOne
+        handler: controller.addOne,
     },
     {
         method: 'PUT',
         url: `/${what}/:id`,
-        handler: controller.updateOne
+        handler: controller.updateOne,
     },
     {
         method: 'DELETE',
         url: `/${what}/:id`,
-        handler: controller.deleteOne
-    }
+        handler: controller.deleteOne,
+    },
 ];
 
 const registerRoutes = (fastify, options, done) => {
@@ -38,5 +38,5 @@ const registerRoutes = (fastify, options, done) => {
 }
 
 module.exports = {
-  userRoutes: registerRoutes
+  userRoutes: registerRoutes,
 };

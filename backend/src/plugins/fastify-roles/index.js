@@ -15,7 +15,7 @@ const { getUserInfo } = require('../../facilities/keycloak')
 async function fastifyRoles (fastify, opts) {
   opts = opts || {}
   let permission = 'none' // none || read || write
-  let capability = []
+  //let capability = []
   let user = {}
   fastify.addHook('preSerialization', preSerialization)
   fastify.addHook('onRequest', onRequest)
@@ -54,7 +54,7 @@ async function fastifyRoles (fastify, opts) {
     payload = {
       data: payload,
       permission,
-      user
+      user,
     }
     done(err, payload)
   }
@@ -64,5 +64,5 @@ async function fastifyRoles (fastify, opts) {
 
 module.exports = fp(fastifyRoles, {
   fastify: '3.x',
-  name: 'fastify-roles'
+  name: 'fastify-roles',
 })

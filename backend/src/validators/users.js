@@ -1,7 +1,7 @@
 const getOneValidator = {
     // Request parameters.
     params: {
-        id: { type: 'string' }
+        id: { type: 'string' },
     },
     // Response validation. 
     response: {
@@ -10,15 +10,15 @@ const getOneValidator = {
             properties: {
                 data: {
                     id: { type: 'integer' },
-                    name: { type: 'string' }
+                    name: { type: 'string' },
                 },
                 permission: { type: 'string' },
-                user: { }
-            }
-        }
-    }
+                user: { },
+            },
+        },
+    },
 }
 
 module.exports = {
-  getOneValidator
+  getOneValidator,
 }

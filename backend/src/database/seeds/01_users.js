@@ -9,23 +9,23 @@ exports.seed = function(knex) {
         {
           username: 'alex',
           email: 'alexander.wintschel@gov.bc.ca',
-          name: 'Alex'
+          name: 'Alex',
         },
         {
           username: 'shawn',
           email: 'shawn.turple@gov.bc.ca',
-          name: 'Shawn'
+          name: 'Shawn',
         },
         {
           username: 'craig',
           email: 'craig.robertson@gov.bc.ca',
-          name: 'Craig'
+          name: 'Craig',
         },
         {
           username: 'adam',
           email: 'adam.spiteri@gov.bc.ca',
-          name: 'Adam'
-        }
+          name: 'Adam',
+        },
       ]);
     });
 };

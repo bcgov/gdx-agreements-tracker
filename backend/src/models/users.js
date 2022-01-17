@@ -24,7 +24,7 @@ const addOne = (userInfo) => {
   const newUser = {
     name: userInfo.name,
     email: userInfo.email,
-    username: userInfo.preferred_username
+    username: userInfo.preferred_username,
   }
   return db(table).insert(newUser, "id");
 };
@@ -50,5 +50,5 @@ module.exports = {
   findByEmail,
   addOne,
   updateOne,
-  removeOne
+  removeOne,
 };

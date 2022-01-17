@@ -104,7 +104,7 @@ const addOne = async (request, reply) => {
     userCan(request, 'users_create_mine')
   ) {
     const target = {
-      name: request.body.name
+      name: request.body.name,
     }
     try {
       const result = await Model.addOne(target);
@@ -138,7 +138,7 @@ const updateOne = async (request, reply) => {
   ){
     const target = {
       id: Number(request.params.id),
-      name: request.body.name
+      name: request.body.name,
     }
     try {
       const result = await Model.updateOne(target);
@@ -192,5 +192,5 @@ module.exports = {
     getOne,
     addOne,
     updateOne,
-    deleteOne
+    deleteOne,
 }

@@ -1,4 +1,8 @@
 ## Developer Changelog
+### January 17, 2022 WD-3815 part 4
+* backend
+    * various small changes to please the linter in preparation for enabling backend linting check github action.
+
 ### January 14, 222 WD-3774
 * backend
     * added user role checking for the user controller.

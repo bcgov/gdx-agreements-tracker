@@ -1,0 +1,47 @@
+name: Lint and Test API Backend
+on:
+  pull_request:
+    branches:
+      - development
+    paths:
+      - "backend/**/*"
+      - "!backend/.eslintrc.json"
+      - "!backend/Dockerfile*"
+      - "!backend/.dockerignore"
+      - "!backend/docs"
+      - "!backend/README.md"
+      - "!backend/src/**/README.md"
+
+  workflow_dispatch:
+defaults:
+  run:
+    working-directory: backend/
+jobs:
+  static_checks:
+    if: github.repository_owner == 'bcgov' && github.event.pull_request.draft == false
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Caching node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install packages
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+      #- name: Run Tests
+      #  run: npm run test

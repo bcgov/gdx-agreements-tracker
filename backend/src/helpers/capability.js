@@ -66,7 +66,7 @@ const getManagerRoles = () => {
 
 const getGdxRoles = () =>  {
   const gdxRoles = [
-    'reports_read_all'
+    'reports_read_all',
   ];
   return [...gdxRoles, ...getSubscriberRoles(), ...getNoneRoles()];
 }
@@ -77,7 +77,7 @@ const getGdxRoles = () =>  {
  */
 const getSubscriberRoles = () => {
   const subscriberRoles = [
-    'users_read_mine'
+    'users_read_mine',
   ];
   return [...subscriberRoles, ...getNoneRoles()];
 }
@@ -94,5 +94,5 @@ const getNoneRoles = () => {
 
 
 module.exports = {
-    getCapability
+    getCapability,
 }

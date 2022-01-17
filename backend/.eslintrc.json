@@ -23,6 +23,7 @@
           }
         ],
         "yoda": [ "error", "always", { "onlyEquality" : true } ],
-        "eqeqeq": ["error", "always" ]
+        "eqeqeq": ["error", "always" ],
+        "no-unused-vars": ["error", { "args": "none" }]
     }
 }

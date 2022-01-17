@@ -4,10 +4,10 @@ const dbConnection = new DatabaseConnection();
 
 const state = {
   connections: {
-    data: false
+    data: false,
   },
   ready: false,
-  shutdown: false
+  shutdown: false,
 };
 let probeId;
 
@@ -46,7 +46,7 @@ const cleanup = () => {
 const initializeConnections = () => {
   // Initialize connections and exit if unsuccessful
   const tasks = [
-    dbConnection.checkAll()
+    dbConnection.checkAll(),
   ];
 
   Promise.all(tasks)
@@ -86,7 +86,7 @@ const checkConnections = () => {
   const wasReady = state.ready;
   if (!state.shutdown) {
     const tasks = [
-      dbConnection.checkConnection()
+      dbConnection.checkConnection(),
     ];
 
     Promise.all(tasks).then(results => {
@@ -125,5 +125,5 @@ module.exports = {
   initializeConnections,
   registerSignalHandlers,
   shutdown,
-  state
+  state,
 }
