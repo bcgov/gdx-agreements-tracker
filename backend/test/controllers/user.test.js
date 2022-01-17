@@ -6,7 +6,14 @@ jest.mock("../../src/models/users");
 describe("Testing user controllers", () => {
     it("Gets an array of all users", async () => {
         userModel.findAll.mockResolvedValue([{ id: 1, name: 'Jimbo' }]);
-        const result = await getAll();
+        const sampleRequest = {
+            user: {
+                capability: [
+                    'users_read_all'
+                ]
+            }
+        };
+        const result = await getAll(sampleRequest);
 
         expect(Array.isArray(result)).toBe(true);
         result.forEach((userObject) => expect("id" in userObject).toBe(true));
@@ -14,7 +21,14 @@ describe("Testing user controllers", () => {
 
     it("Gets an individual user by ID.", async () => {
         userModel.findById.mockResolvedValue([{ id: 2, name: 'Jimbo' }]);
-        const sampleRequest = { params: { id: 2 } };
+        const sampleRequest = { 
+            params: { id: 2 },
+            user: {
+                capability: [
+                    'users_read_all'
+                ]
+            }
+        };
         const result = await getOne(sampleRequest);
 
         expect("id" in result).toBe(true);
@@ -23,7 +37,14 @@ describe("Testing user controllers", () => {
 
     it("Adds a user", async () => {
         userModel.addOne.mockResolvedValue({ id: 2, name: 'Jimbo Jones' });
-        const sampleRequest = { body: { name: "Jimbo Jones"} };
+        const sampleRequest = { 
+            body: { name: "Jimbo Jones"},
+            user: {
+                capability: [
+                    'users_create_all'
+                ]
+            }
+        };
         const result = await addOne(sampleRequest);
 
         expect("id" in result).toBe(true);
@@ -39,6 +60,11 @@ describe("Testing user controllers", () => {
             }, 
             body: {
                 name: "Delroy Lindo"
+            },
+            user: {
+                capability: [
+                    'users_update_all'
+                ]
             }
         };
         const result = await updateOne(sampleRequest);
@@ -51,6 +77,11 @@ describe("Testing user controllers", () => {
         const sampleRequest = {
             params: {
                 id: 2
+            },
+            user: {
+                capability: [
+                    'users_delete_all'
+                ]
             }
         };
         const result = await deleteOne(sampleRequest);

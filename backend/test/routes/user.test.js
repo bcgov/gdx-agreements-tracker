@@ -1,10 +1,10 @@
-const serverConfig = require('../../src/helpers/config');
-const authHelper = require("../../src/helpers/auth");
+const serverConfig = require('../../src/facilities/fastify');
+const authHelper = require("../../src/facilities/keycloak");
 const userModel = require("../../src/models/users.js");
 let app;
 
 // Mock authentication so we can test routes themselves.
-jest.mock("../../src/helpers/auth");
+jest.mock("../../src/facilities/keycloak");
 // Mock user DB methods.
 jest.mock("../../src/models/users");
 
@@ -23,12 +23,25 @@ describe("Attempting to access any server route without a bearer token.", () => 
     });
 });
 
-describe("Access user routes", () => {
+describe("Access user routes with valid user", () => {
     beforeEach(() => {
         app = serverConfig();
         // Mock authentication functions so we can access routes.
         authHelper.getBearerTokenFromRequest.mockReturnValueOnce('tokenString');
         authHelper.verifyToken.mockResolvedValue(true);
+        authHelper.getUserInfo.mockReturnValue({
+            name: 'test-name',
+            email: 'test@example.com',
+            preferred_username: 'preferred_test-name',
+            roles: [],
+            role: 'admin',
+            capability: [
+                'users_create_all',
+                'users_update_all',
+                'users_delete_all',
+                'users_read_all'
+            ]
+        });
     });
 
     it("Should get a list of users when you hit /api/users", async () => {
@@ -54,5 +67,34 @@ describe("Access user routes", () => {
         expect(response.statusCode).toBe(200);
         expect("id" in responseBody.data).toBe(true);
         expect("name" in responseBody.data).toBe(true);
+    })
+});
+
+
+describe("Access user routes with no user", () => {
+    beforeEach(() => {
+        app = serverConfig();
+        // Mock authentication functions so we can access routes.
+        authHelper.getBearerTokenFromRequest.mockReturnValueOnce('tokenString');
+        authHelper.verifyToken.mockResolvedValue(true);
+        authHelper.getUserInfo.mockReturnValue(null);
+    });
+
+    it("Should get a list of users when you hit /api/users", async () => {
+        userModel.findAll.mockResolvedValue([{ id: 1, name: 'Alex' }]);
+        const response = await app.inject({
+            method: 'GET',
+            url: '/users',
+        });
+        expect(response.statusCode).toBe(401);
+    });
+
+    it("Should get a single user object when you hit /api/users/:id with a valid ID", async () => {
+        userModel.findById.mockResolvedValue([{ id: 1, name: 'Alex' }]);
+        const response = await app.inject({
+            method: 'GET',
+            url: '/users/1',
+        });
+        expect(response.statusCode).toBe(401);
     })
 });

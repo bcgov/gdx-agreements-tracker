@@ -11,26 +11,23 @@
  * Roles are meant to be hierarchical, meaning the admin will have all the capabilities of manager, gdx, subscriber and none.
  * 
  * @param   {string}  role  The role name admin | manager | gdx | subscriber | none.
+ * @param   {Array}  realmAccessRoles  An array of the roles from keycloak, at this time should only be [pmo-sys-admin] | [].
  * @todo Add tests once methods are more defined for use.
  *
  * @return  {Array}        An array of the capabilities a role has.
  */
-const getCapability = (role) => {
+const getCapability = (role, realmAccessRoles) => {
   let capability = []
-  switch (role) {
-    case 'admin':
-      capability = capability.concat(roleAdmin)
-    case 'manager':
-      capability = capability.concat(roleManager)
-    case 'gdx':
-      capability = capability.concat(roleGdx) 
-    case 'subscriber':
-      capability = capability.concat(roleSubscriber)
-    case 'none':
-      capability = capability.concat(roleNone)
-      break;
-    default:
-      break;
+  if ( realmAccessRoles.includes('pmo-sys-admin') || 'admin' === role ){
+    capability = getAdminRoles();
+  } else if ('manager' === role){
+    capability = getManagerRoles();
+  } else if ('gdx' === role) {
+    capability = getGdxRoles();
+  } else if ('subscriber' === role){
+    capability = getSubscriberRoles();
+  } else {
+    capability = getNoneRoles();
   }
   return capability;
 }
@@ -38,49 +35,62 @@ const getCapability = (role) => {
 /**
  * The capabilities for admin.
  *
- * @var {Array}
+ * @return  {Array}
  */
-const roleAdmin =  [
-  'users_create_all',
-  'users_read_all',
-  'users_update_all',
-  'users_delete_all',
-]
+const getAdminRoles = () => {
+  const adminRoles = [
+    'users_create_all',
+    'users_read_all',
+    'users_update_all',
+    'users_delete_all',
+  ];
+  return [...adminRoles, ...getManagerRoles(), ...getGdxRoles(), ...getSubscriberRoles(), ...getNoneRoles()];
+}
+
 
 /**
  * The capabilities for manager.
  *
- * @var {Array}
+ * @return {Array}
  */
-const roleManager = []
+const getManagerRoles = () => {
+  const managerRoles = [];
+  return [...managerRoles, ...getGdxRoles(), ...getSubscriberRoles(), ...getNoneRoles()];
+}
 
 /**
  * The capabilities for gdx.
  *
- * @var {Array}
+ * @return {Array}
  */
 
-const roleGdx = [
-  'reports_read_all'
-]
-
+const getGdxRoles = () =>  {
+  const gdxRoles = [
+    'reports_read_all'
+  ];
+  return [...gdxRoles, ...getSubscriberRoles(), ...getNoneRoles()];
+}
 /**
  * The capabilities for subscriber.
  *
- * @var {Array}
+ * @return {Array}
  */
-const roleSubscriber = [
-  'users_read_mine'
-]
+const getSubscriberRoles = () => {
+  const subscriberRoles = [
+    'users_read_mine'
+  ];
+  return [...subscriberRoles, ...getNoneRoles()];
+}
 
 /**
  * The capabilities for none.
  *
- * @var {Array}
+ * @return {Array}
  */
-const roleNone = [
-
-]
+const getNoneRoles = () => {
+  const noneRoles = [];
+  return noneRoles;
+} 
 
 
 module.exports = {
