@@ -9,6 +9,7 @@ export const Admin: FC = () => {
     <>
       <Sidebar />
       <Main>
+        <h2>Admin</h2>
         <Outlet />
       </Main>
     </>
@@ -17,29 +18,4 @@ export const Admin: FC = () => {
 
 export const AdminDebug: FC = () => {
   return <Debug />;
-};
-
-export const Contacts: FC = () => {
-  let { id } = useParams();
-  return <h2>Contacts {id}</h2>;
-};
-
-export const Suppliers: FC = () => {
-  let { id } = useParams();
-  return <h2>Suppliers {id}</h2>;
-};
-
-export const SubContractors: FC = () => {
-  let { id } = useParams();
-  return <h2>Subcontractors {id}</h2>;
-};
-
-export const Resources: FC = () => {
-  let { id } = useParams();
-  return <h2>Resources {id}</h2>;
-};
-
-export const Ministries: FC = () => {
-  let { id } = useParams();
-  return <h2>Ministries {id}</h2>;
 };
