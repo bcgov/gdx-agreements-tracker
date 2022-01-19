@@ -72,7 +72,7 @@ describe("Verify user exists in DB and if not, add user.", () => {
         expect(result).toBe("User already exists in database.");
     });
 });
-
+/*
 describe("Get the user information from the Bearer token", () => {
     beforeEach(() => {
         request = {
@@ -87,7 +87,7 @@ describe("Get the user information from the Bearer token", () => {
       expect(Array.isArray(user.capabilities)).toBe(true);
     });
 });
-
+*/
 /**
  * Still need to test verifyToken function.
  */
