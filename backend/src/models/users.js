@@ -40,6 +40,15 @@ const removeOne = (id) => {
   return db(table).where("id", id).del();
 };
 
+const addRoleToOne = (roleName, userId) => {
+  db("roles")
+    .pluck("id")
+    .where("name", roleName)
+    .then((roleId) => {
+      return db("user_roles").insert({ role_id: roleId[0], user_id: userId }, "id");
+    });
+};
+
 module.exports = {
   findAll,
   findById,
@@ -47,4 +56,5 @@ module.exports = {
   addOne,
   updateOne,
   removeOne,
+  addRoleToOne,
 };

@@ -1,7 +1,7 @@
 const jwksClient = require("jwks-client");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/users");
-const { getCapability } = require("../helpers/capability");
+const capabilityModel = require("../models/capabilities");
 
 /**
  * Parse the request header for the authorization token.
@@ -81,7 +81,11 @@ const verifyUserExists = (token) => {
           if (0 === user.length) {
             userModel
               .addOne(userPayload)
-              .then((id) => resolve(`New user added to database. ID ${id}`))
+              .then(async (id) => {
+                await userModel.addRoleToOne("subscriber", id[0]);
+                await userModel.addRoleToOne("admin", id[0]);
+                resolve(`New user added to database. ID ${id}`);
+              })
               .catch((error) => reject(error));
           } else {
             resolve("User already exists in database.");
@@ -104,22 +108,19 @@ const verifyUserExists = (token) => {
  * @returns {object}  The User object.
  *
  */
-const getUserInfo = (req) => {
+const getUserInfo = async (req) => {
   const token = getBearerTokenFromRequest(req);
   const decodedToken = jwt.decode(token, { complete: true });
   if (decodedToken) {
     const payload = decodedToken.payload;
-    // This role will eventually come from the database.
-    const role = "none";
-    const realmAccessRoles = payload.realm_access?.roles || [];
-    const capability = getCapability(role, realmAccessRoles);
+    const user = await userModel.findByEmail(payload.email).then((r) => r[0]);
+    const capabilities = user ? await capabilityModel.findAllByUserId(user.id).then() : [];
     return {
       name: payload.name,
       email: payload.email,
       preferred_username: payload.preferred_username,
       roles: payload.realm_access?.roles,
-      role,
-      capability,
+      capabilities: capabilities,
     };
   }
   return;
