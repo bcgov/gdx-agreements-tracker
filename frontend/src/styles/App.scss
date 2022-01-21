@@ -1,29 +1,24 @@
 @import "@bcgov/bc-sans/css/BCSans.css";
-@import './components/variables';
+@import "./components/variables";
 
 body {
-    margin: 0;
-    font-family: BCSans, Calibri, Arial, sans serif;
+  margin: 0;
+  font-family: BCSans, Calibri, Arial, sans serif;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .pmo-app {
-    color: $text-color;
-    display: flex;
-    flex: 1;
-    /*flex-flow: nowrap;*/
-    //margin: 0 auto;
-    //max-width: 100%;
-    //height: 100%;
+  color: $text-color;
+  display: flex;
+  flex: auto;
 }
 
 main {
-    padding: 1rem;
-}
-
-
-// Not sure what this iframe with no src does, but it seems to overlay everything.
-iframe {
-    &:not(src) {
-        display: none;
-    }
+  flex: auto;
+  padding: 1rem;
 }

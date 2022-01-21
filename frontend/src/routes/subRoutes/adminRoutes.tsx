@@ -1,10 +1,9 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
-import { Admin } from "../../pages/Admin/index";
+import { Admin } from "../../pages";
 import { PageLink } from "../../components/PageLink";
-
-import { Users } from "../../pages/Users";
+import { Users } from "../../pages/Admin/Users";
 
 /**
  * Routes for Admin pages.
@@ -61,26 +60,8 @@ const routes = [
         />
       }
     />
-    <Route
-      path="user"
-      element={
-        <ProtectedRoute
-          component={() => {
-            return PageLink("Users");
-          }}
-        />
-      }
-    />
-    <Route
-      path="user/:userId"
-      element={
-        <ProtectedRoute
-          component={() => {
-            return PageLink("Users");
-          }}
-        />
-      }
-    />
+    <Route path="users" element={<ProtectedRoute component={Users} />} />
+    <Route path="users/:userId" element={<ProtectedRoute component={Users} />} />
   </Route>,
 ];
 

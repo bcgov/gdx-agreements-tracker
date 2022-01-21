@@ -1,12 +1,10 @@
 import React, { FC } from "react";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import projectRoutes from "./routes/projectRoutes";
-import contractRoutes from "./routes/contractRoutes";
-import adminRoutes from "./routes/adminRoutes";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import PageNotFound from "../pages/PageNotFound";
+import projectRoutes from "./subRoutes/projectRoutes";
+import contractRoutes from "./subRoutes/contractRoutes";
+import adminRoutes from "./subRoutes/adminRoutes";
+import { Home, Login, PageNotFound } from "../pages";
 
 const AppRouter: FC = () => {
   return (

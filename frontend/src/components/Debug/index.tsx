@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import "./index.scss";
+import "./debug.scss";
 import keycloak from "../../keycloak";
 
 /**
@@ -8,7 +8,7 @@ import keycloak from "../../keycloak";
  *
  * @returns {JSXNode}
  */
-const Debug: FC = () => {
+export const Debug: FC = () => {
   /**
    * Parses the object of keycloak.idTokenParsed, to give a list of all tokens.
    *

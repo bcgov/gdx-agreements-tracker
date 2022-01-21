@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import "./index.scss";
+import "./sideBar.scss";
 import ButtonNav from "../ButtonNav";
 
 interface Props {
   state?: Object;
 }
 
-const Sidebar: FC<Props> = ({ state }) => {
+export const Sidebar: FC<Props> = ({ state }) => {
   return (
     <aside>
       <section className="nav-section">

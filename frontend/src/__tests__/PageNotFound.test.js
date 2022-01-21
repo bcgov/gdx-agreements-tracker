@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { MemoryRouter } from "react-router-dom";
-import AppRouter from "../router/AppRouter";
+import AppRouter from "../routes";
 import PageNotFound from "../pages/PageNotFound";
 
 describe("<PageNotFound /> routing", () => {

@@ -1,9 +1,9 @@
 import React from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import Main from "../../components/Main";
 
-export const List = () => {
+export const Contracts = () => {
   return (
     <>
       <Sidebar />
@@ -11,16 +11,6 @@ export const List = () => {
         <h2>Contract List</h2>
         <Outlet />
       </Main>
-    </>
-  );
-};
-
-export const Details = () => {
-  let { contractId } = useParams();
-  return (
-    <>
-      <h2>Contract Details {contractId}</h2>
-      <Outlet />
     </>
   );
 };

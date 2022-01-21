@@ -1,14 +1,13 @@
 import React, { FC } from "react";
-import "./index.scss";
 import Header from "../Header";
-
-const Main: FC = ({ children }) => {
+import Footer from "../Footer";
+export const Main: FC = ({ children }: any) => {
   return (
-    <section className="main-section">
+    <body>
       <Header />
       <main>{children}</main>
-      <footer></footer>
-    </section>
+      <Footer />
+    </body>
   );
 };
 
