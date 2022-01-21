@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, SyntheticEvent } from "react";
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { Sidebar, Main, RowEditDeleteChip } from "../../../components";
+import { RowEditDeleteChip } from "../../../components";
 import { IUser } from "../../../types";
 import { apiAxios } from "../../../utils";
 
