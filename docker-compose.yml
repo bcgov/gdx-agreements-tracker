@@ -25,7 +25,6 @@ services:
       ]
     volumes:
       - ./frontend:/app
-      - ../node_modules/frontend:/app/node_modules
       - ./docker/log/frontend:/var/log
     depends_on:
       - backend
@@ -53,7 +52,6 @@ services:
       ]
     volumes:
       - ./backend:/usr/scr/app
-      - ../node_modules/backend:/usr/scr/app/node_modules
       - ./docker/log/backend:/var/log
 
     depends_on:
@@ -90,7 +88,7 @@ services:
     networks:
       - gat-node
     ports:
-      - "81:80"
+      - "80:80"
 
 networks:
   gat-db:
