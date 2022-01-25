@@ -4,8 +4,6 @@ import "./footer.scss";
 export const Footer: FC = () => {
   const theme = useTheme();
 
-  console.log(`theme.palette`, theme.palette);
-
   return <footer id={"BcFooter"}></footer>;
 };
 

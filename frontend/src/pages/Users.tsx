@@ -14,7 +14,6 @@ export const Users: FC = () => {
 
   const handleSubmitSearch = (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log("search for", userSearchBy);
   };
 
   const handleRowMouseEnter = (e: any) => {
@@ -31,10 +30,9 @@ export const Users: FC = () => {
       .get("users")
       .then((data: any) => {
         setUserData(data);
-        console.log(data);
       })
       .catch((error: any) => {
-        console.log(error);
+        console.error(error);
       });
   }, []);
 
