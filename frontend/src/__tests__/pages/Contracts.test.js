@@ -1,3 +1,4 @@
+import React from "react";
 import { render } from "@testing-library/react";
 import { Sidebar, Main } from "../../components";
 import contractRoutes from "../../routes/subRoutes/contractRoutes";
@@ -10,7 +11,7 @@ jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
 describe("Contract page testing", () => {
-  it("rendered the Sidebar list component ", () => {
+  it("rendered the Sidebar list component", () => {
     const { getByTestId } = render(
       <MemoryRouter>
         <Sidebar />
@@ -18,13 +19,13 @@ describe("Contract page testing", () => {
     );
 
     const sideBarSection = getByTestId("sideBarSection");
-    expect(sideBarSection).toBeTruthy;
+    expect(sideBarSection).toBeTruthy();
   });
 
-  it("rendered the Main component ", () => {
+  it("rendered the Main component", () => {
     const { getByTestId } = render(<Main />);
     const mainBody = getByTestId("mainBody");
-    expect(mainBody).toBeTruthy;
+    expect(mainBody).toBeTruthy();
   });
 });
 

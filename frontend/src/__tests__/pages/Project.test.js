@@ -1,4 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import React from "react";
+
+import { render } from "@testing-library/react";
 import { Sidebar, Main } from "../../components";
 import projectRoutes from "../../routes/subRoutes/projectRoutes";
 import { MemoryRouter, Routes } from "react-router-dom";
@@ -11,7 +13,7 @@ jest.mock("@react-keycloak/web", () => ({
 }));
 
 describe("Project page testing", () => {
-  it("rendered the Sidebar list component ", () => {
+  it("rendered the Sidebar list component", () => {
     const { getByTestId } = render(
       <MemoryRouter>
         <Sidebar />
@@ -19,13 +21,13 @@ describe("Project page testing", () => {
     );
 
     const sideBarSection = getByTestId("sideBarSection");
-    expect(sideBarSection).toBeTruthy;
+    expect(sideBarSection).toBeTruthy();
   });
 
-  it("rendered the Main component ", () => {
+  it("rendered the Main component", () => {
     const { getByTestId } = render(<Main />);
     const mainBody = getByTestId("mainBody");
-    expect(mainBody).toBeTruthy;
+    expect(mainBody).toBeTruthy();
   });
 });
 
