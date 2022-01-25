@@ -9,7 +9,7 @@ interface Props {
 export const Sidebar: FC<Props> = ({ state }) => {
   return (
     <aside>
-      <section className="nav-section">
+      <section data-testId={"sideBarSection"} className="nav-section">
         <h2>GDX Agreements Tracker</h2>
         <nav>
           <ButtonNav to={`/project`}>Project List</ButtonNav>

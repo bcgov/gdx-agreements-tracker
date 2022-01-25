@@ -4,7 +4,7 @@ import ProtectedRoute from "../ProtectedRoute";
 import { PageLink } from "../../components/PageLink";
 import { Contract, Contracts } from "../../pages";
 const contractRoutes = [
-  <Route key="contracts" path="/contract" element={<ProtectedRoute component={Contracts} />}>
+  <Route key="contracts" path="/contracts" element={<ProtectedRoute component={Contracts} />}>
     <Route path=":contractId" element={<ProtectedRoute component={Contract} />} />
     <Route
       path="resources"

@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes } from "react-router-dom";
-import adminRoutes from "../../router/routes/adminRoutes";
+import adminRoutes from "../../routes/subRoutes/adminRoutes";
 import { Admin } from "../../pages/Admin";
 import Sidebar from "../../components/Sidebar";
 import Main from "../../components/Main";
@@ -31,7 +31,7 @@ describe("<Admin /> routing", () => {
         <Routes key="main">{adminRoutes}</Routes>
       </MemoryRouter>
     );
-    const linkElement = screen.getByText(/Admin/i);
+    const linkElement = screen.getByText("Admin");
     expect(linkElement).toBeInTheDocument();
   });
 });

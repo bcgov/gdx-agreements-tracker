@@ -3,7 +3,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 export const Main: FC = ({ children }: any) => {
   return (
-    <body>
+    <body data-testId={"mainBody"}>
       <Header />
       <main>{children}</main>
       <Footer />

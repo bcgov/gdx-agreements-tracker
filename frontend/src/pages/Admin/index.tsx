@@ -8,7 +8,7 @@ export const Admin = () => {
     <>
       <Sidebar />
       <Main>
-        <h2>Contract List</h2>
+        <h2>Admin</h2>
         <Outlet />
       </Main>
     </>

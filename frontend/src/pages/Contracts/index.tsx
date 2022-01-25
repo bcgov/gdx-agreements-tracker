@@ -8,7 +8,7 @@ export const Contracts = () => {
     <>
       <Sidebar />
       <Main>
-        <h2>Contract List</h2>
+        <h2>Contracts List</h2>
         <Outlet />
       </Main>
     </>

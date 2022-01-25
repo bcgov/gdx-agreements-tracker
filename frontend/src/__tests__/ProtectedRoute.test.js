@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
-import ProtectedRoute from "../router/ProtectedRoute";
-import { List } from "../pages/Project";
+import ProtectedRoute from "../routes/ProtectedRoute";
+import { Home } from "../pages/Home";
 
 // Mock react router.
 jest.mock("react-router-dom", () => {
@@ -17,7 +17,7 @@ jest.mock("@react-keycloak/web", () => ({
 
 describe("<ProtectedRoute /> component", () => {
   it("Renders the passed component if keycloak is initialized and authenticated", () => {
-    const protectedRoute = shallow(<ProtectedRoute component={List} />);
-    expect(protectedRoute.containsMatchingElement(<List />)).toEqual(true);
+    const protectedRoute = shallow(<ProtectedRoute component={Home} />);
+    expect(protectedRoute.containsMatchingElement(<Home />)).toEqual(true);
   });
 });
