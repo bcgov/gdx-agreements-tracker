@@ -3,7 +3,7 @@
 # To stop it, run: "docker compose stop"
 # To stop it and remove container instances, run: "docker compose down"
 # Find the server at http://localhost/
-version: '3'
+version: "3"
 x-env:
   POSTGRES_PASSWORD: &POSTGRES_PASSWORD postgres
   POSTGRES_USER: &POSTGRES_USER postgres
@@ -12,78 +12,86 @@ x-env:
   POSTGRES_DATABASE: &POSTGRES_DATABASE gat_db
   DATABASE_AUTO_DEPLOY: &DATABASE_AUTO_DEPLOY 1
 services:
-    frontend:
-        build:
-            context: frontend/
-            dockerfile: Dockerfile.dev
-        restart: always
-        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then yarn install; fi; yarn start 2>&1 | tee /var/log/node.log > /dev/stdout']
-        volumes:
-            - ./frontend:/app
-            - ../node_modules/frontend:/app/node_modules
-            - ./docker/log/frontend:/var/log
-        depends_on:
-            - backend
-        ports:
-            - "3000:3000"
-        networks:
-            - gat-node
-    backend:
-        build:
-            context: backend/
-            dockerfile: Dockerfile.dev
-        restart: always
-        environment:
-            POSTGRES_PASSWORD: *POSTGRES_PASSWORD
-            POSTGRES_USER: *POSTGRES_USER
-            POSTGRES_HOST: *POSTGRES_HOST
-            POSTGRES_PORT: *POSTGRES_PORT
-            POSTGRES_DATABASE: *POSTGRES_DATABASE
-            DATABASE_AUTO_DEPLOY: *DATABASE_AUTO_DEPLOY
-        command: ['sh', '-c', 'if [ ! -d "node_modules" ]; then npm install; fi; npm run start 2>&1 | tee /var/log/node.log > /dev/stdout']
-        volumes:
-            - ./backend:/usr/scr/app
-            - ../node_modules/backend:/usr/scr/app/node_modules
-            - ./docker/log/backend:/var/log
+  frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile.dev
+    restart: always
+    command:
+      [
+        "sh",
+        "-c",
+        'if [ ! -d "node_modules" ]; then yarn install; fi; yarn start 2>&1 | tee /var/log/node.log > /dev/stdout',
+      ]
+    volumes:
+      - ./frontend:/app
+      - ./docker/log/frontend:/var/log
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    networks:
+      - gat-node
+  backend:
+    build:
+      context: backend/
+      dockerfile: Dockerfile.dev
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: *POSTGRES_PASSWORD
+      POSTGRES_USER: *POSTGRES_USER
+      POSTGRES_HOST: *POSTGRES_HOST
+      POSTGRES_PORT: *POSTGRES_PORT
+      POSTGRES_DATABASE: *POSTGRES_DATABASE
+      DATABASE_AUTO_DEPLOY: *DATABASE_AUTO_DEPLOY
+    command:
+      [
+        "sh",
+        "-c",
+        'if [ ! -d "node_modules" ]; then npm install; fi; npm run start 2>&1 | tee /var/log/node.log > /dev/stdout',
+      ]
+    volumes:
+      - ./backend:/usr/scr/app
+      - ./docker/log/backend:/var/log
 
-        depends_on:
-            - db
-        ports:
-            - "8080:8080"
-        networks:
-             - gat-node
-             - gat-db
-    db:
-        image: "postgres:14-alpine"
-        restart: always
-        environment:
-            POSTGRES_PASSWORD: *POSTGRES_PASSWORD
-            POSTGRES_USER: *POSTGRES_USER
-        volumes:
-            - ./docker/postgres:/var/lib/postgresql/data
-        networks:
-            - gat-db
-        ports:
-            - "15432:5432"
-    web:
-        build:
-          context: docker/web/
-          dockerfile: Dockerfile.dev
-        restart: always
-        volumes:
-            - ./frontend/build:/var/www
-            - ./docker/web/nginx.conf:/etc/nginx/nginx.conf
-            - ./docker/log/web:/var/log/nginx
-        #depends_on:
-        #    - backend
-        #    - frontend
-        networks:
-            - gat-node
-        ports:
-            - "81:80"
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - gat-node
+      - gat-db
+  db:
+    image: "postgres:14-alpine"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: *POSTGRES_PASSWORD
+      POSTGRES_USER: *POSTGRES_USER
+    volumes:
+      - ./docker/postgres:/var/lib/postgresql/data
+    networks:
+      - gat-db
+    ports:
+      - "15432:5432"
+  web:
+    build:
+      context: docker/web/
+      dockerfile: Dockerfile.dev
+    restart: always
+    volumes:
+      - ./frontend/build:/var/www
+      - ./docker/web/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/log/web:/var/log/nginx
+    #depends_on:
+    #    - backend
+    #    - frontend
+    networks:
+      - gat-node
+    ports:
+      - "80:80"
 
 networks:
-    gat-db:
-        driver: bridge
-    gat-node:
-        driver: bridge
+  gat-db:
+    driver: bridge
+  gat-node:
+    driver: bridge
