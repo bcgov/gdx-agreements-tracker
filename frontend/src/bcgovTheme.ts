@@ -5,6 +5,7 @@ import { createTheme } from "@mui/material/styles";
  *
  * @see https://mui.com/customization/theming/
  */
+
 const bcgovTheme = createTheme({
   palette: {
     primary: {

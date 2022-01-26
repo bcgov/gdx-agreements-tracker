@@ -1,17 +1,22 @@
-// import { User } from "../../pages/Admin";
+import React from "react";
+import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
+import { MemoryRouter, Routes } from "react-router-dom";
+import adminRoutes from "../../routes/subRoutes/adminRoutes";
+import { Users } from "../../pages/";
 
-jest.mock("react-router-dom", () => ({
-  useParams: () => ({ userId: null }),
+//Mock keycloak.
+jest.mock("@react-keycloak/web", () => ({
+  useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
 
-describe("User Api call", () => {
-  // it("renders Users display page when '/admin/user' is hit", () => {
-  //   const user = shallow(<User />);
-  //   expect(user.find("h2")).toHaveLength(1);
-  //   expect(user.find("div pre")).toHaveLength(1);
-  // });
-
-  it("is a dummy test", () => {
-    expect(true).toBe(true);
+describe("<Admin /> routing", () => {
+  it("renders Admin page when '/admin' is hit", () => {
+    render(
+      <MemoryRouter initialEntries={["/admin/users"]}>
+        <Routes key="main">{adminRoutes}</Routes>
+      </MemoryRouter>
+    );
+    shallow(<Users />);
   });
 });

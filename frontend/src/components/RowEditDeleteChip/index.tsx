@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import "./index.scss";
+import "./rowEditDeleteChip.scss";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -12,7 +12,7 @@ interface IProps {
   deleteCallback: (...args: any[]) => any;
 }
 
-const RowEditDeleteChip: FC<IProps> = ({ editCallback, deleteCallback }) => {
+export const RowEditDeleteChip: FC<IProps> = ({ editCallback, deleteCallback }) => {
   return (
     <div className="row-edit-delete-chip">
       <EditIcon className="edit-icon" sx={{ color: "secondary.main" }} onClick={editCallback} />

@@ -1,23 +1,18 @@
 import React, { FC, useState, useEffect, SyntheticEvent } from "react";
-import "./index.scss";
-import { IUser } from "../../types/users";
-import apiAxios from "../../utils/apiAxios";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import RowEditDeleteChip from "../../components/RowEditDeleteChip";
+
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { RowEditDeleteChip } from "../../../components";
+import { IUser } from "../../../types";
+import { apiAxios } from "../../../utils";
+
+import "./users.scss";
 
 export const Users: FC = () => {
   const [userData, setUserData] = useState<any>();
-  const [userSearchBy, setUserSearchBy] = useState<string>("");
   const [userEditChipRowLocation, setUserEditChipRowLocation] = useState<number>(-1);
 
   const handleSubmitSearch = (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log("search for", userSearchBy);
   };
 
   const handleRowMouseEnter = (e: any) => {
@@ -32,12 +27,11 @@ export const Users: FC = () => {
     const axiosResponse = apiAxios();
     axiosResponse
       .get("users")
-      .then((data) => {
+      .then((data: any) => {
         setUserData(data);
-        console.log(data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((error: any) => {
+        console.error(error);
       });
   }, []);
 
@@ -50,11 +44,7 @@ export const Users: FC = () => {
             <label className="user-search-label" htmlFor="user-search-input">
               Search
             </label>
-            <input
-              type="text"
-              id="user-search-input"
-              onChange={(e) => setUserSearchBy(e.target.value)}
-            ></input>
+            <input type="text" id="user-search-input"></input>
             <button type="submit">Search</button>
           </form>
           <form className="filter-form user-filter-form">

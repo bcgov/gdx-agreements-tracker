@@ -1,28 +1,14 @@
-import React, { FC, useEffect } from "react";
-// import { useKeycloak } from "@react-keycloak/web";
+import { useTheme } from "@mui/material";
+import React, { FC } from "react";
+import "./header.scss";
+export const Header: FC = () => {
+  const theme = useTheme();
 
-// interface IUserInfo {
-//   displayName?: string;
-//   username: string;
-//   name?: string;
-//   preferred_username?: string;
-//   firstName?: string;
-//   lastName?: string;
-//   email: string;
-//   groups: string[];
-//   roles: string[];
-//   given_name?: string;
-//   family_name?: string;
-//   agencies: number[];
-// }
+  const headerStyle = {
+    background: theme.palette.primary.main,
+  };
 
-const Header: FC = () => {
-  //   let userInfo: IUserInfo;
-  //   const { initialized, keycloak } = useKeycloak();
-
-  useEffect(() => {});
-
-  return <header></header>;
+  return <header id={"BcHeader"} style={headerStyle}></header>;
 };
 
 export default Header;

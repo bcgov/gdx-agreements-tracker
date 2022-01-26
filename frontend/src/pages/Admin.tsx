@@ -1,16 +1,19 @@
 import React from "react";
+
+import Sidebar from "../components/Sidebar";
+import Main from "../components/Main";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../../components/Sidebar";
-import Main from "../../components/Main";
 
 export const Admin = () => {
   return (
     <>
       <Sidebar />
       <Main>
-        <h2>Admin</h2>
+        <h1>Admin</h1>
         <Outlet />
       </Main>
     </>
   );
 };
+
+export default Admin;

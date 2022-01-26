@@ -1,18 +1,16 @@
 import React from "react";
-
 import { render } from "@testing-library/react";
 import { Sidebar, Main } from "../../components";
-import projectRoutes from "../../routes/subRoutes/projectRoutes";
+import contractRoutes from "../../routes/subRoutes/contractRoutes";
 import { MemoryRouter, Routes } from "react-router-dom";
-import { Projects } from "../../pages";
+import { Contracts } from "../../pages";
 import { shallow } from "enzyme";
 
 //Mock keycloak.
 jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
-
-describe("Project page testing", () => {
+describe("Contract page testing", () => {
   it("rendered the Sidebar list component", () => {
     const { getByTestId } = render(
       <MemoryRouter>
@@ -31,13 +29,13 @@ describe("Project page testing", () => {
   });
 });
 
-describe("<Projects /> routing", () => {
-  it("renders Projects page when '/admin' is hit", () => {
+describe("<Contracts /> routing", () => {
+  it("renders Contracts page when '/admin' is hit", () => {
     render(
-      <MemoryRouter initialEntries={["/projects"]}>
-        <Routes key="main">{projectRoutes}</Routes>
+      <MemoryRouter initialEntries={["/contracts"]}>
+        <Routes key="main">{contractRoutes}</Routes>
       </MemoryRouter>
     );
-    shallow(<Projects />);
+    shallow(<Contracts />);
   });
 });

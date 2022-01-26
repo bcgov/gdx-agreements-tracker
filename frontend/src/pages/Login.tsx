@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import "./index.scss";
 import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
+import { Main } from "../components";
 
-const Login: FC = () => {
+export const Login: FC = () => {
   const [searchParams] = useSearchParams();
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
@@ -22,12 +22,10 @@ const Login: FC = () => {
 
   return (
     <div className="login-page">
-      <header></header>
-      <main>
+      <Main>
         <p>Login now</p>
         <button onClick={() => keycloak.login()}>Login here</button>
-      </main>
-      <footer></footer>
+      </Main>
     </div>
   );
 };

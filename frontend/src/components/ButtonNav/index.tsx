@@ -7,7 +7,7 @@ import type { LinkProps } from "react-router-dom";
  *
  * @returns
  */
-const ButtonNav = ({ children, to, ...props }: LinkProps) => {
+export const ButtonNav = ({ children, to, ...props }: LinkProps) => {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
   if (match) {
