@@ -9,7 +9,6 @@ import "./users.scss";
 
 export const Users: FC = () => {
   const [userData, setUserData] = useState<any>();
-  const [userSearchBy, setUserSearchBy] = useState<string>("");
   const [userEditChipRowLocation, setUserEditChipRowLocation] = useState<number>(-1);
 
   const handleSubmitSearch = (e: SyntheticEvent) => {
@@ -45,11 +44,7 @@ export const Users: FC = () => {
             <label className="user-search-label" htmlFor="user-search-input">
               Search
             </label>
-            <input
-              type="text"
-              id="user-search-input"
-              onChange={(e) => setUserSearchBy(e.target.value)}
-            ></input>
+            <input type="text" id="user-search-input"></input>
             <button type="submit">Search</button>
           </form>
           <form className="filter-form user-filter-form">
