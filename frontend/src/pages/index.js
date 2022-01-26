@@ -6,4 +6,4 @@ export { Login } from "./Login";
 export { PageNotFound } from "./PageNotFound";
 export { Projects } from "./Projects";
 export { Project } from "./Projects/Project";
-export { Users } from "./Users";
+export { Users } from "./Admin/Users";
