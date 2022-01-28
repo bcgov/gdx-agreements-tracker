@@ -31,7 +31,6 @@ const fastifyInstance = (options) => {
   app
     .decorate("verifyJWT", (req, res, done) => {
       const token = getBearerTokenFromRequest(req);
-      req.log.debug(token);
 
       if (token) {
         verifyToken(token, jwksUri)

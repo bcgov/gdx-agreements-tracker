@@ -6,7 +6,7 @@ import { Sidebar } from "../../";
 
 export const Header = () => {
   return (
-    <AppBar id="BC-Header">
+    <AppBar id="bc-header">
       <Toolbar>
         <Sidebar />
       </Toolbar>

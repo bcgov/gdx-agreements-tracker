@@ -9,6 +9,15 @@
     ],
     "rules": {
       "prettier": true,
-      "interface-name": false
+      "interface-name": false,
+      "no-console": [
+        "log",
+        {
+          "allow": [
+            "error",
+            "warn"
+          ]
+        }
+      ]
     }
   }
