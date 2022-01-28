@@ -1,12 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../../components/Sidebar";
-import Main from "../../components/Main";
+import { Main } from "../../components";
 
 export const Admin = () => {
   return (
     <>
-      <Sidebar />
       <Main>
         <h2>Admin</h2>
         <Outlet />

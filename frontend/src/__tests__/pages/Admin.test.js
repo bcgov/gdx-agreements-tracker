@@ -4,8 +4,6 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes } from "react-router-dom";
 import adminRoutes from "../../routes/subRoutes/adminRoutes";
 import { Admin } from "../../pages/Admin";
-import Sidebar from "../../components/Sidebar";
-import Main from "../../components/Main";
 
 //Mock keycloak.
 jest.mock("@react-keycloak/web", () => ({
@@ -13,15 +11,7 @@ jest.mock("@react-keycloak/web", () => ({
 }));
 
 describe("<Admin /> component", () => {
-  const admin = shallow(<Admin />);
-
-  it("Contains a sidebar component", () => {
-    expect(admin.find(Sidebar)).toHaveLength(1);
-  });
-
-  it("Contains a main component", () => {
-    expect(admin.find(Main)).toHaveLength(1);
-  });
+  shallow(<Admin />);
 });
 
 describe("<Admin /> routing", () => {

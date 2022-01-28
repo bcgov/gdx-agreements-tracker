@@ -29,6 +29,8 @@ export const apiAxios = () => {
     if (req.headers && keycloak.authenticated && keycloak.token) {
       req.headers.Authorization = `Bearer ${keycloak.token}`;
     }
+    console.log("req", req);
+
     return req;
   });
 
@@ -43,7 +45,6 @@ export const apiAxios = () => {
       return Promise.reject(error);
     }
   );
-
   return axiosInstance;
 };
 
