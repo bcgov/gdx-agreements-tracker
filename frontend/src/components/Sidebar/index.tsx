@@ -35,32 +35,32 @@ export const Sidebar = () => {
    */
   const adminLinks = [
     {
-      name: "Contracts",
-      link: "admin/contracts",
+      name: "Contacts",
+      link: "/admin/contacts",
     },
     {
       name: "Suppliers",
-      link: "admin/suppliers",
+      link: "/admin/suppliers",
     },
     {
       name: "Subcontractors",
-      link: "admin/subcontractors",
+      link: "/admin/subcontractors",
     },
     {
       name: "Resources",
-      link: "admin/resources",
+      link: "/admin/resources",
     },
     {
       name: "Ministries / Org Name",
-      link: "admin/ministries",
+      link: "/admin/ministries",
     },
     {
       name: "User Management",
-      link: "admin/userManagement",
+      link: "/admin/userManagement",
     },
     {
       name: "Glossary",
-      link: "admin/glossary",
+      link: "/admin/glossary",
     },
   ];
   /**
@@ -71,7 +71,7 @@ export const Sidebar = () => {
   /**const drawer = The actual links in the sidebar navigation. */
 
   const drawer = (
-    <div>
+    <>
       <Typography variant="h4" noWrap component="div">
         GDX Agreements Tracker
       </Typography>
@@ -86,7 +86,7 @@ export const Sidebar = () => {
           </ListItem>
         ))}
       </List>
-    </div>
+    </>
   );
 
   return (
