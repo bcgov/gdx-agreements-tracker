@@ -3,7 +3,7 @@
 .BC-SideBar-Accordian {
   background: $nav-background;
   flex-shrink: 0;
-  width: 240;
+  width: 240px;
   box-sizing: border-box;
 }
 
@@ -13,5 +13,5 @@
 }
 
 #side-bar-wrapper {
-  background-color: #036;
+  background-color: $primary-color;
 }

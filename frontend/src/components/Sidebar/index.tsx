@@ -56,7 +56,7 @@ export const Sidebar = () => {
     },
     {
       name: "User Management",
-      link: "/admin/userManagement",
+      link: "/admin/users",
     },
     {
       name: "Glossary",
