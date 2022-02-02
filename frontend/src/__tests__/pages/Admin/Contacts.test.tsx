@@ -11,7 +11,7 @@ jest.mock("@react-keycloak/web", () => ({
 }));
 
 describe("<Contacts /> routing", () => {
-  it("renders Contacts page when '/admin' is hit", () => {
+  it("renders Contacts page when '/admin/contacts/' is hit", () => {
     render(
       <MemoryRouter initialEntries={["/admin/contacts/"]}>
         <Routes key="main">{adminRoutes}</Routes>

@@ -1,5 +1,10 @@
 ## Developer Changelog
 
+### February 1, 2022, 2022 WD-3678
+* frontend
+    * added new table component from MUI
+    * added contacts component that leverages the table component
+
 ### January 18, 2022 WD-3772
 * backend
     * added new migrations and seeds for roles, user_roles, role_capabilities, and capabilities tables
