@@ -6,7 +6,7 @@ import { shallow } from "enzyme";
 jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
-describe("Contract page testing", () => {
+describe("<Sidebar/> testing", () => {
   it("rendered the SideBar component", () => {
     const wrapper = shallow(<Sidebar />);
     expect(wrapper.text()).toMatch("Administration Forms");

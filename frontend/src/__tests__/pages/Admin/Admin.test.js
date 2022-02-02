@@ -2,8 +2,8 @@ import React from "react";
 import { shallow } from "enzyme";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Routes } from "react-router-dom";
-import adminRoutes from "../../routes/subRoutes/adminRoutes";
-import { Admin } from "../../pages/Admin";
+import adminRoutes from "../../../routes/subRoutes/adminRoutes";
+import { Admin } from "../../../pages/Admin";
 
 //Mock keycloak.
 jest.mock("@react-keycloak/web", () => ({

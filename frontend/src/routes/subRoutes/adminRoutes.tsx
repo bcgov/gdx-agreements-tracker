@@ -4,22 +4,13 @@ import ProtectedRoute from "../ProtectedRoute";
 import { Admin } from "../../pages";
 import { PageLink } from "../../components/PageLink";
 import { Users } from "../../pages/Admin/Users";
-
+import { Contacts } from "../../pages/Admin/Contacts";
 /**
  * Routes for Admin pages.
  */
 const routes = [
   <Route key="admin" path="/admin" element={<ProtectedRoute component={Admin} />}>
-    <Route
-      path="contacts"
-      element={
-        <ProtectedRoute
-          component={() => {
-            return PageLink("Contacts");
-          }}
-        />
-      }
-    />
+    <Route path="contacts" element={<ProtectedRoute component={Contacts} />} />
     <Route
       path="suppliers"
       element={

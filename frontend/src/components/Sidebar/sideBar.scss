@@ -1,13 +1,17 @@
-@import '../../styles/components/variables';
+@import "../../styles/components/variables";
 
-.BC-SideBar-Accordian{
-    background: $nav-background;
-    flex-shrink: 0;
-    width:240;
-    box-sizing: border-box;
+.BC-SideBar-Accordian {
+  background: $nav-background;
+  flex-shrink: 0;
+  width: 240px;
+  box-sizing: border-box;
 }
 
 .responsive-Img {
-    width: 100%;
-    height: auto;
-  }
+  width: 100%;
+  height: auto;
+}
+
+#side-bar-wrapper {
+  background-color: $primary-color;
+}
