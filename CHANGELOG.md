@@ -1,5 +1,8 @@
 ## Developer Changelog
 
+### March 24, 2022, 2022 DESCW-233
+* added new migrations and seeds for contacts database table
+
 ### March 11, 2022, 2022 DESCW-201
 * fixes to make `docker compose up` work with (co)lima.
   * this change moves the database storage volume inside the VM, so your database will be blank; don't forget to:
