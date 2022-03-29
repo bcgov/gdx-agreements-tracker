@@ -2,95 +2,71 @@
 
 # GDX Agreements Tracker
 
+<mark style="background-color: #fff; padding: 10px;">NOTE: To host this application in docker for local development, please see file here:</mark> [Docker Hosting GDX Agreements Tracker](/documentation/README.md)
+
+Below is the current preferred method for development. (ao. 03/25/2022)<br><br>
+
+## Prerequisites
+
+The following prerequisites are required for this application to function correctly:
+
+*   PostgreSQL
+
+*   NPM (latest stable version)
+
+*   Colima or Docker desktop
+<br><br>
+
+ 
 ## Installation
-* ```git clone https://github.com/bcgov/gdx-agreements-tracker.git```
 
-## Development All-in-One Quick Start
-If you have Docker:
-```bash
-cd gdx-agreements-tracker
-docker compose up --build -d
-```
+1.  Clone the repo to your local development system:
+    >> ```git clone https://github.com/bcgov/gdx-agreements-tracker.git```
+---
 
-**Note**: If this is your first time starting the app, you can populate the database by running the provided migrations and seeders. See the README within the backend directory for more information.
+2. Install dependencies for the backend. 
+    * Open a new terminal in the directory of the repo you just cloned locally and run the following commands: 
+        >>* ```cd /backend``` 
 
-The app is then available at [http://localhost/](http://localhost/). For your reference, the API is available at [http://localhost/api/](http://localhost/api/). The websocket for the frontend react is available at http://localhost:3000/ and as long as the `frontend/.env` file (or other similar facility) specifies the WDS_SOCKET_PORT as 3000, the React live-refresh-upon-code-change feature should work in your browser. 
+        >>* ```npm i``` 
+---
 
-Logs end up in `docker/logs/` in `backend`, `frontend`, and `web` subdirectories for your debugging convenience.
+3. Now install dependencies for the frontend. 
+    * Open a new terminal in the directory of the repo you just cloned locally and run the following commands: 
+        >>* ```cd /frontend```
 
-If you haven't done a `yarn install` or `npm install` in the frontend or backend subdirectories before executing the above, the docker-compose will handle that for you. This is useful if your local node/npm are not the right version.
+        >>* ```yarn i```
+---
 
-### Various Actions Useful for Development
-#### To Stop and Remove All Development Containers
-`docker compose down`
+4. Run the seeders and migrations for the local development database.
+    * To bring your local database up to the latest version run:
+        >>* `docker compose exec backend npx knex migrate:latest`
+        >>* `docker compose exec backend npx knex seed:run`
+---
 
-#### To Update Packages After Changing `package.json`
-* Frontend: `docker compose exec frontend yarn install`
-* Backend: `docker compose exec backend npm install`
+5. Update the .env file in the backend directory ([backend .env](/backend/.env)) with the following:
+    
+    >>NODE_ENV=development<br>
+    JWKSURI=https://oidc.gov.bc.ca/auth/realms/aaoozhcp/protocol/openid-connect/certs<br>
+    POSTGRES_PORT=15432<br>
+    POSTGRES_HOST=localhost<br>
+    POSTGRES_USER=postgres<br>
+    POSTGRES_PASSWORD=postgres<br>
+    POSTGRES_DATABASE=gat_db<br>
+  ---
 
-#### To Stop, Start, Restart, Remove, and Get a Shell Inside a Container
-These are all demonstrated below on the `web` container, but can work on any of `frontend`, `backend`, or `db` as well, just change the container name on the lines below accordingly.
-* Stop: `docker compose stop web`
-* Start: `docker compose start web`
-* Restart: `docker compose restart web`
-* Remove: `docker compose rm web`
-* Get a shell inside the container: `docker compose exec web /bin/sh`
+6. Start the Database container in docker 
+    *   Open a terminal in the root of the project directory and run:
+        >>* ```docker compose start db```
 
-### If You Want to Try a Production Build in Local Dev
-Open `frontend/Docker/nginx.conf` find the `location / {` section and **uncomment the `try_files` line** so the section looks like this:
-```
-location / {
-    # this will let you try out a static build on dev. delete build/index.html to go back to using the node server.
-    # if the request can be served from the build directory, try it first, otherwise shunt it to the proxy.\
-    try_files $uri $uri/ @app_proxy;
-    error_page 403 = @app_proxy;
-    error_page 404 = @app_proxy;
-}
-```
-Then restart the web container:
-* `docker compose restart web`
+7. Start the backend and frontend
+    *   Open a terminal in the /frontend directory and run:
+        >>* ```npm run start```
 
-If your containers are running, as per above:
+    *   Open a terminal in the /backend directory and run:
+        >>* ```npm run start```
 
-* `docker compose exec frontend yarn build` and wait for the build to complete
-* Refresh [http://localhost/](http://localhost/)
-
-To go back to live-refresh local development node server:
-* Temporarily:
-  * Delete the contents of `frontend/build` directory (`rm -rf build/*`)
-  * Refresh [http://localhost/](http://localhost/)
-* Permanently:
-  * Delete the contents of `frontend/build` directory
-  * Comment out the `try_files` line in nginx.conf as per above by placing a `#` before `try_files`
-  * Restart the web container
-    * `docker compose restart web`
-
-## Development à la Carte
-
-### Front End
-
-#### Setup
-* ```cd gdx-agreements-tracker/frontend```
-* ```yarn install```
-* Commands
-    * ```yarn start``` - starts front end app on localhost:3000
-    * ```yarn build``` - builds for production deployment
-
-#### Build
-* ```cd gdx-agreements-tracker-front-end/frontend```
-* ```docker build -t gdx-agreements-tracker-front-end:latest .```
-* Test build by running ```docker run -p 8081:80 --rm gdx-agreements-tracker-front-end```
+8. In your browser, visit localhost:3000 to access the site and login
 
 
-### Back End
-
-#### Setup
-* ```cd gdx-agreements-tracker/backend```
-* ```npm i```
-* Commands
-  * ```npm run start``` - to start api server on localhost:8080
-  * ```npm run test``` - to run tests.
-
-#### Build
-* ```cd gdx-agreements-tracker/backend```
-* ```docker build -t gdx-agreements-tracker-api:latest .```
+### Congratulations, you can now start developing!
