@@ -11,42 +11,36 @@ Below is the current preferred method for development. (ao. 03/25/2022)<br><br>
 The following prerequisites are required for this application to function correctly:
 
 *   PostgreSQL
-
 *   NPM (latest stable version)
-
 *   Colima or Docker desktop
-<br><br>
-
  
 ## Installation
 
 1.  Clone the repo to your local development system:
-    >> ```git clone https://github.com/bcgov/gdx-agreements-tracker.git```
+    ```git clone https://github.com/bcgov/gdx-agreements-tracker.git```
 ---
 
 2. Install dependencies for the backend. 
     * Open a new terminal in the directory of the repo you just cloned locally and run the following commands: 
-        >>* ```cd /backend``` 
-
-        >>* ```npm i``` 
+        * ```bash cd /backend``` 
+        * ```npm i``` 
 ---
 
 3. Now install dependencies for the frontend. 
     * Open a new terminal in the directory of the repo you just cloned locally and run the following commands: 
-        >>* ```cd /frontend```
-
-        >>* ```yarn i```
+        * ```cd /frontend```
+        * ```yarn i```
 ---
 
 4. Run the seeders and migrations for the local development database.
     * To bring your local database up to the latest version run:
-        >>* `docker compose exec backend npx knex migrate:latest`
-        >>* `docker compose exec backend npx knex seed:run`
+        * `docker compose exec backend npx knex migrate:latest`
+        * `docker compose exec backend npx knex seed:run`
 ---
 
 5. Update the .env file in the backend directory ([backend .env](/backend/.env)) with the following:
     
-    >>NODE_ENV=development<br>
+    NODE_ENV=development<br>
     JWKSURI=https://oidc.gov.bc.ca/auth/realms/aaoozhcp/protocol/openid-connect/certs<br>
     POSTGRES_PORT=15432<br>
     POSTGRES_HOST=localhost<br>
@@ -57,14 +51,13 @@ The following prerequisites are required for this application to function correc
 
 6. Start the Database container in docker 
     *   Open a terminal in the root of the project directory and run:
-        >>* ```docker compose start db```
+        * ```docker compose start db```
 
 7. Start the backend and frontend
     *   Open a terminal in the /frontend directory and run:
-        >>* ```npm run start```
-
+        * ```npm run start```
     *   Open a terminal in the /backend directory and run:
-        >>* ```npm run start```
+        * ```npm run start```
 
 8. In your browser, visit localhost:3000 to access the site and login
 
