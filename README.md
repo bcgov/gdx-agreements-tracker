@@ -25,7 +25,7 @@ The following prerequisites are required for this application to function correc
 2. Install dependencies for the backend. 
     * Open a new terminal in the directory of the repo you just cloned locally and run the following commands: 
         ```
-        bash cd /backend
+        cd /backend
         npm i
         ``` 
 ---
