@@ -9,7 +9,7 @@ const roles = [
     id: 2,
     name: "admin",
     display_name: "Administrator",
-    capabilities: ["users_create_all", "users_read_all", "users_update_all", "users_delete_all"],
+    capabilities: ["users_create_all", "users_read_all", "users_update_all", "users_delete_all", "contacts_read_all"],
   },
   {
     id: 3,

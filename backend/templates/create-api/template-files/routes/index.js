@@ -1,6 +1,6 @@
-const controller = require("../controllers/users");
-const validators = require("../validators");
-const what = "users";
+const controller = require("../controllers/$databaseTableName");
+const validators = require("../validators/$databaseTableName");
+const what = "$databaseTableName";
 
 const routes = [
   {
@@ -13,22 +13,7 @@ const routes = [
     url: `/${what}/:id`,
     schema: validators.getOneValidator,
     handler: controller.getOne,
-  },
-  {
-    method: "POST",
-    url: `/${what}`,
-    handler: controller.addOne,
-  },
-  {
-    method: "PUT",
-    url: `/${what}/:id`,
-    handler: controller.updateOne,
-  },
-  {
-    method: "DELETE",
-    url: `/${what}/:id`,
-    handler: controller.deleteOne,
-  },
+  }
 ];
 
 const registerRoutes = (fastify, options, done) => {
@@ -38,5 +23,5 @@ const registerRoutes = (fastify, options, done) => {
 };
 
 module.exports = {
-  userRoutes: registerRoutes,
+  registerRoutes,
 };

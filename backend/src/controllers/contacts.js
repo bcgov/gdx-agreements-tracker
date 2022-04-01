@@ -1,6 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
-const Model = require("../models/$databaseTableName.js");
-const what = { plural: "$databaseTableName" };
+const Model = require("../models/contacts.js");
+const what = { plural: "contacts" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.
@@ -46,7 +46,7 @@ const userCan = (request, capability) => {
  * @returns {Object}
  */
 const getAll = async (request, reply) => {
-  if (userCan(request, "$databaseTableName_read_all")) {
+  if (userCan(request, "contacts_read_all")) {
     try {
       const result = await Model.findAll();
       if (!result) {
@@ -58,7 +58,7 @@ const getAll = async (request, reply) => {
       return { message: `There was a problem looking up ${what.plural}.` };
     }
   } else {
-    log.trace('user lacks capability "$databaseTableName_read_all"');
+    log.trace('user lacks capability "contacts_read_all"');
     return notAllowed(reply);
   }
 };
@@ -72,8 +72,8 @@ const getAll = async (request, reply) => {
  */
  const getOne = async (request, reply) => {
   if (
-    userCan(request, "$databaseTableName_read_all") ||
-    (userCan(request, "$databaseTableName_read_mine") && checkMine(request))
+    userCan(request, "users_read_all") ||
+    (userCan(request, "users_read_mine") && checkMine(request))
   ) {
     const targetId = Number(request.params.id);
     try {
@@ -89,10 +89,11 @@ const getAll = async (request, reply) => {
       return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
-    log.trace('user lacks capability "$databaseTableName_read_all" || "$databaseTableName_read_mine"');
+    log.trace('user lacks capability "users_read_all" || "users_read_mine"');
     return notAllowed(reply);
   }
 };
+
 
 module.exports = {
   getAll,
