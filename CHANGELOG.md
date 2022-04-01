@@ -1,15 +1,17 @@
 ## Developer Changelog
+### April 1, 2022 DESCW-269
+* added functionality that auto creates API's 
 
-### March 24, 2022, 2022 DESCW-233
+### March 24, 2022 DESCW-233
 * added new migrations and seeds for contacts database table
 
-### March 11, 2022, 2022 DESCW-201
+### March 11, 2022 DESCW-201
 * fixes to make `docker compose up` work with (co)lima.
   * this change moves the database storage volume inside the VM, so your database will be blank; don't forget to:
     * `docker compose exec backend npx knex migrate:latest`
     * `docker compose exec backend npx knex seed:run`
 
-### February 1, 2022, 2022 WD-3678
+### February 1, 2022 WD-3678
 * frontend
     * added new table component from MUI
     * added contacts component that leverages the table component
