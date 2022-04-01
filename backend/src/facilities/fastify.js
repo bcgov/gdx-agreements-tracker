@@ -1,6 +1,5 @@
 require("dotenv").config({ path: "../.env" });
 const allRoutes = require("../routes/index.js");
-console.log('allRoutes', allRoutes)
 const {
   getBearerTokenFromRequest,
   verifyToken,
@@ -49,7 +48,7 @@ const fastifyInstance = (options) => {
       }
     })
     .register(fastifyAuth)
-    .register(fastifyCors, {})  
+    .register(fastifyCors, {})
     .register(fastifyRoles)
     .after(() => {
       app.addHook("preHandler", app.auth([app.verifyJWT]));
@@ -71,8 +70,8 @@ const fastifyInstance = (options) => {
         },
       });
     });
-    Object.values(allRoutes).forEach(route => app.register(route.registerRoutes));
-    
+  Object.values(allRoutes).forEach((route) => app.register(route.registerRoutes));
+
   return app;
 };
 
