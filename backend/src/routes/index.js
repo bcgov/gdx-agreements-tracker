@@ -1,11 +1,5 @@
 /*
-    I found it handy to reduce the amount of requires in a complex 
-    project by grouping small modules together like below.
-    If you put this code into "index.js" then it'll pick up any other
-    JS modules in that directory and expose them as sub-modules.
-    
-    - Any exports in *this* module would be myPackage.exportName
-    - Any exports in other modules would be myPackage.moduleName.exportName
+Reference :https://gist.github.com/richmarr/1122217/578a2767ec126b9b9526b6ac6df7d9935ee190d8
 */
 
 var fs = require("fs");
