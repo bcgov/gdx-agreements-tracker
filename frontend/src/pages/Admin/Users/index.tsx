@@ -28,7 +28,6 @@ export const Users: FC = () => {
     axiosResponse
       .get("users")
       .then((data: any) => {
-        console.log('data', data)
         setUserData(data);
       })
       .catch((error: any) => {
