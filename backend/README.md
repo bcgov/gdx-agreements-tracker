@@ -57,3 +57,22 @@ If using the docker-compose.yml file to develop locally, you'll need to populate
 
 ### Folder structure
 .content comming soon.
+
+### Create New API 
+## Note: Although these command do work both locally and on remote, your API URL may be different if you are running your environment remote(Docker) opposed to locally.
+
+To create a new API for an already existing Database table, run the following command from the backend directory 
+```
+npm run createAPI
+```
+This command creates four files, these four files are the bare minimum needed to create an API. 
+
+The {API Name} is the name you provide in the cli when prompted.
+
+The four files created are:
+* backend/src/controllers/{API Name}
+* backend/src/models/{API Name}
+* backend/src/routes/{API Name}
+* backend/src/validators/{API Name}
+
+Once these files are created, you should have a working API at the url (locally) http://localhost:8080/{API Name}
