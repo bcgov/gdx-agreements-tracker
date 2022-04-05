@@ -8,15 +8,14 @@ jest.mock("../../src/models/contacts");
 describe("Testing user controllers", () => {
   it("Gets an array of all contacts", async () => {
     contactsModel.findAll.mockResolvedValue(contacts);
-    // const sampleRequest = {
-    //   user: {
-    //     capabilities: ["contacts_read_all"],
-    //   },
-    // };
-    // const result = await getAll(sampleRequest);
-
-    // expect(Array.isArray(result)).toBe(true);
-    // result.forEach((contactsObject) => expect("id" in contactsObject).toBe(true));
+    const sampleRequest = {
+      user: {
+        capabilities: ["contacts_read_all"],
+      },
+    };
+    const result = await getAll(sampleRequest);
+    expect(result.contacts).toBeInstanceOf(Array)
+    result.contacts.forEach((contactsObject) => expect("id" in contactsObject).toBe(true));
   });
 
 });
