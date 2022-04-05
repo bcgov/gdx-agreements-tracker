@@ -1,4 +1,9 @@
 ## Developer Changelog
+### April 5, 2022 DESCW-234
+* backend
+  * added backend API for contacts
+  * added tests for contacts API 
+
 ### April 1, 2022 DESCW-269
 * added functionality that auto creates API's 
 
