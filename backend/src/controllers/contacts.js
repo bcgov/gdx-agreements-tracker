@@ -22,7 +22,7 @@ const userCan = (request, capability) => {
  *
  * @return  {object}
  */
- const notAllowed = (reply) => {
+const notAllowed = (reply) => {
   reply.code(401);
   return { message: `You don't have the correct permission` };
 };
@@ -35,10 +35,9 @@ const userCan = (request, capability) => {
  *
  * @return  {boolean}
  */
- const checkMine = (request) => {
+const checkMine = (request) => {
   return true;
 };
-
 
 /**
  * Get all items.
@@ -70,7 +69,7 @@ const getAll = async (request, reply) => {
  * @param reply
  * @returns {Object}
  */
- const getOne = async (request, reply) => {
+const getOne = async (request, reply) => {
   if (
     userCan(request, "contacts_read_all") ||
     (userCan(request, "contacts_read_mine") && checkMine(request))
@@ -96,5 +95,5 @@ const getAll = async (request, reply) => {
 
 module.exports = {
   getAll,
-  getOne
+  getOne,
 };
