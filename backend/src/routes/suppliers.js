@@ -1,5 +1,4 @@
 const controller = require("../controllers/suppliers");
-const validators = require("../validators/suppliers");
 const what = "suppliers";
 
 const routes = [

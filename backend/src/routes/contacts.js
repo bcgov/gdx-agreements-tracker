@@ -1,5 +1,4 @@
 const controller = require("../controllers/contacts");
-const validators = require("../validators/contacts");
 const what = "contacts";
 
 const routes = [
