@@ -1,6 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
 const Model = require("../models/$databaseTableName.js");
-const what = { plural: "$databaseTableName" };
+const what = { single:"$databaseTableName", plural: "$databaseTableName" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.

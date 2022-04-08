@@ -1,6 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
-const Model = require("../models/contacts.js");
-const what = { plural: "contacts" };
+const Model = require("../models/suppliers.js");
+const what = { single: "supplier", plural: "suppliers" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.
@@ -33,7 +33,7 @@ const notAllowed = (reply) => {
  * @returns {Object}
  */
 const getAll = async (request, reply) => {
-  if (userCan(request, "contacts_read_all")) {
+  if (userCan(request, "suppliers_read_all")) {
     try {
       const result = await Model.findAll();
       if (!result) {
@@ -45,7 +45,7 @@ const getAll = async (request, reply) => {
       return { message: `There was a problem looking up ${what.plural}.` };
     }
   } else {
-    log.trace('user lacks capability "contacts_read_all"');
+    log.trace('user lacks capability "suppliers_read_all"');
     return notAllowed(reply);
   }
 };

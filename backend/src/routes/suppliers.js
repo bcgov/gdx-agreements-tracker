@@ -1,5 +1,5 @@
-const controller = require("../controllers/contacts");
-const what = "contacts";
+const controller = require("../controllers/suppliers");
+const what = "suppliers";
 
 const routes = [
   {
