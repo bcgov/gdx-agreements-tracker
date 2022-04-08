@@ -28,18 +28,6 @@ const notAllowed = (reply) => {
 };
 
 /**
- * For roles that might require only if mine, however this still needs to be implemented.
- *
- * @param   {object}  request  The request object
- * @todo  Add functionality to call db to see if the owner is the current user.
- *
- * @return  {boolean}
- */
-const checkMine = (request) => {
-  return true;
-};
-
-/**
  * Get all items.
  *
  * @returns {Object}
