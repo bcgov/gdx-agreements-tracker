@@ -62,38 +62,6 @@ const getAll = async (request, reply) => {
   }
 };
 
-/**
- * Get a specific item by ID.
- *
- * @param request
- * @param reply
- * @returns {Object}
- */
-const getOne = async (request, reply) => {
-  if (
-    userCan(request, "contacts_read_all") ||
-    (userCan(request, "contacts_read_mine") && checkMine(request))
-  ) {
-    const targetId = Number(request.params.id);
-    try {
-      const result = await Model.findById(targetId);
-      if (!result || !result.length) {
-        reply.code(404);
-        return { message: `The ${what.single} with the specified id does not exist.` };
-      } else {
-        return result[0];
-      }
-    } catch (err) {
-      reply.code(500);
-      return { message: `There was a problem looking up this ${what.single}.` };
-    }
-  } else {
-    log.trace('user lacks capability "contacts_read_all" || "contacts_read_mine"');
-    return notAllowed(reply);
-  }
-};
-
 module.exports = {
   getAll,
-  getOne,
 };
