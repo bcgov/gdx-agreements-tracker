@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### April 8, 2022 DESCW-282
+* backend
+  * added new migrations and seeds for subcontractors database table
+
 ### April 8, 2022 DESCW-278
 * backend
   * added new migrations and seeds for suppliers database table
