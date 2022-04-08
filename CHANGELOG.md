@@ -1,4 +1,9 @@
 ## Developer Changelog
+
+### April 8, 2022 DESCW-278
+* backend
+  * added new migrations and seeds for suppliers database table
+
 ### April 5, 2022 DESCW-234
 * backend
   * added backend API for contacts
