@@ -1,5 +1,11 @@
 ## Developer Changelog
 
+### April 11, 2022 DESCW-76
+* frontend
+  * added route for subcontractors
+  * added test for subcontractors route
+
+
 ### April 8, 2022 DESCW-282, DESCW-278, DESCW-278, DESCW-281
 * backend
   * added new migrations and seeds for subcontractors database table
