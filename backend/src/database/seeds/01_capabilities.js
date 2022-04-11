@@ -43,6 +43,10 @@ const capabilities = [
     id: 11,
     name: "suppliers_read_all",
   },
+  {
+    id: 12,
+    name: "subcontractors_read_all",
+  },
 ];
 
 exports.seed = (knex) => {
