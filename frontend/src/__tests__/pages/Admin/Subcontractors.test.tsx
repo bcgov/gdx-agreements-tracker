@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { MemoryRouter, Routes } from "react-router-dom";
 import adminRoutes from "../../../routes/subRoutes/adminRoutes";
 import { Subcontractors } from "../../../pages/Admin/Subcontractors";
@@ -18,6 +18,6 @@ describe("<Subcontractors /> routing", () => {
       </MemoryRouter>
     );
     const wrapper = shallow(<Subcontractors />);
-    expect(wrapper.text().includes('Subcontractors')).toBe(true);
+    expect(wrapper.text().includes("Subcontractors")).toBe(true);
   });
 });
