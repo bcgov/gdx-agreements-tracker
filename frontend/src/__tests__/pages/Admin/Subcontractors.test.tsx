@@ -1,9 +1,9 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import adminRoutes from "../../../routes/subRoutes/adminRoutes";
-import { MemoryRouter, Routes } from "react-router-dom";
-import { Subcontractors } from "../../../pages/Admin/Subcontractors";
 import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter, Routes } from "react-router-dom";
+import adminRoutes from "../../../routes/subRoutes/adminRoutes";
+import { Subcontractors } from "../../../pages/Admin/Subcontractors";
 
 //Mock keycloak.
 jest.mock("@react-keycloak/web", () => ({
@@ -11,12 +11,13 @@ jest.mock("@react-keycloak/web", () => ({
 }));
 
 describe("<Subcontractors /> routing", () => {
-  it("renders Subcontractors page when '/admin/contacts/' is hit", () => {
+  it("renders Subcontractors page when '/admin/subcontractors' is hit", () => {
     render(
-      <MemoryRouter initialEntries={["/admin/contacts/"]}>
+      <MemoryRouter initialEntries={["/admin/subcontractors"]}>
         <Routes key="main">{adminRoutes}</Routes>
       </MemoryRouter>
     );
-    shallow(<Subcontractors />);
+    const wrapper = shallow(<Subcontractors />);
+    expect(wrapper.text().includes('Subcontractors')).toBe(true);
   });
 });
