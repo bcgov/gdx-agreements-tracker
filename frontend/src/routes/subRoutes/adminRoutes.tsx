@@ -6,6 +6,7 @@ import { PageLink } from "../../components/PageLink";
 import { Users } from "../../pages/Admin/Users";
 import { Contacts } from "../../pages/Admin/Contacts";
 import { Subcontractors } from "../../pages/Admin/Subcontractors";
+import { Suppliers } from "../../pages/Admin/Suppliers";
 /**
  * Routes for Admin pages.
  */
@@ -16,9 +17,7 @@ const routes = [
       path="suppliers"
       element={
         <ProtectedRoute
-          component={() => {
-            return PageLink("Suppliers");
-          }}
+          component={Suppliers}
         />
       }
     />
