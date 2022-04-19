@@ -13,14 +13,7 @@ import { Suppliers } from "../../pages/Admin/Suppliers";
 const routes = [
   <Route key="admin" path="/admin" element={<ProtectedRoute component={Admin} />}>
     <Route path="contacts" element={<ProtectedRoute component={Contacts} />} />
-    <Route
-      path="suppliers"
-      element={
-        <ProtectedRoute
-          component={Suppliers}
-        />
-      }
-    />
+    <Route path="suppliers" element={<ProtectedRoute component={Suppliers} />} />
     <Route path="subcontractors" element={<ProtectedRoute component={Subcontractors} />} />
     <Route
       path="resources"

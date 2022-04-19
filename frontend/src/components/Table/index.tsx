@@ -8,12 +8,5 @@ interface TableProps {
 }
 
 export const Table = ({ columns, rows, loading }: TableProps) => {
-
-  return (
-    <DataGrid
-      rows={rows}
-      columns={columns}
-      loading={loading}
-    />
-  );
+  return <DataGrid rows={rows} columns={columns} loading={loading} />;
 };

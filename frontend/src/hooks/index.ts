@@ -1,1 +1,1 @@
-export {useFormatTabledData} from "./useFormatTabledData"
+export { useFormatTableData } from "./useFormatTableData";

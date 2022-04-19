@@ -56,6 +56,6 @@ const rows: GridRowsProp = [
 
 it("renders <Table/> without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<Table columns={columns} rows={rows} />, div);
+  ReactDOM.render(<Table columns={columns} rows={rows} loading={false}/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });
