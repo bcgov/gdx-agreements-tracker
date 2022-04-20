@@ -1,5 +1,11 @@
 ## Developer Changelog
 
+### April 19, 2022 DESCW-275
+* frontend
+  * added hook that formats table data for use in Material UI Tables
+  * added suppliers table
+  * updated suppliers routes to point to the updated suppliers page
+
 ### April 11, 2022 DESCW-76
 * frontend
   * added route for subcontractors
