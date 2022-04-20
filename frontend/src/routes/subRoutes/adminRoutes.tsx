@@ -7,6 +7,7 @@ import { Users } from "../../pages/Admin/Users";
 import { Contacts } from "../../pages/Admin/Contacts";
 import { Subcontractors } from "../../pages/Admin/Subcontractors";
 import { Suppliers } from "../../pages/Admin/Suppliers";
+
 /**
  * Routes for Admin pages.
  */
