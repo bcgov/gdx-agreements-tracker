@@ -4,7 +4,7 @@ import { column, tableData } from "../types/table.types";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
- * @param {Array.<Object>} tableData data from a database table.
+ * @param {Array<Object>} tableData data from a database table.
  * @example tableData.data = [ {id:1,name:"sara"} , {id:2,name:"jim"} ]
  *
  */
