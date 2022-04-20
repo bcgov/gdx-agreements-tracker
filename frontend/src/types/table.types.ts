@@ -8,4 +8,3 @@ export interface column {
 export interface tableData {
   data: Array<Object>;
 }
-

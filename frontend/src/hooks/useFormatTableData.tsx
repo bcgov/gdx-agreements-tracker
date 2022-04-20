@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { apiAxios } from "../utils";
 import { column, tableData } from "../types/table.types";
 
@@ -12,7 +12,7 @@ import { column, tableData } from "../types/table.types";
 // Export this function for unit testing.
 export const formatTableColumns = (tableData: tableData) => {
   return new Promise((resolve) => {
-    let formattedColumns: Array<Object> = [];    
+    let formattedColumns: Array<Object> = [];
     Object.entries(tableData.data[0]).forEach((value, index) => {
       formattedColumns.push({
         field: value[0],
@@ -37,7 +37,7 @@ export const useFormatTableData = (tableName: string) => {
   const [rows, setRows] = useState([{ id: 0 }]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     apiAxios()
       .get(tableName)
       .then((tableData) => {
@@ -49,7 +49,7 @@ export const useFormatTableData = (tableName: string) => {
       })
       .catch((error) => {
         console.error(error);
-      });
-  }, []);
+      }); //! TODO: We had to ignore react-hooks/exhaustive-deps because of error "React Hook useLayoutEffect has a missing dependency: 'tableName'. Either include it or remove the dependency array" ref: https://exerror.com/react-hook-useeffect-has-a-missing-dependency/
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return { rows, columns, loading };
 };
