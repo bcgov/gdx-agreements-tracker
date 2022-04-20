@@ -19,9 +19,7 @@ export const formatTableColumns = (tableData: tableData) => {
         headerName: value[0]
           .split("_")
           .join(" ")
-          .replace(/(?:^|\s)\S/g, (a: string) => a.ToUpperCase())
-            return a.toUpperCase();
-          }),
+          .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
         width: 200,
         id: index,
       });
