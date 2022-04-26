@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### April 26, 2022 DESCW-279
+* frontend
+  * added subcontractors table
+
 ### April 19, 2022 DESCW-275
 * frontend
   * added hook that formats table data for use in Material UI Tables
