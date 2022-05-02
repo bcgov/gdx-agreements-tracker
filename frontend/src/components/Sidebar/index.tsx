@@ -1,125 +1,111 @@
 import * as React from "react";
-
 import "./sideBar.scss";
 import {
-  Toolbar,
   Drawer,
   List,
   Typography,
   ListItem,
-  Divider,
-  CssBaseline,
-  AppBar,
-  IconButton,
   Box,
+  ThemeProvider,
+  ListItemButton,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-
 import { Link } from "react-router-dom";
-/**
- * @todo Need to make drawerWidth more dynamic.
- */
-//Used for calculcation for body width.
-const drawerWidth = 400;
-
+import bcgovTheme from "../../bcgovTheme";
+import { IUseDrawer } from "../../types";
+import { styled } from "@mui/system";
+import { Routes } from "react-router-dom";
 /** The sidebar is the navigation menu located on the left side of the App */
-export const Sidebar = () => {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  /**Used to toggle mobile and desktop views for the menu */
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  /**
-   * @todo Need to make adminLinks more dynamic (maybe a database?).
-   *
-   */
-  const adminLinks = [
-    {
-      name: "Contacts",
-      link: "/admin/contacts",
-    },
-    {
-      name: "Suppliers",
-      link: "/admin/suppliers",
-    },
-    {
-      name: "Subcontractors",
-      link: "/admin/subcontractors",
-    },
-    {
-      name: "Resources",
-      link: "/admin/resources",
-    },
-    {
-      name: "Ministries / Org Name",
-      link: "/admin/ministries",
-    },
-    {
-      name: "User Management",
-      link: "/admin/users",
-    },
-    {
-      name: "Glossary",
-      link: "/admin/glossary",
-    },
-  ];
-  /**
-   * @todo Need to add an accordian to the menu to allow for expandable menus.
-   *
-   */
 
-  /**const drawer = The actual links in the sidebar navigation. */
+const adminLinks = [
+  {
+    name: "Contacts",
+    url: "/admin/contacts",
+  },
+  {
+    name: "Suppliers",
+    url: "/admin/suppliers",
+  },
+  {
+    name: "Subcontractors",
+    url: "/admin/subcontractors",
+  },
+  {
+    name: "Resources",
+    url: "/admin/resources",
+  },
+  {
+    name: "Ministries / Org Name",
+    url: "/admin/ministries",
+  },
+  {
+    name: "User Management",
+    url: "/admin/users",
+  },
+  {
+    name: "Glossary",
+    url: "/admin/glossary",
+  },
+];
 
-  const drawer = (
-    <>
-      <Typography variant="h4" noWrap component="div">
+const drawerWidth = bcgovTheme.customSettings.drawerWidth;
+
+const StyledSidebarImageFooter = styled(Box)({
+  padding: "8px 24px",
+  marginTop: "auto",
+});
+
+const drawer = (
+  <Box
+    p="12px"
+    sx={{
+      flexFlow: "column",
+      display: "flex",
+      height: "100%",
+      width: "100%",
+    }}
+  >
+    <Box>
+      <Typography variant="h6" color="primary.contrastText">
         GDX Agreements Tracker
       </Typography>
-      <Divider />
-      <Typography variant="h6" noWrap component="div">
-        Administration Forms
-      </Typography>
-      <List>
-        {adminLinks.map(({ name, link }, index) => (
-          <ListItem button key={name}>
-            <Link to={link}>{name}</Link>
+    </Box>
+    <hr style={{ width: "100%", borderTop: bcgovTheme.customSettings.BCGovAccentLine }} />
+    <List>
+      {adminLinks.map((link, index) => {
+        return (
+          <ListItem sx={{ p: "8px 0" }} component={Link} to={link.url} key={index}>
+            <ListItemButton>
+              <Typography color="primary.contrastText">{link.name}</Typography>
+            </ListItemButton>
           </ListItem>
-        ))}
-      </List>
-    </>
-  );
+        );
+      })}
+    </List>
+    <Box
+      component="img"
+      sx={{        
+        width: "100%",
+      }}
+      alt="bcgov_logo"
+      src="../gov_bc_logo.svg"
+    />
+  </Box>
+);
 
+export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
   return (
-    <>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+    <ThemeProvider theme={bcgovTheme}>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+        aria-label="side-bar"
+        position="absolute"
+        height="100vh"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
-          open={mobileOpen}
+          open={drawerOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
@@ -131,6 +117,7 @@ export const Sidebar = () => {
         >
           {drawer}
         </Drawer>
+        {/* Mobile Drawer */}
         <Drawer
           variant="permanent"
           sx={{
@@ -140,9 +127,8 @@ export const Sidebar = () => {
           open
         >
           {drawer}
-          <img src="/gov_bc_logo.svg" alt="BC government logo" />
         </Drawer>
       </Box>
-    </>
+    </ThemeProvider>
   );
 };
