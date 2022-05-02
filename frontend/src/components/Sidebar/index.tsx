@@ -54,7 +54,6 @@ const StyledSidebarImageFooter = styled(Box)({
   marginTop: "auto",
 });
 
-console.log("Routes", Routes);
 const drawer = (
   <Box
     p="12px"
