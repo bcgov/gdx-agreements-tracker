@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from "react";
 import { apiAxios } from "../utils";
-import { column, tableData } from "../types/table.types";
+import { IColumn, ITableData } from "../types";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
@@ -10,7 +10,7 @@ import { column, tableData } from "../types/table.types";
  */
 
 // Export this function for unit testing.
-export const formatTableColumns = (tableData: tableData) => {
+export const formatTableColumns = (tableData: ITableData) => {
   return new Promise((resolve) => {
     let formattedColumns: Array<Object> = [];
     Object.entries(tableData.data[0]).forEach((value, index) => {
@@ -20,7 +20,7 @@ export const formatTableColumns = (tableData: tableData) => {
           .split("_")
           .join(" ")
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
-        width: 200,
+        flex:1,
         id: index,
       });
     });
@@ -29,8 +29,8 @@ export const formatTableColumns = (tableData: tableData) => {
 };
 
 export const useFormatTableData = (tableName: string) => {
-  const [columns, setColumns] = useState<column[]>([
-    { id: 0, field: "loading", headerName: "loading", width: 150 },
+  const [columns, setColumns] = useState<IColumn[]>([
+    { id: 0, field: "loading", headerName: "loading", flex:1 },
   ]);
   const [rows, setRows] = useState([{ id: 0 }]);
   const [loading, setLoading] = useState(true);
