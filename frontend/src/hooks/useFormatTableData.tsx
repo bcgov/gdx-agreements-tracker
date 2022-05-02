@@ -49,6 +49,5 @@ export const useFormatTableData = (tableName: string) => {
         console.error(error);
       }); //! TODO: We had to ignore react-hooks/exhaustive-deps because of error "React Hook useLayoutEffect has a missing dependency: 'tableName'. Either include it or remove the dependency array" ref: https://exerror.com/react-hook-useeffect-has-a-missing-dependency/
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-console.log('columns', columns)
   return { rows, columns, loading };
 };
