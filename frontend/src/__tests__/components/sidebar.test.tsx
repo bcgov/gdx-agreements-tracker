@@ -1,6 +1,6 @@
 import React from "react";
 import { Sidebar } from "../../components";
-import { act, fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 describe("Layout Sidebar", () => {

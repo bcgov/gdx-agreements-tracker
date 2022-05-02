@@ -20,7 +20,7 @@ export const formatTableColumns = (tableData: ITableData) => {
           .split("_")
           .join(" ")
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
-        flex:1,
+        flex: 1,
         id: index,
       });
     });
@@ -30,7 +30,7 @@ export const formatTableColumns = (tableData: ITableData) => {
 
 export const useFormatTableData = (tableName: string) => {
   const [columns, setColumns] = useState<IColumn[]>([
-    { id: 0, field: "loading", headerName: "loading", flex:1 },
+    { id: 0, field: "loading", headerName: "loading", flex: 1 },
   ]);
   const [rows, setRows] = useState([{ id: 0 }]);
   const [loading, setLoading] = useState(true);

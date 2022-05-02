@@ -1,12 +1,7 @@
 import * as React from "react";
-import {
-  Drawer,
-  Box,
-  ThemeProvider,
-} from "@mui/material";
+import { Drawer, Box, ThemeProvider } from "@mui/material";
 import bcgovTheme from "../../bcgovTheme";
 import { IUseDrawer } from "../../types";
-import { Routes } from "react-router-dom";
 /** The sidebar is the navigation menu located on the left side of the App */
 import { SidebarMenu } from "./SidebarMenu";
 

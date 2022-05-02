@@ -3,7 +3,6 @@ import { PageHeader } from "../../../components/Layout/PageHeader";
 import { fireEvent, render } from "@testing-library/react";
 
 describe("Layout Page Header", () => {
-
   it("Renders.", () => {
     const handleClick = jest.fn();
     render(<PageHeader drawerOpen={false} handleDrawerToggle={handleClick} />);
@@ -32,14 +31,14 @@ describe("Layout Page Header", () => {
     const { findByRole } = render(
       <PageHeader drawerOpen={false} handleDrawerToggle={handleClick} />
     );
-    
+
     fireEvent(
       await findByRole("sidebar-toggle-button"),
-      new MouseEvent('click', {
+      new MouseEvent("click", {
         bubbles: true,
         cancelable: true,
-      }),
+      })
     );
-    expect(handleClick).toHaveBeenCalledTimes(1)
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });

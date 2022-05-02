@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { IUseDrawer } from "../types";
-
+import { useState } from "react";
 
 // Implements IUseDrawer Interface
 export const useDrawer = () => {

@@ -2,13 +2,7 @@ import { formatTableColumns } from "../../hooks/useFormatTableData";
 
 const testData = {
   data: [
-    {
-      id: 1,
-      name: "ITI",
-      signing_authority: "Lara",
-      financial_contact: "Executive",
-      province_state: "CA",
-    },
+    { field: "id", flex: 1, headerName: "Id", id: 3 },
   ],
 };
 
@@ -20,13 +14,7 @@ describe("Testing useFormatTableData Hook", () => {
         // an Array that contains,
         expect.arrayContaining([
           // an Object that contains,
-          expect.objectContaining({
-            // the following properties
-            field: "id",
-            headerName: "Id",
-            width: 200,
-            id: 0,
-          }),
+          expect.objectContaining({ field: "id", flex: 1}),
         ])
       );
     });

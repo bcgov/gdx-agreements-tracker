@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { List, Typography, ListItem, Box, ListItemButton } from "@mui/material";
 import bcgovTheme from "../../../bcgovTheme";
 import { adminLinks } from "./adminLinks";

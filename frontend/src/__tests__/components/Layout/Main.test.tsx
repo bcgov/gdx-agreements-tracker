@@ -6,15 +6,15 @@ import { MemoryRouter } from "react-router-dom";
 describe("Main Layout", () => {
   it("Renders.", () => {
     render(<Main />, {
-        wrapper: MemoryRouter,
+      wrapper: MemoryRouter,
     });
   });
 
   it("Is present.", () => {
     const { getByRole } = render(<Main />, {
-        wrapper: MemoryRouter,
+      wrapper: MemoryRouter,
     });
-    
+
     expect(getByRole("page-footer")).toBeInTheDocument();
     expect(getByRole("page-header")).toBeInTheDocument();
     expect(getByRole("page-sidebar")).toBeInTheDocument();
