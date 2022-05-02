@@ -10,7 +10,7 @@ const StyledFooter = styled(Box)({
 });
 
 export const PageFooter = () => (
-  <StyledFooter component="footer" bgcolor="primary.main" color="primary.contrastText">
+  <StyledFooter role="page-footer" component="footer" bgcolor="primary.main" color="primary.contrastText">
     <Typography noWrap>Footer</Typography>
   </StyledFooter>
 );

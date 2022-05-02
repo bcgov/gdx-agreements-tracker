@@ -23,14 +23,16 @@ export const PageHeader = ({ drawerOpen, handleDrawerToggle }: IPageHeader) => {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
+        role="page-header"
       >
-        <Toolbar>
+        <Toolbar role="page-header-toolbar">
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
+            role="sidebar-toggle-button"
           >
             <MenuIcon />
           </IconButton>

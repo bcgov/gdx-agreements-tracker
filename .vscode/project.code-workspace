@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "name": "gdx-agreements-tracker",
+      "path": "../"
+    },
+    {
+      "name": "frontend",
+      "path": "../frontend"
+    },
+    {
+      "name": "backend",
+      "path": "../backend"
+    },
+  ],
+  "settings": {
+    "jest.disabledWorkspaceFolders": ["gdx-agreements-tracker", "/"]
+  }
+}
