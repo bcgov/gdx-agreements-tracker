@@ -1,7 +1,9 @@
 ## Developer Changelog
+
 ### May 2, 2022 DESCW-280
 * frontend
   * added new header, footer and sidebar
+* Add CODEOWNERS file.
 
 
 ### April 26, 2022 DESCW-279
