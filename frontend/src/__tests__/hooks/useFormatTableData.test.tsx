@@ -1,9 +1,7 @@
 import { formatTableColumns } from "../../hooks/useFormatTableData";
 
 const testData = {
-  data: [
-    { field: "id", flex: 1, headerName: "Id", id: 3 },
-  ],
+  data: [{ field: "id", flex: 1, headerName: "Id", id: 3 }],
 };
 
 describe("Testing useFormatTableData Hook", () => {
@@ -14,7 +12,7 @@ describe("Testing useFormatTableData Hook", () => {
         // an Array that contains,
         expect.arrayContaining([
           // an Object that contains,
-          expect.objectContaining({ field: "id", flex: 1}),
+          expect.objectContaining({ field: "id", flex: 1 }),
         ])
       );
     });
