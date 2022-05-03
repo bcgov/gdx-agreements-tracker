@@ -4,12 +4,10 @@ import { Main } from "../components";
 
 export const PageNotFound = () => {
   return (
-    <>
-      <Main>
-        <h2>404 not found</h2>
-        <Outlet />
-      </Main>
-    </>
+    <Main>
+      <h2>404 not found</h2>
+      <Outlet />
+    </Main>
   );
 };
 
