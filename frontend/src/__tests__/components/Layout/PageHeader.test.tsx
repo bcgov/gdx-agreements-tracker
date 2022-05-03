@@ -7,7 +7,6 @@ jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
 
-
 describe("Layout Page Header", () => {
   it("Renders.", () => {
     const handleClick = jest.fn();

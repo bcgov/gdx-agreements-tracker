@@ -14,8 +14,8 @@ import { AccountCircle } from "@mui/icons-material";
 /**
  * @Function SignoutButton is a component that combines sign out functionality and html in one place
  * @returns a component
- * 
- * 
+ *
+ *
  */
 export const SignoutButton = () => {
   const [selected, setSelected] = useState<string>("");

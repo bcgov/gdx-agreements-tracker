@@ -4,7 +4,6 @@ import { MemoryRouter } from "react-router-dom";
 import AppRouter from "../../routes";
 import PageNotFound from "../../pages/PageNotFound";
 
-
 //Mock keycloak.
 jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
