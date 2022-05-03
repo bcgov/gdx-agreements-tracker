@@ -2,6 +2,12 @@ import React from "react";
 import { PageHeader } from "../../../components/Layout/PageHeader";
 import { fireEvent, render } from "@testing-library/react";
 
+//Mock keycloak.
+jest.mock("@react-keycloak/web", () => ({
+  useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
+}));
+
+
 describe("Layout Page Header", () => {
   it("Renders.", () => {
     const handleClick = jest.fn();
