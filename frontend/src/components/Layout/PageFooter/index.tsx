@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import bcgovTheme from "../../../bcgovTheme";
 
@@ -10,7 +10,12 @@ const StyledFooter = styled(Box)({
 });
 
 export const PageFooter = () => (
-  <StyledFooter component="footer" bgcolor="primary.main" color="primary.contrastText">
+  <StyledFooter
+    role="page-footer"
+    component="footer"
+    bgcolor="primary.main"
+    color="primary.contrastText"
+  >
     <Typography noWrap>Footer</Typography>
   </StyledFooter>
 );

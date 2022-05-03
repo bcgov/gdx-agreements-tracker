@@ -1,96 +1,11 @@
 import * as React from "react";
-import "./sideBar.scss";
-import {
-  Drawer,
-  List,
-  Typography,
-  ListItem,
-  Box,
-  ThemeProvider,
-  ListItemButton,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Drawer, Box, ThemeProvider } from "@mui/material";
 import bcgovTheme from "../../bcgovTheme";
 import { IUseDrawer } from "../../types";
-import { styled } from "@mui/system";
-import { Routes } from "react-router-dom";
 /** The sidebar is the navigation menu located on the left side of the App */
-
-const adminLinks = [
-  {
-    name: "Contacts",
-    url: "/admin/contacts",
-  },
-  {
-    name: "Suppliers",
-    url: "/admin/suppliers",
-  },
-  {
-    name: "Subcontractors",
-    url: "/admin/subcontractors",
-  },
-  {
-    name: "Resources",
-    url: "/admin/resources",
-  },
-  {
-    name: "Ministries / Org Name",
-    url: "/admin/ministries",
-  },
-  {
-    name: "User Management",
-    url: "/admin/users",
-  },
-  {
-    name: "Glossary",
-    url: "/admin/glossary",
-  },
-];
+import { SidebarMenu } from "./SidebarMenu";
 
 const drawerWidth = bcgovTheme.customSettings.drawerWidth;
-
-const StyledSidebarImageFooter = styled(Box)({
-  padding: "8px 24px",
-  marginTop: "auto",
-});
-
-const drawer = (
-  <Box
-    p="12px"
-    sx={{
-      flexFlow: "column",
-      display: "flex",
-      height: "100%",
-      width: "100%",
-    }}
-  >
-    <Box>
-      <Typography variant="h6" color="primary.contrastText">
-        GDX Agreements Tracker
-      </Typography>
-    </Box>
-    <hr style={{ width: "100%", borderTop: bcgovTheme.customSettings.BCGovAccentLine }} />
-    <List>
-      {adminLinks.map((link, index) => {
-        return (
-          <ListItem sx={{ p: "8px 0" }} component={Link} to={link.url} key={index}>
-            <ListItemButton>
-              <Typography color="primary.contrastText">{link.name}</Typography>
-            </ListItemButton>
-          </ListItem>
-        );
-      })}
-    </List>
-    <Box
-      component="img"
-      sx={{        
-        width: "100%",
-      }}
-      alt="bcgov_logo"
-      src="../gov_bc_logo.svg"
-    />
-  </Box>
-);
 
 export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
   return (
@@ -101,9 +16,12 @@ export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
         aria-label="side-bar"
         position="absolute"
         height="100vh"
+        role="page-sidebar"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        {/* Mobile Drawer */}
         <Drawer
+          role="mobile-sidebar-drawer"
           variant="temporary"
           open={drawerOpen}
           onClose={handleDrawerToggle}
@@ -112,21 +30,21 @@ export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
           }}
           sx={{
             display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+            "& .MuiDrawer-paper": { width: drawerWidth },
           }}
         >
-          {drawer}
+          {SidebarMenu}
         </Drawer>
-        {/* Mobile Drawer */}
+        {/* Desktop Drawer */}
         <Drawer
+          role="desktop-sidebar-drawer"
           variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+            "& .MuiDrawer-paper": { width: drawerWidth },
           }}
-          open
         >
-          {drawer}
+          {SidebarMenu}
         </Drawer>
       </Box>
     </ThemeProvider>
