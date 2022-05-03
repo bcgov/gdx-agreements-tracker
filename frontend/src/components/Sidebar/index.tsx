@@ -1,148 +1,52 @@
 import * as React from "react";
-
-import "./sideBar.scss";
-import {
-  Toolbar,
-  Drawer,
-  List,
-  Typography,
-  ListItem,
-  Divider,
-  CssBaseline,
-  AppBar,
-  IconButton,
-  Box,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-
-import { Link } from "react-router-dom";
-/**
- * @todo Need to make drawerWidth more dynamic.
- */
-//Used for calculcation for body width.
-const drawerWidth = 400;
-
+import { Drawer, Box, ThemeProvider } from "@mui/material";
+import bcgovTheme from "../../bcgovTheme";
+import { IUseDrawer } from "../../types";
 /** The sidebar is the navigation menu located on the left side of the App */
-export const Sidebar = () => {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  /**Used to toggle mobile and desktop views for the menu */
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  /**
-   * @todo Need to make adminLinks more dynamic (maybe a database?).
-   *
-   */
-  const adminLinks = [
-    {
-      name: "Contacts",
-      link: "/admin/contacts",
-    },
-    {
-      name: "Suppliers",
-      link: "/admin/suppliers",
-    },
-    {
-      name: "Subcontractors",
-      link: "/admin/subcontractors",
-    },
-    {
-      name: "Resources",
-      link: "/admin/resources",
-    },
-    {
-      name: "Ministries / Org Name",
-      link: "/admin/ministries",
-    },
-    {
-      name: "User Management",
-      link: "/admin/users",
-    },
-    {
-      name: "Glossary",
-      link: "/admin/glossary",
-    },
-  ];
-  /**
-   * @todo Need to add an accordian to the menu to allow for expandable menus.
-   *
-   */
+import { SidebarMenu } from "./SidebarMenu";
 
-  /**const drawer = The actual links in the sidebar navigation. */
+const drawerWidth = bcgovTheme.customSettings.drawerWidth;
 
-  const drawer = (
-    <>
-      <Typography variant="h4" noWrap component="div">
-        GDX Agreements Tracker
-      </Typography>
-      <Divider />
-      <Typography variant="h6" noWrap component="div">
-        Administration Forms
-      </Typography>
-      <List>
-        {adminLinks.map(({ name, link }, index) => (
-          <ListItem button key={name}>
-            <Link to={link}>{name}</Link>
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
-
+export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
   return (
-    <>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+    <ThemeProvider theme={bcgovTheme}>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+        aria-label="side-bar"
+        position="absolute"
+        height="100vh"
+        role="page-sidebar"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        {/* Mobile Drawer */}
         <Drawer
+          role="mobile-sidebar-drawer"
           variant="temporary"
-          open={mobileOpen}
+          open={drawerOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
             display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+            "& .MuiDrawer-paper": { width: drawerWidth },
           }}
         >
-          {drawer}
+          {SidebarMenu}
         </Drawer>
+        {/* Desktop Drawer */}
         <Drawer
+          role="desktop-sidebar-drawer"
           variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+            "& .MuiDrawer-paper": { width: drawerWidth },
           }}
-          open
         >
-          {drawer}
-          <img src="/gov_bc_logo.svg" alt="BC government logo" />
+          {SidebarMenu}
         </Drawer>
       </Box>
-    </>
+    </ThemeProvider>
   );
 };

@@ -46,4 +46,6 @@ backend/yarn.lock
 # misc
 .DS_Store
 
+#vscode config
+.vscode
 
