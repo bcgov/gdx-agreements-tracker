@@ -1,4 +1,5 @@
 import { GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { FC } from "react";
 
 // Data Structures
 export interface IUser {

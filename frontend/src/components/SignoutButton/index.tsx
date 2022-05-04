@@ -41,6 +41,7 @@ export const SignoutButton = () => {
   return (
     <StyledFormControl>
       <Select
+        data-testid="signout-select"
         displayEmpty
         value={selected}
         onChange={handleChange}
