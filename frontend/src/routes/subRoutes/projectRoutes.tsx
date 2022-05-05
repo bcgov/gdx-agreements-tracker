@@ -5,7 +5,7 @@ import { PageLink } from "../../components/PageLink";
 import { Project, Projects } from "../../pages";
 
 const projectRoutes = [
-  <Route key="project" path="/project" element={<ProtectedRoute component={Projects} />}>
+  <Route key="project" path="/projects" element={<ProtectedRoute component={Projects} />}>
     <Route path=":projectId" element={<ProtectedRoute component={Project} />} />
     <Route
       path=":projectId/status"

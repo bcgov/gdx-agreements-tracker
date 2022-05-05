@@ -17,6 +17,7 @@ const roles = [
       "contacts_read_all",
       "suppliers_read_all",
       "subcontractors_read_all",
+      "projects_read_all",
     ],
   },
   {
