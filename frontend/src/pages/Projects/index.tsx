@@ -1,14 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
+import { Typography } from "@mui/material";
+import { useFormatTableData } from "../../hooks";
+import { Main, Table } from "../../components";
 import { Outlet } from "react-router-dom";
-import { Main } from "../../components";
 
-export const Projects = () => {
+export const Projects: FC = () => {
+  const { rows, columns, loading } = useFormatTableData("projects");
   return (
-    <>
-      <Main>
-        <h2>Project List</h2>
-        <Outlet />
-      </Main>
-    </>
+    <Main>
+      <Typography variant="h5" component="h2">
+        Projects
+      </Typography>
+      <Table columns={columns} rows={rows} loading={loading} />
+      <Outlet />
+    </Main>
   );
 };
