@@ -9,9 +9,10 @@ jest.mock("@react-keycloak/web", () => ({
 
 describe("Main Layout", () => {
   it("Renders.", () => {
-    render(<Main />, {
+    const { container } = render(<Main />, {
       wrapper: MemoryRouter,
     });
+    expect(container).not.toBeEmptyDOMElement();
   });
 
   it("Is present.", () => {

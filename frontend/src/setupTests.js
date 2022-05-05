@@ -7,18 +7,18 @@ import bcgovTheme from "../src/bcgovTheme";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-export function mountWithTheme(child) {
+export const mountWithTheme = (child) => {
   return mount(child, {
     wrappingComponent: ({ children }) => (
       <ThemeProvider theme={bcgovTheme}>{children}</ThemeProvider>
     ),
   });
-}
+};
 
-export function shallowWithTheme(child) {
+export const shallowWithTheme = (child) => {
   return shallow(child, {
     wrappingComponent: ({ children }) => (
       <ThemeProvider theme={bcgovTheme}>{children}</ThemeProvider>
     ),
   });
-}
+};

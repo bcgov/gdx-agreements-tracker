@@ -17,6 +17,7 @@ describe("<Contracts /> routing", () => {
         <Routes key="main">{contractRoutes}</Routes>
       </MemoryRouter>
     );
-    shallow(<Contracts />);
+    const wrapper = shallow(<Contracts />);
+    expect(wrapper.exists()).toBe(true);
   });
 });

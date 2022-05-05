@@ -4,15 +4,15 @@ import { IColumn, ITableData } from "../types";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
- * @param {Array<Object>} tableData data from a database table.
- * @example tableData.data = [ {id:1,name:"sara"} , {id:2,name:"jim"} ]
  *
+ * @param {Array<object>} tableData data from a database table.
+ * @example tableData.data = [ {id:1,name:"sara"} , {id:2,name:"jim"} ]
  */
 
 // Export this function for unit testing.
 export const formatTableColumns = (tableData: ITableData) => {
   return new Promise((resolve) => {
-    let formattedColumns: Array<Object> = [];
+    const formattedColumns: Array<Object> = [];
     Object.entries(tableData.data[0]).forEach((value, index) => {
       formattedColumns.push({
         field: value[0],
@@ -40,6 +40,9 @@ export const useFormatTableData = (tableName: string) => {
       .get(tableName)
       .then((tableData) => {
         setRows(tableData.data);
+        /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+        // todo: Define a good type. "Any" type temporarily permitted.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatTableColumns(tableData).then((formattedColumns: any) => {
           setColumns(formattedColumns);
           setLoading(false);
