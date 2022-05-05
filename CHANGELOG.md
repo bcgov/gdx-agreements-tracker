@@ -1,5 +1,10 @@
 ## Developer Changelog
 
+
+### May 4, 2022 DESCW-297
+* frontend
+  * added signout button/funcionality
+
 ### May 2, 2022 DESCW-280
 * frontend
   * added new header, footer and sidebar
