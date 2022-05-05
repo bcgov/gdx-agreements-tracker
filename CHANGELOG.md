@@ -1,5 +1,12 @@
 ## Developer Changelog
-
+### May 5, 2022 DESCW-324, DESCW-368, DESCW-369, DESCW-370, DESCW-371
+* backend
+  * added new migrations and seeds for projects database table
+  * API
+    * added backend API for projects
+* frontend
+  * added projects table
+  * added route for projects
 
 ### May 4, 2022 DESCW-297
 * frontend
