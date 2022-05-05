@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### May 5, 2022 
+* DESCW-271 - improve linter standards
+  * frontend and backend
+    * you will need to do an `npm i` in `frontend` and `backend` directories to get the updated linter dependencies, if you have been working on the codebase before this commit.
 
 ### May 4, 2022 DESCW-297
 * frontend
