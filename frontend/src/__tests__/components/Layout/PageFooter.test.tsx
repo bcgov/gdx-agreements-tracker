@@ -9,7 +9,8 @@ jest.mock("@react-keycloak/web", () => ({
 
 describe("Layout Page Footer", () => {
   it("Renders.", () => {
-    render(<PageFooter />);
+    const { container } = render(<PageFooter />);
+    expect(container).not.toBeEmptyDOMElement();
   });
 
   it("Is present.", () => {

@@ -1,7 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Table } from "../../components";
 import { GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { render } from "@testing-library/react";
 
 const columns: GridColDef[] = [
   { field: "lastName", headerName: "Last Name", width: 150 },
@@ -55,7 +55,6 @@ const rows: GridRowsProp = [
 ];
 
 it("renders <Table/> without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Table columns={columns} rows={rows} loading={false} />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  const { container } = render(<Table columns={columns} rows={rows} loading={false} />);
+  expect(container).not.toBeEmptyDOMElement();
 });

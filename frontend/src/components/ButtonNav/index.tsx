@@ -5,11 +5,14 @@ import type { LinkProps } from "react-router-dom";
 /**
  * Returns react router link with active class if matches route.
  *
- * @returns
+ * @param {LinkProps} root0 Link properties.
+ * @param {ReactNode | undefined} root0.children Child nodes.
+ * @param {To} root0.to Destination.
+ * @returns {React.ReactNode}
  */
 export const ButtonNav = ({ children, to, ...props }: LinkProps) => {
-  let resolved = useResolvedPath(to);
-  let match = useMatch({ path: resolved.pathname, end: true });
+  const resolved = useResolvedPath(to);
+  const match = useMatch({ path: resolved.pathname, end: true });
   if (match) {
     props.className = `${props.className ?? ""} active`;
   }

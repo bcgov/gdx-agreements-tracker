@@ -8,6 +8,9 @@ import { apiAxios } from "../../../utils";
 import "./users.scss";
 
 export const Users: FC = () => {
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [userData, setUserData] = useState<any>();
   const [userEditChipRowLocation, setUserEditChipRowLocation] = useState<number>(-1);
 
@@ -15,11 +18,14 @@ export const Users: FC = () => {
     e.preventDefault();
   };
 
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleRowMouseEnter = (e: any) => {
     setUserEditChipRowLocation(e.target?.parentElement.id);
   };
 
-  const handlerowMouseLeave = (e: any) => {
+  const handlerowMouseLeave = () => {
     setUserEditChipRowLocation(-1);
   };
 
@@ -27,9 +33,15 @@ export const Users: FC = () => {
     const axiosResponse = apiAxios();
     axiosResponse
       .get("users")
+      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+      // todo: Define a good type. "Any" type temporarily permitted.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then((data: any) => {
         setUserData(data);
       })
+      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+      // todo: Define a good type. "Any" type temporarily permitted.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .catch((error: any) => {
         console.error(error);
       });
@@ -68,31 +80,36 @@ export const Users: FC = () => {
             </TableHead>
             <TableBody className="user-table-body">
               {userData &&
-                userData.data.map((user: IUser, i: any) => (
-                  <TableRow
-                    hover
-                    id={i}
-                    key={user.id}
-                    className="table-body-row"
-                    onMouseEnter={handleRowMouseEnter}
-                    onMouseLeave={handlerowMouseLeave}
-                  >
-                    <TableCell className="body-cell" component="th" scope="row">
-                      {user.email}
-                    </TableCell>
-                    <TableCell className="body-cell" align="left">
-                      {user?.roles}
-                    </TableCell>
-                    <TableCell className="body-cell" align="right">
-                      {i === userEditChipRowLocation && (
-                        <RowEditDeleteChip
-                          editCallback={() => undefined}
-                          deleteCallback={() => undefined}
-                        />
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                userData.data.map(
+                  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+                  // todo: Define a good type. "Any" type temporarily permitted.
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (user: IUser, i: any) => (
+                    <TableRow
+                      hover
+                      id={i}
+                      key={user.id}
+                      className="table-body-row"
+                      onMouseEnter={handleRowMouseEnter}
+                      onMouseLeave={handlerowMouseLeave}
+                    >
+                      <TableCell className="body-cell" component="th" scope="row">
+                        {user.email}
+                      </TableCell>
+                      <TableCell className="body-cell" align="left">
+                        {user?.roles}
+                      </TableCell>
+                      <TableCell className="body-cell" align="right">
+                        {i === userEditChipRowLocation && (
+                          <RowEditDeleteChip
+                            editCallback={() => undefined}
+                            deleteCallback={() => undefined}
+                          />
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  )
+                )}
             </TableBody>
           </Table>
         </TableContainer>

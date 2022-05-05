@@ -1,8 +1,8 @@
 module.exports = {
   env: {
-    "browser": true,
-    "es2021": true,
-    "node": true
+    browser: true,
+    es2021: true,
+    node: true,
   },
   extends: [
     "eslint:recommended",
@@ -10,14 +10,14 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jest/recommended",
-    "plugin:jsdoc/recommended"
+    "plugin:jsdoc/recommended",
   ],
   parserOptions: {
-    "ecmaFeatures": {
-      "jsx": true
+    ecmaFeatures: {
+      jsx: true,
     },
-    "ecmaVersion": 2021,
-    "sourceType": "module"
+    ecmaVersion: 2021,
+    sourceType: "module",
   },
   plugins: [
     "react",
@@ -25,25 +25,25 @@ module.exports = {
     "jest",
     "eslint-plugin-no-inline-styles",
     "prefer-arrow",
-    "jsdoc"
+    "jsdoc",
   ],
   settings: {
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
     },
-    "react": {
-        "version": "17",
+    react: {
+      version: "17",
     },
   },
   globals: {
     // Prevent React incorrectly marked as unknown global.
-    "React": "readonly"
+    React: "readonly",
   },
   rules: {
     // No console.log.
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": ["error", { allow: ["warn", "error"] }],
 
     // Semicolons must be at the end of lines, where appropriate.
     "semi-style": ["error", "last"],
@@ -52,22 +52,22 @@ module.exports = {
     "comma-dangle": [
       "error",
       {
-        "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "imports": "always-multiline",
-        "exports": "always-multiline",
-        "functions": "ignore"
-      }
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
+        functions: "ignore",
+      },
     ],
 
     // Yoda style, equality comparisons with literals must be.
-    "yoda": [ "error", "always", { "onlyEquality" : true } ],
+    yoda: ["error", "always", { onlyEquality: true }],
 
     // No type coercion in comparisons.
-    "eqeqeq": ["error", "always" ],
+    eqeqeq: ["error", "always"],
 
     // No declaring anything and not using it; did you finish cleaning up?
-    "no-unused-vars": ["error", { "args": "none" }],
+    "no-unused-vars": ["error", { args: "none" }],
 
     // Must use const or let.
     "no-var": "error",
@@ -79,21 +79,17 @@ module.exports = {
     "prefer-arrow/prefer-arrow-functions": [
       "error",
       {
-        "disallowPrototype": true,
-        "singleReturnOnly": false,
-        "classPropertiesAllowed": false
-      }
+        disallowPrototype: true,
+        singleReturnOnly: false,
+        classPropertiesAllowed: false,
+      },
     ],
-    "prefer-arrow-callback": [
-      "error",
-      { "allowNamedFunctions": true }
-    ],
+    "prefer-arrow-callback": ["error", { allowNamedFunctions: true }],
     // Disabled for now, because this seems to be redundant, but it might not be in some cases; preserved for if we find those cases.
     //"func-style": [
     //  "error",
     //  "expression"
     //],
-
 
     // React.
     // Prevent React to be incorrectly marked as unused.
@@ -102,7 +98,6 @@ module.exports = {
     // No inline styles. 2 is the same as "error" for this plugin. https://www.npmjs.com/package/eslint-plugin-no-inline-styles
     "no-inline-styles/no-inline-styles": 2,
 
-
     // JSDoc
     // Require JSDoc block.
     "jsdoc/require-jsdoc": "error",
@@ -110,11 +105,11 @@ module.exports = {
     "jsdoc/require-description": [
       "error",
       {
-        "descriptionStyle": "any",
-        "checkConstructors": false,
-        "checkGetters": false,
-        "checkSetters": false
-      }
+        descriptionStyle: "any",
+        checkConstructors: false,
+        checkGetters: false,
+        checkSetters: false,
+      },
     ],
     "jsdoc/newline-after-description": "error",
     // Require a return type. Don't require a return type description.
@@ -124,36 +119,30 @@ module.exports = {
     // Params need a type and description.
     "jsdoc/check-types": "error",
     "jsdoc/require-param-description": "error",
-
+    // Trust that the type exists somewhere. Prevents having to import types that are unused except for only doc blocks.
+    "jsdoc/no-undefined-types": "off",
 
     // Jest
     // Tests must have at least one assertion.
     "jest/expect-expect": "error",
-
   },
   overrides: [
     {
       // Separate linting for typescript. https://stackoverflow.com/a/60773716/5301718
       files: ["*.ts", "*.tsx"],
       parser: "@typescript-eslint/parser",
-      plugins: [
-        "@typescript-eslint",
-        "eslint-plugin-no-inline-styles",
-        "prefer-arrow"
-      ],
-      extends: [
-        "plugin:@typescript-eslint/eslint-recommended",
-      ],
+      plugins: ["@typescript-eslint", "eslint-plugin-no-inline-styles", "prefer-arrow"],
+      extends: ["plugin:@typescript-eslint/eslint-recommended"],
       parserOptions: {
-        "ecmaFeatures": {
-          "jsx": true
+        ecmaFeatures: {
+          jsx: true,
         },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+        ecmaVersion: "latest",
+        sourceType: "module",
       },
       settings: {
         react: {
-          version: '17',
+          version: "17",
         },
       },
 
@@ -164,8 +153,8 @@ module.exports = {
         // Use of "any" type disallowed. Use the following if you really need "any": // eslint-disable-next-line @typescript-eslint/no-explicit-any
         "@typescript-eslint/no-explicit-any": "error",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error"]
+        "@typescript-eslint/no-unused-vars": ["error"],
       },
-    }
+    },
   ],
 };

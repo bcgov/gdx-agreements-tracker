@@ -17,6 +17,7 @@ describe("<Admin /> routing", () => {
         <Routes key="main">{adminRoutes}</Routes>
       </MemoryRouter>
     );
-    shallow(<Users />);
+    const wrapper = shallow(<Users />);
+    expect(wrapper.exists()).toBe(true);
   });
 });

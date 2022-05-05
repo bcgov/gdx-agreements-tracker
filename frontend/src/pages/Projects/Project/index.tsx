@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { DetailsList } from "../../../components";
 
 export const Project = () => {
-  let { projectId } = useParams();
+  const { projectId } = useParams();
 
   return (
     <>
