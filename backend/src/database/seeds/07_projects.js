@@ -28,7 +28,8 @@ exports.seed = function (knex) {
           start_date: "2021-10-02",
           date_signed: "2020-07-05",
           end_date: "2018-04-07",
-          description: "Ad in exercitation cillum enim consequat anim duis irure est in laboris ad.",
+          description:
+            "Ad in exercitation cillum enim consequat anim duis irure est in laboris ad.",
         },
         {
           id: 2,
