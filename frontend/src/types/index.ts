@@ -8,9 +8,7 @@ export interface IUser {
   name: string;
   updated_at: string;
   username: string;
-  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  roles: any[]; // todo: Define a good type. "Any" type temporarily permitted.
+  roles?: unknown;
 }
 
 // Hooks
