@@ -14,8 +14,7 @@ export const getApiUrl = () => {
  * Wrapper around axios. Uses axios interceptors as hooks
  * into each request and response made by axios.
  *
- * @param {String|undefined} authToken
- * @returns
+ * @returns {AxiosInstance}
  */
 export const apiAxios = () => {
   const apiUrl = getApiUrl();

@@ -11,9 +11,10 @@ jest.mock("@react-keycloak/web", () => ({
 describe("Layout Sidebar", () => {
   it("Renders at all.", () => {
     const handleClick = jest.fn();
-    render(<Sidebar drawerOpen={false} handleDrawerToggle={handleClick} />, {
+    const { container } = render(<Sidebar drawerOpen={false} handleDrawerToggle={handleClick} />, {
       wrapper: MemoryRouter,
     });
+    expect(container).not.toBeEmptyDOMElement();
   });
 
   it("Renders the SideBar logo.", () => {

@@ -12,10 +12,9 @@ import { useKeycloak } from "@react-keycloak/web";
 import { AccountCircle } from "@mui/icons-material";
 
 /**
- * @Function SignoutButton is a component that combines sign out functionality and html in one place
- * @returns a component
+ * A component that combines sign out functionality and html in one place.
  *
- *
+ * @returns {React.ReactNode} a component
  */
 export const SignoutButton = () => {
   const [selected, setSelected] = useState<string>("");
@@ -25,7 +24,7 @@ export const SignoutButton = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-    if (event.target.value === "Signout") {
+    if ("Signout" === event.target.value) {
       keycloak.logout();
     }
   };
