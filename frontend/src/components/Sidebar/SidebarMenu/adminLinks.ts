@@ -27,4 +27,8 @@ export const adminLinks = [
     name: "Glossary",
     url: "/admin/glossary",
   },
+  {
+    name: "Projects",
+    url: "/projects",
+  },
 ];
