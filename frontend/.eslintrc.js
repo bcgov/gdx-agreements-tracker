@@ -161,7 +161,8 @@ module.exports = {
        * Typescript Rules
        */
       rules: {
-        "@typescript-eslint/no-explicit-any": "off",
+        // Use of "any" type disallowed. Use the following if you really need "any": // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        "@typescript-eslint/no-explicit-any": "error",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["error"]
       },
