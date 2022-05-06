@@ -10,10 +10,10 @@
  * Returns a list of capabilities based on role type of admin | manager | gdx | subscriber | none.
  * Roles are meant to be hierarchical, meaning the admin will have all the capabilities of manager, gdx, subscriber and none.
  *
- * @param   {string}  role  The role name admin | manager | gdx | subscriber | none.
- * @param   {Array}  realmAccessRoles  An array of the roles from keycloak, at this time should only be [pmo-sys-admin] | [].
+ * @param   {string} role             The role name admin | manager | gdx | subscriber | none.
+ * @param   {Array}  realmAccessRoles An array of the roles from keycloak, at this time should only be [pmo-sys-admin] | [].
  * @todo Add tests once methods are more defined for use.
- * @returns  {Array}        An array of the capabilities a role has.
+ * @returns {Array}                   An array of the capabilities a role has.
  */
 const getCapability = (role, realmAccessRoles) => {
   let capability = [];
@@ -34,7 +34,7 @@ const getCapability = (role, realmAccessRoles) => {
 /**
  * The capabilities for admin.
  *
- * @returns  {Array}
+ * @returns {Array}
  */
 const getAdminRoles = () => {
   const adminRoles = ["users_create_all", "users_read_all", "users_update_all", "users_delete_all"];

@@ -31,7 +31,7 @@ const templateFilePaths = templateTypes.map((type) => {
 /**
  * Generic console error message
  *
- * @param {*} message  The message to print.
+ * @param {*} message The message to print.
  */
 const sayError = (message) => {
   console.error(`${consoleErrorColor}${message}${consoleClearColors}`);
@@ -40,7 +40,7 @@ const sayError = (message) => {
 /**
  * Generic console success message
  *
- * @param {*} message  The message to print.
+ * @param {*} message The message to print.
  */
 const saySuccess = (message) => {
   console.log(`${consoleSuccessColor}${message}${consoleClearColors}`);

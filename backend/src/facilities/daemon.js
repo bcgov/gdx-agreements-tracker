@@ -37,8 +37,8 @@ const cleanup = () => {
 };
 
 /**
- *  Initializes the database connections.
- *  This will force the application to exit if it fails.
+ * Initializes the database connections.
+ * This will force the application to exit if it fails.
  */
 const initializeConnections = () => {
   // Initialize connections and exit if unsuccessful

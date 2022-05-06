@@ -167,8 +167,8 @@ class DatabaseConnection {
   /**
    * Bootstraps the database if it hasn't been set up yet.
    *
-   * @param {string} databaseName The name of the database.
-   * @returns {boolean} Success (true) or failure.
+   * @param   {string}  databaseName The name of the database.
+   * @returns {boolean}              Success (true) or failure.
    */
   async bootstrapDatabase(databaseName) {
     log.info(`db bootstrap: attempting to create database "${databaseName}".`);
