@@ -1,5 +1,5 @@
-const subcontractors = require("../../src/database/seeds/06_subcontractors")
-const { getAll, getOne } = require("../../src/controllers/subcontractors");
+const subcontractors = require("../../src/database/seeds/06_subcontractors");
+const { getAll } = require("../../src/controllers/subcontractors");
 const subcontractorsModel = require("../../src/models/subcontractors.js");
 
 // Mock user DB methods.
@@ -14,8 +14,9 @@ describe("Testing user controllers", () => {
       },
     };
     const result = await getAll(sampleRequest);
-    expect(result.subcontractors).toBeInstanceOf(Array)
-    result.subcontractors.forEach((subcontractorsObject) => expect("id" in subcontractorsObject).toBe(true));
+    expect(result.subcontractors).toBeInstanceOf(Array);
+    result.subcontractors.forEach((subcontractorsObject) =>
+      expect("id" in subcontractorsObject).toBe(true)
+    );
   });
-
 });

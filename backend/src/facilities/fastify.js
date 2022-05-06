@@ -23,7 +23,7 @@ const fastifyRoles = require("../plugins/fastify-roles");
  * of all server requests.
  * - Register a couple more routes.
  *
- * @param {Object} options
+ * @param {object} options  Fastify options.
  * @returns {FastifyInstance}
  */
 const fastifyInstance = (options) => {

@@ -7,15 +7,12 @@ const knexConfig = require("../../knexfile");
  *
  * Create and check the connection for data persistence.
  * Based on module from bcgov/common-hosted-form-service.
- *
  * @see Knex
- *
  * @exports DatabaseConnection
  */
 class DatabaseConnection {
   /**
    * Creates a new DatabaseConnection with Knex configuration.
-   * @class
    */
   constructor() {
     if (!DatabaseConnection.instance) {
@@ -27,16 +24,18 @@ class DatabaseConnection {
   }
 
   /**
-   * @function connected
-   * True or false if connected.
+   * Gets the current state of connection. True if connected, false if not.
+   *
+   * @returns {boolean}
    */
   get connected() {
     return this._connected;
   }
 
   /**
-   * @function knex
    * Gets the current knex binding.
+   *
+   * @returns {Knex}
    */
   get knex() {
     return this._knex;
@@ -53,8 +52,8 @@ class DatabaseConnection {
   }
 
   /**
-   * @function checkAll
    * Checks the Knex connection, the database schema, and Objection models.
+   *
    * @returns {boolean} True if successful, otherwise false.
    */
   async checkAll() {
@@ -84,10 +83,10 @@ class DatabaseConnection {
   }
 
   /**
-   * @function checkConnection
    * Checks the current knex connection to Postgres.
    * If the connected DB is in read-only mode, transaction_read_only will not be off.
-   * @returns {boolean} True if successful, -1 if the intended database is missing, otherwise false.
+   *
+   * @returns {boolean|integer} True if successful, -1 if the intended database is missing, otherwise false.
    */
   async checkConnection() {
     try {
@@ -112,8 +111,8 @@ class DatabaseConnection {
   }
 
   /**
-   * @function checkSchema
    * Queries the knex connection to check for the existence of the expected schema tables.
+   *
    * @returns {boolean} True if schema is ok, otherwise false.
    */
   checkSchema() {
@@ -137,9 +136,9 @@ class DatabaseConnection {
   }
 
   /**
-   * @function close
    * Will close the DatabaseConnection.
-   * @param {function} [cb] Optional callback.
+   *
+   * @param {Function} [cb] Optional callback.
    */
   close(cb = undefined) {
     if (this.knex) {
@@ -156,7 +155,6 @@ class DatabaseConnection {
   }
 
   /**
-   * @function resetConnection
    * Invalidates and reconnects existing knex connection.
    */
   resetConnection() {
@@ -167,8 +165,10 @@ class DatabaseConnection {
   }
 
   /**
-   * @function bootstrapDatabase
    * Bootstraps the database if it hasn't been set up yet.
+   *
+   * @param {string} databaseName The name of the database.
+   * @returns {boolean} Success (true) or failure.
    */
   async bootstrapDatabase(databaseName) {
     log.info(`db bootstrap: attempting to create database "${databaseName}".`);
