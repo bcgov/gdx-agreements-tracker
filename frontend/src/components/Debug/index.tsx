@@ -6,16 +6,22 @@ import keycloak from "../../keycloak";
  * This is a debug component that return keycloak information, and bearer token.
  * This is not to be used in production.
  *
- * @returns {JSXNode}
+ * @returns {React.ReactNode}
  */
 export const Debug: FC = () => {
   /**
    * Parses the object of keycloak.idTokenParsed, to give a list of all tokens.
    *
-   * @param {Object} tokenParsed The keycloak.idTokenParsed object.
-   * @returns {JSXNode}
+   * @param   {object}          tokenParsed The keycloak.idTokenParsed object.
+   * @returns {React.ReactNode}
    */
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getTokenParsed = (tokenParsed: any) => {
+    /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+    // todo: Define a good type. "Any" type temporarily permitted.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return Object.entries(tokenParsed).map((token: Array<any>) => {
       return (
         <tr key={token[0]}>
@@ -29,8 +35,8 @@ export const Debug: FC = () => {
   /**
    * Gets the Roles associated with user.
    *
-   * @param {Array} roles The roles for this user from keycloak.realmAccess.roles.
-   * @returns {JSXNode}
+   * @param   {Array}           roles The roles for this user from keycloak.realmAccess.roles.
+   * @returns {React.ReactNode}
    */
   const getRoles = (roles: Array<string>) => {
     return (
@@ -68,6 +74,9 @@ export const Debug: FC = () => {
           </table>
           <div className="keycloak-token">
             <button
+              /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+              // todo: Define a good type. "Any" type temporarily permitted.
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onClick={(event: any) => {
                 navigator.clipboard.writeText(keycloak.token ?? "");
                 event.target.style.backgroundColor = "#000";

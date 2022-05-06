@@ -12,20 +12,22 @@ import { useKeycloak } from "@react-keycloak/web";
 import { AccountCircle } from "@mui/icons-material";
 
 /**
- * @Function SignoutButton is a component that combines sign out functionality and html in one place
- * @returns a component
+ * A component that combines sign out functionality and html in one place.
  *
- *
+ * @returns {React.ReactNode} a component
  */
 export const SignoutButton = () => {
   const [selected, setSelected] = useState<string>("");
 
-  //Destructure the kecloak functionality
-  const { keycloak } = useKeycloak();
+  //Destructure the keycloak functionality
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { keycloak }: any = useKeycloak();
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-    if (event.target.value === "Signout") {
+    if ("Signout" === event.target.value) {
       keycloak.logout();
     }
   };

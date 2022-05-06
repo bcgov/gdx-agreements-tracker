@@ -12,6 +12,7 @@ const StyledAppBar = styled(AppBar)({
   borderBottom: bcgovTheme.customSettings.BCGovAccentLine,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const PageHeader = ({ drawerOpen, handleDrawerToggle }: IPageHeader) => {
   return (
     <div>

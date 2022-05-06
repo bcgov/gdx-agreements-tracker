@@ -10,7 +10,10 @@ jest.mock("@react-keycloak/web", () => ({
 describe("Layout Page Header", () => {
   it("Renders.", () => {
     const handleClick = jest.fn();
-    render(<PageHeader drawerOpen={false} handleDrawerToggle={handleClick} />);
+    const { container } = render(
+      <PageHeader drawerOpen={false} handleDrawerToggle={handleClick} />
+    );
+    expect(container).not.toBeEmptyDOMElement();
   });
 
   it("Is present.", () => {

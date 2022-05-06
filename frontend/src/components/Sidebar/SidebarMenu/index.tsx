@@ -11,6 +11,11 @@ const StyledSidebarImageFooter = styled("img")({
   width: "100%",
 });
 
+const StyledSidebarHorizontalRule = styled("hr")({
+  width: "100%",
+  borderTop: bcgovTheme.customSettings.BCGovAccentLine,
+});
+
 export const SidebarMenu = (
   <Box
     p="12px"
@@ -26,7 +31,7 @@ export const SidebarMenu = (
         GDX Agreements Tracker
       </Typography>
     </Box>
-    <hr style={{ width: "100%", borderTop: bcgovTheme.customSettings.BCGovAccentLine }} />
+    <StyledSidebarHorizontalRule />
     <List>
       {adminLinks.map((link, index) => {
         return (

@@ -8,7 +8,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:debug": "jest --detectOpenHandles",
-    "lint": "eslint src/ --ext .jsx,.js,.ts,.tsx --max-warnings 0",
+    "lint": "eslint templates/ test/ src/ --ext .jsx,.js,.ts,.tsx ",
     "lint:fix": "npm run lint -- --fix",
     "createAPI": "node templates/create-api/index.js"
   },
@@ -37,11 +37,18 @@
     "pino": "^7.6.0"
   },
   "devDependencies": {
-    "eslint": "^8.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "eslint": "^8.14.0",
     "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-jest": "^26.1.5",
+    "eslint-plugin-jsdoc": "^39.2.9",
+    "eslint-plugin-no-inline-styles": "^1.0.5",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "4.0.0",
     "jest": "^27.4.5",
     "nodemon": "^2.0.14",
     "prettier": "2.5.1"
-  }  
+  }
 }

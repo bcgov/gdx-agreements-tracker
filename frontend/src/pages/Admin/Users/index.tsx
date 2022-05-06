@@ -8,6 +8,9 @@ import { apiAxios } from "../../../utils";
 import "./users.scss";
 
 export const Users: FC = () => {
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [userData, setUserData] = useState<any>();
   const [userEditChipRowLocation, setUserEditChipRowLocation] = useState<number>(-1);
 
@@ -15,11 +18,14 @@ export const Users: FC = () => {
     e.preventDefault();
   };
 
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleRowMouseEnter = (e: any) => {
     setUserEditChipRowLocation(e.target?.parentElement.id);
   };
 
-  const handlerowMouseLeave = (e: any) => {
+  const handlerowMouseLeave = () => {
     setUserEditChipRowLocation(-1);
   };
 
@@ -27,10 +33,13 @@ export const Users: FC = () => {
     const axiosResponse = apiAxios();
     axiosResponse
       .get("users")
+      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+      // todo: Define a good type. "Any" type temporarily permitted.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then((data: any) => {
         setUserData(data);
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         console.error(error);
       });
   }, []);
@@ -68,10 +77,10 @@ export const Users: FC = () => {
             </TableHead>
             <TableBody className="user-table-body">
               {userData &&
-                userData.data.map((user: IUser, i: any) => (
+                userData.data.map((user: IUser, i: number) => (
                   <TableRow
                     hover
-                    id={i}
+                    id={i.toString()}
                     key={user.id}
                     className="table-body-row"
                     onMouseEnter={handleRowMouseEnter}
@@ -81,7 +90,7 @@ export const Users: FC = () => {
                       {user.email}
                     </TableCell>
                     <TableCell className="body-cell" align="left">
-                      {user?.roles}
+                      roles
                     </TableCell>
                     <TableCell className="body-cell" align="right">
                       {i === userEditChipRowLocation && (

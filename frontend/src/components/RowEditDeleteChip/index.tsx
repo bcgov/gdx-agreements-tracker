@@ -8,7 +8,13 @@ import { visuallyHidden } from "@mui/utils";
 
 // Callbacks can have any number of arguments and can have any return type.
 interface IProps {
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editCallback: (...args: any[]) => any;
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   deleteCallback: (...args: any[]) => any;
 }
 
