@@ -12,7 +12,7 @@ export const Debug: FC = () => {
   /**
    * Parses the object of keycloak.idTokenParsed, to give a list of all tokens.
    *
-   * @param {object} tokenParsed The keycloak.idTokenParsed object.
+   * @param   {object}          tokenParsed The keycloak.idTokenParsed object.
    * @returns {React.ReactNode}
    */
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
@@ -35,7 +35,7 @@ export const Debug: FC = () => {
   /**
    * Gets the Roles associated with user.
    *
-   * @param {Array} roles The roles for this user from keycloak.realmAccess.roles.
+   * @param   {Array}           roles The roles for this user from keycloak.realmAccess.roles.
    * @returns {React.ReactNode}
    */
   const getRoles = (roles: Array<string>) => {

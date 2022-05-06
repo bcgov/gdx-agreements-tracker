@@ -1,40 +1,34 @@
 module.exports = {
   env: {
-    "browser": true,
-    "es2021": true,
-    "node": true
+    browser: true,
+    es2021: true,
+    node: true,
   },
   extends: [
     "eslint:recommended",
     "plugin:prettier/recommended",
     "plugin:jest/recommended",
-    "plugin:jsdoc/recommended"
+    "plugin:jsdoc/recommended",
   ],
   parserOptions: {
-    "ecmaFeatures": {
-      "jsx": true
+    ecmaFeatures: {
+      jsx: true,
     },
-    "ecmaVersion": 2021,
-    "sourceType": "module"
+    ecmaVersion: 2021,
+    sourceType: "module",
   },
-  plugins: [
-    "jest",
-    "eslint-plugin-no-inline-styles",
-    "prefer-arrow",
-    "jsdoc"
-  ],
+  plugins: ["jest", "eslint-plugin-no-inline-styles", "prefer-arrow", "jsdoc"],
   settings: {
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
     },
   },
-  globals: {
-  },
+  globals: {},
   rules: {
     // No console.log.
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": ["error", { allow: ["warn", "error"] }],
 
     // Semicolons must be at the end of lines, where appropriate.
     "semi-style": ["error", "last"],
@@ -43,22 +37,22 @@ module.exports = {
     "comma-dangle": [
       "error",
       {
-        "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "imports": "always-multiline",
-        "exports": "always-multiline",
-        "functions": "ignore"
-      }
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
+        functions: "ignore",
+      },
     ],
 
     // Yoda style, equality comparisons with literals must be.
-    "yoda": [ "error", "always", { "onlyEquality" : true } ],
+    yoda: ["error", "always", { onlyEquality: true }],
 
     // No type coercion in comparisons.
-    "eqeqeq": ["error", "always" ],
+    eqeqeq: ["error", "always"],
 
     // No declaring anything and not using it; did you finish cleaning up?
-    "no-unused-vars": ["error", { "args": "none" }],
+    "no-unused-vars": ["error", { args: "none" }],
 
     // Must use const or let.
     "no-var": "error",
@@ -70,34 +64,32 @@ module.exports = {
     "prefer-arrow/prefer-arrow-functions": [
       "error",
       {
-        "disallowPrototype": true,
-        "singleReturnOnly": false,
-        "classPropertiesAllowed": false
-      }
+        disallowPrototype: true,
+        singleReturnOnly: false,
+        classPropertiesAllowed: false,
+      },
     ],
-    "prefer-arrow-callback": [
-      "error",
-      { "allowNamedFunctions": true }
-    ],
+    "prefer-arrow-callback": ["error", { allowNamedFunctions: true }],
     // Disabled for now, because this seems to be redundant, but it might not be in some cases; preserved for if we find those cases.
     // "func-style": [
     //   "error",
     //   "expression"
     // ],
 
-
     // JSDoc
     // Require JSDoc block.
     "jsdoc/require-jsdoc": "error",
+    // Line everything up when lint:fix is run.
+    "jsdoc/check-line-alignment": ["warn", "always"],
     // Require a description in JSDoc block.
     "jsdoc/require-description": [
       "error",
       {
-        "descriptionStyle": "any",
-        "checkConstructors": false,
-        "checkGetters": false,
-        "checkSetters": false
-      }
+        descriptionStyle: "any",
+        checkConstructors: false,
+        checkGetters: false,
+        checkSetters: false,
+      },
     ],
     "jsdoc/newline-after-description": "error",
     // Require a return type. Don't require a return type description.
@@ -107,35 +99,28 @@ module.exports = {
     // Params need a type and description.
     "jsdoc/check-types": "error",
     "jsdoc/require-param-description": "error",
-
+    // Trust that the type exists somewhere. Prevents having to import types that are unused except for only doc blocks.
+    "jsdoc/no-undefined-types": "off",
 
     // Jest
     // Tests must have at least one assertion.
     "jest/expect-expect": "error",
-
   },
   overrides: [
     {
       // Separate linting for typescript. https://stackoverflow.com/a/60773716/5301718
       files: ["*.ts", "*.tsx"],
       parser: "@typescript-eslint/parser",
-      plugins: [
-        "@typescript-eslint",
-        "eslint-plugin-no-inline-styles",
-        "prefer-arrow"
-      ],
-      extends: [
-        "plugin:@typescript-eslint/eslint-recommended",
-      ],
+      plugins: ["@typescript-eslint", "eslint-plugin-no-inline-styles", "prefer-arrow"],
+      extends: ["plugin:@typescript-eslint/eslint-recommended"],
       parserOptions: {
-        "ecmaFeatures": {
-          "jsx": true
+        ecmaFeatures: {
+          jsx: true,
         },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+        ecmaVersion: "latest",
+        sourceType: "module",
       },
-      settings: {
-      },
+      settings: {},
 
       /**
        * Typescript Rules
@@ -143,16 +128,16 @@ module.exports = {
       rules: {
         "@typescript-eslint/no-explicit-any": "off",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error"]
+        "@typescript-eslint/no-unused-vars": ["error"],
       },
     },
     {
       // Permit classic function declarations for seeds and migrations, because that is what the generator tool creates.
-      "files": ["src/database/migrations/*.js", "src/database/seeds/*.js"],
-      "rules": {
+      files: ["src/database/migrations/*.js", "src/database/seeds/*.js"],
+      rules: {
         "prefer-arrow/prefer-arrow-functions": "off",
-        "prefer-arrow-callback": "off"
-      }
-    }
+        "prefer-arrow-callback": "off",
+      },
+    },
   ],
 };

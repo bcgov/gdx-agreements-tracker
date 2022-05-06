@@ -1,13 +1,12 @@
 const log = require("../facilities/logging.js")(module.filename);
 const Model = require("../models/$databaseTableName.js");
-const what = { single:"$databaseTableName", plural: "$databaseTableName" };
+const what = { single: "$databaseTableName", plural: "$databaseTableNames" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.
  *
- * @param {object}  request The request object, which should have the user capability via the fastify-roles plugin.
- * @param {string}  capability Is the name of the role that is required to access the route.
- *
+ * @param   {FastifyRequest} request    The request object, which should have the user capability via the fastify-roles plugin.
+ * @param   {string}         capability Is the name of the role that is required to access the route.
  * @returns {boolean}
  */
 const userCan = (request, capability) => {
@@ -18,11 +17,10 @@ const userCan = (request, capability) => {
 /**
  * This is a helper function that returns 401 with generic message if user is not allowed to access route.
  *
- * @param   {object}  reply  The reply object, in order to set the status code.
- *
- * @return  {object}
+ * @param   {FastifyReply} reply The reply object, in order to set the status code.
+ * @returns {object}
  */
- const notAllowed = (reply) => {
+const notAllowed = (reply) => {
   reply.code(401);
   return { message: `You don't have the correct permission` };
 };
@@ -30,20 +28,20 @@ const userCan = (request, capability) => {
 /**
  * For roles that might require only if mine, however this still needs to be implemented.
  *
- * @param   {object}  request  The request object
+ * @param   {FastifyRequest} request The request object
  * @todo  Add functionality to call db to see if the owner is the current user.
- *
- * @return  {boolean}
+ * @returns {boolean}
  */
- const checkMine = (request) => {
+const checkMine = (request) => {
   return true;
 };
-
 
 /**
  * Get all items.
  *
- * @returns {Object}
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
  */
 const getAll = async (request, reply) => {
   if (userCan(request, "$databaseTableName_read_all")) {
@@ -66,11 +64,11 @@ const getAll = async (request, reply) => {
 /**
  * Get a specific item by ID.
  *
- * @param request
- * @param reply
- * @returns {Object}
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
  */
- const getOne = async (request, reply) => {
+const getOne = async (request, reply) => {
   if (
     userCan(request, "$databaseTableName_read_all") ||
     (userCan(request, "$databaseTableName_read_mine") && checkMine(request))
@@ -89,12 +87,14 @@ const getAll = async (request, reply) => {
       return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
-    log.trace('user lacks capability "$databaseTableName_read_all" || "$databaseTableName_read_mine"');
+    log.trace(
+      'user lacks capability "$databaseTableName_read_all" || "$databaseTableName_read_mine"'
+    );
     return notAllowed(reply);
   }
 };
 
 module.exports = {
   getAll,
-  getOne
+  getOne,
 };

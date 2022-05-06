@@ -8,7 +8,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:debug": "jest --detectOpenHandles",
-    "lint": "eslint src/ --ext .jsx,.js,.ts,.tsx --max-warnings 0",
+    "lint": "eslint templates/ test/ src/ --ext .jsx,.js,.ts,.tsx --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "createAPI": "node templates/create-api/index.js"
   },

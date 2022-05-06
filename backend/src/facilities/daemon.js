@@ -12,7 +12,6 @@ const state = {
 let probeId;
 
 /**
- * @function shutdown
  * Shuts down this application after at least 3 seconds.
  */
 const shutdown = () => {
@@ -22,7 +21,6 @@ const shutdown = () => {
 };
 
 /**
- * @function cleanup
  * Cleans up connections in this application.
  */
 const cleanup = () => {
@@ -39,9 +37,8 @@ const cleanup = () => {
 };
 
 /**
- *  @function initializeConnections
- *  Initializes the database connections
- *  This will force the application to exit if it fails
+ * Initializes the database connections.
+ * This will force the application to exit if it fails.
  */
 const initializeConnections = () => {
   // Initialize connections and exit if unsuccessful
@@ -82,9 +79,8 @@ const initializeConnections = () => {
 };
 
 /**
- * @function checkConnections
- * Checks Database connectivity
- * This will force the application to exit if a connection fails
+ * Checks Database connectivity.
+ * This will force the application to exit if a connection fails.
  */
 const checkConnections = () => {
   const wasReady = state.ready;
@@ -107,7 +103,6 @@ const checkConnections = () => {
 };
 
 /**
- * @function registerSignalHandlers
  * Registers signal handlers for graceful shutdown.
  */
 const registerSignalHandlers = () => {

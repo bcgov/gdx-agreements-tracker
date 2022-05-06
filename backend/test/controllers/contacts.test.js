@@ -1,5 +1,5 @@
-const contacts = require("../../src/database/seeds/04_contacts")
-const { getAll, getOne } = require("../../src/controllers/contacts");
+const contacts = require("../../src/database/seeds/04_contacts");
+const { getAll } = require("../../src/controllers/contacts");
 const contactsModel = require("../../src/models/contacts.js");
 
 // Mock user DB methods.
@@ -14,8 +14,7 @@ describe("Testing user controllers", () => {
       },
     };
     const result = await getAll(sampleRequest);
-    expect(result.contacts).toBeInstanceOf(Array)
+    expect(result.contacts).toBeInstanceOf(Array);
     result.contacts.forEach((contactsObject) => expect("id" in contactsObject).toBe(true));
   });
-
 });

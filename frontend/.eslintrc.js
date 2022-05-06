@@ -101,6 +101,8 @@ module.exports = {
     // JSDoc
     // Require JSDoc block.
     "jsdoc/require-jsdoc": "error",
+    // Line everything up when lint:fix is run.
+    "jsdoc/check-line-alignment": ["warn", "always"],
     // Require a description in JSDoc block.
     "jsdoc/require-description": [
       "error",
