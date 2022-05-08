@@ -5,13 +5,15 @@ import { PageFooter } from "../PageFooter";
 import { Sidebar } from "../../Sidebar";
 import { useDrawer } from "../../../hooks/useDrawer";
 import { PageHeader } from "../PageHeader";
+import { Outlet, useParams } from "react-router-dom";
+
 
 const drawerWidth = bcgovTheme.customSettings.drawerWidth;
 
 export const Main = ({ children }: any) => {
   const { drawerOpen, handleDrawerToggle } = useDrawer();
   return (
-    <>
+    <>   
       {/* left hand side */}
       <Sidebar drawerOpen={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
       {/* right hand side */}
@@ -46,7 +48,7 @@ export const Main = ({ children }: any) => {
               }
             }
           >
-            {children}
+            <Outlet />
           </Box>
           <PageFooter />
         </Box>
