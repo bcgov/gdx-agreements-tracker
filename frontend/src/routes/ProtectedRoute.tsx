@@ -8,6 +8,7 @@ interface Props {
 }
 
 const ProtectedRoute: FC<Props> = ({ component: Component }) => {
+ 
   const { initialized, keycloak } = useKeycloak();
   const location = useLocation();
 
@@ -20,6 +21,7 @@ const ProtectedRoute: FC<Props> = ({ component: Component }) => {
   } else {
     return <Loading />;
   }
+ 
 };
 
 export default ProtectedRoute;

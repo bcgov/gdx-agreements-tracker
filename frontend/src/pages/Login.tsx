@@ -6,7 +6,7 @@ export const Login: FC = () => {
   const [searchParams] = useSearchParams();
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const destination = searchParams.get("redirect");
     if (keycloak.authenticated) {
