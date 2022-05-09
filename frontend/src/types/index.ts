@@ -8,7 +8,7 @@ export interface IUser {
   name: string;
   updated_at: string;
   username: string;
-  roles: any[];
+  roles?: unknown;
 }
 
 // Hooks

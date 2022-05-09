@@ -17,7 +17,8 @@ describe("The signout button:", () => {
         keycloak: { authenticated: false, logout: handleClick },
       };
     });
-    render(<SignoutButton />);
+    const { container } = render(<SignoutButton />);
+    expect(container).not.toBeEmptyDOMElement();
   });
 
   it("Logs out when clicked.", async () => {

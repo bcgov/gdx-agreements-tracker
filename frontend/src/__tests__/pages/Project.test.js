@@ -18,6 +18,7 @@ describe("<Projects /> routing", () => {
         <Routes key="main">{projectRoutes}</Routes>
       </MemoryRouter>
     );
-    shallow(<Projects />);
+    const wrapper = shallow(<Projects />);
+    expect(wrapper.exists()).toBe(true);
   });
 });

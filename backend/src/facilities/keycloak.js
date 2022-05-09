@@ -6,11 +6,11 @@ const capabilityModel = require("../models/capabilities");
 /**
  * Parse the request header for the authorization token.
  *
- * @param {HttpServerRequest} req
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @returns {Promise}
  */
-const getBearerTokenFromRequest = (req) => {
-  const authHeader = req?.headers?.authorization;
+const getBearerTokenFromRequest = (request) => {
+  const authHeader = request?.headers?.authorization;
   // Strip out the token string from the request headers.
   if (authHeader && 0 === authHeader.indexOf("Bearer ")) {
     return authHeader.split(" ")[1];
@@ -22,8 +22,8 @@ const getBearerTokenFromRequest = (req) => {
 /**
  * Verify the token so the user can be authenticated.
  *
- * @param {String} token
- * @param {String|null} jwksUri
+ * @param   {string}        token   Token json string from keycloak.
+ * @param   {string | null} jwksUri URI to reach keycloak.
  * @returns {Promise}
  */
 const verifyToken = (token, jwksUri = null) => {
@@ -37,7 +37,7 @@ const verifyToken = (token, jwksUri = null) => {
     /**
      * If a valid JWT header and header key ID were able to be parsed out,
      * proceed with token verification.
-     * */
+     */
     if (decodedToken?.header && decodedToken?.header?.kid) {
       const kid = decodedToken.header.kid;
 
@@ -67,7 +67,7 @@ const verifyToken = (token, jwksUri = null) => {
  * Verify if the user already has an entry in the database.
  * If not, create one.
  *
- * @param {Object} token
+ * @param   {string}  token Token json string from keycloak.
  * @returns {Promise}
  */
 const verifyUserExists = (token) => {
@@ -101,15 +101,13 @@ const verifyUserExists = (token) => {
 /**
  * Gets the User info based off the keycloak bearer token, and eventually the database information.
  *
- * @var {object}  req  The request object.
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @todo  Get user info from the database, and merge with return object.
  * @todo  Add tests after logic becomes more stable.
- *
- * @returns {object}  The User object.
- *
+ * @returns {object}                 The User object.
  */
-const getUserInfo = async (req) => {
-  const token = getBearerTokenFromRequest(req);
+const getUserInfo = async (request) => {
+  const token = getBearerTokenFromRequest(request);
   const decodedToken = jwt.decode(token, { complete: true });
   if (decodedToken) {
     const payload = decodedToken.payload;

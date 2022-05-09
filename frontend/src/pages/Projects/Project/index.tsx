@@ -4,7 +4,7 @@ import { DetailsList } from "../../../components";
 import { Outlet } from "react-router-dom";
 
 export const Project = () => {
-  let { projectId } = useParams();
+  const { projectId } = useParams();
 
   return (
     <>

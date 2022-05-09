@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { DetailsList } from "../../../components";
 
 export const Contract = () => {
-  let { contractId } = useParams();
+  const { contractId } = useParams();
 
   return (
     <>

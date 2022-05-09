@@ -1,4 +1,10 @@
 ## Developer Changelog
+
+### May 6, 2022
+* DESCW-271 - improve linter standards
+  * frontend and backend
+    * you will need to do an `npm i` in `frontend` and `backend` directories to get the updated linter dependencies, if you have been working on the codebase before this commit.
+
 ### May 5, 2022 DESCW-324, DESCW-368, DESCW-369, DESCW-370, DESCW-371
 * backend
   * added new migrations and seeds for projects database table
@@ -40,18 +46,18 @@
   * added new migrations and seeds for suppliers database table
   * API
     * added backend API for suppliers
-    * added tests for suppliers API 
+    * added tests for suppliers API
     * added backend API for subcontractors
-    * added tests for subcontractors API 
+    * added tests for subcontractors API
 
 
 ### April 5, 2022 DESCW-234
 * backend
   * added backend API for contacts
-  * added tests for contacts API 
+  * added tests for contacts API
 
 ### April 1, 2022 DESCW-269
-* added functionality that auto creates API's 
+* added functionality that auto creates API's
 
 ### March 24, 2022 DESCW-233
 * added new migrations and seeds for contacts database table
@@ -87,7 +93,7 @@
     * added logging for when connected to database, but the schema is wrong
 * openshift
     * api
-      * attempt a database migration to the latest migration on startup 
+      * attempt a database migration to the latest migration on startup
     * templates: a build automation fix
 * github workflows
   * fix overlooked item: don't rebuild containers on non-code file changes
@@ -123,7 +129,7 @@
     * added unified logger (facilities/logging.js)
       * set environment variable NODE_ENV to 'production' when deploying to production
       * uses pino library for logging in the whole app (fastify uses it, and it is pretty slick)
-        * there is one logger instance, with the option to use child logger instances 
+        * there is one logger instance, with the option to use child logger instances
           * conveniently group log entries by file/role/request
           * usage: `const log = require('../facilities/logging.js')(module.filename);` at the top of your file that needs logging
             * the `module.filename` makes a new child logger for you that will group all log messages in that file for you
