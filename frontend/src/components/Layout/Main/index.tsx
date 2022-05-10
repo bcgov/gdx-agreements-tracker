@@ -5,18 +5,17 @@ import { PageFooter } from "../PageFooter";
 import { Sidebar } from "../../Sidebar";
 import { useDrawer } from "../../../hooks/useDrawer";
 import { PageHeader } from "../PageHeader";
-import { Outlet, useParams } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
 
 const drawerWidth = bcgovTheme.customSettings.drawerWidth;
 
 /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Main = ({ children }: any) => {
+export const Main = () => {
   const { drawerOpen, handleDrawerToggle } = useDrawer();
   return (
-    <>   
+    <>
       {/* left hand side */}
       <Sidebar drawerOpen={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
       {/* right hand side */}

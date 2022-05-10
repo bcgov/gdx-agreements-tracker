@@ -1,8 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import ProtectedRoute from "../ProtectedRoute";
-import { PageLink } from "../../components/PageLink";
-import { Project, Projects } from "../../pages";
+import { Projects } from "../../pages";
 
 const projectRoutes = [
   <Route key="project" path="projects" element={<Projects />} />,

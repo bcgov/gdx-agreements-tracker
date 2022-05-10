@@ -1,4 +1,9 @@
 exports.up = function (knex) {
+  /**
+   * Add new columns to schema
+   *
+   * @returns {schema}
+   */
   function projectsWithDefault() {
     return knex.schema.alterTable("projects", function (table) {
       table.string("version").defaultTo("c3p0");
@@ -24,6 +29,11 @@ exports.up = function (knex) {
     });
   }
 
+  /**
+   * Add not nullable flag to version column
+   *
+   * @returns {schema}
+   */
   function projectsWithoutDefault() {
     return knex.schema.alterTable("projects", function (table) {
       table.string("version").notNullable().alter();
@@ -31,6 +41,12 @@ exports.up = function (knex) {
   }
   return projectsWithDefault().then(projectsWithoutDefault);
 };
+
+/**
+ * Delete all columns in table
+ *
+ * @returns {schema}
+ */
 
 exports.down = function (knex) {
   return knex.schema.alterTable("projects", function (table) {

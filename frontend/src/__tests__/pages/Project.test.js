@@ -4,7 +4,6 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import projectRoutes from "../../routes/subRoutes/projectRoutes";
 import { MemoryRouter, Routes, Router } from "react-router-dom";
 import { Projects } from "../../pages";
-import { shallow } from "enzyme";
 import { createMemoryHistory } from "history";
 
 //Mock keycloak.
@@ -14,12 +13,12 @@ jest.mock("@react-keycloak/web", () => ({
 
 describe("<Projects /> routing", () => {
   it("renders Projects page when '/projects' is hit", () => {
-    render(
+    const { container } = render(
       <MemoryRouter initialEntries={["/projects"]}>
         <Routes key="main">{projectRoutes}</Routes>
       </MemoryRouter>
     );
-    shallow(<Projects />);
+    expect(container).not.toBeEmptyDOMElement();
   });
 
   it("should redirect and update history", () => {
