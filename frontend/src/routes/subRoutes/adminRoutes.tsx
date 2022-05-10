@@ -13,10 +13,15 @@ import { Suppliers } from "../../pages/Admin/Suppliers";
  */
 const routes = [
   <Route key="admin" path="/admin" element={<ProtectedRoute component={Admin} />}>
-    <Route path="contacts" element={<ProtectedRoute component={Contacts} />} />
-    <Route path="suppliers" element={<ProtectedRoute component={Suppliers} />} />
-    <Route path="subcontractors" element={<ProtectedRoute component={Subcontractors} />} />
+    <Route key="contacts" path="contacts" element={<ProtectedRoute component={Contacts} />} />
+    <Route key="suppliers" path="suppliers" element={<ProtectedRoute component={Suppliers} />} />
     <Route
+      key="subcontractors"
+      path="subcontractors"
+      element={<ProtectedRoute component={Subcontractors} />}
+    />
+    <Route
+      key="resources"
       path="resources"
       element={
         <ProtectedRoute
@@ -27,6 +32,7 @@ const routes = [
       }
     />
     <Route
+      key="ministries"
       path="ministries"
       element={
         <ProtectedRoute
@@ -36,8 +42,8 @@ const routes = [
         />
       }
     />
-    <Route path="users" element={<ProtectedRoute component={Users} />} />
-    <Route path="users/:userId" element={<ProtectedRoute component={Users} />} />
+    <Route key="users" path="users" element={<ProtectedRoute component={Users} />} />
+    <Route key="userId" path="users/:userId" element={<ProtectedRoute component={Users} />} />
   </Route>,
 ];
 

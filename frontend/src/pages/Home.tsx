@@ -1,10 +1,9 @@
 import React from "react";
-import { Main } from "../components";
 
 export const Home = () => {
   return (
     <>
-      <Main>
+      <>
         <h1>Welcome home</h1>
 
         <p>
@@ -52,7 +51,7 @@ export const Home = () => {
           statim, quae sint officia, quae actiones. Haec et tu ita posuisti, et verba vestra sunt.
           Huius, Lyco, oratione locuples, rebus ipsis ielunior.{" "}
         </p>
-      </Main>
+      </>
     </>
   );
 };
