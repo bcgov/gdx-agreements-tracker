@@ -1,6 +1,9 @@
 import { useLayoutEffect, useState } from "react";
 import { apiAxios } from "../utils";
 import { IColumn, ITableData } from "../types";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import React from "react";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
@@ -10,9 +13,32 @@ import { IColumn, ITableData } from "../types";
  */
 
 // Export this function for unit testing.
-export const formatTableColumns = (tableData: ITableData) => {
+export const formatTableColumns = (tableData: ITableData, tableName?: string) => {
+  console.log("tableName", tableName);
   return new Promise((resolve) => {
-    const formattedColumns: Array<Object> = [];
+    const formattedColumns: Array<Object> = [
+      {
+        field: "edit",
+        headerName: "",
+        sortable: false,
+        renderCell: (cellValues: any) => {
+          return (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                console.log("cellvalues", cellValues);
+              }}
+              component={Link}
+              to={`/${tableName}/${cellValues.id}`}
+            >
+              View
+            </Button>
+          );
+        },
+      },
+    ];
+
     Object.entries(tableData.data[0]).forEach((value, index) => {
       formattedColumns.push({
         field: value[0],
@@ -24,6 +50,7 @@ export const formatTableColumns = (tableData: ITableData) => {
         id: index,
       });
     });
+
     resolve(formattedColumns);
   });
 };
@@ -43,7 +70,7 @@ export const useFormatTableData = (tableName: string) => {
         /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
         // todo: Define a good type. "Any" type temporarily permitted.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        formatTableColumns(tableData).then((formattedColumns: any) => {
+        formatTableColumns(tableData, tableName).then((formattedColumns: any) => {
           setColumns(formattedColumns);
           setLoading(false);
         });
