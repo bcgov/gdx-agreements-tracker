@@ -83,6 +83,7 @@ const getOne = async (request, reply) => {
         return result[0];
       }
     } catch (err) {
+      log.debug(err);
       reply.code(500);
       return { message: `There was a problem looking up this ${what.single}.` };
     }

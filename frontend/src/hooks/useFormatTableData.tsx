@@ -14,21 +14,18 @@ import React from "react";
 
 // Export this function for unit testing.
 export const formatTableColumns = (tableData: ITableData, tableName?: string) => {
-  console.log("tableName", tableName);
   return new Promise((resolve) => {
     const formattedColumns: Array<Object> = [
       {
         field: "edit",
         headerName: "",
         sortable: false,
-        renderCell: (cellValues: any) => {
+        renderCell: (cellValues: { id: number }) => {
           return (
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                console.log("cellvalues", cellValues);
-              }}
+              onClick={() => {}}
               component={Link}
               to={`/${tableName}/${cellValues.id}`}
             >
