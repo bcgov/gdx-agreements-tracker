@@ -42,29 +42,15 @@ module.exports = {
     React: "readonly",
   },
   rules: {
-    "prettier/prettier": "warn",
-    "react/jsx-filename-extension": [
-      "warn",
-      {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
-      }
-    ],
-
-    "@typescript-eslint/no-unused-vars": "off",
-
-    "no-undef": "warn",
+    // No console.log.
+    "no-console": ["error", { allow: ["warn", "error"] }],
 
     // Semicolons must be at the end of lines, where appropriate.
-    "semi-style": ["warn", "last"],
+    "semi-style": ["error", "last"],
 
     // Enforce consistent use of trailing commas.
     "comma-dangle": [
-      "warn",
+      "error",
       {
         arrays: "always-multiline",
         objects: "always-multiline",
@@ -74,12 +60,20 @@ module.exports = {
       },
     ],
 
+    // Yoda style, equality comparisons with literals must be.
+    yoda: ["error", "always", { onlyEquality: true }],
 
     // No type coercion in comparisons.
     eqeqeq: ["error", "always"],
 
+    // No declaring anything and not using it; did you finish cleaning up?
+    "no-unused-vars": ["error", { args: "none" }],
+
     // Must use const or let.
     "no-var": "error",
+
+    // Stops unknown globals.
+    "no-undef": "error",
 
     // Arrow functions instead of classic function syntax. https://stackoverflow.com/a/64258560/5301718
     "prefer-arrow/prefer-arrow-functions": [
@@ -99,8 +93,8 @@ module.exports = {
 
     // React.
     // Prevent React to be incorrectly marked as unused.
-    "react/jsx-uses-react": "warn",
-    "react/jsx-uses-vars": "warn",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     // No inline styles. 2 is the same as "error" for this plugin. https://www.npmjs.com/package/eslint-plugin-no-inline-styles
     "no-inline-styles/no-inline-styles": 2,
 
@@ -159,9 +153,9 @@ module.exports = {
        */
       rules: {
         // Use of "any" type disallowed. Use the following if you really need "any": // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-explicit-any": "error",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error"],
       },
     },
   ],
