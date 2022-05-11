@@ -9,6 +9,12 @@ const findAll = () => {
   return db(table);
 };
 
+// Get specific one by id.
+const findById = (id) => {
+  return db(table).where("id", id);
+};
+
 module.exports = {
   findAll,
+  findById,
 };
