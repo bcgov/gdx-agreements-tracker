@@ -15,5 +15,6 @@ const findById = (id) => {
 };
 
 module.exports = {
-  findAll,findById
+  findAll,
+  findById,
 };
