@@ -56,6 +56,7 @@ The following prerequisites are required for this application to function correc
     POSTGRES_USER=postgres<br>
     POSTGRES_PASSWORD=postgres<br>
     POSTGRES_DATABASE=gat_db<br>
+    DATABASE_AUTO_DEPLOY=1<br>
    ```
   ---
 
