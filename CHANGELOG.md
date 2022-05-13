@@ -1,5 +1,8 @@
 ## Developer Changelog
 
+### May 13, 2022
+* added new migrations and seeds for picklists database table
+
 ### May 6, 2022
 * DESCW-271 - improve linter standards
   * frontend and backend
