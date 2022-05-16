@@ -1,9 +1,8 @@
+import { Box, List, styled, Typography } from "@mui/material";
 import React from "react";
-import { List, Typography, ListItem, Box, ListItemButton } from "@mui/material";
 import bcgovTheme from "../../../bcgovTheme";
-import { adminLinks } from "./adminLinks";
-import { Link } from "react-router-dom";
-import { styled } from "@mui/system";
+import { sidebarMenuLinks } from "./sidebarMenuLinks";
+import { SidebarMenuItem } from "./SidebarMenuItem";
 
 const StyledSidebarImageFooter = styled("img")({
   padding: "8px 24px",
@@ -16,33 +15,30 @@ const StyledSidebarHorizontalRule = styled("hr")({
   borderTop: bcgovTheme.customSettings.BCGovAccentLine,
 });
 
-export const SidebarMenu = (
-  <Box
-    p="12px"
-    sx={{
-      flexFlow: "column",
-      display: "flex",
-      height: "100%",
-      width: "100%",
-    }}
-  >
-    <Box>
-      <Typography variant="h6" color="primary.contrastText">
-        GDX Agreements Tracker
-      </Typography>
-    </Box>
-    <StyledSidebarHorizontalRule />
-    <List>
-      {adminLinks.map((link, index) => {
-        return (
-          <ListItem sx={{ p: "8px 0" }} component={Link} to={link.url} key={index}>
-            <ListItemButton>
-              <Typography color="primary.contrastText">{link.name}</Typography>
-            </ListItemButton>
-          </ListItem>
-        );
-      })}
-    </List>
-    <StyledSidebarImageFooter role="sidebar-logo" alt="bcgov_logo" src="../gov_bc_logo.svg" />
-  </Box>
-);
+const StyledSidebarBox = styled(Box)({
+  flexFlow: "column",
+  display: "flex",
+  height: "100%",
+  width: "100%",
+});
+
+export const SidebarMenu: React.FC = () => {
+  return (
+    <StyledSidebarBox>
+      <Box p="12px">
+        <Typography variant="h6" color="primary.contrastText">
+          GDX Agreements Tracker
+        </Typography>
+      </Box>
+      <StyledSidebarHorizontalRule />
+      <List component="nav" disablePadding>
+        {sidebarMenuLinks.map((item, index) => (
+          <SidebarMenuItem {...item} key={index} color={"#fff"} />
+        ))}
+      </List>
+      <StyledSidebarBox p="12px">
+        <StyledSidebarImageFooter role="sidebar-logo" alt="bcgov_logo" src="../gov_bc_logo.svg" />
+      </StyledSidebarBox>
+    </StyledSidebarBox>
+  );
+};
