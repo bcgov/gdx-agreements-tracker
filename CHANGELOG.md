@@ -1,6 +1,6 @@
 ## Developer Changelog
 
-### May 6, 2022 DESCW-362
+### May 16, 2022 DESCW-362
 * frontend
   * Added sub menu for admin links
 
