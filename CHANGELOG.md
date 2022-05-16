@@ -1,4 +1,7 @@
-## Developer Changelog
+## Developer Changelog 
+### May 16, 2022 DESCW-382
+* frontend
+  * added react-query
 
 ### May 6, 2022
 * DESCW-271 - improve linter standards
