@@ -26,6 +26,7 @@ module.exports = {
     "eslint-plugin-no-inline-styles",
     "prefer-arrow",
     "jsdoc",
+    "@typescript-eslint"
   ],
   settings: {
     "import/resolver": {
