@@ -5,5 +5,5 @@ COPY public/ public/
 COPY src/ src/
 COPY package.json .
 
-RUN yarn 
-RUN yarn build --prod
+RUN npm i
+RUN npm run build --prod
