@@ -33,7 +33,7 @@ export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
             "& .MuiDrawer-paper": { width: drawerWidth },
           }}
         >
-          {SidebarMenu}
+          <SidebarMenu />
         </Drawer>
         {/* Desktop Drawer */}
         <Drawer
@@ -44,7 +44,7 @@ export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
             "& .MuiDrawer-paper": { width: drawerWidth },
           }}
         >
-          {SidebarMenu}
+          <SidebarMenu />
         </Drawer>
       </Box>
     </ThemeProvider>
