@@ -2,14 +2,22 @@ import "./styles/App.scss";
 import React, { FC } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./routes";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+// Create a client
+const queryClient = new QueryClient();
 
 const App: FC = () => {
   return (
-    <BrowserRouter>
-      <div className="pmo-app">
-        <AppRouter />
-      </div>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <div className="pmo-app">
+          <AppRouter />
+        </div>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

@@ -1,7 +1,7 @@
 ## Developer Changelog 
-### May 16, 2022 DESCW-382
+### May 17, 2022 DESCW-382
 * frontend
-  * added react-query
+  * implemented react-query for project details api
 
 ### May 16, 2022 DESCW-362
 * frontend
