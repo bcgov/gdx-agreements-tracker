@@ -7,8 +7,5 @@ COPY package.json .
 ADD tsconfig.json .
 ADD .eslintrc.js .
 ADD .prettierrc.js .
-
-# COPY ./ .
-
 RUN yarn
 RUN yarn build --prod
