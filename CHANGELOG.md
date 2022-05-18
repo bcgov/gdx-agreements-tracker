@@ -1,5 +1,10 @@
 ## Developer Changelog 
 
+### May 18, 2022 DESCW-363
+* backend
+  * API
+    * added backend API for picker_options
+
 ### May 17, 2022 DESCW-382
 * frontend
   * implemented react-query for project details api

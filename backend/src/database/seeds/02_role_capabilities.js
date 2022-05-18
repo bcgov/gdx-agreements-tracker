@@ -18,6 +18,7 @@ const roles = [
       "suppliers_read_all",
       "subcontractors_read_all",
       "projects_read_all",
+      "picker_options_read_all",
     ],
   },
   {
