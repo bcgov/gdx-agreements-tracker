@@ -4,6 +4,8 @@ WORKDIR /app
 COPY public/ public/
 COPY src/ src/
 COPY package.json .
-
-RUN yarn 
+ADD tsconfig.json .
+ADD .eslintrc.js .
+ADD .prettierrc.js .
+RUN yarn
 RUN yarn build --prod

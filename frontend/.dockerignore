@@ -3,6 +3,5 @@ docs/
 
 Dockerfile*
 .dockerignore
-.eslint*
 package-lock.json
 yarn.lock
