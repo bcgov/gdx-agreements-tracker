@@ -1,7 +1,8 @@
+import { LinearProgress } from "@mui/material";
 import React, { FC } from "react";
 
 export const Loading: FC = () => {
-  return <div>Loading...</div>;
+  return  <LinearProgress />;
 };
 
 export default Loading;
