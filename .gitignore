@@ -24,6 +24,7 @@ backend/coverage
 frontend/build
 
 backend/build
+backend/src/database/production_seeds/*.dat
 
 # environment configurations
 frontend/.env*

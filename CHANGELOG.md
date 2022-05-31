@@ -1,4 +1,14 @@
-## Developer Changelog 
+## Developer Changelog
+
+### May 30, 2022 DESCW-360
+* backend
+  * new migration to permit data load from production
+  * new seed that can load data from production, if present
+    * only (re)loads production data if it is there, does nothing but updates ID sequences otherwise.
+    * uses the `production_seeds` directory
+      * updated `.gitignore` to prevent you from committing production data to repo
+    * added nReadLine package to read seed data line-by-line in order to reduce memory usage
+    * see the `pmo-mssql-converter` repo for more information
 
 ### May 18, 2022 DESCW-363
 * backend
