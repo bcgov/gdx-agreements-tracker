@@ -1,35 +1,30 @@
-import { TextField } from "@mui/material";
+import { Box, LinearProgress, TextField } from "@mui/material";
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery, QueryCache, QueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { apiAxios } from "../../../utils";
+import FormikForm from "../../../components/Forms/FormikForm";
+import { useFormatTableData } from "../../../hooks";
 
 export const Project = () => {
+  //React RouterDom Url variable
   const { projectId } = useParams();
 
-  const getProject = async () => {
-    const project = await apiAxios().get(`projects/${projectId}`);
-    return project;
-  };
+  const { data, isLoading } = useFormatTableData("projects");
 
-  // Queries
-  const query = useQuery(`project - ${projectId}`, getProject);
+  //Filter all project from React query by URL id
+  const projectData: unknown = data?.rows.filter(
+    (project: { id: number }) => project.id.toString() === projectId
+  );
 
   return (
     <>
-      {true === query.isLoading ? (
-        <div>Loading</div>
+      {true === isLoading ? (
+        <LinearProgress />
       ) : (
-        Object.entries(query.data?.data).map(([key, value]) => {
-          return (
-            <div key={key}>
-              <br />
-              <TextField disabled label={key} defaultValue={value} />
-              <br />
-            </div>
-          );
-        })
+        <Box>
+          <FormikForm projectData={projectData} routerId={projectId as string}/>
+        </Box>
       )}
       <Outlet />
     </>
