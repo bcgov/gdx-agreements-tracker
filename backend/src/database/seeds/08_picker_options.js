@@ -10,6 +10,9 @@ exports.seed = function (knex) {
           name: "status",
           title: "Status",
           description: "The status of a project.",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
           definition: {
             new_request: {
               type: "string",
@@ -34,6 +37,9 @@ exports.seed = function (knex) {
           name: "agreement_type",
           title: "Agreement Type",
           description: "The type of agreement.",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
           definition: {
             partnership_agreement: {
               type: "string",
@@ -58,6 +64,9 @@ exports.seed = function (knex) {
           name: "project_type",
           title: "Project Type",
           description: "The type of project.",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
           definition: {
             internal: {
               type: "string",
@@ -82,6 +91,9 @@ exports.seed = function (knex) {
           name: "funding",
           title: "Funding",
           description: "The type of funding.",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
           definition: {
             operational: {
               type: "string",
@@ -102,6 +114,9 @@ exports.seed = function (knex) {
           name: "recovery_details",
           title: "Recovery Details",
           description: "The recovery details.",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
           definition: {
             fully: {
               type: "string",

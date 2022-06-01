@@ -4,17 +4,13 @@ import React from "react";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { styled, useTheme } from "@mui/material";
 
-export const FormSectionBuilder = ({
-  errors,
-  setFieldValue,
-  formikValues,
-  handleChange,
-}: any) => {
+export const FormSectionBuilder = ({ errors, setFieldValue, formikValues, handleChange }: any) => {
   const layoutFromDB = {
     client_ministry_name: { type: "text", maxLength: "99" },
     contract_number: { type: "text", maxLength: "99" },
-    date_signed: { type: "date", maxLength: "99" },
+    date_signed: { type: "text", maxLength: "99" },
     description: { type: "text", maxLength: "99" },
     end_date: { type: "date", maxLength: "99" },
     fiscal: { type: "text", maxLength: "99" },
@@ -37,13 +33,20 @@ export const FormSectionBuilder = ({
     version: { type: "text", maxLength: "99" },
   };
 
+  const StyledBox = styled("div")({
+    width: "100%",
+    padding: "20px",
+    display: "inline-block",
+    margin: "5px",
+  });
+
   return (
     <>
       {Object.entries(layoutFromDB).map(([key, value]) => {
         switch (value.type) {
           case "date":
             return (
-              <Grid item xs={6}>
+              <StyledBox>
                 <LocalizationProvider dateAdapter={AdapterMoment} key={key}>
                   <Field
                     onChange={(newValue: any) => {
@@ -57,12 +60,12 @@ export const FormSectionBuilder = ({
                     label={key}
                   />
                 </LocalizationProvider>
-              </Grid>
+              </StyledBox>
             );
           case "number":
           case "text":
             return (
-              <Grid item xs={6}>
+              <StyledBox>
                 <Field
                   key={key}
                   as={TextField}
@@ -71,7 +74,7 @@ export const FormSectionBuilder = ({
                   onChange={handleChange}
                   label={key}
                 />
-              </Grid>
+              </StyledBox>
             );
         }
       })}
