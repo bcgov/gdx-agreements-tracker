@@ -204,7 +204,7 @@ class DatabaseConnection {
   }
 
   dataBaseSchemas() {
-    return ["data", "config", "public"];
+    return {data:"data", config:"config", public:"public"};
   }
 }
 
