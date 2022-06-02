@@ -1,6 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
 const Model = require("../models/form_layouts.js");
-const what = { single: "form_layouts", plural: "form_layoutss" };
+const what = { single: "form_layouts", plural: "form_layouts" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.
