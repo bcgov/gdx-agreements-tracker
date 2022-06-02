@@ -132,6 +132,112 @@ exports.seed = function (knex) {
             },
           },
         },
+        {
+          id: 6,
+          name: "project_status",
+          title: "Project Status",
+          description: "The status of the project.",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
+          definition: {
+            new_request: {
+              type: "string",
+              title: "New Request",
+            },
+            active: {
+              type: "string",
+              title: "Active",
+            },
+            cancelled: {
+              type: "string",
+              title: "Cancelled",
+            },
+            complete: {
+              type: "string",
+              title: "Complete",
+            },
+          },
+        },
+        {
+          id: 7,
+          name: "portfolio_name",
+          title: "Portfolio Name",
+          description: "Portfolio",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
+          definition: {
+            analytics: { type: "string", title: "Analytics", abr: "ANA" },
+            business_communication_solutions: {
+              type: "string",
+              title: "Business & Communication Soltuions",
+              abr: "BCS",
+            },
+            delivery_management_services: {
+              type: "string",
+              title: "Delivery Management Services",
+              abr: "DMS",
+            },
+            enterprise_data_services: {
+              type: "string",
+              title: "Enterprise Data Services",
+              abr: "EDS",
+            },
+            divsional_operations: { type: "string", title: "Divsional Operations", abr: "DO" },
+          },
+        },
+        {
+          id: 8,
+          name: "fiscal",
+          title: "Fiscal",
+          description: "Fiscal year.",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
+          definition: {
+            [1516]: {
+              type: "string",
+              title: "15-16",
+            },
+            [1617]: {
+              type: "string",
+              title: "16-17",
+            },
+            [1819]: {
+              type: "string",
+              title: "18-19",
+            },
+            [2021]: {
+              type: "string",
+              title: "20-21",
+            },
+            [2122]: {
+              type: "string",
+              title: "21-22",
+            },
+            [2324]: {
+              type: "string",
+              title: "23-24",
+            },
+            [2526]: {
+              type: "string",
+              title: "25-26",
+            },
+          },
+        },
+        {
+          id: 9,
+          name: "client_ministry_name",
+          title: "Client Ministry Name",
+          description: "Client Ministry Name",
+          form_name: "Project",
+          form_section: "Project Registration",
+          form_tab: "Project Details",
+          definition: {
+            api_url: "/ministry_list",
+          },
+        },
       ]);
     });
 };

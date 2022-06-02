@@ -7,9 +7,7 @@ exports.seed = function (knex) {
     .raw("SET session_replication_role = 'replica';") // Turn off foreign key constraints.
     .then(() => knex("form_layouts").withSchema("config").del())
     .then(() => knex("form_layouts").withSchema("config").insert(layouts))
-    .then(() =>
-      knex.raw(`SELECT setval('config.form_layouts_id_seq', ${layouts.length}, true);`)
-    ) // Resume foreign key constraints.
+    .then(() => knex.raw(`SELECT setval('config.form_layouts_id_seq', ${layouts.length}, true);`)) // Resume foreign key constraints.
     .then(() => knex.raw("SET session_replication_role = 'origin';"));
 };
 

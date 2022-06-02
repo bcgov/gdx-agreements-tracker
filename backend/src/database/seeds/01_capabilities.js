@@ -55,6 +55,14 @@ const capabilities = [
     id: 14,
     name: "picker_options_read_all",
   },
+  {
+    id: 15,
+    name: "general_read_all",
+  },
+  {
+    id: 16,
+    name: "general_read_mine",
+  },
 ];
 
 exports.seed = (knex) => {

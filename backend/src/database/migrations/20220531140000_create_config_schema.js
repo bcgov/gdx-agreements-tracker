@@ -7,4 +7,3 @@ exports.down = function (knex) {
     "SET session_replication_role = 'replica'; DROP SCHEMA data CASCADE; SET session_replication_role = 'origin';"
   );
 };
-

@@ -2,7 +2,7 @@ const DatabaseConnection = require("../database/databaseConnection");
 const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
-const table = `${dbConnection.dataBaseSchemas()[2]}.picker_options`;
+const table = `${dbConnection.dataBaseSchemas()[0]}.ministry`;
 
 // Get all.
 const findAll = () => {
@@ -12,3 +12,4 @@ const findAll = () => {
 module.exports = {
   findAll,
 };
+``;

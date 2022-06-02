@@ -202,6 +202,10 @@ class DatabaseConnection {
     }
     return result;
   }
+
+  dataBaseSchemas() {
+    return ["data", "config", "public"];
+  }
 }
 
 module.exports = DatabaseConnection;

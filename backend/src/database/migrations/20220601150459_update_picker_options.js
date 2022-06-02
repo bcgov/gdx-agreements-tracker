@@ -6,8 +6,8 @@ exports.up = function (knex) {
    */
   function pickerOptionsWithDefault() {
     return knex.schema.alterTable("picker_options", function (table) {
-      table.string("form_section")
-      table.string("form_name")
+      table.string("form_section");
+      table.string("form_name");
     });
   }
 
