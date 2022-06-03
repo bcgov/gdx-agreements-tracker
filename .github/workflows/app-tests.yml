@@ -5,13 +5,13 @@ on:
       - development
     paths:
       - "frontend/**/*"
-      - "!frontend/Dockerfile*"
+      - "!openshift/templates/app/docker/Dockerfile*"
       - "!frontend/tsconfig.json"
       - "!frontend/tslint.json"
       - "!frontend/.prettierrc.js"
       - "!frontend/docs"
       - "!frontend/README.md"
-      - "!frontend/.dockerignore"
+      - "!openshift/templates/app/docker/.dockerignore"
 
   workflow_dispatch:
 defaults:

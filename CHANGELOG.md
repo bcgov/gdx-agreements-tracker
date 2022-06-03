@@ -1,5 +1,11 @@
 ## Developer Changelog
 
+### June 03, 2022 DESCW-392
+* backend
+  * move docker files to openshift/templates/api
+* frontend
+  * move docker files to openshift/templates/app
+
 ### May 30, 2022 DESCW-360
 * backend
   * new migration to permit data load from production
