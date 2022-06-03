@@ -23,6 +23,9 @@ exports.seed = (knex) => {
           const tableName = datFile.next();
           const columns = JSON.parse(datFile.next());
 
+          // eslint-disable-next-line no-console
+          console.log(`Loading table: ${tableName}`);
+
           // Flush out the original table contents.
           await knex(tableName).withSchema("data").del();
 
