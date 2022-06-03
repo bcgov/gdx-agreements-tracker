@@ -6,8 +6,8 @@ on:
     paths:
       - "backend/**/*"
       - "!backend/.eslintrc.json"
-      - "!backend/Dockerfile*"
-      - "!backend/.dockerignore"
+      - "!openshift/templates/api/docker/Dockerfile*"
+      - "!openshift/templates/api/docker/.dockerignore"
       - "!backend/docs"
       - "!backend/README.md"
 
