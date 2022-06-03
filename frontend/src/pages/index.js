@@ -1,6 +1,6 @@
 export { Admin } from "./Admin";
-export { Contracts } from "./Contracts";
-export { Contract } from "./Contracts/Contract";
+export { Contracts } from "./Projects/Contracts";
+export { Contract } from "./Projects/Contracts/Contract";
 export { Home } from "./Home";
 export { Login } from "./Login";
 export { PageNotFound } from "./PageNotFound";

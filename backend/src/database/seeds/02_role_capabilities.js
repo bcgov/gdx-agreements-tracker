@@ -21,6 +21,8 @@ const roles = [
       "picker_options_read_all",
       "general_read_all",
       "general_read_mine",
+      "resources_read_all",
+      "resources_read_mine",
     ],
   },
   {
@@ -79,4 +81,4 @@ exports.seed = function (knex) {
     .then(() => knex.raw(`SELECT setval('public.roles_id_seq', ${roles.length}, true);`))
     .then(() => knex.raw("SET session_replication_role = 'origin';"));
 };
-s
+

@@ -1,20 +1,20 @@
 import React, { FC } from "react";
-import { LinearProgress, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
 
-export const Suppliers: FC = () => {
-  const { data, isLoading } = useFormatTableData("suppliers");
+export const Ministries: FC = () => {
+  const { data, isLoading } = useFormatTableData("ministries");
 
   return (
     <>
       <Typography variant="h5" component="h2">
-        Suppliers
+        Ministries
       </Typography>
       {!isLoading ? (
         <Table columns={data.columns} rows={data.rows} loading={isLoading} />
       ) : (
-        <LinearProgress />
+        <div>Loading</div>
       )}
     </>
   );
