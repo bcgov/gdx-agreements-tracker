@@ -2,7 +2,7 @@ const DatabaseConnection = require("../database/databaseConnection");
 const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
-const table = "users";
+const table = `${dbConnection.dataBaseSchemas().public}.users`;
 
 // Get all.
 const findAll = () => {

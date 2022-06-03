@@ -3,7 +3,7 @@ const roles = [
     id: 1,
     name: "subscriber",
     display_name: "Subscriber",
-    capabilities: ["users_read_mine", "users_read_all"],
+    capabilities: ["users_read_mine", "users_read_all", "general_read_all", "general_read_mine"],
   },
   {
     id: 2,
@@ -19,19 +19,21 @@ const roles = [
       "subcontractors_read_all",
       "projects_read_all",
       "picker_options_read_all",
+      "general_read_all",
+      "general_read_mine",
     ],
   },
   {
     id: 3,
     name: "gdx",
     display_name: "GDX",
-    capabilities: ["reports_read_all"],
+    capabilities: ["reports_read_all", "general_read_all", "general_read_mine"],
   },
   {
     id: 4,
     name: "manager",
     display_name: "Manager",
-    capabilities: [],
+    capabilities: ["general_read_all", "general_read_mine"],
   },
 ];
 
@@ -77,3 +79,4 @@ exports.seed = function (knex) {
     .then(() => knex.raw(`SELECT setval('public.roles_id_seq', ${roles.length}, true);`))
     .then(() => knex.raw("SET session_replication_role = 'origin';"));
 };
+s
