@@ -203,7 +203,7 @@ class DatabaseConnection {
     return result;
   }
   dataBaseSchemas() {
-    return {data:"data", config:"config", public:"public"};
+    return { data: "data", config: "config", public: "public" };
   }
 }
 

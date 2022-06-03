@@ -4,7 +4,6 @@ import { useFormatTableData } from "../../hooks";
 import { Table } from "../../components";
 import { Outlet, Link } from "react-router-dom";
 export const Projects: FC = () => {
-
   const { data, isLoading } = useFormatTableData("projects");
 
   return (

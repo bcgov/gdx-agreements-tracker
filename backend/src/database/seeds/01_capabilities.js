@@ -85,4 +85,3 @@ exports.seed = (knex) => {
     )
     .then(() => knex.raw("SET session_replication_role = 'origin';"));
 };
-

@@ -1,7 +1,6 @@
-import { useLayoutEffect, useState } from "react";
 import { apiAxios } from "../utils";
 import { useQuery } from "react-query";
-import { IColumn, ITableData } from "../types";
+import { ITableData } from "../types";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import React from "react";
@@ -64,6 +63,10 @@ export const useFormatTableData = (tableName: string) => {
   };
 
   // Queries
+  //Destructure the keycloak functionality
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, isLoading } = useQuery<any>([tableName], getTableData, { staleTime: 10000 });
   return { data, isLoading };
 };

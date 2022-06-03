@@ -81,4 +81,3 @@ exports.seed = function (knex) {
     .then(() => knex.raw(`SELECT setval('public.roles_id_seq', ${roles.length}, true);`))
     .then(() => knex.raw("SET session_replication_role = 'origin';"));
 };
-
