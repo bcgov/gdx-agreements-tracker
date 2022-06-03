@@ -1,6 +1,6 @@
-import { useLayoutEffect, useState } from "react";
 import { apiAxios } from "../utils";
-import { IColumn, ITableData } from "../types";
+import { useQuery } from "react-query";
+import { ITableData } from "../types";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import React from "react";
@@ -48,33 +48,25 @@ export const formatTableColumns = (tableData: ITableData, tableName?: string) =>
       });
     });
 
-    resolve(formattedColumns);
+    resolve({ columns: formattedColumns, rows: tableData.data });
   });
 };
 
 export const useFormatTableData = (tableName: string) => {
-  const [columns, setColumns] = useState<IColumn[]>([
-    { id: 0, field: "loading", headerName: "loading", flex: 1 },
-  ]);
-  const [rows, setRows] = useState([{ id: 0 }]);
-  const [loading, setLoading] = useState(true);
-
-  useLayoutEffect(() => {
-    apiAxios()
+  const getTableData = async () => {
+    const allProjects = await apiAxios()
       .get(tableName)
       .then((tableData) => {
-        setRows(tableData.data);
-        /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-        // todo: Define a good type. "Any" type temporarily permitted.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        formatTableColumns(tableData, tableName).then((formattedColumns: any) => {
-          setColumns(formattedColumns);
-          setLoading(false);
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      }); //! TODO: We had to ignore react-hooks/exhaustive-deps because of error "React Hook useLayoutEffect has a missing dependency: 'tableName'. Either include it or remove the dependency array" ref: https://exerror.com/react-hook-useeffect-has-a-missing-dependency/
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return { rows, columns, loading };
+        return formatTableColumns(tableData, tableName);
+      });
+    return allProjects;
+  };
+
+  // Queries
+  //Destructure the keycloak functionality
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, isLoading } = useQuery<any>([tableName], getTableData, { staleTime: 10000 });
+  return { data, isLoading };
 };
