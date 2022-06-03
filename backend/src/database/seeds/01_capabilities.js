@@ -63,6 +63,14 @@ const capabilities = [
     id: 16,
     name: "general_read_mine",
   },
+  {
+    id: 17,
+    name: "resources_read_all",
+  },
+  {
+    id: 18,
+    name: "resources_read_mine",
+  },
 ];
 
 exports.seed = (knex) => {
@@ -77,4 +85,4 @@ exports.seed = (knex) => {
     )
     .then(() => knex.raw("SET session_replication_role = 'origin';"));
 };
-s
+

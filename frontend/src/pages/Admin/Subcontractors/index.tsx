@@ -4,13 +4,18 @@ import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
 
 export const Subcontractors: FC = () => {
-  const { rows, columns, loading } = useFormatTableData("subcontractors");
+  const { data, isLoading } = useFormatTableData("subcontractors");
+
   return (
     <>
       <Typography variant="h5" component="h2">
         Subcontractors
       </Typography>
-      <Table columns={columns} rows={rows} loading={loading} />
+      {!isLoading ? (
+        <Table columns={data.columns} rows={data.rows} loading={isLoading} />
+      ) : (
+        <div>Loading</div>
+      )}
     </>
   );
 };
