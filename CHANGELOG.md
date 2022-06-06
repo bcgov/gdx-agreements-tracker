@@ -1,9 +1,16 @@
 ## Developer Changelog
+### June 6, 2022 DESCW-392
+* backend
+  * move docker files to openshift template folder
+* frontend
+  * move docker files to openshift template folder
+
+
 ### June 3, 2022 DESCW-402
 * backend
   * new migration and seeds for ministries and layout tables
   * new api for ministries and layout tables
-* Frontend
+* frontend
   * added react query to all Admin data
 ### May 30, 2022 DESCW-360
 * backend
