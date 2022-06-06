@@ -5,7 +5,6 @@
 * frontend
   * move docker files to openshift template folder
 
-
 ### June 3, 2022 DESCW-402
 * backend
   * new migration and seeds for ministries and layout tables
