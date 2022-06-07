@@ -3,6 +3,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { ProjectLayout } from "../../../components/ProjectLayout";
 import { apiAxios } from "../../../utils";
 
 export const Project = () => {
@@ -21,16 +22,19 @@ export const Project = () => {
       {true === query.isLoading ? (
         <div>Loading</div>
       ) : (
-        Object.entries(query.data?.data).map(([key, value]) => {
-          return (
-            <div key={key}>
-              <br />
-              <TextField disabled label={key} defaultValue={value} />
-              <br />
-            </div>
-          );
-        })
+        <ProjectLayout>
+          {Object.entries(query.data?.data).map(([key, value]) => {
+            return (
+              <div key={key}>
+                <br />
+                <TextField disabled label={key} defaultValue={value} />
+                <br />
+              </div>
+            );
+          })}
+        </ProjectLayout>
       )}
+
       <Outlet />
     </>
   );
