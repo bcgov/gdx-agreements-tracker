@@ -32,3 +32,25 @@ export const Project = () => {
     </>
   );
 };
+
+/**
+ * Project Number {Project Number}
+ * Project Name {input}
+ * Version {input}
+ * Client Ministry Name
+ * Registration Date {date}
+ * Portfolio Name {dropdown}
+ * Planned Start Date {date}
+ * Portfolio Name {dropdown}
+ * Planned End Date {date}
+ * Fiscal {dropdown}
+ * Planned Budget {money}
+ * Project Type {dropdown}
+ * Project status {dropdown}
+ * Funding {dropdown}
+ * Total Budget {money}
+ * Recovery Details {dropdown}
+ * Recoverable Total {money}
+ * Contract # {link}
+ * 
+ */
