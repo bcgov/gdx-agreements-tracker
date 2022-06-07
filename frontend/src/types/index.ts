@@ -103,5 +103,5 @@ export interface IPickerTableData {
 }
 
 export interface IProjectLayout {
-  children: JSX.Element[];
+  children: JSX.Element;
 }
