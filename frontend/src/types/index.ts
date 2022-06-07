@@ -99,5 +99,9 @@ export interface IPickerTableData {
       name: string;
       title: string;
     }
-  ];
+  ]
+}
+
+export interface IProjectLayout {
+  children: JSX.Element[];
 }
