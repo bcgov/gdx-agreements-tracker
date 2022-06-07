@@ -1,8 +1,9 @@
 ## Developer Changelog
-### June 3, 2022 DESCW-402
+### June 3, 2022 DESCW-402 DESCW-403
 * backend
   * new migration and seeds for ministries and layout tables
   * new api for ministries and layout tables
+  * added filter for default project table data
 * Frontend
   * added react query to all Admin data
 ### May 30, 2022 DESCW-360
