@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import { Field } from "formik";
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -17,13 +18,14 @@ export const Project = () => {
   // Queries
   const query = useQuery(`project - ${projectId}`, getProject);
 
+  console.log('query', query)
   return (
     <>
       {true === query.isLoading ? (
         <div>Loading</div>
       ) : (
         <ProjectLayout>
-          {Object.entries(query.data?.data).map(([key, value]) => {
+          {/* {Object.entries(query.data?.data).map(([key, value]) => {
             return (
               <div key={key}>
                 <br />
@@ -31,7 +33,16 @@ export const Project = () => {
                 <br />
               </div>
             );
-          })}
+          })} */}
+          {/* <Field
+            key={key}
+            as={TextField}
+            name={key}
+            type={value.type}
+            onChange={handleChange}
+            label={key}
+          /> */}
+          <div>1</div><div>2</div><div>3</div>
         </ProjectLayout>
       )}
 
@@ -39,3 +50,25 @@ export const Project = () => {
     </>
   );
 };
+
+/**
+ * Project Number {Project Number}
+ * Project Name {input}
+ * Version {input}
+ * Client Ministry Name
+ * Registration Date {date}
+ * Portfolio Name {dropdown}
+ * Planned Start Date {date}
+ * Portfolio Name {dropdown}
+ * Planned End Date {date}
+ * Fiscal {dropdown}
+ * Planned Budget {money}
+ * Project Type {dropdown}
+ * Project status {dropdown}
+ * Funding {dropdown}
+ * Total Budget {money}
+ * Recovery Details {dropdown}
+ * Recoverable Total {money}
+ * Contract # {link}
+ * 
+ */
