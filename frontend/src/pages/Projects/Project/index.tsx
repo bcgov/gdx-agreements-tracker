@@ -3,7 +3,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { GDX_Accordion } from "../../../components/GDX_Accordion";
+import { ProjectLayout } from "../../../components/ProjectLayout";
 import { apiAxios } from "../../../utils";
 
 export const Project = () => {
@@ -22,35 +22,19 @@ export const Project = () => {
       {true === query.isLoading ? (
         <div>Loading</div>
       ) : (
-        <>
-          <GDX_Accordion sectionTitle="Project Registration">
-            {/* Added a slice just to show a few projects for now. */}
-            {Object.entries(query.data?.data)
-              .slice(1, 4)
-              .map(([key, value]) => {
-                return (
-                  <div key={key}>
-                    <br />
-                    <TextField disabled label={key} defaultValue={value} />
-                    <br />
-                  </div>
-                );
-              })}
-          </GDX_Accordion>
-          <GDX_Accordion sectionTitle="Contacts">
-            <h3>Contacts Placeholder</h3>
-          </GDX_Accordion>
-          <GDX_Accordion sectionTitle="Deliverables">
-            <h3>Deliverables Placeholder</h3>
-          </GDX_Accordion>
-          <GDX_Accordion sectionTitle="Client Coding">
-            <h3>Client Coding Placeholder</h3>
-          </GDX_Accordion>
-          <GDX_Accordion sectionTitle="Budget">
-            <h3>Budget Placeholder</h3>
-          </GDX_Accordion>
-        </>
+        <ProjectLayout>
+          {Object.entries(query.data?.data).map(([key, value]) => {
+            return (
+              <div key={key}>
+                <br />
+                <TextField disabled label={key} defaultValue={value} />
+                <br />
+              </div>
+            );
+          })}
+        </ProjectLayout>
       )}
+
       <Outlet />
     </>
   );

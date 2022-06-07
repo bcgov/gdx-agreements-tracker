@@ -54,3 +54,8 @@ declare module "@mui/material/styles" {
     customSettings?: Theme["customSettings"];
   }
 }
+
+// Project layout types
+export interface IProjectLayout {
+  children: JSX.Element[];
+}
