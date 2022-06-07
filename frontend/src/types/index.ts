@@ -57,5 +57,5 @@ declare module "@mui/material/styles" {
 
 // Project layout types
 export interface IProjectLayout {
-  children: JSX.Element[];
+  children: JSX.Element;
 }
