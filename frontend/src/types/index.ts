@@ -105,3 +105,12 @@ export interface IPickerTableData {
 export interface IProjectLayout {
   children: JSX.Element;
 }
+
+//Picker Types
+export interface IPickerLookupData {
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  definition: { dropDownValues: { data: Array<Object> } };
+}
