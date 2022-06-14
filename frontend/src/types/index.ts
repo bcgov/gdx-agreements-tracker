@@ -56,6 +56,15 @@ declare module "@mui/material/styles" {
 }
 
 // Project layout types
-export interface IProjectLayout {
+export interface IFormLayout {
   children: JSX.Element;
+}
+
+//Picker Types
+export interface IPickerLookupData {
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  definition: { dropDownValues: { data: Array<Object> } };
 }

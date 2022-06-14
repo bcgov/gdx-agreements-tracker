@@ -1,6 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
 const Model = require("../models/ministry.js");
-const what = { single: "ministry", plural: "ministries" };
+const what = { single: "ministry", plural: "ministry" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.

@@ -1,13 +1,11 @@
-import { TextField } from "@mui/material";
-import { Field } from "formik";
+import { FormControl, InputLabel, MenuItem, Select, styled, TextField } from "@mui/material";
+import { Field, Formik } from "formik";
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { FormikForm } from "../../../components/FormikForm";
-import { ProjectLayout } from "../../../components/ProjectLayout";
 import { apiAxios } from "../../../utils";
-import ProjectFormFields from "./ProjectFormFields";
+import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
 export const Project = () => {
   const { projectId } = useParams();
@@ -18,33 +16,14 @@ export const Project = () => {
   };
 
   // Queries
-  const query = useQuery(`project - ${projectId}`, getProject);
+  const projectQuery = useQuery(`project - ${projectId}`, getProject);
 
   return (
     <>
-      {true === query.isLoading ? (
+      {true === projectQuery.isLoading ? (
         <div>Loading</div>
       ) : (
-        <ProjectLayout>
-          {/* {Object.entries(query.data?.data).map(([key, value]) => {
-            return (
-              <div key={key}>
-                <br />
-                <TextField disabled label={key} defaultValue={value} />
-                <br />
-              </div>
-            );
-          })} */}
-          {/* <Field
-            key={key}
-            as={TextField}
-            name={key}
-            type={value.type}
-            onChange={handleChange}
-            label={key}
-          /> */}
-          <FormikForm initalValues={query.data && query.data.data} fields={ProjectFormFields(query)}/>
-        </ProjectLayout>
+        <ProjectRegistrationSection query={projectQuery} />
       )}
 
       <Outlet />

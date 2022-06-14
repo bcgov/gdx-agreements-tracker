@@ -1,122 +1,138 @@
 exports.seed = function (knex) {
+  const tables = {
+    projects: "project",
+  };
+
+  const pickers = [
+    {
+      name: "project_status",
+      title: "Status",
+      description: "The status of a project.",
+      definition: {
+        dropDownValues: [
+          {
+            label: "New Request",
+            value: "NewRequest",
+          },
+          {
+            label: "Active",
+            value: "Active",
+          },
+          {
+            label: "Cancelled",
+            value: "Cancelled",
+          },
+          {
+            label: "Complete",
+            value: "Complete",
+          },
+        ],
+      },
+      associated_table: tables.projects,
+    },
+    {
+      name: "ministry_id",
+      title: "Client Ministry Name",
+      description: "Client Ministry field",
+      definition: {
+        tableLookup: "ministry",
+      },
+      associated_table: tables.projects,
+    },
+    {
+      name: "portfolio_id",
+      title: "Portfolio Name",
+      description: "Portfolio of the project.",
+      definition: {
+        tableLookup: "ministry",
+      },
+      associated_table: tables.projects,
+    },
+    {
+      name: "fiscal",
+      title: "Fiscal",
+      description: "Fiscal Years",
+      definition: {
+        tableLookup: "fiscal_year",
+      },
+      associated_table: tables.projects,
+    },
+    {
+      name: "project_type",
+      title: "Project Type",
+      description: "The Project Type of a project.",
+      definition: {
+        dropDownValues: [
+          {
+            label: "External",
+            value: "External",
+          },
+          {
+            label: "Internal",
+            value: "Internal",
+          },
+        ],
+      },
+      associated_table: tables.projects,
+    },
+    {
+      name: "funding",
+      title: "Funding",
+      description: "The funding of a project.",
+      definition: {
+        dropDownValues: [
+          {
+            label: "Operational",
+            value: "Operational",
+          },
+          {
+            label: "Capital",
+            value: "Capital",
+          },
+          {
+            label: "Combination",
+            value: "Combination",
+          },
+        ],
+      },
+      associated_table: tables.projects,
+    },
+    {
+      name: "recoverable",
+      title: "Recovery Details",
+      description: "The recoverable of a project.",
+      definition: {
+        dropDownValues: [
+          {
+            label: "Fully",
+            value: "Fully",
+          },
+          {
+            label: "Partially",
+            value: "Partially",
+          },
+          {
+            label: "Non-Recoverable",
+            value: "Non-Recoverable",
+          },
+        ],
+      },
+      associated_table: tables.projects,
+    },
+  ];
+
+  const pickersWithId = () => {
+    return pickers.map((picker, index) => {
+      picker.id = index;
+      return picker;
+    });
+  };
+
   // Deletes ALL existing entries
   return knex("picker_options")
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex("picker_options").insert([
-        {
-          id: 1,
-          name: "status",
-          title: "Status",
-          description: "The status of a project.",
-          definition: {
-            new_request: {
-              type: "string",
-              title: "New Request",
-            },
-            active: {
-              type: "string",
-              title: "Active",
-            },
-            cancelled: {
-              type: "string",
-              title: "Cancelled",
-            },
-            complete: {
-              type: "string",
-              title: "Complete",
-            },
-          },
-        },
-        {
-          id: 2,
-          name: "agreement_type",
-          title: "Agreement Type",
-          description: "The type of agreement.",
-          definition: {
-            partnership_agreement: {
-              type: "string",
-              title: "Partnership Agreement",
-            },
-            mou: {
-              type: "string",
-              title: "MOU",
-            },
-            project_charter: {
-              type: "string",
-              title: "Project Charter",
-            },
-            other: {
-              type: "string",
-              title: "Other",
-            },
-          },
-        },
-        {
-          id: 3,
-          name: "project_type",
-          title: "Project Type",
-          description: "The type of project.",
-          definition: {
-            internal: {
-              type: "string",
-              title: "Internal",
-            },
-            external: {
-              type: "string",
-              title: "External",
-            },
-            social_media: {
-              type: "string",
-              title: "Social Media",
-            },
-            service: {
-              type: "string",
-              title: "Service",
-            },
-          },
-        },
-        {
-          id: 4,
-          name: "funding",
-          title: "Funding",
-          description: "The type of funding.",
-          definition: {
-            operational: {
-              type: "string",
-              title: "Operational",
-            },
-            capital: {
-              type: "string",
-              title: "Capital",
-            },
-            combination: {
-              type: "string",
-              title: "Combination",
-            },
-          },
-        },
-        {
-          id: 5,
-          name: "recovery_details",
-          title: "Recovery Details",
-          description: "The recovery details.",
-          definition: {
-            fully: {
-              type: "string",
-              title: "Fully",
-            },
-            partially: {
-              type: "string",
-              title: "Partially",
-            },
-            non_recoverable: {
-              type: "string",
-              title: "Non - Recoverable",
-            },
-          },
-        },
-      ]);
+      return knex("picker_options").insert(pickersWithId());
     });
 };

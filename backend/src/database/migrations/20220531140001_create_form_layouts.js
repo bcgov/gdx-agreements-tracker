@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.withSchema("config").createTable("form_layouts", function (table) {
     table.increments(); //id
-    table.string("name").unique();
+    table.string("associated_table").unique();
     table.string("title");
     table.string("description").notNullable();
     table.json("definition");

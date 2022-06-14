@@ -4,7 +4,7 @@ import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
 
 export const Ministries: FC = () => {
-  const { data, isLoading } = useFormatTableData("ministries");
+  const { data, isLoading } = useFormatTableData("ministry");
 
   return (
     <>
