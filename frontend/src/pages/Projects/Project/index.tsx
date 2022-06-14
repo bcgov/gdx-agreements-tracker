@@ -25,29 +25,31 @@ export const Project = () => {
         <>
           <GDX_Accordion sectionTitle="Project Registration">
             {/* Added a slice just to show a few projects for now. */}
-            {Object.entries(query.data?.data).slice(1,4).map(([key, value]) => {
-              return (
-                <div key={key}>
-                  <br />
-                  <TextField disabled label={key} defaultValue={value} />
-                  <br />
-                </div>
-              );
-            })}
+            {Object.entries(query.data?.data)
+              .slice(1, 4)
+              .map(([key, value]) => {
+                return (
+                  <div key={key}>
+                    <br />
+                    <TextField disabled label={key} defaultValue={value} />
+                    <br />
+                  </div>
+                );
+              })}
           </GDX_Accordion>
-          <br/>
+          <br />
           <GDX_Accordion sectionTitle="Contacts">
-          <h3>Contacts Placeholder</h3>
+            <h3>Contacts Placeholder</h3>
           </GDX_Accordion>
-          <br/>
+          <br />
           <GDX_Accordion sectionTitle="Deliverables">
-          <h3>Deliverables Placeholder</h3>
+            <h3>Deliverables Placeholder</h3>
           </GDX_Accordion>
-          <br/>
+          <br />
           <GDX_Accordion sectionTitle="Client Coding">
-          <h3>Client Coding Placeholder</h3>
+            <h3>Client Coding Placeholder</h3>
           </GDX_Accordion>
-          <br/>
+          <br />
           <GDX_Accordion sectionTitle="Budget">
             <h3>Budget Placeholder</h3>
           </GDX_Accordion>
