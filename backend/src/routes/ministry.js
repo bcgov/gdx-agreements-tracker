@@ -1,6 +1,6 @@
 const controller = require("../controllers/ministry");
 const validators = require("../validators/ministry");
-const what = "ministries";
+const what = "ministry";
 
 const routes = [
   {
