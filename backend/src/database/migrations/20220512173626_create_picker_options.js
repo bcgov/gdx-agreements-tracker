@@ -5,6 +5,7 @@ exports.up = function (knex) {
     table.string("title");
     table.string("description").notNullable();
     table.json("definition");
+    table.string("associated_table");
   });
 };
 

@@ -1,14 +1,13 @@
 import { Box, styled, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { IProjectLayout } from "../../types";
+import { IFormLayout } from "../../../types";
 
-export const ProjectLayout = ({ children }: IProjectLayout) => {
+export const FormLayout = ({ children }: IFormLayout) => {
   const theme = useTheme();
 
   const StyledSectionTitle = styled(Typography)({
     backgroundColor: "#f1f1f1",
     textIndent: "10px",
-
   });
 
   const StyledSectionContainer = styled("div")({
@@ -28,7 +27,7 @@ export const ProjectLayout = ({ children }: IProjectLayout) => {
 
   return (
     <StyledSectionContainer>
-      <StyledSectionTitle variant="h6">Project Registration</StyledSectionTitle>
+      <StyledSectionTitle variant="h6">Form Registration</StyledSectionTitle>
       <StyledBoxHolder>{children}</StyledBoxHolder>
     </StyledSectionContainer>
   );
