@@ -23,18 +23,20 @@ export const GDX_Accordion = ({
     fontWeight: "bold",
   });
 
+  const StyledAccordion = styled(Accordion)({
+    margin: "16px 0",
+  });
+
   return (
-    <div>
-      <Accordion defaultExpanded>
-        <StyledAccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <StyledSectionHeader>{sectionTitle}</StyledSectionHeader>
-        </StyledAccordionSummary>
-        <AccordionDetails>{children}</AccordionDetails>
-      </Accordion>
-    </div>
+    <StyledAccordion defaultExpanded>
+      <StyledAccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <StyledSectionHeader>{sectionTitle}</StyledSectionHeader>
+      </StyledAccordionSummary>
+      <AccordionDetails>{children}</AccordionDetails>
+    </StyledAccordion>
   );
 };

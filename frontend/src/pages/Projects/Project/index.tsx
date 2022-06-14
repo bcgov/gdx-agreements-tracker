@@ -37,19 +37,15 @@ export const Project = () => {
                 );
               })}
           </GDX_Accordion>
-          <br />
           <GDX_Accordion sectionTitle="Contacts">
             <h3>Contacts Placeholder</h3>
           </GDX_Accordion>
-          <br />
           <GDX_Accordion sectionTitle="Deliverables">
             <h3>Deliverables Placeholder</h3>
           </GDX_Accordion>
-          <br />
           <GDX_Accordion sectionTitle="Client Coding">
             <h3>Client Coding Placeholder</h3>
           </GDX_Accordion>
-          <br />
           <GDX_Accordion sectionTitle="Budget">
             <h3>Budget Placeholder</h3>
           </GDX_Accordion>
