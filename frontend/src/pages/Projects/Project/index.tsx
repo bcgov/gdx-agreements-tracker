@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { GDX_Accordion } from "../../../components/GDX_Accordion";
-import { ProjectLayout } from "../../../components/ProjectLayout";
 import { apiAxios } from "../../../utils";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
