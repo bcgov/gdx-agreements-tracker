@@ -17,8 +17,9 @@
     "gdx",
     "agreements tracker"
   ],
+  "engineStrict": true,
   "engines": {
-    "node": ">=16.0.0"
+    "node": "=16.13"
   },
   "author": "Shawn Turple",
   "license": "Apache-2.0",
