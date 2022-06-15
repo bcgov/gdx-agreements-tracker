@@ -10,10 +10,15 @@ describe("Testing useFormatTableData Hook", () => {
       // You expect that your Array equals,
       expect(data).toEqual(
         // an Array that contains,
-        expect.arrayContaining([
+        expect.objectContaining({
           // an Object that contains,
-          expect.objectContaining({ field: "id", flex: 1 }),
-        ])
+          rows: [{ field: "id", flex: 1, headerName: "Id", id: 3 }],
+          // an array that contains,
+          columns: expect.arrayContaining([
+            { field: "field", flex: 1, headerName: "Field", id: 0 },
+            { field: "flex", flex: 1, headerName: "Flex", id: 1 },
+          ]),
+        })
       );
     });
   });
