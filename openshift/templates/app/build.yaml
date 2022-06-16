@@ -120,6 +120,17 @@ objects:
             name: artifactory-docker-remote-creds
       source:
         type: Git
+        dockerfile: |
+          FROM node:16-alpine3.12
+          WORKDIR /app
+          COPY public/ public/
+          COPY src/ src/
+          COPY package.json .
+          ADD tsconfig.json .
+          ADD .eslintrc.js .
+          ADD .prettierrc.js .
+          RUN yarn
+          RUN yarn build --prod
         git:
           uri: ${GIT_URL}
           ref: ${GIT_REF}
