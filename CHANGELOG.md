@@ -1,4 +1,12 @@
 ## Developer Changelog
+### June 16, 2022 DESCW-392
+
+- frontend
+  - move dockerfile to openshift/templates/app folder
+  - added inline dockerfile to build
+- backend
+  - move dockerfile to openshift/templates/api folder
+  - added inline dockerfile to build
 
 ### June 15, 2022 DESCW-394
 
