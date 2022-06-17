@@ -5,6 +5,74 @@ exports.seed = function (knex) {
 
   const pickers = [
     {
+      name: "classification",
+      title: "Classification",
+      description: "The classification type of the project.",
+      definition: {
+        dropDownValues: [
+          {
+            label: "Strategic",
+            value: "Strategic",
+          },
+          {
+            label: "Innovation",
+            value: "Innovation",
+          },
+          {
+            label: "Tactical",
+            value: "Tactical",
+          },          
+          {
+            label: "Maintenance/Sustainment",
+            value: "Maintenance/Sustainment",
+          },
+          {
+            label: "Operational",
+            value: "Operational",
+          },
+          {
+            label: "Infrastructure",
+            value: "Infrastructure",
+          },
+          {
+            label: "Support for Strategic or Business Planning",
+            value: "Support for Strategic or Business Planning",
+          },
+          {
+            label: "Transformation",
+            value: "Transformation",
+          },
+        ],
+      },
+      associated_table: tables.projects,
+    },
+    {
+      name: "agreement_type",
+      title: "Agreement Type",
+      description: "The agreement type of the project.",
+      definition: {
+        dropDownValues: [
+          {
+            label: "Project Charter",
+            value: "Project Charter",
+          },
+          {
+            label: "Other",
+            value: "Other",
+          },
+          {
+            label: "Partnership Agreement",
+            value: "Partnership Agreement",
+          },          
+          {
+            label: "MOU",
+            value: "MOU",
+          },          
+        ],
+      },
+      associated_table: tables.projects,
+    },
+    {
       name: "project_status",
       title: "Status",
       description: "The status of a project.",
@@ -44,7 +112,7 @@ exports.seed = function (knex) {
       title: "Portfolio Name",
       description: "Portfolio of the project.",
       definition: {
-        tableLookup: "ministry",
+        tableLookup: "portfolio",
       },
       associated_table: tables.projects,
     },
