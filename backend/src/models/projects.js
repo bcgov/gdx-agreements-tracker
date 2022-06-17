@@ -3,6 +3,8 @@ const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
 const table = `${dbConnection.dataBaseSchemas().data}.project`;
+const getFromView = `${dbConnection.dataBaseSchemas().data}.projects_json_format`;
+
 // Get all.
 const findAll = () => {
   return db(table).select(
@@ -20,7 +22,7 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (id) => {
-  return db(table).where("id", id);
+  return db(getFromView).where("id", id)
 };
 
 module.exports = {

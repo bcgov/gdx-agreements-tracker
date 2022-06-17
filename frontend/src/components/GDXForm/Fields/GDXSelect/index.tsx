@@ -25,7 +25,6 @@ export const GDXSelect: FC<IPickerProps> = ({
   pickerData,
   pickerLookupValues,
 }) => {
-  console.log("pickerLookupValues", pickerLookupValues);
   return (
     <>
       <Autocomplete

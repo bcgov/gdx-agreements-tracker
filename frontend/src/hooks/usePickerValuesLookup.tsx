@@ -43,6 +43,5 @@ export const usePickerValuesLookup = ({
   const { data, isLoading } = useQuery(`${tableName}-pickers`, getPickerLookup, {
     staleTime: 10000,
   });
-  console.log("data", data);
   return { data, isLoading };
 };

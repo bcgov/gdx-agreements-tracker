@@ -19,13 +19,13 @@ const StyledBox = styled("div")({
 });
 
 export const ProjectRegistrationSection = ({ query }: any) => {
+  console.log('query', query)
   const pickerValues: any = usePickerValues();
   const ministryLookupPicker: any = usePickerValuesLookup({
     tableName: "ministry",
     pickerLabelObjProp: "ministry_name",
     pickerValueObjProp: "id",
   });
-  console.log('query', query)
   return (
     <FormLayout>
       <Formik
@@ -50,14 +50,14 @@ export const ProjectRegistrationSection = ({ query }: any) => {
                 
                 />
               </StyledBox>
-              <StyledBox>
+              {/* <StyledBox>
                 <GDXSelect
                   handleChange={handleChange}
                   formikValues={values}
                   setFieldValue={setFieldValue}
                   pickerData={pickerValues?.data?.pickers.project.project_type}
                 />
-              </StyledBox>
+              </StyledBox> */}
               {/* <StyledBox>
                 <Field
                   as={TextField}
