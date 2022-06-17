@@ -16,6 +16,7 @@ export const Project = () => {
 
   // Queries
   const projectQuery = useQuery(`project - ${projectId}`, getProject);
+  console.log('projectQuery', projectQuery)
 
   return (
     <>
