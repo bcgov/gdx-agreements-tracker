@@ -11,36 +11,36 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            value: "Strategic",
             label: "Strategic",
+            value: "Strategic",
           },
           {
-            value: "Innovation",
             label: "Innovation",
+            value: "Innovation",
           },
           {
-            value: "Tactical",
             label: "Tactical",
-          },
+            value: "Tactical",
+          },          
           {
-            value: "Maintenance/Sustainment",
             label: "Maintenance/Sustainment",
+            value: "Maintenance/Sustainment",
           },
           {
-            value: "Operational",
             label: "Operational",
+            value: "Operational",
           },
           {
-            value: "Infrastructure",
             label: "Infrastructure",
+            value: "Infrastructure",
           },
           {
-            value: "Support for Strategic or Business Planning",
             label: "Support for Strategic or Business Planning",
+            value: "Support for Strategic or Business Planning",
           },
           {
-            value: "Transformation",
             label: "Transformation",
+            value: "Transformation",
           },
         ],
       },
@@ -53,21 +53,21 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            value: "Project Charter",
             label: "Project Charter",
+            value: "Project Charter",
           },
           {
-            value: "Other",
             label: "Other",
+            value: "Other",
           },
           {
-            value: "Partnership Agreement",
             label: "Partnership Agreement",
-          },
+            value: "Partnership Agreement",
+          },          
           {
-            value: "MOU",
             label: "MOU",
-          },
+            value: "MOU",
+          },          
         ],
       },
       associated_table: tables.projects,
