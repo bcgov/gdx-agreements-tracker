@@ -10,37 +10,37 @@ exports.seed = function (knex) {
       description: "The classification type of the project.",
       definition: {
         dropDownValues: [
-          {
-            label: "Strategic",
+          {          
             value: "Strategic",
+            label: "Strategic",
           },
           {
-            label: "Innovation",
             value: "Innovation",
+            label: "Innovation",            
           },
           {
-            label: "Tactical",
             value: "Tactical",
+            label: "Tactical",           
           },          
           {
-            label: "Maintenance/Sustainment",
             value: "Maintenance/Sustainment",
+            label: "Maintenance/Sustainment",            
           },
           {
-            label: "Operational",
             value: "Operational",
+            label: "Operational",            
           },
           {
-            label: "Infrastructure",
             value: "Infrastructure",
+            label: "Infrastructure",            
           },
           {
-            label: "Support for Strategic or Business Planning",
             value: "Support for Strategic or Business Planning",
+            label: "Support for Strategic or Business Planning",           
           },
           {
-            label: "Transformation",
             value: "Transformation",
+            label: "Transformation",            
           },
         ],
       },
@@ -53,20 +53,20 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            label: "Project Charter",
             value: "Project Charter",
+            label: "Project Charter",            
           },
           {
-            label: "Other",
             value: "Other",
+            label: "Other",            
           },
           {
-            label: "Partnership Agreement",
             value: "Partnership Agreement",
+            label: "Partnership Agreement",            
           },          
           {
-            label: "MOU",
             value: "MOU",
+            label: "MOU",           
           },          
         ],
       },

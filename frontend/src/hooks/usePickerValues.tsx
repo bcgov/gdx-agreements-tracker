@@ -26,9 +26,9 @@ export const formatPickerOptions = (tableData: IPickerTableData) => {
         }
         pickersByGroup.pickers[item.associated_table][item.name] = item;
       });
-
       return pickersByGroup;
     };
+    console.log('groupByCategory', groupByCategory())
     resolve(groupByCategory());
   });
 };
@@ -38,6 +38,7 @@ export const usePickerValues = () => {
     const allPickers = await apiAxios()
       .get("picker_options")
       .then((tableData) => {
+        console.log('tableData', tableData)
         return formatPickerOptions(tableData);
       });
     return allPickers;
