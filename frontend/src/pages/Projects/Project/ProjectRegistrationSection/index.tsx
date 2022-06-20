@@ -9,7 +9,6 @@ import { apiAxios } from "../../../../utils";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { usePickerValuesLookup } from "../../../../hooks/usePickerValuesLookup";
 
 const StyledBox = styled("div")({
   width: "100%",
@@ -18,14 +17,9 @@ const StyledBox = styled("div")({
   margin: "5px",
 });
 
-export const ProjectRegistrationSection = ({ query }: any) => {
-  console.log('query', query)
+export const ProjectRegistrationSection = ({ query }: any) => {  
   const pickerValues: any = usePickerValues();
-  const ministryLookupPicker: any = usePickerValuesLookup({
-    tableName: "ministry",
-    pickerLabelObjProp: "ministry_name",
-    pickerValueObjProp: "id",
-  });
+
   return (
     <FormLayout>
       <Formik
@@ -45,9 +39,7 @@ export const ProjectRegistrationSection = ({ query }: any) => {
                   handleChange={handleChange}
                   formikValues={values}
                   setFieldValue={setFieldValue}
-                  pickerData={pickerValues?.data?.pickers.project.ministry_id}
-                  pickerLookupValues={ministryLookupPicker}
-                
+                  pickerData={pickerValues?.data?.pickers.project.ministry_id}            
                 />
               </StyledBox>
               {/* <StyledBox>

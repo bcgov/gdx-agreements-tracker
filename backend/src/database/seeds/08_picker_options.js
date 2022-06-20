@@ -10,37 +10,37 @@ exports.seed = function (knex) {
       description: "The classification type of the project.",
       definition: {
         dropDownValues: [
-          {
-            label: "Strategic",
+          {          
             value: "Strategic",
+            label: "Strategic",
           },
           {
-            label: "Innovation",
             value: "Innovation",
+            label: "Innovation",            
           },
           {
-            label: "Tactical",
             value: "Tactical",
+            label: "Tactical",           
           },          
           {
-            label: "Maintenance/Sustainment",
             value: "Maintenance/Sustainment",
+            label: "Maintenance/Sustainment",            
           },
           {
-            label: "Operational",
             value: "Operational",
+            label: "Operational",            
           },
           {
-            label: "Infrastructure",
             value: "Infrastructure",
+            label: "Infrastructure",            
           },
           {
-            label: "Support for Strategic or Business Planning",
             value: "Support for Strategic or Business Planning",
+            label: "Support for Strategic or Business Planning",           
           },
           {
-            label: "Transformation",
             value: "Transformation",
+            label: "Transformation",            
           },
         ],
       },
@@ -53,20 +53,20 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            label: "Project Charter",
             value: "Project Charter",
+            label: "Project Charter",            
           },
           {
-            label: "Other",
             value: "Other",
+            label: "Other",            
           },
           {
-            label: "Partnership Agreement",
             value: "Partnership Agreement",
+            label: "Partnership Agreement",            
           },          
           {
-            label: "MOU",
             value: "MOU",
+            label: "MOU",           
           },          
         ],
       },
@@ -79,20 +79,20 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            label: "New Request",
             value: "NewRequest",
+            label: "New Request",            
           },
           {
-            label: "Active",
             value: "Active",
+            label: "Active",            
           },
           {
-            label: "Cancelled",
             value: "Cancelled",
+            label: "Cancelled",            
           },
           {
-            label: "Complete",
             value: "Complete",
+            label: "Complete",            
           },
         ],
       },
@@ -132,12 +132,12 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            label: "External",
             value: "External",
+            label: "External",            
           },
           {
-            label: "Internal",
             value: "Internal",
+            label: "Internal",            
           },
         ],
       },
@@ -150,16 +150,16 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            label: "Operational",
             value: "Operational",
+            label: "Operational",            
           },
           {
-            label: "Capital",
             value: "Capital",
+            label: "Capital",           
           },
           {
-            label: "Combination",
             value: "Combination",
+            label: "Combination",            
           },
         ],
       },
@@ -172,16 +172,16 @@ exports.seed = function (knex) {
       definition: {
         dropDownValues: [
           {
-            label: "Fully",
             value: "Fully",
+            label: "Fully",            
           },
           {
-            label: "Partially",
             value: "Partially",
+            label: "Partially",           
           },
           {
-            label: "Non-Recoverable",
             value: "Non-Recoverable",
+            label: "Non-Recoverable",            
           },
         ],
       },
