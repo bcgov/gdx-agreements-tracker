@@ -2,13 +2,16 @@ const DatabaseConnection = require("../database/databaseConnection");
 const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
-const table = `${dbConnection.dataBaseSchemas().public}.picker_options`;
+const getFromView = `${dbConnection.dataBaseSchemas().public}.formatted_picker_options`;
+
 
 // Get all.
 const findAll = () => {
-  return db(table);
+  return db(getFromView);
 };
 
 module.exports = {
   findAll,
 };
+
+

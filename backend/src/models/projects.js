@@ -3,7 +3,7 @@ const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
 const table = `${dbConnection.dataBaseSchemas().data}.project`;
-const getFromView = `${dbConnection.dataBaseSchemas().data}.projects_json_format`;
+const getFromView = `${dbConnection.dataBaseSchemas().data}.projects_with_json`;
 
 // Get all.
 const findAll = () => {
