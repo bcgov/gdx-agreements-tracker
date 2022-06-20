@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
-import Loading from "../components/Loading";
+import { Loader } from "../components/Loader";
+
 
 interface Props {
   component: FC;
@@ -18,7 +19,7 @@ const ProtectedRoute: FC<Props> = ({ component: Component }) => {
       <Navigate to={`/login?redirect=${location.pathname}`} />
     );
   } else {
-    return <Loading />;
+    return <Loader />;
   }
 };
 
