@@ -22,7 +22,7 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (id) => {
-  return db(getFromView).where("id", id)
+  return db(getFromView).where("id", id);
 };
 
 module.exports = {

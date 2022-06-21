@@ -4,7 +4,6 @@ const db = dbConnection.knex;
 
 const getFromView = `${dbConnection.dataBaseSchemas().public}.formatted_picker_options`;
 
-
 // Get all.
 const findAll = () => {
   return db(getFromView);
@@ -13,5 +12,3 @@ const findAll = () => {
 module.exports = {
   findAll,
 };
-
-

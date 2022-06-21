@@ -1,7 +1,7 @@
 const serverConfig = require("../../src/facilities/fastify");
 const authHelper = require("../../src/facilities/keycloak");
 const contactsModel = require("../../src/models/contacts.js");
-const contacts = require("../../src/database/seeds/04_contacts");
+const contacts = require("../controllers/contacts.test");
 
 let app;
 

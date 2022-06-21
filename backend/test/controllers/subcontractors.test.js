@@ -1,6 +1,28 @@
-const subcontractors = require("../../src/database/seeds/06_subcontractors");
 const { getAll } = require("../../src/controllers/subcontractors");
 const subcontractorsModel = require("../../src/models/subcontractors.js");
+
+const subcontractors = [
+  {
+    id: 1,
+    name: "ITI",
+  },
+  {
+    id: 2,
+    name: "Jacob",
+  },
+  {
+    id: 3,
+    name: "Jackie",
+  },
+  {
+    id: 4,
+    name: "Jefferson",
+  },
+  {
+    id: 5,
+    name: "John",
+  },
+];
 
 // Mock user DB methods.
 jest.mock("../../src/models/subcontractors");
@@ -14,9 +36,9 @@ describe("Testing user controllers", () => {
       },
     };
     const result = await getAll(sampleRequest);
-    expect(result.subcontractors).toBeInstanceOf(Array);
-    result.subcontractors.forEach((subcontractorsObject) =>
-      expect("id" in subcontractorsObject).toBe(true)
-    );
+    expect(result).toBeInstanceOf(Array);
+    result.forEach((subcontractorsObject) => expect("id" in subcontractorsObject).toBe(true));
   });
 });
+
+exports.subcontractors = subcontractors;
