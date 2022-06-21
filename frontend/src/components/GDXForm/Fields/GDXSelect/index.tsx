@@ -1,30 +1,9 @@
-import React, { ChangeEvent, FC, ReactNode } from "react";
-import { Field, ErrorMessage, FieldInputProps } from "formik";
-import { Autocomplete, SelectChangeEvent, TextField, TextFieldProps } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { FC } from "react";
+import { Autocomplete, TextField, TextFieldProps } from "@mui/material";
 import { Loader } from "../../../Loader";
+import { IPickerProps } from "../../../../types";
 
-interface IPickerProps {
-  handleChange: Function;
-  formikValues: { [key: string]: unknown };
-  setFieldValue: Function;
-  // pickerData: {
-  //   id: number;
-  //   name: string;
-  //   title: string;
-  //   description: string;
-  //   definition: { dropDownValues: Object[]};
-  // };
-  pickerData: any;
-}
-
-export const GDXSelect: FC<IPickerProps> = ({
-  handleChange,
-  formikValues,
-  setFieldValue,
-  pickerData,
-}) => {
-  console.log('pickerData', pickerData)
+export const GDXSelect: FC<IPickerProps> = ({ formikValues, setFieldValue, pickerData }) => {
   return (
     <>
       {!pickerData ? (
@@ -33,7 +12,7 @@ export const GDXSelect: FC<IPickerProps> = ({
         <Autocomplete
           id={pickerData?.name}
           options={pickerData?.definition}
-          onChange={(event, option: any) => {
+          onChange={(event, option) => {
             setFieldValue(pickerData?.name, option);
           }}
           value={formikValues[pickerData?.name]}

@@ -3,7 +3,6 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 import { Loader } from "../components/Loader";
 
-
 interface Props {
   component: FC;
 }
