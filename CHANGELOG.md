@@ -29,6 +29,10 @@
 - Frontend
   - added project registration structure
 
+### June 20, 2022 DESCW-402 DESCW-403
+* Frontend
+  * added project registration structure 
+
 ### June 3, 2022 DESCW-402 DESCW-403
 
 - backend
