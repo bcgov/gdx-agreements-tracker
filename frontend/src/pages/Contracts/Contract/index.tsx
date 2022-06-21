@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { apiAxios } from "../../../utils";
 
-
 export const Contract = () => {
   const { contractId } = useParams();
 

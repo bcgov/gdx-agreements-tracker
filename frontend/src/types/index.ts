@@ -68,3 +68,36 @@ export interface IPickerLookupData {
   description: string;
   definition: { dropDownValues: { data: Array<Object> } };
 }
+
+//picker options types
+export interface IPickerProps {
+  handleChange: Function;
+  formikValues: { [key: string]: unknown };
+  setFieldValue: Function;
+  pickerData: {
+    associated_table: string;
+    definition: { value: string; label: string }[];
+    description: string;
+    id: number;
+    name: string;
+    title: string;
+  };
+}
+
+export interface IPickerTableData {
+  data: [
+    {
+      associated_table: string;
+      definition: [
+        {
+          label: string;
+          value: string;
+        }
+      ];
+      description: string;
+      id: number;
+      name: string;
+      title: string;
+    }
+  ];
+}

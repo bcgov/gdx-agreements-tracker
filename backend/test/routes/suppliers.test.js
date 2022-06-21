@@ -1,7 +1,7 @@
 const serverConfig = require("../../src/facilities/fastify");
 const authHelper = require("../../src/facilities/keycloak");
 const suppliersModel = require("../../src/models/suppliers.js");
-const suppliers = require("../../src/database/seeds/05_suppliers");
+const suppliers = require("../controllers/suppliers.test");
 
 let app;
 
