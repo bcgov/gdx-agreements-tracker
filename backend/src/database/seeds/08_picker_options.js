@@ -10,37 +10,37 @@ exports.seed = function (knex) {
       description: "The classification type of the project.",
       definition: {
         dropDownValues: [
-          {          
+          {
             value: "Strategic",
             label: "Strategic",
           },
           {
             value: "Innovation",
-            label: "Innovation",            
+            label: "Innovation",
           },
           {
             value: "Tactical",
-            label: "Tactical",           
-          },          
+            label: "Tactical",
+          },
           {
             value: "Maintenance/Sustainment",
-            label: "Maintenance/Sustainment",            
+            label: "Maintenance/Sustainment",
           },
           {
             value: "Operational",
-            label: "Operational",            
+            label: "Operational",
           },
           {
             value: "Infrastructure",
-            label: "Infrastructure",            
+            label: "Infrastructure",
           },
           {
             value: "Support for Strategic or Business Planning",
-            label: "Support for Strategic or Business Planning",           
+            label: "Support for Strategic or Business Planning",
           },
           {
             value: "Transformation",
-            label: "Transformation",            
+            label: "Transformation",
           },
         ],
       },
@@ -54,20 +54,20 @@ exports.seed = function (knex) {
         dropDownValues: [
           {
             value: "Project Charter",
-            label: "Project Charter",            
+            label: "Project Charter",
           },
           {
             value: "Other",
-            label: "Other",            
+            label: "Other",
           },
           {
             value: "Partnership Agreement",
-            label: "Partnership Agreement",            
-          },          
+            label: "Partnership Agreement",
+          },
           {
             value: "MOU",
-            label: "MOU",           
-          },          
+            label: "MOU",
+          },
         ],
       },
       associated_table: tables.projects,
