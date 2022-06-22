@@ -1,11 +1,15 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: node-16-image-stream
+  name: nginx-image-stream
   annotations:
-    openshift.io/display-name: NodeJS 16 Images
-    description: ImageStream definitions for NodeJS 16 on alpine and buster that originate from Dockerhub
+    openshift.io/display-name: nginx Images
+    description: ImageStream definitions for nginx, that originate from Dockerhub
 parameters:
+  - name: IMAGE_NAME
+    displayName: "The name of this image"
+    required: true
+    value: "nginx"
   - name: APP_NAME
     displayName: "App Name"
     description: "The name of the application (grouped)."
@@ -15,7 +19,7 @@ parameters:
     displayName: "Component Name"
     description: "The name of the application role."
     required: true
-    value: "api"
+    value: "nginx"
   - name: PROJECT_NAMESPACE
     displayName: "OpenShift Project Namespace"
     description: "The namespace of the OpenShift project containing the application."
@@ -31,27 +35,21 @@ objects:
   - kind: ImageStream
     apiVersion: v1
     metadata:
-      name: node
+      name: ${IMAGE_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
-        description: Keeps track of NodeJS 16 images that originate from Dockerhub
+        description: Keeps track of ${IMAGE_NAME} images that originate from Dockerhub
       labels:
-        name: dockerhub-node-images
+        name: dockerhub-${IMAGE_NAME}-images
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
         source: dockerhub
     spec:
       tags:
-        - name: "16-buster"
+        - name: "1.21.6-alpine"
           from:
             kind: DockerImage
-            name: "docker-remote.artifacts.developer.gov.bc.ca/node:16-buster"
-          referencePolicy:
-            type: Local
-        - name: "16.15.1-alpine3.16"
-          from:
-            kind: DockerImage
-            name: "docker-remote.artifacts.developer.gov.bc.ca/node:16.15.1-alpine3.16"
+            name: "docker-remote.artifacts.developer.gov.bc.ca/nginx:1.21.6-alpine"
           referencePolicy:
             type: Local
