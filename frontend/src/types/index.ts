@@ -99,7 +99,7 @@ export interface IPickerTableData {
       name: string;
       title: string;
     }
-  ]
+  ];
 }
 
 export interface IProjectLayout {
