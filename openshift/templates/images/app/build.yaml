@@ -71,7 +71,8 @@ objects:
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
-
+  
+  # Build to create app.
   - kind: BuildConfig
     apiVersion: build.openshift.io/v1
     metadata:
@@ -110,6 +111,8 @@ objects:
       triggers:
         - type: ConfigChange
       runPolicy: Serial
+
+  # Build config to create final image with nginx and build from app.
   - kind: BuildConfig
     apiVersion: build.openshift.io/v1
     metadata:
@@ -132,7 +135,6 @@ objects:
             kind: ImageStreamTag
             name: '${APP_NAME}-nginx-run:dev'
       source:
-        type: Dockerfile
         type: Dockerfile
         dockerfile: >-
           FROM ${APP_NAME}-nginx-run:dev
@@ -169,3 +171,15 @@ objects:
       triggers:
         - type: ConfigChange
       runPolicy: Serial
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-nginx-run:dev"
+        - type: "ImageChange"
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-${ROLE_NAME}-build:dev"

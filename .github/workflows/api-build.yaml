@@ -5,9 +5,9 @@ on:
       - development
     paths:
       - "backend/**/*"
+      - "openshift/templates/images/api/**/*"
+      - "openshift/templates/base-images/node-16.yaml"
       - "!backend/.eslintrc.json"
-      - "!openshift/templates/api/docker/Dockerfile*"
-      - "!openshift/templates/api/docker/.dockerignore"
       - "!backend/docs"
       - "!backend/README.md"
 
@@ -16,7 +16,7 @@ defaults:
   run:
     working-directory: ./
 jobs:
-  deploy:
+  deploy_api_on_openshift:
     if: github.repository_owner == 'bcgov'
     runs-on: ubuntu-latest
     steps:
@@ -28,4 +28,4 @@ jobs:
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
             oc project acd38d-tools
-            oc start-build gdx-agreements-tracker-api-run --follow
+            oc start-build gdx-agreements-tracker-api-build --follow

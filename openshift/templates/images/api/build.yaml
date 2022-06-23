@@ -46,7 +46,7 @@ parameters:
     require: true
 
 objects:
-  # Image stream for the built base image.
+  # Image stream for the built base image from s2i.
   - kind: ImageStream
     apiVersion: v1
     metadata:
@@ -60,6 +60,21 @@ objects:
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
 
+  # Build image of api
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-build
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Final Image for the backend
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-build
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+
+  # Final runtime image of api and s2i combined
   - kind: ImageStream
     apiVersion: v1
     metadata:
@@ -73,91 +88,7 @@ objects:
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
 
-
-  - kind: BuildConfig
-    apiVersion: build.openshift.io/v1
-    metadata:
-      name: ${APP_NAME}-${ROLE_NAME}-run
-      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
-      annotations:
-        description: Compiles the React application for GDX agreements tracker.
-      labels:
-        name: ${APP_NAME}-${ROLE_NAME}-run
-        app: ${APP_NAME}
-        role: ${ROLE_NAME}
-        env: ${ENV_NAME}
-    spec:
-      successfulBuildsHistoryLimit: 2
-      failedBuildsHistoryLimit: 2
-      strategy:
-        type: Docker
-        dockerStrategy:
-          from:
-            kind: ImageStreamTag
-            name: '${APP_NAME}-node-s2i:dev'
-      source:
-        type: Dockerfile
-        dockerfile: |-
-          FROM scratch
-          COPY tmp /opt/app-root
-          CMD /usr/local/s2i/run
-        images:
-          - from:
-              kind: ImageStreamTag
-              name: '${APP_NAME}-${ROLE_NAME}-build:dev'
-            paths:
-              - sourcePath: "/opt/app-root/."
-                destinationDir: tmp
-      output:
-        to:
-          kind: ImageStreamTag
-          name: ${APP_NAME}-${ROLE_NAME}-run:dev
-      resources:
-        limits:
-          cpu: '1'
-          memory: 4Gi
-        requests:
-          cpu: '1'
-          memory: 2Gi
-      triggers:
-        - type: ConfigChange
-      runPolicy: Serial
-  # The build config that will be created and be named for the branch you created it for.
-  - kind: BuildConfig
-    apiVersion: v1
-    metadata:
-      name: ${APP_NAME}-${ROLE_NAME}-build
-      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
-      annotations:
-        description:  The build that generates artifacts (html, javascript, images, etc)
-      labels:
-        name: ${APP_NAME}-${ROLE_NAME}-build
-        app: ${APP_NAME}
-        role: ${ROLE_NAME}
-        env: ${ENV_NAME}
-    spec:
-      successfulBuildsHistoryLimit: 2
-      failedBuildsHistoryLimit: 2
-      runPolicy: Parallel
-      completionDeadlineSeconds: 1800
-      source:
-        type: Git
-        dockerfile: ${OC_DOCKER_FILE}
-        git:
-          uri: ${GIT_URL}
-          ref: ${GIT_REF}
-        contextDir: backend
-      strategy:
-        type: Docker
-      output:
-        to:
-          kind: ImageStreamTag
-          name: ${APP_NAME}-${ROLE_NAME}-build:dev
-      resources:
-        limits:
-          cpu: 1
-          memory: "2Gi"
-
+  # Source to Image build for Nodejs
   - kind: BuildConfig
     apiVersion: v1
     metadata:
@@ -191,4 +122,118 @@ objects:
         limits:
           cpu: 1
           memory: "2Gi"
+
+  # The build config that will be created and be named for the branch you created it for.
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-build
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description:  The build that generates artifacts (html, javascript, images, etc)
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-build
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+      completionDeadlineSeconds: 1800
+      source:
+        type: Git
+        dockerfile: ${OC_DOCKER_FILE}
+        git:
+          uri: ${GIT_URL}
+          ref: ${GIT_REF}
+        contextDir: backend
+      strategy:
+        type: Source
+        sourceStrategy:
+          from:
+            kind: ImageStreamTag
+            name: '${APP_NAME}-node-s2i:dev'
+          incremental: false
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP_NAME}-${ROLE_NAME}-build:dev
+      resources:
+        limits:
+          cpu: 1
+          memory: "2Gi"
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-node-s2i:dev"
+  
+  # The runtime image for api
+  - kind: BuildConfig
+    apiVersion: build.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-run
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Compiles the React application for GDX agreements tracker.
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-run
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+      strategy:
+        type: Docker
+        dockerStrategy:
+          from:
+            kind: ImageStreamTag
+            name: '${APP_NAME}-node-s2i:dev'
+          incremental: false
+      source:
+        type: Dockerfile
+        dockerfile: |-
+          FROM scratch
+          COPY tmp /opt/app-root
+          USER root
+          RUN chmod -R 777 /opt/app-root/src/database/production_seeds
+          USER 1001
+          CMD /usr/local/s2i/run
+        images:
+          - from:
+              kind: ImageStreamTag
+              name: '${APP_NAME}-${ROLE_NAME}-build:dev'
+            paths:
+              - sourcePath: "/opt/app-root/."
+                destinationDir: tmp
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP_NAME}-${ROLE_NAME}-run:dev
+      resources:
+        limits:
+          cpu: '1'
+          memory: 4Gi
+        requests:
+          cpu: '1'
+          memory: 2Gi
+      triggers:
+        - type: ConfigChange
+      runPolicy: Serial
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-node-s2i:dev"
+        - type: "ImageChange"
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-${ROLE_NAME}-build:dev"
+  
     

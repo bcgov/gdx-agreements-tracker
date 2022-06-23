@@ -5,20 +5,20 @@ on:
       - development
     paths:
       - "frontend/**/*"
-      - "!openshift/templates/app/docker/Dockerfile*"
+      - "openshift/templates/images/app/**/*"
+      - "openshift/templates/base-images/node-16.yaml"
       - "!frontend/tsconfig.json"
       - "!frontend/tslint.json"
       - "!frontend/.prettierrc.js"
       - "!frontend/docs"
       - "!frontend/README.md"
-      - "!openshift/templates/app/docker/.dockerignore"
 
   workflow_dispatch:
 defaults:
   run:
     working-directory: ./
 jobs:
-  deploy:
+  deploy_app_on_openshift:
     if: github.repository_owner == 'bcgov'
     runs-on: ubuntu-latest
     steps:
@@ -30,4 +30,4 @@ jobs:
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
             oc project acd38d-tools
-            oc start-build gdx-agreements-tracker-app-run --follow
+            oc start-build gdx-agreements-tracker-app-build --follow
