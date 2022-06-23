@@ -4,6 +4,9 @@
 
 NOTE: To host this application in docker for local development, please see file here: [Docker Hosting GDX Agreements Tracker](/documentation/README.md)
 
+## OpenShift
+For deploying to OpenShift please reference the [OpenShift Readme](./openshift/templates/README.md)
+
 Below is the current preferred method for development. (ao. 03/25/2022)<br><br>
 
 ## Prerequisites
