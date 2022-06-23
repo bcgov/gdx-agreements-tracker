@@ -1,0 +1,185 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: gdx-agreements-tracker-app-build
+  resourceVersion: "v1.0.0"
+  annotations:
+    openshift.io/display-name: Nginx with Node build
+    description: Build template for a Nginx with Node build
+    tags: pmo,app,gdx,agreements-tracker
+parameters:
+  - name: APP_NAME
+    displayName: "App Name"
+    description: "The name of the application (grouped)."
+    required: true
+    value: "gdx-agreements-tracker"
+  - name: ROLE_NAME
+    displayName: "Component Name"
+    description: "The name of the application role."
+    required: true
+    value: "app"
+  - name: PROJECT_NAMESPACE
+    displayName: "OpenShift Project Namespace"
+    description: "The namespace of the OpenShift project containing the application."
+    required: true
+    value: "acd38d"
+  - name: ENV_NAME
+    displayName: "Environment name"
+    description: "The name for this environment [dev, test, prod, tools]"
+    required: true
+    value: "tools"
+  - name: GIT_URL
+    displayName: "GIT Source Repo URL"
+    description: "A GIT URL to your source code."
+    required: true
+    value: "https://github.com/bcgov/gdx-agreements-tracker.git"
+  - name: GIT_REF
+    displayName: "Git Reference"
+    description: "The git reference or branch."
+    required: true
+    value: "development"
+  - name: OC_DOCKER_FILE
+    displayName: "Dockerfile"
+    description: "Is the dockerfile, workaround for local development"
+    value: ""
+    require: true
+
+objects:
+  
+  - kind: ImageStream
+    apiVersion: image.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-build
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description:  This is the image stream for the app build, this will then get combined with nginx
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-build
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+
+  - kind: ImageStream
+    apiVersion: image.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-run
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description:  This is the image stream for the app run
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-run
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+  
+  # Build to create app.
+  - kind: BuildConfig
+    apiVersion: build.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-build
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Compiles the React application for GDX agreements tracker.
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-build
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+      strategy:
+        type: Docker
+      source:
+        type: Git
+        dockerfile: ${OC_DOCKER_FILE}
+        git:
+          uri: ${GIT_URL}
+          ref: ${GIT_REF}
+        contextDir: frontend
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP_NAME}-${ROLE_NAME}-build:dev
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: '2'
+          memory: 7Gi
+      triggers:
+        - type: ConfigChange
+      runPolicy: Serial
+
+  # Build config to create final image with nginx and build from app.
+  - kind: BuildConfig
+    apiVersion: build.openshift.io/v1
+    metadata:
+      name: ${APP_NAME}-${ROLE_NAME}-run
+      namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
+      annotations:
+        description: Compiles the React application for GDX agreements tracker.
+      labels:
+        name: ${APP_NAME}-${ROLE_NAME}-run
+        app: ${APP_NAME}
+        role: ${ROLE_NAME}
+        env: ${ENV_NAME}
+    spec:
+      successfulBuildsHistoryLimit: 2
+      failedBuildsHistoryLimit: 2
+      strategy:
+        type: Docker
+        dockerStrategy:
+          from:
+            kind: ImageStreamTag
+            name: '${APP_NAME}-nginx-run:dev'
+      source:
+        type: Dockerfile
+        dockerfile: >-
+          FROM ${APP_NAME}-nginx-run:dev
+
+          COPY * /tmp/app/dist/
+
+          USER root
+
+          RUN ln -sf /etc/nginx/publicServerEnvironmentSettings.js 
+          /tmp/app/dist/publicServerEnvironmentSettings.js
+
+          USER 104
+          
+          CMD  /usr/libexec/s2i/run
+
+        images:
+          - from:
+              kind: ImageStreamTag
+              name: '${APP_NAME}-${ROLE_NAME}-build:dev'
+            paths:
+              - sourcePath: /app/build/.
+                destinationDir: tmp
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP_NAME}-${ROLE_NAME}-run:dev
+      resources:
+        limits:
+          cpu: '1'
+          memory: 4Gi
+        requests:
+          cpu: '1'
+          memory: 2Gi
+      triggers:
+        - type: ConfigChange
+      runPolicy: Serial
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-nginx-run:dev"
+        - type: "ImageChange"
+          imageChange:
+            from:
+              kind: "ImageStreamTag"
+              name: "${APP_NAME}-${ROLE_NAME}-build:dev"

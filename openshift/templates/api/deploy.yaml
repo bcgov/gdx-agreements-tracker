@@ -34,10 +34,6 @@ parameters:
     required: true
     value: "dev"
 
-  - name: INSTANCE
-    displayName: "Unique Identifier"
-    description: "A unique identifier to allow for multiple instances (i.e. '-01')."
-    value: ""
   - name: APP_PORT
     displayName: "Application Port"
     description: "The port used to communicate with the Pod"
@@ -72,11 +68,11 @@ objects:
   - kind: Deployment
     apiVersion: apps/v1
     metadata:
-      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      name: ${APP_NAME}-${ROLE_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         image.openshift.io/triggers: >-
-          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}${INSTANCE}\")].image"}]
+          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}-${ROLE_NAME}-run:${DEPLOYMENT_TAG}","namespace": "${PROJECT_NAMESPACE}-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}-${ROLE_NAME}\")].image"}]
       labels:
         app.kubernetes.io/part-of: ${APP_NAME}
         app.openshift.io/runtime: nodejs
@@ -86,7 +82,7 @@ objects:
       replicas: ${{REPLICAS}}
       selector:
         matchLabels:
-          name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+          name: ${APP_NAME}-${ROLE_NAME}
           app: ${APP_NAME}
           role: ${ROLE_NAME}
           env: ${ENV_NAME}
@@ -95,7 +91,7 @@ objects:
           annotations:
             alpha.image.policy.openshift.io/resolve-names: '*'
           labels:
-            name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+            name: ${APP_NAME}-${ROLE_NAME}
             app: ${APP_NAME}
             role: ${ROLE_NAME}
             env: ${ENV_NAME}
@@ -111,7 +107,7 @@ objects:
                 defaultMode: 420
           containers:
             - name: ${APP_NAME}-${ROLE_NAME}
-              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-deploy.${GIT_REF}:${DEPLOYMENT_TAG}
+              image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-run:${DEPLOYMENT_TAG}
               imagePullPolicy: Always
               ports:
                 - containerPort: ${{APP_PORT}}

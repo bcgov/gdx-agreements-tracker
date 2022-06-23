@@ -10,6 +10,9 @@ oc process -f build.yaml | oc create --save-config=true -f -
 ## Changes to config
 ```oc process -f build.yaml | oc apply -f -```
 
+
+* `oc process -p ENV_NAME=${OC_ENV} -f openshift/templates/app/deploy.yaml | oc apply -f -`
+
 ### Deployments
 
 #### Deploy to dev

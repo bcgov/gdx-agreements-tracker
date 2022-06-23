@@ -28,10 +28,6 @@ parameters:
     description: "The name for this environment [dev, test, prod, tools]"
     required: true
     value: "dev"
-  - name: INSTANCE
-    displayName: "Unique Identifier"
-    description: "A unique identifier to allow for multiple instances (i.e. '-01')."
-    value: ""
   - name: APP_DOMAIN
     displayName: "Application Hostname"
     description:
@@ -46,12 +42,12 @@ objects:
   - kind: Service
     apiVersion: v1
     metadata:
-      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      name: ${APP_NAME}-${ROLE_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         description: Exposes and load balances the application pods.
       labels:
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        name: ${APP_NAME}-${ROLE_NAME}
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
@@ -62,7 +58,7 @@ objects:
           protocol: TCP
           targetPort: ${{APP_PORT}}
       selector:
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        name: ${APP_NAME}-${ROLE_NAME}
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
@@ -72,10 +68,10 @@ objects:
   - kind: Route
     apiVersion: route.openshift.io/v1
     metadata:
-      name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+      name: ${APP_NAME}-${ROLE_NAME}
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       labels:
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        name: ${APP_NAME}-${ROLE_NAME}
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
@@ -97,5 +93,5 @@ objects:
         key: ""
       to:
         kind: Service
-        name: ${APP_NAME}-${ROLE_NAME}${INSTANCE}
+        name: ${APP_NAME}-${ROLE_NAME}
         weight: 100
