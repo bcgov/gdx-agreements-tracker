@@ -1,4 +1,10 @@
 ## Developer Changelog
+### June 23, 2022 DESCW-444
+- OpenShift
+  - restructured OpenShift images and BuildConfigs
+  - Update README's
+- Github actions
+  - minor naming changes, and re-point to new builds.
 
 ### June 23, 2022
 

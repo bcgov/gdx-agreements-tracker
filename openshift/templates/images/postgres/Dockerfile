@@ -1,9 +1,9 @@
-FROM postgres:14-bullseye
+FROM postgres:14.4-bullseye
 
 ENV RUNUSER postgres
 
 RUN set -ex; \
-    chmod -R 555 /docker-entrypoint.* ; \
+    chmod -R 555 /docker-entrypoint* ; \
     chmod 664 /etc/passwd /etc/group /etc/shadow ; \
     chown 0:0 /etc/shadow ; \
     chmod 775 /etc ; \
