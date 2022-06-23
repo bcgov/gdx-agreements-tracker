@@ -50,3 +50,6 @@ backend/yarn.lock
 #vscode config
 .vscode
 
+#https certificates
+.cert
+
