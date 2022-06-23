@@ -29,4 +29,4 @@
 
 ---
 ## Backups
-[Postgres](./backups/README.md)
+[Backups](./backups/README.md)
