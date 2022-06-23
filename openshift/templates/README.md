@@ -1,14 +1,32 @@
-## API
-Creates the image used for the backend container.
-`oc process -f openshift/templates/api/build.yaml | oc apply -f -`
-
-## APP
-Creates the image used for the frontend container.
-`oc process -f openshift/templates/app/build.yaml | oc apply -f -`
+# OpenShift Deployments
 
 ## Base Images
+[The base images](./base-images/README.md) are all the images that are required to create image builds.
+
+
+### Base Image Versions
 | Image | Version | Description |
 | ----- | ------- | ----------- |
-| node | 16-alpine | Node version that gets built in base images via Dockerfile. |
-| nginx | stable | Nginx web server, used to serve WordPress / PHP |
-| postgres | 14-bullseye | Postgres database management system |
+| node | node:16.15.1-alpine3.16 | Node version that gets built in base images via Dockerfile. |
+| nginx | stable | Nginx web server, used to serve react app |
+| postgres | 14.4-bullseye | Postgres database management system |
+
+---
+## Build Images
+[Build images](./images/README.md)
+
+---
+## API deployment
+[API deployment](./api/README.md)
+
+---
+## App deployment
+[App deployment](./app/README.md)
+
+---
+## Postgres deployment
+[Postgres](./postgres/README.md)
+
+---
+## Backups
+[Postgres](./backups/README.md)

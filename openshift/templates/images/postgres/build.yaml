@@ -16,7 +16,7 @@ parameters:
     displayName: "Component Name"
     description: "The name of the application role."
     required: true
-    value: "api"
+    value: "postgres"
   - name: PROJECT_NAMESPACE
     displayName: "OpenShift Project Namespace"
     description: "The namespace of the OpenShift project containing the application."
@@ -42,13 +42,8 @@ parameters:
     displayName: "Source Context Directory"
     description: "The source context directory."
     required: false
-    value: "/openshift/templates/postgres"
+    value: "/openshift/templates/images/postgres"
 
-  - name: OUTPUT_IMAGE_TAG
-    displayName: "Output Image Tag"
-    description: "The tag given to the built image."
-    required: true
-    value: "latest"
 
   - name: CPU_LIMIT
     displayName: "Resources CPU Limit"
@@ -64,12 +59,12 @@ objects:
   - kind: ImageStream
     apiVersion: v1
     metadata:
-      name: ${APP_NAME}-${ROLE_NAME}-postgres
+      name: ${APP_NAME}-${ROLE_NAME}-run
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         description: Keeps track of changes to the final runtime deploy image
       labels:
-        name: ${APP_NAME}-${ROLE_NAME}-postgres
+        name: ${APP_NAME}-${ROLE_NAME}-run
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
@@ -82,12 +77,12 @@ objects:
   - kind: BuildConfig
     apiVersion: v1
     metadata:
-      name: ${APP_NAME}-${ROLE_NAME}-postgres
+      name: ${APP_NAME}-${ROLE_NAME}-run
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
         description: PostgreSQL runtime container
       labels:
-        name: ${APP_NAME}-${ROLE_NAME}-postgres
+        name: ${APP_NAME}-${ROLE_NAME}-run
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
@@ -100,7 +95,6 @@ objects:
         type: Docker
         dockerStrategy:
           dockerfilePath: Dockerfile
-        postCommit: { }
       source:
         type: Git
         git:
@@ -110,7 +104,7 @@ objects:
       output:
         to:
           kind: ImageStreamTag
-          name: ${APP_NAME}-${ROLE_NAME}-postgres:${OUTPUT_IMAGE_TAG}
+          name: ${APP_NAME}-${ROLE_NAME}-run:dev
       resources:
         limits:
           cpu: ${CPU_LIMIT}
