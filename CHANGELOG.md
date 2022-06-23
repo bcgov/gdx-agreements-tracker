@@ -1,5 +1,10 @@
 ## Developer Changelog
 
+### June 23, 2022
+
+- Frontend
+  - Added https cert creation and enforcement 
+
 ### June 20, 2022 DESCW-402 DESCW-403
 
 - Frontend

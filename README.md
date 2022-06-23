@@ -61,6 +61,27 @@ The following prerequisites are required for this application to function correc
   ---
 
 ## Start Servers
+### Adding HTTPS cert for local development
+This step is required to run the app as the npm start command requires the app to run locally with https.  This only has to be run on intial setup.
+
+1. install the following with brew through terminal
+    #### Install mkcert tool
+    brew install mkcert
+
+    #### Install nss (only needed if you use Firefox)
+    brew install nss
+
+    #### Setup mkcert on your machine (creates a CA)
+    mkcert -install
+
+2. From the root of your gdx-agreement-tracker frontend, you should now run:
+    #### Create .cert directory if it doesn't exist
+    mkdir -p .cert
+
+    #### Generate the certificate (ran from the root of this project)
+    mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "localhost"
+
+
 1. Start the Database container in docker 
     *   Open a terminal in the root of the project directory and run:
          ```
