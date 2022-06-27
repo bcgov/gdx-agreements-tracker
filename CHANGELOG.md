@@ -1,11 +1,16 @@
 ## Developer Changelog
+
+### June 27, 2022
+
+- Frontend, Backend
+  - Added functionality for updating project registration data in projects DB
+
 ### June 23, 2022 DESCW-444
 - OpenShift
   - restructured OpenShift images and BuildConfigs
   - Update README's
 - Github actions
   - minor naming changes, and re-point to new builds.
-
 ### June 23, 2022
 
 - Frontend

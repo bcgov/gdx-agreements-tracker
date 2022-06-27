@@ -44,6 +44,13 @@ export const usePickerValues = () => {
   };
 
   // Queries
-  const { data, isLoading } = useQuery("picker_options", getTableData, { staleTime: 10000 });
+  const { data, isLoading } = useQuery("picker_options", getTableData, {
+    // todo: When there is an edit and view form built, reassess these options.
+    refetchOnWindowFocus: false,
+    retryOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: Infinity,
+  });
   return { data, isLoading };
 };
