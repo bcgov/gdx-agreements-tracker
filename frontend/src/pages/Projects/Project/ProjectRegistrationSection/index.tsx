@@ -1,5 +1,5 @@
-import { Link, styled, TextField } from "@mui/material";
-import { Field, Formik } from "formik";
+import { Box, Button, Link, styled, TextField } from "@mui/material";
+import { Field, Form, Formik } from "formik";
 import React from "react";
 import { GDXSelect } from "../../../../components/GDXForm/Fields";
 import { FormLayout } from "../../../../components/GDXForm/FormLayout";
@@ -7,6 +7,7 @@ import { usePickerValues } from "../../../../hooks/usePickerValues";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { handleOnSubmit } from "./handleOnSubmit";
 
 const StyledBox = styled("div")({
   width: "100%",
@@ -24,16 +25,13 @@ export const ProjectRegistrationSection = ({ query }: any) => {
     <FormLayout>
       <Formik
         initialValues={query?.data?.data}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={async (values) => {
+          handleOnSubmit(query, values);
         }}
       >
-        {({ setFieldValue, values, handleChange }) => {
+        {({ setFieldValue, values, handleChange, dirty }) => {
           return (
-            <>
+            <Form>
               <StyledBox>
                 <Field
                   as={TextField}
@@ -189,14 +187,24 @@ export const ProjectRegistrationSection = ({ query }: any) => {
                   handleChange={handleChange}
                   formikValues={values}
                   setFieldValue={setFieldValue}
-                  pickerData={pickerValues?.data?.pickers.project.project_type}
+                  pickerData={pickerValues?.data?.pickers.project.recoverable}
                 />
               </StyledBox>
               <StyledBox>
                 {" "}
                 <Link href="#">Contract #</Link>{" "}
               </StyledBox>
-            </>
+              <Box>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="success"
+                  disabled={dirty ? false : true}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Form>
           );
         }}
       </Formik>

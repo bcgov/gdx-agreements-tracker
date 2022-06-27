@@ -23,6 +23,8 @@ const roles = [
       "general_read_mine",
       "resources_read_all",
       "resources_read_mine",
+      "projects_update_mine",
+      "projects_update_all",
     ],
   },
   {

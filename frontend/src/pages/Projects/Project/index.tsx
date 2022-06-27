@@ -15,7 +15,13 @@ export const Project = () => {
   };
 
   // Queries
-  const projectQuery = useQuery(`project - ${projectId}`, getProject);
+  const projectQuery = useQuery(`project - ${projectId}`, getProject, {
+    refetchOnWindowFocus: false,
+    retryOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: Infinity,
+  });
 
   return (
     <>
