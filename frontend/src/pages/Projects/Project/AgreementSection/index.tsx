@@ -7,8 +7,8 @@ import { usePickerValues } from "../../../../hooks/usePickerValues";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { handleOnSubmit } from "./handleOnSubmit";
 import { TextDisplay } from "../../../../components/TextDisplay";
+import { handleOnSubmit } from "../handleOnSubmit";
 
 const StyledBox = styled("div")({
   width: "100%",

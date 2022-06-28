@@ -1,4 +1,4 @@
-import { apiAxios } from "../../../../utils";
+import { apiAxios } from "../../../utils";
 
 export const handleOnSubmit = async (
   query: { data: { data: { [x: string]: { value: string } | number } } },
