@@ -55,5 +55,5 @@ objects:
     data:
       JWKSURI: ${JWKSURI}
       NODE_ENV: ${NODE_ENV}
-      POSTGRES_HOST: ${APP_NAME}-${ROLE_NAME}-postgres
+      POSTGRES_HOST: ${APP_NAME}-postgres
 

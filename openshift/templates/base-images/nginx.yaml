@@ -6,10 +6,6 @@ metadata:
     openshift.io/display-name: nginx Images
     description: ImageStream definitions for nginx, that originate from Dockerhub
 parameters:
-  - name: IMAGE_NAME
-    displayName: "The name of this image"
-    required: true
-    value: "nginx"
   - name: APP_NAME
     displayName: "App Name"
     description: "The name of the application (grouped)."
@@ -35,21 +31,21 @@ objects:
   - kind: ImageStream
     apiVersion: v1
     metadata:
-      name: ${IMAGE_NAME}
+      name: nginx
       namespace: ${PROJECT_NAMESPACE}-${ENV_NAME}
       annotations:
-        description: Keeps track of ${IMAGE_NAME} images that originate from Dockerhub
+        description: Keeps track of nginx images that originate from Dockerhub
       labels:
-        name: dockerhub-${IMAGE_NAME}-images
+        name: dockerhub-nginx-images
         app: ${APP_NAME}
         role: ${ROLE_NAME}
         env: ${ENV_NAME}
         source: dockerhub
     spec:
       tags:
-        - name: "1.21.6-alpine"
+        - name: "1.22.0"
           from:
             kind: DockerImage
-            name: "docker-remote.artifacts.developer.gov.bc.ca/nginx:1.21.6-alpine"
+            name: "docker-remote.artifacts.developer.gov.bc.ca/nginx:1.22.0"
           referencePolicy:
             type: Local

@@ -1,4 +1,7 @@
 ## Developer Changelog
+### June 28, 2022 (DESCW-444)
+- update nginx docker file to specific version of nginx
+- update api config to point to new postgres service
 
 ### June 27, 2022
 
