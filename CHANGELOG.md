@@ -1,7 +1,14 @@
 ## Developer Changelog
+
 ### June 28, 2022 (DESCW-444)
+
 - update nginx docker file to specific version of nginx
 - update api config to point to new postgres service
+
+### June 28, 2022 DESCW-416
+
+- Frontend
+  - Added Agreements sections to project form
 
 ### June 27, 2022
 
@@ -9,15 +16,17 @@
   - Added functionality for updating project registration data in projects DB
 
 ### June 23, 2022 DESCW-444
+
 - OpenShift
   - restructured OpenShift images and BuildConfigs
   - Update README's
 - Github actions
   - minor naming changes, and re-point to new builds.
+
 ### June 23, 2022
 
 - Frontend
-  - Added https cert creation and enforcement 
+  - Added https cert creation and enforcement
 
 ### June 20, 2022 DESCW-402 DESCW-403
 
@@ -49,8 +58,9 @@
   - added project registration structure
 
 ### June 20, 2022 DESCW-402 DESCW-403
-* Frontend
-  * added project registration structure 
+
+- Frontend
+  - added project registration structure
 
 ### June 3, 2022 DESCW-402 DESCW-403
 
