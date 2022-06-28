@@ -52,7 +52,7 @@ parameters:
   - name: MEMORY_LIMIT
     displayName: "Memory Limit"
     description: "Maximum amount of memory the container can use."
-    value: "2Gi"
+    value: "1Gi"
 
 objects:
   - kind: Deployment

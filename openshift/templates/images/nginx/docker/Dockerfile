@@ -1,5 +1,5 @@
 # Use the offical nginx (based on debian)
-FROM nginx:stable
+FROM nginx:1.22.0
 
 # Required for HTTP Basic feature
 RUN apt-get update -y && \
