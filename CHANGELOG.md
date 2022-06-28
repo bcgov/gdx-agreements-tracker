@@ -1,4 +1,6 @@
 ## Developer Changelog
+### June 28, 2022 (DESCW-448)
+- Update local dev for backend.
 
 ### June 28, 2022 (DESCW-444)
 

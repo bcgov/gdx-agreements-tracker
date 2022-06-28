@@ -2,13 +2,23 @@ require("dotenv").config({ path: ".env" });
 const log = require("./facilities/logging.js")(module.filename);
 const fastifyInstance = require("./facilities/fastify");
 const port = process.env.SERVER_PORT || 8080;
+const env = process.env.NODE_ENV || "production";
 const daemon = require("./facilities/daemon");
+const fs = require("fs");
+const path = require("path");
 
-// Load server configuration and enable logging.
-const server = fastifyInstance({
-  // If you are looking to add serializers or pretty printing, please do it in logging.js, they are actually pino features.
+let fastifyOptions = {
   logger: log,
-});
+};
+
+if ("development" === env) {
+  fastifyOptions.https = {
+    key: fs.readFileSync(path.join(__dirname, "../../frontend/.cert/key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "../../frontend/.cert/cert.pem")),
+  };
+}
+// Load server configuration and enable logging.
+const server = fastifyInstance(fastifyOptions);
 
 // Start the server.
 const start = async () => {
