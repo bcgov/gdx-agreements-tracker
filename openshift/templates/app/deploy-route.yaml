@@ -80,6 +80,8 @@ objects:
         env: ${ENV_NAME}
       annotations:
         description: The Route for the React application in ${ENV_NAME}
+        # By default, allows all IP address. To allow only specific addresses, define a whitelist.
+        haproxy.router.openshift.io/ip_whitelist: ~
     spec:
       host: ${APP_DOMAIN}
       wildcardPolicy: None

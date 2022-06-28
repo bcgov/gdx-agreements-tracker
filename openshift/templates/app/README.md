@@ -9,7 +9,7 @@ export OC_APP_DOMAIN="gdx-agreements-tracker-dev.apps.silver.devops.gov.bc.ca"
 
 ## Routes
 * Stand up the App routes.
-* `oc process -p ENV_NAME=${OC_ENV} -p APP_DOMAIN=${OC_APP_DOMAIN} -f openshift/templates/app/deploy-route.yaml | oc apply -f -`
+* `oc process -p ENV_NAME=${OC_ENV} -p APP_DOMAIN=${OC_APP_DOMAIN} -f openshift/templates/app/deploy-route.yaml | oc apply --overwrite=false -f -`
 
 ## Deployment
 * Initialize the App container deployment.
