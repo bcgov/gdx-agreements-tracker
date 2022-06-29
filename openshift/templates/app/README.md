@@ -16,4 +16,4 @@ export OC_KC_URL="https://example.com"
 
 ## Deployment
 * Initialize the App container deployment.
-* `oc process -p ENV_NAME=${OC_ENV} -p KEYCLOAK_CLIENT_ID=#{OC_KC_CLIENTID} -p KEYCLOAK_URL=${OC_KC_URL} -f openshift/templates/app/deploy.yaml | oc apply -f -`
+* `oc process -p ENV_NAME=${OC_ENV} -p KEYCLOAK_CLIENT_ID=${OC_KC_CLIENTID} -p KEYCLOAK_URL=${OC_KC_URL} -f openshift/templates/app/deploy.yaml | oc apply -f -`

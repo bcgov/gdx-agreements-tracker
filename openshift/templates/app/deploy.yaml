@@ -115,10 +115,14 @@ objects:
               image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-run:dev
               imagePullPolicy: Always
               env:
-                REACT_APP_API_URL: ${APP_API_URL}
-                REACT_APP_KEYCLOAK_URL: ${KEYCLOAK_URL}
-                REACT_APP_KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
-                REACT_APP_KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+                - name: REACT_APP_API_URL
+                  value: ${APP_API_URL}
+                - name: REACT_APP_KEYCLOAK_URL
+                  value: "${KEYCLOAK_URL}"
+                - name: REACT_APP_KEYCLOAK_CLIENT_ID
+                  value: "${KEYCLOAK_CLIENT_ID}"
+                - name: REACT_APP_KEYCLOAK_REALM
+                  value: "${KEYCLOAK_REALM}"
               ports:
                 - containerPort: ${{APP_PORT}}
                   protocol: TCP
