@@ -9,7 +9,13 @@ import bcgovTheme from "./bcgovTheme";
 import { ThemeProvider } from "@mui/material/styles";
 
 ReactDOM.render(
-  <ReactKeycloakProvider authClient={keycloak}>
+  <ReactKeycloakProvider
+    authClient={keycloak}
+    initOptions={{
+      pkceMethod: "S256",
+      idpHint: "idir",
+    }}
+  >
     <ThemeProvider theme={bcgovTheme}>
       <App />
     </ThemeProvider>

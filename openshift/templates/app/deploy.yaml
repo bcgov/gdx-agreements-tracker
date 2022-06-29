@@ -41,6 +41,26 @@ parameters:
     displayName: "Application Port"
     description: "The port used to communicate with the Pod"
     value: "8080"
+
+  - name: KEYCLOAK_CLIENT_ID
+    displayName: "Keycloak Client ID"
+    description: "The keycloak client id or resource"
+    value: ""
+    required: true
+  - name: KEYCLOAK_URL
+    displayName: "Keycloak URL"
+    description: "The keycloak auth url"
+    value: ""
+    required: true
+  - name: KEYCLOAK_REALM
+    displayName: "Keycloak realm"
+    description: "The keycloak realm"
+    value: "standard"
+  - name: APP_API_URL
+    displayName: "API URL"
+    description: "The react app api url"
+    value: "/api"
+
   - name: REPLICAS
     displayName: "Pod Replicas"
     description: "Number of pod replicas to run"
@@ -94,6 +114,15 @@ objects:
             - name: ${APP_NAME}-${ROLE_NAME}
               image: image-registry.openshift-image-registry.svc:5000/${PROJECT_NAMESPACE}-tools/${APP_NAME}-${ROLE_NAME}-run:dev
               imagePullPolicy: Always
+              env:
+                - name: REACT_APP_API_URL
+                  value: ${APP_API_URL}
+                - name: REACT_APP_KEYCLOAK_URL
+                  value: "${KEYCLOAK_URL}"
+                - name: REACT_APP_KEYCLOAK_CLIENT_ID
+                  value: "${KEYCLOAK_CLIENT_ID}"
+                - name: REACT_APP_KEYCLOAK_REALM
+                  value: "${KEYCLOAK_REALM}"
               ports:
                 - containerPort: ${{APP_PORT}}
                   protocol: TCP
