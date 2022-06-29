@@ -20,8 +20,8 @@ const StyledBox = styled("div")({
 /**
  * Checks to see if a user access a route based on the allowedRole.
  *
- * @param   {object} query       The request object, which should have the user capability via the fastify-roles plugin.
- * @returns {React.ReactElement} The agreements section form component
+ * @param   {object}             query The request object, which should have the user capability via the fastify-roles plugin.
+ * @returns {React.ReactElement}       The agreements section form component
  */
 
 // todo: Define a good type. "Any" type temporarily permitted.

@@ -5,6 +5,9 @@
 ```bash
 export OC_ENV="dev" #(dev|test|prod)
 export OC_APP_DOMAIN="gdx-agreements-tracker-dev.apps.silver.devops.gov.bc.ca"
+export OC_KC_CLIENTID="my-client-id"
+export OC_KC_URL="https://example.com"
+
 ```
 
 ## Routes
@@ -13,4 +16,4 @@ export OC_APP_DOMAIN="gdx-agreements-tracker-dev.apps.silver.devops.gov.bc.ca"
 
 ## Deployment
 * Initialize the App container deployment.
-* `oc process -p ENV_NAME=${OC_ENV} -f openshift/templates/app/deploy.yaml | oc apply -f -`
+* `oc process -p ENV_NAME=${OC_ENV} -p KEYCLOAK_CLIENT_ID=#{OC_KC_CLIENTID} -p KEYCLOAK_URL=${OC_KC_URL} -f openshift/templates/app/deploy.yaml | oc apply -f -`

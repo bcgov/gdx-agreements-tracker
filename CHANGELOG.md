@@ -1,4 +1,12 @@
 ## Developer Changelog
+
+### June 6, 2022 (DESCW-449)
+- Openshift 
+  - updated nginx deploy to handle keycloak variables for app
+- Frontend
+  - updated keycloak to use variables, instead of hardcoded
+  - updated ReactKeycloakProvider to have initial options.
+
 ### June 28, 2022 (DESCW-409)
 
 - Openshift
