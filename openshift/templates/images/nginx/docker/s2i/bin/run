@@ -3,8 +3,8 @@ echo run script starting...
 sed "s~%RealIpFrom%~${RealIpFrom:-172.51.0.0/16}~g; s~%IpFilterRules%~${IpFilterRules}~g; s~%AdditionalRealIpFromRules%~${AdditionalRealIpFromRules}~g" /tmp/nginx.conf.template > /etc/nginx/nginx.conf
 
 echo "window.localStorage.setItem('from_public_server--react_app_api_url', '${REACT_APP_API_URL:-set-in-project-nginx-runtime}');" > /etc/nginx/publicServerEnvironmentSettings.js;
-echo "window.localStorage.setItem('from_public_server--keycloak_client_id', '${REACT_APP_KEYCLOAK_CLIENT_ID:-set-in-project-nginx-runtime}');" > /etc/nginx/publicServerEnvironmentSettings.js;
-echo "window.localStorage.setItem('from_public_server--keycloak_url', '${REACT_APP_KEYCLOAK_URL:-set-in-project-nginx-runtime}');" > /etc/nginx/publicServerEnvironmentSettings.js;
-echo "window.localStorage.setItem('from_public_server--keycloak_realm', '${REACT_APP_KEYCLOAK_REALM:-standard}');" > /etc/nginx/publicServerEnvironmentSettings.js;
+echo "window.localStorage.setItem('from_public_server--keycloak_client_id', '${REACT_APP_KEYCLOAK_CLIENT_ID:-set-in-project-nginx-runtime}');" >> /etc/nginx/publicServerEnvironmentSettings.js;
+echo "window.localStorage.setItem('from_public_server--keycloak_url', '${REACT_APP_KEYCLOAK_URL:-set-in-project-nginx-runtime}');" >> /etc/nginx/publicServerEnvironmentSettings.js;
+echo "window.localStorage.setItem('from_public_server--keycloak_realm', '${REACT_APP_KEYCLOAK_REALM:-standard}');" >> /etc/nginx/publicServerEnvironmentSettings.js;
 
 /usr/sbin/nginx -g "daemon off;"
