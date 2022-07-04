@@ -4,19 +4,27 @@ import { useFormatTableData } from "../../hooks";
 import { Table } from "../../components";
 import { Outlet, Link } from "react-router-dom";
 export const Projects: FC = () => {
-  const { data, isLoading } = useFormatTableData("projects");
+  const { data, isLoading } = useFormatTableData({
+    tableName: "projects",
+    ApiEndPoint: "projects",
+  });
 
   return (
     <>
       <Typography variant="h5" component="h2">
         Projects
       </Typography>
-      {!isLoading ? (
-        <Table columns={data.columns} rows={data.rows} loading={isLoading} />
-      ) : (
-        <LinearProgress />
-      )}
+      {(() => {
+        switch (isLoading) {
+          case true:
+            return <LinearProgress />;
 
+          case false:
+            return <Table columns={data.columns} rows={data.rows} loading={isLoading} />;
+          default:
+            return <LinearProgress />;
+        }
+      })()}
       <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
         <Button component={Link} to={"/projects/new"} variant="contained">
           New Project

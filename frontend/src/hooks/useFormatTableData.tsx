@@ -52,12 +52,29 @@ export const formatTableColumns = (tableData: ITableData, tableName?: string) =>
   });
 };
 
-export const useFormatTableData = (tableName: string) => {
+export const useFormatTableData = ({
+  tableName,
+  ApiEndPoint,
+}: {
+  tableName: string;
+  ApiEndPoint: string;
+}) => {
   const getTableData = async () => {
     const allProjects = await apiAxios()
-      .get(tableName)
+      .get(ApiEndPoint)
       .then((tableData) => {
         return formatTableColumns(tableData, tableName);
+      })
+      .catch((error) => {
+        switch (error.toJSON().status) {
+          case 404:
+            console.error(error.toJSON());
+            return { columns: [], data: [] };
+
+          case 500:
+            console.error(error.toJSON());
+            return { columns: [], data: [] };
+        }
       });
     return allProjects;
   };
@@ -67,6 +84,8 @@ export const useFormatTableData = (tableName: string) => {
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, isLoading } = useQuery<any>([tableName], getTableData, { staleTime: 10000 });
+  const { data, isLoading } = useQuery<any>(ApiEndPoint, getTableData, {
+    refetchOnMount: "always",
+  });
   return { data, isLoading };
 };

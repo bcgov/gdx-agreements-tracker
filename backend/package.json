@@ -19,7 +19,7 @@
   ],
   "engineStrict": true,
   "engines": {
-    "node": "=16.15"
+    "node": "=16.15.1"
   },
   "author": "Shawn Turple",
   "license": "Apache-2.0",

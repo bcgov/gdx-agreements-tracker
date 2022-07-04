@@ -1,13 +1,12 @@
 import React, { FC } from "react";
-import { Autocomplete, TextField, TextFieldProps } from "@mui/material";
-import { Loader } from "../../../Loader";
+import { Autocomplete, Skeleton, TextField, TextFieldProps } from "@mui/material";
 import { IPickerProps } from "../../../../types";
 
 export const GDXSelect: FC<IPickerProps> = ({ formikValues, setFieldValue, pickerData }) => {
   return (
     <>
       {!pickerData ? (
-        <Loader />
+        <Skeleton variant="rectangular" width={551} height={38} />
       ) : (
         <Autocomplete
           id={pickerData?.name}
