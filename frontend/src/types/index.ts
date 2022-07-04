@@ -114,3 +114,8 @@ export interface IPickerLookupData {
   description: string;
   definition: { dropDownValues: { data: Array<Object> } };
 }
+
+//ChipNav Types
+export interface IChipNav {
+  navLinks: Array<{ key: number; name: string; url: string }>;
+}

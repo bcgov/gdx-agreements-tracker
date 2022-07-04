@@ -4,7 +4,10 @@ import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
 
 export const Suppliers: FC = () => {
-  const { data, isLoading } = useFormatTableData("suppliers");
+  const { data, isLoading } = useFormatTableData({
+    tableName: "suppliers",
+    ApiEndPoint: "suppliers",
+  });
 
   return (
     <>
