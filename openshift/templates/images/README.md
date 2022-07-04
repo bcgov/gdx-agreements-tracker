@@ -31,7 +31,7 @@ Base images are images that would use dockerhub image streams to create an addit
 * verify image `docker run -it gdx-agreements-tracker-nginx-run env`
 
 ## NodeJS
-* Creates s2i using node 16.15 lts
+* Creates s2i using node 16.15.1 lts
 * `oc process -f openshift/templates/images/nodejs/build.yaml | oc apply -f -`
 
 #### Build locally
