@@ -1,7 +1,23 @@
 ## Developer Changelog
 
+### July 5, 2022 (DESCW-417)
+
+- Frontend
+  - Added ChipNav component for forms
+  - GDXSelect uses MUI Skeleton as a placeholder instead of a loader
+  - Made useFormatTableData hook more reusable
+  - Added change request table section for each project
+  - Reorganized project file directory
+  - Converted conditional rendering to use switch statements
+- Backend
+  - Changed Node version requirement from 16.15 to 16.15.1
+  - Added controller, model, route, validator for change requests
+  - Added two new capabilities to seeds, "change_request_read_all" "change_request_read_mine"
+  - Updated react-router-dom from 6.2.1 to 6.3
+
 ### June 29, 2022 (DESCW-449)
-- Openshift 
+
+- Openshift
   - updated nginx deploy to handle keycloak variables for app
 - Frontend
   - updated keycloak to use variables, instead of hardcoded
