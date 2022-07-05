@@ -69,7 +69,6 @@ const getAll = async (request, reply) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
-
   if (
     userCan(request, "change_request_read_all") ||
     (userCan(request, "change_request_read_mine") && checkMine(request))
