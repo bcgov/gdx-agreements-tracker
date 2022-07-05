@@ -10,8 +10,8 @@ const findAll = () => {
 };
 
 // Get specific one by id.
-const findById = (id) => {
-  return db(table).where("link_id", id);
+const findById = (projectId) => {
+  return db(table).where("link_id", projectId);
 };
 
 module.exports = {

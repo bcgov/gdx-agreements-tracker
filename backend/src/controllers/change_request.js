@@ -69,13 +69,14 @@ const getAll = async (request, reply) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
+
   if (
     userCan(request, "change_request_read_all") ||
     (userCan(request, "change_request_read_mine") && checkMine(request))
   ) {
-    const targetId = Number(request.params.id);
+    const projectId = Number(request.params.projectId);
     try {
-      const result = await Model.findById(targetId);
+      const result = await Model.findById(projectId);
       if (!result || !result.length) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };
