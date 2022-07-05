@@ -3,7 +3,7 @@ const Model = require("../models/change_request.js");
 const what = { single: "change_request", plural: "change_requests" };
 
 /**
- * Checks to see if a user access a route based on the allowedRole.
+ * Checks to see if a user can access a route based on the allowedRole.
  *
  * @param   {FastifyRequest} request    The request object, which should have the user capability via the fastify-roles plugin.
  * @param   {string}         capability Is the name of the role that is required to access the route.
