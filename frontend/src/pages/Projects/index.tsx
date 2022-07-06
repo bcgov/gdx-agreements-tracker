@@ -8,7 +8,7 @@ export const Projects: FC = () => {
     tableName: "projects",
     ApiEndPoint: "projects",
   });
-  
+
   const switchRender = () => {
     switch (isLoading) {
       case true:
