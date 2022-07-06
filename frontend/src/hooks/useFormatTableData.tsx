@@ -69,11 +69,11 @@ export const useFormatTableData = ({
         switch (error.toJSON().status) {
           case 404:
             console.error(error.toJSON());
-            return { columns: [], data: [] };
+            return { columns: [], rows: [] };
 
           case 500:
             console.error(error.toJSON());
-            return { columns: [], data: [] };
+            return { columns: [], rows: [] };
         }
       });
     return allProjects;
