@@ -42,7 +42,7 @@ export const ProjectDetails = () => {
     }
   };
 
-  return <>{switchRender}</>;
+  return <>{switchRender()}</>;
 };
 
 // | QueryObserverIdleResult<AxiosResponse, unknown>
