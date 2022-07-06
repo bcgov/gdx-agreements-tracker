@@ -11,18 +11,16 @@ export const ChangeRequest = () => {
     ApiEndPoint: `change_request/${projectId}`,
   });
 
-  return (
-    <>
-      {(() => {
-        switch (isLoading) {
-          case true:
-            return <LinearProgress />;
-          case false:
-            return <Table columns={data.columns} rows={data.rows} loading={isLoading} />;
-          default:
-            return <LinearProgress />;
-        }
-      })()}
-    </>
-  );
+  const switchRender = () => {
+    switch (isLoading) {
+      case true:
+        return <LinearProgress />;
+      case false:
+        return <Table columns={data.columns} rows={data.rows} loading={isLoading} />;
+      default:
+        return <LinearProgress />;
+    }
+  };
+
+  return <>{switchRender()}</>;
 };

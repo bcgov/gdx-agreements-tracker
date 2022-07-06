@@ -23,28 +23,26 @@ export const ProjectDetails = () => {
     retry: false,
     staleTime: Infinity,
   });
-  return (
-    <>
-      {(() => {
-        switch (projectQuery.isLoading) {
-          case true:
-            return <LinearProgress />;
 
-          case false:
-            return (
-              <>
-                <GDX_Accordion sectionTitle="Project Registration">
-                  <ProjectRegistrationSection query={projectQuery} />
-                </GDX_Accordion>
-                <GDX_Accordion sectionTitle="Agreement">
-                  <AgreementSection query={projectQuery} />
-                </GDX_Accordion>
-              </>
-            );
-        }
-      })()}
-    </>
-  );
+  const switchRender = () => {
+    switch (projectQuery.isLoading) {
+      case true:
+        return <LinearProgress />;
+
+      case false:
+        return (
+          <>
+            <GDX_Accordion sectionTitle="Project Registration">
+              <ProjectRegistrationSection query={projectQuery} />
+            </GDX_Accordion>
+            <GDX_Accordion sectionTitle="Agreement">
+              <AgreementSection query={projectQuery} />
+            </GDX_Accordion>
+          </>
+        );
+    }
+  };
+  return <>{switchRender()}</>;
 };
 
 // | QueryObserverIdleResult<AxiosResponse, unknown>
