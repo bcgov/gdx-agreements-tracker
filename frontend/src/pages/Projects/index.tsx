@@ -21,18 +21,6 @@ export const Projects: FC = () => {
     }
   };
 
-  const switchRender = () => {
-    switch (isLoading) {
-      case true:
-        return <LinearProgress />;
-
-      case false:
-        return <Table columns={data.columns} rows={data.rows} loading={isLoading} />;
-      default:
-        return <LinearProgress />;
-    }
-  };
-
   return (
     <>
       <Typography variant="h5" component="h2">
