@@ -1,4 +1,8 @@
 ## Developer Changelog
+### July 6, 2022 (DESCW-455)
+
+- Backend
+  - add development api bypass
 
 ### July 5, 2022 (DESCW-417)
 

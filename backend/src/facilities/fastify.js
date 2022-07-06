@@ -31,7 +31,10 @@ const fastifyInstance = (options) => {
   app
     .decorate("verifyJWT", (req, res, done) => {
       const token = getBearerTokenFromRequest(req);
-
+      //todo: This is a temporary measure to aid development and should be removed. https://apps.itsm.gov.bc.ca/jira/browse/DESCW-455
+      if ("development" === process.env.NODE_ENV) {
+        done();
+      }
       if (token) {
         verifyToken(token, jwksUri)
           .then((res) => {
