@@ -8,6 +8,18 @@ export const Projects: FC = () => {
     tableName: "projects",
     ApiEndPoint: "projects",
   });
+  
+  const switchRender = () => {
+    switch (isLoading) {
+      case true:
+        return <LinearProgress />;
+
+      case false:
+        return <Table columns={data.columns} rows={data.rows} loading={isLoading} />;
+      default:
+        return <LinearProgress />;
+    }
+  };
 
   const switchRender = () => {
     switch (isLoading) {
