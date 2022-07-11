@@ -13,7 +13,11 @@ import React from "react";
  */
 
 // Export this function for unit testing.
-export const formatTableColumns = (tableData: ITableData, tableName?: string) => {
+export const formatTableColumns = (
+  tableData: ITableData,
+  tableName?: string,
+  handleClick?: Function
+) => {
   return new Promise((resolve) => {
     const formattedColumns: Array<Object> = [
       {
@@ -25,9 +29,18 @@ export const formatTableColumns = (tableData: ITableData, tableName?: string) =>
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {}}
-              component={Link}
-              to={`/${tableName}/${cellValues.id}`}
+              onClick={
+                // If the handleClick function does not exist, render a Button else render the link component
+                !handleClick
+                  ? undefined
+                  : () => {
+                      handleClick(cellValues);
+                    }
+              }
+              // If the handleClick function does not exist, render a Button else render the link component
+              component={!handleClick ? Link : Button}
+              // If the handlClick function does not exist, apply to property else apply undefined
+              to={!handleClick ? `/${tableName}/${cellValues.id}` : undefined}
             >
               View
             </Button>
@@ -55,15 +68,17 @@ export const formatTableColumns = (tableData: ITableData, tableName?: string) =>
 export const useFormatTableData = ({
   tableName,
   ApiEndPoint,
+  handleClick,
 }: {
   tableName: string;
   ApiEndPoint: string;
+  handleClick?: Function;
 }) => {
   const getTableData = async () => {
     const allProjects = await apiAxios()
       .get(ApiEndPoint)
       .then((tableData) => {
-        return formatTableColumns(tableData, tableName);
+        return formatTableColumns(tableData, tableName, handleClick);
       })
       .catch((error) => {
         switch (error.toJSON().status) {
