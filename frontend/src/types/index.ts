@@ -1,4 +1,12 @@
 import { GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { AxiosResponse } from "axios";
+import {
+  QueryObserverIdleResult,
+  QueryObserverLoadingErrorResult,
+  QueryObserverRefetchErrorResult,
+  QueryObserverSuccessResult,
+  UseQueryResult,
+} from "react-query";
 
 // Data Structures
 export interface IUser {
@@ -57,7 +65,7 @@ declare module "@mui/material/styles" {
 
 // Project layout types
 export interface IFormLayout {
-  children: JSX.Element;
+  children: JSX.Element[] | JSX.Element;
 }
 
 //Picker Types
@@ -118,4 +126,27 @@ export interface IPickerLookupData {
 //ChipNav Types
 export interface IChipNav {
   navLinks: Array<{ key: number; name: string; url: string }>;
+}
+
+//Project Form Props
+export interface IProjectFormProps {
+  query: any;
+  handleChange: Function;
+  values: any;
+  setFieldValue: any;
+  dirty: boolean;
+}
+
+//Change Request row Props
+
+export interface IChangeRequestRow {
+  approval_date: string;
+  cr_contact: string;
+  fiscal_year: number;
+  id: number;
+  initiated_by: string;
+  initiation_date: string;
+  link_id: number;
+  summary: string;
+  version: string;
 }
