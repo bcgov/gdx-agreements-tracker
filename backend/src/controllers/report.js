@@ -37,31 +37,6 @@ const checkMine = (request) => {
 };
 
 /**
- * Get all items.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
- */
-const getAll = async (request, reply) => {
-  if (userCan(request, "report_read_all")) {
-    try {
-      const result = await Model.findAll();
-      if (!result) {
-        return [];
-      }
-      return result;
-    } catch (err) {
-      reply.code(500);
-      return { message: `There was a problem looking up ${what.plural}.` };
-    }
-  } else {
-    log.trace('user lacks capability "report_read_all"');
-    return notAllowed(reply);
-  }
-};
-
-/**
  * Get a specific item by ID.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
@@ -93,6 +68,5 @@ const getOne = async (request, reply) => {
 };
 
 module.exports = {
-  getAll,
   getOne,
 };

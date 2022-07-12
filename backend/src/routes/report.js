@@ -5,11 +5,6 @@ const what = "report";
 const routes = [
   {
     method: "GET",
-    url: `/${what}`,
-    handler: controller.getAll,
-  },
-  {
-    method: "GET",
     url: `/${what}/projects/:projectId`,
     schema: validators.getOneValidator,
     handler: controller.getOne,

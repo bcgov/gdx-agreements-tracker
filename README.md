@@ -50,16 +50,17 @@ The following prerequisites are required for this application to function correc
 ---
 
 5. Update the .env file in the backend directory ([backend .env](/backend/.env)) with the following:
+    * If you don't what JWKSURI should be, contact your site administrator
     
    ```
-    NODE_ENV=development<br>
-    JWKSURI=https://oidc.gov.bc.ca/auth/realms/aaoozhcp/protocol/openid-connect/certs<br>
-    POSTGRES_PORT=15432<br>
-    POSTGRES_HOST=localhost<br>
-    POSTGRES_USER=postgres<br>
-    POSTGRES_PASSWORD=postgres<br>
-    POSTGRES_DATABASE=gat_db<br>
-    DATABASE_AUTO_DEPLOY=1<br>
+    NODE_ENV=development
+    JWKSURI=https://example.com/auth/realms/aaoozhcp/protocol/openid-connect/certs
+    POSTGRES_PORT=15432
+    POSTGRES_HOST=localhost
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=postgres
+    POSTGRES_DATABASE=gat_db
+    DATABASE_AUTO_DEPLOY=1
    ```
   ---
 

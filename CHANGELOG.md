@@ -1,4 +1,11 @@
 ## Developer Changelog
+
+### July 12, 2022 (DESCW-484)
+
+- Backend
+  - Added controller, model, route, validator for project status report
+  - Added two new capabilities to seeds, "report_read_all" "report_read_mine"
+
 ### July 6, 2022 (DESCW-455)
 
 - Backend
