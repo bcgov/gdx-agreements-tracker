@@ -49,9 +49,9 @@ objects:
             name: "docker-remote.artifacts.developer.gov.bc.ca/node:16-buster"
           referencePolicy:
             type: Local
-        - name: "16.15.1-alpine3.16"
+        - name: "16.16.0-alpine3.16"
           from:
             kind: DockerImage
-            name: "docker-remote.artifacts.developer.gov.bc.ca/node:16.15.1-alpine3.16"
+            name: "docker-remote.artifacts.developer.gov.bc.ca/node:16.16.0-alpine3.16"
           referencePolicy:
             type: Local
