@@ -4,7 +4,7 @@
 
 - Backend
   - Added controller, model, route, validator for project status report
-  - Added two new capabilities to seeds, "report_read_all" "report_read_mine"
+  - Added a new capability to seeds: "report_read_mine"
 
 ### July 6, 2022 (DESCW-455)
 
