@@ -1,7 +1,21 @@
 import React from "react";
 import { Box, Button, LinearProgress, Modal, styled, Typography } from "@mui/material";
+import { PageHeader } from "../Layout/PageHeader";
+import { FormHeader } from "../GDXForm/FormLayout/FormHeader";
 
-export const GDXModal = ({ children, open }: { children: JSX.Element; open: boolean }) => {
+export const GDXModal = ({
+  children,
+  open,
+  handleClose,
+  modalTitle,
+  handleEditMode
+}: {
+  children: JSX.Element;
+  open: boolean;
+  handleClose: () => void;
+  modalTitle: string;
+  handleEditMode: Function
+}) => {
   const StyledModalBox = styled(Box)({
     position: "absolute",
     top: "50%",
@@ -10,8 +24,12 @@ export const GDXModal = ({ children, open }: { children: JSX.Element; open: bool
     backgroundColor: "#FFF",
     width: "80%",
     overflowY: "auto",
+    height: "auto",
+    maxHeight: "100%",
+  });
+
+  const StyledContentBox = styled(Box)({
     padding: "20px",
-    height:"auto"
   });
 
   return (
@@ -21,8 +39,12 @@ export const GDXModal = ({ children, open }: { children: JSX.Element; open: bool
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         style={{ overflow: "overlay" }}
+        onClose={handleClose}
       >
-        <StyledModalBox>{children}</StyledModalBox>
+        <StyledModalBox>
+          <FormHeader formTitle={modalTitle} handleEditMode={handleEditMode}/>
+          <StyledContentBox>{children}</StyledContentBox>
+        </StyledModalBox>
       </Modal>
     </>
   );
