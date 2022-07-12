@@ -87,6 +87,10 @@ const capabilities = [
     id: 22,
     name: "change_request_read_mine",
   },
+  {
+    id: 23,
+    name: "report_read_mine",
+  },
 ];
 
 exports.seed = (knex) => {
