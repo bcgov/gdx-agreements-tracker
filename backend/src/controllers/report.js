@@ -44,10 +44,7 @@ const checkMine = (request) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
-  if (
-    userCan(request, "report_read_all") ||
-    (userCan(request, "report_read_mine") && checkMine(request))
-  ) {
+  if (userCan(request, "report_read_mine") && checkMine(request)) {
     const projectId = Number(request.params.projectId);
     try {
       const result = await Model.findById(projectId);
@@ -62,7 +59,7 @@ const getOne = async (request, reply) => {
       return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
-    log.trace('user lacks capability "report_read_all" || "report_read_mine"');
+    log.trace('user lacks capability "report_read_mine"');
     return notAllowed(reply);
   }
 };
