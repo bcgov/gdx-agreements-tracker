@@ -3,7 +3,7 @@ const Model = require("../models/report.js");
 const what = { single: "report", plural: "reports" };
 
 /**
- * Checks to see if a user access a route based on the allowedRole.
+ * Checks to see if a user can access a route based on the allowedRole.
  *
  * @param   {FastifyRequest} request    The request object, which should have the user capability via the fastify-roles plugin.
  * @param   {string}         capability Is the name of the role that is required to access the route.
@@ -44,7 +44,6 @@ const checkMine = (request) => {
  * @returns {object}
  */
 const getAll = async (request, reply) => {
- 
   if (userCan(request, "report_read_all")) {
     try {
       const result = await Model.findAll();
@@ -74,23 +73,21 @@ const getOne = async (request, reply) => {
     userCan(request, "report_read_all") ||
     (userCan(request, "report_read_mine") && checkMine(request))
   ) {
-    const targetId = Number(request.params.projectId);
+    const projectId = Number(request.params.projectId);
     try {
-      const result = await Model.findById(targetId);
+      const result = await Model.findById(projectId);
       if (!result || !result.length) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };
       } else {
-        return result[0];
+        return result;
       }
     } catch (err) {
       reply.code(500);
       return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
-    log.trace(
-      'user lacks capability "report_read_all" || "report_read_mine"'
-    );
+    log.trace('user lacks capability "report_read_all" || "report_read_mine"');
     return notAllowed(reply);
   }
 };
