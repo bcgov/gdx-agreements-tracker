@@ -27,6 +27,8 @@ const roles = [
       "projects_update_all",
       "change_request_read_all",
       "change_request_read_mine",
+      "report_read_mine",
+      "report_read_all",
     ],
   },
   {
