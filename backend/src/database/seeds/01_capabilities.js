@@ -91,10 +91,6 @@ const capabilities = [
     id: 23,
     name: "report_read_mine",
   },
-  {
-    id: 24,
-    name: "report_read_all",
-  },
 ];
 
 exports.seed = (knex) => {
