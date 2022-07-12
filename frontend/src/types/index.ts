@@ -26,7 +26,9 @@ export interface IUseDrawer {
 }
 
 // Components
-export interface IPageHeader extends IUseDrawer {}
+export interface IPageHeader extends IUseDrawer {
+  headerTitle: string;
+}
 
 export interface ISidebar extends IUseDrawer {}
 
