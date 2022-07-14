@@ -52,6 +52,7 @@ export const ProjectRegistrationSection = ({
             // todo: Define a good type. "Any" type temporarily permitted.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onChange={(newValue: any) => {
+              console.log('newValue', newValue)
               setFieldValue("initiation_date", newValue);
             }}
             value={values.initiation_date}

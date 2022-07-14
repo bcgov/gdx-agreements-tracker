@@ -20,9 +20,11 @@ const StyledButtonLayout = styled(FormControl)({
 export const FormHeader = ({
   formTitle,
   handleEditMode,
+  editMode,
 }: {
   formTitle: string;
   handleEditMode: Function;
+  editMode: boolean;
 }) => {
   return (
     <div>
@@ -31,16 +33,18 @@ export const FormHeader = ({
           <Typography variant="h6" noWrap component="div">
             {formTitle}
           </Typography>
-          <StyledButtonLayout>
-            <Button
-              onClick={() => {
-                handleEditMode();
-              }}
-              endIcon={<EditIcon />}
-            >
-              Edit
-            </Button>
-          </StyledButtonLayout>
+          {!editMode ? (
+            <StyledButtonLayout>
+              <Button
+                onClick={() => {
+                  handleEditMode();
+                }}
+                endIcon={<EditIcon />}
+              >
+                Edit
+              </Button>
+            </StyledButtonLayout>
+          ) : null}
         </Toolbar>
       </StyledAppBar>
     </div>

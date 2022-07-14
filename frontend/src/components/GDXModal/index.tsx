@@ -8,13 +8,15 @@ export const GDXModal = ({
   open,
   handleClose,
   modalTitle,
-  handleEditMode
+  handleEditMode,
+  editMode
 }: {
   children: JSX.Element;
   open: boolean;
   handleClose: () => void;
   modalTitle: string;
-  handleEditMode: Function
+  handleEditMode: Function;
+  editMode:boolean
 }) => {
   const StyledModalBox = styled(Box)({
     position: "absolute",
@@ -42,7 +44,7 @@ export const GDXModal = ({
         onClose={handleClose}
       >
         <StyledModalBox>
-          <FormHeader formTitle={modalTitle} handleEditMode={handleEditMode}/>
+          <FormHeader formTitle={modalTitle} handleEditMode={handleEditMode} editMode={editMode}/>
           <StyledContentBox>{children}</StyledContentBox>
         </StyledModalBox>
       </Modal>
