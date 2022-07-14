@@ -8,15 +8,11 @@ import { GDX_Accordion } from "../../../../components/GDX_Accordion";
 import { apiAxios } from "../../../../utils";
 import { AgreementSection } from "./AgreementSection";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
-import { handleOnSubmit } from "./handleOnSubmit";
 
 export const ProjectDetails = () => {
+  // todo: Replace use state function with useFormControls
+  // eslint-disable-next-line
   const [editMode, setEditMode] = useState(false);
-
-  const handleEditMode = (rowValues: any) =>{
-    console.log('values', rowValues)
-    setEditMode(true)
-  }
 
   const { projectId } = useParams();
 
@@ -25,7 +21,6 @@ export const ProjectDetails = () => {
     return project;
   };
 
-  
   // Queries
   const projectQuery = useQuery(`project - ${projectId}`, getProject, {
     refetchOnWindowFocus: false,
@@ -49,7 +44,7 @@ export const ProjectDetails = () => {
               <FormLayout>
                 <Formik
                   initialValues={projectQuery?.data?.data}
-                  onSubmit={async (values) => {
+                  onSubmit={async () => {
                     // handleOnSubmit(projectQuery, values);
                   }}
                 >

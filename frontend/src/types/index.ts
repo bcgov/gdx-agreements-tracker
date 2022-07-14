@@ -1,12 +1,4 @@
 import { GridRowsProp, GridColDef } from "@mui/x-data-grid";
-import { AxiosResponse } from "axios";
-import {
-  QueryObserverIdleResult,
-  QueryObserverLoadingErrorResult,
-  QueryObserverRefetchErrorResult,
-  QueryObserverSuccessResult,
-  UseQueryResult,
-} from "react-query";
 
 // Data Structures
 export interface IUser {
@@ -133,9 +125,15 @@ export interface IChipNav {
 
 //Project Form Props
 export interface IProjectFormProps {
-  query: any;
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  query?: any;
   handleChange: Function;
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   values: any;
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setFieldValue: any;
   dirty: boolean;
 }

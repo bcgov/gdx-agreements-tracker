@@ -1,21 +1,16 @@
-import { Box, Button, Grid, LinearProgress, Paper, styled, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
+import { Box, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { Form, Formik } from "formik";
 import { Table } from "../../../../components";
 import { GDXModal } from "../../../../components/GDXModal";
 import { useFormatTableData } from "../../../../hooks";
-import { ViewForm } from "../../../../components/ViewForm";
-import { IChangeRequestRow } from "../../../../types";
 import { FormLayout } from "../../../../components/GDXForm";
-import { GridItem } from "../../../../components/GDXForm/FormLayout/GridItem";
-import { EditForm } from "../../../../components/EditForm";
-import { Field, Form, Formik } from "formik";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { ReadField } from "../../../../components/ReadField";
 import { useFormControls } from "../../../../hooks/useFormControls";
 import { Renderer } from "../../../../components/Renderer";
 import { FormInput } from "../../../../components/FormInput";
+
 export const ChangeRequest = () => {
   const {
     handleEditMode,
@@ -70,9 +65,9 @@ export const ChangeRequest = () => {
         ) : (
           <Formik
             initialValues={currentRowData}
-            onSubmit={async (items: any) => {
-              console.log("items", items);
-            }}
+            // todo: Define a good type. "Any" type temporarily permitted.
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onSubmit={async () => {}}
           >
             {({ setFieldValue, values, handleChange, dirty }) => {
               return (
@@ -97,12 +92,7 @@ export const ChangeRequest = () => {
                       width={"half"}
                     />
                   </FormLayout>
-                  <Box
-                    m={1}
-                    display="flex"
-                    justifyContent="flex-end"
-                    alignItems="flex-end"
-                  >
+                  <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
                     <Button
                       type="submit"
                       variant="contained"

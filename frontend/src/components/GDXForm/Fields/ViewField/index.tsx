@@ -1,8 +1,8 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { Paper } from "@mui/material";
-import React from "react";
 
-const StyledViewFieldPaper = styled(Paper)(({ theme }) => ({
+const StyledViewFieldPaper = styled(Paper)(() => ({
   backgroundColor: "#fff",
   textAlign: "center",
 }));
