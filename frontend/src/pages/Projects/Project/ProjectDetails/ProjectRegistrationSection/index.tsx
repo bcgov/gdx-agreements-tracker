@@ -186,7 +186,6 @@ export const ProjectRegistrationSection = ({
         />
       </StyledBox>
       <StyledBox>
-        {" "}
         <Link href="#">Contract #</Link>{" "}
       </StyledBox>
       <Box>
