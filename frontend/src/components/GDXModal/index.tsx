@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Button, LinearProgress, Modal, styled, Typography } from "@mui/material";
-import { PageHeader } from "../Layout/PageHeader";
+import { Box, Modal, styled } from "@mui/material";
 import { FormHeader } from "../GDXForm/FormLayout/FormHeader";
 
 export const GDXModal = ({
@@ -9,14 +8,14 @@ export const GDXModal = ({
   handleClose,
   modalTitle,
   handleEditMode,
-  editMode
+  editMode,
 }: {
   children: JSX.Element;
   open: boolean;
   handleClose: () => void;
   modalTitle: string;
   handleEditMode: Function;
-  editMode:boolean
+  editMode: boolean;
 }) => {
   const StyledModalBox = styled(Box)({
     position: "absolute",
@@ -34,20 +33,23 @@ export const GDXModal = ({
     padding: "20px",
   });
 
+  const StyledModal = styled(Modal)({
+    overflow: "overlay",
+  });
+
   return (
     <>
-      <Modal
+      <StyledModal
         open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        style={{ overflow: "overlay" }}
         onClose={handleClose}
       >
         <StyledModalBox>
-          <FormHeader formTitle={modalTitle} handleEditMode={handleEditMode} editMode={editMode}/>
+          <FormHeader formTitle={modalTitle} handleEditMode={handleEditMode} editMode={editMode} />
           <StyledContentBox>{children}</StyledContentBox>
         </StyledModalBox>
-      </Modal>
+      </StyledModal>
     </>
   );
 };

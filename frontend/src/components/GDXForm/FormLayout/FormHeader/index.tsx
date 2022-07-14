@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { AppBar, Toolbar, IconButton, Typography, Box, Button, FormControl } from "@mui/material";
 import React from "react";
+import styled from "@emotion/styled";
+import { AppBar, Toolbar, Typography, Button, FormControl } from "@mui/material";
 import bcgovTheme from "../../../../bcgovTheme";
 import EditIcon from "@mui/icons-material/Edit";
 

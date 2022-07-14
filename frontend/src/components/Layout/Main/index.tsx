@@ -27,7 +27,11 @@ export const Main = () => {
           width: "100%",
         }}
       >
-        <PageHeader drawerOpen={drawerOpen} handleDrawerToggle={handleDrawerToggle} headerTitle={""}/>
+        <PageHeader
+          drawerOpen={drawerOpen}
+          handleDrawerToggle={handleDrawerToggle}
+          headerTitle={""}
+        />
 
         <Box
           sx={{

@@ -1,13 +1,11 @@
-import { Box, Button, Link, styled, TextField } from "@mui/material";
-import { Field, Form, Formik } from "formik";
 import React from "react";
+import { Box, Button, Link, styled, TextField } from "@mui/material";
+import { Field } from "formik";
 import { GDXSelect } from "../../../../../components/GDXForm/Fields";
-import { FormLayout } from "../../../../../components/GDXForm/FormLayout";
 import { usePickerValues } from "../../../../../hooks/usePickerValues";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { handleOnSubmit } from "../handleOnSubmit";
 import { IProjectFormProps } from "../../../../../types";
 
 const StyledBox = styled("div")({
@@ -19,7 +17,6 @@ const StyledBox = styled("div")({
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ProjectRegistrationSection = ({
-  query,
   handleChange,
   values,
   setFieldValue,
@@ -52,7 +49,6 @@ export const ProjectRegistrationSection = ({
             // todo: Define a good type. "Any" type temporarily permitted.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onChange={(newValue: any) => {
-              console.log('newValue', newValue)
               setFieldValue("initiation_date", newValue);
             }}
             value={values.initiation_date}
