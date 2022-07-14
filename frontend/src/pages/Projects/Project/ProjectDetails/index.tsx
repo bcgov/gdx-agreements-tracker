@@ -42,12 +42,7 @@ export const ProjectDetails = () => {
           case true:
             return (
               <FormLayout>
-                <Formik
-                  initialValues={projectQuery?.data?.data}
-                  onSubmit={async () => {
-                    // handleOnSubmit(projectQuery, values);
-                  }}
-                >
+                <Formik initialValues={projectQuery?.data?.data} onSubmit={async () => {}}>
                   {({ setFieldValue, values, handleChange, dirty }) => {
                     return (
                       <Form>
