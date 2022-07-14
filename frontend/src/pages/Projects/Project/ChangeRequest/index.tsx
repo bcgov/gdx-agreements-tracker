@@ -70,15 +70,35 @@ export const ChangeRequest = () => {
             onSubmit={async () => {}}
           >
             {({ setFieldValue, values, handleChange, dirty }) => {
+              console.log("values", values);
               return (
                 <Form>
                   <FormLayout>
                     <FormInput
                       setFieldValue={setFieldValue}
-                      fieldValue={values.approval_date}
-                      fieldName={"approval_date"}
-                      fieldType={"datePicker"}
-                      fieldLabel={"Initiation Date"}
+                      fieldValue={values.version}
+                      fieldName={"version"}
+                      fieldType={"singleText"}
+                      fieldLabel={"Version"}
+                      handleChange={handleChange}
+                      width={"half"}
+                    />
+                    <FormInput
+                      setFieldValue={setFieldValue}
+                      fieldValue={values.fiscal_year}
+                      fieldName={"fiscal_year"}
+                      fieldType={"select"}
+                      fieldLabel={"Fiscal Year"}
+                      handleChange={handleChange}
+                      width={"half"}
+                      tableName={""}
+                    />
+                    <FormInput
+                      setFieldValue={setFieldValue}
+                      fieldValue={values.initial_date}
+                      fieldName={"initial_date"}
+                      fieldType={"date"}
+                      fieldLabel={"Initial Date"}
                       handleChange={handleChange}
                       width={"half"}
                     />
@@ -86,10 +106,38 @@ export const ChangeRequest = () => {
                       setFieldValue={setFieldValue}
                       fieldValue={values.cr_contact}
                       fieldName={"cr_contact"}
-                      fieldType={"textSingle"}
+                      fieldType={"singleText"}
                       fieldLabel={"CR Contact"}
                       handleChange={handleChange}
                       width={"half"}
+                    />
+                    <FormInput
+                      setFieldValue={setFieldValue}
+                      fieldValue={values.initiated_by}
+                      fieldName={"initiated_by"}
+                      fieldType={"select"}
+                      fieldLabel={"Initiated By"}
+                      handleChange={handleChange}
+                      width={"half"}
+                      tableName={""}
+                    />
+                    <FormInput
+                      setFieldValue={setFieldValue}
+                      fieldValue={values.approval_date}
+                      fieldName={"approval_date"}
+                      fieldType={"date"}
+                      fieldLabel={"Approval Date"}
+                      handleChange={handleChange}
+                      width={"half"}
+                    />
+                    <FormInput
+                      setFieldValue={setFieldValue}
+                      fieldValue={values.summary}
+                      fieldName={"summary"}
+                      fieldType={"multiText"}
+                      fieldLabel={"Summary"}
+                      handleChange={handleChange}
+                      width={"full"}
                     />
                   </FormLayout>
                   <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">

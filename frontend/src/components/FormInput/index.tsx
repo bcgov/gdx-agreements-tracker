@@ -3,6 +3,8 @@ import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Field } from "formik";
 import React from "react";
+import { usePickerValues } from "../../hooks";
+import { GDXSelect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 
 export const FormInput = ({
@@ -13,17 +15,21 @@ export const FormInput = ({
   fieldLabel,
   handleChange,
   width,
+  tableName,
 }: {
   setFieldValue?: Function;
-  fieldValue: string | number;
+  fieldValue: string | number | { [key: string]: unknown };
   fieldName: string;
-  fieldType: "datePicker" | "textSingle";
+  fieldType: "date" | "singleText" | "multiText" | "select";
   fieldLabel: string;
   handleChange?: Function;
   width: "half" | "full";
+  tableName?: string;
 }) => {
+  const pickerValues: any = usePickerValues();
+  console.log('pickerValues', pickerValues)
   switch (fieldType) {
-    case "datePicker":
+    case "date":
       return (
         <GridItem width={width}>
           <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -40,15 +46,40 @@ export const FormInput = ({
           </LocalizationProvider>
         </GridItem>
       );
-    case "textSingle":
+    case "singleText":
       return (
-        <GridItem width="half">
+        <GridItem width={width}>
           <Field
             fullWidth={true}
             as={TextField}
-            name={"cr_contact"}
+            name={fieldName}
             onChange={handleChange}
-            label={"CR Contact"}
+            label={fieldLabel}
+          />
+        </GridItem>
+      );
+    case "multiText":
+      return (
+        <GridItem width={width}>
+          <Field
+            fullWidth={true}
+            as={TextField}
+            name={fieldName}
+            onChange={handleChange}
+            label={fieldLabel}
+            multiline
+            rows={10}
+          />
+        </GridItem>
+      );
+    case "select":
+      return (
+        <GridItem width={width}>
+          <GDXSelect
+            handleChange={handleChange as Function}
+            formikValues={fieldValue as { [key: string]: unknown }}
+            setFieldValue={setFieldValue as Function}
+            pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
           />
         </GridItem>
       );
