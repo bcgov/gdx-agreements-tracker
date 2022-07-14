@@ -36,6 +36,7 @@ export interface ITable {
   rows: GridRowsProp;
   columns: GridColDef[];
   loading: boolean;
+  onRowClick?: Function;
 }
 
 // Tables
