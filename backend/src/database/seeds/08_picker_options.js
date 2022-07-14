@@ -1,6 +1,7 @@
 exports.seed = function (knex) {
   const tables = {
     projects: "project",
+    generic: "generic"
   };
 
   const pickers = [
@@ -123,7 +124,7 @@ exports.seed = function (knex) {
       definition: {
         tableLookup: "fiscal_year",
       },
-      associated_table: tables.projects,
+      associated_table: tables.generic,
     },
     {
       name: "project_type",
