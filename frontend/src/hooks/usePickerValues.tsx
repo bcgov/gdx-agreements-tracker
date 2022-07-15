@@ -21,10 +21,10 @@ export const formatPickerOptions = (tableData: IPickerTableData) => {
       // todo: Define a good type. "Any" type temporarily permitted.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tableData.data.forEach(async (item: any) => {
-        if (!pickersByGroup.pickers[item.associated_table]) {
-          pickersByGroup.pickers[item.associated_table] = {};
+        if (!pickersByGroup.pickers[item.associated_form]) {
+          pickersByGroup.pickers[item.associated_form] = {};
         }
-        pickersByGroup.pickers[item.associated_table][item.name] = item;
+        pickersByGroup.pickers[item.associated_form][item.name] = item;
       });
 
       return pickersByGroup;

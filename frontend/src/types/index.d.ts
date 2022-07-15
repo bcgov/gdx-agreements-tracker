@@ -75,7 +75,7 @@ export interface IPickerLookupData {
 //picker options types
 export interface IPickerProps {
   handleChange: Function;
-  formikValues: { [key: string]: unknown };
+  fieldValue: { [key: string]: unknown };
   setFieldValue: Function;
   pickerData: {
     associated_table: string;

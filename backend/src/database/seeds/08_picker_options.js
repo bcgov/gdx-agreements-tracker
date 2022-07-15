@@ -1,7 +1,8 @@
 exports.seed = function (knex) {
   const tables = {
     projects: "project",
-    generic: "generic"
+    generic: "generic",
+    change_request:"change_request"
   };
 
   const pickers = [
@@ -45,7 +46,7 @@ exports.seed = function (knex) {
           },
         ],
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
     },
     {
       name: "agreement_type",
@@ -71,7 +72,7 @@ exports.seed = function (knex) {
           },
         ],
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
     },
     {
       name: "project_status",
@@ -97,7 +98,7 @@ exports.seed = function (knex) {
           },
         ],
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
     },
     {
       name: "ministry_id",
@@ -106,7 +107,7 @@ exports.seed = function (knex) {
       definition: {
         tableLookup: "ministry",
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
     },
     {
       name: "portfolio_id",
@@ -115,7 +116,7 @@ exports.seed = function (knex) {
       definition: {
         tableLookup: "portfolio",
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
     },
     {
       name: "fiscal",
@@ -124,7 +125,7 @@ exports.seed = function (knex) {
       definition: {
         tableLookup: "fiscal_year",
       },
-      associated_table: tables.generic,
+      associated_form: tables.generic,
     },
     {
       name: "project_type",
@@ -142,7 +143,7 @@ exports.seed = function (knex) {
           },
         ],
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
     },
     {
       name: "funding",
@@ -164,7 +165,7 @@ exports.seed = function (knex) {
           },
         ],
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
     },
     {
       name: "recoverable",
@@ -186,7 +187,25 @@ exports.seed = function (knex) {
           },
         ],
       },
-      associated_table: tables.projects,
+      associated_form: tables.projects,
+    },
+    {
+      name: "initiated_by",
+      title: "Initiated By",
+      description: "Who the change request was initiated by",
+      definition: {
+        dropDownValues: [
+          {
+            value: "GDX",
+            label: "GDX",
+          },
+          {
+            value: "Client",
+            label: "Client",
+          },
+        ],
+      },
+      associated_form: tables.change_request,
     },
   ];
 

@@ -91,7 +91,7 @@ export const ChangeRequest = () => {
                       fieldLabel={"Fiscal Year"}
                       handleChange={handleChange}
                       width={"half"}
-                      tableName={""}
+                      tableName={"generic"}
                     />
                     <FormInput
                       setFieldValue={setFieldValue}
@@ -119,7 +119,7 @@ export const ChangeRequest = () => {
                       fieldLabel={"Initiated By"}
                       handleChange={handleChange}
                       width={"half"}
-                      tableName={""}
+                      tableName={"change_request"}
                     />
                     <FormInput
                       setFieldValue={setFieldValue}

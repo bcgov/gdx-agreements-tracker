@@ -2,11 +2,11 @@ import React, { FC } from "react";
 import { Autocomplete, Skeleton, TextField, TextFieldProps } from "@mui/material";
 import { IPickerProps } from "../../../../types";
 
-export const GDXSelect: FC<IPickerProps> = ({ formikValues, setFieldValue, pickerData }) => {
+export const GDXSelect: FC<IPickerProps> = ({ fieldValue, setFieldValue, pickerData }) => {
   return (
     <>
       {!pickerData ? (
-        <Skeleton variant="rectangular" width={551} height={38} />
+        <Skeleton variant="rectangular" width={"auto"} height={38} />
       ) : (
         <Autocomplete
           id={pickerData?.name}
@@ -14,7 +14,7 @@ export const GDXSelect: FC<IPickerProps> = ({ formikValues, setFieldValue, picke
           onChange={(event, option) => {
             setFieldValue(pickerData?.name, option);
           }}
-          value={formikValues[pickerData?.name]}
+          value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField
               margin="normal"

@@ -108,7 +108,7 @@ export const ProjectRegistrationSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.project_status}
         />
@@ -140,7 +140,7 @@ export const ProjectRegistrationSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.ministry_id}
         />
@@ -148,7 +148,7 @@ export const ProjectRegistrationSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.portfolio_id}
         />
@@ -156,7 +156,7 @@ export const ProjectRegistrationSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.fiscal}
         />
@@ -164,7 +164,7 @@ export const ProjectRegistrationSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.project_type}
         />
@@ -172,7 +172,7 @@ export const ProjectRegistrationSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.funding}
         />
@@ -180,7 +180,7 @@ export const ProjectRegistrationSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.recoverable}
         />

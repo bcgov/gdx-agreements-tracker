@@ -38,7 +38,7 @@ export const AgreementSection = ({
       <StyledBox>
         <GDXSelect
           handleChange={handleChange}
-          formikValues={values}
+          fieldValue={values}
           setFieldValue={setFieldValue}
           pickerData={pickerValues?.data?.pickers.project.agreement_type}
         />
