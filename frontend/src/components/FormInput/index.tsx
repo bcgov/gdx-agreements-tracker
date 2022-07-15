@@ -25,9 +25,8 @@ export const FormInput = ({
   handleChange?: Function;
   width: "half" | "full";
   tableName?: string;
-}) => {
+}) => {  
   const pickerValues: any = usePickerValues();
-  console.log('pickerValues', pickerValues)
   switch (fieldType) {
     case "date":
       return (

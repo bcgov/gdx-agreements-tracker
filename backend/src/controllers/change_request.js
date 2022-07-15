@@ -44,9 +44,10 @@ const checkMine = (request) => {
  * @returns {object}
  */
 const getAll = async (request, reply) => {
+  const project_id = Number(request.params.project_id);
   if (userCan(request, "change_request_read_all")) {
     try {
-      const result = await Model.findAll();
+      const result = await Model.findAll(project_id);
       if (!result) {
         return [];
       }
@@ -69,13 +70,15 @@ const getAll = async (request, reply) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
+  console.log("request.params", request.params);
   if (
     userCan(request, "change_request_read_all") ||
     (userCan(request, "change_request_read_mine") && checkMine(request))
   ) {
-    const projectId = Number(request.params.projectId);
+    const change_request_id = Number(request.params.change_request_id);
+    const project_id = Number(request.params.project_id);
     try {
-      const result = await Model.findById(projectId);
+      const result = await Model.findById(change_request_id, project_id);
       if (!result || !result.length) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };

@@ -5,19 +5,21 @@ const what = "change_request";
 const routes = [
   {
     method: "GET",
-    url: `/${what}`,
+    url: `/projects/:project_id/${what}`,
     handler: controller.getAll,
   },
   {
     method: "GET",
-    url: `/${what}/:projectId`,
+    url: `/projects/:project_id/${what}/:change_request_id`,
     schema: validators.getOneValidator,
     handler: controller.getOne,
   },
 ];
 const registerRoutes = (fastify, options, done) => {
   // Ensure all of the routes above get registered.
-  routes.forEach((route) => fastify.route(route));
+  routes.forEach((route) => {
+    fastify.route(route);
+  });
   done();
 };
 

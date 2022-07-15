@@ -1,7 +1,8 @@
 const getOneValidator = {
   // Request parameters.
   params: {
-    projectId: { type: "string" },
+    change_request_id: { type: "string" },
+    project_id: { type: "string" },
   },
   // Response validation.
   response: {
@@ -9,7 +10,8 @@ const getOneValidator = {
       type: "object",
       properties: {
         data: {
-          projectId: { type: "integer" },
+          change_request_id: { type: "integer" },
+          project_id: { type: "string" },
         },
       },
     },

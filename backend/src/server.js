@@ -13,8 +13,8 @@ let fastifyOptions = {
 
 if ("development" === env) {
   fastifyOptions.https = {
-    key: fs.readFileSync(path.join(__dirname, "../../.cert/key.pem")),
-    cert: fs.readFileSync(path.join(__dirname, "../../.cert/cert.pem")),
+    key: fs.readFileSync(path.join(__dirname, "../.cert/key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "../.cert/cert.pem")),
   };
 }
 // Load server configuration and enable logging.

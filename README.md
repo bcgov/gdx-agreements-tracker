@@ -82,7 +82,7 @@ This step is required to run the app as the npm start command requires the app t
     #### Create .cert directory if it doesn't exist
     mkdir -p .cert
 
-    #### Generate the certificate (ran from the root of this project)
+    #### Generate the certificate (ran from the root of the frontend)
     mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "localhost"
 
 

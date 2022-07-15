@@ -73,7 +73,7 @@ const getOne = async (request, reply) => {
     userCan(request, "projects_read_all") ||
     (userCan(request, "projects_read_mine") && checkMine(request))
   ) {
-    const targetId = Number(request.params.id);
+    const targetId = Number(request.params.projectId);
     try {
       const result = await Model.findById(targetId);
       if (!result || !result.length) {

@@ -21,8 +21,9 @@ const findAll = () => {
 };
 
 // Get specific one by id.
-const findById = (id) => {
-  return db(getFromView).where("id", id);
+const findById = (projectId) => {
+  console.log('projectId', projectId)
+  return db(getFromView).where("id", projectId);
 };
 
 // Update one.
