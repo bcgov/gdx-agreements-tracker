@@ -77,7 +77,7 @@ export const FormInput = ({
         <GridItem width={width}>
           <GDXSelect
             handleChange={handleChange as Function}
-            formikValues={fieldValue as { [key: string]: unknown }}
+            fieldValue={fieldValue as { [key: string]: unknown }}
             setFieldValue={setFieldValue as Function}
             pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
           />

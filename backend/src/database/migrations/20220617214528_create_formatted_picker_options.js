@@ -11,7 +11,7 @@ SELECT
         WHEN definition ->> 'tableLookup' = 'portfolio' THEN (SELECT json_agg(g) FROM (SELECT id AS value, concat(portfolio.portfolio_name, ' ', portfolio.portfolio_abbrev) AS label FROM data.portfolio) g)
         WHEN definition ->> 'dropDownValues' IS NOT NULL THEN p.definition -> 'dropDownValues'
     END definition,
-p.associated_table
+p.associated_form
 FROM public.picker_options p;`;
 
 exports.up = function (knex) {
