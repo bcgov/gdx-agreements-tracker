@@ -53,3 +53,5 @@ backend/yarn.lock
 #https certificates
 .cert
 
+#postgres query file for local queries using VScode PostgreSQL extension
+backend/temp.postgres

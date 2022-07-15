@@ -119,7 +119,7 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
-      name: "fiscal",
+      name: "fiscal_year",
       title: "Fiscal",
       description: "Fiscal Years",
       definition: {

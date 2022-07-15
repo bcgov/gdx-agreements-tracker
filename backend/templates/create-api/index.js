@@ -43,7 +43,7 @@ const sayError = (message) => {
  * @param {*} message The message to print.
  */
 const saySuccess = (message) => {
-  console.log(`${consoleSuccessColor}${message}${consoleClearColors}`);
+  console.success(`${consoleSuccessColor}${message}${consoleClearColors}`);
 };
 
 /**

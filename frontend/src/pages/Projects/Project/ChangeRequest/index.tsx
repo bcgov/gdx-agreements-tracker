@@ -10,6 +10,7 @@ import { ReadField } from "../../../../components/ReadField";
 import { useFormControls } from "../../../../hooks/useFormControls";
 import { Renderer } from "../../../../components/Renderer";
 import { FormInput } from "../../../../components/FormInput";
+import { useFormSubmit } from "../../../../hooks/useFormSubmit";
 
 export const ChangeRequest = () => {
   const {
@@ -25,9 +26,11 @@ export const ChangeRequest = () => {
   const { projectId } = useParams();
   const { data, isLoading } = useFormatTableData({
     tableName: "change_request",
-    ApiEndPoint: `change_request/${projectId}`,
+    ApiEndPoint: `/projects/${projectId}/change_request`,
     handleClick: handleOpen,
   });
+
+  const { handleOnSubmit } = useFormSubmit(currentRowData);
 
   return (
     <>
@@ -67,10 +70,12 @@ export const ChangeRequest = () => {
             initialValues={currentRowData}
             // todo: Define a good type. "Any" type temporarily permitted.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onSubmit={async () => {}}
+            onSubmit={async (values: { [x: string]: { value: string } }) => {
+              //TODO:  This is where the axios call needs to go.
+              handleOnSubmit(values);
+            }}
           >
             {({ setFieldValue, values, handleChange, dirty }) => {
-              console.log("values", values);
               return (
                 <Form>
                   <FormLayout>
@@ -85,7 +90,7 @@ export const ChangeRequest = () => {
                     />
                     <FormInput
                       setFieldValue={setFieldValue}
-                      fieldValue={values.fiscal_year}
+                      fieldValue={{ value: values.fiscal_year, label: "13-14" }} //work on
                       fieldName={"fiscal_year"}
                       fieldType={"select"}
                       fieldLabel={"Fiscal Year"}
