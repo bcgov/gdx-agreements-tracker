@@ -49,7 +49,7 @@ export const formatTableColumns = (
       },
     ];
 
-    Object.entries(tableData.data[0]).forEach((value, index) => {
+    Object.entries(tableData.data.data[0]).forEach((value, index) => {
       formattedColumns.push({
         field: value[0],
         headerName: value[0]
@@ -61,7 +61,7 @@ export const formatTableColumns = (
       });
     });
 
-    resolve({ columns: formattedColumns, rows: tableData.data });
+    resolve({ columns: formattedColumns, rows: tableData.data.data });
   });
 };
 
@@ -77,8 +77,14 @@ export const useFormatTableData = ({
   const getTableData = async () => {
     const allProjects = await apiAxios()
       .get(ApiEndPoint)
-      .then((tableData) => {
-        return formatTableColumns(tableData, tableName, handleClick);
+      .then((tableData: ITableData) => {
+        switch (tableData.data.data.length) {
+          case 0:
+            return { columns: [], rows: [] };
+
+          default:
+            return formatTableColumns(tableData, tableName, handleClick);
+        }
       })
       .catch((error) => {
         switch (error.toJSON().status) {

@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { AppBar, Toolbar, Typography, Button, FormControl } from "@mui/material";
 import bcgovTheme from "../../../../bcgovTheme";
 import EditIcon from "@mui/icons-material/Edit";
+import { useKeycloak } from "@react-keycloak/web";
+import { useRoleChecker } from "../../../../hooks/useRoleChecker";
 
 const StyledAppBar = styled(AppBar)({
   borderBottom: bcgovTheme.customSettings.BCGovAccentLine,
@@ -26,6 +28,12 @@ export const FormHeader = ({
   handleEditMode: Function;
   editMode: boolean;
 }) => {
+
+  const { checkRoleExists }: { checkRoleExists: () => boolean } = useRoleChecker([
+    "pmo-manager",
+    "pmo-sys-admin",
+  ]);
+
   return (
     <div>
       <StyledAppBar position="sticky" role="form-header">
@@ -33,11 +41,11 @@ export const FormHeader = ({
           <Typography variant="h6" noWrap component="div">
             {formTitle}
           </Typography>
-          {!editMode ? (
+          {!editMode && checkRoleExists() ? (
             <StyledButtonLayout>
               <Button
                 onClick={() => {
-                  handleEditMode();
+                  handleEditMode(true);
                 }}
                 endIcon={<EditIcon />}
               >

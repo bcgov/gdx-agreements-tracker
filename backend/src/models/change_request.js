@@ -48,7 +48,13 @@ const findById = (change_request_id, project_id) => {
     .where({ "change_request.link_id": project_id });
 };
 
+// Update one.
+const updateOne = (body, id) => {
+  return db(change_request_table).where("id", id).update(body);
+};
+
 module.exports = {
   findAll,
   findById,
+  updateOne,
 };

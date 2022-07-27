@@ -11,8 +11,8 @@ export const useFormControls = () => {
     setOpen(true);
   };
 
-  const handleEditMode = () => {
-    setEditMode(true);
+  const handleEditMode = (toggle:boolean) => {
+    setEditMode(toggle);
   };
 
   const handleClose = () => {
