@@ -7,6 +7,11 @@ import { usePickerValues } from "../../hooks";
 import { GDXSelect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 
+/**
+ *
+ * @param {{setFieldValue?: Function, fieldValue: string | number | { [key: string]: unknown },fieldName: string,fieldType: "date" | "singleText" | "multiText" | "select",fieldLabel: string,handleChange?: Function,width: "half" | "full",tableName?: string}}
+ * @returns a specific input depending on "fieldType" prop passed.
+ */
 export const FormInput = ({
   setFieldValue,
   fieldValue,
@@ -25,7 +30,7 @@ export const FormInput = ({
   handleChange?: Function;
   width: "half" | "full";
   tableName?: string;
-}) => {  
+}) => {
   const pickerValues: any = usePickerValues();
   switch (fieldType) {
     case "date":
