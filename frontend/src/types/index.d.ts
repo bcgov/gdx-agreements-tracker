@@ -40,7 +40,7 @@ export interface IColumn {
 }
 
 export interface ITableData {
-  data: Array<Object>;
+  data: { data: Array<Object> };
 }
 
 //Declartion that adds custom types to material ui predefined interfaces
@@ -88,21 +88,23 @@ export interface IPickerProps {
 }
 
 export interface IPickerTableData {
-  data: [
-    {
-      associated_table: string;
-      definition: [
-        {
-          label: string;
-          value: string;
-        }
-      ];
-      description: string;
-      id: number;
-      name: string;
-      title: string;
-    }
-  ];
+  data: {
+    data: [
+      {
+        associated_table: string;
+        definition: [
+          {
+            label: string;
+            value: string;
+          }
+        ];
+        description: string;
+        id: number;
+        name: string;
+        title: string;
+      }
+    ];
+  };
 }
 
 export interface IProjectLayout {
@@ -150,4 +152,22 @@ export interface IChangeRequestRow {
   link_id: number;
   summary: string;
   version: string;
+}
+
+export interface IFormControls {
+  handleEditMode: Function;
+  handleOpen: Function;
+  handleClose: Function;
+  handleCurrentRowData: Function;
+  open: boolean;
+  editMode: boolean;
+  currentRowData: unknown;
+}
+
+export interface IUseFormSubmitHandleSubmit {
+  changedValues: any;
+  currentRowData: any;
+  apiUrl: string;
+  handleEditMode: Function;
+  queryKeys: string[];
 }

@@ -36,7 +36,7 @@ export const apiAxios = () => {
   axiosInstance.interceptors.response.use(
     (response) => {
       /* On success = status code 200 */
-      return Promise.resolve(response.data);
+      return Promise.resolve(response);
     },
     (error) => {
       /* On failure = status code <> 200 */
