@@ -141,8 +141,8 @@ export const ChangeRequest = () => {
           <>
             <EditForm
               initialValues={changeRequestQuery?.data}
-              onSubmit={async (values: { [x: string]: { value: string } }) => {
-                handleOnSubmit({
+              onSubmit={async (values) => {
+                return handleOnSubmit({
                   changedValues: values,
                   currentRowData: changeRequestQuery?.data,
                   apiUrl: `change_request/${changeRequestQuery?.data?.id}`,
