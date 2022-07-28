@@ -6,7 +6,7 @@ import { Table } from "../../../components";
 export const Resources: FC = () => {
   const { data, isLoading } = useFormatTableData({
     tableName: "resources",
-    ApiEndPoint: "resources",
+    apiEndPoint: "resources",
   });
 
   return (

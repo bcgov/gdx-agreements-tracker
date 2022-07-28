@@ -6,7 +6,7 @@ import { Outlet, Link } from "react-router-dom";
 export const Projects: FC = () => {
   const { data, isLoading } = useFormatTableData({
     tableName: "projects",
-    ApiEndPoint: "projects",
+    apiEndPoint: "projects",
   });
 
   const switchRender = () => {
