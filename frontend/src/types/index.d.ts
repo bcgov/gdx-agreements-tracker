@@ -171,3 +171,12 @@ export interface IUseFormSubmitHandleSubmit {
   handleEditMode: Function;
   queryKeys: string[];
 }
+
+
+export interface IEditFields{
+  fieldName: string;
+  fieldType: "select" | "date" | "singleText" | "multiText";
+  fieldLabel: string;
+  width: "half" | "full";
+  tableName?:string
+}

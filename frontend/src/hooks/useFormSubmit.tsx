@@ -4,6 +4,11 @@ import { useQueryClient } from "react-query";
 import { IUseFormSubmitHandleSubmit } from "../types";
 import { apiAxios } from "../utils";
 
+/**
+ * 
+ * A hook that handles the submit functionality for any form
+ */
+
 export const useFormSubmit = () => {
   const [showSnackBar, setShowSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");

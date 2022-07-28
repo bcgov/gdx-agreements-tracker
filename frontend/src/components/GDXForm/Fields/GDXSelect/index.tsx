@@ -2,6 +2,12 @@ import React, { FC } from "react";
 import { Autocomplete, Skeleton, TextField, TextFieldProps } from "@mui/material";
 import { IPickerProps } from "../../../../types";
 
+/**
+ *
+ * @param {{fieldValue:unknown, setFieldValue:Function, pickerData:unknown}}
+ * @returns a JSX select
+ */
+
 export const GDXSelect: FC<IPickerProps> = ({ fieldValue, setFieldValue, pickerData }) => {
   return (
     <>

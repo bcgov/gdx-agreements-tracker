@@ -19,6 +19,12 @@ const StyledButtonLayout = styled(FormControl)({
   padding: "1px",
 });
 
+/**
+ *
+ * @param {{formTitle: string,handleEditMode: Function,editMode: boolean}}
+ * @returns a JSX header that can be used on any form
+ */
+
 export const FormHeader = ({
   formTitle,
   handleEditMode,
@@ -28,7 +34,6 @@ export const FormHeader = ({
   handleEditMode: Function;
   editMode: boolean;
 }) => {
-
   const { checkRoleExists }: { checkRoleExists: () => boolean } = useRoleChecker([
     "pmo-manager",
     "pmo-sys-admin",

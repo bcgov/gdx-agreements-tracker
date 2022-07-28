@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+/**
+ * A hook that handles all types of form controls such as opening a form and closing a form 
+ * 
+ */
+
 export const useFormControls = () => {
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);

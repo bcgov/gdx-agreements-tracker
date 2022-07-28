@@ -8,11 +8,10 @@ import { GDXSelect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 
 /**
- *
  * @param {{setFieldValue?: Function, fieldValue: string | number | { [key: string]: unknown },fieldName: string,fieldType: "date" | "singleText" | "multiText" | "select",fieldLabel: string,handleChange?: Function,width: "half" | "full",tableName?: string}}
  * @returns a specific input depending on "fieldType" prop passed.
  */
-export const FormInput = ({
+ export const FormInput = ({
   setFieldValue,
   fieldValue,
   fieldName,
@@ -32,6 +31,7 @@ export const FormInput = ({
   tableName?: string;
 }) => {
   const pickerValues: any = usePickerValues();
+
   switch (fieldType) {
     case "date":
       return (
