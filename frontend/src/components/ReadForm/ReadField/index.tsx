@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Paper } from "@mui/material";
 import React from "react";
-import { GridItem } from "../GDXForm/FormLayout/GridItem";
+import { GridItem } from "../../GDXForm/FormLayout/GridItem";
 
 export const ReadField = ({
   width,

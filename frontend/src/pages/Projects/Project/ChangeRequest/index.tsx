@@ -6,13 +6,20 @@ import { Table } from "../../../../components";
 import { GDXModal } from "../../../../components/GDXModal";
 import { useFormatTableData } from "../../../../hooks";
 import { FormLayout } from "../../../../components/GDXForm";
-import { ReadField } from "../../../../components/ReadField";
+import { ReadField } from "../../../../components/ReadForm/ReadField";
 import { useFormControls } from "../../../../hooks/useFormControls";
 import { Renderer } from "../../../../components/Renderer";
 import { FormInput } from "../../../../components/FormInput";
 import { useFormSubmit } from "../../../../hooks/useFormSubmit";
 import { apiAxios } from "../../../../utils";
 import { useQuery } from "react-query";
+import { ReadForm } from "../../../../components/ReadForm";
+import { EditForm } from "../../../../components/EditForm";
+import { IEditFields } from "../../../../types";
+
+/**
+ * @returns the jsx for the change request section of the project form
+ */
 
 export const ChangeRequest = () => {
   const {
@@ -31,8 +38,6 @@ export const ChangeRequest = () => {
     ApiEndPoint: `/projects/${projectId}/change_request`,
     handleClick: handleOpen,
   });
-
-  console.log("data", data);
 
   const { handleOnSubmit, Notification } = useFormSubmit();
 
@@ -55,7 +60,65 @@ export const ChangeRequest = () => {
       staleTime: Infinity,
     }
   );
-  console.log("changeRequestQuery", changeRequestQuery);
+
+  const readFields = [
+    { width: "half", title: "Version", value: changeRequestQuery?.data?.version },
+    { width: "half", title: "Fiscal Year", value: changeRequestQuery?.data?.fiscal_year?.label },
+    { width: "half", title: "Initiation Date", value: changeRequestQuery?.data?.initiation_date },
+    { width: "half", title: "CR Contact", value: changeRequestQuery?.data?.cr_contact },
+    { width: "half", title: "Initiated By", value: changeRequestQuery?.data?.initiated_by?.label },
+    { width: "half", title: "Approval Date", value: changeRequestQuery?.data?.approval_date },
+    { width: "full", title: "Summary", value: changeRequestQuery?.data?.summary },
+  ];
+
+  const editFields:IEditFields[]= [
+    {
+      fieldName: "version",
+      fieldType: "singleText",
+      fieldLabel: "Version",
+      width: "half",
+    },
+    {
+      fieldName: "fiscal_year",
+      fieldType: "select",
+      fieldLabel: "Fiscal Year",
+      width: "half",
+      tableName: "generic",
+    },
+    {
+      fieldName: "initiation_date",
+      fieldType: "date",
+      fieldLabel: "Initiation Date",
+      width: "half",
+    },
+    {
+      fieldName: "cr_contact",
+      fieldType: "singleText",
+      fieldLabel: "CR Contact",
+      width: "half",
+    },
+    {
+      fieldName: "initiated_by",
+      fieldType: "select",
+      fieldLabel: "Initiated By",
+      width: "half",
+      tableName: "change_request",
+    },
+    {
+      fieldName: "approval_date",
+      fieldType: "date",
+      fieldLabel: "Approval Date",
+      width: "half",
+    },
+    {
+      fieldName: "summary",
+      fieldType: "multiText",
+      fieldLabel: "Summary",
+      width: "full",
+    },
+  ];
+
+  console.log("readFields", readFields);
 
   return (
     <>
@@ -78,41 +141,11 @@ export const ChangeRequest = () => {
         editMode={editMode}
       >
         {!editMode ? (
-          <FormLayout>
-            <ReadField width={"half"} title={"Version"} value={changeRequestQuery?.data?.version} />
-            <ReadField
-              width={"half"}
-              title={"Fiscal Year"}
-              value={changeRequestQuery?.data?.fiscal_year?.label}
-            />
-            <ReadField
-              width={"half"}
-              title={"Initiation Date"}
-              value={changeRequestQuery?.data?.initiation_date}
-            />
-            <ReadField
-              width={"half"}
-              title={"CR Contact"}
-              value={changeRequestQuery?.data?.cr_contact}
-            />
-            <ReadField
-              width={"half"}
-              title={"Initiated By"}
-              value={changeRequestQuery?.data?.initiated_by?.label}
-            />
-            <ReadField
-              width={"half"}
-              title={"Approval Date"}
-              value={changeRequestQuery?.data?.approval_date}
-            />
-            <ReadField width={"full"} title={"Summary"} value={changeRequestQuery?.data?.summary} />
-          </FormLayout>
+          <ReadForm fields={readFields} />
         ) : (
           <>
-            <Formik
+            <EditForm
               initialValues={changeRequestQuery?.data}
-              // todo: Define a good type. "Any" type temporarily permitted.
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onSubmit={async (values: { [x: string]: { value: string } }) => {
                 handleOnSubmit({
                   changedValues: values,
@@ -125,91 +158,8 @@ export const ChangeRequest = () => {
                   ],
                 });
               }}
-            >
-              {({ setFieldValue, values, handleChange, dirty }) => {
-                return (
-                  <Form>
-                    <FormLayout>
-                      <FormInput
-                        setFieldValue={setFieldValue}
-                        fieldValue={values.version}
-                        fieldName={"version"}
-                        fieldType={"singleText"}
-                        fieldLabel={"Version"}
-                        handleChange={handleChange}
-                        width={"half"}
-                      />
-                      <FormInput
-                        setFieldValue={setFieldValue}
-                        fieldValue={values.fiscal_year}
-                        fieldName={"fiscal_year"}
-                        fieldType={"select"}
-                        fieldLabel={"Fiscal Year"}
-                        handleChange={handleChange}
-                        width={"half"}
-                        tableName={"generic"}
-                      />
-                      <FormInput
-                        setFieldValue={setFieldValue}
-                        fieldValue={values.initiation_date}
-                        fieldName={"initiation_date"}
-                        fieldType={"date"}
-                        fieldLabel={"Initiation Date"}
-                        handleChange={handleChange}
-                        width={"half"}
-                      />
-                      <FormInput
-                        setFieldValue={setFieldValue}
-                        fieldValue={values.cr_contact}
-                        fieldName={"cr_contact"}
-                        fieldType={"singleText"}
-                        fieldLabel={"CR Contact"}
-                        handleChange={handleChange}
-                        width={"half"}
-                      />
-                      <FormInput
-                        setFieldValue={setFieldValue}
-                        fieldValue={values.initiated_by}
-                        fieldName={"initiated_by"}
-                        fieldType={"select"}
-                        fieldLabel={"Initiated By"}
-                        handleChange={handleChange}
-                        width={"half"}
-                        tableName={"change_request"}
-                      />
-                      <FormInput
-                        setFieldValue={setFieldValue}
-                        fieldValue={values.approval_date}
-                        fieldName={"approval_date"}
-                        fieldType={"date"}
-                        fieldLabel={"Approval Date"}
-                        handleChange={handleChange}
-                        width={"half"}
-                      />
-                      <FormInput
-                        setFieldValue={setFieldValue}
-                        fieldValue={values.summary}
-                        fieldName={"summary"}
-                        fieldType={"multiText"}
-                        fieldLabel={"Summary"}
-                        handleChange={handleChange}
-                        width={"full"}
-                      />
-                    </FormLayout>
-                    <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="success"
-                        disabled={dirty ? false : true}
-                      >
-                        Submit
-                      </Button>
-                    </Box>
-                  </Form>
-                );
-              }}
-            </Formik>
+              editFields={editFields}
+            />
           </>
         )}
       </GDXModal>
