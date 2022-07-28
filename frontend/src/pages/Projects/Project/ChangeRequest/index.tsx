@@ -1,15 +1,10 @@
 import React from "react";
-import { Box, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Form, Formik } from "formik";
 import { Table } from "../../../../components";
 import { GDXModal } from "../../../../components/GDXModal";
 import { useFormatTableData } from "../../../../hooks";
-import { FormLayout } from "../../../../components/GDXForm";
-import { ReadField } from "../../../../components/ReadForm/ReadField";
 import { useFormControls } from "../../../../hooks/useFormControls";
 import { Renderer } from "../../../../components/Renderer";
-import { FormInput } from "../../../../components/FormInput";
 import { useFormSubmit } from "../../../../hooks/useFormSubmit";
 import { apiAxios } from "../../../../utils";
 import { useQuery } from "react-query";
@@ -49,6 +44,8 @@ export const ChangeRequest = () => {
   };
 
   // Queries
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const changeRequestQuery: any = useQuery(
     `change_request - ${currentRowData?.id}`,
     getChangeRequest,
@@ -71,7 +68,7 @@ export const ChangeRequest = () => {
     { width: "full", title: "Summary", value: changeRequestQuery?.data?.summary },
   ];
 
-  const editFields:IEditFields[]= [
+  const editFields: IEditFields[] = [
     {
       fieldName: "version",
       fieldType: "singleText",
@@ -117,8 +114,6 @@ export const ChangeRequest = () => {
       width: "full",
     },
   ];
-
-  console.log("readFields", readFields);
 
   return (
     <>

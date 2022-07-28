@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { AppBar, Toolbar, Typography, Button, FormControl } from "@mui/material";
 import bcgovTheme from "../../../../bcgovTheme";
 import EditIcon from "@mui/icons-material/Edit";
-import { useKeycloak } from "@react-keycloak/web";
 import { useRoleChecker } from "../../../../hooks/useRoleChecker";
 
 const StyledAppBar = styled(AppBar)({

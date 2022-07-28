@@ -10,7 +10,7 @@ export const ReadForm = ({
   return (
     <FormLayout>
       {fields.map(({ width, title, value }) => {
-        return <ReadField width={width} title={title} value={value}></ReadField>;
+        return <ReadField width={width} title={title} value={value} key={title}></ReadField>;
       })}
     </FormLayout>
   );

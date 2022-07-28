@@ -2,7 +2,7 @@ exports.seed = function (knex) {
   const tables = {
     projects: "project",
     generic: "generic",
-    change_request:"change_request"
+    change_request: "change_request",
   };
 
   const pickers = [

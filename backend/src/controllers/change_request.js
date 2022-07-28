@@ -70,7 +70,6 @@ const getAll = async (request, reply) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
-  console.log("request.params", request.params);
   if (
     userCan(request, "change_request_read_all") ||
     (userCan(request, "change_request_read_mine") && checkMine(request))
@@ -108,7 +107,7 @@ const updateOne = async (request, reply) => {
     (userCan(request, "change_request_update_one") && checkMine(request))
   ) {
     try {
-      const result = await Model.updateOne(request.body, request.params.id)
+      const result = await Model.updateOne(request.body, request.params.id);
       if (!result) {
         reply.code(403);
         return { message: `The ${what.single} could not be updated.` };

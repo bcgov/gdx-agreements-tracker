@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 /**
- * A hook that handles all types of form controls such as opening a form and closing a form 
- * 
+ * A hook that handles all types of form controls such as opening a form and closing a form
+ *
  */
 
 export const useFormControls = () => {
@@ -16,7 +16,7 @@ export const useFormControls = () => {
     setOpen(true);
   };
 
-  const handleEditMode = (toggle:boolean) => {
+  const handleEditMode = (toggle: boolean) => {
     setEditMode(toggle);
   };
 

@@ -25,7 +25,6 @@ const findAll = (project_id) => {
 
 // Get specific one by id.
 const findById = (change_request_id, project_id) => {
-  console.log("change_request_id", change_request_id);
   return db
     .select(
       "change_request.id",

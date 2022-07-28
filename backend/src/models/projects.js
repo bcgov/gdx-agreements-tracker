@@ -22,7 +22,6 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (projectId) => {
-  console.log('projectId', projectId)
   return db(getFromView).where("id", projectId);
 };
 
