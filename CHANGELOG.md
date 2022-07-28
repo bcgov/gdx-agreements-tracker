@@ -1,4 +1,24 @@
 ## Developer Changelog
+### July 28, 2022 (DESCW-419)
+
+- Frontend
+  - Created reusable edit form component
+  - Updated variables in reusable components to be more readable
+  - Added check role exists hook
+  - Added check role condition for cr form edit button
+  - Created reusable read form 
+  - Created useFormSubmit hook for handling form submissions
+  - Added more type definitions to types.d.ts
+
+- Backend
+  - Added change-request(cr) update function to controller
+  - Updated variables to be more clear for projects controller
+  - Added two capabilities "change_request_update_one" and "change_request_update_all"
+  - Added new "generic" grouping for picker options
+  - Added filters to cr model
+  - Added cr id in response for cr validator
+  
+
 
 ### July 12, 2022 (DESCW-484)
 
