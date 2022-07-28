@@ -77,7 +77,7 @@ const getOne = async (request, reply) => {
     const change_request_id = Number(request.params.change_request_id);
     const project_id = Number(request.params.project_id);
     try {
-      const result = await Model.findById(change_request_id, project_id);
+      const result = await Model.findById(Number(change_request_id, project_id));
       if (!result || !result.length) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };
@@ -120,7 +120,7 @@ const updateOne = async (request, reply) => {
       return { message: `There was a problem updating this ${what.single}. Error:${err}` };
     }
   } else {
-    log.trace('user lacks capability "users_update_all" || "users_update_mine"');
+    log.trace('user lacks capability "change_request_update_all" || "change_request_update_mine"');
     return notAllowed(reply);
   }
 };

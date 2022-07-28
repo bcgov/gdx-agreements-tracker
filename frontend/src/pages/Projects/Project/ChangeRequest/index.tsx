@@ -30,7 +30,7 @@ export const ChangeRequest = () => {
   const { projectId } = useParams();
   const { data, isLoading } = useFormatTableData({
     tableName: "change_request",
-    ApiEndPoint: `/projects/${projectId}/change_request`,
+    apiEndPoint: `/projects/${projectId}/change_request`,
     handleClick: handleOpen,
   });
 

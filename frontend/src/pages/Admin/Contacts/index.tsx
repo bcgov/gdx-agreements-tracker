@@ -6,7 +6,7 @@ import { Table } from "../../../components";
 export const Contacts: FC = () => {
   const { data, isLoading } = useFormatTableData({
     tableName: "contacts",
-    ApiEndPoint: "contacts",
+    apiEndPoint: "contacts",
   });
 
   return (

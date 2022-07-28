@@ -67,16 +67,16 @@ export const formatTableColumns = (
 
 export const useFormatTableData = ({
   tableName,
-  ApiEndPoint,
+  apiEndPoint,
   handleClick,
 }: {
   tableName: string;
-  ApiEndPoint: string;
+  apiEndPoint: string;
   handleClick?: Function;
 }) => {
   const getTableData = async () => {
     const allProjects = await apiAxios()
-      .get(ApiEndPoint)
+      .get(apiEndPoint)
       .then((tableData: ITableData) => {
         switch (tableData.data.data.length) {
           case 0:
@@ -105,7 +105,7 @@ export const useFormatTableData = ({
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, isLoading } = useQuery<any>(ApiEndPoint, getTableData, {
+  const { data, isLoading } = useQuery<any>(apiEndPoint, getTableData, {
     refetchOnMount: "always",
   });
   return { data, isLoading };
