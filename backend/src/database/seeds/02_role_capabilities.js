@@ -29,7 +29,7 @@ const roles = [
       "change_request_read_mine",
       "report_read_mine",
       "change_request_update_one",
-      "change_request_update_all"
+      "change_request_update_all",
     ],
   },
   {

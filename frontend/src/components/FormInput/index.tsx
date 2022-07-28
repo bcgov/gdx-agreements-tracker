@@ -7,11 +7,7 @@ import { usePickerValues } from "../../hooks";
 import { GDXSelect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 
-/**
- * @param {{setFieldValue?: Function, fieldValue: string | number | { [key: string]: unknown },fieldName: string,fieldType: "date" | "singleText" | "multiText" | "select",fieldLabel: string,handleChange?: Function,width: "half" | "full",tableName?: string}}
- * @returns a specific input depending on "fieldType" prop passed.
- */
- export const FormInput = ({
+export const FormInput = ({
   setFieldValue,
   fieldValue,
   fieldName,
@@ -30,6 +26,8 @@ import { GridItem } from "../GDXForm/FormLayout/GridItem";
   width: "half" | "full";
   tableName?: string;
 }) => {
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pickerValues: any = usePickerValues();
 
   switch (fieldType) {

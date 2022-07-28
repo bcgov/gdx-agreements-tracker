@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import { FormLayout } from "../GDXForm/FormLayout";
 import { FormInput } from "../FormInput";
 import { IEditFields } from "../../types";
@@ -10,8 +10,11 @@ export const EditForm = ({
   onSubmit,
   editFields,
 }: {
-  initialValues: any;
-  onSubmit: any;
+  initialValues: FormikValues;
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSubmit: ((values: unknown, formikHelpers: FormikHelpers<any>) => void | Promise<any>) &
+    Function;
   editFields: IEditFields[];
 }) => {
   return (

@@ -5,7 +5,7 @@ import { IUseFormSubmitHandleSubmit } from "../types";
 import { apiAxios } from "../utils";
 
 /**
- * 
+ *
  * A hook that handles the submit functionality for any form
  */
 
@@ -57,7 +57,7 @@ export const useFormSubmit = () => {
     }
     await apiAxios()
       .put(apiUrl, deltaChanges)
-      .then((message: any) => {
+      .then(() => {
         handleSnackBarMessage(`Changes saved successfully for ${changedValues.version}`);
         handleSnackBar("success");
         handleEditMode(false);

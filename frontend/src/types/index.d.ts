@@ -165,18 +165,21 @@ export interface IFormControls {
 }
 
 export interface IUseFormSubmitHandleSubmit {
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   changedValues: any;
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentRowData: any;
   apiUrl: string;
   handleEditMode: Function;
   queryKeys: string[];
 }
 
-
-export interface IEditFields{
+export interface IEditFields {
   fieldName: string;
   fieldType: "select" | "date" | "singleText" | "multiText";
   fieldLabel: string;
   width: "half" | "full";
-  tableName?:string
+  tableName?: string;
 }
