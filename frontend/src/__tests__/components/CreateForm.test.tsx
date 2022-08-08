@@ -51,6 +51,6 @@ test("Submit button", () => {
 });
 
 test("Submit functionality", async () => {
-  const you = await onSubmit();
-  expect(you).toEqual({ success: "success, your dummy item saved!" });
+  const handleSubmit = await onSubmit();
+  expect(handleSubmit).toEqual({ success: "success, your dummy item saved!" });
 });
