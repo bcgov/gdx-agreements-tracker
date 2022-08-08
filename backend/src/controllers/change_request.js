@@ -133,7 +133,7 @@ const updateOne = async (request, reply) => {
  * @returns {object}
  */
 const addOne = async (request, reply) => {
-  if (userCan(request, "change_request_add_one")) {
+  if (userCan(request, "change_request_add_one")) {   
     try {
       const result = await Model.addOne(request.body);
       if (!result) {
@@ -143,6 +143,7 @@ const addOne = async (request, reply) => {
         return result;
       }
     } catch (err) {
+      console.log("request", request.body);
       reply.code(500);
       return { message: `There was a problem adding this ${what.single}.`, error: err };
     }
@@ -156,5 +157,6 @@ module.exports = {
   getAll,
   getOne,
   updateOne,
+  addOne,
   addOne,
 };

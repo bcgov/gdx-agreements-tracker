@@ -29,10 +29,12 @@ export const FormHeader = ({
   handleEditMode,
   editMode,
   handleFormType,
+  handleFormType,
 }: {
   formTitle: string;
   handleEditMode: Function;
   editMode: boolean;
+  handleFormType: Function;
   handleFormType: Function;
 }) => {
   const { checkRoleExists }: { checkRoleExists: () => boolean } = useRoleChecker([
@@ -52,7 +54,7 @@ export const FormHeader = ({
               <Button
                 onClick={() => {
                   handleEditMode(true);
-                  handleFormType("edit");
+                  handleFormType("edit")
                 }}
                 endIcon={<EditIcon />}
               >
