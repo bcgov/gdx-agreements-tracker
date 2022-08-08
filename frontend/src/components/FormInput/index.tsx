@@ -44,6 +44,8 @@ export const FormInput = ({
               renderInput={(params: Object) => <TextField {...params} fullWidth={true} />}
               label={fieldLabel}
               fullWidth={true}
+              id={fieldName}
+              role={`${fieldName}_input`}
             />
           </LocalizationProvider>
         </GridItem>
@@ -57,6 +59,8 @@ export const FormInput = ({
             name={fieldName}
             onChange={handleChange}
             label={fieldLabel}
+            id={fieldName}
+            role={`${fieldName}_input`}
           />
         </GridItem>
       );
@@ -71,6 +75,8 @@ export const FormInput = ({
             label={fieldLabel}
             multiline
             rows={10}
+            id={fieldName}
+            role={`${fieldName}_input`}
           />
         </GridItem>
       );
