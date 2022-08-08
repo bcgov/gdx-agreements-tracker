@@ -5,6 +5,14 @@ import { FormLayout } from "../GDXForm/FormLayout";
 import { FormInput } from "../FormInput";
 import { IEditFields } from "../../types";
 
+/**
+ * Destructured as:
+ * @param    {​​​​​​Object[]}​​​​​​ initialValues - Contains all the initial values for Formik to use
+ * @param    {​​​​​​​​​​​​​​​​​​​​string}​​​​​​​​​​​​​​​​​​​​ onSubmit - Handles the submit functionality for the form
+ * @param    {Object[]}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​ editFields - The field properties used to render the fields for an edit form
+ * @returns  {React.JSX}
+ */
+
 export const CreateForm = ({
   initialValues,
   onSubmit,
@@ -39,7 +47,13 @@ export const CreateForm = ({
                 );
               })}
             </FormLayout>
-            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+            <Box
+              m={1}
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="flex-end"
+              role={"submit_button"}
+            >
               <Button
                 type="submit"
                 variant="contained"

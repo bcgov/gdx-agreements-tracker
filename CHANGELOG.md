@@ -1,4 +1,19 @@
 ## Developer Changelog
+
+### August 8, 2022 (DESCW-420)
+- Frontend
+ - Created new reusable component called "CreatForm"
+ - Fixed layout issues on all forms
+ - Added new Form Type state which allows for switching between edit and new forms types
+ - Added test for CreateForm component 
+ - Fixed any type errors for in-scope components 
+ - Added new "Post" and "Edit" functions to useFormSubmit hook
+
+- Backend
+  - Added "addOne" function - used for posting a new Change Request(CR)
+  - Added new capability "change_request_add_one"
+
+
 ### July 28, 2022 (DESCW-419)
 
 - Frontend
