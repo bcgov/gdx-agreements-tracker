@@ -19,6 +19,12 @@ const routes = [
     url: `/${what}/:id`,
     handler: controller.updateOne,
   },
+  {
+    method: "POST",
+    url: `/${what}`,
+    handler: controller.addOne,
+  },
+  
 ];
 const registerRoutes = (fastify, options, done) => {
   // Ensure all of the routes above get registered.

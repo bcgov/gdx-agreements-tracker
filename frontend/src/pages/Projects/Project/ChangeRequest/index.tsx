@@ -1,16 +1,18 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Table } from "../../../../components";
-import { GDXModal } from "../../../../components/GDXModal";
-import { useFormatTableData } from "../../../../hooks";
-import { useFormControls } from "../../../../hooks/useFormControls";
-import { Renderer } from "../../../../components/Renderer";
-import { useFormSubmit } from "../../../../hooks/useFormSubmit";
-import { apiAxios } from "../../../../utils";
+import { Table } from "components";
+import { GDXModal } from "components/GDXModal";
+import { useFormatTableData } from "hooks";
+import { useFormControls } from "hooks/useFormControls";
+import { Renderer } from "components/Renderer";
+import { useFormSubmit } from "hooks/useFormSubmit";
+import { apiAxios } from "utils";
 import { useQuery } from "react-query";
-import { ReadForm } from "../../../../components/ReadForm";
-import { EditForm } from "../../../../components/EditForm";
-import { IEditFields } from "../../../../types";
+import { ReadForm } from "components/ReadForm";
+import { EditForm } from "components/EditForm";
+import { IEditFields } from "types";
+import { Box, Button } from "@mui/material";
+import { CreateForm } from "components/CreateForm";
 
 /**
  * @returns the jsx for the change request section of the project form
@@ -22,6 +24,8 @@ export const ChangeRequest = () => {
     handleOpen,
     handleClose,
     handleCurrentRowData,
+    handleFormType,
+    formType,
     open,
     editMode,
     currentRowData,
@@ -33,13 +37,15 @@ export const ChangeRequest = () => {
     apiEndPoint: `/projects/${projectId}/change_request`,
     handleClick: handleOpen,
   });
+  
 
-  const { handleOnSubmit, Notification } = useFormSubmit();
+  const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
   const getChangeRequest = async () => {
     const changeRequest = await apiAxios().get(
       `/projects/${projectId}/change_request/${currentRowData?.id}`
     );
+    console.log('changeRequest', changeRequest)
     return changeRequest.data.data[0];
   };
 
@@ -69,12 +75,12 @@ export const ChangeRequest = () => {
   ];
 
   const editFields: IEditFields[] = [
-    {
-      fieldName: "version",
-      fieldType: "singleText",
-      fieldLabel: "Version",
-      width: "half",
-    },
+    // {
+    //   fieldName: "version",
+    //   fieldType: "singleText",
+    //   fieldLabel: "Version",
+    //   width: "half",
+    // },
     {
       fieldName: "fiscal_year",
       fieldType: "select",
@@ -115,48 +121,96 @@ export const ChangeRequest = () => {
     },
   ];
 
+  const createFormInitialValues = {
+    approval_date: null,
+    cr_contact: "",
+    fiscal_year: null,
+    initiated_by: null,
+    initiation_date: null,
+    link_id: Number(projectId),
+    summary: "",
+    // version: "",
+  };
+
   return (
     <>
       <Renderer
         isLoading={isLoading}
         component={
-          <Table
-            columns={data?.columns}
-            rows={data?.rows}
-            loading={isLoading}
-            onRowClick={handleCurrentRowData}
-          />
+          <>
+            <Table
+              columns={data?.columns}
+              rows={data?.rows}
+              loading={isLoading}
+              onRowClick={handleCurrentRowData}
+            />
+            <Box
+              m={1}
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="flex-end"
+              onClick={() => {
+                handleOpen();
+                handleEditMode(true);
+                handleFormType("new");
+              }}
+            >
+              <Button variant="contained">New Change Request</Button>
+            </Box>
+          </>
         }
       />
       <GDXModal
         open={open}
         handleClose={handleClose}
-        modalTitle={`Change Request ${changeRequestQuery?.data?.version}`}
+        modalTitle={
+          formType === "new"
+            ? `New Change Request`
+            : `Change Request ${changeRequestQuery?.data?.version}`
+        }
         handleEditMode={handleEditMode}
         editMode={editMode}
+        handleFormType={handleFormType}
       >
-        {!editMode ? (
-          <ReadForm fields={readFields} />
-        ) : (
-          <>
-            <EditForm
-              initialValues={changeRequestQuery?.data}
-              onSubmit={async (values) => {
-                return handleOnSubmit({
-                  changedValues: values,
-                  currentRowData: changeRequestQuery?.data,
-                  apiUrl: `change_request/${changeRequestQuery?.data?.id}`,
-                  handleEditMode: handleEditMode,
-                  queryKeys: [
-                    `change_request - ${currentRowData?.id}`,
-                    `/projects/${projectId}/change_request`,
-                  ],
-                });
-              }}
-              editFields={editFields}
-            />
-          </>
-        )}
+        <>
+          {!editMode ? (
+            <ReadForm fields={readFields} />
+          ) : (
+            <>
+              {formType === "new" ? (
+                <CreateForm
+                  initialValues={createFormInitialValues}
+                  onSubmit={async (values: any) => {         
+                    return handlePost({
+                      formValues: values,
+                      apiUrl: `/change_request`,
+                      handleEditMode: handleEditMode,
+                      queryKeys: [`"/projects/${projectId}/change_request"`],
+                    });
+                  }}
+                  editFields={editFields}
+                />
+              ) : (
+                <EditForm
+                  initialValues={changeRequestQuery?.data}
+                  onSubmit={async (values) => {
+                    return handleUpdate({
+                      changedValues: values,
+                      currentRowData: changeRequestQuery?.data,
+                      apiUrl: `change_request/${changeRequestQuery?.data?.id}`,
+                      handleEditMode: handleEditMode,
+                      queryKeys: [
+                        `change_request - ${currentRowData?.id}`,
+                        `/projects/${projectId}/change_request`,
+                      ],
+                    });
+                  }}
+                  editFields={editFields}
+                />
+              )}
+            </>
+          )}
+        </>
       </GDXModal>
       <Notification />
     </>

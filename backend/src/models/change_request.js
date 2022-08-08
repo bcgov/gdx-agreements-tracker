@@ -52,8 +52,14 @@ const updateOne = (body, id) => {
   return db(changeRequestTable).where("id", id).update(body);
 };
 
+// Add one.
+const addOne = (newChangeRequest) => {
+  return db(changeRequestTable).insert(newChangeRequest);
+};
+
 module.exports = {
   findAll,
   findById,
   updateOne,
+  addOne,
 };

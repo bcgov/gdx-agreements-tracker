@@ -28,10 +28,12 @@ export const FormHeader = ({
   formTitle,
   handleEditMode,
   editMode,
+  handleFormType,
 }: {
   formTitle: string;
   handleEditMode: Function;
   editMode: boolean;
+  handleFormType: Function;
 }) => {
   const { checkRoleExists }: { checkRoleExists: () => boolean } = useRoleChecker([
     "pmo-manager",
@@ -50,6 +52,7 @@ export const FormHeader = ({
               <Button
                 onClick={() => {
                   handleEditMode(true);
+                  handleFormType("edit")
                 }}
                 endIcon={<EditIcon />}
               >

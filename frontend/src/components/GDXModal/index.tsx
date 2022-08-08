@@ -9,6 +9,7 @@ export const GDXModal = ({
   modalTitle,
   handleEditMode,
   editMode,
+  handleFormType,
 }: {
   children: JSX.Element;
   open: boolean;
@@ -16,6 +17,7 @@ export const GDXModal = ({
   modalTitle: string;
   handleEditMode: Function;
   editMode: boolean;
+  handleFormType: Function;
 }) => {
   const StyledModalBox = styled(Box)({
     position: "absolute",
@@ -33,23 +35,24 @@ export const GDXModal = ({
     padding: "20px",
   });
 
-  const StyledModal = styled(Modal)({
-    overflow: "overlay",
-  });
-
   return (
     <>
-      <StyledModal
+      <Modal
         open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         onClose={handleClose}
       >
         <StyledModalBox>
-          <FormHeader formTitle={modalTitle} handleEditMode={handleEditMode} editMode={editMode} />
+          <FormHeader
+            formTitle={modalTitle}
+            handleEditMode={handleEditMode}
+            editMode={editMode}
+            handleFormType={handleFormType}
+          />
           <StyledContentBox>{children}</StyledContentBox>
         </StyledModalBox>
-      </StyledModal>
+      </Modal>
     </>
   );
 };
