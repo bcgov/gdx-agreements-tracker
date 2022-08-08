@@ -11,6 +11,7 @@ export const useFormControls = () => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [currentRowData, setCurrentRowData] = useState<any>(undefined);
+  const [formType, setFormType] = useState("read");
 
   const handleOpen = () => {
     setOpen(true);
@@ -18,6 +19,10 @@ export const useFormControls = () => {
 
   const handleEditMode = (toggle: boolean) => {
     setEditMode(toggle);
+  };
+
+  const handleFormType = (formType: string) => {
+    setFormType(formType);
   };
 
   const handleClose = () => {
@@ -35,6 +40,8 @@ export const useFormControls = () => {
     handleOpen,
     handleClose,
     handleCurrentRowData,
+    handleFormType,
+    formType,
     open,
     editMode,
     currentRowData,

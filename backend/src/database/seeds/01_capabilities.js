@@ -99,6 +99,10 @@ const capabilities = [
     id: 25,
     name: "change_request_update_all",
   },
+  {
+    id: 26,
+    name: "change_request_add_one",
+  },
 ];
 
 exports.seed = (knex) => {

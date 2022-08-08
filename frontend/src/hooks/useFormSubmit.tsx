@@ -1,7 +1,7 @@
 import { Snackbar, Alert, AlertColor } from "@mui/material";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { IUseFormSubmitHandleSubmit } from "../types";
+import { IUseFormSubmitHandlePost, IUseFormSubmitHandleSubmit } from "../types";
 import { apiAxios } from "../utils";
 
 /**
@@ -36,7 +36,7 @@ export const useFormSubmit = () => {
     setSnackBarMessage(message);
   };
 
-  const handleOnSubmit = async ({
+  const handleUpdate = async ({
     changedValues,
     currentRowData,
     apiUrl,
@@ -74,6 +74,47 @@ export const useFormSubmit = () => {
       });
   };
 
+  const handlePost = async ({
+    formValues,
+    apiUrl,
+    handleEditMode,
+    queryKeys,
+  }: IUseFormSubmitHandlePost) => {
+    const formattedValues: {
+      [key: string]: boolean | string | null;
+    } = {};
+    for (const key in formValues) {
+      if (formValues[key] !== null) {
+        if (formValues[key].value) {
+          formattedValues[key] = formValues[key].value;
+        } else {
+          console.log("formValues[key]", formValues[key]);
+          formattedValues[key] = formValues[key];
+        }
+      } else {
+        formattedValues[key] = null;
+      }
+    }
+    console.log("formattedValues", formattedValues);
+    await apiAxios()
+      .post(apiUrl, formattedValues)
+      .then(() => {
+        // handleSnackBarMessage(`Changes saved successfully for ${changedValues.version}`);
+        handleSnackBar("success");
+        handleEditMode(false);
+        queryKeys.forEach((queryKey: string) => {
+          queryClient.invalidateQueries(queryKey);
+        });
+      })
+      .catch((err: string) => {
+        // handleSnackBarMessage(
+        //   `There was an issue saving your changes for ${changedValues.version}`
+        // );
+        handleSnackBar("error");
+        console.error("error:", err);
+      });
+  };
+
   const Notification = () => {
     return (
       <Snackbar open={showSnackBar} autoHideDuration={5000} onClose={handleCloseSnackBar}>
@@ -84,5 +125,5 @@ export const useFormSubmit = () => {
     );
   };
 
-  return { handleOnSubmit, Notification };
+  return { handlePost, handleUpdate, Notification };
 };
