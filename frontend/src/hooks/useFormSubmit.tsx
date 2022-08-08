@@ -88,14 +88,12 @@ export const useFormSubmit = () => {
         if (formValues[key].value) {
           formattedValues[key] = formValues[key].value;
         } else {
-          console.log("formValues[key]", formValues[key]);
           formattedValues[key] = formValues[key];
         }
       } else {
         formattedValues[key] = null;
       }
     }
-    console.log("formattedValues", formattedValues);
     await apiAxios()
       .post(apiUrl, formattedValues)
       .then(() => {
