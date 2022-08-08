@@ -37,7 +37,6 @@ export const ChangeRequest = () => {
     apiEndPoint: `/projects/${projectId}/change_request`,
     handleClick: handleOpen,
   });
-  
 
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
@@ -45,7 +44,6 @@ export const ChangeRequest = () => {
     const changeRequest = await apiAxios().get(
       `/projects/${projectId}/change_request/${currentRowData?.id}`
     );
-    console.log('changeRequest', changeRequest)
     return changeRequest.data.data[0];
   };
 

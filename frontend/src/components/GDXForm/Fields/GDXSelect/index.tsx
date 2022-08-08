@@ -22,11 +22,7 @@ export const GDXSelect: FC<IPickerProps> = ({ fieldValue, setFieldValue, pickerD
           }}
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
-            <TextField
-              label={pickerData?.title}
-              name={pickerData?.name}
-              {...params}
-            />
+            <TextField label={pickerData?.title} name={pickerData?.name} {...params} />
           )}
         />
       )}

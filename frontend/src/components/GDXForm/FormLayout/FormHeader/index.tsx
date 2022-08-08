@@ -54,7 +54,7 @@ export const FormHeader = ({
               <Button
                 onClick={() => {
                   handleEditMode(true);
-                  handleFormType("edit")
+                  handleFormType("edit");
                 }}
                 endIcon={<EditIcon />}
               >
