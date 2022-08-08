@@ -37,7 +37,6 @@ export const ChangeRequest = () => {
     apiEndPoint: `/projects/${projectId}/change_request`,
     handleClick: handleOpen,
   });
-  
 
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
@@ -45,7 +44,6 @@ export const ChangeRequest = () => {
     const changeRequest = await apiAxios().get(
       `/projects/${projectId}/change_request/${currentRowData?.id}`
     );
-    console.log('changeRequest', changeRequest)
     return changeRequest.data.data[0];
   };
 
@@ -75,12 +73,6 @@ export const ChangeRequest = () => {
   ];
 
   const editFields: IEditFields[] = [
-    // {
-    //   fieldName: "version",
-    //   fieldType: "singleText",
-    //   fieldLabel: "Version",
-    //   width: "half",
-    // },
     {
       fieldName: "fiscal_year",
       fieldType: "select",
@@ -164,7 +156,7 @@ export const ChangeRequest = () => {
         open={open}
         handleClose={handleClose}
         modalTitle={
-          formType === "new"
+          "new" === formType
             ? `New Change Request`
             : `Change Request ${changeRequestQuery?.data?.version}`
         }
@@ -177,10 +169,12 @@ export const ChangeRequest = () => {
             <ReadForm fields={readFields} />
           ) : (
             <>
-              {formType === "new" ? (
+              {"new" === formType ? (
                 <CreateForm
                   initialValues={createFormInitialValues}
-                  onSubmit={async (values: any) => {         
+                  // todo: Define a good type. "Any" type temporarily permitted.
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  onSubmit={async (values: any) => {
                     return handlePost({
                       formValues: values,
                       apiUrl: `/change_request`,

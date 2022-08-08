@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { IEditFields } from "types";
 import { CreateForm } from "../../../../frontend/src/components/CreateForm";
@@ -36,7 +36,7 @@ test("Render the Create form component", () => {
 });
 
 //test block
-test("Test submit button", () => {
+test("Submit button", () => {
   // render the component on virtual dom
   const { getByRole } = render(
     <QueryClientProvider client={queryClient}>
@@ -50,7 +50,7 @@ test("Test submit button", () => {
   expect(buttonTest).toEqual(true);
 });
 
-test("Test submit functionality", async () => {
-  const you = await onSubmit(); 
+test("Submit functionality", async () => {
+  const you = await onSubmit();
   expect(you).toEqual({ success: "success, your dummy item saved!" });
 });
