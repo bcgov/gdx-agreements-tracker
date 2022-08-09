@@ -87,7 +87,7 @@ export const FormInput = ({
             handleChange={handleChange as Function}
             fieldValue={fieldValue as { [key: string]: unknown }}
             setFieldValue={setFieldValue as Function}
-            pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
+            pickerData={pickerValues?.data?.pickers?.[tableName as string]?.[fieldName]}
           />
         </GridItem>
       );
