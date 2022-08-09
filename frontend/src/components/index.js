@@ -8,3 +8,4 @@ export { Sidebar } from "./Sidebar";
 export { DetailsList } from "./DetailsList";
 export { Table } from "./Table";
 export { GDXAccordion } from "./GDXAccordion";
+export { RadioSelect } from "./RadioSelect";
