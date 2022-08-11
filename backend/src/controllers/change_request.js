@@ -157,5 +157,4 @@ module.exports = {
   getOne,
   updateOne,
   addOne,
-  addOne,
 };
