@@ -8,6 +8,8 @@
  - Added test for CreateForm component 
  - Fixed any type errors for in-scope components 
  - Added new "Post" and "Edit" functions to useFormSubmit hook
+ - Added n-readlines as prod dependency
+
 
 - Backend
   - Added "addOne" function - used for posting a new Change Request(CR)
