@@ -7,7 +7,7 @@ import { Outlet, Link } from "react-router-dom";
 /**
  * The page component for the contract section of the application
  *
- * @return {JSX.Element} - Returns a Contracts component
+ * @returns {JSX.Element} - Returns a Contracts component
  */
 
 export const Contracts: FC = () => {

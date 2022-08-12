@@ -30,7 +30,7 @@ const findAll = () => {
     .leftJoin(fiscalYearTable, { "contract.fiscal": `${fiscalYearTable}.id` })
     .leftJoin(suppliersTable, { "contract.supplier_id": `${suppliersTable}.id` })
     .leftJoin(portfolioTable, { "contract.supplier_id": `${portfolioTable}.id` })
-    .leftJoin(projectTable, { "contract.project_id": `${projectTable}.id` })
+    .leftJoin(projectTable, { "contract.project_id": `${projectTable}.id` });
 };
 
 module.exports = {
