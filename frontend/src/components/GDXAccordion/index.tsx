@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material";
 import bcgovTheme from "../../bcgovTheme";
 
-export const GDX_Accordion = ({
+export const GDXAccordion = ({
   children,
   sectionTitle,
 }: {
