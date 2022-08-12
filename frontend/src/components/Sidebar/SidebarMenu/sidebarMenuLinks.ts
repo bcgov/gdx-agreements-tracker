@@ -4,6 +4,10 @@ export const sidebarMenuLinks = [
     url: "/projects",
   },
   {
+    name: "Contracts",
+    url: "/contracts",
+  },
+  {
     name: "Administration Forms",
     items: [
       {

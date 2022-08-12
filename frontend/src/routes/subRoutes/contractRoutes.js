@@ -7,7 +7,7 @@ const contractRoutes = [
   <Route key="contracts" path="/contracts" element={<ProtectedRoute component={Contracts} />} />,
   <Route
     key="contractId"
-    path="/contracts:contractId"
+    path="/contracts/:contractId"
     element={<ProtectedRoute component={Contract} />}
   />,
   <Route

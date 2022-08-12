@@ -8,10 +8,10 @@ import { IEditFields } from "../../types";
 /**
  * A reusable component used for when you need a create form.
  *
- * @param {object} props - Contains all the initial values for Formik to use.
+ * @param {object}   props               - Contains all the initial values for Formik to use.
  * @param {object[]} props.initialValues - Contains all the initial values for Formik to use.
- * @param {Function} props.onSubmit - Handles the submit functionality for the form.
- * @param {object[]} props.editFields - The field properties used to render the fields for an edit form.
+ * @param {Function} props.onSubmit      - Handles the submit functionality for the form.
+ * @param {object[]} props.editFields    - The field properties used to render the fields for an edit form.
  */
 
 export const CreateForm = ({
