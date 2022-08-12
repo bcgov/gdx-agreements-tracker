@@ -1,10 +1,16 @@
 ## Developer Changelog
 ### August 12, 2022 (DESCW-67)
 - Frontend
- - 
+ - Added react router for contracts 
+ - Added link for contracts to sidebar menu and connected it to react router
+ - Added contracts page with 
+ - connected contracts MUI table to contracts API to use real data
+ - Resolved old linter warnings
 
 - Backend
-  - 
+  - Added controller, model, route, validator for contracts
+  - Added new capabilities "contracts_read_mine", "contracts_read_all"
+
 
 
 
