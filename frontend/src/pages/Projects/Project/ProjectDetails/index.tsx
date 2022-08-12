@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { FormLayout } from "../../../../components/GDXForm";
-import { GDX_Accordion } from "../../../../components/GDX_Accordion";
+import { GDXAccordion } from "../../../../components/GDXAccordion";
 import { apiAxios } from "../../../../utils";
 import { AgreementSection } from "./AgreementSection";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
@@ -46,7 +46,7 @@ export const ProjectDetails = () => {
                   {({ setFieldValue, values, handleChange, dirty }) => {
                     return (
                       <Form>
-                        <GDX_Accordion sectionTitle="Project Registration">
+                        <GDXAccordion sectionTitle="Project Registration">
                           <ProjectRegistrationSection
                             query={projectQuery}
                             handleChange={handleChange}
@@ -54,8 +54,8 @@ export const ProjectDetails = () => {
                             setFieldValue={setFieldValue}
                             dirty={dirty}
                           />
-                        </GDX_Accordion>
-                        <GDX_Accordion sectionTitle="Agreement">
+                        </GDXAccordion>
+                        <GDXAccordion sectionTitle="Agreement">
                           <AgreementSection
                             query={projectQuery}
                             handleChange={handleChange}
@@ -63,7 +63,7 @@ export const ProjectDetails = () => {
                             setFieldValue={setFieldValue}
                             dirty={dirty}
                           />
-                        </GDX_Accordion>
+                        </GDXAccordion>
                       </Form>
                     );
                   }}
