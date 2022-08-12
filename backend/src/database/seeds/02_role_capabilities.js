@@ -32,7 +32,7 @@ const roles = [
       "change_request_update_all",
       "change_request_add_one",
       "contracts_read_mine",
-      "contracts_read_all"
+      "contracts_read_all",
     ],
   },
   {

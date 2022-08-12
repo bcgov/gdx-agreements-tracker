@@ -110,7 +110,7 @@ const capabilities = [
   {
     id: 28,
     name: "contracts_read_mine",
-  }, 
+  },
 ];
 
 exports.seed = (knex) => {
