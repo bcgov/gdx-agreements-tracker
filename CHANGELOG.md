@@ -1,4 +1,12 @@
 ## Developer Changelog
+### August 12, 2022 (DESCW-67)
+- Frontend
+ - 
+
+- Backend
+  - 
+
+
 
 ### August 8, 2022 (DESCW-420)
 - Frontend

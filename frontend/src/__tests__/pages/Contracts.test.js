@@ -1,23 +1,43 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import contractRoutes from "../../routes/subRoutes/contractRoutes";
-import { MemoryRouter, Routes } from "react-router-dom";
-import { Contracts } from "../../pages";
-import { shallow } from "enzyme";
 
+import { render, fireEvent, screen } from "@testing-library/react";
+import contractRoutes from "../../routes/subRoutes/contractRoutes";
+import { MemoryRouter, Routes, Router } from "react-router-dom";
+import { Contracts } from "../../pages";
+import { createMemoryHistory } from "history";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+// Create a client
+const queryClient = new QueryClient();
 //Mock keycloak.
 jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
 
 describe("<Contracts /> routing", () => {
-  it("renders Contracts page when '/admin' is hit", () => {
-    render(
-      <MemoryRouter initialEntries={["/contracts"]}>
-        <Routes key="main">{contractRoutes}</Routes>
-      </MemoryRouter>
+  it("renders Contracts page when '/contracts' is hit", () => {
+    const { container } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={["/contracts"]}>
+          <Routes key="main">{contractRoutes}</Routes>
+        </MemoryRouter>
+      </QueryClientProvider>
     );
-    const wrapper = shallow(<Contracts />);
-    expect(wrapper.exists()).toBe(true);
+    expect(container).not.toBeEmptyDOMElement();
+  });
+
+  it("should redirect and update history", () => {
+    const history = createMemoryHistory();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router location={history.location} navigator={history}>
+          <Contracts />
+        </Router>
+      </QueryClientProvider>
+    );
+
+    fireEvent.click(screen.getByText(/New Contract/i));
+    expect(history.location.pathname).toEqual("/contracts/new");
   });
 });

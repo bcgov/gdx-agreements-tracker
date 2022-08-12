@@ -4,8 +4,8 @@ import { IPickerProps } from "../../../../types";
 
 /**
  *
- * @param {{fieldValue:unknown, setFieldValue:Function, pickerData:unknown}}
- * @returns a JSX select
+ * @param   {{fieldValue:unknown, setFieldValue:Function, pickerData:unknown}}
+ * @returns                                                                    a JSX select
  */
 
 export const GDXSelect: FC<IPickerProps> = ({ fieldValue, setFieldValue, pickerData }) => {
