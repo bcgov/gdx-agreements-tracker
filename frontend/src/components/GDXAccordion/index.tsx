@@ -30,9 +30,11 @@ export const GDXAccordion = ({
   return (
     <StyledAccordion defaultExpanded>
       <StyledAccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        expandIcon={<ExpandMoreIcon />} 
+        aria-controls="panela-content"
+        id="panela-header"
+        aria-label="button"
+        aria-expanded="false"
       >
         <StyledSectionHeader>{sectionTitle}</StyledSectionHeader>
       </StyledAccordionSummary>

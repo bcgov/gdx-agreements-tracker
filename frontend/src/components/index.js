@@ -7,3 +7,4 @@ export { RowEditDeleteChip } from "./RowEditDeleteChip";
 export { Sidebar } from "./Sidebar";
 export { DetailsList } from "./DetailsList";
 export { Table } from "./Table";
+export { GDXAccordion } from "./GDXAccordion";
