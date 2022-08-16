@@ -20,8 +20,8 @@ const StyledButtonLayout = styled(FormControl)({
 
 /**
  *
- * @param {{formTitle: string,handleEditMode: Function,editMode: boolean}}
- * @returns a JSX header that can be used on any form
+ * @param   {{formTitle: string,handleEditMode: Function,editMode: boolean}}
+ * @returns                                                                  a JSX header that can be used on any form
  */
 
 export const FormHeader = ({

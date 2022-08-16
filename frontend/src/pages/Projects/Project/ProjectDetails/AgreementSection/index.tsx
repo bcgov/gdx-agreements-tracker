@@ -19,8 +19,8 @@ const StyledBox = styled("div")({
 /**
  * Checks to see if a user access a route based on the allowedRole.
  *
- * @param   {IProjectFormProps} {} request object, which should have the user capability via the fastify-roles plugin.
- * @returns {React.ReactElement}       The agreements section form component
+ * @param   {IProjectFormProps}  {} request object, which should have the user capability via the fastify-roles plugin.
+ * @returns {React.ReactElement}    The agreements section form component
  */
 
 export const AgreementSection = ({
