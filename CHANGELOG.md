@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### August 16, 2022 (DESCW-505)
+- Frontend
+ - Added test for GDX Accordion
+
 ### August 8, 2022 (DESCW-420)
 - Frontend
  - Created new reusable component called "CreatForm"
