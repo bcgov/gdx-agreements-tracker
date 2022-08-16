@@ -38,7 +38,7 @@ export const ProjectDetails = () => {
         switch (editMode) {
           case false:
           default:
-            // return <div>View Mode Form</div>;
+          return <div>View Mode Form</div>;
           case true:
             return (
               <FormLayout>
