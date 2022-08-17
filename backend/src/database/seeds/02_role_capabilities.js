@@ -34,7 +34,7 @@ const roles = [
       "contracts_read_mine",
       "contracts_read_all",
       "project_status_read_all",
-      "project_status_read_mine"
+      "project_status_read_mine",
     ],
   },
   {

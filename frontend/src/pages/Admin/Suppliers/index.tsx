@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { LinearProgress, Typography } from "@mui/material";
 import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
 import { Renderer } from "components/Renderer";
@@ -44,15 +43,7 @@ export const Suppliers: FC = () => {
   });
 
   return (
-    <>
-      {/* <Typography variant="h5" component="h2">
-        Suppliers
-      </Typography>
-      {!isLoading ? (
-        <Table columns={data.columns} rows={data.rows} loading={isLoading} onRowClick={()=>{return}}/>
-      ) : (
-        <LinearProgress />
-      )} */}
+    <> 
       <Renderer
         isLoading={isLoading}
         component={
