@@ -38,12 +38,7 @@ export const ProjectDetails = () => {
         switch (editMode) {
           case false:
           default:
-            return (
-            <div>
-                
-                <GDXAccordion sectionTitle="test"><div>abc</div></GDXAccordion>
-            </div>
-            );
+            return <div>View Mode Form</div>;
           case true:
             return (
               <FormLayout>

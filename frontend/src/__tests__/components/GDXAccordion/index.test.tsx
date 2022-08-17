@@ -19,7 +19,7 @@ describe("Layout GDXAccordion", () => {
 
   });
 
-  it("button click .", async () => {
+  it("button click .", () => {
     render(
       <GDXAccordion sectionTitle={"testSection"}>
         <div>testChild component</div>
