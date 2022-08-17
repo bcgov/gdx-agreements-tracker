@@ -1,7 +1,7 @@
 import React from "react";
 import { GDXAccordion } from "../../../components";
 import { render, screen, waitFor } from "@testing-library/react";
-import  UserEvent  from "@testing-library/user-event";
+import  userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { SmartScreenTwoTone } from "@mui/icons-material";
 
@@ -15,14 +15,22 @@ describe("Layout GDXAccordion", () => {
         wrapper: MemoryRouter,
       }
     );
-
     expect(container).not.toBeEmptyDOMElement();
-    await waitFor(() => UserEvent.click(screen.getByRole("button")));
-    expect(
-      screen.findByRole("button", {
-        expanded: true,
-      })
 
-    ).toBeTruthy();
+  });
+
+  it("button click .", async () => {
+    render(
+      <GDXAccordion sectionTitle={"testSection"}>
+        <div>testChild component</div>
+      </GDXAccordion>,
+      {
+        wrapper: MemoryRouter,
+      }
+    );
+    expect(screen.getByRole("button", {expanded: true, name: /button/i})).toBeTruthy();
+    userEvent.click(screen.getByRole("button"))
+    expect(screen.getByRole("button", {expanded: false, name: /button/i})).toBeTruthy();
+
   });
 });
