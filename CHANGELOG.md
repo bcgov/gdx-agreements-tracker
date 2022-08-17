@@ -1,47 +1,52 @@
 ## Developer Changelog
-### August 12, 2022 (DESCW-67)
+### August 17, 2022 (DESCW-484)
+
+- Backend
+- Added api routes f
+
+
+### August 16, 2022 (DESCW-505)
+
 - Frontend
- - Added react router for contracts 
- - Added link for contracts to sidebar menu and connected it to react router
- - Added contracts page with 
- - connected contracts MUI table to contracts API to use real data
- - Resolved old linter warnings
+- Added test for GDX Accordion
+
+### August 12, 2022 (DESCW-67)
+
+- Frontend
+- Added react router for contracts
+- Added link for contracts to sidebar menu and connected it to react router
+- Added contracts page with
+- connected contracts MUI table to contracts API to use real data
+- Resolved old linter warnings
 
 - Backend
   - Added controller, model, route, validator for contracts
   - Added new capabilities "contracts_read_mine", "contracts_read_all"
 
-
-
-
-### August 16, 2022 (DESCW-505)
-- Frontend
- - Added test for GDX Accordion
-
 ### August 8, 2022 (DESCW-420)
-- Frontend
- - Created new reusable component called "CreatForm"
- - Fixed layout issues on all forms
- - Added new Form Type state which allows for switching between edit and new forms types
- - Added test for CreateForm component 
- - Fixed any type errors for in-scope components 
- - Added new "Post" and "Edit" functions to useFormSubmit hook
- - Added n-readlines as prod dependency
 
+- Frontend
+- Created new reusable component called "CreatForm"
+- Fixed layout issues on all forms
+- Added new Form Type state which allows for switching between edit and new forms types
+- Added test for CreateForm component
+- Fixed any type errors for in-scope components
+- Added new "Post" and "Edit" functions to useFormSubmit hook
+- Added n-readlines as prod dependency
 
 - Backend
   - Added "addOne" function - used for posting a new Change Request(CR)
   - Added new capability "change_request_add_one"
 
-
 ### July 28, 2022 (DESCW-419)
 
 - Frontend
+
   - Created reusable edit form component
   - Updated variables in reusable components to be more readable
   - Added check role exists hook
   - Added check role condition for cr form edit button
-  - Created reusable read form 
+  - Created reusable read form
   - Created useFormSubmit hook for handling form submissions
   - Added more type definitions to types.d.ts
 
@@ -52,8 +57,6 @@
   - Added new "generic" grouping for picker options
   - Added filters to cr model
   - Added cr id in response for cr validator
-  
-
 
 ### July 12, 2022 (DESCW-484)
 
