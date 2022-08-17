@@ -2,7 +2,7 @@
 ### August 17, 2022 (DESCW-484)
 
 - Backend
-- Added api routes f
+  -  Added controller, model, route, validator for project status summary    
 
 
 ### August 16, 2022 (DESCW-505)
