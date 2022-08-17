@@ -45,13 +45,13 @@ export const Contacts: FC = () => {
 
   return (
     <>
+      <Typography variant="h5" component="h2">
+        Contacts
+      </Typography>
       <Renderer
         isLoading={isLoading}
         component={
           <>
-            <Typography variant="h5" component="h2">
-              Contacts
-            </Typography>
             <Table
               columns={data?.columns}
               rows={data?.rows}
