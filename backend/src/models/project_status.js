@@ -11,7 +11,7 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (projectStatusId) => {
-  return db(getFromView).where("id", projectStatusId);
+  return db(table).where("id", projectStatusId);
 };
 
 module.exports = {
