@@ -34,7 +34,7 @@ export const GDXAccordion = ({
         aria-controls="panela-content"
         id="panela-header"
         aria-label="button"
-        role="accordion button"
+        role="button accordion"
       >
         <StyledSectionHeader>{sectionTitle}</StyledSectionHeader>
       </StyledAccordionSummary>
