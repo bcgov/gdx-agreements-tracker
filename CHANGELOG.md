@@ -1,4 +1,8 @@
 ## Developer Changelog
+### August 17, 2020 (DESCW-538)
+- Frontend
+  - Resources view modal
+
 ### August 12, 2022 (DESCW-67)
 - Frontend
  - Added react router for contracts 
