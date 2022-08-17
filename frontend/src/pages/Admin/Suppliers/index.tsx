@@ -1,48 +1,15 @@
 import React, { FC } from "react";
 import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
-import { Renderer } from "components/Renderer";
-import { useFormControls } from "hooks/useFormControls";
-import { GDXModal } from "components/GDXModal";
-import { apiAxios } from "utils";
-import { useQuery } from "react-query";
 
 export const Suppliers: FC = () => {
-  const {
-    handleEditMode,
-    handleOpen,
-    handleClose,
-    handleCurrentRowData,
-    handleFormType,
-    formType,
-    open,
-    editMode,
-    currentRowData,
-  } = useFormControls();
-
   const { data, isLoading } = useFormatTableData({
     tableName: "suppliers",
     apiEndPoint: "suppliers",
-    handleClick: handleOpen,
-  });
-
-  const getSuppliers = async () => {
-    const suppliers = await apiAxios().get(`/suppliers/${currentRowData?.id}`);
-    return suppliers.data.data[0];
-  };
-
-  // Queries
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const suppliersQuery: any = useQuery(`change_request - ${currentRowData?.id}`, getSuppliers, {
-    refetchOnWindowFocus: false,
-    retryOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: Infinity,
   });
 
   return (
+<<<<<<< HEAD
     <> 
       <Renderer
         isLoading={isLoading}
@@ -71,6 +38,17 @@ export const Suppliers: FC = () => {
       >
         <div>test</div>
       </GDXModal>
+=======
+    <>
+      <Typography variant="h5" component="h2">
+        Suppliers
+      </Typography>
+      {!isLoading ? (
+        <Table columns={data.columns} rows={data.rows} loading={isLoading} />
+      ) : (
+        <LinearProgress />
+      )}
+>>>>>>> parent of 62f5c17 (suppliers example)
     </>
   );
 };
