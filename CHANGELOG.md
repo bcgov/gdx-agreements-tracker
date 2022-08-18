@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### August 18, 2022 (DESCW-457)
+- Frontend
+  - Subcontractors view modal
+
 ### August 17, 2022 (DESCW-457)
 - Frontend
   - Added Reports navigation and report selector
