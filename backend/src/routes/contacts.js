@@ -1,4 +1,5 @@
 const controller = require("../controllers/contacts");
+const validators = require("../validators/contacts")
 const what = "contacts";
 
 const routes = [
@@ -6,6 +7,22 @@ const routes = [
     method: "GET",
     url: `/${what}`,
     handler: controller.getAll,
+  },
+  {
+    method: "GET",
+    url: `/${what}/:id`,
+    schema: validators.getOneValidator,
+    handler: controller.getOne,
+  },
+  {
+    method: "PUT",
+    url: `/${what}/:id`,
+    handler: controller.updateOne,
+  },
+  {
+    method: "POST",
+    url: `/${what}`,
+    handler: controller.addOne,
   },
 ];
 
