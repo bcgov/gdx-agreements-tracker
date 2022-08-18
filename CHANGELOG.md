@@ -1,18 +1,27 @@
 ## Developer Changelog
+
 ### August 17, 2022 (DESCW-457)
 - Frontend
   - Added Reports navigation and report selector
 
-### August 17, 2022 (DESCW-484)
+### August 17, 2020 (DESCW-538)
 
+- Frontend
+  - Resources view modal
 - Backend
-  -  Added controller, model, route, validator for project status summary    
+  - Added controller, model, route, validator for project status summary
+
+  - Requires
+    - `npx knex --specific=01_capabilities.js seed:run`
+    - `npx knex --specific=02_role_capabilities.js seed:run`
+  - Updated Resources (controller, model)
+  - Added controller, model, route, validator for project status summary
 
 ### August 16, 2022 (DESCW-505)
 - Frontend
 - Added test for GDX Accordion
 
-### August 12, 2022 (DESCW-67)
+### August 12, 2022 (DESCW-67)(DESCW-536)
 
 - Frontend
 - Added react router for contracts
@@ -20,6 +29,7 @@
 - Added contracts page with
 - connected contracts MUI table to contracts API to use real data
 - Resolved old linter warnings
+- Add Modal functionality to Suppliers page
 
 - Backend
   - Added controller, model, route, validator for contracts

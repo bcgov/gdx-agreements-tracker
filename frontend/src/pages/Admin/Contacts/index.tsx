@@ -28,14 +28,14 @@ export const Contacts: FC = () => {
   });
 
   const getContacts = async () => {
-    const contacts = await apiAxios().get(`contacts·-·${currentRowData?.id}`);
+    const contacts = await apiAxios().get(`/contacts/${currentRowData?.id}`);
     return contacts.data.data[0];
   };
 
   // Queries
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const contactsQuery: any = useQuery(`contacts·-·${currentRowData?.id}`, getContacts, {
+  const contactsQuery: any = useQuery(`contacts - ${currentRowData?.id}`, getContacts, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,
@@ -45,13 +45,13 @@ export const Contacts: FC = () => {
 
   return (
     <>
+      <Typography variant="h5" component="h2">
+        Contacts
+      </Typography>
       <Renderer
         isLoading={isLoading}
         component={
           <>
-            <Typography variant="h5" component="h2">
-              Contacts
-            </Typography>
             <Table
               columns={data?.columns}
               rows={data?.rows}
