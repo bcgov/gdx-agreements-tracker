@@ -1,12 +1,14 @@
 ## Developer Changelog
+### August 17, 2022 (DESCW-457)
+- Frontend
+  - Added Reports navigation and report selector
+
 ### August 17, 2022 (DESCW-484)
 
 - Backend
   -  Added controller, model, route, validator for project status summary    
 
-
 ### August 16, 2022 (DESCW-505)
-
 - Frontend
 - Added test for GDX Accordion
 
