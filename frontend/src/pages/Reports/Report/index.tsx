@@ -1,7 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import { ChipNav } from "../../../components/GDXForm/ChipNav";
 
 /**
  * This reusable component renders the projects component

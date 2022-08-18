@@ -192,3 +192,88 @@ export interface IEditFields {
   width: "half" | "full";
   tableName?: string;
 }
+
+export interface IRadioGroup {
+  name: string;
+  formLabel: string;
+  defaultValue: string;
+  options: {
+    parent: string | null;
+    value: string;
+    label: string;
+  }[];
+}
+
+export interface IRadioButton {
+  parent: string | null;
+  value: string;
+  label: string;
+}
+[];
+
+export interface ICheckbox {
+  id: string;
+  label: string;
+  input: string;
+  defaultValue: string;
+  parents: string[];
+  options: { value: string; label: string }[];
+}
+
+export interface IDate {
+  parents: string[];
+  id: string;
+  label: string;
+  input: string;
+  defaultValue: string;
+  options: { value: string; label: string }[];
+}
+
+export interface ISelect {
+  id: string;
+  label: string;
+  input: string;
+  defaultValue: string;
+  parents: string[];
+  options: { value: string; label: string }[];
+}
+
+export interface IDescription {
+  name: string;
+  formLabel: string;
+  options: { id: number; value: string; parent: string }[];
+}
+
+export interface IData {
+  isLoading: boolean;
+  reportCategory: {
+    name: string;
+    formLabel: string;
+    defaultValue: string;
+    options: {
+      parent: string | null;
+      value: string;
+      label: string;
+    }[];
+  };
+  reportType: {
+    name: string;
+    formLabel: string;
+    defaultValue: string;
+    options: {
+      parent: string;
+      value: string;
+      label: string;
+    }[];
+  };
+  reportParameters: {
+    name: string;
+    formLabel: string;
+    components: Array<ISelect | IDate | ICheckbox>;
+  };
+  reportDescription: {
+    name: string;
+    formLabel: string;
+    options: { id: number; value: string; parent: string }[];
+  };
+}
