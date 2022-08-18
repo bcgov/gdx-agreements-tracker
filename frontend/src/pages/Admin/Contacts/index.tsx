@@ -33,13 +33,22 @@ export const Contacts: FC = () => {
   });
 
   const getContact = async () => {
-    const contact = await apiAxios().get(
-      `/contacts/${currentRowData?.id}`
-    );
-    return contact.data.data[0];
+    if (currentRowData?.id) {
+      const contacts = await apiAxios().get(`/contacts/${currentRowData?.id}`);
+      // Replaces createFormInitialValues with values from contacts if contacts has a non-null value for that property.
+      const ret = Object.assign(
+        {},
+        createFormInitialValues,
+        Object.fromEntries(
+          Object.entries(contacts.data.data[0]).filter(([, value]) => value !== null)
+        )
+      );
+      return ret;
+    }
+    return null;
   };
 
-  const { handlePost, handleUpdate, Notification } = useFormSubmit();
+  const { handlePost, handleUpdate } = useFormSubmit();
 
   // Queries
   // todo: Define a good type. "Any" type temporarily permitted.
@@ -173,22 +182,18 @@ export const Contacts: FC = () => {
       <Renderer
         isLoading={isLoading}
         component={
-          <>
-            <Table
-              columns={data?.columns}
-              rows={data?.rows}
-              loading={isLoading}
-              onRowClick={handleCurrentRowData}
-            />
-          </>
+          <Table
+            columns={data?.columns}
+            rows={data?.rows}
+            loading={isLoading}
+            onRowClick={handleCurrentRowData}
+          />
         }
       />
       <GDXModal
         open={open}
         handleClose={handleClose}
-        modalTitle={
-          "new" === formType ? `New Contact` : `Change Contact ${contactQuery?.data?.id}`
-        }
+        modalTitle={"new" === formType ? `New Contact` : `Change Contact ${contactQuery?.data?.id}`}
         handleEditMode={handleEditMode}
         editMode={editMode}
         handleFormType={handleFormType}
@@ -222,10 +227,7 @@ export const Contacts: FC = () => {
                       currentRowData: contactQuery?.data,
                       apiUrl: `contacts/${contactQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [
-                        `contact - ${currentRowData?.id}`,
-                        `contacts`,
-                      ],
+                      queryKeys: [`contact - ${currentRowData?.id}`, `contacts`],
                     });
                   }}
                   editFields={editFields}
