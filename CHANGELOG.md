@@ -2,6 +2,10 @@
 
 ### August 17, 2022 (DESCW-457)
 - Frontend
+  - Subcontractors view modal
+
+### August 17, 2022 (DESCW-457)
+- Frontend
   - Added Reports navigation and report selector
 
 ### August 17, 2020 (DESCW-538)
