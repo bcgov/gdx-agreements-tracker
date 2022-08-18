@@ -50,6 +50,98 @@ const getAll = async (request, reply) => {
   }
 };
 
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+ const getOne = async (request, reply) => {
+  if (
+    userCan(request, "contacts_read_all") ||
+    (userCan(request, "contacts_read_mine") && checkMine(request))
+  ) {
+    const contactId = Number(request.params.id);
+    try {
+      const result = await Model.findById(Number(contactId));
+      if (!result || !result.length) {
+        reply.code(404);
+        return { message: `The ${what.single} with the specified id does not exist.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem looking up this ${what.single}.` };
+    }
+  } else {
+    log.trace('user lacks capability "contacts_read_all" || "contacts_read_mine"');
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Update an item by ID. Use passed info from the request body.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const updateOne = async (request, reply) => {
+  if (
+    userCan(request, "contacts_update_all") ||
+    (userCan(request, "contacts_update_one") && checkMine(request))
+  ) {
+    try {
+      const result = await Model.updateOne(request.body, request.params.id);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be updated.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      console.error("err", err);
+      return { message: `There was a problem updating this ${what.single}. Error:${err}` };
+    }
+  } else {
+    log.trace('user lacks capability "contacts_update_all" || "contacts_update_mine"');
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Add an item based on request body info.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const addOne = async (request, reply) => {
+  if (userCan(request, "contacts_add_one")) {
+    try {
+      const result = await Model.addOne(request.body);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be added.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem adding this ${what.single}.`, error: err };
+    }
+  } else {
+    log.trace('user lacks capability "contacts_add_one"');
+    return notAllowed(reply);
+  }
+};
+
 module.exports = {
   getAll,
+  getOne,
+  updateOne,
+  addOne,
 };
