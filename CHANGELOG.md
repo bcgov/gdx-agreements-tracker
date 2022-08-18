@@ -1,4 +1,8 @@
 ## Developer Changelog
+### August 17, 2022 (DESCW-457)
+- Frontend
+  - Added Reports navigation and report selector
+
 ### August 12, 2022 (DESCW-67)
 - Frontend
  - Added react router for contracts 
