@@ -3,7 +3,7 @@
 ### August 17, 2022 (DESCW-484)
 
 - Backend
-  -  Added controller, model, route, validator for project status summary    
+  - Added controller, model, route, validator for project status summary
 
 ### August 16, 2022 (DESCW-505)
 
@@ -22,8 +22,7 @@
 
 - Backend
   - Added controller, model, route, validator for contracts
-  - Added new capabilities "contracts_read_mine", "contracts_read_all"  
-
+  - Added new capabilities "contracts_read_mine", "contracts_read_all"
 
 ### August 8, 2022 (DESCW-420)
 
