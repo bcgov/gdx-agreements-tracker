@@ -24,7 +24,22 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (id) => {
-  return db(table).where("id", id);
+  return db
+    .select(
+      "resource.id",
+      "resource.resource_last_name",
+      "resource.resource_first_name",
+      "resource.supplier_id",
+      "supplier.supplier_name",
+      "resource.subcontractor_id",
+      "subcontractor.subcontractor_name",
+      db.raw("TO_CHAR(resource.created_date :: DATE, 'dd-MON-yyyy') as created_date_formatted"),
+      "resource.created_date"
+    )
+    .from(table)
+    .leftJoin(supplierTable, { "resource.supplier_id": `${supplierTable}.id` })
+    .leftJoin(subcontractorTable, { "resource.subcontractor_id": `${subcontractorTable}.id` })
+    .where("resource.id", id);
 };
 
 // Update one.

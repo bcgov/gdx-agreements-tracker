@@ -55,12 +55,11 @@ export const Resources: FC = () => {
   });
 
   const readFields = [
-    { width: "half", title: "Supplier", value: resourcesQuery?.data?.supplier_id },
-    { width: "half", title: "Subcontractor", value: resourcesQuery?.data?.subcontractor_id },
+    { width: "half", title: "Supplier", value: resourcesQuery?.data?.supplier_name },
+    { width: "half", title: "Subcontractor", value: resourcesQuery?.data?.subcontractor_name },
     { width: "half", title: "First Name", value: resourcesQuery?.data?.resource_first_name },
     { width: "half", title: "Last Name", value: resourcesQuery?.data?.resource_last_name },
-    { width: "half", title: "Create Date", value: resourcesQuery?.data?.created_date },
-    { width: "half", title: "User", value: resourcesQuery?.data?.user_id },
+    { width: "half", title: "Create Date", value: resourcesQuery?.data?.created_date_formatted },
   ];
 
   const editFields: IEditFields[] = [
