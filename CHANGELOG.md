@@ -2,6 +2,11 @@
 ### August 17, 2020 (DESCW-538)
 - Frontend
   - Resources view modal
+- Backend
+  - Requires 
+    - `npx knex --specific=01_capabilities.js seed:run`
+    - `npx knex --specific=02_role_capabilities.js seed:run`
+  - Updated Resources (controller, model)
 
 ### August 12, 2022 (DESCW-67)
 - Frontend
