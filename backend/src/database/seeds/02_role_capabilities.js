@@ -35,6 +35,8 @@ const roles = [
       "change_request_add_one",
       "contracts_read_mine",
       "contracts_read_all",
+      "project_status_read_all",
+      "project_status_read_mine",
     ],
   },
   {
