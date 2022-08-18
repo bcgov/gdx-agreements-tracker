@@ -32,9 +32,11 @@ export const Contacts: FC = () => {
     handleClick: handleOpen,
   });
 
-  const getContacts = async () => {
-    const contacts = await apiAxios().get(`/contacts/${currentRowData?.id}`);
-    return contacts.data.data[0];
+  const getContact = async () => {
+    const contact = await apiAxios().get(
+      `/contacts/${currentRowData?.id}`
+    );
+    return contact.data.data[0];
   };
 
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
@@ -42,7 +44,7 @@ export const Contacts: FC = () => {
   // Queries
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const contactsQuery: any = useQuery(`contact - ${currentRowData?.id}`, getContacts, {
+  const contactQuery: any = useQuery(`contact - ${currentRowData?.id}`, getContact, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,
@@ -185,7 +187,7 @@ export const Contacts: FC = () => {
         open={open}
         handleClose={handleClose}
         modalTitle={
-          "new" === formType ? `New Contact` : `Change Contact ${contactsQuery?.data?.id}`
+          "new" === formType ? `New Contact` : `Change Contact ${contactQuery?.data?.id}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}
