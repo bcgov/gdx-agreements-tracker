@@ -22,4 +22,3 @@ export const Suppliers: FC = () => {
     </>
   );
 };
-Footer;
