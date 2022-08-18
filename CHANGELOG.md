@@ -1,17 +1,18 @@
 ## Developer Changelog
 
 ### August 17, 2020 (DESCW-538)
+
 - Frontend
   - Resources view modal
 - Backend
 
   - Added controller, model, route, validator for project status summary
 
-  - Requires 
+  - Requires
     - `npx knex --specific=01_capabilities.js seed:run`
     - `npx knex --specific=02_role_capabilities.js seed:run`
   - Updated Resources (controller, model)
-  -  Added controller, model, route, validator for project status summary    
+  - Added controller, model, route, validator for project status summary
 
 ### August 16, 2022 (DESCW-505)
 
