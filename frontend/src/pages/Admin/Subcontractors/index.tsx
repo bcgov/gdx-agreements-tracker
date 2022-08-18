@@ -113,7 +113,7 @@ export const Subcontractors: FC = () => {
   return (
     <>
       <Typography variant="h5" component="h2">
-        Resources
+        Subcontractors
       </Typography>
       <Renderer
         isLoading={isLoading}
