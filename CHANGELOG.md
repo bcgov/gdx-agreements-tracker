@@ -1,6 +1,6 @@
 ## Developer Changelog
 
-### August 17, 2022 (DESCW-457)
+### August 18, 2022 (DESCW-457)
 - Frontend
   - Subcontractors view modal
 
