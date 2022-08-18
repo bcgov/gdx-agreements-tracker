@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import adminRoutes from "../../../routes/subRoutes/adminRoutes";
 import { MemoryRouter, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
