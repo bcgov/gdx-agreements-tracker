@@ -10,7 +10,6 @@ on:
       - "!openshift/templates/api/docker/.dockerignore"
       - "!backend/docs"
       - "!backend/README.md"
-      - "!backend/src/**/README.md"
 
   workflow_dispatch:
 defaults:
