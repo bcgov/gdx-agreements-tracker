@@ -113,10 +113,18 @@ const capabilities = [
   },
   {
     id: 29,
-    name: "project_status_read_all",
+    name: "resources_update_all",
   },
   {
     id: 30,
+    name: "resources_update_mine",
+  },
+  {
+    id: 31,
+    name: "project_status_read_all",
+  },
+  {
+    id: 32,
     name: "project_status_read_mine",
   },
 ];

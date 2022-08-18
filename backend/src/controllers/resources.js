@@ -92,7 +92,39 @@ const getOne = async (request, reply) => {
   }
 };
 
+/**
+ * Update an item by ID. Use passed info from the request body.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const updateOne = async (request, reply) => {
+  if (
+    userCan(request, "resources_update_all") ||
+    (userCan(request, "resources_update_mine") && checkMine(request))
+  ) {
+    try {
+      const result = await Model.updateOne(request.body, request.params.id);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be updated.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      console.error("err", err);
+      return { message: `There was a problem updating this ${what.single}. Error:${err}` };
+    }
+  } else {
+    log.trace('user lacks capability "resources_update_all" || "resources_update_mine"');
+    return notAllowed(reply);
+  }
+};
+
 module.exports = {
   getAll,
   getOne,
+  updateOne,
 };
