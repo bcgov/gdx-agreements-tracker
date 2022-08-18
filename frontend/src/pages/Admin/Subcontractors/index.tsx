@@ -59,43 +59,25 @@ export const Subcontractors: FC = () => {
   );
 
   const readFields = [
-    { width: "half", title: "Supplier", value: subcontractorsQuery?.data?.supplier_id },
-    { width: "half", title: "Subcontractor", value: subcontractorsQuery?.data?.subcontractor_id },
-    { width: "half", title: "First Name", value: subcontractorsQuery?.data?.resource_first_name },
-    { width: "half", title: "Last Name", value: subcontractorsQuery?.data?.resource_last_name },
-    { width: "half", title: "Create Date", value: subcontractorsQuery?.data?.created_date },
-    { width: "half", title: "User", value: subcontractorsQuery?.data?.user_id },
+    { width: "half", title: "Id", value: subcontractorsQuery?.data?.id },
+    {
+      width: "half",
+      title: "Subcontractor Name",
+      value: subcontractorsQuery?.data?.subcontractor_name,
+    },
   ];
 
   const editFields: IEditFields[] = [
     {
-      fieldName: "supplier_id",
+      fieldName: "id",
       fieldType: "singleText",
-      fieldLabel: "Supplier",
+      fieldLabel: "Id",
       width: "half",
     },
     {
-      fieldName: "subcontractor_id",
+      fieldName: "subcontractor_name",
       fieldType: "singleText",
-      fieldLabel: "Subcontractor",
-      width: "half",
-    },
-    {
-      fieldName: "resource_first_name",
-      fieldType: "singleText",
-      fieldLabel: "First Name",
-      width: "half",
-    },
-    {
-      fieldName: "resource_last_name",
-      fieldType: "singleText",
-      fieldLabel: "Last Name",
-      width: "half",
-    },
-    {
-      fieldName: "user_id",
-      fieldType: "singleText",
-      fieldLabel: "User",
+      fieldLabel: "Name",
       width: "half",
     },
   ];
@@ -134,8 +116,8 @@ export const Subcontractors: FC = () => {
         handleClose={handleClose}
         modalTitle={
           "new" === formType
-            ? `New Change Request`
-            : `Change Request ${subcontractorsQuery?.data?.version}`
+            ? `New Subcontractor`
+            : `Subcontractor ${subcontractorsQuery?.data?.version}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}
@@ -154,9 +136,9 @@ export const Subcontractors: FC = () => {
                   onSubmit={async (values: any) => {
                     return handlePost({
                       formValues: values,
-                      apiUrl: `/resources`,
+                      apiUrl: `/subcontractors`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`"/resources/${subcontractorsQuery?.data?.id}"`],
+                      queryKeys: [`"/subcontractors/${subcontractorsQuery?.data?.id}"`],
                     });
                   }}
                   editFields={editFields}
@@ -168,9 +150,9 @@ export const Subcontractors: FC = () => {
                     return handleUpdate({
                       changedValues: values,
                       currentRowData: subcontractorsQuery?.data,
-                      apiUrl: `resources/${subcontractorsQuery?.data?.id}`,
+                      apiUrl: `subcontractors/${subcontractorsQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`resources - ${currentRowData?.id}`],
+                      queryKeys: [`subcontractors - ${currentRowData?.id}`],
                     });
                   }}
                   editFields={editFields}
