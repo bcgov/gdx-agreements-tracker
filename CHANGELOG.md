@@ -1,11 +1,16 @@
 ## Developer Changelog
 
-### August 12, 2022 (DESCW-536)
+### August 17, 2022 (DESCW-484)
+
+- Backend
+  -  Added controller, model, route, validator for project status summary    
+
+### August 16, 2022 (DESCW-505)
 
 - Frontend
-- Add Modal functionality to Suppliers page
+- Added test for GDX Accordion
 
-### August 12, 2022 (DESCW-67)
+### August 12, 2022 (DESCW-67)(DESCW-536)
 
 - Frontend
 - Added react router for contracts
@@ -13,15 +18,12 @@
 - Added contracts page with
 - connected contracts MUI table to contracts API to use real data
 - Resolved old linter warnings
+- Add Modal functionality to Suppliers page
 
 - Backend
   - Added controller, model, route, validator for contracts
-  - Added new capabilities "contracts_read_mine", "contracts_read_all"
+  - Added new capabilities "contracts_read_mine", "contracts_read_all"  
 
-### August 16, 2022 (DESCW-505)
-
-- Frontend
-- Added test for GDX Accordion
 
 ### August 8, 2022 (DESCW-420)
 
