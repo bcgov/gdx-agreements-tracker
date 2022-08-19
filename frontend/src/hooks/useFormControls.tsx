@@ -21,7 +21,7 @@ export const useFormControls = () => {
     setEditMode(toggle);
   };
 
-  const handleFormType = (formType: string) => {
+  const handleFormType = (formType: "edit" | "new") => {
     setFormType(formType);
   };
 
