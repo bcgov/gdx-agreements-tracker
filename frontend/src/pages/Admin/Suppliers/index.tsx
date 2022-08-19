@@ -106,6 +106,8 @@ export const Suppliers: FC = (): JSX.Element => {
     }
   );
 
+  console.log("suppliersQuery", suppliersQuery);
+
   const createFormInitialValues = {
     supplier_number: 0,
     site_number: "",
