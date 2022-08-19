@@ -6,6 +6,7 @@
  - Removed ability to view and edit subcontractor id.
 - Backend
  - Added subcontractors MVC and ability to edit in modal.
+ - Made adding roles more efficient. 
 
 ### August 18, 2022 (DESCW-539)
 - Frontend
