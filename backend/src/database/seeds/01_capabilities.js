@@ -127,6 +127,14 @@ const capabilities = [
     id: 32,
     name: "project_status_read_mine",
   },
+  {
+    id: 33,
+    name: "contacts_update_all",
+  },
+  {
+    id: 34,
+    name: "contacts_add_one",
+  },
 ];
 
 exports.seed = (knex) => {

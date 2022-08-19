@@ -15,6 +15,8 @@ const roles = [
       "users_update_all",
       "users_delete_all",
       "contacts_read_all",
+      "contacts_update_all",
+      "contacts_add_one",
       "suppliers_read_all",
       "subcontractors_read_all",
       "projects_read_all",
