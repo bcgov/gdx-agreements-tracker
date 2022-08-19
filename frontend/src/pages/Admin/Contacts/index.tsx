@@ -227,7 +227,7 @@ export const Contacts: FC = () => {
                       currentRowData: contactQuery?.data,
                       apiUrl: `contacts/${contactQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`contact - ${currentRowData?.id}`, `contacts`],
+                      queryKeys: [`contact - ${currentRowData?.id}`],
                     });
                   }}
                   editFields={editFields}
