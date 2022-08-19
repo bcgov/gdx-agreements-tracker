@@ -1,5 +1,11 @@
 ## Developer Changelog
 
+### August 18, 2022 (DESCW-539)
+- Frontend
+  - Contacts view/edit modal
+- Backend
+  - Added controller, model, and routes getOne(), updateOne(), addOne() for Contacts
+
 ### August 18, 2022 (DESCW-457)
 - Frontend
   - Subcontractors view modal
