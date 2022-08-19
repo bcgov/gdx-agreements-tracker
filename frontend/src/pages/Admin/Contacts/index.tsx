@@ -54,7 +54,9 @@ export const Contacts: FC = () => {
    * @param {any} values Edit/Create form values.
    * @returns {any}
    */
-  const serializeContact = (values) => {
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const serializeContact = (values: any) => {
     const serializedValues = values;
     if (values.ministry_id?.value) {
       serializedValues.ministry_id = values.ministry_id.value;
