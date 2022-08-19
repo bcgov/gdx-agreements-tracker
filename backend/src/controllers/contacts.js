@@ -26,6 +26,17 @@ const notAllowed = (reply) => {
 };
 
 /**
+ * For roles that might require only if mine, however this still needs to be implemented.
+ *
+ * @param   {FastifyRequest} request The request object
+ * @todo  Add functionality to call db to see if the owner is the current user.
+ * @returns {boolean}
+ */
+ const checkMine = (request) => {
+  return true;
+};
+
+/**
  * Get all items.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
@@ -57,7 +68,7 @@ const getAll = async (request, reply) => {
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
- const getOne = async (request, reply) => {
+const getOne = async (request, reply) => {
   if (
     userCan(request, "contacts_read_all") ||
     (userCan(request, "contacts_read_mine") && checkMine(request))

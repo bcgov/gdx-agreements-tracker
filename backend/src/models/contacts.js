@@ -6,14 +6,7 @@ const table = `${dbConnection.dataBaseSchemas().data}.contact`;
 
 // Get all.
 const findAll = () => {
-  return db(table).select(
-    "id",
-    "last_name",
-    "first_name",
-    "contact_title",
-    "ministry_id",
-    "notes"
-  );
+  return db(table).select("id", "last_name", "first_name", "contact_title", "ministry_id", "notes");
 };
 
 // Get specific one by id.
