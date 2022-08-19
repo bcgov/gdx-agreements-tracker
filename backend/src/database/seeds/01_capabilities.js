@@ -127,6 +127,18 @@ const capabilities = [
     id: 32,
     name: "project_status_read_mine",
   },
+  {
+    id: 33,
+    name: "subcontractors_read_mine",
+  },
+  {
+    id: 34,
+    name: "subcontractors_update_all",
+  },
+  {
+    id: 35,
+    name: "subcontractors_update_mine",
+  },
 ];
 
 exports.seed = (knex) => {

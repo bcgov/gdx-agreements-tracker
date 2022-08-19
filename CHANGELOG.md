@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+### August 19, 2022 (DESCW-547)
+- Frontend
+ - Improved subcontractor view and edit forms.
+ - Removed ability to view and edit subcontractor id.
+- Backend
+ - Added subcontractors MVC and ability to edit in modal.
+
 ### August 18, 2022 (DESCW-539)
 - Frontend
   - Contacts view/edit modal
