@@ -59,7 +59,6 @@ export const Subcontractors: FC = () => {
   );
 
   const readFields = [
-    //{ width: "half", title: "Id", value: subcontractorsQuery?.data?.id },
     {
       width: "half",
       title: "Subcontractor Name",
@@ -106,7 +105,7 @@ export const Subcontractors: FC = () => {
         modalTitle={
           "new" === formType
             ? `New Subcontractor`
-            : `Edit Subcontractor ${subcontractorsQuery?.data?.version}`
+            : `Edit Subcontractor ${subcontractorsQuery?.data?.subcontractor_name}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}
