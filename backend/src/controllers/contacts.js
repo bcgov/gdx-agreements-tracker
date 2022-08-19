@@ -32,7 +32,7 @@ const notAllowed = (reply) => {
  * @todo  Add functionality to call db to see if the owner is the current user.
  * @returns {boolean}
  */
- const checkMine = (request) => {
+const checkMine = (request) => {
   return true;
 };
 
