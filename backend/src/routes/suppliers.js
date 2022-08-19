@@ -7,6 +7,12 @@ const routes = [
     url: `/${what}`,
     handler: controller.getAll,
   },
+  {
+    method: "GET",
+    url: `/${what}/:supplierId`,
+    schema: validators.getOneValidator,
+    handler: controller.getOne,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {
