@@ -1,4 +1,4 @@
-const {AllCapabilities} = require("../AllCapabilities/index.ts");
+const { AllCapabilities } = require("../AllCapabilities/index.ts");
 
 const autoId = AllCapabilities.map((capability, index) => {
   return { id: index, name: capability };

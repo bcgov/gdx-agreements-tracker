@@ -1,4 +1,4 @@
-const {AllCapabilities} = require("../AllCapabilities/index.ts");
+const { AllCapabilities } = require("../AllCapabilities/index.ts");
 
 const roles = [
   {
