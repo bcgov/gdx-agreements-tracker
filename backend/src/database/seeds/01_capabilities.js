@@ -136,6 +136,7 @@ const capabilities = [
   },
   {
     id: 33,
+<<<<<<< HEAD
     name: "subcontractors_read_mine",
   },
   {
@@ -154,6 +155,14 @@ const capabilities = [
     id: 37,
     name: "contacts_update_all",
   },
+=======
+    name: "contacts_update_all",
+  },
+  {
+    id: 34,
+    name: "contacts_add_one",
+  },
+>>>>>>> 26a0c8b (Added contact add/update capabilities and role capabilities.)
 ];
 >>>>>>> 00ff177 (Added contact add/update capabilities and role capabilities.)
 
