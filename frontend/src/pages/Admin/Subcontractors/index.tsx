@@ -28,7 +28,7 @@ export const Subcontractors: FC = () => {
     currentRowData,
   } = useFormControls();
 
-  const { subcontractorId } = useParams();
+  const { subcontractorId, subcontractorName } = useParams();
 
   const { data, isLoading } = useFormatTableData({
     tableName: "subcontractors",
@@ -40,7 +40,7 @@ export const Subcontractors: FC = () => {
 
   const getSubcontractors = async () => {
     const subcontractors = await apiAxios().get(`/subcontractors/${currentRowData?.id}`);
-    return subcontractors.data.data[0];
+    return subcontractors.data.data;
   };
 
   // Queries
@@ -59,7 +59,7 @@ export const Subcontractors: FC = () => {
   );
 
   const readFields = [
-    { width: "half", title: "Id", value: subcontractorsQuery?.data?.id },
+    //{ width: "half", title: "Id", value: subcontractorsQuery?.data?.id },
     {
       width: "half",
       title: "Subcontractor Name",
@@ -69,12 +69,6 @@ export const Subcontractors: FC = () => {
 
   const editFields: IEditFields[] = [
     {
-      fieldName: "id",
-      fieldType: "singleText",
-      fieldLabel: "Id",
-      width: "half",
-    },
-    {
       fieldName: "subcontractor_name",
       fieldType: "singleText",
       fieldLabel: "Name",
@@ -83,13 +77,8 @@ export const Subcontractors: FC = () => {
   ];
 
   const createFormInitialValues = {
-    approval_date: null,
-    cr_contact: "",
-    fiscal_year: null,
-    initiated_by: null,
-    initiation_date: null,
-    link_id: Number(subcontractorId),
-    summary: "",
+    id: Number(subcontractorId),
+    subcontractor_name: subcontractorName,
   };
 
   return (
@@ -117,7 +106,7 @@ export const Subcontractors: FC = () => {
         modalTitle={
           "new" === formType
             ? `New Subcontractor`
-            : `Subcontractor ${subcontractorsQuery?.data?.version}`
+            : `Edit Subcontractor ${subcontractorsQuery?.data?.version}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}
@@ -152,7 +141,7 @@ export const Subcontractors: FC = () => {
                       currentRowData: subcontractorsQuery?.data,
                       apiUrl: `subcontractors/${subcontractorsQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`subcontractors - ${currentRowData?.id}`],
+                      queryKeys: [`subcontractors - ${currentRowData?.id}`, `subcontractors`],
                     });
                   }}
                   editFields={editFields}
