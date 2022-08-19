@@ -4,6 +4,8 @@ const AllCapabilities = [
   "users_update_all",
   "users_delete_all",
   "contacts_read_all",
+  "contacts_add_one",
+  "contacts_update_all",
   "projects_read_all",
   "picker_options_read_all",
   "general_read_all",
