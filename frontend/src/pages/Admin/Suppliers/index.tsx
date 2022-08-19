@@ -106,15 +106,27 @@ export const Suppliers: FC = (): JSX.Element => {
     }
   );
 
+  console.log("suppliersQuery", suppliersQuery);
+
   const createFormInitialValues = {
-    approval_date: null,
-    cr_contact: "",
-    fiscal_year: null,
-    initiated_by: null,
-    initiation_date: null,
-    link_id: Number(supplierId),
-    summary: "",
-    // version: "",
+    supplier_number: 0,
+    site_number: "",
+    supplier_name: "",
+    signing_authority_name: "",
+    signing_authority_title: "",
+    address: "",
+    city: "",
+    province: "",
+    country: "",
+    postal_code: "",
+    phone: "",
+    fax: "",
+    email: "",
+    website: "",
+    financial_contact_name: "",
+    financial_contact_phone: "",
+    financial_contact_email: "",
+    supplier_legal_name: "",
   };
 
   return (
@@ -136,9 +148,7 @@ export const Suppliers: FC = (): JSX.Element => {
         open={open}
         handleClose={handleClose}
         modalTitle={
-          "new" === formType
-            ? `New Supplier`
-            : `Supplier ${suppliersQuery?.data?.version}`
+          "new" === formType ? `New Supplier` : `Supplier ${suppliersQuery?.data?.version}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}

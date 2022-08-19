@@ -1,13 +1,94 @@
-import React from "react";
-
 export const readFields = (suppliersQuery: any) => {
   return [
-    { width: "half", title: "Version", value: suppliersQuery?.data?.version },
-    { width: "half", title: "Fiscal Year", value: suppliersQuery?.data?.fiscal_year?.label },
-    { width: "half", title: "Initiation Date", value: suppliersQuery?.data?.initiation_date },
-    { width: "half", title: "CR Contact", value: suppliersQuery?.data?.cr_contact },
-    { width: "half", title: "Initiated By", value: suppliersQuery?.data?.initiated_by?.label },
-    { width: "half", title: "Approval Date", value: suppliersQuery?.data?.approval_date },
-    { width: "full", title: "Summary", value: suppliersQuery?.data?.summary },
+    {
+      value: suppliersQuery?.data?.supplier_number,
+      title: "Supplier Number",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.site_number,
+      title: "Site Number",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.supplier_name,
+      title: "Supplier Name",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.signing_authority_name,
+      title: "Signing Authority Name",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.signing_authority_title,
+      title: "Signing Authority Title",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.address,
+      title: "Address",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.city,
+      title: "City",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.province,
+      title: "Province",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.country,
+      title: "Country",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.postal_code,
+      title: "Postal Code",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.phone,
+      title: "Phone",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.fax,
+      title: "Fax",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.email,
+      title: "Email",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.website,
+      title: "Website",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.financial_contact_name,
+      title: "Financial Contact Name",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.financial_contact_phone,
+      title: "Financial Contact Phone",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.financial_contact_email,
+      title: "Financial Contact Email",
+      width: "half",
+    },
+    {
+      value: suppliersQuery?.data?.supplier_legal_name,
+      title: "Supplier Legal Name",
+      width: "half",
+    },
   ];
 };
