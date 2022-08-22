@@ -21,7 +21,7 @@ const routes = [
   },
   {
     method: "POST",
-    url: `/${what}/:id`,
+    url: `/${what}`,
     handler: controller.addOne,
   },
 ];

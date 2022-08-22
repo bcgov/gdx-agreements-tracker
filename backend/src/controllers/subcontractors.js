@@ -44,7 +44,7 @@ const checkMine = (request) => {
  * @returns {object}
  */
 const getAll = async (request, reply) => {
-  if (userCan(request, "subcontractors_read_all")) {
+  if (userCan(request, `${what.plural}_read_all`)) {
     try {
       const result = await Model.findAll();
       if (!result) {
@@ -70,8 +70,8 @@ const getAll = async (request, reply) => {
  */
 const getOne = async (request, reply) => {
   if (
-    userCan(request, "subcontractors_read_all") ||
-    (userCan(request, "subcontractors_read_mine") && checkMine(request))
+    userCan(request, `${what.plural}_read_all`) ||
+    (userCan(request, `${what.plural}_read_mine`) && checkMine(request))
   ) {
     const targetId = Number(request.params.id);
     try {
@@ -101,8 +101,8 @@ const getOne = async (request, reply) => {
  */
 const updateOne = async (request, reply) => {
   if (
-    userCan(request, "subcontractors_update_all") ||
-    (userCan(request, "subcontractors_update_mine") && checkMine(request))
+    userCan(request, `${what.plural}_update_all`) ||
+    (userCan(request, `${what.plural}_update_mine`) && checkMine(request))
   ) {
     try {
       const result = await Model.updateOne(request.body, request.params.id);

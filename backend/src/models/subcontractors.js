@@ -19,8 +19,14 @@ const updateOne = (body, id) => {
   return db(table).where("id", id).update(body);
 };
 
+// Add one.
+const addOne = (newSubcontractor) => {
+  return db(table).insert(newSubcontractor);
+};
+
 module.exports = {
   findAll,
   findById,
   updateOne,
+  addOne,
 };
