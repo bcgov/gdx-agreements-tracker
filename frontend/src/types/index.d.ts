@@ -174,6 +174,8 @@ export interface IUseFormSubmitHandleSubmit {
   apiUrl: string;
   handleEditMode: Function;
   queryKeys: string[];
+  successMessage?: string;
+  errorMessage?: string;
 }
 
 export interface IUseFormSubmitHandlePost {

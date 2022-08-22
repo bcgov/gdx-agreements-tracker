@@ -49,7 +49,81 @@ const getAll = async (request, reply) => {
     return notAllowed(reply);
   }
 };
+/**
+ * For roles that might require only if mine, however this still needs to be implemented.
+ *
+ * @param   {FastifyRequest} request The request object
+ * @todo  Add functionality to call db to see if the owner is the current user.
+ * @returns {boolean}
+ */
+const checkMine = (request) => {
+  return true;
+};
+
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const getOne = async (request, reply) => {
+  if (
+    userCan(request, "suppliers_read_all") ||
+    (userCan(request, "suppliers_read_mine") && checkMine(request))
+  ) {
+    const supplierId = Number(request.params.supplierId);
+    try {
+      const result = await Model.findById(Number(supplierId));
+      if (!result || !result.length) {
+        reply.code(404);
+        return { message: `The ${what.single} with the specified id does not exist.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem looking up this ${what.single}.` };
+    }
+  } else {
+    log.trace('user lacks capability "suppliers_read_all" || "suppliers_read_mine"');
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Update an item by ID. Use passed info from the request body.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const updateOne = async (request, reply) => {
+  if (
+    userCan(request, "suppliers_update_all") ||
+    (userCan(request, "suppliers_update_one") && checkMine(request))
+  ) {
+    try {
+      const result = await Model.updateOne(request.body, request.params.id);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be updated.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      console.error("err", err);
+      return { message: `There was a problem updating this ${what.single}. Error:${err}` };
+    }
+  } else {
+    log.trace('user lacks capability "suppliers_update_all" || "suppliers_update_mine"');
+    return notAllowed(reply);
+  }
+};
 
 module.exports = {
   getAll,
+  getOne,
+  updateOne,
 };
