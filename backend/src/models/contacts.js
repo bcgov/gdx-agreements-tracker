@@ -29,7 +29,8 @@ const findById = (contactId) => {
       )
     )
     .leftJoin(`${ministryTable} as m`, "c.ministry_id", "m.id")
-    .where("c.id", contactId);
+    .where("c.id", contactId)
+    .first();
 };
 
 // Update one.
