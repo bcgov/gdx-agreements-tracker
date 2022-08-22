@@ -1,4 +1,4 @@
-const { getAll } = require("../../src/controllers/contacts");
+const { getAll, getOne, updateOne, addOne } = require("../../src/controllers/contacts");
 const contactsModel = require("../../src/models/contacts.js");
 
 const contacts = [
@@ -57,7 +57,51 @@ describe("Testing user controllers", () => {
     };
     const result = await getAll(sampleRequest);
     expect(result).toBeInstanceOf(Array);
+    expect(result.length).toBe(5);
     result.forEach((contactsObject) => expect("id" in contactsObject).toBe(true));
+  });
+  it("Gets a single contact", async () => {
+    const expectedContact = contacts[1];
+    contactsModel.findById.mockResolvedValue(expectedContact);
+    const sampleRequest = {
+      params: {
+        id: 2,
+      },
+      user: {
+        capabilities: ["contacts_read_all"],
+      },
+    };
+    const result = await getOne(sampleRequest);
+    expect(result).toBe(expectedContact);
+  });
+  it("Updates a single contact", async () => {
+    contactsModel.updateOne.mockResolvedValue(1);
+    const sampleRequest = {
+      params: {
+        id: 2,
+      },
+      body: {
+        first_name: "test",
+      },
+      user: {
+        capabilities: ["contacts_update_one"],
+      },
+    };
+    const result = await updateOne(sampleRequest);
+    expect(result).toBe(1);
+  });
+  it("Adds a single contact", async () => {
+    contactsModel.addOne.mockResolvedValue(1);
+    const sampleRequest = {
+      body: {
+        first_name: "test",
+      },
+      user: {
+        capabilities: ["contacts_add_one"],
+      },
+    };
+    const result = await addOne(sampleRequest);
+    expect(result).toBe(1);
   });
 });
 exports.contacts = contacts;

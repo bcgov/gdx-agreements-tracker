@@ -76,7 +76,7 @@ const getOne = async (request, reply) => {
     const contactId = Number(request.params.id);
     try {
       const result = await Model.findById(Number(contactId));
-      if (!result || !result.length) {
+      if (!result) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };
       } else {
