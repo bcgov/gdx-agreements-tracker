@@ -145,7 +145,7 @@ export const Suppliers: FC = (): JSX.Element => {
         open={open}
         handleClose={handleClose}
         modalTitle={
-          "new" === formType ? `New Supplier` : `Supplier ${suppliersQuery?.data?.version}`
+          "new" === formType ? `New Supplier` : `Supplier ${suppliersQuery?.data?.supplier_name}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}

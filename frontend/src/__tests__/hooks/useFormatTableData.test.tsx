@@ -15,8 +15,8 @@ describe("Testing useFormatTableData Hook", () => {
           rows: [{ field: "id", flex: 1, headerName: "Id", id: 3 }],
           // an array that contains,
           columns: expect.arrayContaining([
-            { field: "field", flex: 1, headerName: "Field", id: 0 },
-            { field: "flex", flex: 1, headerName: "Flex", id: 1 },
+            { field: "field", flex: 1, headerName: "Field", id: 0, hide: false },
+            { field: "flex", flex: 1, headerName: "Flex", id: 1, hide: false },
           ]),
         })
       );
@@ -25,3 +25,5 @@ describe("Testing useFormatTableData Hook", () => {
 });
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
