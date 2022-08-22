@@ -51,6 +51,7 @@ export const formatTableColumns = (
 
     Object.entries(tableData.data.data[0]).forEach((value, index) => {
       formattedColumns.push({
+        hide: "id" === value[0] && true,
         field: value[0],
         headerName: value[0]
           .split("_")

@@ -50,6 +50,17 @@ const getAll = async (request, reply) => {
   }
 };
 /**
+ * For roles that might require only if mine, however this still needs to be implemented.
+ *
+ * @param   {FastifyRequest} request The request object
+ * @todo  Add functionality to call db to see if the owner is the current user.
+ * @returns {boolean}
+ */
+const checkMine = (request) => {
+  return true;
+};
+
+/**
  * Get a specific item by ID.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
@@ -61,10 +72,9 @@ const getOne = async (request, reply) => {
     userCan(request, "suppliers_read_all") ||
     (userCan(request, "suppliers_read_mine") && checkMine(request))
   ) {
-    const changeRequestId = Number(request.params.changeRequestId);
-    const projectId = Number(request.params.projectId);
+    const supplierId = Number(request.params.supplierId);
     try {
-      const result = await Model.findById(Number(changeRequestId), Number(projectId));
+      const result = await Model.findById(Number(supplierId));
       if (!result || !result.length) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };
