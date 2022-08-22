@@ -1,10 +1,11 @@
 ## Developer Changelog
 
 ### August 22, 2022 (DESCW-550)(DESCW-541)
+
 - Frontend
- - Added view, edit and update forms and functionality for suppliers
- - Fixed bug with modal headers not being correct
- - Fixed snackbar message not showing correctly
+- Added view, edit and update forms and functionality for suppliers
+- Fixed bug with modal headers not being correct
+- Fixed snackbar message not showing correctly
 
 - Backend
   - Changed Node version requirement from 16.16 to 16.x
@@ -12,24 +13,28 @@
   - Added three new capabilities to seeds, "suppliers_update_all", "suppliers_read_all", "suppliers_update_mine",
 
 ### August 19, 2022 (DESCW-547)
+
 - Frontend
- - Improved subcontractor view and edit forms.
- - Removed ability to view and edit subcontractor id.
+- Improved subcontractor view and edit forms.
+- Removed ability to view and edit subcontractor id.
 - Backend
- - Added subcontractors MVC and ability to edit in modal.
- - Made adding roles more efficient. 
+- Added subcontractors MVC and ability to edit in modal.
+- Made adding roles more efficient.
 
 ### August 18, 2022 (DESCW-539)
+
 - Frontend
   - Contacts view/edit modal
 - Backend
   - Added controller, model, and routes getOne(), updateOne(), addOne() for Contacts
 
 ### August 18, 2022 (DESCW-457)
+
 - Frontend
   - Subcontractors view modal
 
 ### August 17, 2022 (DESCW-457)
+
 - Frontend
   - Added Reports navigation and report selector
 
@@ -38,6 +43,7 @@
 - Frontend
   - Resources view modal
 - Backend
+
   - Added controller, model, route, validator for project status summary
 
   - Requires
@@ -47,6 +53,7 @@
   - Added controller, model, route, validator for project status summary
 
 ### August 16, 2022 (DESCW-505)
+
 - Frontend
 - Added test for GDX Accordion
 
