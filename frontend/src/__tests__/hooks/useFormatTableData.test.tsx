@@ -25,5 +25,3 @@ describe("Testing useFormatTableData Hook", () => {
 });
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-
