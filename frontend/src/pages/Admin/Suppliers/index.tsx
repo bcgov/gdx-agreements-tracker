@@ -14,6 +14,7 @@ import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { FormikValues } from "formik";
+import { Box, Button } from "@mui/material";
 /**
  * The suppliers page
  *
@@ -138,6 +139,19 @@ export const Suppliers: FC = (): JSX.Element => {
               loading={isLoading}
               onRowClick={handleCurrentRowData}
             />
+            <Box
+              m={1}
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="flex-end"
+              onClick={() => {
+                handleOpen();
+                handleEditMode(true);
+                handleFormType("new");
+              }}
+            >
+              <Button variant="contained">Add a supplier</Button>
+            </Box>
           </>
         }
       />
