@@ -1,5 +1,16 @@
 ## Developer Changelog
 
+### August 22, 2022 (DESCW-550)(DESCW-541)
+- Frontend
+ - Added view, edit and update forms and functionality for suppliers
+ - Fixed bug with modal headers not being correct
+ - Fixed snackbar message not showing correctly
+
+- Backend
+  - Changed Node version requirement from 16.16 to 16.x
+  - Added controller, model, route, validator for supplier
+  - Added three new capabilities to seeds, "suppliers_update_all", "suppliers_read_all", "suppliers_update_mine",
+
 ### August 19, 2022 (DESCW-547)
 - Frontend
  - Improved subcontractor view and edit forms.
