@@ -18,7 +18,7 @@ defaults:
   run:
     working-directory: frontend/
 jobs:
-  app_lint_and_test_checks:
+  app_lint_and_test_check:
     if: github.repository_owner == 'bcgov'
     timeout-minutes: 5
     runs-on: ubuntu-latest
