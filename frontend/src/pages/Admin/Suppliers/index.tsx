@@ -95,7 +95,7 @@ export const Suppliers: FC = (): JSX.Element => {
    */
   // Queries
   const suppliersQuery: UseQueryResult<FormikValues> = useQuery(
-    `change_request - ${currentRowData?.id}`,
+    `supplierId - ${currentRowData?.id}`,
     getSuppliers,
     {
       refetchOnWindowFocus: false,
@@ -105,8 +105,6 @@ export const Suppliers: FC = (): JSX.Element => {
       staleTime: Infinity,
     }
   );
-
-  console.log("suppliersQuery", suppliersQuery);
 
   const createFormInitialValues = {
     supplier_number: 0,
@@ -128,7 +126,6 @@ export const Suppliers: FC = (): JSX.Element => {
     financial_contact_email: "",
     supplier_legal_name: "",
   };
-
   return (
     <>
       <Renderer
@@ -169,7 +166,7 @@ export const Suppliers: FC = (): JSX.Element => {
                       formValues: values,
                       apiUrl: `/change_request`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`"/projects/${supplierId}/change_request"`],
+                      queryKeys: [`"suppliers - ${supplierId}"`, `suppliers`],
                     });
                   }}
                   editFields={editFields()}
@@ -183,7 +180,9 @@ export const Suppliers: FC = (): JSX.Element => {
                       currentRowData: suppliersQuery?.data,
                       apiUrl: `suppliers/${suppliersQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`suppliers - ${currentRowData?.id}`, `/suppliers/${supplierId}`],
+                      queryKeys: [`supplierId - ${currentRowData?.id}`, `suppliers`],
+                      successMessage: `Changes saved successfully for supplier ${suppliersQuery?.data?.supplier_number}`,
+                      errorMessage: `There was an issue saving your changes for supplier ${suppliersQuery?.data?.supplier_number}`,
                     });
                   }}
                   editFields={editFields()}
@@ -193,6 +192,7 @@ export const Suppliers: FC = (): JSX.Element => {
           )}
         </>
       </GDXModal>
+      <Notification />
     </>
   );
 };

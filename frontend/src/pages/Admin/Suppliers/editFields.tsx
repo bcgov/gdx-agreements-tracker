@@ -1,4 +1,3 @@
-import React from "react";
 import { IEditFields } from "types";
 
 export const editFields: () => IEditFields[] = () => {

@@ -42,6 +42,8 @@ export const useFormSubmit = () => {
     apiUrl,
     handleEditMode,
     queryKeys,
+    successMessage,
+    errorMessage,
   }: IUseFormSubmitHandleSubmit) => {
     const deltaChanges: {
       [key: string]: boolean;
@@ -58,7 +60,7 @@ export const useFormSubmit = () => {
     await apiAxios()
       .put(apiUrl, deltaChanges)
       .then(() => {
-        handleSnackBarMessage(`Changes saved successfully for ${changedValues.version}`);
+        handleSnackBarMessage(successMessage as string);
         handleSnackBar("success");
         handleEditMode(false);
         queryKeys.forEach((queryKey: string) => {
@@ -66,9 +68,7 @@ export const useFormSubmit = () => {
         });
       })
       .catch((err: string) => {
-        handleSnackBarMessage(
-          `There was an issue saving your changes for ${changedValues.version}`
-        );
+        handleSnackBarMessage(errorMessage as string);
         handleSnackBar("error");
         console.error("error:", err);
       });
