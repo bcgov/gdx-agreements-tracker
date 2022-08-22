@@ -3,6 +3,10 @@ import { render } from "@testing-library/react";
 import adminRoutes from "../../../routes/subRoutes/adminRoutes";
 import { MemoryRouter, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+<<<<<<< HEAD
+=======
+import { Subcontractors } from "pages/Admin/Subcontractors";
+>>>>>>> 14be606 (added tests)
 import { shallow } from "enzyme";
 import { Suppliers } from "pages/Admin/Suppliers";
 // Create a client
