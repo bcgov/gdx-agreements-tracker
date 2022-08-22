@@ -1,5 +1,10 @@
 import { IEditFields } from "types";
 
+/**
+ * The edit fields.
+ *
+ * @returns {Array}
+ */
 export const editFields: () => IEditFields[] = () => {
   return [
     {

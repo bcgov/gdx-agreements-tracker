@@ -29,15 +29,16 @@ const notAllowed = (reply) => {
  * For roles that might require only if mine, however this still needs to be implemented.
  *
  * @param   {FastifyRequest} request The request object
- * @todo  Add functionality to call db to see if the owner is the current user.
  * @returns {boolean}
  */
+/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+//todo:  Add functionality to call db to see if the owner is the current user.
 const checkMine = (request) => {
   return true;
 };
 
 /**
- * Get all items.
+ * Get all resources.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
@@ -62,7 +63,7 @@ const getAll = async (request, reply) => {
 };
 
 /**
- * Get a specific item by ID.
+ * Get a specific resource by ID.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
@@ -93,7 +94,7 @@ const getOne = async (request, reply) => {
 };
 
 /**
- * Update an item by ID. Use passed info from the request body.
+ * Update a resource by ID. Use passed info from the request body.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
@@ -124,15 +125,20 @@ const updateOne = async (request, reply) => {
 };
 
 /**
- * Add an item based on request body info.
+ * Add a resource based on request body info.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
+
 const addOne = async (request, reply) => {
-  if (userCan(request, "resource_add_one")) {
+  if (userCan(request, "resources_add_one")) {
     try {
+      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+      // todo: autogenerate resource_id (fixing schema/using code)
+      // todo: autogenerate created_date (fixing schema/using code)
+      request.body.resource_id = 0;
       const result = await Model.addOne(request.body);
       if (!result) {
         reply.code(403);

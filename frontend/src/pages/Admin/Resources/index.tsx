@@ -36,6 +36,11 @@ export const Resources: FC = () => {
 
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
+  /**
+   * Gets the resource information for a specific id.
+   *
+   * @returns {null|object}
+   */
   const getResources = async () => {
     let data = null;
     if (currentRowData?.id) {
@@ -46,6 +51,7 @@ export const Resources: FC = () => {
   };
 
   // Queries
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const resourcesQuery: any = useQuery(`resources - ${currentRowData?.id}`, getResources, {
@@ -62,6 +68,7 @@ export const Resources: FC = () => {
     subcontractor_id: null,
     supplier_id: null,
   };
+
   return (
     <>
       <Typography variant="h5" component="h2">
@@ -109,6 +116,7 @@ export const Resources: FC = () => {
               {"new" === formType ? (
                 <CreateForm
                   initialValues={createFormInitialValues}
+                  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
                   // todo: Define a good type. "Any" type temporarily permitted.
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   onSubmit={async (values: any) => {
@@ -124,6 +132,8 @@ export const Resources: FC = () => {
               ) : (
                 <EditForm
                   initialValues={resourcesQuery?.data}
+                  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+                  // todo: When using picklist if select is empty, then fails to update.
                   onSubmit={async (values) => {
                     return handleUpdate({
                       changedValues: values,

@@ -1,6 +1,12 @@
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 
+/**
+ * The view fields.
+ *
+ * @param   {UseQueryResult<FormikValues>} resourcesQuery The react query data for specific resource.
+ * @returns {Array}
+ */
 export const readFields = (resourcesQuery: UseQueryResult<FormikValues>) => {
   return [
     { width: "half", title: "Supplier", value: resourcesQuery?.data?.supplier_id.label },
