@@ -1,4 +1,8 @@
 ## Developer Changelog
+
+### August 22, 2022 (DESCW-553) Github actions
+- Fixed github actions with linters/tests being skipped
+
 ### August 22, 2022 (DESCW-543) Resource Form
 - Frontend
   - Admin - Resources (view, edit, and add)
