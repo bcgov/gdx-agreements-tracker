@@ -1,4 +1,6 @@
 const controller = require("../controllers/suppliers");
+const validators = require("../validators/suppliers");
+
 const what = "suppliers";
 
 const routes = [
@@ -12,6 +14,11 @@ const routes = [
     url: `/${what}/:supplierId`,
     schema: validators.getOneValidator,
     handler: controller.getOne,
+  },
+  {
+    method: "PUT",
+    url: `/${what}/:id`,
+    handler: controller.updateOne,
   },
 ];
 

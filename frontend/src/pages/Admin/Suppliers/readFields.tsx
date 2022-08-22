@@ -1,4 +1,7 @@
-export const readFields = (suppliersQuery: any) => {
+import { FormikValues } from "formik";
+import { UseQueryResult } from "react-query";
+
+export const readFields = (suppliersQuery: UseQueryResult<FormikValues>) => {
   return [
     {
       value: suppliersQuery?.data?.supplier_number,
