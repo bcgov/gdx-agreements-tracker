@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+### August 22, 2022 (DESCW-549) Github actions
+- Frontend
+  - Added form for creating a new subcontractor.
+- Backend
+  - Added MVC and routes for adding a new subcontractor.
+  - Added 'subcontractors_read_mine' test.
+
 ### August 22, 2022 (DESCW-553) Github actions
 - Fixed github actions with linters/tests being skipped
 
