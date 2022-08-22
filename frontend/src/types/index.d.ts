@@ -75,11 +75,11 @@ export interface IPickerLookupData {
 //picker options types
 export interface IPickerProps {
   handleChange: Function;
-  fieldValue: { [key: string]: unknown };
+  fieldValue: IOption;
   setFieldValue: Function;
   pickerData: {
     associated_table: string;
-    definition: { value: string; label: string }[];
+    definition: IOption[];
     description: string;
     id: number;
     name: string;
@@ -92,12 +92,7 @@ export interface IPickerTableData {
     data: [
       {
         associated_table: string;
-        definition: [
-          {
-            label: string;
-            value: string;
-          }
-        ];
+        definition: [IOption];
         description: string;
         id: number;
         name: string;
@@ -219,7 +214,7 @@ export interface ICheckbox {
   input: string;
   defaultValue: string;
   parents: string[];
-  options: { value: string; label: string }[];
+  options: IOption[];
 }
 
 export interface IDate {
@@ -228,7 +223,12 @@ export interface IDate {
   label: string;
   input: string;
   defaultValue: string;
-  options: { value: string; label: string }[];
+  options: IOption[];
+}
+
+export interface IOption {
+  value: number | string;
+  label?: string;
 }
 
 export interface ISelect {
@@ -237,7 +237,7 @@ export interface ISelect {
   input: string;
   defaultValue: string;
   parents: string[];
-  options: { value: string; label: string }[];
+  options: IOption[];
 }
 
 export interface IDescription {

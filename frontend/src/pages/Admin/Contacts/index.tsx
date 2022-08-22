@@ -36,14 +36,21 @@ export const Contacts: FC = () => {
     if (currentRowData?.id) {
       const contacts = await apiAxios().get(`/contacts/${currentRowData?.id}`);
       // Replaces createFormInitialValues with values from contacts if contacts has a non-null value for that property.
-      const ret = Object.assign(
+      const contact = Object.assign(
         {},
         createFormInitialValues,
         Object.fromEntries(
-          Object.entries(contacts.data.data[0]).filter(([, value]) => value !== null)
+          Object.entries(contacts.data.data).filter(([, value]) => value !== null)
         )
       );
-      return ret;
+      // Handle null ministry_id.
+      if (contact.ministry_id.value === null) {
+        contact.ministry_id = {
+          value: 0,
+          label: "",
+        };
+      }
+      return contact;
     }
     return null;
   };
@@ -51,15 +58,17 @@ export const Contacts: FC = () => {
   /**
    * Serializes form values to allow saving to database.
    *
-   * @param {any} values Edit/Create form values.
+   * @param   {any} values Edit/Create form values.
    * @returns {any}
    */
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const serializeContact = (values: any) => {
     const serializedValues = values;
-    if (values.ministry_id?.value) {
+    if (values.ministry_id?.value > 0) {
       serializedValues.ministry_id = values.ministry_id.value;
+    } else {
+      delete serializedValues.ministry_id;
     }
     return serializedValues;
   };
@@ -188,7 +197,10 @@ export const Contacts: FC = () => {
     city: "",
     contact_title: "",
     province: "",
-    ministry_id: null,
+    ministry_id: {
+      value: 0,
+      label: "",
+    },
     country: "",
     contact_phone: "",
     postal: "",

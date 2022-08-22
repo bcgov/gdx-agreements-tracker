@@ -6,6 +6,7 @@ import React from "react";
 import { usePickerValues } from "../../hooks";
 import { GDXSelect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
+import { IOption } from "../../types";
 
 export const FormInput = ({
   setFieldValue,
@@ -18,7 +19,7 @@ export const FormInput = ({
   tableName,
 }: {
   setFieldValue?: Function;
-  fieldValue: string | number | { [key: string]: unknown };
+  fieldValue: string | number | IOption;
   fieldName: string;
   fieldType: "date" | "singleText" | "multiText" | "select";
   fieldLabel: string;
@@ -85,7 +86,7 @@ export const FormInput = ({
         <GridItem width={width}>
           <GDXSelect
             handleChange={handleChange as Function}
-            fieldValue={fieldValue as { [key: string]: unknown }}
+            fieldValue={fieldValue as IOption}
             setFieldValue={setFieldValue as Function}
             pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
           />
