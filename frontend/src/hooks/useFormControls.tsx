@@ -21,7 +21,7 @@ export const useFormControls = () => {
     setEditMode(toggle);
   };
 
-  const handleFormType = (formType: "edit" | "new") => {
+  const handleFormType = (formType: "read" | "edit" | "new") => {
     setFormType(formType);
   };
 
@@ -29,6 +29,7 @@ export const useFormControls = () => {
     setOpen(false);
     setEditMode(false);
     setCurrentRowData(undefined);
+    setFormType("read");
   };
 
   const handleCurrentRowData = (rowData: { row: unknown }) => {
