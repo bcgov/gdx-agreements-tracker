@@ -15,7 +15,7 @@ SELECT
         WHEN definition ->> 'dropDownValues' IS NOT NULL THEN p.definition -> 'dropDownValues'
     END definition,
 p.associated_form
-FROM public.picker_options p;`
+FROM public.picker_options p;`;
 
 exports.up = function (knex) {
   return knex.raw(formatted_picker_options);

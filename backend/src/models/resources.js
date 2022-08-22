@@ -29,10 +29,12 @@ const findById = (id) => {
       "resource.id",
       "resource.resource_last_name",
       "resource.resource_first_name",
-      "resource.supplier_id",
-      "supplier.supplier_name",
-      "resource.subcontractor_id",
-      "subcontractor.subcontractor_name",
+      db.raw(
+        "(SELECT json_build_object('value', COALESCE(resource.supplier_id,0), 'label', COALESCE(supplier.supplier_name,''))) AS supplier_id"
+      ),
+      db.raw(
+        "(SELECT json_build_object('value', COALESCE(resource.subcontractor_id,0), 'label', COALESCE(subcontractor.subcontractor_name,''))) AS subcontractor_id"
+      ),
       db.raw("TO_CHAR(resource.created_date :: DATE, 'dd-MON-yyyy') as created_date_formatted"),
       "resource.created_date"
     )
