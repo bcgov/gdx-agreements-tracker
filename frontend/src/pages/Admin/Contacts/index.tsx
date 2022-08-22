@@ -39,12 +39,10 @@ export const Contacts: FC = () => {
       const contact = Object.assign(
         {},
         createFormInitialValues,
-        Object.fromEntries(
-          Object.entries(contacts.data.data).filter(([, value]) => value !== null)
-        )
+        Object.fromEntries(Object.entries(contacts.data.data).filter(([, value]) => value !== null))
       );
       // Handle null ministry_id.
-      if (contact.ministry_id.value === null) {
+      if (null === contact.ministry_id.value) {
         contact.ministry_id = {
           value: 0,
           label: "",
