@@ -61,8 +61,6 @@ describe("Testing user controllers", () => {
     const result = await getOne(sampleRequest);
     expect(result).toStrictEqual({ id: 4, subcontractor_name: "Jefferson" });
   });
-
-  
 });
 
 exports.subcontractors = subcontractors;
