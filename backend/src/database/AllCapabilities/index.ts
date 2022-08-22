@@ -12,6 +12,7 @@ const AllCapabilities = [
   "resources_read_mine",
   "resources_update_all",
   "resources_update_mine",
+  "resources_add_one",
   "projects_update_mine",
   "projects_update_all",
   "change_request_read_all",

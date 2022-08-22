@@ -1,4 +1,14 @@
 ## Developer Changelog
+### August 22, 2022 (DESCW-543) Resource Form
+- Frontend
+  - Admin - Resources (view, edit, and add)
+- Backend
+  - models, controllers and routes to support admin resources.
+  - Migrations need to be run
+  - `npx knex migrate:latest`
+  - seeds need to be re run
+    - `npx knex seed:run --specific=01_capabilities.js`
+    - `npx knex seed:run --specific=02_role_capabilities.js` 
 
 ### August 22, 2022 (DESCW-550)(DESCW-541)
 

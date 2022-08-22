@@ -3,6 +3,9 @@ exports.seed = function (knex) {
     projects: "project",
     generic: "generic",
     change_request: "change_request",
+    subcontractor: "subcontractor",
+    supplier: "supplier",
+    resource: "resource",
   };
 
   const pickers = [
@@ -206,6 +209,24 @@ exports.seed = function (knex) {
         ],
       },
       associated_form: tables.change_request,
+    },
+    {
+      name: "subcontractor_id",
+      title: "Subcontractor",
+      description: "Subcontractors",
+      definition: {
+        tableLookup: "subcontractor",
+      },
+      associated_form: tables.resource,
+    },
+    {
+      name: "supplier_id",
+      title: "Supplier",
+      description: "Supplier",
+      definition: {
+        tableLookup: "supplier",
+      },
+      associated_form: tables.resource,
     },
   ];
 

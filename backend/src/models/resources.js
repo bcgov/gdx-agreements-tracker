@@ -6,7 +6,11 @@ const table = `${dbConnection.dataBaseSchemas().data}.resource`;
 const supplierTable = `${dbConnection.dataBaseSchemas().data}.supplier`;
 const subcontractorTable = `${dbConnection.dataBaseSchemas().data}.subcontractor`;
 
-// Get all.
+/**
+ * Gets all the resources.
+ *
+ * @returns {object}
+ */
 const findAll = () => {
   return db
     .select(
@@ -22,17 +26,24 @@ const findAll = () => {
     .leftJoin(subcontractorTable, { "resource.subcontractor_id": `${subcontractorTable}.id` });
 };
 
-// Get specific one by id.
+/**
+ * Gets a specific resource by id.
+ *
+ * @param   {integer} id The id of the resource to get.
+ * @returns {object}
+ */
 const findById = (id) => {
   return db
     .select(
       "resource.id",
       "resource.resource_last_name",
       "resource.resource_first_name",
-      "resource.supplier_id",
-      "supplier.supplier_name",
-      "resource.subcontractor_id",
-      "subcontractor.subcontractor_name",
+      db.raw(
+        "(SELECT json_build_object('value', COALESCE(resource.supplier_id,0), 'label', COALESCE(supplier.supplier_name,''))) AS supplier_id"
+      ),
+      db.raw(
+        "(SELECT json_build_object('value', COALESCE(resource.subcontractor_id,0), 'label', COALESCE(subcontractor.subcontractor_name,''))) AS subcontractor_id"
+      ),
       db.raw("TO_CHAR(resource.created_date :: DATE, 'dd-MON-yyyy') as created_date_formatted"),
       "resource.created_date"
     )
@@ -42,13 +53,30 @@ const findById = (id) => {
     .where("resource.id", id);
 };
 
-// Update one.
+/**
+ * Updates a resource based on the id.
+ *
+ * @param   {object}  body The object to update.
+ * @param   {integer} id   The id of the resource to update.
+ * @returns {object}
+ */
 const updateOne = (body, id) => {
   return db(table).where("id", id).update(body);
+};
+
+/**
+ * Adds a new resource.
+ *
+ * @param   {object} newResource The object of the new resource.
+ * @returns {object}
+ */
+const addOne = (newResource) => {
+  return db(table).insert(newResource);
 };
 
 module.exports = {
   findAll,
   findById,
   updateOne,
+  addOne,
 };
