@@ -18,8 +18,8 @@ defaults:
   run:
     working-directory: frontend/
 jobs:
-  static_checks:
-    if: github.repository_owner == 'bcgov' && github.event.pull_request.draft == false
+  app_lint_and_test_check:
+    if: github.repository_owner == 'bcgov'
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
