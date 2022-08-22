@@ -14,6 +14,7 @@ import { IEditFields } from "types";
 import { Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
 import { FormikValues } from "formik";
+import { useParams } from "react-router-dom";
 
 export const Subcontractors: FC = () => {
   const {
@@ -27,6 +28,8 @@ export const Subcontractors: FC = () => {
     editMode,
     currentRowData,
   } = useFormControls();
+
+  const { subcontractorName } = useParams();
 
   const { data, isLoading } = useFormatTableData({
     tableName: "subcontractors",
@@ -72,7 +75,7 @@ export const Subcontractors: FC = () => {
   ];
 
   const createFormInitialValues = {
-    subcontractor_name: "",
+    subcontractor_name: subcontractorName || "",
   };
 
   return (
