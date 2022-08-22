@@ -184,7 +184,7 @@ export interface IUseFormSubmitHandlePost {
 
 export interface IEditFields {
   fieldName: string;
-  fieldType: "select" | "date" | "singleText" | "multiText";
+  fieldType: "select" | "date" | "singleText" | "multiText" | "number";
   fieldLabel: string;
   width: "half" | "full";
   tableName?: string;

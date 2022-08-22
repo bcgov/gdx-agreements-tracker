@@ -21,7 +21,7 @@ export const FormInput = ({
   setFieldValue?: Function;
   fieldValue: string | number | IOption;
   fieldName: string;
-  fieldType: "date" | "singleText" | "multiText" | "select";
+  fieldType: "date" | "singleText" | "multiText" | "select" | "number";
   fieldLabel: string;
   handleChange?: Function;
   width: "half" | "full";
@@ -89,6 +89,21 @@ export const FormInput = ({
             fieldValue={fieldValue as IOption}
             setFieldValue={setFieldValue as Function}
             pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
+          />
+        </GridItem>
+      );
+    case "number":
+      return (
+        <GridItem width={width}>
+          <Field
+            fullWidth={true}
+            as={TextField}
+            type={"number"}
+            name={fieldName}
+            onChange={handleChange}
+            label={fieldLabel}
+            id={fieldName}
+            role={`${fieldName}_input`}
           />
         </GridItem>
       );

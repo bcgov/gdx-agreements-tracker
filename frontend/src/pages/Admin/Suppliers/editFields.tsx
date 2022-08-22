@@ -4,7 +4,7 @@ export const editFields: () => IEditFields[] = () => {
   return [
     {
       fieldName: "supplier_number",
-      fieldType: "singleText",
+      fieldType: "number",
       fieldLabel: "Supplier Number",
       width: "half",
     },
