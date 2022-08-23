@@ -6,7 +6,7 @@ exports.seed = function (knex) {
     subcontractor: "subcontractor",
     supplier: "supplier",
     resource: "resource",
-    users: "users"
+    users: "users",
   };
 
   const pickers = [

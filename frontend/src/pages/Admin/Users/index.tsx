@@ -16,16 +16,16 @@ import { editFields, readFields } from "./fields";
 
 export const Users: FC = () => {
   const {
-      handleEditMode,
-      handleOpen,
-      handleClose,
-      handleCurrentRowData,
-      handleFormType,
-      formType,
-      open,
-      editMode,
-      currentRowData,
-    } = useFormControls();
+    handleEditMode,
+    handleOpen,
+    handleClose,
+    handleCurrentRowData,
+    handleFormType,
+    formType,
+    open,
+    editMode,
+    currentRowData,
+  } = useFormControls();
 
   const { data, isLoading } = useFormatTableData({
     tableName: "users",
@@ -39,7 +39,7 @@ export const Users: FC = () => {
    *
    * @returns {null|object}
    */
-   const getUsers = async () => {
+  const getUsers = async () => {
     let data = null;
     if (currentRowData?.id) {
       const resources = await apiAxios().get(`/users/${currentRowData?.id}`);
@@ -61,11 +61,10 @@ export const Users: FC = () => {
   });
 
   const createFormInitialValues = {
-    username: "",
+    role_id: null,
     email: "",
-    name: null,
+    name: "",
   };
-
 
   return (
     <>
@@ -123,6 +122,7 @@ export const Users: FC = () => {
                       apiUrl: `/users`,
                       handleEditMode: handleEditMode,
                       queryKeys: [`"/users"`],
+                      handleClose: handleClose,
                     });
                   }}
                   editFields={editFields()}

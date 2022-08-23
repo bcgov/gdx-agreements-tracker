@@ -10,11 +10,11 @@ import { IEditFields } from "types";
  */
 export const readFields = (userQuery: UseQueryResult<FormikValues>) => {
   return [
-    { width: "half", title: "email", value: userQuery?.data?.email },
-    { width: "half", title: "name", value: userQuery?.data?.name },
+    { width: "half", title: "Email", value: userQuery?.data?.email },
+    { width: "half", title: "Name", value: userQuery?.data?.name },
+    { width: "full", title: "User Role", value: userQuery?.data?.role_id.label },
   ];
 };
-
 
 /**
  * The edit fields.
@@ -28,13 +28,19 @@ export const editFields: () => IEditFields[] = () => {
       fieldType: "singleText",
       fieldLabel: "Email",
       width: "half",
-
     },
     {
       fieldName: "name",
       fieldType: "singleText",
       fieldLabel: "Name",
       width: "half",
+    },
+    {
+      fieldName: "role_id",
+      fieldType: "select",
+      fieldLabel: "User Role",
+      width: "full",
+      tableName: "users",
     },
   ];
 };
