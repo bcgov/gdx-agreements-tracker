@@ -1,10 +1,10 @@
-import { TextField } from "@mui/material";
+import { FormControlLabel, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Field } from "formik";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { usePickerValues } from "../../hooks";
-import { GDXSelect } from "../GDXForm";
+import { GDXCheckbox, GDXSelect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 import { IOption } from "../../types";
 
@@ -19,11 +19,11 @@ export const FormInput = ({
   tableName,
 }: {
   setFieldValue?: Function;
-  fieldValue: string | number | IOption;
+  fieldValue: string | number | boolean | IOption;
   fieldName: string;
-  fieldType: "date" | "singleText" | "multiText" | "select" | "number";
+  fieldType: "select" | "date" | "singleText" | "multiText" | "checkbox";
   fieldLabel: string;
-  handleChange?: Function;
+  handleChange?: Function | ChangeEvent<HTMLInputElement>;
   width: "half" | "full";
   tableName?: string;
 }) => {
@@ -92,18 +92,18 @@ export const FormInput = ({
           />
         </GridItem>
       );
-    case "number":
+    case "checkbox":
       return (
         <GridItem width={width}>
-          <Field
-            fullWidth={true}
-            as={TextField}
-            type={"number"}
-            name={fieldName}
-            onChange={handleChange}
+          <FormControlLabel
+            control={
+              <GDXCheckbox
+                checked={fieldValue as boolean}
+                onChange={handleChange as Function}
+                setFieldValue={setFieldValue as Function}
+              />
+            }
             label={fieldLabel}
-            id={fieldName}
-            role={`${fieldName}_input`}
           />
         </GridItem>
       );
