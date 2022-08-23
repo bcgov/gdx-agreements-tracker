@@ -178,9 +178,12 @@ export const Suppliers: FC = (): JSX.Element => {
                   onSubmit={async (values: any) => {
                     return handlePost({
                       formValues: values,
-                      apiUrl: `/change_request`,
+                      apiUrl: `/suppliers`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`"suppliers - ${supplierId}"`, `suppliers`],
+                      queryKeys: [`suppliers - ${supplierId}`, `suppliers`],
+                      successMessage: `Changes saved successfully for supplier ${values.supplier_number}`,
+                      errorMessage: `There was an issue saving your changes for supplier ${values.supplier_number}`,
+                      handleClose: handleClose,
                     });
                   }}
                   editFields={editFields()}

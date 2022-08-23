@@ -79,6 +79,9 @@ export const useFormSubmit = () => {
     apiUrl,
     handleEditMode,
     queryKeys,
+    successMessage,
+    errorMessage,
+    handleClose,
   }: IUseFormSubmitHandlePost) => {
     const formattedValues: {
       [key: string]: boolean | string | null;
@@ -97,17 +100,16 @@ export const useFormSubmit = () => {
     await apiAxios()
       .post(apiUrl, formattedValues)
       .then(() => {
-        // handleSnackBarMessage(`Changes saved successfully for ${changedValues.version}`);
+        handleSnackBarMessage(successMessage as string);
         handleSnackBar("success");
         handleEditMode(false);
         queryKeys.forEach((queryKey: string) => {
           queryClient.invalidateQueries(queryKey);
         });
+        handleClose();
       })
       .catch((err: string) => {
-        // handleSnackBarMessage(
-        //   `There was an issue saving your changes for ${changedValues.version}`
-        // );
+        handleSnackBarMessage(errorMessage as string);
         handleSnackBar("error");
         console.error("error:", err);
       });
@@ -115,7 +117,7 @@ export const useFormSubmit = () => {
 
   const Notification = () => {
     return (
-      <Snackbar open={showSnackBar} autoHideDuration={5000} onClose={handleCloseSnackBar}>
+      <Snackbar open={showSnackBar} autoHideDuration={3000} onClose={handleCloseSnackBar}>
         <Alert variant={"filled"} severity={snackbarType} sx={{ width: "100%" }}>
           {snackBarMessage}
         </Alert>
