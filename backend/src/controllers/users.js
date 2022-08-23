@@ -86,7 +86,7 @@ const getOne = async (request, reply) => {
       }
     } catch (err) {
       reply.code(500);
-      return { message: `There was a problem looking up this ${what.single}.`, error: err };
+      return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
     log.trace('user lacks capability "users_read_all" || "users_read_mine"');

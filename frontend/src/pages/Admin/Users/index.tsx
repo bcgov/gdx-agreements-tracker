@@ -35,15 +35,15 @@ export const Users: FC = () => {
 
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
   /**
-   * Gets the resource information for a specific id.
+   * Gets the user information for a specific id.
    *
    * @returns {null|object}
    */
   const getUsers = async () => {
     let data = null;
     if (currentRowData?.id) {
-      const resources = await apiAxios().get(`/users/${currentRowData?.id}`);
-      data = resources.data.data;
+      const users = await apiAxios().get(`/users/${currentRowData?.id}`);
+      data = users.data.data;
     }
     return data;
   };
@@ -52,7 +52,7 @@ export const Users: FC = () => {
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const userQuery: any = useQuery(`resources - ${currentRowData?.id}`, getUsers, {
+  const userQuery: any = useQuery(`users - ${currentRowData?.id}`, getUsers, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,
