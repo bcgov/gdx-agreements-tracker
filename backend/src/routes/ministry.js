@@ -1,6 +1,6 @@
 const controller = require("../controllers/ministry");
 const validators = require("../validators/ministry");
-const what = "ministry";
+const what = "ministries";
 
 const routes = [
   {
@@ -13,6 +13,16 @@ const routes = [
     url: `/${what}/:id`,
     schema: validators.getOneValidator,
     handler: controller.getOne,
+  },
+  {
+    method: "PUT",
+    url: `/${what}/:id`,
+    handler: controller.updateOne,
+  },
+  {
+    method: "POST",
+    url: `/${what}`,
+    handler: controller.addOne,
   },
 ];
 

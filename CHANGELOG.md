@@ -1,4 +1,12 @@
 ## Developer Changelog
+
+### August 23, 2022 (DESCW-554) Ministries Form
+- Frontend
+  - Added view, edit and create forms for ministries.
+  - Added new reusable form input type for checkboxes.
+- Backend
+  - Added MVC and routes for ministries.
+
 ### August 23, 2022 (DESCW-548) Contacts Form
 - Frontend
   - Admin/Contacts: Fixed bugs with ministry select input

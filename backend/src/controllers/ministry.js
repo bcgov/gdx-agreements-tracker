@@ -1,6 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
 const Model = require("../models/ministry.js");
-const what = { single: "ministry", plural: "ministry" };
+const what = { single: "ministry", plural: "ministries" };
 
 /**
  * Checks to see if a user access a route based on the allowedRole.
@@ -44,7 +44,7 @@ const checkMine = (request) => {
  * @returns {object}
  */
 const getAll = async (request, reply) => {
-  if (userCan(request, "general_read_all")) {
+  if (userCan(request, `${what.plural}_read_all`)) {
     try {
       const result = await Model.findAll();
       if (!result) {
@@ -56,7 +56,7 @@ const getAll = async (request, reply) => {
       return { message: `There was a problem looking up ${what.plural}.` };
     }
   } else {
-    log.trace('user lacks capability "general_read_all"');
+    log.trace(`user lacks capability "${what.plural}_read_all"`);
     return notAllowed(reply);
   }
 };
@@ -70,8 +70,8 @@ const getAll = async (request, reply) => {
  */
 const getOne = async (request, reply) => {
   if (
-    userCan(request, "general_read_all") ||
-    (userCan(request, "general_read_mine") && checkMine(request))
+    userCan(request, `${what.plural}_read_all`) ||
+    (userCan(request, `${what.plural}_read_mine`) && checkMine(request))
   ) {
     const targetId = Number(request.params.id);
     try {
@@ -87,7 +87,65 @@ const getOne = async (request, reply) => {
       return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
-    log.trace('user lacks capability "general_read_all" || "general_read_mine"');
+    log.trace(`user lacks capability "${what.plural}_read_all" || "${what.plural}_read_mine"`);
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Update an item by ID. Use passed info from the request body.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const updateOne = async (request, reply) => {
+  if (
+    userCan(request, `${what.plural}_update_all`) ||
+    (userCan(request, `${what.plural}_update_mine`) && checkMine(request))
+  ) {
+    try {
+      const result = await Model.updateOne(request.body, request.params.id);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be updated.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      console.error("err", err);
+      return { message: `There was a problem updating this ${what.single}. Error:${err}` };
+    }
+  } else {
+    log.trace(`user lacks capability "${what.plural}_update_all" || "${what.plural}_update_mine"`);
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Add an item based on request body info.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const addOne = async (request, reply) => {
+  if (userCan(request, `${what.plural}_add_one`)) {
+    try {
+      const result = await Model.addOne(request.body);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be added.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem adding this ${what.single}.`, error: err };
+    }
+  } else {
+    log.trace(`user lacks capability "${what.plural}_add_one"`);
     return notAllowed(reply);
   }
 };
@@ -95,4 +153,6 @@ const getOne = async (request, reply) => {
 module.exports = {
   getAll,
   getOne,
+  updateOne,
+  addOne,
 };

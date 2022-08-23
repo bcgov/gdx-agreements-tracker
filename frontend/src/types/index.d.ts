@@ -87,6 +87,14 @@ export interface IPickerProps {
   };
 }
 
+//checkbox types
+export interface ICheckboxProps {
+  onChange: Function;
+  checked: boolean;
+  fieldName: string;
+  setFieldValue: Function;
+}
+
 export interface IPickerTableData {
   data: {
     data: [
@@ -187,7 +195,7 @@ export interface IUseFormSubmitHandlePost {
 
 export interface IEditFields {
   fieldName: string;
-  fieldType: "select" | "date" | "singleText" | "multiText" | "number";
+  fieldType: "select" | "date" | "singleText" | "multiText" | "checkbox" | "number";
   fieldLabel: string;
   width: "half" | "full";
   tableName?: string;
