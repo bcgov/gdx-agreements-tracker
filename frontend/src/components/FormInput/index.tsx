@@ -92,7 +92,7 @@ export const FormInput = ({
           />
         </GridItem>
       );
-      case "number":
+    case "number":
       return (
         <GridItem width={width}>
           <Field
