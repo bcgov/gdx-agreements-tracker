@@ -1,4 +1,12 @@
 ## Developer Changelog
+### August 23, 2022 (DESCW-548) Contacts Form
+- Frontend
+  - Admin/Contacts: Fixed bugs with ministry select input
+  - Added IOption interface to Types for use with Select input options ({value, label} objects)
+- Backend
+  - Improved Contacts model to handle ministry data
+  - Added input validation to Contacts update/add requests
+
 ### August 23, 2022 (DESCW-553) Resources Test
 - Frontend
   - simple resource test to test component
