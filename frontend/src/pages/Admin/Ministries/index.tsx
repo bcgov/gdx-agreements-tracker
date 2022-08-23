@@ -123,6 +123,7 @@ export const Ministries: FC = () => {
                       formValues: values,
                       apiUrl: `/ministries`,
                       handleEditMode: handleEditMode,
+                      handleClose: handleClose,
                       queryKeys: [`"/ministries/${ministriesQuery?.data?.id}"`, `ministries`],
                     });
                   }}
