@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
 import { useFormControls } from "hooks/useFormControls";
@@ -36,19 +36,42 @@ export const Contacts: FC = () => {
     if (currentRowData?.id) {
       const contacts = await apiAxios().get(`/contacts/${currentRowData?.id}`);
       // Replaces createFormInitialValues with values from contacts if contacts has a non-null value for that property.
-      const ret = Object.assign(
+      const contact = Object.assign(
         {},
         createFormInitialValues,
-        Object.fromEntries(
-          Object.entries(contacts.data.data[0]).filter(([, value]) => value !== null)
-        )
+        Object.fromEntries(Object.entries(contacts.data.data).filter(([, value]) => value !== null))
       );
-      return ret;
+      // Handle null ministry_id.
+      if (null === contact.ministry_id.value) {
+        contact.ministry_id = {
+          value: 0,
+          label: "",
+        };
+      }
+      return contact;
     }
     return null;
   };
 
-  const { handlePost, handleUpdate } = useFormSubmit();
+  /**
+   * Serializes form values to allow saving to database.
+   *
+   * @param   {any} values Edit/Create form values.
+   * @returns {any}
+   */
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const serializeContact = (values: any) => {
+    const serializedValues = values;
+    if (values.ministry_id?.value > 0) {
+      serializedValues.ministry_id = values.ministry_id.value;
+    } else {
+      delete serializedValues.ministry_id;
+    }
+    return serializedValues;
+  };
+
+  const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
   // Queries
   // todo: Define a good type. "Any" type temporarily permitted.
@@ -68,7 +91,7 @@ export const Contacts: FC = () => {
     { width: "half", title: "City", value: contactQuery?.data?.city },
     { width: "half", title: "Job Title", value: contactQuery?.data?.contact_title },
     { width: "half", title: "State/Province", value: contactQuery?.data?.province },
-    { width: "half", title: "Ministry ID", value: contactQuery?.data?.ministry_id },
+    { width: "half", title: "Ministry ID", value: contactQuery?.data?.ministry_id.label },
     { width: "half", title: "Country", value: contactQuery?.data?.country },
     { width: "half", title: "Business Phone", value: contactQuery?.data?.contact_phone },
     { width: "half", title: "Postal Code", value: contactQuery?.data?.postal },
@@ -116,9 +139,10 @@ export const Contacts: FC = () => {
     },
     {
       fieldName: "ministry_id",
-      fieldType: "singleText",
+      fieldType: "select",
       fieldLabel: "Ministry ID",
       width: "half",
+      tableName: "project",
     },
     {
       fieldName: "country",
@@ -151,8 +175,14 @@ export const Contacts: FC = () => {
       width: "half",
     },
     {
-      fieldName: "notes",
+      fieldName: "email",
       fieldType: "singleText",
+      fieldLabel: "Email",
+      width: "half",
+    },
+    {
+      fieldName: "notes",
+      fieldType: "multiText",
       fieldLabel: "Notes",
       width: "half",
     },
@@ -165,12 +195,16 @@ export const Contacts: FC = () => {
     city: "",
     contact_title: "",
     province: "",
-    ministry_id: 0,
+    ministry_id: {
+      value: 0,
+      label: "",
+    },
     country: "",
     contact_phone: "",
     postal: "",
     mobile: "",
     website: "",
+    email: "",
     notes: "",
   };
 
@@ -190,6 +224,19 @@ export const Contacts: FC = () => {
           />
         }
       />
+      <Box
+        m={1}
+        display="flex"
+        justifyContent="flex-end"
+        alignItems="flex-end"
+        onClick={() => {
+          handleOpen();
+          handleEditMode(true);
+          handleFormType("new");
+        }}
+      >
+        <Button variant="contained">New Contact</Button>
+      </Box>
       <GDXModal
         open={open}
         handleClose={handleClose}
@@ -210,7 +257,7 @@ export const Contacts: FC = () => {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   onSubmit={async (values: any) => {
                     return handlePost({
-                      formValues: values,
+                      formValues: serializeContact(values),
                       apiUrl: "/contacts",
                       handleEditMode: handleEditMode,
                       queryKeys: ["/contacts"],
@@ -223,11 +270,11 @@ export const Contacts: FC = () => {
                   initialValues={contactQuery?.data}
                   onSubmit={async (values) => {
                     return handleUpdate({
-                      changedValues: values,
+                      changedValues: serializeContact(values),
                       currentRowData: contactQuery?.data,
                       apiUrl: `contacts/${contactQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`contact - ${currentRowData?.id}`],
+                      queryKeys: [`contact - ${currentRowData?.id}`, "/contacts"],
                     });
                   }}
                   editFields={editFields}
@@ -237,6 +284,7 @@ export const Contacts: FC = () => {
           )}
         </>
       </GDXModal>
+      <Notification />
     </>
   );
 };

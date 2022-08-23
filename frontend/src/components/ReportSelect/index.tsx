@@ -21,6 +21,7 @@ import {
   IRadioButton,
   IRadioGroup,
   ISelect,
+  IOption,
 } from "../../types";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -69,7 +70,7 @@ export const ReportSelect = ({ data }: { data: IData }) => {
           label={parameter.label}
           key={parameter.id + "_select"}
         >
-          {parameter.options.map((menuItem: { value: string; label: string }) => {
+          {parameter.options.map((menuItem: IOption) => {
             return (
               <MenuItem value={menuItem.value} key={menuItem.value}>
                 {menuItem.value}
@@ -103,7 +104,7 @@ export const ReportSelect = ({ data }: { data: IData }) => {
       <FormControl key={parameter.id + "_div"}>
         <FormLabel component="legend">{parameter.label}</FormLabel>
         <FormGroup>
-          {parameter.options.map((checkbox: { value: string }) => {
+          {parameter.options.map((checkbox: IOption) => {
             return (
               <FormControlLabel
                 control={<Checkbox />}

@@ -17,11 +17,13 @@ const routes = [
   {
     method: "PUT",
     url: `/${what}/:id`,
+    schema: validators.updateOneValidator,
     handler: controller.updateOne,
   },
   {
     method: "POST",
     url: `/${what}`,
+    schema: validators.addOneValidator,
     handler: controller.addOne,
   },
 ];
