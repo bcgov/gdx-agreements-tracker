@@ -1,4 +1,9 @@
 ## Developer Changelog
+### August 23, 2022 (DESCW-553) Resources Test
+- Frontend
+  - simple resource test to test component
+- Backend
+  - permission test for correct/incorrect roles.
 
 ### August 22, 2022 (DESCW-549) Github actions
 - Frontend
