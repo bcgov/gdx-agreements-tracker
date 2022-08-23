@@ -80,7 +80,6 @@ const getOne = async (request, reply) => {
         reply.code(404);
         return {
           message: `The ${what.single} with the specified id does not exist.`,
-          result: result,
         };
       } else {
         return result[0];
@@ -114,7 +113,7 @@ const addOne = async (request, reply) => {
       }
     } catch (err) {
       reply.code(500);
-      return { message: `There was a problem adding this ${what.single}.`, error: err };
+      return { message: `There was a problem adding this ${what.single}.` };
     }
   } else {
     log.trace('user lacks capability "users_create_all" || "users_create_mine"');
@@ -144,7 +143,7 @@ const updateOne = async (request, reply) => {
       }
     } catch (err) {
       reply.code(500);
-      return { message: `There was a problem updating this ${what.single}.`, error: err };
+      return { message: `There was a problem updating this ${what.single}.` };
     }
   } else {
     log.trace('user lacks capability "users_update_all" || "users_update_mine"');
