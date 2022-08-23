@@ -3,6 +3,7 @@ const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
 const table = `${dbConnection.dataBaseSchemas().public}.users`;
+const rolesTable = `${dbConnection.dataBaseSchemas().public}.roles`;
 
 // Get all.
 const findAll = () => {
@@ -11,7 +12,18 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (id) => {
-  return db(table).where("id", id);
+  console.log(id)
+  return db
+        .select(
+          "name",
+          "email",
+          db.raw(
+            "(SELECT json_build_object('value', COALESCE(users.role_id,0), 'label', COALESCE(roles.display_name,''))) AS role_id"
+          ),
+        )
+        .from(table)
+        .leftJoin(rolesTable, { "users.role_id": `${rolesTable}.id` })
+        .where("id", id);
 };
 
 // Get specific user by email.

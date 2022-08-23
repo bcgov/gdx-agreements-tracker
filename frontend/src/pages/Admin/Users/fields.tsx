@@ -10,8 +10,8 @@ import { IEditFields } from "types";
  */
 export const readFields = (userQuery: UseQueryResult<FormikValues>) => {
   return [
-    { width: "half", title: "email", value: userQuery?.data?.supplier_id.label },
-    { width: "half", title: "name", value: userQuery?.data?.subcontractor_id.label },
+    { width: "half", title: "email", value: userQuery?.data?.email },
+    { width: "half", title: "name", value: userQuery?.data?.name },
   ];
 };
 
