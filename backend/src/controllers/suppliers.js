@@ -122,8 +122,36 @@ const updateOne = async (request, reply) => {
   }
 };
 
+/**
+ * Add an item based on request body info.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const addOne = async (request, reply) => {
+  if (userCan(request, "supplier_add_one")) {
+    try {
+      const result = await Model.addOne(request.body);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be added.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem adding this ${what.single}.`, error: err };
+    }
+  } else {
+    log.trace('user lacks capability "supplier_add_one"');
+    return notAllowed(reply);
+  }
+};
+
 module.exports = {
   getAll,
   getOne,
   updateOne,
+  addOne,
 };

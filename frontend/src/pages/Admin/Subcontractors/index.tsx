@@ -137,6 +137,7 @@ export const Subcontractors: FC = () => {
                         `"/subcontractors/${subcontractorsQuery?.data?.id}"`,
                         `subcontractors`,
                       ],
+                      handleClose: handleClose,
                     });
                   }}
                   editFields={editFields}

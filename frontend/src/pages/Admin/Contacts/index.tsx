@@ -261,6 +261,7 @@ export const Contacts: FC = () => {
                       apiUrl: "/contacts",
                       handleEditMode: handleEditMode,
                       queryKeys: ["/contacts"],
+                      handleClose: handleClose,
                     });
                   }}
                   editFields={editFields}

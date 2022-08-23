@@ -180,6 +180,9 @@ export interface IUseFormSubmitHandlePost {
   apiUrl: string;
   handleEditMode: Function;
   queryKeys: string[];
+  successMessage?: string;
+  errorMessage?: string;
+  handleClose: Function;
 }
 
 export interface IEditFields {

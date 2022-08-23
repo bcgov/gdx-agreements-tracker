@@ -20,12 +20,19 @@ const findById = (supplierId) => {
   return db(table).where("id", supplierId);
 };
 
+// Update one.
 const updateOne = (body, id) => {
   return db(table).where("id", id).update(body);
+};
+
+// Add one.
+const addOne = (supplier) => {
+  return db(table).insert(supplier);
 };
 
 module.exports = {
   findAll,
   findById,
   updateOne,
+  addOne,
 };

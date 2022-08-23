@@ -180,6 +180,7 @@ export const ChangeRequest = () => {
                       apiUrl: `/change_request`,
                       handleEditMode: handleEditMode,
                       queryKeys: [`"/projects/${projectId}/change_request"`],
+                      handleClose: handleClose,
                     });
                   }}
                   editFields={editFields}

@@ -34,6 +34,7 @@ const AllCapabilities = [
   "subcontractors_read_mine",
   "subcontractors_update_all",
   "subcontractors_update_mine",
+  "supplier_add_one",
 ];
 
 module.exports = { AllCapabilities };

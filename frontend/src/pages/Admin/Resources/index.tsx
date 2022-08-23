@@ -124,7 +124,8 @@ export const Resources: FC = () => {
                       formValues: values,
                       apiUrl: `/resources`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`"/resources"`],
+                      queryKeys: [`"/resources/${resourcesQuery?.data?.id}"`],
+                      handleClose: handleClose,
                     });
                   }}
                   editFields={editFields()}
