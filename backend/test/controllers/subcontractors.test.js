@@ -1,4 +1,4 @@
-const { getAll } = require("../../src/controllers/subcontractors");
+const { getAll, getOne } = require("../../src/controllers/subcontractors");
 const subcontractorsModel = require("../../src/models/subcontractors.js");
 
 const subcontractors = [
@@ -30,6 +30,7 @@ jest.mock("../../src/models/subcontractors");
 describe("Testing user controllers", () => {
   it("Gets an array of all subcontractors", async () => {
     subcontractorsModel.findAll.mockResolvedValue(subcontractors);
+
     const sampleRequest = {
       user: {
         capabilities: ["subcontractors_read_all"],
@@ -38,6 +39,27 @@ describe("Testing user controllers", () => {
     const result = await getAll(sampleRequest);
     expect(result).toBeInstanceOf(Array);
     result.forEach((subcontractorsObject) => expect("id" in subcontractorsObject).toBe(true));
+  });
+
+  it("Gets a single subcontractor if user has permissions", async () => {
+    subcontractorsModel.findById.mockResolvedValue([
+      {
+        id: 4,
+        subcontractor_name: "Jefferson",
+      },
+    ]);
+
+    const sampleRequest = {
+      params: {
+        id: 4,
+      },
+      user: {
+        capabilities: ["subcontractors_read_all"],
+      },
+    };
+
+    const result = await getOne(sampleRequest);
+    expect(result).toStrictEqual({ id: 4, subcontractor_name: "Jefferson" });
   });
 });
 

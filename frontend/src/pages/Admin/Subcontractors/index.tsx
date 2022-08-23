@@ -1,19 +1,20 @@
 import React, { FC } from "react";
 import { Typography } from "@mui/material";
 import { useFormatTableData } from "../../../hooks/";
-import { useParams } from "react-router-dom";
 import { Table } from "../../../components";
 import { Renderer } from "components/Renderer";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { useFormControls } from "hooks/useFormControls";
 import { GDXModal } from "components/GDXModal";
 import { apiAxios } from "utils";
-import { useQuery } from "react-query";
+import { useQuery, UseQueryResult } from "react-query";
 import { ReadForm } from "components/ReadForm";
 import { EditForm } from "components/EditForm";
 import { IEditFields } from "types";
 import { Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
+import { FormikValues } from "formik";
+import { useParams } from "react-router-dom";
 
 export const Subcontractors: FC = () => {
   const {
@@ -28,7 +29,7 @@ export const Subcontractors: FC = () => {
     currentRowData,
   } = useFormControls();
 
-  const { subcontractorId, subcontractorName } = useParams();
+  const { subcontractorName } = useParams();
 
   const { data, isLoading } = useFormatTableData({
     tableName: "subcontractors",
@@ -44,9 +45,7 @@ export const Subcontractors: FC = () => {
   };
 
   // Queries
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const subcontractorsQuery: any = useQuery(
+  const subcontractorsQuery: UseQueryResult<FormikValues> = useQuery(
     `subcontractors - ${currentRowData?.id}`,
     getSubcontractors,
     {
@@ -76,8 +75,7 @@ export const Subcontractors: FC = () => {
   ];
 
   const createFormInitialValues = {
-    id: Number(subcontractorId),
-    subcontractor_name: subcontractorName,
+    subcontractor_name: subcontractorName || "",
   };
 
   return (
@@ -95,7 +93,16 @@ export const Subcontractors: FC = () => {
               loading={isLoading}
               onRowClick={handleCurrentRowData}
             />
-            <Button variant="contained">Add</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                handleOpen();
+                handleEditMode(true);
+                handleFormType("new");
+              }}
+            >
+              Add
+            </Button>
           </>
         }
       />
@@ -126,14 +133,17 @@ export const Subcontractors: FC = () => {
                       formValues: values,
                       apiUrl: `/subcontractors`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`"/subcontractors/${subcontractorsQuery?.data?.id}"`],
+                      queryKeys: [
+                        `"/subcontractors/${subcontractorsQuery?.data?.id}"`,
+                        `subcontractors`,
+                      ],
                     });
                   }}
                   editFields={editFields}
                 />
               ) : (
                 <EditForm
-                  initialValues={subcontractorsQuery?.data}
+                  initialValues={subcontractorsQuery?.data as FormikValues}
                   onSubmit={async (values) => {
                     return handleUpdate({
                       changedValues: values,
