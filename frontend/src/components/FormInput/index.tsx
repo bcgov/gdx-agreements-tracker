@@ -115,6 +115,7 @@ export const FormInput = ({
               <GDXCheckbox
                 checked={fieldValue as boolean}
                 onChange={handleChange as Function}
+                fieldName={fieldName}
                 setFieldValue={setFieldValue as Function}
               />
             }

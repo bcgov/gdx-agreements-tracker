@@ -91,6 +91,7 @@ export interface IPickerProps {
 export interface ICheckboxProps {
   onChange: Function;
   checked: boolean;
+  fieldName: string;
   setFieldValue: Function;
 }
 

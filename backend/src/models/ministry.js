@@ -6,8 +6,12 @@ const table = `${dbConnection.dataBaseSchemas().data}.ministry`;
 
 // Get all.
 const findAll = () => {
-  const isActive = db.raw("(CASE WHEN is_active THEN 'Yes' ELSE 'No' END) AS is_active");
-  return db(table).select("id", "ministry_name", "ministry_short_name", isActive);
+  return db(table).select(
+    "id",
+    "ministry_name",
+    "ministry_short_name",
+    db.raw("(CASE WHEN is_active THEN 'Yes' ELSE 'No' END) AS is_active")
+  );
 };
 
 // Get specific one by id.

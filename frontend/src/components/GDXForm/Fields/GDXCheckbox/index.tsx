@@ -8,12 +8,12 @@ import { ICheckboxProps } from "../../../../types";
  * @returns                                                                    a JSX checkbox
  */
 
-export const GDXCheckbox: FC<ICheckboxProps> = ({ checked, setFieldValue }) => {
+export const GDXCheckbox: FC<ICheckboxProps> = ({ checked, fieldName, setFieldValue }) => {
   return (
     <>
       <Checkbox
         onChange={(event) => {
-          setFieldValue("is_active", event.target.checked);
+          setFieldValue(fieldName, event.target.checked);
         }}
         checked={checked as boolean}
       />
