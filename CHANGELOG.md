@@ -1,4 +1,15 @@
 ## Developer Changelog
+### August 23, 2022 (DESCW-555) User Form
+- Frontend
+  - Added view, edit and create forms for User
+- Backend 
+  - Update model and controllers for user
+  - Created migration to add role_id in users table
+  - Created migration to add user_roles in picklist_options
+  - Seeded picklist.
+- require to run migrations and seeds
+  - `npx knex migrate:latest`
+  - `npx knex seed:run --specific=08_picker_options.js`
 
 ### August 23, 2022 (DESCW-554) Ministries Form
 - Frontend
