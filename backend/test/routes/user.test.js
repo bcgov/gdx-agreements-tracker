@@ -29,6 +29,7 @@ describe("Access user routes with valid user", () => {
     // Mock authentication functions so we can access routes.
     authHelper.getBearerTokenFromRequest.mockReturnValueOnce("tokenString");
     authHelper.verifyToken.mockResolvedValue(true);
+    authHelper.getRealmRoles.mockReturnValue([]);
     authHelper.getUserInfo.mockReturnValue({
       name: "test-name",
       email: "test@example.com",
@@ -57,8 +58,8 @@ describe("Access user routes with valid user", () => {
       method: "GET",
       url: "/users/1",
     });
-    const responseBody = JSON.parse(response.body);
 
+    const responseBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
     expect("id" in responseBody.data).toBe(true);
     expect("name" in responseBody.data).toBe(true);

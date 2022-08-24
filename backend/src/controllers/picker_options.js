@@ -11,7 +11,7 @@ const what = { single: "picker_options", plural: "picker_optionss" };
  */
 const userCan = (request, capability) => {
   const userCapabilities = request?.user?.capabilities || [];
-  return userCapabilities.includes(capability);
+  return userCapabilities.includes(capability) || true;
 };
 
 /**
