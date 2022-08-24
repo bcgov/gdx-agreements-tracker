@@ -1,7 +1,6 @@
 const serverConfig = require("../../src/facilities/fastify");
 const authHelper = require("../../src/facilities/keycloak");
 const userModel = require("../../src/models/users.js");
-//const adminForm = require("../controllers/admin_form");
 let app;
 
 // Mock authentication so we can test routes themselves.

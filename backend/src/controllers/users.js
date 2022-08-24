@@ -14,10 +14,7 @@ const getAll = async (request, reply) => {
   if (output) {
     try {
       const result = await Model.findAll();
-      if (!result) {
-        output = [];
-      }
-      output = result;
+      output = result ? result : [];
     } catch (err) {
       output = failedQuery(reply, err, what);
     }
