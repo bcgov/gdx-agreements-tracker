@@ -3,6 +3,8 @@ import { Route } from "react-router-dom";
 import { Projects, Project } from "../../pages";
 import { ChangeRequest } from "../../pages/Projects/Project/ChangeRequest";
 import { ProjectDetails } from "../../pages/Projects/Project/ProjectDetails";
+import { CloseOut } from "pages/Projects/Project/CloseOut";
+
 const projectRoutes = [
   <Route key="project" path="projects" element={<Projects />} />,
   <Route key="projectprojectId" path="projects/:projectId" element={<Project />}>
@@ -16,7 +18,7 @@ const projectRoutes = [
       element={<div></div>}
     />
     ,
-    <Route key="projectCloseOut" path="projects/:projectId/close-out" element={<div></div>} />,
+    <Route key="projectCloseOut" path="close-out" element={<CloseOut />} />,
   </Route>,
 ];
 
