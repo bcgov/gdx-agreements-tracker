@@ -1,11 +1,11 @@
 import React from "react";
 
 import { render, fireEvent, screen } from "@testing-library/react";
-import contractRoutes from "../../routes/subRoutes/contractRoutes";
 import { MemoryRouter, Routes, Router } from "react-router-dom";
-import { Contracts } from "../../pages";
 import { createMemoryHistory } from "history";
 import { QueryClient, QueryClientProvider } from "react-query";
+import contractRoutes from "routes/subRoutes/contractRoutes";
+import { Contracts } from "pages";
 
 // Create a client
 const queryClient = new QueryClient();

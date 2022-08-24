@@ -90,9 +90,9 @@ export const Amendments: FC = (): JSX.Element => {
   /**
    * returns destructured props from the useFormatTableData hook.
    *
-   * @param   {string}         queryKey     - This is the queryKey.  The queryKey acts as a cache identifier for the UseQueryResult.
+   * @param   {string}         queryKey      - This is the queryKey.  The queryKey acts as a cache identifier for the UseQueryResult.
    * @param   {Function}       getAmendments - The enpoint as which the API query will use for it's call.
-   * @returns {UseQueryResult}              - The result of react query which contains things such as the data.
+   * @returns {UseQueryResult}               - The result of react query which contains things such as the data.
    */
   // Queries
   const AmendmentsQuery: UseQueryResult<FormikValues> = useQuery(
@@ -111,7 +111,7 @@ export const Amendments: FC = (): JSX.Element => {
     contract_id: 0,
     amendment_number: "",
     amendment_date: null,
-    description: "",    
+    description: "",
   };
   return (
     <>
@@ -145,7 +145,9 @@ export const Amendments: FC = (): JSX.Element => {
         open={open}
         handleClose={handleClose}
         modalTitle={
-          "new" === formType ? `New Amendment` : `Amendment ${AmendmentsQuery?.data?.amendment_number}`
+          "new" === formType
+            ? `New Amendment`
+            : `Amendment ${AmendmentsQuery?.data?.amendment_number}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}

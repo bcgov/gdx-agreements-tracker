@@ -9,7 +9,7 @@ export const editFields: () => IEditFields[] = () => {
       width: "half",
     },
     {
-      fieldName: "amendment_number",  //will be a lookup
+      fieldName: "amendment_number", //will be a lookup
       fieldType: "number",
       fieldLabel: "Amendment type",
       width: "half",
