@@ -55,5 +55,3 @@ export const editFields: () => IEditFields[] = () => {
     },
   ];
 };
-
-z;
