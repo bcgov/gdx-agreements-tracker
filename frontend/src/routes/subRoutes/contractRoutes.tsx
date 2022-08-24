@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import { PageLink } from "../../components/PageLink";
 import { Contract, Contracts } from "../../pages";
-import { Amendments } from "pages/Contracts/Contract/Amedments";
+import { Amendments } from "pages/Contracts/Contract/Amendments";
 const contractRoutes = [
   <Route key="contracts" path="/contracts" element={<ProtectedRoute component={Contracts} />} />,
   <Route
