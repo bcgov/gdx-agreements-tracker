@@ -75,8 +75,7 @@ describe("Testing user controllers", () => {
       },
     };
     const result = await deleteOne(sampleRequest);
-
-    expect("message" in result).toBe(true);
-    expect(result.message).toBe("Deleted user with id 2");
+    expect("name" in result).toBe(true);
+    expect(result.name).toBe("Delroy Lindo");
   });
 });

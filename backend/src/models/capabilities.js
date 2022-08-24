@@ -8,7 +8,7 @@ const rcTable = `${dbConnection.dataBaseSchemas().public}.role_capabilities`;
 
 // Get all.
 const findAll = () => {
-  return db(table);
+  return db(cTable);
 };
 
 // Given a user, retrieve all of their capabilities, as determined by their applied roles.
@@ -17,7 +17,7 @@ const findAllByUserId = (userId) => {
     .pluck("public.capabilities.name")
     .join(rcTable, { "role_capabilities.role_id": `${userTable}.role_id` })
     .join(cTable, { "capabilities.id": `${rcTable}.capability_id` })
-    .where( "users.id",userId);
+    .where("users.id", userId);
 };
 
 module.exports = {

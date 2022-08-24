@@ -1,9 +1,6 @@
-const log = require("../facilities/logging.js")(module.filename);
-const { Query } = require("pg");
 const Model = require("../models/users.js");
 const what = { single: "user", plural: "users" };
-
-const { notAllowed, userCan, failedQuery } = require("./admin_form")
+const { userCan, failedQuery, noQuery } = require("./admin_form");
 
 /**
  * Get all items.
@@ -13,7 +10,7 @@ const { notAllowed, userCan, failedQuery } = require("./admin_form")
  * @returns {object}
  */
 const getAll = async (request, reply) => {
-  let output = userCan(request, reply, what, "admin_form_read_all");
+  let output = userCan(request, reply, what, "users_read_all");
   if (output) {
     try {
       const result = await Model.findAll();
@@ -28,7 +25,6 @@ const getAll = async (request, reply) => {
   return output;
 };
 
-
 /**
  * Get a specific item by ID.
  *
@@ -37,19 +33,15 @@ const getAll = async (request, reply) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
-  let output = userCan(request, reply, what, "admin_form_read_all");
+  let output = await userCan(request, reply, what, "users_read_all");
   if (output) {
     const targetId = Number(request.params.id);
     try {
       const result = await Model.findById(targetId);
-      if (!result || !result.length) {
-        reply.code(404);
-        return {
-          message: `The ${what.single} with the specified id does not exist.`,
-        };
-      } else {
-        return result[0];
-      }
+      output =
+        !result || !result.length
+          ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+          : result[0];
     } catch (err) {
       output = failedQuery(reply, err, what);
     }
@@ -65,23 +57,16 @@ const getOne = async (request, reply) => {
  * @returns {object}
  */
 const addOne = async (request, reply) => {
-  if (userCan(request, "users_create_all") || userCan(request, "users_create_mine")) {
+  let output = userCan(request, reply, what, "users_create_all");
+  if (output) {
     try {
       const result = await Model.addOne(request.body);
-      if (!result) {
-        reply.code(403);
-        return { message: `The ${what.single} could not be added.` };
-      } else {
-        return result;
-      }
+      output = result || noQuery(reply, `The ${what.single} could not be added.`);
     } catch (err) {
-      reply.code(500);
-      return { message: `There was a problem adding this ${what.single}.` };
+      output = failedQuery(reply, err, what);
     }
-  } else {
-    log.trace('user lacks capability "users_create_all" || "users_create_mine"');
-    return notAllowed(reply);
   }
+  return output;
 };
 
 /**
@@ -92,28 +77,16 @@ const addOne = async (request, reply) => {
  * @returns {object}
  */
 const updateOne = async (request, reply) => {
-
-  if (userCan(request, "users_update_all") ) {
-    const target = {
-      id: Number(request.params.id),
-      name: request.body.name,
-    };
+  let output = userCan(request, reply, what, "users_update_all");
+  if (output) {
     try {
       const result = await Model.updateOne(Number(request.params.id), request.body);
-      if (!result) {
-        reply.code(403);
-        return { message: `The ${what.single} could not be updated.` };
-      } else {
-        return result;
-      }
+      output = result || noQuery(reply, `The ${what.single} could not be updated.`);
     } catch (err) {
-      reply.code(500);
-      return { message: `There was a problem updating this ${what.single}.` };
+      output = failedQuery(reply, err, what);
     }
-  } else {
-    log.trace('user lacks capability "users_update_all" || "users_update_mine"');
-    return notAllowed(reply);
   }
+  return output;
 };
 
 /**
@@ -124,26 +97,20 @@ const updateOne = async (request, reply) => {
  * @returns {object}
  */
 const deleteOne = async (request, reply) => {
-  if (userCan(request, "users_delete_all")) {
+  let output = userCan(request, reply, what, "users_delete_all");
+  if (output) {
     const target = {
       id: Number(request.params.id),
     };
     try {
       const result = await Model.removeOne(target);
-      if (!result) {
-        reply.code(403);
-        return { message: `The ${what.single} could not be added.` };
-      } else {
-        return { message: `Deleted ${what.single} with id ${request.params.id}` };
-      }
+      output =
+        result || noQuery(reply, `The ${what.single} ${request.params.id} could not be deleted.`);
     } catch (err) {
-      reply.code(500);
-      return { message: `There was a problem deleting this ${what.single}.` };
+      output = failedQuery(reply, err, what);
     }
-  } else {
-    log.trace('user lacks capability "users_delete_all"');
-    return notAllowed(reply);
   }
+  return output;
 };
 
 module.exports = {

@@ -124,9 +124,16 @@ const getUserInfo = async (request) => {
   return;
 };
 
+const getRealmRoles = (request) => {
+  const token = getBearerTokenFromRequest(request);
+  const decodedToken = jwt.decode(token, { complete: true });
+  return decodedToken?.payload?.client_roles || [];
+};
+
 module.exports = {
   getBearerTokenFromRequest,
   verifyToken,
   verifyUserExists,
   getUserInfo,
+  getRealmRoles,
 };
