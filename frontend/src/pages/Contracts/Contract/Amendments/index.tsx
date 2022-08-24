@@ -5,8 +5,7 @@ import { GDXModal } from "components/GDXModal";
 import { apiAxios } from "utils";
 import { useQuery, UseQueryResult } from "react-query";
 import { useParams } from "react-router-dom";
-import { readFields } from "./readFields";
-import { editFields } from "./editFields";
+import { editFields,readFields } from "./fields";
 import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
@@ -83,8 +82,8 @@ export const Amendments: FC = (): JSX.Element => {
    */
 
   const getAmendments = async () => {
-    const Amendments = await apiAxios().get(`contracts/${currentRowData?.id}/amendments/`);
-    return Amendments.data.data[0];
+    const amendments = await apiAxios().get(`contracts/${currentRowData?.id}/amendments/`);
+    return amendments.data.data[0];
   };
 
   /**
@@ -95,7 +94,7 @@ export const Amendments: FC = (): JSX.Element => {
    * @returns {UseQueryResult}               - The result of react query which contains things such as the data.
    */
   // Queries
-  const AmendmentsQuery: UseQueryResult<FormikValues> = useQuery(
+  const amendmentsQuery: UseQueryResult<FormikValues> = useQuery(
     `contracts/contractId/${currentRowData?.id}`,
     getAmendments,
     {
@@ -136,7 +135,7 @@ export const Amendments: FC = (): JSX.Element => {
                 handleFormType("new");
               }}
             >
-              <Button variant="contained">Add a Amendment</Button>
+              <Button variant="contained">Add an amendment</Button>
             </Box>
           </>
         }
@@ -146,8 +145,8 @@ export const Amendments: FC = (): JSX.Element => {
         handleClose={handleClose}
         modalTitle={
           "new" === formType
-            ? `New Amendment`
-            : `Amendment ${AmendmentsQuery?.data?.amendment_number}`
+            ? `New amendment`
+            : `amendment ${amendmentsQuery?.data?.amendment_number}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}
@@ -155,7 +154,7 @@ export const Amendments: FC = (): JSX.Element => {
       >
         <>
           {!editMode ? (
-            <ReadForm fields={readFields(AmendmentsQuery)} />
+            <ReadForm fields={readFields(amendmentsQuery)} />
           ) : (
             <>
               {"new" === formType ? (
@@ -166,11 +165,11 @@ export const Amendments: FC = (): JSX.Element => {
                   onSubmit={async (values: any) => {
                     return handlePost({
                       formValues: values,
-                      apiUrl: `/Amendments`,
+                      apiUrl: `/amendments`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`Amendments - ${contractId}`, `Amendments`],
-                      successMessage: `Changes saved successfully for Amendment ${values.Amendment_number}`,
-                      errorMessage: `There was an issue saving your changes for Amendment ${values.Amendment_number}`,
+                      queryKeys: [`amendments - ${contractId}`, `amendments`],
+                      successMessage: `Changes saved successfully for amendment ${values.amendment_number}`,
+                      errorMessage: `There was an issue saving your changes for amendment ${values.amendment_number}`,
                       handleClose: handleClose,
                     });
                   }}
@@ -178,16 +177,16 @@ export const Amendments: FC = (): JSX.Element => {
                 />
               ) : (
                 <EditForm
-                  initialValues={AmendmentsQuery?.data as FormikValues}
+                  initialValues={amendmentsQuery?.data as FormikValues}
                   onSubmit={async (values) => {
                     return handleUpdate({
                       changedValues: values,
-                      currentRowData: AmendmentsQuery?.data,
-                      apiUrl: `Amendments/${AmendmentsQuery?.data?.id}`,
+                      currentRowData: amendmentsQuery?.data,
+                      apiUrl: `amendments/${amendmentsQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`contractId - ${currentRowData?.id}`, `Amendments`],
-                      successMessage: `Changes saved successfully for Amendment ${AmendmentsQuery?.data?.Amendment_number}`,
-                      errorMessage: `There was an issue saving your changes for Amendment ${AmendmentsQuery?.data?.Amendment_number}`,
+                      queryKeys: [`contractId - ${currentRowData?.id}`, `amendments`],
+                      successMessage: `Changes saved successfully for amendment ${amendmentsQuery?.data?.amendment_number}`,
+                      errorMessage: `There was an issue saving your changes for amendment ${amendmentsQuery?.data?.amendment_number}`,
                     });
                   }}
                   editFields={editFields()}
