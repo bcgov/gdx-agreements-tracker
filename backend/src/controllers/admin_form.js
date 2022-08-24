@@ -1,17 +1,4 @@
 const log = require("../facilities/logging.js")(module.filename);
-const { getRealmRoles } = require("../facilities/keycloak");
-
-/**
- * This is a helper function that returns 401 with generic message if user is not allowed to access route.
- *
- * @param   {FastifyReply} reply The reply object, in order to set the status code.
- * @param   {object}       what  The type of model being accessed
- * @returns {object}
- */
-const notAllowed = (reply, what) => {
-  reply.code(401);
-  return { message: `You don't have the correct permission to access ${what.plural}` };
-};
 
 /**
  * This is the callback for when a query fails, due to an improper syntax.
@@ -24,7 +11,6 @@ const notAllowed = (reply, what) => {
 const failedQuery = (reply, error, what) => {
   reply.code(500);
   log.error(error);
-
   return { message: `There was a problem with the query for ${what.plural}.` };
 };
 
@@ -42,37 +28,21 @@ const noQuery = (reply, message) => {
 };
 
 /**
- * Checks to see if a user access a route based on the allowedRole.
+ * This simply adds the capability object to the request object, so that the hook in the fastify plugin can have access to this information.
  *
- * @param   {FastifyRequest} request    The request object, which should have the user capability via the fastify-roles plugin.
- * @param   {FastifyReply}   reply      FastifyReply is an instance of the standard http or http2 reply types.
- * @param   {object}         what       The type of model being accessed
- * @param   {string}         capability Is the name of the role that is required to access the route.
- * @returns {boolean|string}
+ * @param {FastifyRequest} request    FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param {object}         what       The type of object to be accessed.
+ * @param {string}         capability The capability it requires to have access.
  */
-const userCan = async (request, reply, what, capability) => {
-  let isSysAdmin = false;
-  let userCan = false;
-  try {
-    if ("user" === what.single) {
-      const userRealmRoles = getRealmRoles(request);
-      isSysAdmin = userRealmRoles.includes("pmo-sys-admin");
-    }
-    const userCapabilities = request?.user?.capabilities || [];
-    userCan = userCapabilities.includes(capability) || isSysAdmin;
-    if (!userCan) {
-      log.trace(`${what.singular} lacks capability ${capability}`);
-      userCan = notAllowed(reply, what);
-    }
-  } catch (error) {
-    log.warn(error);
-  }
-  return userCan;
+const userRequires = (request, what, capability) => {
+  request.capability = {
+    requires: capability,
+    what: what,
+  };
 };
 
 module.exports = {
-  notAllowed,
-  userCan,
   failedQuery,
   noQuery,
+  userRequires,
 };

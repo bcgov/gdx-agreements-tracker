@@ -36,19 +36,25 @@ describe("Testing resource controller with proper permission", () => {
     resourcesModel.findAll.mockResolvedValue(resources);
     const sampleRequest = {
       user: {
-        capabilities: ["resources_read_all"],
+        capabilities: ["admin_form_read_all"],
       },
     };
-    const result = await getAll(sampleRequest);
+    const sampleReply = {
+      code: (code) => {
+        return code;
+      },
+    };
+    const result = await getAll(sampleRequest, sampleReply);
     expect(result).toBeInstanceOf(Array);
     result.forEach((resourcesObject) => expect("id" in resourcesObject).toBe(true));
   });
 });
-
+// Commenting this test out for now, as fastify hooks is handling permission, so need to re-think.
+/*
 describe("Testing resource controller with no permission", () => {
   it("Should return a message for not the correct permission.", async () => {
     resourcesModel.findAll.mockResolvedValue(resources);
-    const sampleRequest = {
+    const sampleRequest2 = {
       user: {
         capabilities: ["some_capability"],
       },
@@ -58,9 +64,9 @@ describe("Testing resource controller with no permission", () => {
         return code;
       },
     };
-    const result = await getAll(sampleRequest, sampleReply);
-    expect(result.message).toBe("You don't have the correct permission");
+    const result = await getAll(sampleRequest2, sampleReply);
+    expect(result).not.toBeDefined();
   });
-});
+});*/
 
 exports.resources = resources;

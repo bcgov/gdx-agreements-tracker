@@ -1,6 +1,6 @@
 const Model = require("../models/users.js");
 const what = { single: "user", plural: "users" };
-const { userCan, failedQuery, noQuery } = require("./admin_form");
+const { failedQuery, noQuery, userRequires } = require("./admin_form");
 
 /**
  * Get all items.
@@ -10,14 +10,13 @@ const { userCan, failedQuery, noQuery } = require("./admin_form");
  * @returns {object}
  */
 const getAll = async (request, reply) => {
-  let output = userCan(request, reply, what, "users_read_all");
-  if (output) {
-    try {
-      const result = await Model.findAll();
-      output = result ? result : [];
-    } catch (err) {
-      output = failedQuery(reply, err, what);
-    }
+  userRequires(request, what, "users_read_all");
+  let output;
+  try {
+    const result = await Model.findAll();
+    output = result ? result : [];
+  } catch (err) {
+    output = failedQuery(reply, err, what);
   }
   return output;
 };
@@ -30,18 +29,17 @@ const getAll = async (request, reply) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
-  let output = await userCan(request, reply, what, "users_read_all");
-  if (output) {
-    const targetId = Number(request.params.id);
-    try {
-      const result = await Model.findById(targetId);
-      output =
-        !result || !result.length
-          ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-          : result[0];
-    } catch (err) {
-      output = failedQuery(reply, err, what);
-    }
+  userRequires(request, what, "users_read_all");
+  let output;
+  const targetId = Number(request.params.id);
+  try {
+    const result = await Model.findById(targetId);
+    output =
+      !result || !result.length
+        ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+        : result[0];
+  } catch (err) {
+    output = failedQuery(reply, err, what);
   }
   return output;
 };
@@ -54,14 +52,13 @@ const getOne = async (request, reply) => {
  * @returns {object}
  */
 const addOne = async (request, reply) => {
-  let output = userCan(request, reply, what, "users_create_all");
-  if (output) {
-    try {
-      const result = await Model.addOne(request.body);
-      output = result || noQuery(reply, `The ${what.single} could not be added.`);
-    } catch (err) {
-      output = failedQuery(reply, err, what);
-    }
+  userRequires(request, what, "users_create_all");
+  let output;
+  try {
+    const result = await Model.addOne(request.body);
+    output = result || noQuery(reply, `The ${what.single} could not be added.`);
+  } catch (err) {
+    output = failedQuery(reply, err, what);
   }
   return output;
 };
@@ -74,14 +71,13 @@ const addOne = async (request, reply) => {
  * @returns {object}
  */
 const updateOne = async (request, reply) => {
-  let output = userCan(request, reply, what, "users_update_all");
-  if (output) {
-    try {
-      const result = await Model.updateOne(Number(request.params.id), request.body);
-      output = result || noQuery(reply, `The ${what.single} could not be updated.`);
-    } catch (err) {
-      output = failedQuery(reply, err, what);
-    }
+  userRequires(request, what, "users_create_all");
+  let output;
+  try {
+    const result = await Model.updateOne(Number(request.params.id), request.body);
+    output = result || noQuery(reply, `The ${what.single} could not be updated.`);
+  } catch (err) {
+    output = failedQuery(reply, err, what);
   }
   return output;
 };
@@ -94,18 +90,17 @@ const updateOne = async (request, reply) => {
  * @returns {object}
  */
 const deleteOne = async (request, reply) => {
-  let output = userCan(request, reply, what, "users_delete_all");
-  if (output) {
-    const target = {
-      id: Number(request.params.id),
-    };
-    try {
-      const result = await Model.removeOne(target);
-      output =
-        result || noQuery(reply, `The ${what.single} ${request.params.id} could not be deleted.`);
-    } catch (err) {
-      output = failedQuery(reply, err, what);
-    }
+  userRequires(request, what, "users_delete_all");
+  let output;
+  const target = {
+    id: Number(request.params.id),
+  };
+  try {
+    const result = await Model.removeOne(target);
+    output =
+      result || noQuery(reply, `The ${what.single} ${request.params.id} could not be deleted.`);
+  } catch (err) {
+    output = failedQuery(reply, err, what);
   }
   return output;
 };
