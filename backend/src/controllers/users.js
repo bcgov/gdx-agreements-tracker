@@ -78,7 +78,9 @@ const getOne = async (request, reply) => {
       const result = await Model.findById(targetId);
       if (!result || !result.length) {
         reply.code(404);
-        return { message: `The ${what.single} with the specified id does not exist.` };
+        return {
+          message: `The ${what.single} with the specified id does not exist.`,
+        };
       } else {
         return result[0];
       }
@@ -101,11 +103,8 @@ const getOne = async (request, reply) => {
  */
 const addOne = async (request, reply) => {
   if (userCan(request, "users_create_all") || userCan(request, "users_create_mine")) {
-    const target = {
-      name: request.body.name,
-    };
     try {
-      const result = await Model.addOne(target);
+      const result = await Model.addOne(request.body);
       if (!result) {
         reply.code(403);
         return { message: `The ${what.single} could not be added.` };
@@ -134,12 +133,8 @@ const updateOne = async (request, reply) => {
     userCan(request, "users_update_all") ||
     (userCan(request, "users_update_mine") && checkMine(request))
   ) {
-    const target = {
-      id: Number(request.params.id),
-      name: request.body.name,
-    };
     try {
-      const result = await Model.updateOne(target);
+      const result = await Model.updateOne(Number(request.params.id), request.body);
       if (!result) {
         reply.code(403);
         return { message: `The ${what.single} could not be updated.` };

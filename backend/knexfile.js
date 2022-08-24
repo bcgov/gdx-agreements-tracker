@@ -4,6 +4,7 @@ const { loadSecretFileOrUseEnv } = require('./src/helpers/secrets');
 module.exports = {
   client: "pg",
   useNullAsDefault: true,
+  debug: false,
   connection: {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT || 5432,

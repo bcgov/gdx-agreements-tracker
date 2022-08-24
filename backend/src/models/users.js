@@ -3,15 +3,30 @@ const dbConnection = new DatabaseConnection();
 const db = dbConnection.knex;
 
 const table = `${dbConnection.dataBaseSchemas().public}.users`;
+const rolesTable = `${dbConnection.dataBaseSchemas().public}.roles`;
 
 // Get all.
 const findAll = () => {
-  return db(table);
+  return db
+    .select("users.id", "users.name", "users.email", "roles.display_name")
+    .from(table)
+    .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` });
 };
 
 // Get specific one by id.
 const findById = (id) => {
-  return db(table).where("id", id);
+  return db
+    .select(
+      "users.id",
+      "users.name",
+      "users.email",
+      db.raw(
+        "(SELECT json_build_object('value', COALESCE(users.role_id,0), 'label', COALESCE(roles.display_name,''))) AS role_id"
+      )
+    )
+    .from(table)
+    .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` })
+    .where("users.id", id);
 };
 
 // Get specific user by email.
@@ -21,12 +36,13 @@ const findByEmail = (email) => {
 
 // Add one.
 const addOne = (userInfo) => {
-  const newUser = {
-    name: userInfo.name,
+  const createUser = {
+    username: "",
     email: userInfo.email,
-    username: userInfo.preferred_username,
+    name: userInfo.name,
+    role_id: userInfo.role_id,
   };
-  return db(table).insert(newUser, "id");
+  return db(table).insert(createUser);
 };
 
 // Update one.
