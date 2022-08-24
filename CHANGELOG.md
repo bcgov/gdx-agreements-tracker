@@ -1,9 +1,15 @@
 ## Developer Changelog
+### August 24, 2022 (DESCW-558) Project Close Out Frontend
+- Frontend
+  - Created Project/CloseOut and Project/CloseOut/Notify components
+  - Added routing and navigation
+
 ### August 24, 2022 (DESCW-556) Permissions
 - Backend
   - update realm capabilities logic.
   - removed unused capability helper (uses db)
   - optimize some controller code controllers/admin_form.js for controllers/user.js
+
 ### August 23, 2022 (DESCW-555) User Form
 - Frontend
   - Added view, edit and create forms for User
