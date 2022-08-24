@@ -28,6 +28,7 @@ const getCapability = (role, realmAccessRoles) => {
   } else {
     capability = getNoneRoles();
   }
+  console.log(capability);
   return capability;
 };
 

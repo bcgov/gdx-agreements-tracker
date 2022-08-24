@@ -116,8 +116,8 @@ const getUserInfo = async (request) => {
     return {
       name: payload.name,
       email: payload.email,
-      preferred_username: payload.preferred_username,
-      roles: payload.realm_access?.roles,
+      preferred_username: payload.idir_username,
+      roles: payload?.client_roles,
       capabilities: capabilities,
     };
   }

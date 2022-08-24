@@ -1,40 +1,9 @@
 const log = require("../facilities/logging.js")(module.filename);
+const { Query } = require("pg");
 const Model = require("../models/users.js");
 const what = { single: "user", plural: "users" };
 
-/**
- * Checks to see if a user access a route based on the allowedRole.
- *
- * @param   {FastifyRequest} request    The request object, which should have the user capability via the fastify-roles plugin.
- * @param   {string}         capability Is the name of the role that is required to access the route.
- * @returns {boolean}
- */
-const userCan = (request, capability) => {
-  const userCapabilities = request?.user?.capabilities || [];
-  return userCapabilities.includes(capability);
-};
-
-/**
- * This is a helper function that returns 401 with generic message if user is not allowed to access route.
- *
- * @param   {FastifyReply} reply The reply object, in order to set the status code.
- * @returns {object}
- */
-const notAllowed = (reply) => {
-  reply.code(401);
-  return { message: `You don't have the correct permission` };
-};
-
-/**
- * For roles that might require only if mine, however this still needs to be implemented.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @todo  Add functionality to call db to see if the owner is the current user.
- * @returns {boolean}
- */
-const checkMine = (request) => {
-  return true;
-};
+const { notAllowed, userCan, failedQuery } = require("./admin_form")
 
 /**
  * Get all items.
@@ -44,22 +13,21 @@ const checkMine = (request) => {
  * @returns {object}
  */
 const getAll = async (request, reply) => {
-  if (userCan(request, "users_read_all")) {
+  let output = userCan(request, reply, what, "admin_form_read_all");
+  if (output) {
     try {
       const result = await Model.findAll();
       if (!result) {
-        return [];
+        output = [];
       }
-      return result;
+      output = result;
     } catch (err) {
-      reply.code(500);
-      return { message: `There was a problem looking up ${what.plural}.` };
+      output = failedQuery(reply, err, what);
     }
-  } else {
-    log.trace('user lacks capability "users_read_all"');
-    return notAllowed(reply);
   }
+  return output;
 };
+
 
 /**
  * Get a specific item by ID.
@@ -69,10 +37,8 @@ const getAll = async (request, reply) => {
  * @returns {object}
  */
 const getOne = async (request, reply) => {
-  if (
-    userCan(request, "users_read_all") ||
-    (userCan(request, "users_read_mine") && checkMine(request))
-  ) {
+  let output = userCan(request, reply, what, "admin_form_read_all");
+  if (output) {
     const targetId = Number(request.params.id);
     try {
       const result = await Model.findById(targetId);
@@ -85,13 +51,10 @@ const getOne = async (request, reply) => {
         return result[0];
       }
     } catch (err) {
-      reply.code(500);
-      return { message: `There was a problem looking up this ${what.single}.` };
+      output = failedQuery(reply, err, what);
     }
-  } else {
-    log.trace('user lacks capability "users_read_all" || "users_read_mine"');
-    return notAllowed(reply);
   }
+  return output;
 };
 
 /**
@@ -129,10 +92,12 @@ const addOne = async (request, reply) => {
  * @returns {object}
  */
 const updateOne = async (request, reply) => {
-  if (
-    userCan(request, "users_update_all") ||
-    (userCan(request, "users_update_mine") && checkMine(request))
-  ) {
+
+  if (userCan(request, "users_update_all") ) {
+    const target = {
+      id: Number(request.params.id),
+      name: request.body.name,
+    };
     try {
       const result = await Model.updateOne(Number(request.params.id), request.body);
       if (!result) {
