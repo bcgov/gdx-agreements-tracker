@@ -47,12 +47,7 @@ const contractRoutes = [
       }
     />
     ,
-    <Route
-      key="amendments"
-      path="amendments"
-      element={<Amendments/>}
-    />
-    ,
+    <Route key="amendments" path="amendments" element={<Amendments />} />,
   </Route>,
 ];
 

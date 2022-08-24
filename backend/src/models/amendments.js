@@ -13,7 +13,7 @@ const findAll = (contractId) => {
       "contract_amendment.amendment_number",
       "contract.co_number",
       "contract_amendment.amendment_date",
-      "contract_amendment.description",
+      "contract_amendment.description"
     )
     .from(contractAmendmentTable)
     .leftJoin(contractsTable, { "contract_amendment.contract_id": `${contractsTable}.id` })
@@ -22,7 +22,7 @@ const findAll = (contractId) => {
 
 // Get specific one by id.
 const findById = (contractId) => {
-  return db(table).where("id", contractId);
+  return db(contractsTable).where("id", contractId);
 };
 
 module.exports = {

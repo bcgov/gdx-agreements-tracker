@@ -88,9 +88,7 @@ const getOne = async (request, reply) => {
       return { message: `There was a problem looking up this ${what.single}.` };
     }
   } else {
-    log.trace(
-      'user lacks capability "amendments_read_all" || "amendments_read_mine"'
-    );
+    log.trace('user lacks capability "amendments_read_all" || "amendments_read_mine"');
     return notAllowed(reply);
   }
 };

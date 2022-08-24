@@ -2,12 +2,12 @@ import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 
 export const readFields = (amendmentsQuery: UseQueryResult<FormikValues>) => {
-  return [ 
+  return [
     {
       value: amendmentsQuery?.data?.contract_id,
       title: "Contract Id",
       width: "half",
-    },    
+    },
     {
       value: amendmentsQuery?.data?.amendment_number,
       title: "Amendment type",
