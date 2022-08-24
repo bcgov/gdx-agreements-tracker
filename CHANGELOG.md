@@ -1,6 +1,6 @@
 ## Developer Changelog
 
-### August,24 2022 (DESCW-5560)
+### August,24 2022 (DESCW-560)
 - Frontend
   - Restructured and improved ministries and subcontractors page
   - Added test for ministries page component
