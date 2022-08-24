@@ -1,19 +1,34 @@
 ## Developer Changelog
+
+### August,24 2022 (DESCW-559)
+
+- Frontend
+  - Added test for amendments page component
+  - Added amendments page component 
+
+- Backend
+  - Added controller, model, route, validator for amendments
+  - Added two capabilities "amendments_read_all",
+    "amendments_read_mine",
+
 ### August 24, 2022 (DESCW-558) Project Close Out Frontend
+
 - Frontend
   - Created Project/CloseOut and Project/CloseOut/Notify components
   - Added routing and navigation
 
 ### August 24, 2022 (DESCW-556) Permissions
+
 - Backend
   - update realm capabilities logic.
   - removed unused capability helper (uses db)
   - optimize some controller code controllers/admin_form.js for controllers/user.js
 
 ### August 23, 2022 (DESCW-555) User Form
+
 - Frontend
   - Added view, edit and create forms for User
-- Backend 
+- Backend
   - Update model and controllers for user
   - Created migration to add role_id in users table
   - Created migration to add user_roles in picklist_options
@@ -23,6 +38,7 @@
   - `npx knex seed:run --specific=08_picker_options.js`
 
 ### August 23, 2022 (DESCW-554) Ministries Form
+
 - Frontend
   - Added view, edit and create forms for ministries.
   - Added new reusable form input type for checkboxes.
@@ -30,6 +46,7 @@
   - Added MVC and routes for ministries.
 
 ### August 23, 2022 (DESCW-548) Contacts Form
+
 - Frontend
   - Admin/Contacts: Fixed bugs with ministry select input
   - Added IOption interface to Types for use with Select input options ({value, label} objects)
@@ -38,12 +55,14 @@
   - Added input validation to Contacts update/add requests
 
 ### August 23, 2022 (DESCW-553) Resources Test
+
 - Frontend
   - simple resource test to test component
 - Backend
   - permission test for correct/incorrect roles.
 
 ### August 22, 2022 (DESCW-549) Github actions
+
 - Frontend
   - Added form for creating a new subcontractor.
 - Backend
@@ -51,9 +70,11 @@
   - Added 'subcontractors_read_mine' test.
 
 ### August 22, 2022 (DESCW-553) Github actions
+
 - Fixed github actions with linters/tests being skipped
 
 ### August 22, 2022 (DESCW-543) Resource Form
+
 - Frontend
   - Admin - Resources (view, edit, and add)
 - Backend
@@ -62,11 +83,12 @@
   - `npx knex migrate:latest`
   - seeds need to be re run
     - `npx knex seed:run --specific=01_capabilities.js`
-    - `npx knex seed:run --specific=02_role_capabilities.js` 
+    - `npx knex seed:run --specific=02_role_capabilities.js`
 
 ### August 22, 2022 (DESCW-550)(DESCW-541)
 
 - Frontend
+
   - Added view, edit and update forms and functionality for suppliers
   - Fixed bug with modal headers not being correct
   - Fixed snackbar message not showing correctly

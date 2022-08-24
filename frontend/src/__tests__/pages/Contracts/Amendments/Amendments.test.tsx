@@ -1,7 +1,7 @@
 import React from "react";
 
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Amendments } from "pages/Contracts/Contract/Amedments";
+import { Amendments } from "pages/Contracts/Contract/Amendments";
 import { shallow } from "enzyme";
 
 // Create a client
