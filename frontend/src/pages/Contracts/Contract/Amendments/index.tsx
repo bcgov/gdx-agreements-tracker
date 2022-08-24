@@ -5,7 +5,7 @@ import { GDXModal } from "components/GDXModal";
 import { apiAxios } from "utils";
 import { useQuery, UseQueryResult } from "react-query";
 import { useParams } from "react-router-dom";
-import { editFields,readFields } from "./fields";
+import { editFields, readFields } from "./fields";
 import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
