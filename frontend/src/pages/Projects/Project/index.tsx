@@ -24,6 +24,11 @@ export const Project = () => {
       name: "Change Request",
       url: `/projects/${projectId}/change-request`,
     },
+    {
+      key: 5,
+      name: "Close Out",
+      url: `/projects/${projectId}/close-out`,
+    },
   ];
 
   return (
