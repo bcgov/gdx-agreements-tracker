@@ -1,24 +1,30 @@
-const getOneValidator = {
-  // Request parameters.
+const getOne = {
   params: {
-    id: { type: "string" },
-  },
-  // Response validation.
-  response: {
-    200: {
-      type: "object",
-      properties: {
-        data: {
-          id: { type: "integer" },
-          name: { type: "string" },
-        },
-        permission: { type: "string" },
-        user: {},
-      },
-    },
+    id: { type: "integer" },
   },
 };
 
+const addOne = {
+  headers: {
+    type: "object",
+    properties: {
+      Authorization: { type: "string" },
+    },
+  },
+  body: {
+    type: "object",
+    required: ["email", "name", "role_id"],
+    properties: {
+      name: { type: "string" },
+      email: { type: "string", format: "email" },
+      role_id: { type: "integer" },
+    },
+  },
+};
+const deleteOne = getOne;
+
 module.exports = {
-  getOneValidator,
+  getOne,
+  addOne,
+  deleteOne,
 };

@@ -11,22 +11,25 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:id`,
-    schema: validators.getOneValidator,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
     method: "POST",
     url: `/${what}`,
+    schema: validators.addOne,
     handler: controller.addOne,
   },
   {
     method: "PUT",
     url: `/${what}/:id`,
+    schema: validators.updateOne,
     handler: controller.updateOne,
   },
   {
     method: "DELETE",
     url: `/${what}/:id`,
+    schema: validators.deleteOne,
     handler: controller.deleteOne,
   },
 ];
