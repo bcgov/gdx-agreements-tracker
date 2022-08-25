@@ -3,7 +3,7 @@ import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 
 export const readFields = (amendmentsQuery: UseQueryResult<FormikValues>) => {
-  return [  
+  return [
     {
       value: amendmentsQuery?.data?.amendment_number.label,
       title: "Amendment Type",
@@ -25,7 +25,7 @@ export const readFields = (amendmentsQuery: UseQueryResult<FormikValues>) => {
 export const editFields: () => IEditFields[] = () => {
   return [
     {
-      fieldName: "amendment_number", 
+      fieldName: "amendment_number",
       fieldType: "select",
       fieldLabel: "Amendment Type",
       width: "half",

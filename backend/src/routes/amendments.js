@@ -14,6 +14,16 @@ const routes = [
     schema: validators.getOneValidator,
     handler: controller.getOne,
   },
+  {
+    method: "PUT",
+    url: `/${what}/:id`,
+    handler: controller.updateOne,
+  },
+  {
+    method: "POST",
+    url: `/${what}`,
+    handler: controller.addOne,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {
