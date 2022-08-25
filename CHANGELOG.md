@@ -1,6 +1,6 @@
 ## Developer Changelog
 
-### August 25, 2022 (DESCW-537) accordion test
+### August 25, 2022 (DESCW-562) Project Close Out
 - Backend
   - Created migration for contacts picker, seeds for multiple pickers
   - Refactored Projects controller to use admin_form functions
