@@ -1,29 +1,29 @@
-const { AllCapabilities } = require("../AllCapabilities/index.ts");
+const { getCapabilities } = require("../capabilities/index.ts");
 
 const roles = [
   {
     id: 1,
     name: "subscriber",
     display_name: "Subscriber",
-    capabilities: ["users_read_mine", "users_read_all", "general_read_all", "general_read_mine"],
+    capabilities: getCapabilities("subscriber"),
   },
   {
     id: 2,
     name: "admin",
     display_name: "Administrator",
-    capabilities: AllCapabilities,
+    capabilities: getCapabilities("admin"),
   },
   {
     id: 3,
     name: "gdx",
     display_name: "GDX",
-    capabilities: ["reports_read_all", "general_read_all", "general_read_mine"],
+    capabilities: getCapabilities("gdx"),
   },
   {
     id: 4,
     name: "manager",
     display_name: "Manager",
-    capabilities: ["general_read_all", "general_read_mine"],
+    capabilities: getCapabilities("manager"),
   },
 ];
 

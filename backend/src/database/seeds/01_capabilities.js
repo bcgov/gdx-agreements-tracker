@@ -1,5 +1,6 @@
-const { AllCapabilities } = require("../AllCapabilities/index.ts");
-
+const { getCapabilities } = require("../capabilities/index.ts");
+// getting admin capabilities, will get all caps.
+const AllCapabilities = getCapabilities("admin");
 const autoId = AllCapabilities.map((capability, index) => {
   return { id: index, name: capability };
 });

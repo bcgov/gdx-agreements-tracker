@@ -1,7 +1,7 @@
 "use strict";
 
 const fp = require("fastify-plugin");
-const { getUserInfo } = require("../../facilities/keycloak");
+const { getUserInfo, getRealmRoles } = require("../../facilities/keycloak");
 
 /**
  * Fastify Roles plugin, that inserts user object into the request object for each api call.
@@ -12,7 +12,6 @@ const { getUserInfo } = require("../../facilities/keycloak");
  */
 const fastifyRoles = async (fastify, opts) => {
   opts = opts || {};
-  let permission = "none"; // none || read || write
   //let capability = []
   let user = {};
 
@@ -43,10 +42,38 @@ const fastifyRoles = async (fastify, opts) => {
     const err = null;
     payload = {
       data: payload,
-      permission,
       user,
     };
+    // Only perform this for new style of userCan, by using userRequires function in model.
+    if (request.capability) {
+      if (!userCan(user, request)) {
+        reply.code(401);
+        payload.data = {
+          message: `Don't have the correct permission for ${request?.capability?.what?.plural}, lacks capability ${request?.capability?.requires}`,
+        };
+      }
+    }
+
     done(err, payload);
+  };
+
+  /**
+   * This determines if the user has the role, that is required to complete the task.
+   *
+   * @param   {object}         user    The user with roles and capabilities.
+   * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+   * @returns {boolean}
+   */
+  const userCan = (user, request) => {
+    let isSysAdmin = false;
+    let userCan = false;
+    const userCapabilities = user?.capabilities || [];
+    if ("user" === request.capability?.what?.single) {
+      const userRealmRoles = getRealmRoles(request);
+      isSysAdmin = userRealmRoles.includes("pmo-sys-admin");
+    }
+    userCan = userCapabilities.includes(request?.capability?.requires) || isSysAdmin;
+    return userCan;
   };
 
   fastify.addHook("preSerialization", preSerialization);
