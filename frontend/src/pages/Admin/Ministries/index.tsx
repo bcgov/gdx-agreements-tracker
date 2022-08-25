@@ -13,8 +13,7 @@ import { EditForm } from "components/EditForm";
 import { Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
 import { FormikValues } from "formik";
-import { editFields } from "./editFields";
-import { readFields } from "./readFields";
+import { readFields, editFields } from "./fields";
 
 export const Ministries: FC = () => {
   const {
@@ -68,7 +67,7 @@ export const Ministries: FC = () => {
   return (
     <>
       <Typography variant="h5" component="h2">
-        Ministries
+        Ministries / Org Name
       </Typography>
       <Renderer
         isLoading={isLoading}

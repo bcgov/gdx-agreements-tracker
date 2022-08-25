@@ -1,8 +1,6 @@
 const serverConfig = require("../../src/facilities/fastify");
 const authHelper = require("../../src/facilities/keycloak");
 const subcontractorsModel = require("../../src/models/subcontractors.js");
-const subcontractors = require("../controllers/subcontractors.test");
-
 let app;
 
 // Mock authentication so we can test routes themselves.
@@ -34,7 +32,7 @@ describe("Access subcontractors routes with valid subcontractors", () => {
     authHelper.getUserInfo.mockReturnValue({
       name: "test-name",
       email: "test@example.com",
-      preferred_subcontractorsname: "preferred_test-name",
+      preferred_username: "preferred_test-name",
       roles: [],
       role: "admin",
       capabilities: ["subcontractors_read_all"],
@@ -42,21 +40,21 @@ describe("Access subcontractors routes with valid subcontractors", () => {
   });
 
   it("Should get a list of subcontractors when you hit /subcontractors", async () => {
-    subcontractorsModel.findAll.mockResolvedValue(subcontractors);
+    subcontractorsModel.findAll.mockResolvedValue([{ id: 1, subcontractor_name: "First choice" }]);
     const response = await app.inject({
       method: "GET",
       url: "/subcontractors",
     });
     const responseBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
-    expect(responseBody.data.subcontractors).toBeInstanceOf(Array);
-    responseBody.data.subcontractors.forEach((subcontractorsObject) =>
+    expect(Array.isArray(responseBody.data)).toBe(true);
+    responseBody.data.forEach((subcontractorsObject) =>
       expect("id" in subcontractorsObject).toBe(true)
     );
   });
 });
 
-describe("Access subcontractors routes with no subcontractors", () => {
+describe("Access subcontractors routes with no user", () => {
   beforeEach(() => {
     app = serverConfig();
     // Mock authentication functions so we can access routes.
@@ -65,11 +63,20 @@ describe("Access subcontractors routes with no subcontractors", () => {
     authHelper.getUserInfo.mockReturnValue(null);
   });
 
-  it("Should get a 401 response when hitting /subcontractors without authentication", async () => {
-    subcontractorsModel.findAll.mockResolvedValue([{ id: 2, name: "Alex" }]);
+  it("Should return 401 when you hit /subcontractors", async () => {
+    subcontractorsModel.findAll.mockResolvedValue([{ id: 1, subcontractor_name: "First choice" }]);
     const response = await app.inject({
       method: "GET",
       url: "/subcontractors",
+    });
+    expect(response.statusCode).toBe(401);
+  });
+
+  it("Should return 401 when you hit /subcontractors/:id", async () => {
+    subcontractorsModel.findById.mockResolvedValue([{ id: 1, subcontractor_name: "First choice" }]);
+    const response = await app.inject({
+      method: "GET",
+      url: "/subcontractors/1",
     });
     expect(response.statusCode).toBe(401);
   });
