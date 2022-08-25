@@ -1,4 +1,13 @@
 ## Developer Changelog
+### August 25, 2022 (DESCW-556) capabilities
+- Backend
+  - updated roles and cababilities
+  - need to run seeds
+    - `npx knex seed:run --specific=01_capabilities.js`
+    - `npx knex seed:run --specific=02_role_capabilities.js`
+  - updated plugin hook for checking permissions
+  - updated users validators
+  - fix for null user role_id
 
 ### August,24 2022 (DESCW-560)
 - Frontend
