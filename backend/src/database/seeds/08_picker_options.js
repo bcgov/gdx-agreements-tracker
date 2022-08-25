@@ -7,6 +7,8 @@ exports.seed = function (knex) {
     supplier: "supplier",
     resource: "resource",
     users: "users",
+    amendment_type: "amendment_type",
+    contract_amendment: "contract_amendment"
   };
 
   const pickers = [
@@ -237,6 +239,15 @@ exports.seed = function (knex) {
         tableLookup: "user_roles",
       },
       associated_form: tables.users,
+    },
+    {
+      name: "amendment_number",
+      title: "Contract Type",
+      description: "The Contract Type",
+      definition: {
+        tableLookup: "amendment_type",
+      },
+      associated_form: tables.contract_amendment,
     },
   ];
 
