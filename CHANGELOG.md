@@ -1,4 +1,8 @@
 ## Developer Changelog
+### August 25, 2022 (DESCW-537) accordion test
+- Frontend
+  - added according test.
+
 ### August 25, 2022 (DESCW-556) capabilities
 - Backend
   - updated roles and cababilities

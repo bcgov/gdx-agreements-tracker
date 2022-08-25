@@ -3,7 +3,6 @@ import { GDXAccordion } from "../../../components";
 import { render, screen, waitFor } from "@testing-library/react";
 import  userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { SmartScreenTwoTone } from "@mui/icons-material";
 
 describe("Layout GDXAccordion", () => {
   it("Renders at all.", async () => {
