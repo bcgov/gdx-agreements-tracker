@@ -1,9 +1,9 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { EditForm } from "components/EditForm";
 import { ReadForm } from "components/ReadForm";
 import { Renderer } from "components/Renderer";
 import { useFormSubmit } from "hooks/useFormSubmit";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { apiAxios } from "utils";
@@ -13,12 +13,13 @@ import { Notify } from "./Notify";
 export const CloseOut = () => {
   const { projectId } = useParams();
   const [editMode, setEditMode] = useState(false);
+  const [userHasEditCapability, setEditCapability] = useState(false);
   const { handleUpdate, Notification } = useFormSubmit();
 
   const getProject = async () => {
     const project = await apiAxios().get(`projects/${projectId}/close-out`);
     if (project?.data) {
-      return project.data.data;
+      return project.data;
     }
     return null;
   };
@@ -34,6 +35,11 @@ export const CloseOut = () => {
     staleTime: Infinity,
   });
 
+  useEffect(() => {
+    const user = projectQuery?.data?.user;
+    setEditCapability(user && user.capabilities.includes("projects_update_all"));
+  }, [projectQuery]);
+
   let content = <></>;
   switch (editMode) {
     case false:
@@ -42,24 +48,29 @@ export const CloseOut = () => {
         <>
           <Notify projectId={projectId} />
           <ReadForm fields={readFields(projectQuery)} />
-          {/* TODO: Remove button when edit mode is determined by user role. */}
-          <Button variant="contained" onClick={() => setEditMode(true)}>
-            Change Close Out
-          </Button>
+          {userHasEditCapability && (
+            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <Button variant="contained" onClick={() => setEditMode(true)}>
+                Change Close Out
+              </Button>
+            </Box>
+          )}
         </>
       );
       break;
     case true:
       content = (
         <EditForm
-          initialValues={projectQuery?.data}
+          initialValues={projectQuery?.data.data}
           onSubmit={async (values) => {
             return handleUpdate({
               changedValues: values,
-              currentRowData: projectQuery?.data,
+              currentRowData: projectQuery?.data.data,
               apiUrl: `projects/${projectId}`,
               handleEditMode: setEditMode,
               queryKeys: [`project close out - ${projectId}`],
+              successMessage: `Changes saved successfully for project ${projectId}`,
+              errorMessage: `There was an issue saving your changes for project ${projectId}`,
             });
           }}
           editFields={editFields()}

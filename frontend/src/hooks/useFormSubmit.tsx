@@ -50,7 +50,7 @@ export const useFormSubmit = () => {
     } = {};
     for (const key in changedValues) {
       if (changedValues[key] !== currentRowData[key]) {
-        if (changedValues[key].value) {
+        if (null !== changedValues[key] && changedValues[key].value) {
           deltaChanges[key] = changedValues[key].value;
         } else {
           deltaChanges[key] = changedValues[key];
