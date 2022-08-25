@@ -25,13 +25,16 @@
 ### August,24 2022 (DESCW-559)
 
 - Frontend
+
   - Added test for amendments page component
-  - Added amendments page component 
+  - Added amendments page component
+  - Added amendments view, edit and add modal forms
 
 - Backend
   - Added controller, model, route, validator for amendments
   - Added two capabilities "amendments_read_all",
     "amendments_read_mine",
+  - Added amendments READ, POST and PUT functionality
 
 ### August 24, 2022 (DESCW-558) Project Close Out Frontend
 
