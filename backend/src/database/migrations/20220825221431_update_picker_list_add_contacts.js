@@ -13,6 +13,7 @@ SELECT
         WHEN definition ->> 'tableLookup' = 'subcontractor' THEN (SELECT json_agg(sub) FROM (SELECT id AS value, subcontractor_name AS label FROM data.subcontractor WHERE subcontractor_name IS NOT NULL) sub)
         WHEN definition ->> 'tableLookup' = 'supplier' THEN (SELECT json_agg(sup) FROM (SELECT id AS value, supplier_name AS label FROM data.supplier WHERE supplier_name IS NOT NULL) sup)
         WHEN definition ->> 'tableLookup' = 'user_roles' THEN (SELECT json_agg(roles) FROM (SELECT id AS value, display_name AS label FROM public.roles WHERE display_name IS NOT NULL) roles)
+        WHEN definition ->> 'tableLookup' = 'amendment_type' THEN (SELECT json_agg(contramend) FROM (SELECT id AS value,amendment_type_name AS label FROM data.amendment_type WHERE amendment_type_name IS NOT NULL) contramend)
         WHEN definition ->> 'tableLookup' = 'contact' THEN (SELECT json_agg(c) FROM (SELECT id AS value, concat(contact.last_name, ', ', contact.first_name) AS label FROM data.contact WHERE last_name IS NOT NULL) c)
         WHEN definition ->> 'dropDownValues' IS NOT NULL THEN p.definition -> 'dropDownValues'
     END definition,
