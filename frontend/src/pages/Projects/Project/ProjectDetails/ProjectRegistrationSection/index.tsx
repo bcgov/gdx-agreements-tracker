@@ -1,198 +1,60 @@
-import React from "react";
-import { Box, Button, Link, styled, TextField } from "@mui/material";
-import { Field } from "formik";
-import { GDXSelect } from "../../../../../components/GDXForm/Fields";
-import { usePickerValues } from "../../../../../hooks/usePickerValues";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { IProjectFormProps } from "../../../../../types";
-
-const StyledBox = styled("div")({
-  width: "100%",
-  padding: "10px",
-  display: "inline-block",
-  margin: "5px",
-});
+import { Button, Grid } from "@mui/material";
+import { EditForm } from "components/EditForm";
+import { ReadForm } from "components/ReadForm";
+import { Renderer } from "components/Renderer";
+import { useFormSubmit } from "hooks/useFormSubmit";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { editFields, readFields } from "./fields";
+/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ProjectRegistrationSection = ({
-  handleChange,
-  values,
-  setFieldValue,
-  dirty,
-}: IProjectFormProps) => {
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pickerValues: any = usePickerValues();
+export const ProjectRegistrationSection = ({ query }: any) => {
+  const { projectId } = useParams();
+  const [editMode, setEditMode] = useState(false);
+  const { handleUpdate, Notification } = useFormSubmit();
+
+  let content = <></>;
+  switch (editMode) {
+    case false:
+    default:
+      content = (
+        <>
+          <ReadForm fields={readFields(query)} />
+          {/* TODO: Remove button when edit mode is determined by user role. */}
+          <Button variant="contained" onClick={() => setEditMode(true)}>
+            Edit
+          </Button>
+        </>
+      );
+      break;
+    case true:
+      content = (
+        <EditForm
+          initialValues={query?.data}
+          onSubmit={async (values) => {
+            return handleUpdate({
+              changedValues: values,
+              currentRowData: query?.data,
+              apiUrl: `projects/${projectId}`,
+              handleEditMode: setEditMode,
+              queryKeys: [`project - ${projectId}`],
+            });
+          }}
+          editFields={editFields()}
+        />
+      );
+      break;
+  }
+
   return (
     <>
-      <StyledBox>
-        <Field
-          as={TextField}
-          name={"project_number"}
-          onChange={handleChange}
-          label={"Project Number"}
-        />
-      </StyledBox>
-      <StyledBox>
-        <Field
-          as={TextField}
-          name={"project_version"}
-          onChange={handleChange}
-          label={"Project Version"}
-        />
-      </StyledBox>
-      <StyledBox>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <Field
-            // todo: Define a good type. "Any" type temporarily permitted.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onChange={(newValue: any) => {
-              setFieldValue("initiation_date", newValue);
-            }}
-            value={values.initiation_date}
-            as={DatePicker}
-            name={"initiation_date"}
-            // todo: Define a good type. "Any" type temporarily permitted.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            renderInput={(params: any) => <TextField {...params} />}
-            label={"Initiation Date"}
-          />
-        </LocalizationProvider>
-      </StyledBox>
-      <StyledBox>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <Field
-            // todo: Define a good type. "Any" type temporarily permitted.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onChange={(newValue: any) => {
-              setFieldValue("planned_start_date", newValue);
-            }}
-            value={values.planned_end_date}
-            as={DatePicker}
-            name={"planned_start_date"}
-            // todo: Define a good type. "Any" type temporarily permitted.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            renderInput={(params: any) => <TextField {...params} />}
-            label={"Planned Start Date"}
-          />
-        </LocalizationProvider>
-      </StyledBox>
-      <StyledBox>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <Field
-            // todo: Define a good type. "Any" type temporarily permitted.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onChange={(newValue: any) => {
-              setFieldValue("planned_end_date", newValue);
-            }}
-            value={values.planned_end_date}
-            as={DatePicker}
-            name={"planned_end_date"}
-            // todo: Define a good type. "Any" type temporarily permitted.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            renderInput={(params: any) => <TextField {...params} />}
-            label={"Planned End Date"}
-          />
-        </LocalizationProvider>
-      </StyledBox>
-      <StyledBox>
-        <Field
-          as={TextField}
-          name={"planned_budget"}
-          onChange={handleChange}
-          label={"Planned Budget"}
-        />
-      </StyledBox>
-      <StyledBox>
-        <GDXSelect
-          handleChange={handleChange}
-          fieldValue={values}
-          setFieldValue={setFieldValue}
-          pickerData={pickerValues?.data?.pickers.project.project_status}
-        />
-      </StyledBox>
-      <StyledBox>
-        <Field
-          as={TextField}
-          name={"total_project_budget"}
-          onChange={handleChange}
-          label={"Total Budget"}
-        />
-      </StyledBox>
-      <StyledBox>
-        <Field
-          as={TextField}
-          name={"recoverable_amount"}
-          onChange={handleChange}
-          label={"Recoverable Total"}
-        />
-      </StyledBox>
-      <StyledBox>
-        <Field
-          as={TextField}
-          name={"project_name"}
-          onChange={handleChange}
-          label={"Project Name"}
-        />
-      </StyledBox>
-      <StyledBox>
-        <GDXSelect
-          handleChange={handleChange}
-          fieldValue={values}
-          setFieldValue={setFieldValue}
-          pickerData={pickerValues?.data?.pickers.project.ministry_id}
-        />
-      </StyledBox>
-      <StyledBox>
-        <GDXSelect
-          handleChange={handleChange}
-          fieldValue={values}
-          setFieldValue={setFieldValue}
-          pickerData={pickerValues?.data?.pickers.project.portfolio_id}
-        />
-      </StyledBox>
-      <StyledBox>
-        <GDXSelect
-          handleChange={handleChange}
-          fieldValue={values}
-          setFieldValue={setFieldValue}
-          pickerData={pickerValues?.data?.pickers.project.fiscal}
-        />
-      </StyledBox>
-      <StyledBox>
-        <GDXSelect
-          handleChange={handleChange}
-          fieldValue={values}
-          setFieldValue={setFieldValue}
-          pickerData={pickerValues?.data?.pickers.project.project_type}
-        />
-      </StyledBox>
-      <StyledBox>
-        <GDXSelect
-          handleChange={handleChange}
-          fieldValue={values}
-          setFieldValue={setFieldValue}
-          pickerData={pickerValues?.data?.pickers.project.funding}
-        />
-      </StyledBox>
-      <StyledBox>
-        <GDXSelect
-          handleChange={handleChange}
-          fieldValue={values}
-          setFieldValue={setFieldValue}
-          pickerData={pickerValues?.data?.pickers.project.recoverable}
-        />
-      </StyledBox>
-      <StyledBox>
-        <Link href="#">Contract #</Link>{" "}
-      </StyledBox>
-      <Box>
-        <Button type="submit" variant="contained" color="success" disabled={dirty ? false : true}>
-          Submit
-        </Button>
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item lg={8}>
+          <Renderer isLoading={query.isLoading} component={content} />
+        </Grid>
+      </Grid>
+      <Notification />
     </>
   );
 };
