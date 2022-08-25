@@ -13,37 +13,37 @@ export const readFields = (projectQuery: UseQueryResult<FormikValues>) => {
     {
       width: "full",
       title: "Close out date",
-      value: projectQuery?.data?.close_out_date,
+      value: projectQuery?.data?.data?.close_out_date,
     },
     {
       width: "full",
       title: "Completed by",
-      value: projectQuery?.data?.completed_by_contact_id?.label,
+      value: projectQuery?.data?.data?.completed_by_contact_id?.label,
     },
     {
       width: "full",
       title: "Actual completion date of project",
-      value: projectQuery?.data?.actual_completion_date,
+      value: projectQuery?.data?.data?.actual_completion_date,
     },
     {
       width: "full",
       title: "Post implementation hand-off to operation completed",
-      value: projectQuery?.data?.hand_off_to_operations?.value,
+      value: projectQuery?.data?.data?.hand_off_to_operations?.value,
     },
     {
       width: "full",
       title: "Project documentation filled in accordance with records management",
-      value: projectQuery?.data?.records_filed?.value,
+      value: projectQuery?.data?.data?.records_filed?.value,
     },
     {
       width: "full",
       title: "Contract evaluation completed if applicable",
-      value: projectQuery?.data?.contract_ev_completed?.value,
+      value: projectQuery?.data?.data?.contract_ev_completed?.value,
     },
     {
       width: "full",
       title: "Contractor IDIR terminated / building passes returned",
-      value: projectQuery?.data?.contractor_security_terminated?.value,
+      value: projectQuery?.data?.data?.contractor_security_terminated?.value,
     },
   ];
 };
