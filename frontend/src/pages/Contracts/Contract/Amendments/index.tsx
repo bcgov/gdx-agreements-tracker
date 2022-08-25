@@ -76,27 +76,27 @@ export const Amendments: FC = (): JSX.Element => {
   });
 
   /**
-   * getAmendments is the fetch function for react query to leverage.
+   * getAmendment is the fetch function for react query to leverage.
    *
    * @returns {object} An object that contains the data from the table it's querying.
    */
 
-  const getAmendments = async () => {
-    const amendments = await apiAxios().get(`contracts/${currentRowData?.id}/amendments/`);
-    return amendments.data.data[0];
+  const getAmendment = async () => {
+    const amendment = await apiAxios().get(`contracts/${contractId}/amendments/${currentRowData?.id}`);
+    return amendment.data.data;
   };
 
   /**
    * returns destructured props from the useFormatTableData hook.
    *
    * @param   {string}         queryKey      - This is the queryKey.  The queryKey acts as a cache identifier for the UseQueryResult.
-   * @param   {Function}       getAmendments - The enpoint as which the API query will use for it's call.
+   * @param   {Function}       getAmendment - The enpoint as which the API query will use for it's call.
    * @returns {UseQueryResult}               - The result of react query which contains things such as the data.
    */
   // Queries
-  const amendmentsQuery: UseQueryResult<FormikValues> = useQuery(
-    `contracts/contractId/${currentRowData?.id}`,
-    getAmendments,
+  const amendmentQuery: UseQueryResult<FormikValues> = useQuery(
+    `contracts/${contractId}/${currentRowData?.id}`,
+    getAmendment,
     {
       refetchOnWindowFocus: false,
       retryOnMount: false,
@@ -146,7 +146,7 @@ export const Amendments: FC = (): JSX.Element => {
         modalTitle={
           "new" === formType
             ? `New amendment`
-            : `amendment ${amendmentsQuery?.data?.amendment_number}`
+            : `amendment ${amendmentQuery?.data?.amendment_number}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}
@@ -154,7 +154,7 @@ export const Amendments: FC = (): JSX.Element => {
       >
         <>
           {!editMode ? (
-            <ReadForm fields={readFields(amendmentsQuery)} />
+            <ReadForm fields={readFields(amendmentQuery)} />
           ) : (
             <>
               {"new" === formType ? (
@@ -177,16 +177,16 @@ export const Amendments: FC = (): JSX.Element => {
                 />
               ) : (
                 <EditForm
-                  initialValues={amendmentsQuery?.data as FormikValues}
+                  initialValues={amendmentQuery?.data as FormikValues}
                   onSubmit={async (values) => {
                     return handleUpdate({
                       changedValues: values,
-                      currentRowData: amendmentsQuery?.data,
-                      apiUrl: `amendments/${amendmentsQuery?.data?.id}`,
+                      currentRowData: amendmentQuery?.data,
+                      apiUrl: `amendments/${amendmentQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
                       queryKeys: [`contractId - ${currentRowData?.id}`, `amendments`],
-                      successMessage: `Changes saved successfully for amendment ${amendmentsQuery?.data?.amendment_number}`,
-                      errorMessage: `There was an issue saving your changes for amendment ${amendmentsQuery?.data?.amendment_number}`,
+                      successMessage: `Changes saved successfully for amendment ${amendmentQuery?.data?.amendment_number}`,
+                      errorMessage: `There was an issue saving your changes for amendment ${amendmentQuery?.data?.amendment_number}`,
                     });
                   }}
                   editFields={editFields()}

@@ -3,15 +3,10 @@ import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 
 export const readFields = (amendmentsQuery: UseQueryResult<FormikValues>) => {
-  return [
+  return [  
     {
-      value: amendmentsQuery?.data?.contract_id,
-      title: "Contract Id",
-      width: "half",
-    },
-    {
-      value: amendmentsQuery?.data?.amendment_number,
-      title: "Amendment type",
+      value: amendmentsQuery?.data?.amendment_number.label,
+      title: "Amendment Type",
       width: "half",
     },
     {
@@ -22,7 +17,7 @@ export const readFields = (amendmentsQuery: UseQueryResult<FormikValues>) => {
     {
       value: amendmentsQuery?.data?.description,
       title: "Description",
-      width: "half",
+      width: "full",
     },
   ];
 };
@@ -30,16 +25,11 @@ export const readFields = (amendmentsQuery: UseQueryResult<FormikValues>) => {
 export const editFields: () => IEditFields[] = () => {
   return [
     {
-      fieldName: "contract_id",
-      fieldType: "number",
-      fieldLabel: "Contractd",
+      fieldName: "amendment_number", 
+      fieldType: "select",
+      fieldLabel: "Amendment Type",
       width: "half",
-    },
-    {
-      fieldName: "amendment_number", //will be a lookup
-      fieldType: "number",
-      fieldLabel: "Amendment type",
-      width: "half",
+      tableName: "contract_amendment",
     },
     {
       fieldName: "amendment_date",
@@ -49,9 +39,9 @@ export const editFields: () => IEditFields[] = () => {
     },
     {
       fieldName: "description",
-      fieldType: "singleText",
+      fieldType: "multiText",
       fieldLabel: "Description",
-      width: "half",
+      width: "full",
     },
   ];
 };

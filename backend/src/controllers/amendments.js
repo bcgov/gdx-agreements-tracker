@@ -74,9 +74,10 @@ const getOne = async (request, reply) => {
     userCan(request, "amendments_read_all") ||
     (userCan(request, "amendments_read_mine") && checkMine(request))
   ) {
-    const targetId = Number(request.params.id);
+    const contractId = Number(request.params.contractId);
+    const amendmentId = Number(request.params.amendmentId);
     try {
-      const result = await Model.findById(targetId);
+      const result = await Model.findById(Number(contractId), Number(amendmentId));
       if (!result || !result.length) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };
@@ -93,7 +94,32 @@ const getOne = async (request, reply) => {
   }
 };
 
+const updateOne = async (request, reply) => {
+  if (
+    userCan(request, "amendments_read_all") ||
+    (userCan(request, "amendments_read_mine") && checkMine(request))
+  ) {
+    try {
+      const result = await Model.updateOne(request.body, request.params.id);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be updated.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      console.error("err", err);
+      return { message: `There was a problem updating this ${what.single}. Error:${err}` };
+    }
+  } else {
+    log.trace('user lacks capability "amendments_read_all" || "amendments_read_mine"');
+    return notAllowed(reply);
+  }
+};
+
 module.exports = {
   getAll,
   getOne,
+  updateOne
 };
