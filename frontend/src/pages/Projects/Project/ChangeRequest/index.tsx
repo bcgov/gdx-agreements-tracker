@@ -15,7 +15,7 @@ import { Box, Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
 
 /**
- * @returns the jsx for the change request section of the project form
+ * @returns  the jsx for the change request section of the project form
  */
 
 export const ChangeRequest = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { GDXAccordion } from "../../../components";
-import { render, screen, waitFor } from "@testing-library/react";
-import  userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 
 describe("Layout GDXAccordion", () => {
@@ -15,7 +15,6 @@ describe("Layout GDXAccordion", () => {
       }
     );
     expect(container).not.toBeEmptyDOMElement();
-
   });
 
   it("button click .", () => {
@@ -27,9 +26,8 @@ describe("Layout GDXAccordion", () => {
         wrapper: MemoryRouter,
       }
     );
-    expect(screen.getByRole("button", {expanded: true, name: /button/i})).toBeTruthy();
-    userEvent.click(screen.getByRole("button"))
-    expect(screen.getByRole("button", {expanded: false, name: /button/i})).toBeTruthy();
-
+    expect(screen.getByRole("button", { expanded: true, name: /button/i })).toBeTruthy();
+    userEvent.click(screen.getByRole("button"));
+    expect(screen.getByRole("button", { expanded: false, name: /button/i })).toBeTruthy();
   });
 });
