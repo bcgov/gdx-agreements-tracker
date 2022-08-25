@@ -30,6 +30,7 @@ const AllCapabilities = [
   "supplier_add_one",
   "amendments_read_all",
   "amendments_read_mine",
+  "contracts_update_all",
 ];
 
 const capabilities = [

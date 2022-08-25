@@ -17,7 +17,6 @@ export const EditForm = ({
     Function;
   editFields: IEditFields[];
 }) => {
-  console.log('initialValues', initialValues)
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ setFieldValue, values, handleChange, dirty }) => {

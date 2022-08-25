@@ -82,20 +82,22 @@ export const Amendments: FC = (): JSX.Element => {
    */
 
   const getAmendment = async () => {
-    const amendment = await apiAxios().get(`contracts/${contractId}/amendments/${currentRowData?.id}`);
+    const amendment = await apiAxios().get(
+      `contracts/${contractId}/amendments/${currentRowData?.id}`
+    );
     return amendment.data.data;
   };
 
   /**
    * returns destructured props from the useFormatTableData hook.
    *
-   * @param   {string}         queryKey      - This is the queryKey.  The queryKey acts as a cache identifier for the UseQueryResult.
+   * @param   {string}         queryKey     - This is the queryKey.  The queryKey acts as a cache identifier for the UseQueryResult.
    * @param   {Function}       getAmendment - The enpoint as which the API query will use for it's call.
-   * @returns {UseQueryResult}               - The result of react query which contains things such as the data.
+   * @returns {UseQueryResult}              - The result of react query which contains things such as the data.
    */
   // Queries
   const amendmentQuery: UseQueryResult<FormikValues> = useQuery(
-    `contracts/${contractId}/${currentRowData?.id}`,
+    `/contracts/${contractId}/amendments/${currentRowData?.id}`,
     getAmendment,
     {
       refetchOnWindowFocus: false,
@@ -105,9 +107,8 @@ export const Amendments: FC = (): JSX.Element => {
       staleTime: Infinity,
     }
   );
-
   const createFormInitialValues = {
-    contract_id: 0,
+    contract_id: contractId,
     amendment_number: "",
     amendment_date: null,
     description: "",
@@ -145,8 +146,8 @@ export const Amendments: FC = (): JSX.Element => {
         handleClose={handleClose}
         modalTitle={
           "new" === formType
-            ? `New amendment`
-            : `amendment ${amendmentQuery?.data?.amendment_number}`
+            ? `New Amendment`
+            : `Amendment ${amendmentQuery?.data?.contract_id.label}`
         }
         handleEditMode={handleEditMode}
         editMode={editMode}
@@ -167,9 +168,9 @@ export const Amendments: FC = (): JSX.Element => {
                       formValues: values,
                       apiUrl: `/amendments`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`amendments - ${contractId}`, `amendments`],
-                      successMessage: `Changes saved successfully for amendment ${values.amendment_number}`,
-                      errorMessage: `There was an issue saving your changes for amendment ${values.amendment_number}`,
+                      queryKeys: [`/contracts/${contractId}/amendments`],
+                      successMessage: `Changes saved successfully for amendment ${values.contract_id.label}`,
+                      errorMessage: `There was an issue saving your changes for amendment ${data?.rows[0].contract}`,
                       handleClose: handleClose,
                     });
                   }}
@@ -184,9 +185,12 @@ export const Amendments: FC = (): JSX.Element => {
                       currentRowData: amendmentQuery?.data,
                       apiUrl: `amendments/${amendmentQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`contractId - ${currentRowData?.id}`, `amendments`],
-                      successMessage: `Changes saved successfully for amendment ${amendmentQuery?.data?.amendment_number}`,
-                      errorMessage: `There was an issue saving your changes for amendment ${amendmentQuery?.data?.amendment_number}`,
+                      queryKeys: [
+                        `/contracts/${contractId}/amendments/${currentRowData?.id}`,
+                        `/contracts/${contractId}/amendments`,
+                      ],
+                      successMessage: `Changes saved successfully for amendment ${amendmentQuery?.data?.contract_id.label}`,
+                      errorMessage: `There was an issue saving your amendment for ${amendmentQuery?.data?.contract_id.label}`,
                     });
                   }}
                   editFields={editFields()}

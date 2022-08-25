@@ -95,10 +95,7 @@ const getOne = async (request, reply) => {
 };
 
 const updateOne = async (request, reply) => {
-  if (
-    userCan(request, "amendments_read_all") ||
-    (userCan(request, "amendments_read_mine") && checkMine(request))
-  ) {
+  if (userCan(request, "contracts_update_all")) {
     try {
       const result = await Model.updateOne(request.body, request.params.id);
       if (!result) {
@@ -113,7 +110,34 @@ const updateOne = async (request, reply) => {
       return { message: `There was a problem updating this ${what.single}. Error:${err}` };
     }
   } else {
-    log.trace('user lacks capability "amendments_read_all" || "amendments_read_mine"');
+    log.trace('user lacks capability "contracts_update_all"');
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Add an item based on request body info.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const addOne = async (request, reply) => {
+  if (userCan(request, "contracts_update_all")) {
+    try {
+      const result = await Model.addOne(request.body);
+      if (!result) {
+        reply.code(403);
+        return { message: `The ${what.single} could not be added.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem adding this ${what.single}.`, error: err };
+    }
+  } else {
+    log.trace('user lacks capability "contracts_update_all"');
     return notAllowed(reply);
   }
 };
@@ -121,5 +145,6 @@ const updateOne = async (request, reply) => {
 module.exports = {
   getAll,
   getOne,
-  updateOne
+  updateOne,
+  addOne,
 };

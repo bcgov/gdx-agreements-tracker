@@ -8,7 +8,7 @@ exports.seed = function (knex) {
     resource: "resource",
     users: "users",
     amendment_type: "amendment_type",
-    contract_amendment: "contract_amendment"
+    contract_amendment: "contract_amendment",
   };
 
   const pickers = [
