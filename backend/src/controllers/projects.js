@@ -94,6 +94,38 @@ const getOne = async (request, reply) => {
 };
 
 /**
+ * Get a specific project's close out data.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const getCloseOut = async (request, reply) => {
+  if (
+    userCan(request, "projects_read_all") ||
+    (userCan(request, "projects_read_mine") && checkMine(request))
+  ) {
+    const targetId = Number(request.params.projectId);
+    try {
+      const result = await Model.findCloseOutById(targetId);
+      if (!result) {
+        reply.code(404);
+        return { message: `The ${what.single} with the specified id does not exist.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      log.debug(err);
+      reply.code(500);
+      return { message: `There was a problem looking up this ${what.single}.` };
+    }
+  } else {
+    log.trace('user lacks capability "projects_read_all" || "projects_read_mine"');
+    return notAllowed(reply);
+  }
+};
+
+/**
  * Update an item by ID. Use passed info from the request body.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
@@ -127,5 +159,6 @@ const updateOne = async (request, reply) => {
 module.exports = {
   getAll,
   getOne,
+  getCloseOut,
   updateOne,
 };
