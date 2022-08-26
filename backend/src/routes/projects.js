@@ -1,5 +1,5 @@
 const controller = require("../controllers/projects");
-const validators = require("../validators/projects");
+//const validators = require("../validators/projects");
 const what = "projects";
 
 const routes = [
@@ -11,7 +11,6 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:projectId`,
-    schema: validators.getOneValidator,
     handler: controller.getOne,
   },
   {

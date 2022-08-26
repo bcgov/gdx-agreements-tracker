@@ -1,5 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
 const Model = require("../models/projects.js");
+const ContractsModel = require("../models/contracts.js");
 const what = { single: "project", plural: "projects" };
 
 /**
@@ -76,11 +77,12 @@ const getOne = async (request, reply) => {
     const targetId = Number(request.params.projectId);
     try {
       const result = await Model.findById(targetId);
-      if (!result || !result.length) {
+      result.contracts = await ContractsModel.findByProjectId(targetId);
+      if (!result) {
         reply.code(404);
         return { message: `The ${what.single} with the specified id does not exist.` };
       } else {
-        return result[0];
+        return result;
       }
     } catch (err) {
       log.debug(err);

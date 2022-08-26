@@ -1,9 +1,9 @@
-import { Button, Grid } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { EditForm } from "components/EditForm";
 import { ReadForm } from "components/ReadForm";
 import { Renderer } from "components/Renderer";
 import { useFormSubmit } from "hooks/useFormSubmit";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
 /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
@@ -12,7 +12,13 @@ import { editFields, readFields } from "./fields";
 export const ProjectRegistrationSection = ({ query }: any) => {
   const { projectId } = useParams();
   const [editMode, setEditMode] = useState(false);
+  const [userHasEditCapability, setEditCapability] = useState(false);
   const { handleUpdate, Notification } = useFormSubmit();
+
+  useEffect(() => {
+    const user = query?.data?.user;
+    setEditCapability(user && user.capabilities.includes("projects_update_all"));
+  }, [query]);
 
   let content = <></>;
   switch (editMode) {
@@ -21,24 +27,29 @@ export const ProjectRegistrationSection = ({ query }: any) => {
       content = (
         <>
           <ReadForm fields={readFields(query)} />
-          {/* TODO: Remove button when edit mode is determined by user role. */}
-          <Button variant="contained" onClick={() => setEditMode(true)}>
-            Edit
-          </Button>
+          {userHasEditCapability && (
+            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <Button variant="contained" onClick={() => setEditMode(true)}>
+                Change Project Registration
+              </Button>
+            </Box>
+          )}
         </>
       );
       break;
     case true:
       content = (
         <EditForm
-          initialValues={query?.data}
+          initialValues={query?.data?.data}
           onSubmit={async (values) => {
             return handleUpdate({
               changedValues: values,
-              currentRowData: query?.data,
+              currentRowData: query?.data?.data,
               apiUrl: `projects/${projectId}`,
               handleEditMode: setEditMode,
               queryKeys: [`project - ${projectId}`],
+              successMessage: `Changes saved successfully for project ${projectId}`,
+              errorMessage: `There was an issue saving your changes for project ${projectId}`,
             });
           }}
           editFields={editFields()}
@@ -49,11 +60,7 @@ export const ProjectRegistrationSection = ({ query }: any) => {
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item lg={8}>
-          <Renderer isLoading={query.isLoading} component={content} />
-        </Grid>
-      </Grid>
+      <Renderer isLoading={query.isLoading} component={content} />
       <Notification />
     </>
   );

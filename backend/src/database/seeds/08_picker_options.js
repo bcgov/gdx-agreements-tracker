@@ -196,6 +196,15 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
+      name: "fiscal",
+      title: "Fiscal",
+      description: "Fiscal Years",
+      definition: {
+        tableLookup: "fiscal_year",
+      },
+      associated_form: tables.generic,
+    },
+    {
       name: "initiated_by",
       title: "Initiated By",
       description: "Who the change request was initiated by",
