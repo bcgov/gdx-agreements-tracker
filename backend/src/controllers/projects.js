@@ -1,4 +1,5 @@
 const Model = require("../models/projects.js");
+const ContractsModel = require("../models/contracts.js");
 const what = { single: "project", plural: "projects" };
 const { failedQuery, noQuery, userRequires } = require("./admin_form");
 
@@ -34,10 +35,10 @@ const getOne = async (request, reply) => {
   const targetId = Number(request.params.projectId);
   try {
     const result = await Model.findById(targetId);
-    output =
-      !result || !result.length
-        ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-        : result;
+    result.contracts = await ContractsModel.findByProjectId(targetId);
+    output = !result
+      ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      : result;
   } catch (err) {
     output = failedQuery(reply, err, what);
   }

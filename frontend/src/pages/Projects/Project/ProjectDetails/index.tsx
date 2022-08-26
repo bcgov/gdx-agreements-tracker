@@ -10,7 +10,7 @@ export const ProjectDetails = () => {
   const { projectId } = useParams();
   const getProject = async () => {
     const project = await apiAxios().get(`projects/${projectId}`);
-    return project.data.data;
+    return project.data;
   };
 
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */

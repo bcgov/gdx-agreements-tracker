@@ -11,7 +11,6 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:projectId`,
-    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
