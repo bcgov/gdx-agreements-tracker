@@ -11,17 +11,19 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:projectId`,
-    schema: validators.getOneValidator,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
     method: "GET",
     url: `/${what}/:projectId/close-out`,
+    schema: validators.getCloseOut,
     handler: controller.getCloseOut,
   },
   {
     method: "PUT",
     url: `/${what}/:id`,
+    schema: validators.updateOne,
     handler: controller.updateOne,
   },
 ];
