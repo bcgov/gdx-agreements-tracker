@@ -7,6 +7,7 @@ let app;
 jest.mock("../../src/facilities/keycloak");
 // Mock user DB methods.
 jest.mock("../../src/models/projects");
+jest.mock("../../src/models/contracts");
 
 describe("Attempting to access any server route without a bearer token.", () => {
   beforeEach(() => {
