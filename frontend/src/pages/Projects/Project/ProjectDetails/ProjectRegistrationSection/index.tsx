@@ -27,6 +27,10 @@ export const ProjectRegistrationSection = ({ query }: any) => {
       if (null === query.data.data.project_status.label) {
         query.data.data.project_status.label = "";
       }
+      if (null === query.data.data.funding.label) {
+        query.data.data.funding.label = "";
+      }
+      query.data.data.version ?? "";
     }
   }, [query]);
 

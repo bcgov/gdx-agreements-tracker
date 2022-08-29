@@ -11,12 +11,13 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:projectId`,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
     method: "GET",
     url: `/${what}/:projectId/close-out`,
-    schema: validators.getCloseOut,
+    schema: validators.getOne,
     handler: controller.getCloseOut,
   },
   {

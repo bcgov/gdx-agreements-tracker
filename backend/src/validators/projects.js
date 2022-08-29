@@ -1,24 +1,6 @@
 const getOne = {
   // Request parameters.
   params: {
-    projectId: { type: "string" },
-  },
-  // Response validation.
-  response: {
-    200: {
-      type: "object",
-      properties: {
-        data: {
-          projectId: { type: "integer" },
-        },
-      },
-    },
-  },
-};
-
-const getCloseOut = {
-  // Request parameters.
-  params: {
     projectId: { type: "integer" },
   },
 };
@@ -64,6 +46,5 @@ const updateOne = {
 
 module.exports = {
   getOne,
-  getCloseOut,
   updateOne,
 };

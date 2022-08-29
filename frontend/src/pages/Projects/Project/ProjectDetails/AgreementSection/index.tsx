@@ -33,11 +33,11 @@ export const AgreementSection = ({ query }: any) => {
     case true:
       content = (
         <EditForm
-          initialValues={query?.data}
+          initialValues={query?.data?.data}
           onSubmit={async (values) => {
             return handleUpdate({
               changedValues: values,
-              currentRowData: query?.data,
+              currentRowData: query?.data?.data,
               apiUrl: `projects/${projectId}`,
               handleEditMode: setEditMode,
               queryKeys: [`project - ${projectId}`],
