@@ -125,7 +125,9 @@ export interface IPickerLookupData {
 
 //ChipNav Types
 export interface IChipNav {
-  navLinks: Array<{ key: number; name: string; url: string }>;
+  key: number;
+  name: string;
+  url: string;
 }
 
 //Project Form Props
