@@ -7,6 +7,7 @@ let app;
 jest.mock("../../src/facilities/keycloak");
 // Mock user DB methods.
 jest.mock("../../src/models/projects");
+jest.mock("../../src/models/contracts");
 
 describe("Attempting to access any server route without a bearer token.", () => {
   beforeEach(() => {
@@ -58,7 +59,7 @@ describe("Access projects routes with valid user", () => {
   });
 
   it("Should get a single project object when you hit /api/project/:id with a valid ID", async () => {
-    projectsModel.findById.mockResolvedValue([{ id: 1 }]);
+    projectsModel.findById.mockResolvedValue({ id: 1 });
     const response = await app.inject({
       method: "GET",
       url: "/projects/1",
@@ -66,7 +67,7 @@ describe("Access projects routes with valid user", () => {
 
     const responseBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
-    expect("id" in responseBody.data[0]).toBe(true);
+    expect("id" in responseBody.data).toBe(true);
   });
 
   it("Should get a single project close out object when you hit /api/project/:id/close-out with a valid ID", async () => {

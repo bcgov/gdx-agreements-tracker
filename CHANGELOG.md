@@ -1,5 +1,15 @@
 ## Developer Changelog
 
+### August 29, 2022 (DESCW-571) Project Registration
+- Backend
+  - Added `fiscal` picker option
+  - Updated Projects controller getOne() to return contracts associated with project
+- Frontend
+  - Updated Project Registration page to use ReadForm and EditForm components, view/edit now working
+  - Updated Project Agreements page to use ReadForm and EditForm components
+- Require to run picker seeds
+  - `npx knex seed:run --specific=08_picker_options.js`
+
 ### August 25, 2022 (DESCW-562) Project Close Out
 - Backend
   - Created migration for contacts picker, seeds for multiple pickers

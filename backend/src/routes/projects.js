@@ -17,7 +17,7 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:projectId/close-out`,
-    schema: validators.getCloseOut,
+    schema: validators.getOne,
     handler: controller.getCloseOut,
   },
   {

@@ -224,6 +224,15 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
+      name: "fiscal",
+      title: "Fiscal",
+      description: "Fiscal Years",
+      definition: {
+        tableLookup: "fiscal_year",
+      },
+      associated_form: tables.generic,
+    },
+    {
       name: "hand_off_to_operations",
       title: "Hand Off to Operations",
       description: "Post implementation hand-off to operation completed.",

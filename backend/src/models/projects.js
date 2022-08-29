@@ -22,8 +22,17 @@ const findAll = () => {
 };
 
 // Get specific one by id.
+// Casts money types to float so values are numeric instead of string.
 const findById = (projectId) => {
-  return db(getFromView).where("id", projectId);
+  return db(getFromView)
+    .select(
+      "*",
+      db.raw("planned_budget::numeric::float8"),
+      db.raw("total_project_budget::numeric::float8"),
+      db.raw("recoverable_amount::numeric::float8")
+    )
+    .where("id", projectId)
+    .first();
 };
 
 // Update one.

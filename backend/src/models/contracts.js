@@ -33,6 +33,12 @@ const findAll = () => {
     .leftJoin(projectTable, { "contract.project_id": `${projectTable}.id` });
 };
 
+// Get all contracts by project id.
+const findByProjectId = (projectId) => {
+  return db(contractsTable).select("id", "co_number").where("project_id", projectId);
+};
+
 module.exports = {
   findAll,
+  findByProjectId,
 };
