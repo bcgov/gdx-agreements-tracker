@@ -166,7 +166,7 @@ export const editFields: () => IEditFields[] = () => {
     },
     {
       fieldName: "recoverable_amount",
-      fieldType: "singleText",
+      fieldType: "number",
       fieldLabel: "Recoverable Total",
       width: "half",
     },

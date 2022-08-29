@@ -18,6 +18,16 @@ export const ProjectRegistrationSection = ({ query }: any) => {
   useEffect(() => {
     const user = query?.data?.user;
     setEditCapability(user && user.capabilities.includes("projects_update_all"));
+
+    // Certain properties when lacking a value have null labels causing errors.
+    if (query?.data?.data) {
+      if (null === query.data.data.fiscal.label) {
+        query.data.data.fiscal.label = "";
+      }
+      if (null === query.data.data.project_status.label) {
+        query.data.data.project_status.label = "";
+      }
+    }
   }, [query]);
 
   let content = <></>;
