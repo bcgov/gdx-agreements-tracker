@@ -1,4 +1,17 @@
 ## Developer Changelog
+
+### August 25, 2022 (DESCW-562) Project Close Out
+- Backend
+  - Created migration for contacts picker, seeds for multiple pickers
+  - Refactored Projects controller to use admin_form functions
+  - Add Projects route/controller/model functions for getting close out data
+- Frontend
+  - Fixed bug in hooks/useFormSubmit preventing form submit when given a null select field value
+  - Added user capability check in Close Out page (determines whether user can edit)
+- Require to run migrations and seeds
+  - `npx knex migrate:latest`
+  - `npx knex seed:run --specific=08_picker_options.js`
+
 ### August 25, 2022 (DESCW-537) accordion test
 - Frontend
   - added according test.

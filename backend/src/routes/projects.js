@@ -15,6 +15,11 @@ const routes = [
     handler: controller.getOne,
   },
   {
+    method: "GET",
+    url: `/${what}/:projectId/close-out`,
+    handler: controller.getCloseOut,
+  },
+  {
     method: "PUT",
     url: `/${what}/:id`,
     handler: controller.updateOne,

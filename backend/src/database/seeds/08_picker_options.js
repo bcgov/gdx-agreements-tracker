@@ -11,6 +11,25 @@ exports.seed = function (knex) {
     contract_amendment: "contract_amendment",
   };
 
+  const yesNoOptions = [
+    {
+      value: "Yes",
+      label: "Yes",
+    },
+    {
+      value: "No",
+      label: "No",
+    },
+    {
+      value: "N/A",
+      label: "N/A",
+    },
+    {
+      value: null,
+      label: "",
+    },
+  ];
+
   const pickers = [
     {
       name: "classification",
@@ -174,6 +193,15 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
+      name: "completed_by_contact_id",
+      title: "Contact",
+      description: "The Contact",
+      definition: {
+        tableLookup: "contact",
+      },
+      associated_form: tables.projects,
+    },
+    {
       name: "recoverable",
       title: "Recovery Details",
       description: "The recoverable of a project.",
@@ -192,6 +220,42 @@ exports.seed = function (knex) {
             label: "Non-Recoverable",
           },
         ],
+      },
+      associated_form: tables.projects,
+    },
+    {
+      name: "hand_off_to_operations",
+      title: "Hand Off to Operations",
+      description: "Post implementation hand-off to operation completed.",
+      definition: {
+        dropDownValues: yesNoOptions,
+      },
+      associated_form: tables.projects,
+    },
+    {
+      name: "records_filed",
+      title: "Records Filed",
+      description: "Project documentation filled in accordance with records management.",
+      definition: {
+        dropDownValues: yesNoOptions,
+      },
+      associated_form: tables.projects,
+    },
+    {
+      name: "contract_ev_completed",
+      title: "Contract Evaluation Completed",
+      description: "Contract evaluation completed if applicable.",
+      definition: {
+        dropDownValues: yesNoOptions,
+      },
+      associated_form: tables.projects,
+    },
+    {
+      name: "contractor_security_terminated",
+      title: "Contractor Security Terminated",
+      description: "Contractor IDIR terminated / building passes returned.",
+      definition: {
+        dropDownValues: yesNoOptions,
       },
       associated_form: tables.projects,
     },
