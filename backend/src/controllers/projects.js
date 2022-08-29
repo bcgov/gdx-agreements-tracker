@@ -58,6 +58,7 @@ const getCloseOut = async (request, reply) => {
   const targetId = Number(request.params.projectId);
   try {
     const result = await Model.findCloseOutById(targetId);
+    result.contracts = await ContractsModel.findByProjectId(targetId);
     output = !result
       ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
       : result;
