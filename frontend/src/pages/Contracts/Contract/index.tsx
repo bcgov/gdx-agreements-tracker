@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { IChipNav } from "types";
 import { ChipNav } from "../../../components/GDXForm/ChipNav";
 
 /**
@@ -13,7 +14,7 @@ import { ChipNav } from "../../../components/GDXForm/ChipNav";
 export const Contract = () => {
   const { contractId } = useParams();
 
-  const chipNavLinks = [
+  const chipNavLinks: IChipNav[] = [
     {
       key: 0,
       name: "Contract Details",

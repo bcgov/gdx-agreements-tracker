@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### August 30, 2022 (DESCW-561) Project CloseOut ChipNav
+- Frontend
+  - Updated ChipNav component to allow justifying chips right
+
 ### August 29, 2022 (DESCW-571) Project Registration
 - Backend
   - Added `fiscal` picker option
