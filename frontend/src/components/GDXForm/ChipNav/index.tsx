@@ -21,7 +21,13 @@ export const ChipNav = ({
     textDecoration: "none",
   }));
 
-  const renderNavLink = (link: { key: number; name: string; url: string }) => {
+  /**
+   * Renders a single ChipNav link.
+   *
+   * @param   {IChipNav}    link The ChipNav link to render.
+   * @returns {JSX.Element}
+   */
+  const renderNavLink = (link: IChipNav): JSX.Element => {
     return (
       <StyledListItem key={link.key}>
         <StyledNavLink to={link.url} end>
