@@ -6,19 +6,23 @@ import { useFormSubmit } from "hooks/useFormSubmit";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
-/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-// todo: Define a good type. "Any" type temporarily permitted.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ProjectRegistrationSection = ({ query }: any) => {
+
+export const ProjectRegistrationSection = ({
+  query,
+  userHasEditCapability,
+}: {
+  /**
+   * @todo Define a good type. "Any" type temporarily permitted.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  query: any;
+  userHasEditCapability: boolean;
+}) => {
   const { projectId } = useParams();
   const [editMode, setEditMode] = useState(false);
-  const [userHasEditCapability, setEditCapability] = useState(false);
   const { handleUpdate, Notification } = useFormSubmit();
 
   useEffect(() => {
-    const user = query?.data?.user;
-    setEditCapability(user && user.capabilities.includes("projects_update_all"));
-
     // Certain properties when lacking a value have null labels causing errors.
     if (query?.data?.data) {
       if (null === query.data.data.fiscal.label) {
@@ -44,7 +48,7 @@ export const ProjectRegistrationSection = ({ query }: any) => {
           {userHasEditCapability && (
             <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
               <Button variant="contained" onClick={() => setEditMode(true)}>
-                Change Project Registration
+                Change Registration
               </Button>
             </Box>
           )}

@@ -33,8 +33,39 @@ export const editFields: () => IEditFields[] = () => {
     {
       fieldName: "agreement_type",
       fieldLabel: "Agreement Type",
-      fieldType: "singleText",
+      fieldType: "select",
       width: "half",
+      tableName: "project",
+    },
+    {
+      fieldName: "agreement_start_date",
+      fieldLabel: "Agreement Start Date",
+      fieldType: "date",
+      width: "half",
+    },
+    {
+      fieldName: "agreement_signed_date",
+      fieldLabel: "Agreement Signed Date",
+      fieldType: "date",
+      width: "half",
+    },
+    {
+      fieldName: "agreement_end_date",
+      fieldLabel: "Agreement End Date",
+      fieldType: "date",
+      width: "half",
+    },
+    {
+      fieldName: "description",
+      fieldLabel: "Description",
+      fieldType: "multiText",
+      width: "full",
+    },
+    {
+      fieldName: "notes",
+      fieldLabel: "Notes",
+      fieldType: "multiText",
+      width: "full",
     },
   ];
 };

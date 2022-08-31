@@ -18,6 +18,7 @@ const updateOne = {
   body: {
     type: "object",
     properties: {
+      // Registration
       project_number: requiredStringValidation,
       project_name: requiredStringValidation,
       project_version: optionalStringValidation,
@@ -33,6 +34,14 @@ const updateOne = {
       total_project_budget: { type: "number" },
       recoverable: optionalStringValidation,
       recoverable_amount: { type: "number" },
+      // Agreement
+      agreement_type: { enum: ["Project Charter", "Other", "Partnership Agreement", "MOU", null] },
+      agreement_start_date: { type: "string", format: "date-time" },
+      agreement_signed_date: { type: "string", format: "date-time" },
+      agreement_end_date: { type: "string", format: "date-time" },
+      description: { type: "string" },
+      notes: { type: "string" },
+      // Close Out
       close_out_date: { type: "string", format: "date-time" },
       completed_by_contact_id: { type: "integer", minimum: 0 },
       actual_completion_date: { type: "string", format: "date-time" },
