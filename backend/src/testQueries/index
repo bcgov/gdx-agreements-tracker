@@ -1,0 +1,343 @@
+/* 
+Individual Project Reports - Project Status (Most Recent) 
+Purpose: Shows the most recent status report on a  specific project
+Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status, milestone status.
+*/
+
+SELECT DISTINCT *
+FROM (
+    SELECT 
+    data.project_milestone.id, 
+    data.project.id AS projectId, 
+	(CASE 
+		WHEN data.project_milestone.id is null then 'No Milestones'
+		ELSE data.project_milestone.Description
+	END) as Description,
+    data.project_milestone.target_completion_date, 
+    data.project_milestone.status, 
+    data.project_milestone.actual_completion_date, 
+    data.health_indicator.colour_red, 
+    data.health_indicator.colour_green, 
+    data.health_indicator.colour_blue 
+    FROM data.project 
+    LEFT JOIN (
+        data.health_indicator 
+        RIGHT JOIN data.project_milestone 
+        ON data.health_indicator.id = data.project_milestone.health_id
+    ) 
+        ON Project.id = data.project_milestone.project_id
+)  AS rpt_P_Status_MostRecent
+
+
+/* 
+Individual Project Reports - Project Status Summary 
+Purpose: Status Report for a specific project showing all status reporting periods, as well as it includes information on the Project Closure.
+Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, all status reporting, deliverable status, milestone status, Closure Report
+*/
+SELECT DISTINCT *
+FROM (
+    SELECT 
+    data.project_deliverable.id, 
+    data.project.id  AS project_id, 
+    (CASE 
+		WHEN data.project_deliverable.id is null then 'No Deliverables' 
+		ELSE data.project_deliverable.deliverable_name
+	END) as deliverable_name, 
+    data.project_deliverable.start_date, 
+    data.project_deliverable.completion_date, 
+    data.project_deliverable.deliverable_amount, 
+    data.project_deliverable.percent_complete, 
+    data.health_indicator.colour_red, 
+    data.health_indicator.colour_green, 
+    data.health_indicator.colour_blue, 
+    data.project_deliverable.deliverable_status 
+    FROM data.project 
+    LEFT JOIN (
+        data.health_indicator 
+        RIGHT JOIN data.project_deliverable 
+        ON data.health_indicator.id = data.project_deliverable.health_id
+    ) 
+    ON data.project.id  = data.project_deliverable.project_id 
+    WHERE (((data.project_deliverable.is_expense)=False Or (data.project_deliverable.is_expense) Is Null))
+)  AS rpt_P_StatusSummary
+
+/* 
+Individual Project Reports - Project Budget Summary 
+Purpose: Provide up to date information on any particular Project, can be used to provide client with information on their project budget.
+Description: Run by project number shows deliverable amounts, their budgets, amounts recovered to date, balance remaining. Shows breakdown across fiscals, any change requests, any contracts associated with the project and amounts invoiced/remaining on the contracts.
+*/
+    SELECT DISTINCT *
+    FROM (
+        SELECT 
+        data.project.id AS projectId, -- project
+        --data.change_request.Version, -- cr
+        data.change_request.initiation_date,    --cr
+        data.change_request.initiated_by, --cr
+        -- data.change_request.cr_types, --change_request_crtype
+        array_agg(data.crtype.crtype_name) AS cr_types,
+        -- data.crtype.crtype_name,
+        data.change_request.Summary  --cr
+        FROM data.project 
+        LEFT JOIN data.change_request
+        ON data.project.id = data.change_request.link_id
+        LEFT JOIN data.change_request_crtype as crc
+        ON data.change_request.id = crc.change_request_id
+        LEFT JOIN data.crtype
+        ON data.crtype.id = crc.crtype_id
+        WHERE crc.change_request_id = data.change_request.id
+        GROUP BY data.project.id, data.change_request.id
+    )  AS rpt_P_BudgetSummary
+
+
+/* 
+Individual Project Reports - Project Quarterly Review 
+Purpose: To outline how a project budget is broken down between quarters and the distribution of the recoveries over portfolios. Designed as a guide to review with PM each quarter and confirm billing amounts. Shows cross-fiscal amounts and breakdown between multiple clients as well.
+Description: Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter, portfolio recovery amount.
+*/
+
+/* This will needed to get the current user somehow */
+SELECT Contact.ID, [FirstName] & " " & [LastName] AS Expr1
+FROM Contact;
+
+SELECT 
+Project.ProjectNumber, 
+Project.ProjectName, 
+Project.ProjectManager, 
+Project.AgreementStartDate, 
+Project.AgreementEndDate, 
+pb.ProjectDeliverableID, 
+ProjectDeliverable.DeliverableName, 
+pb.ID, 
+pb.Q1_Amount, 
+pb.Q1_Recovered, 
+pb.Q2_Amount, 
+pb.Q2_Recovered, 
+pb.Q3_Amount, 
+pb.Q3_Recovered, 
+pb.Q4_Amount, 
+pb.Q4_Recovered, 
+pb.Notes, 
+pb.DetailAmount, 
+pb.RecoveryArea, 
+pb.ResourceType, 
+pb.STOB, 
+ProjectDeliverable.DeliverableAmount, 
+ProjectDeliverable.ProjectID, 
+Portfolio.PortfolioAbbrev, 
+Portfolio.ExpenseAuthority, 
+Portfolio.Responsibility, 
+Portfolio.ServiceLine, 
+pb.Fiscal, 
+FiscalYear.FiscalYear, 
+pb.ClientCodingID, 
+Contact.LastName, 
+Contact.FirstName, 
+ProjectDeliverable.RecoverableAmount, 
+pb.ContractID
+FROM Project 
+INNER JOIN (
+    ProjectDeliverable 
+    INNER JOIN (
+        (
+            (
+                (
+                    Portfolio 
+                    RIGHT JOIN pb 
+                    ON Portfolio.ID = pb.RecoveryArea
+                ) 
+                INNER JOIN FiscalYear 
+                ON pb.Fiscal = FiscalYear.ID
+            ) 
+        LEFT JOIN ClientCoding 
+        ON pb.ClientCodingID = ClientCoding.ID
+        ) 
+        LEFT JOIN Contact 
+        ON ClientCoding.ContactID = Contact.ID
+    ) 
+    ON ProjectDeliverable.ID = pb.ProjectDeliverableID
+) 
+ON data.project_id = ProjectDeliverable.ProjectID
+ORDER BY pb.Fiscal, ProjectDeliverable.DeliverableName;
+
+
+/* 
+Individual Project Reports - Project Quarterly Billing Request 
+Purpose: Backup details for a project to attach to a JV for processing each quarter
+Description: Runs on Project #, fiscal yr, quarter. Shows client billing information, summaries the breakdown charged per deliverable for the specific quarter/fiscal.
+
+??
+*/
+
+
+/* Individual Contract Reports - Contract Summary */ 
+
+
+/* Divisional Project Reports - Project Status Roll Up */ 
+
+/* Divisional Project Reports - Project Dashboard */ 
+
+/* Divisional Project Reports - Active Projects */ 
+
+/* Divisional Project Reports - Project lessons learned */ 
+
+/* Divisional Project Reports - Ministry project usage */ 
+
+/* Divisional Project Reports - Projects registered by date/period */ 
+
+/* Divisional Project Reports - Project registered by fiscal */ 
+
+/* Divisional Project Reports - Change request types */ 
+
+/* Divisional Project Reports - Multi year statistics for project change request */ 
+
+
+
+SELECT
+  proj.project_number,
+  proj.project_name,
+  proj.project_manager,
+  proj.agreement_start_date,
+  proj.agreement_end_date,
+  pb.project_deliverable_id,
+  pd.deliverable_name,
+  pb.id,
+  pb.q1_amount,
+  pb.q1_recovered,
+  pb.q2_amount,
+  pb.q2_recovered,
+  pb.q3_amount,
+  pb.q3_recovered,
+  pb.q4_amount,
+  pb.q4_recovered,
+  pb.notes,
+  pb.detail_amount,
+  pb.recovery_area,
+  pb.resource_type,
+  pb.stob,
+  pd.deliverable_amount,
+  pd.project_id,
+  port.portfolio_abbrev,
+  port.expense_authority,
+  port.responsibility,
+  port.service_line,
+  pb.fiscal,
+  fy.fiscal_year,
+  pb.client_coding_id,
+  cont.last_name,
+  cont.first_name,
+  pd.recoverable_amount,
+  pb.contract_id
+FROM data.project AS proj
+INNER JOIN (
+    data.project_deliverable AS pd
+    INNER JOIN (
+        (
+        (
+            (
+            data.portfolio AS port
+            RIGHT JOIN data.project_budget AS pb ON port.id = pb.recovery_area
+            )
+            INNER JOIN data.fiscal_year AS fy ON pb.fiscal = fy.id
+        )
+        LEFT JOIN data.client_coding AS cc ON pb.client_coding_id = cc.id
+        )
+        LEFT JOIN data.contact AS cont ON cc.contact_id = cont.id
+    )
+    ON pd.id = pb.project_deliverable_id
+);
+
+
+-- INNER JOIN (
+--     data.project_deliverable
+--     INNER JOIN (
+--         (
+--             (
+--                 (
+--                     data.portfolio 
+--                     RIGHT JOIN project_budget 
+--                     ON portfolio.id = project_budget.recovery_area
+--                 ) 
+--                 INNER JOIN data.fiscal_year
+--                 ON project_budget.fiscal = fiscal_year.id
+--             ) 
+--         LEFT JOIN data.client_coding 
+--         ON project_budget.client_coding_id = client_coding.id
+--         ) 
+--         LEFT JOIN data.contact
+--         ON client_coding.contact_id = contact.id
+--     ) 
+--     ON project_deliverable.id = project_budget.project_deliverable_id
+-- );
+
+-- INNER JOIN (
+--     data.project_deliverable AS pd
+--     INNER JOIN (
+--         (
+--             (
+--                 (
+--                     data.portfolio AS port
+--                     RIGHT JOIN data.project_budget AS pb
+--                     ON port.id = pb.recovery_area
+--                 ) 
+--                 INNER JOIN data.fiscal_year AS fy
+--                 ON pb.fiscal = fy.id
+--             ) 
+--         LEFT JOIN data.client_coding AS cc
+--         ON pb.client_coding_id = cc.id
+--         ) 
+--         LEFT JOIN data.contact AS cont
+--         ON cc.contact_id = cont.id
+--     ) 
+--     ON pd.id = pb.project_deliverable_id
+-- );
+
+-- projects.id  - project_deliverable.project_id - project_budget.project_deliverable_id
+
+
+
+EXPLAIN SELECT
+proj.project_number,
+proj.project_name,
+proj.project_manager, 
+proj.agreement_start_date, 
+proj.agreement_end_date,
+pb.project_deliverable_id,
+pd.deliverable_name, 
+pb.id, 
+pb.q1_amount, 
+pb.q1_recovered, 
+pb.q2_amount, 
+pb.q2_recovered, 
+pb.q3_amount, 
+pb.q3_recovered, 
+pb.q4_amount, 
+pb.q4_recovered, 
+pb.notes, 
+pb.detail_amount, 
+pb.recovery_area, 
+pb.resource_type, 
+pb.stob, 
+pd.deliverable_amount, 
+pd.project_id, 
+port.portfolio_abbrev, 
+port.expense_authority, 
+port.responsibility, 
+port.service_line, 
+pb.fiscal, 
+fy.fiscal_year, 
+pb.client_coding_id, 
+cont.last_name, 
+cont.first_name, 
+pd.recoverable_amount,
+pb.contract_id
+FROM data.project AS proj
+INNER JOIN data.project_deliverable AS pd ON proj.id = pd.project_id
+INNER JOIN data.portfolio AS port ON proj.portfolio_id = port.id
+RIGHT JOIN data.project_budget AS pb ON port.id = pb.recovery_area
+INNER JOIN data.fiscal_year AS fy ON pb.fiscal = fy.id
+LEFT JOIN data.client_coding AS cc ON pb.client_coding_id = cc.id
+LEFT JOIN data.contact AS cont ON cc.contact_id = cont.id
+WHERE pb.contract_id IS NOT NULL;
+
+--         LEFT JOIN data.client_coding AS cc
+--         ON pb.client_coding_id = cc.id

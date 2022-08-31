@@ -9,6 +9,24 @@ const routes = [
     schema: validators.getOneValidator,
     handler: controller.getOne,
   },
+  {
+    method: "GET",
+    url: `/${what}/projects/ProjectBudgetReport`,
+    schema: validators.getOneValidator,
+    handler: controller.getProjectBudgetReport,
+  },
+  {
+    method: "GET",
+    url: `/${what}/projects/ProjectQuarterlyReport`,
+    schema: validators.getOneValidator,
+    handler: controller.getProjectQuarterlyReport,
+  },
+  {
+    method: "GET",
+    url: `/${what}/projects/ProjectStatusReport`,
+    schema: validators.getOneValidator,
+    handler: controller.getProjectStatusReport,
+  },
 ];
 const registerRoutes = (fastify, options, done) => {
   // Ensure all of the routes above get registered.
