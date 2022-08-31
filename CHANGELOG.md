@@ -1,8 +1,15 @@
 ## Developer Changelog
 
+### August 31, 2022 (DESCW-572) Project Close Out Notify
+- Backend
+  - Added controller and route for project close out notify function
+- Frontend
+  - Changed Notify component to handle checkbox value changes and make API request
+
 ### August 31, 2022 (DESCW-484) Project Reports
 - Backend
-  - Added controllers, models, and routes for project rpeort queries
+  - Added controllers, models, and routes for project report queries
+
 ### August 30, 2022 (DESCW-561) Project CloseOut ChipNav
 - Frontend
   - Updated ChipNav component to allow justifying chips right
