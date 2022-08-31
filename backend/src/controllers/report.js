@@ -64,6 +64,90 @@ const getOne = async (request, reply) => {
   }
 };
 
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const getProjectBudgetReport = async (request, reply) => {
+  if (userCan(request, "report_read_mine") && checkMine(request)) {
+    try {
+      const result = await Model.projectBudgetReport();
+      if (!result) {
+        reply.code(404);
+        return { message: `The ${what.single} with the specified id does not exist.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem looking up this Project Budget Report.` };
+    }
+  } else {
+    log.trace('user lacks capability "report_read_mine"');
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const getProjectQuarterlyReport = async (request, reply) => {
+  if (userCan(request, "report_read_mine") && checkMine(request)) {
+    try {
+      const result = await Model.projectQuarterlyReport();
+      if (!result) {
+        reply.code(404);
+        return { message: `The ${what.single} with the specified id does not exist.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem looking up this Project Quarterly Report.` };
+    }
+  } else {
+    log.trace('user lacks capability "report_read_mine"');
+    return notAllowed(reply);
+  }
+};
+
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+const getProjectStatusReport = async (request, reply) => {
+  if (userCan(request, "report_read_mine") && checkMine(request)) {
+    try {
+      const result = await Model.projectStatusReport();
+      if (!result) {
+        reply.code(404);
+        return { message: `The ${what.single} with the specified id does not exist.` };
+      } else {
+        return result;
+      }
+    } catch (err) {
+      reply.code(500);
+      return { message: `There was a problem looking up this Project Status Report.` };
+    }
+  } else {
+    log.trace('user lacks capability "report_read_mine"');
+    return notAllowed(reply);
+  }
+};
+
 module.exports = {
   getOne,
+  getProjectBudgetReport,
+  getProjectQuarterlyReport,
+  getProjectStatusReport,
 };
