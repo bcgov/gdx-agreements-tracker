@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+### August 31, 2022 (DESCW-587) Project Agreements
+- Backend
+  - Added input validation for agreements fields
+- Frontend
+  - Added missing agreements fields for read/edit forms
+  - Moved logic for determining user capability into details component, now passed into children
+
 ### August 31, 2022 (DESCW-572) Project Close Out Notify
 - Backend
   - Added controller and route for project close out notify function
