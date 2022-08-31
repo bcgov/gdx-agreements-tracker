@@ -1,5 +1,8 @@
 ## Developer Changelog
 
+### August 31, 2022 (DESCW-484) Project Reports
+- Backend
+  - Added controllers, models, and routes for project rpeort queries
 ### August 30, 2022 (DESCW-561) Project CloseOut ChipNav
 - Frontend
   - Updated ChipNav component to allow justifying chips right
