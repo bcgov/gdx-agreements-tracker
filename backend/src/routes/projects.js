@@ -15,16 +15,22 @@ const routes = [
     handler: controller.getOne,
   },
   {
+    method: "PUT",
+    url: `/${what}/:id`,
+    schema: validators.updateOne,
+    handler: controller.updateOne,
+  },
+  {
     method: "GET",
     url: `/${what}/:projectId/close-out`,
     schema: validators.getOne,
     handler: controller.getCloseOut,
   },
   {
-    method: "PUT",
-    url: `/${what}/:id`,
-    schema: validators.updateOne,
-    handler: controller.updateOne,
+    method: "POST",
+    url: `/${what}/:projectId/close-out/notify`,
+    schema: validators.getOne,
+    handler: controller.notifyCloseOut,
   },
 ];
 

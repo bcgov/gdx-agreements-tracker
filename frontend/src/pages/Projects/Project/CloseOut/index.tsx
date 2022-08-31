@@ -46,7 +46,7 @@ export const CloseOut = () => {
     default:
       content = (
         <>
-          <Notify projectId={projectId} />
+          {!userHasEditCapability && <Notify projectId={projectId} />}
           <ReadForm fields={readFields(projectQuery)} />
           {userHasEditCapability && (
             <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
