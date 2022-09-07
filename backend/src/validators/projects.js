@@ -106,8 +106,7 @@ const getOneCloseOut = {
 
 const updateOne = {
   params: Schema.IdParam,
-  // Body validation.
-  body: requestSingleBody,
+  body: requestSingleBody.minProperties(1),
   response: getUpdateResponse(),
 };
 

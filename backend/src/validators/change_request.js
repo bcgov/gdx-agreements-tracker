@@ -13,6 +13,7 @@ const baseBody = S.object()
   .prop("link_id", Schema.Id);
 
 const requestBody = baseBody
+  .minProperties(1)
   .without(["id", "link_id", "version", "fiscal_year", "initiated_by"])
   .prop("fiscal_year", Schema.Id)
   .prop("initiated_by", Schema.Enum(["GDX", "Client", null]));

@@ -42,7 +42,7 @@ const getOne = {
 
 const updateOne = {
   params: Schema.IdParam,
-  body: requestSingleBody,
+  body: requestSingleBody.minProperties(1),
   response: getUpdateResponse(),
 };
 

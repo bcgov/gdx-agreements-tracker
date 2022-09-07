@@ -25,7 +25,7 @@ const addOne = {
 };
 
 const updateOne = {
-  body: baseBody.without(["id"]),
+  body: baseBody.without(["id"]).minProperties(1),
   response: getUpdateResponse,
 };
 
