@@ -1,5 +1,11 @@
 ## Developer Changelog
 
+### September 7, 2022 (DESCW-563) Route Validators
+- Backend
+  - Added fluent-json-schema dependency to package.json (need to `run npm install`)
+  - Created validators/common_schema to provide helpers for validators
+  - Added input validation and response serialization for change_request, projects, contacts, users routes
+
 ### August 31, 2022 (DESCW-587) Project Agreements
 - Backend
   - Added input validation for agreements fields
