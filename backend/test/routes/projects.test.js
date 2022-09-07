@@ -1,6 +1,7 @@
 const serverConfig = require("../../src/facilities/fastify");
 const authHelper = require("../../src/facilities/keycloak");
 const projectsModel = require("../../src/models/projects.js");
+const contractsModel = require("../../src/models/contracts");
 let app;
 
 // Mock authentication so we can test routes themselves.
@@ -59,7 +60,8 @@ describe("Access projects routes with valid user", () => {
   });
 
   it("Should get a single project object when you hit /api/project/:id with a valid ID", async () => {
-    projectsModel.findById.mockResolvedValue({ id: 1 });
+    projectsModel.findById.mockResolvedValue({ project_number: "P1" });
+    contractsModel.findByProjectId.mockResolvedValue([]);
     const response = await app.inject({
       method: "GET",
       url: "/projects/1",
@@ -67,11 +69,12 @@ describe("Access projects routes with valid user", () => {
 
     const responseBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
-    expect("id" in responseBody.data).toBe(true);
+    expect("project_number" in responseBody.data).toBe(true);
   });
 
   it("Should get a single project close out object when you hit /api/project/:id/close-out with a valid ID", async () => {
-    projectsModel.findCloseOutById.mockResolvedValue({ id: 1 });
+    projectsModel.findCloseOutById.mockResolvedValue({ close_out_date: "1" });
+    contractsModel.findByProjectId.mockResolvedValue([]);
     const response = await app.inject({
       method: "GET",
       url: "/projects/1/close-out",
@@ -79,7 +82,7 @@ describe("Access projects routes with valid user", () => {
 
     const responseBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
-    expect("id" in responseBody.data).toBe(true);
+    expect("close_out_date" in responseBody.data).toBe(true);
   });
 });
 
