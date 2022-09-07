@@ -42,17 +42,15 @@ describe("Access contacts routes with valid contacts", () => {
   });
 
   it("Should get a list of contacts when you hit /contacts", async () => {
-    contactsModel.findAll.mockResolvedValue(contacts);
+    contactsModel.findAll.mockResolvedValue(contacts.contacts);
     const response = await app.inject({
       method: "GET",
       url: "/contacts",
     });
     const responseBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
-    expect(responseBody.data.contacts).toBeInstanceOf(Array);
-    responseBody.data.contacts.forEach((contactsObject) =>
-      expect("id" in contactsObject).toBe(true)
-    );
+    expect(responseBody.data).toBeInstanceOf(Array);
+    responseBody.data.forEach((contactsObject) => expect("id" in contactsObject).toBe(true));
   });
 });
 

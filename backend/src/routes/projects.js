@@ -6,6 +6,7 @@ const routes = [
   {
     method: "GET",
     url: `/${what}`,
+    schema: validators.getAll,
     handler: controller.getAll,
   },
   {
@@ -23,13 +24,12 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:projectId/close-out`,
-    schema: validators.getOne,
+    schema: validators.getOneCloseOut,
     handler: controller.getCloseOut,
   },
   {
     method: "POST",
     url: `/${what}/:projectId/close-out/notify`,
-    schema: validators.getOne,
     handler: controller.notifyCloseOut,
   },
 ];
