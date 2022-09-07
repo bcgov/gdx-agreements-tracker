@@ -1,30 +1,40 @@
+const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("./common_schema.js");
+const S = require("fluent-json-schema");
+
+const baseBody = S.object()
+  .prop("id", Schema.Id)
+  .prop("name", Schema.ShortString)
+  .prop("email", Schema.RequiredEmail)
+  .prop("role_id", Schema.Id);
+
+const getAll = {
+  response: getResponse(
+    S.array().items(baseBody.without(["role_id"]).prop("display_name", Schema.ShortString))
+  ),
+};
+
 const getOne = {
-  params: {
-    id: { type: "integer" },
-  },
+  params: Schema.IdParam,
+  response: getResponse(baseBody.prop("role_id", Schema.Picker)),
 };
 
 const addOne = {
-  headers: {
-    type: "object",
-    properties: {
-      Authorization: { type: "string" },
-    },
-  },
-  body: {
-    type: "object",
-    required: ["email", "name", "role_id"],
-    properties: {
-      name: { type: "string" },
-      email: { type: "string", format: "email" },
-      role_id: { type: "integer" },
-    },
-  },
+  headers: S.object().prop("Authorization", S.string()),
+  body: baseBody.without(["id"]).required(["email", "name", "role_id"]),
+  response: getAddResponse,
 };
+
+const updateOne = {
+  body: baseBody.without(["id"]),
+  response: getUpdateResponse,
+};
+
 const deleteOne = getOne;
 
 module.exports = {
+  getAll,
   getOne,
   addOne,
+  updateOne,
   deleteOne,
 };

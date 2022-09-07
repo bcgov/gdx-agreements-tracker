@@ -97,6 +97,7 @@ export const Contacts: FC = () => {
     { width: "half", title: "Postal Code", value: contactQuery?.data?.postal },
     { width: "half", title: "Mobile Phone", value: contactQuery?.data?.mobile },
     { width: "half", title: "Website", value: contactQuery?.data?.website },
+    { width: "half", title: "Email", value: contactQuery?.data?.email },
     { width: "half", title: "Notes", value: contactQuery?.data?.notes },
   ];
 

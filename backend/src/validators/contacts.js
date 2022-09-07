@@ -1,65 +1,59 @@
-const REQUIRED_STRING_VALIDATION = { type: "string", minLength: 1, maxLength: 255 };
-const OPTIONAL_STRING_VALIDATION = { type: "string", maxLength: 255 };
-const BODY_PROPERTY_VALIDATIONS = {
-  last_name: REQUIRED_STRING_VALIDATION,
-  first_name: REQUIRED_STRING_VALIDATION,
-  email: OPTIONAL_STRING_VALIDATION,
-  contact_phone: OPTIONAL_STRING_VALIDATION,
-  contact_title: OPTIONAL_STRING_VALIDATION,
-  ministry_id: { type: "integer", minimum: 0 },
-  business_area_id: { type: "integer" },
-  address: OPTIONAL_STRING_VALIDATION,
-  city: OPTIONAL_STRING_VALIDATION,
-  province: OPTIONAL_STRING_VALIDATION,
-  postal: OPTIONAL_STRING_VALIDATION,
-  country: OPTIONAL_STRING_VALIDATION,
-  website: OPTIONAL_STRING_VALIDATION,
-  mobile: OPTIONAL_STRING_VALIDATION,
-  fax: OPTIONAL_STRING_VALIDATION,
-  notes: { type: "string" },
+const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("./common_schema.js");
+const S = require("fluent-json-schema");
+
+const multiBody = S.array().items(
+  S.object()
+    .prop("id", Schema.Id)
+    .prop("last_name", Schema.ShortString)
+    .prop("first_name", Schema.ShortString)
+    .prop("contact_title", Schema.ShortString)
+    .prop("ministry_short_name", Schema.ShortString)
+);
+
+const baseSingleBody = S.object()
+  .prop("id", Schema.Id)
+  .prop("last_name", Schema.ShortString.minLength(1))
+  .prop("first_name", Schema.ShortString.minLength(1))
+  .prop("email", Schema.Email)
+  .prop("contact_phone", Schema.Phone)
+  .prop("contact_title", Schema.ShortString)
+  .prop("business_area_id", Schema.Id)
+  .prop("address", Schema.ShortString)
+  .prop("city", Schema.ShortString)
+  .prop("province", Schema.ShortString)
+  .prop("postal", Schema.ShortString)
+  .prop("country", Schema.ShortString)
+  .prop("website", Schema.Uri)
+  .prop("mobile", Schema.Phone)
+  .prop("fax", Schema.Phone)
+  .prop("notes", S.string());
+
+const requestSingleBody = baseSingleBody.prop("ministry_id", Schema.Id);
+const responseSingleBody = baseSingleBody.prop("ministry_id", Schema.Picker);
+
+const getAll = {
+  response: getResponse(multiBody),
 };
 
-const getOneValidator = {
-  // Request parameters.
-  params: {
-    id: { type: "integer" },
-  },
-  // Response validation.
-  response: {
-    200: {
-      type: "object",
-      properties: {
-        data: {
-          id: { type: "integer" },
-        },
-      },
-    },
-  },
+const getOne = {
+  params: Schema.IdParam,
+  response: getResponse(responseSingleBody),
 };
 
-const updateOneValidator = {
-  // Request parameters.
-  params: {
-    id: { type: "integer" },
-  },
-  // Body validation.
-  body: {
-    type: "object",
-    properties: BODY_PROPERTY_VALIDATIONS,
-  },
+const updateOne = {
+  params: Schema.IdParam,
+  body: requestSingleBody,
+  response: getUpdateResponse(),
 };
 
-const addOneValidator = {
-  // Body validation.
-  body: {
-    type: "object",
-    required: ["last_name", "first_name"],
-    properties: BODY_PROPERTY_VALIDATIONS,
-  },
+const addOne = {
+  body: requestSingleBody.required(["first_name", "last_name"]),
+  response: getAddResponse(),
 };
 
 module.exports = {
-  getOneValidator,
-  updateOneValidator,
-  addOneValidator,
+  getAll,
+  getOne,
+  updateOne,
+  addOne,
 };
