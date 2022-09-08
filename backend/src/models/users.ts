@@ -5,7 +5,7 @@ const db = dbConnection.knex;
 const table = `${dbConnection.dataBaseSchemas().public}.users`;
 const rolesTable = `${dbConnection.dataBaseSchemas().public}.roles`;
 
-const model = () => {
+const userModel = () => {
   // Get all.
   const findAll = () => {
     return db
@@ -76,4 +76,4 @@ const model = () => {
   };
 };
 
-export default model;
+export default userModel;

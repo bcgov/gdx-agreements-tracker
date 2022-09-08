@@ -27,7 +27,7 @@
     "@types/jsonwebtoken": "^8.5.9",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.2",
     "fastify": "^3.24.1",
     "fastify-auth": "^1.1.0",
     "fastify-cors": "^6.0.2",
@@ -57,4 +57,5 @@
     "nodemon": "^2.0.14",
     "prettier": "2.5.1"
   }
+ 
 }

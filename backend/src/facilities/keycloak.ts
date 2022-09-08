@@ -1,9 +1,11 @@
-import jwksClient from "jwks-client";
-import jwt from "jsonwebtoken";
-const userModel = require("../models/users");
+import * as jwksClient from "jwks-client";
+import * as jwt from "jsonwebtoken";
+import userModel from "../models/users";
 import model from "../models/capabilities";
 
 const { findAllByUserId } = model();
+
+const { findAll, findById, findByEmail, addOne, updateOne, removeOne, addRoleToOne } = userModel();
 
 const keycloak = () => {
   /**
@@ -78,15 +80,13 @@ const keycloak = () => {
       const decodedToken: any = jwt.decode(token, { complete: true });
       if (decodedToken?.payload && decodedToken?.payload?.email) {
         const userPayload: any = decodedToken?.payload;
-        userModel
-          .findByEmail(userPayload.email)
+        findByEmail(userPayload.email)
           .then((user: any) => {
             if (0 === user.length) {
-              userModel
-                .addOne(userPayload)
+              addOne(userPayload)
                 .then(async (id: any) => {
-                  await userModel.addRoleToOne("subscriber", id[0]);
-                  await userModel.addRoleToOne("admin", id[0]);
+                  await addRoleToOne("subscriber", id[0]);
+                  await addRoleToOne("admin", id[0]);
                   resolve(`New user added to database. ID ${id}`);
                 })
                 .catch((error: any) => reject(error));
@@ -114,7 +114,7 @@ const keycloak = () => {
     const decodedToken = jwt.decode(token, { complete: true });
     if (decodedToken) {
       const payload: any = decodedToken.payload;
-      const user = await userModel.findByEmail(payload.email).then((r: any) => r[0]);
+      const user = await findByEmail(payload.email).then((r: any) => r[0]);
       const capabilities = user ? await findAllByUserId(user.id).then() : [];
       return {
         name: payload.name,
@@ -129,7 +129,7 @@ const keycloak = () => {
 
   const getRealmRoles = (request: any) => {
     const token = getBearerTokenFromRequest(request);
-    const decodedToken:any = jwt.decode(token, { complete: true });
+    const decodedToken: any = jwt.decode(token, { complete: true });
     return decodedToken?.payload?.client_roles || [];
   };
   return {

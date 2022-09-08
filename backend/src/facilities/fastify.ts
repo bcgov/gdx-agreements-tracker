@@ -1,16 +1,11 @@
 require("dotenv").config({ path: "../.env" });
 import allRoutes from "../routes";
-const {
-  getBearerTokenFromRequest,
-  verifyToken,
-  verifyUserExists,
-} = require("../facilities/keycloak");
+import keycloak from "../facilities/keycloak";
 const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
 const fastifyCors = require("fastify-cors");
 const fastifyAuth = require("fastify-auth");
-const fastifyRoles = require("../plugins/fastify-roles");
-
+import fastifyRoles from "../plugins/fastify-roles";
 /**
  * Fastify server configuration.
  *
@@ -26,10 +21,11 @@ const fastifyRoles = require("../plugins/fastify-roles");
  * @param   {object}          options Fastify options.
  * @returns {FastifyInstance}
  */
-const fastifyInstance = (options:any) => {
+const fastifyInstance = (options: any) => {
+  const { getBearerTokenFromRequest, verifyToken, verifyUserExists } = keycloak();
   const app = fastify(options);
   app
-    .decorate("verifyJWT", (req:any, res:any, done:any) => {
+    .decorate("verifyJWT", (req: any, res: any, done: any) => {
       const token = getBearerTokenFromRequest(req);
       //todo: This is a temporary measure to aid development and should be removed. https://apps.itsm.gov.bc.ca/jira/browse/DESCW-455
       if ("development" === process.env.NODE_ENV) {
@@ -37,15 +33,15 @@ const fastifyInstance = (options:any) => {
       }
       if (token) {
         verifyToken(token, jwksUri)
-          .then((res:any) => {
+          .then((res: any) => {
             req.log.debug(res);
             return verifyUserExists(token);
           })
-          .then((res:any) => {
+          .then((res: any) => {
             req.log.debug(res);
             done();
           })
-          .catch((err:any) => done(err));
+          .catch((err: any) => done(err));
       } else {
         done(new Error("Error: Couldn't parse bearer token."));
       }
@@ -73,7 +69,7 @@ const fastifyInstance = (options:any) => {
         },
       });
     });
-  Object.values(allRoutes).forEach((route:any) => app.register(route.registerRoutes));
+  Object.values(allRoutes).forEach((route: any) => app.register(route.registerRoutes));
 
   return app;
 };
