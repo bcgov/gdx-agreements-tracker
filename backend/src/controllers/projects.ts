@@ -1,49 +1,17 @@
-const Model = require("../models/projects.js");
-const ContractsModel = require("../models/contracts.js");
+import model from "../models/projects.js";
+import contractsModel from "../models/contracts.js";
+import adminForm from "./admin_form"
+
 const what = { single: "project", plural: "projects" };
-const { failedQuery, noQuery, userRequires } = require("./admin_form");
 
-/**
- * Get all items.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
- */
-const getAll = async (request, reply) => {
-  userRequires(request, what, "projects_read_all");
-  let output;
-  try {
-    const result = await Model.findAll();
-    output = !result ? noQuery(reply, `There was a problem looking up ${what.plural}.`) : result;
-  } catch (err) {
-    output = failedQuery(reply, err, what);
-  }
-  return output;
-};
+const { failedQuery, noQuery, userRequires } = adminForm()
 
-/**
- * Get a specific item by ID.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
- */
-const getOne = async (request, reply) => {
-  userRequires(request, what, "projects_read_all");
-  let output;
-  const targetId = Number(request.params.projectId);
-  try {
-    const result = await Model.findById(targetId);
-    result.contracts = await ContractsModel.findByProjectId(targetId);
-    output = !result
-      ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-      : result;
-  } catch (err) {
-    output = failedQuery(reply, err, what);
-  }
-  return output;
-};
+const {findCloseOutById} = model()
+
+import { IController } from "../types";
+import { useController } from "./useController";
+
+const controller: IController = useController(model, "projects_update_all", what);
 
 /**
  * Get a specific project's close out data.
@@ -52,12 +20,12 @@ const getOne = async (request, reply) => {
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-const getCloseOut = async (request, reply) => {
+ controller.getCloseOut = async (request, reply) => {
   userRequires(request, what, "projects_read_all");
   let output;
   const targetId = Number(request.params.projectId);
   try {
-    const result = await Model.findCloseOutById(targetId);
+    const result = await findCloseOutById(targetId);
     output = !result
       ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
       : result;
@@ -76,7 +44,7 @@ const getCloseOut = async (request, reply) => {
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-const notifyCloseOut = async (request, reply) => {
+ controller.notifyCloseOut = async (request, reply) => {
   userRequires(request, what, "projects_read_all");
   let output;
   // const targetId = Number(request.params.projectId);
@@ -98,28 +66,28 @@ const notifyCloseOut = async (request, reply) => {
 };
 
 /**
- * Update an item by ID. Use passed info from the request body.
+ * Get a specific item by ID.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-const updateOne = async (request, reply) => {
-  userRequires(request, what, "projects_update_all");
+ controller.getOneWithContracts = async (request, reply) => {
+  userRequires(request, what, "projects_read_all");
   let output;
+  const targetId = Number(request.params.projectId);
   try {
-    const result = await Model.updateOne(request.body, request.params.id);
-    output = !result ? noQuery(reply, `The ${what.single} could not be updated.`) : result;
+    const result = await (model as any).findById(targetId);
+    result.contracts = await (contractsModel as any).findByProjectId(targetId);
+    output = !result
+      ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      : result;
   } catch (err) {
     output = failedQuery(reply, err, what);
   }
   return output;
 };
 
-module.exports = {
-  getAll,
-  getOne,
-  getCloseOut,
-  notifyCloseOut,
-  updateOne,
-};
+
+
+export default controller;

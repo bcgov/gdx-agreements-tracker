@@ -129,7 +129,7 @@ const keycloak = () => {
 
   const getRealmRoles = (request: any) => {
     const token = getBearerTokenFromRequest(request);
-    const decodedToken = jwt.decode(token, { complete: true });
+    const decodedToken:any = jwt.decode(token, { complete: true });
     return decodedToken?.payload?.client_roles || [];
   };
   return {

@@ -133,7 +133,6 @@ export const useController = (model, capability, what) => {
    * @returns {object}
    */
   const getOne = async (request, reply) => {
-    console.log('request===>>', request)
     userRequires(request, what, capability);
     const targetId = Number(request.params.id);
     try {
