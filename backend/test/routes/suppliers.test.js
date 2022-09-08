@@ -42,17 +42,15 @@ describe("Access suppliers routes with valid suppliers", () => {
   });
 
   it("Should get a list of suppliers when you hit /suppliers", async () => {
-    suppliersModel.findAll.mockResolvedValue(suppliers);
+    suppliersModel.findAll.mockResolvedValue(suppliers.suppliers);
     const response = await app.inject({
       method: "GET",
       url: "/suppliers",
     });
     const responseBody = JSON.parse(response.body);
     expect(response.statusCode).toBe(200);
-    expect(responseBody.data.suppliers).toBeInstanceOf(Array);
-    responseBody.data.suppliers.forEach((suppliersObject) =>
-      expect("id" in suppliersObject).toBe(true)
-    );
+    expect(responseBody.data).toBeInstanceOf(Array);
+    responseBody.data.forEach((suppliersObject) => expect("id" in suppliersObject).toBe(true));
   });
 });
 

@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### September 8, 2022 (DESCW-563) Route Validators
+- Backend
+  - Added input validation and response serialization for all other routes
+
 ### September 7, 2022 (DESCW-563) Route Validators
 - Backend
   - Added fluent-json-schema dependency to package.json (need to `run npm install`)

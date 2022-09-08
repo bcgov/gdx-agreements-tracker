@@ -7,22 +7,25 @@ const routes = [
   {
     method: "GET",
     url: `/${what}`,
+    schema: validators.getAll,
     handler: controller.getAll,
   },
   {
     method: "GET",
     url: `/${what}/:supplierId`,
-    schema: validators.getOneValidator,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
     method: "PUT",
     url: `/${what}/:id`,
+    schema: validators.updateOne,
     handler: controller.updateOne,
   },
   {
     method: "POST",
     url: `/${what}`,
+    schema: validators.addOne,
     handler: controller.addOne,
   },
 ];

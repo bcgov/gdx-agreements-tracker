@@ -6,6 +6,7 @@ const routes = [
   {
     method: "GET",
     url: `/${what}`,
+    schema: validators.getAll,
     handler: controller.getAll,
   },
   {
