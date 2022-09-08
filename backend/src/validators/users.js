@@ -18,15 +18,15 @@ const getOne = {
   response: getResponse(baseBody.prop("role_id", Schema.Picker)),
 };
 
+const updateOne = {
+  body: baseBody.without(["id"]).minProperties(1),
+  response: getUpdateResponse(),
+};
+
 const addOne = {
   headers: S.object().prop("Authorization", S.string()),
   body: baseBody.without(["id"]).required(["email", "name", "role_id"]),
-  response: getAddResponse,
-};
-
-const updateOne = {
-  body: baseBody.without(["id"]).minProperties(1),
-  response: getUpdateResponse,
+  response: getAddResponse(),
 };
 
 const deleteOne = getOne;
@@ -34,7 +34,7 @@ const deleteOne = getOne;
 module.exports = {
   getAll,
   getOne,
-  addOne,
   updateOne,
+  addOne,
   deleteOne,
 };

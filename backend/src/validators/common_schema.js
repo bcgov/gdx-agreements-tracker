@@ -9,17 +9,17 @@ const MaxStringLength = 255;
  */
 const Schema = {
   Money: S.oneOf([S.number().multipleOf(0.01), S.const("")]),
-  Date: S.oneOf([S.string().format(S.FORMATS.DATE_TIME), S.const(null)]),
-  Email: S.oneOf([S.string().format(S.FORMATS.EMAIL), S.const(null)]),
+  Date: S.oneOf([S.string().format(S.FORMATS.DATE_TIME), S.const("")]),
+  Email: S.oneOf([S.string().format(S.FORMATS.EMAIL), S.const("")]),
   RequiredEmail: S.string().format(S.FORMATS.EMAIL).minLength(1),
   Id: Id,
   IdParam: S.object().prop("id", Id),
-  Phone: S.oneOf([S.string().pattern("^[0-9]{3} [0-9]{3}-[0-9]{4}$"), S.const(null)]),
+  Phone: S.oneOf([S.string().pattern("^[0-9]{3} [0-9]{3}-[0-9]{4}$"), S.const("")]),
   Picker: S.object()
     .prop("value", S.oneOf([Id, S.string()]))
     .prop("label", S.string()),
   ShortString: S.string().maxLength(MaxStringLength),
-  Uri: S.oneOf([S.string().format(S.FORMATS.URI), S.const(null)]),
+  Uri: S.oneOf([S.string().format(S.FORMATS.URI), S.const("")]),
   Enum: (list) => {
     return S.enum(list);
   },
