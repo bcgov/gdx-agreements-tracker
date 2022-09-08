@@ -1,13 +1,15 @@
 require("dotenv").config({ path: ".env" });
 const log = require("./facilities/logging.js")(module.filename);
-const fastifyInstance = require("./facilities/fastify");
+
+import fastifyInstance from "./facilities/fastify";
+
 const port = process.env.SERVER_PORT || 8080;
 const env = process.env.NODE_ENV || "production";
 const daemon = require("./facilities/daemon");
 const fs = require("fs");
 const path = require("path");
 
-let fastifyOptions = {
+let fastifyOptions: any = {
   logger: log,
 };
 

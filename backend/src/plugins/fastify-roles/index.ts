@@ -1,8 +1,8 @@
 "use strict";
 
-const fp = require("fastify-plugin");
-const { getUserInfo, getRealmRoles } = require("../../facilities/keycloak");
-
+import fp from "fastify-plugin";
+import keycloak from "../../facilities/keycloak";
+const { getUserInfo, getRealmRoles } = keycloak();
 /**
  * Fastify Roles plugin, that inserts user object into the request object for each api call.
  *
@@ -10,7 +10,7 @@ const { getUserInfo, getRealmRoles } = require("../../facilities/keycloak");
  * @param {FastifyPluginOptions} opts    Fastify Plugin Options.
  * @todo Add tests after feature is more stable.
  */
-const fastifyRoles = async (fastify, opts) => {
+const fastifyRoles = async (fastify:any, opts:any) => {
   opts = opts || {};
   //let capability = []
   let user = {};
@@ -21,11 +21,13 @@ const fastifyRoles = async (fastify, opts) => {
    * @param {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
    * @param {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
    */
-  const onRequest = async (request, reply) => {
-    user = await getUserInfo(request);
-    if (user) {
-      request.user = user;
-    }
+
+  const onRequest = async (request:any, reply:any) => {
+    return await getUserInfo(request).then((user: any) => {
+      if (user) {
+        return request.user;
+      }
+    });
   };
 
   /**
@@ -38,7 +40,7 @@ const fastifyRoles = async (fastify, opts) => {
    * @param {PreSerializationPayload} payload Data payload.
    * @param {DoneFuncWithErrOrRes}    done    Done function to call to let the asynchronous system know we are done setting up.
    */
-  const preSerialization = (request, reply, payload, done) => {
+  const preSerialization = (request:any, reply:any, payload:any, done:any) => {
     const err = null;
     payload = {
       data: payload,
@@ -64,7 +66,7 @@ const fastifyRoles = async (fastify, opts) => {
    * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
    * @returns {boolean}
    */
-  const userCan = (user, request) => {
+  const userCan = (user:any, request:any) => {
     let isSysAdmin = false;
     let userCan = false;
     const userCapabilities = user?.capabilities || [];
@@ -80,7 +82,7 @@ const fastifyRoles = async (fastify, opts) => {
   fastify.addHook("onRequest", onRequest);
 };
 
-module.exports = fp(fastifyRoles, {
+export default fp(fastifyRoles, {
   fastify: "3.x",
   name: "fastify-roles",
 });

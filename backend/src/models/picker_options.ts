@@ -4,11 +4,15 @@ const db = dbConnection.knex;
 
 const getFromView = `${dbConnection.dataBaseSchemas().public}.formatted_picker_options`;
 
-// Get all.
-const findAll = () => {
-  return db(getFromView);
+const model = () => {
+  // Get all.
+  const findAll = () => {
+    return db(getFromView);
+  };
+
+  return {
+    findAll,
+  };
 };
 
-module.exports = {
-  findAll,
-};
+export default model;

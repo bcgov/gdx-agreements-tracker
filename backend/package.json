@@ -4,7 +4,7 @@
   "description": "GDX Agreements Tracker API",
   "main": "src/server.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --watch src/ src/server.js knexfile.js",
+    "start": "NODE_ENV=development nodemon --watch src/ src/server.ts knexfile.ts",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:debug": "jest --detectOpenHandles",
@@ -24,6 +24,7 @@
   "author": "Shawn Turple",
   "license": "Apache-2.0",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.9",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -37,7 +38,8 @@
     "knex": "^0.95.14",
     "n-readlines": "^1.0.1",
     "pg": "^8.7.1",
-    "pino": "^7.6.0"
+    "pino": "^7.6.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.22.0",

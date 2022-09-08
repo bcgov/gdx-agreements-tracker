@@ -1,5 +1,5 @@
 require("dotenv").config({ path: "../.env" });
-const allRoutes = require("../routes/index.js");
+import allRoutes from "../routes";
 const {
   getBearerTokenFromRequest,
   verifyToken,
@@ -26,10 +26,10 @@ const fastifyRoles = require("../plugins/fastify-roles");
  * @param   {object}          options Fastify options.
  * @returns {FastifyInstance}
  */
-const fastifyInstance = (options) => {
+const fastifyInstance = (options:any) => {
   const app = fastify(options);
   app
-    .decorate("verifyJWT", (req, res, done) => {
+    .decorate("verifyJWT", (req:any, res:any, done:any) => {
       const token = getBearerTokenFromRequest(req);
       //todo: This is a temporary measure to aid development and should be removed. https://apps.itsm.gov.bc.ca/jira/browse/DESCW-455
       if ("development" === process.env.NODE_ENV) {
@@ -37,15 +37,15 @@ const fastifyInstance = (options) => {
       }
       if (token) {
         verifyToken(token, jwksUri)
-          .then((res) => {
+          .then((res:any) => {
             req.log.debug(res);
             return verifyUserExists(token);
           })
-          .then((res) => {
+          .then((res:any) => {
             req.log.debug(res);
             done();
           })
-          .catch((err) => done(err));
+          .catch((err:any) => done(err));
       } else {
         done(new Error("Error: Couldn't parse bearer token."));
       }
@@ -73,9 +73,9 @@ const fastifyInstance = (options) => {
         },
       });
     });
-  Object.values(allRoutes).forEach((route) => app.register(route.registerRoutes));
+  Object.values(allRoutes).forEach((route:any) => app.register(route.registerRoutes));
 
   return app;
 };
 
-module.exports = fastifyInstance;
+export default fastifyInstance;

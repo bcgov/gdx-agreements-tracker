@@ -4,11 +4,15 @@ const db = dbConnection.knex;
 
 const table = `${dbConnection.dataBaseSchemas().config}.form_layouts`;
 
-// Get all.
-const findAll = () => {
-  return db(table);
+const model = () => {
+  // Get all.
+  const findAll = () => {
+    return db(table);
+  };
+
+  return {
+    findAll,
+  };
 };
 
-module.exports = {
-  findAll,
-};
+export default model;

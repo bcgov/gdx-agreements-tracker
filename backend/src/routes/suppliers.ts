@@ -1,5 +1,5 @@
-const controller = require("../controllers/suppliers");
-const validators = require("../validators/suppliers");
+import controller from "../controllers/suppliers";
+import validators from "../validators/suppliers";
 
 const what = "suppliers";
 
@@ -27,12 +27,9 @@ const routes = [
   },
 ];
 
-const registerRoutes = (fastify, options, done) => {
+export const registerRoutes = (fastify, options, done) => {
   // Ensure all of the routes above get registered.
   routes.forEach((route) => fastify.route(route));
   done();
 };
 
-module.exports = {
-  registerRoutes,
-};
