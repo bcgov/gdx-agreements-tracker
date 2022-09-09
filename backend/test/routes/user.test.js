@@ -6,14 +6,12 @@ jest.mock("../../src/models/users.js");
 testRoutes([
   {
     request: { method: "GET", url: "/users" },
-    response: [{ id: 1, name: "Alex" }],
     modelFunction: userModel.findAll,
     capabilities: ["users_read_all"],
     type: routeTypes.General,
   },
   {
     request: { method: "GET", url: "/users/1" },
-    response: [{ id: 1, name: "Alex" }],
     modelFunction: userModel.findById,
     capabilities: ["users_read_all"],
     type: routeTypes.Specific,
@@ -26,7 +24,6 @@ testRoutes([
         email: "me@gov.bc.ca",
       },
     },
-    response: [{ id: 1, name: "Alex" }],
     modelFunction: userModel.updateOne,
     capabilities: ["users_create_all"],
     type: routeTypes.Specific,
@@ -41,7 +38,6 @@ testRoutes([
         role_id: 2,
       },
     },
-    response: [{ id: 1, name: "Alex" }],
     modelFunction: userModel.addOne,
     capabilities: ["users_create_all"],
     type: routeTypes.General,
@@ -51,7 +47,6 @@ testRoutes([
       method: "DELETE",
       url: "/users/2",
     },
-    response: [{ id: 1, name: "Alex" }],
     modelFunction: userModel.removeOne,
     capabilities: ["users_delete_all"],
     type: routeTypes.Specific,
