@@ -23,7 +23,7 @@ const model = () => {
   };
 
   // Update one.
-  const updateOne = (body, id) => {
+  const updateOne = (id, body) => {
     return db(table).where("id", id).update(body);
   };
 

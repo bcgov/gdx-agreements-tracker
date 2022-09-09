@@ -1,16 +1,12 @@
-import model from "../models/projects.js";
+import model from "../models/projects";
 import contractsModel from "../models/contracts.js";
+import { IController } from "../types";
+import { useController } from "./useController";
 import adminForm from "./admin_form"
 
 const what = { single: "project", plural: "projects" };
-
 const { failedQuery, noQuery, userRequires } = adminForm()
-
 const {findCloseOutById} = model()
-
-import { IController } from "../types";
-import { useController } from "./useController";
-
 const controller: IController = useController(model, "projects_update_all", what);
 
 /**
@@ -87,7 +83,5 @@ const controller: IController = useController(model, "projects_update_all", what
   }
   return output;
 };
-
-
 
 export default controller;

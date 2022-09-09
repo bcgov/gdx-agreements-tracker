@@ -12,4 +12,7 @@ export interface IController {
     getCloseOut?: (request: any, reply: any) => Promise<Object>;
     getOneWithContracts?: (request: any, reply: any) => Promise<Object>;
     findCloseOutById?: (request: any, reply: any) => Promise<Object>;
+    getProjectBudgetReport?: (request: any, reply: any) => Promise<Object>;
+    getProjectQuarterlyReport?: (request: any, reply: any) => Promise<Object>;
+    getProjectStatusReport?: (request: any, reply: any) => Promise<Object>;
   }

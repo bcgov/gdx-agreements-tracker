@@ -1,10 +1,9 @@
-import model from "../models/change_request.js";
-const what = { single: "change_request", plural: "change_requests" };
-
+import model from "../models/change_request";
 import { IController } from "../types";
-import adminForm from "./admin_form.js";
+import adminForm from "./admin_form";
 import { useController } from "./useController";
 
+const what = { single: "change_request", plural: "change_requests" };
 const controller: IController = useController(model, "amendments_read_all", what);
 const { failedQuery, noQuery, userRequires } = adminForm();
 /**

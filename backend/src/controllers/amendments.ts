@@ -1,12 +1,9 @@
-
-const log = require("../facilities/logging.js")(module.filename);
 import model from "../models/amendments";
-const what = { single: "amendment", plural: "amendments" };
-
 import { IController } from "../types";
-import adminForm from "./admin_form.js";
 import { useController } from "./useController";
+import adminForm from "./admin_form.js";
 
+const what = { single: "amendment", plural: "amendments" };
 const controller: IController = useController(model, "amendments_read_all", what);
 const { failedQuery, noQuery, userRequires } = adminForm();
   /**
