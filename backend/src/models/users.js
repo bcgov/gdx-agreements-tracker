@@ -1,13 +1,12 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const table = `${dbConnection.dataBaseSchemas().public}.users`;
-const rolesTable = `${dbConnection.dataBaseSchemas().public}.roles`;
+const table = `${dataBaseSchemas().public}.users`;
+const rolesTable = `${dataBaseSchemas().public}.roles`;
 
 // Get all.
 const findAll = () => {
-  return db
+  return knex
     .select("users.id", "users.name", "users.email", "roles.display_name")
     .from(table)
     .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` });
@@ -15,12 +14,12 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (id) => {
-  return db
+  return knex
     .select(
       "users.id",
       "users.name",
       "users.email",
-      db.raw(
+      knex.raw(
         "(SELECT json_build_object('value', COALESCE(users.role_id,0), 'label', COALESCE(roles.display_name,''))) AS role_id"
       )
     )
@@ -31,7 +30,7 @@ const findById = (id) => {
 
 // Get specific user by email.
 const findByEmail = (email) => {
-  return db(table).where("email", email);
+  return knex(table).where("email", email);
 };
 
 // Add one.
@@ -42,26 +41,26 @@ const addOne = (userInfo) => {
     name: userInfo.name,
     role_id: userInfo.role_id,
   };
-  return db(table).insert(createUser);
+  return knex(table).insert(createUser);
 };
 
 // Update one.
 const updateOne = (id, target) => {
-  return db(table).where("id", id).update(target);
+  return knex(table).where("id", id).update(target);
 };
 
 // Remove one.
 // TODO: change to soft delete.
 const removeOne = (id) => {
-  return db(table).where("id", id).del();
+  return knex(table).where("id", id).del();
 };
 
 const addRoleToOne = (roleName, userId) => {
-  db("roles")
+  knex("roles")
     .pluck("id")
     .where("name", roleName)
     .then((roleId) => {
-      return db("user_roles").insert({ role_id: roleId[0], user_id: userId }, "id");
+      return knex("user_roles").insert({ role_id: roleId[0], user_id: userId }, "id");
     });
 };
 

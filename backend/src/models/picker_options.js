@@ -1,12 +1,11 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const getFromView = `${dbConnection.dataBaseSchemas().public}.formatted_picker_options`;
+const getFromView = `${dataBaseSchemas().public}.formatted_picker_options`;
 
 // Get all.
 const findAll = () => {
-  return db(getFromView);
+  return knex(getFromView);
 };
 
 module.exports = {

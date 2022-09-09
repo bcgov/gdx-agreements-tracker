@@ -1,19 +1,20 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const contractAmendmentTable = `${dbConnection.dataBaseSchemas().data}.contract_amendment`;
-const contractsTable = `${dbConnection.dataBaseSchemas().data}.contract`;
-const contractAmendmentTypeTable = `${dbConnection.dataBaseSchemas().data}.amendment_type`;
+const contractAmendmentTable = `${dataBaseSchemas().data}.contract_amendment`;
+const contractsTable = `${dataBaseSchemas().data}.contract`;
+const contractAmendmentTypeTable = `${dataBaseSchemas().data}.amendment_type`;
 
 // Get all.
 const findAll = (contractId) => {
-  return db
+  return knex
     .select(
       "contract_amendment.id",
       "contract.co_number as contract",
       "amendment_type.amendment_type_name AS amendment_type",
-      db.raw("TO_CHAR(contract_amendment.amendment_date :: DATE, 'dd-MON-yyyy') as amendment_date"),
+      knex.raw(
+        "TO_CHAR(contract_amendment.amendment_date :: DATE, 'dd-MON-yyyy') as amendment_date"
+      ),
       "contract_amendment.description"
     )
     .from(contractAmendmentTable)
@@ -26,14 +27,14 @@ const findAll = (contractId) => {
 
 // Get specific one by id.
 const findById = (contractId, amendmentId) => {
-  return db
+  return knex
     .select(
       "contract_amendment.id",
       //"amendment_type.amendment_type_name AS Amendment Type",
-      db.raw(
+      knex.raw(
         "( SELECT json_build_object('value', contract_amendment.contract_id, 'label', contract.co_number)) AS contract_id"
       ),
-      db.raw(
+      knex.raw(
         "( SELECT json_build_object('value', contract_amendment.amendment_number, 'label', amendment_type.amendment_type_name)) AS amendment_number"
       ),
       "contract_amendment.description",
@@ -50,12 +51,12 @@ const findById = (contractId, amendmentId) => {
 
 // Update one.
 const updateOne = (body, id) => {
-  return db(contractAmendmentTable).where("id", id).update(body);
+  return knex(contractAmendmentTable).where("id", id).update(body);
 };
 
 // Add one.
 const addOne = (newContractAmendment) => {
-  return db(contractAmendmentTable).insert(newContractAmendment);
+  return knex(contractAmendmentTable).insert(newContractAmendment);
 };
 
 module.exports = {

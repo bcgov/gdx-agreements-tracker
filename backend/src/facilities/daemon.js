@@ -1,6 +1,6 @@
 const log = require("../facilities/logging.js")(module.filename);
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
+const dbConnection = require("../database/databaseConnection");
+const { close, checkConnection, checkAll } = dbConnection();
 
 const state = {
   connections: {
@@ -30,7 +30,7 @@ const cleanup = () => {
   log.info("Cleaning up...", { function: "cleanup" });
   clearInterval(probeId);
 
-  dbConnection.close(() => process.exit());
+  close(() => process.exit());
 
   // Wait 10 seconds max before hard exiting
   setTimeout(() => process.exit(), 10000);
@@ -42,7 +42,7 @@ const cleanup = () => {
  */
 const initializeConnections = () => {
   // Initialize connections and exit if unsuccessful
-  const tasks = [dbConnection.checkAll()];
+  const tasks = [checkAll()];
 
   Promise.all(tasks)
     .then((results) => {
@@ -85,7 +85,7 @@ const initializeConnections = () => {
 const checkConnections = () => {
   const wasReady = state.ready;
   if (!state.shutdown) {
-    const tasks = [dbConnection.checkConnection()];
+    const tasks = [checkConnection()];
 
     Promise.all(tasks).then((results) => {
       state.connections.data = results[0];

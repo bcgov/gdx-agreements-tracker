@@ -1,12 +1,11 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const changeRequestTable = `${dbConnection.dataBaseSchemas().data}.change_request`;
-const fiscalYearTable = `${dbConnection.dataBaseSchemas().data}.fiscal_year`;
+const changeRequestTable = `${dataBaseSchemas().data}.change_request`;
+const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 // Find all where link_id equals the project_id
 const findAll = (projectId) => {
-  return db
+  return knex
     .select(
       "change_request.id",
       "change_request.version",
@@ -25,16 +24,16 @@ const findAll = (projectId) => {
 
 // Get specific one by id.
 const findById = (changeRequestId, projectId) => {
-  return db
+  return knex
     .select(
       "change_request.id",
       "change_request.version",
       "change_request.initiation_date",
       "change_request.cr_contact",
-      db.raw(
+      knex.raw(
         "( SELECT json_build_object('value', change_request.initiated_by, 'label', change_request.initiated_by)) AS initiated_by"
       ),
-      db.raw(
+      knex.raw(
         "( SELECT json_build_object('value', change_request.fiscal_year, 'label', fiscal_year.fiscal_year)) AS fiscal_year"
       ),
       "change_request.summary",
@@ -49,12 +48,12 @@ const findById = (changeRequestId, projectId) => {
 
 // Update one.
 const updateOne = (body, id) => {
-  return db(changeRequestTable).where("id", id).update(body);
+  return knex(changeRequestTable).where("id", id).update(body);
 };
 
 // Add one.
 const addOne = (newChangeRequest) => {
-  return db(changeRequestTable).insert(newChangeRequest);
+  return knex(changeRequestTable).insert(newChangeRequest);
 };
 
 module.exports = {

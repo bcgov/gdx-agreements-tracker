@@ -1,20 +1,19 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
 // Relevant database tables
-const projectMilestoneTable = `${dbConnection.dataBaseSchemas().data}.project_milestone`;
-const projectTable = `${dbConnection.dataBaseSchemas().data}.project`;
-const healthIndicatorTable = `${dbConnection.dataBaseSchemas().data}.health_indicator`;
+const projectMilestoneTable = `${dataBaseSchemas().data}.project_milestone`;
+const projectTable = `${dataBaseSchemas().data}.project`;
+const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
 
 // Get a specific report by project id.
 const findById = (projectId) => {
-  return db
+  return knex
     .distinct()
     .select(
       "subquery.id",
       "project.id as ProjectID",
-      db.raw(
+      knex.raw(
         `(CASE WHEN subquery.id IsNull THEN 'No Milestones' ELSE subquery.description END) AS Description`
       ),
       "subquery.target_completion_date",
@@ -49,7 +48,7 @@ Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, 
 */
 
 const projectStatusReport = () => {
-  return db.raw(
+  return knex.raw(
     `SELECT DISTINCT *
     FROM (
         SELECT 
@@ -86,7 +85,7 @@ Description: Run by project number shows deliverable amounts, their budgets, amo
 */
 
 const projectBudgetReport = () => {
-  return db.raw(
+  return knex.raw(
     `SELECT DISTINCT *
     FROM (
         SELECT 
@@ -115,7 +114,7 @@ Description: Project Information, Budget Forecasting Information broken down bet
 */
 
 const projectQuarterlyReport = () => {
-  return db.raw(
+  return knex.raw(
     `
     SELECT
     proj.project_number,
