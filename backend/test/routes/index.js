@@ -139,7 +139,11 @@ const testRoutes = (args) => {
 
   describe.each(args)("Status 500: Database/model errors", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.fail(test.modelFunction, test.request, test.capabilities);
+      const response = await testRequester.fail(
+        test.modelFunction,
+        test.request,
+        test.capabilities
+      );
       expect(response.statusCode).toBe(500);
     });
   });
