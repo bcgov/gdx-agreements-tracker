@@ -25,7 +25,7 @@ const findById = (id) => {
     )
     .from(table)
     .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` })
-    .where("users.id", id);
+    .where("users.id", id)
 };
 
 // Get specific user by email.

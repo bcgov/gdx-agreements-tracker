@@ -34,7 +34,7 @@ const findAll = () => {
 
 // Get all contracts by project id.
 const findByProjectId = (projectId) => {
-  return knex(contractsTable).select("id", "co_number").where("project_id", projectId);
+  return knex(contractsTable).select("id", "co_number").where("project_id", projectId)
 };
 
 module.exports = {

@@ -10,7 +10,7 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (projectStatusId) => {
-  return knex(table).where("id", projectStatusId);
+  return knex(table).where("id", projectStatusId)
 };
 
 module.exports = {
