@@ -18,9 +18,7 @@ const getAll = async (request, reply) => {
   let output;
   try {
     const result = await Model.findAll();
-    output = !result
-      ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-      : result;
+    output = !result ? noQuery(reply, `The ${what.single} could not be found.`) : result;
   } catch (err) {
     output = failedQuery(reply, err, what);
   }
