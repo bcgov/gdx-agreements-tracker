@@ -19,6 +19,7 @@ const getOne = {
 };
 
 const updateOne = {
+  params: Schema.IdParam,
   body: baseBody.without(["id"]).minProperties(1),
   response: getUpdateResponse(),
 };

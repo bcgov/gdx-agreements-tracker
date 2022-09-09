@@ -22,7 +22,7 @@ const failedQuery = (reply, error, what) => {
  * @returns {object}
  */
 const noQuery = (reply, message) => {
-  reply.code(401);
+  reply.code(404);
   log.warn(message);
   return { message };
 };
