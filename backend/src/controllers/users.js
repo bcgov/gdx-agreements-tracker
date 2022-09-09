@@ -38,10 +38,9 @@ const getOne = async (request, reply) => {
   const targetId = Number(request.params.id);
   try {
     const result = await Model.findById(targetId);
-    output =
-      !result || !result.length
-        ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-        : result[0];
+    output = !result
+      ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      : result;
   } catch (err) {
     output = failedQuery(reply, err, what);
   }

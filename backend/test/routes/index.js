@@ -28,12 +28,12 @@ const requester = (app, authHelper) => {
      * Performs a mock request.
      *
      * @param   {*} modelFunction The models' function(s) to mock.
-     * @param   {*} returnData    The result to be returned from above mock.
      * @param   {*} request       The request to be performed.
      * @param   {*} capabilities  The user capabilities to be used.
+     * @param   {*} returnData    The result to be returned from above mock.
      * @returns {*}
      */
-    run: async (modelFunction, returnData, request, capabilities = []) => {
+    run: async (modelFunction, request, capabilities = [], returnData = []) => {
       if (typeof modelFunction !== Array) {
         modelFunction = [modelFunction];
         returnData = [returnData];
@@ -88,12 +88,7 @@ const testRoutes = (args) => {
 
   describe.each(args)("Status 200: Access routes successfully", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.run(
-        test.modelFunction,
-        test.response,
-        test.request,
-        test.capabilities
-      );
+      const response = await testRequester.run(test.modelFunction, test.request, test.capabilities);
       expect(response.statusCode).toBe(200);
     });
   });
@@ -107,7 +102,6 @@ const testRoutes = (args) => {
     it(`${test.request.method} - ${url}`, async () => {
       const response = await testRequester.run(
         test.modelFunction,
-        test.response,
         {
           ...test.request,
           url: url,
@@ -120,7 +114,7 @@ const testRoutes = (args) => {
 
   describe.each(args)("Status 401: Access routes with no user (unauthorized)", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.run(test.modelFunction, test.response, test.request);
+      const response = await testRequester.run(test.modelFunction, test.request);
       expect(response.statusCode).toBe(401);
     });
   });
@@ -129,9 +123,9 @@ const testRoutes = (args) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
       const response = await testRequester.run(
         test.modelFunction,
-        null,
         test.request,
-        test.capabilities
+        test.capabilities,
+        null
       );
       expect(response.statusCode).toBe(404);
     });
