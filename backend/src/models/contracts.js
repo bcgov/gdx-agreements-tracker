@@ -1,16 +1,15 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const contractsTable = `${dbConnection.dataBaseSchemas().data}.contract`;
-const fiscalYearTable = `${dbConnection.dataBaseSchemas().data}.fiscal_year`;
-const suppliersTable = `${dbConnection.dataBaseSchemas().data}.supplier`;
-const portfolioTable = `${dbConnection.dataBaseSchemas().data}.portfolio`;
-const projectTable = `${dbConnection.dataBaseSchemas().data}.project`;
+const contractsTable = `${dataBaseSchemas().data}.contract`;
+const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
+const suppliersTable = `${dataBaseSchemas().data}.supplier`;
+const portfolioTable = `${dataBaseSchemas().data}.portfolio`;
+const projectTable = `${dataBaseSchemas().data}.project`;
 
 // Get all.
 const findAll = () => {
-  return db
+  return knex
     .select(
       "contract.contract_number",
       "contract.co_version",
@@ -35,7 +34,7 @@ const findAll = () => {
 
 // Get all contracts by project id.
 const findByProjectId = (projectId) => {
-  return db(contractsTable).select("id", "co_number").where("project_id", projectId);
+  return knex(contractsTable).select("id", "co_number").where("project_id", projectId);
 };
 
 module.exports = {

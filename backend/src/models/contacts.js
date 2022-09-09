@@ -1,13 +1,12 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const table = `${dbConnection.dataBaseSchemas().data}.contact`;
-const ministryTable = `${dbConnection.dataBaseSchemas().data}.ministry`;
+const table = `${dataBaseSchemas().data}.contact`;
+const ministryTable = `${dataBaseSchemas().data}.ministry`;
 
 // Get all.
 const findAll = () => {
-  return db(`${table} as c`)
+  return knex(`${table} as c`)
     .select(
       "c.id",
       "c.last_name",
@@ -21,10 +20,10 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (contactId) => {
-  return db(`${table} as c`)
+  return knex(`${table} as c`)
     .select(
       "c.*",
-      db.raw(
+      knex.raw(
         "( SELECT json_build_object('value', m.id, 'label', m.ministry_name || ' ' || m.ministry_short_name) as ministry_id )"
       )
     )
@@ -35,12 +34,12 @@ const findById = (contactId) => {
 
 // Update one.
 const updateOne = (body, id) => {
-  return db(table).where("id", id).update(body);
+  return knex(table).where("id", id).update(body);
 };
 
 // Add one.
 const addOne = (newContact) => {
-  return db(table).insert(newContact);
+  return knex(table).insert(newContact);
 };
 
 module.exports = {

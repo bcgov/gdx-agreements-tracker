@@ -2,85 +2,43 @@ const log = require("../facilities/logging.js")(module.filename);
 const Knex = require("knex");
 const knexConfig = require("../../knexfile");
 
-/**
- * @module DatabaseConnection
- *
- * Create and check the connection for data persistence.
- * Based on module from bcgov/common-hosted-form-service.
- * @see Knex
- * @exports DatabaseConnection
- */
-class DatabaseConnection {
-  /**
-   * Creates a new DatabaseConnection with Knex configuration.
-   */
-  constructor() {
-    if (!DatabaseConnection.instance) {
-      this.knex = Knex(knexConfig);
-      DatabaseConnection.instance = this;
-    }
+const databaseConnection = () => {
+  let _connected = false;
 
-    return DatabaseConnection.instance;
-  }
+  const knex = Knex(knexConfig);
 
-  /**
-   * Gets the current state of connection. True if connected, false if not.
-   *
-   * @returns {boolean}
-   */
-  get connected() {
-    return this._connected;
-  }
-
-  /**
-   * Gets the current knex binding.
-   *
-   * @returns {Knex}
-   */
-  get knex() {
-    return this._knex;
-  }
-
-  /**
-   * @function knex
-   * Sets the current knex binding.
-   * @param {object} v - a Knex object.
-   */
-  set knex(v) {
-    this._knex = v;
-    this._connected = false;
-  }
-
+  // ...this.knex.context.client.config.connection,
   /**
    * Checks the Knex connection, the database schema, and Objection models.
    *
    * @returns {boolean} True if successful, otherwise false.
    */
-  async checkAll() {
+  const checkAll = async () => {
+    const connection = knex.context.client.config.connection;
     log.info("Connecting to database... %o", {
-      ...this.knex.context.client.config.connection,
+      connection,
       password: "*** ***",
     });
-    let connectOk = await this.checkConnection();
+    let connectOk = await checkConnection();
 
     //If the database does not exist, and we have been requested to auto-deploy, then try.
     if (-1 === connectOk && "1" === process.env.DATABASE_AUTO_DEPLOY) {
       log.info(
         `db bootstrap: database "${knexConfig.connection.database}" not found. attempting to auto-bootstrap it...`
       );
-      if (await this.bootstrapDatabase(knexConfig.connection.database)) {
+      if (await bootstrapDatabase(knexConfig.connection.database)) {
         // If the bootstrapping seemed successful, see if we can connect properly now.
-        connectOk = await this.checkConnection();
+        connectOk = await checkConnection();
       }
     }
 
-    const schemaOk = await this.checkSchema();
+    const schemaOk = checkSchema();
     //const modelsOk = this.checkModel();
 
     log.debug(`Connect OK: ${connectOk}, Schema OK: ${schemaOk}`, { function: "checkAll" });
-    this._connected = !!connectOk && schemaOk;
-    return this._connected;
-  }
+    _connected = !!connectOk && schemaOk;
+    return _connected;
+  };
 
   /**
    * Checks the current knex connection to Postgres.
@@ -88,9 +46,9 @@ class DatabaseConnection {
    *
    * @returns {boolean|integer} True if successful, -1 if the intended database is missing, otherwise false.
    */
-  async checkConnection() {
+  const checkConnection = async () => {
     try {
-      const data = await this.knex.raw("show transaction_read_only");
+      const data = await knex.raw("show transaction_read_only");
       const result = data && data.rows && "off" === data.rows[0].transaction_read_only;
       if (result) {
         log.trace("Database connection ok", { function: "checkConnection" });
@@ -108,17 +66,17 @@ class DatabaseConnection {
 
       return false;
     }
-  }
+  };
 
   /**
    * Queries the knex connection to check for the existence of the expected schema tables.
    *
    * @returns {boolean} True if schema is ok, otherwise false.
    */
-  checkSchema() {
+  const checkSchema = () => {
     const tables = ["migrations"];
     try {
-      return Promise.all(tables.map((table) => this._knex.schema.hasTable(table)))
+      return Promise.all(tables.map((table) => knex.schema.hasTable(table)))
         .then((exists) => exists.every((x) => x))
         .then((result) => {
           if (result) {
@@ -133,18 +91,18 @@ class DatabaseConnection {
       });
       return false;
     }
-  }
+  };
 
   /**
    * Will close the DatabaseConnection.
    *
    * @param {Function} [cb] Optional callback.
    */
-  close(cb = undefined) {
-    if (this.knex) {
+  const close = (cb = undefined) => {
+    if (knex) {
       try {
-        this.knex.destroy(() => {
-          this._connected = false;
+        knex.destroy(() => {
+          _connected = false;
           log.info("Disconnected", { function: "close" });
           if (cb) cb();
         });
@@ -152,17 +110,21 @@ class DatabaseConnection {
         log.error("Failed to close", { error: e, function: "recoverMessage" });
       }
     }
-  }
+  };
 
   /**
    * Invalidates and reconnects existing knex connection.
    */
-  resetConnection() {
+  const resetConnection = () => {
     log.warn("Attempting to reset database connection pool...", { function: "resetConnection" });
-    this.knex.destroy(() => {
-      this.knex.initialize();
+    knex.destroy(() => {
+      knex.initialize();
     });
-  }
+  };
+
+  const dataBaseSchemas = () => {
+    return { data: "data", config: "config", public: "public" };
+  };
 
   /**
    * Bootstraps the database if it hasn't been set up yet.
@@ -170,7 +132,7 @@ class DatabaseConnection {
    * @param   {string}  databaseName The name of the database.
    * @returns {boolean}              Success (true) or failure.
    */
-  async bootstrapDatabase(databaseName) {
+  const bootstrapDatabase = async (databaseName) => {
     log.info(`db bootstrap: attempting to create database "${databaseName}".`);
 
     // If we try to connect with a database set in the config, we will get the same connection errors
@@ -201,10 +163,18 @@ class DatabaseConnection {
       await bootstrapKnex.destroy();
     }
     return result;
-  }
-  dataBaseSchemas() {
-    return { data: "data", config: "config", public: "public" };
-  }
-}
+  };
 
-module.exports = DatabaseConnection;
+  return {
+    dataBaseSchemas,
+    bootstrapDatabase,
+    resetConnection,
+    close,
+    checkSchema,
+    checkConnection,
+    checkAll,
+    knex,
+  };
+};
+
+module.exports = databaseConnection;

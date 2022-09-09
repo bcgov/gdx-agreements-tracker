@@ -1,12 +1,11 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const table = `${dbConnection.dataBaseSchemas().config}.form_layouts`;
+const table = `${dataBaseSchemas().config}.form_layouts`;
 
 // Get all.
 const findAll = () => {
-  return db(table);
+  return knex(table);
 };
 
 module.exports = {

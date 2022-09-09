@@ -1,17 +1,16 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const table = `${dbConnection.dataBaseSchemas().data}.project_status`;
+const table = `${dataBaseSchemas().data}.project_status`;
 
 // Get all.
 const findAll = () => {
-  return db(table);
+  return knex(table);
 };
 
 // Get specific one by id.
 const findById = (projectStatusId) => {
-  return db(table).where("id", projectStatusId);
+  return knex(table).where("id", projectStatusId);
 };
 
 module.exports = {

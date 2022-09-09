@@ -1,12 +1,11 @@
-const DatabaseConnection = require("../database/databaseConnection");
-const dbConnection = new DatabaseConnection();
-const db = dbConnection.knex;
+const dbConnection = require("../database/databaseConnection");
+const { knex, dataBaseSchemas } = dbConnection();
 
-const table = `${dbConnection.dataBaseSchemas().data}.supplier`;
+const table = `${dataBaseSchemas().data}.supplier`;
 
 // Get all.
 const findAll = () => {
-  return db(table).select(
+  return knex(table).select(
     "id",
     "supplier_number",
     "signing_authority_name",
@@ -17,17 +16,17 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (supplierId) => {
-  return db(table).where("id", supplierId);
+  return knex(table).where("id", supplierId);
 };
 
 // Update one.
 const updateOne = (body, id) => {
-  return db(table).where("id", id).update(body);
+  return knex(table).where("id", id).update(body);
 };
 
 // Add one.
 const addOne = (supplier) => {
-  return db(table).insert(supplier);
+  return knex(table).insert(supplier);
 };
 
 module.exports = {
