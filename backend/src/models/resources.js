@@ -49,7 +49,8 @@ const findById = (id) => {
     .from(table)
     .leftJoin(supplierTable, { "resource.supplier_id": `${supplierTable}.id` })
     .leftJoin(subcontractorTable, { "resource.subcontractor_id": `${subcontractorTable}.id` })
-    .where("resource.id", id).first()
+    .where("resource.id", id)
+    .first();
 };
 
 /**

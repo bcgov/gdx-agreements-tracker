@@ -10,7 +10,7 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (id) => {
-  return knex(table).select("id", "subcontractor_name").where("id", id).first()
+  return knex(table).select("id", "subcontractor_name").where("id", id).first();
 };
 
 // Update one.

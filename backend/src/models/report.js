@@ -38,7 +38,7 @@ const findById = (projectId) => {
       },
       { "project.id": "subquery.project_id" }
     )
-    .where({ "project.id": projectId })
+    .where({ "project.id": projectId });
 };
 
 /* 

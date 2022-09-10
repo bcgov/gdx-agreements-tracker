@@ -16,7 +16,7 @@ const findAll = () => {
 
 // Get specific one by id.
 const findById = (supplierId) => {
-  return knex(table).where("id", supplierId)
+  return knex(table).where("id", supplierId);
 };
 
 // Update one.

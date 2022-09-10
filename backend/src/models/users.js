@@ -25,7 +25,8 @@ const findById = (id) => {
     )
     .from(table)
     .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` })
-    .where("users.id", id).first()
+    .where("users.id", id)
+    .first();
 };
 
 // Get specific user by email.
@@ -45,7 +46,7 @@ const addOne = (userInfo) => {
 };
 
 // Update one.
-const updateOne = (target, id ) => {
+const updateOne = (target, id) => {
   return knex(table).where("id", id).update(target);
 };
 
