@@ -14,7 +14,7 @@ const controller = useController(model, "projects_update_all", what);
 controller.getCloseOut = async (request, reply) => {
   controller.userRequires(request, what, "projects_read_all");
   let output;
-  const targetId = Number(request.params.projectId);
+  const targetId = Number(request.params.id);
   try {
     const result = await model.findCloseOutById(targetId);
     output = !result

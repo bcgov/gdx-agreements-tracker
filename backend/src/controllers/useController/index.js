@@ -67,11 +67,12 @@ const useController = (model, capability, what) => {
    * @returns {object}
    */
   const getOne = async (request, reply) => {
+    console.log('request', request.params.id)
     userRequires(request, what, capability);
     const targetId = Number(request.params.id);
     try {
-      const result = await model.findById(targetId);
-      return !result || !result.length
+      const result = await model.findById(targetId);//////////////////////////////////////
+      return !result
         ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
         : result;
     } catch (err) {
@@ -104,9 +105,9 @@ const useController = (model, capability, what) => {
    * @returns {object}
    */
   const updateOne = async (request, reply) => {
-    userRequires(request, what, capability);
+   userRequires(request, what, capability);
     try {
-      const result = await model.updateOne(Number(request.params.id), request.body);
+      const result = await model.updateOne(request.body, Number(request.params.id));
       return result || noQuery(reply, `The ${what.single} could not be updated.`);
     } catch (err) {
       return failedQuery(reply, err, what);

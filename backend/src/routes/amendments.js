@@ -5,13 +5,13 @@ const what = "amendments";
 const routes = [
   {
     method: "GET",
-    url: `/contracts/:contractId/${what}`,
+    url: `/contracts/:id/${what}`,
     schema: validators.getAll,
     handler: controller.getAll,
   },
   {
     method: "GET",
-    url: `/contracts/:contractId/${what}/:amendmentId`,
+    url: `/contracts/:id/${what}/:amendmentId`,
     schema: validators.getOne,
     handler: controller.getOne,
   },

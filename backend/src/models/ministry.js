@@ -17,7 +17,7 @@ const findAll = () => {
 const findById = (id) => {
   return knex(table)
     .select("id", "ministry_name", "ministry_short_name", "is_active")
-    .where("id", id)
+    .where("id", id).first()
 };
 
 // Update one.

@@ -22,7 +22,7 @@ const findAll = () => {
 
 // Get specific one by id.
 // Casts money types to float so values are numeric instead of string.
-const findById = (projectId) => {
+const findById = (id) => {
   return knex(getFromView)
     .select(
       "*",
@@ -30,7 +30,7 @@ const findById = (projectId) => {
       knex.raw("total_project_budget::numeric::float8"),
       knex.raw("recoverable_amount::numeric::float8")
     )
-    .where("id", projectId)
+    .where("id", id)
     .first();
 };
 
@@ -40,7 +40,7 @@ const updateOne = (body, id) => {
 };
 
 // Get close out data by project id.
-const findCloseOutById = (projectId) => {
+const findCloseOutById = (id) => {
   return knex(`${table} as p`)
     .select(
       "p.id",
@@ -80,7 +80,7 @@ const findCloseOutById = (projectId) => {
       )`)
     )
     .leftJoin(`${contactTable} as c`, "p.completed_by_contact_id", "c.id")
-    .where("p.id", projectId)
+    .where("p.id", id)
     .first();
 };
 

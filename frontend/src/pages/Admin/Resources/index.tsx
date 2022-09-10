@@ -45,7 +45,6 @@ export const Resources: FC = () => {
     let data = null;
     if (currentRowData?.id) {
       const resources = await apiAxios().get(`/resources/${currentRowData?.id}`);
-      console.log('resources', resources)
       data = resources.data.data;
     }
     return data;
