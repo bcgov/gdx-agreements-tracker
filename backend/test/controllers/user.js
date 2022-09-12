@@ -18,7 +18,7 @@ describe("Testing user controllers", () => {
   });
 
   it("Gets an individual user by ID.", async () => {
-    userModel.findById.mockResolvedValue([{ id: 2, name: "Jimbo" }]);
+    userModel.findById.mockResolvedValue({ id: 2, name: "Jimbo" });
     const sampleRequest = {
       params: { id: 2 },
       user: {

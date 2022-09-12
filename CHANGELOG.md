@@ -1,8 +1,15 @@
 ## Developer Changelog
+
+### September 9, 2022 (DESCW-567) Backend Route Tests
+- Backend
+  - Created common route testing suite for all route unit tests to use
+  - Updated users route tests
+
 ### September 9, 2022 (DESCW-564) Controller Optimization
 - Backend
   - Updated Database connection file to be more efficient
   - Updated all models to use new database connection functionality
+
 ### September 8, 2022 (DESCW-563) Route Validators
 - Backend
   - Added input validation and response serialization for all other routes
