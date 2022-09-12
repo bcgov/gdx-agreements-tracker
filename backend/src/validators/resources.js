@@ -34,6 +34,7 @@ const getOne = {
 };
 
 const updateOne = {
+  params: Schema.IdParam,
   body: requestBody,
   response: getUpdateResponse(),
 };

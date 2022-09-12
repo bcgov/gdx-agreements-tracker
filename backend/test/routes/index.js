@@ -34,12 +34,11 @@ const requester = (app, authHelper) => {
      * @returns {*}
      */
     run: async (modelFunction, request, capabilities = [], returnData = []) => {
-      if (typeof modelFunction !== Array) {
+      if (modelFunction.constructor !== Array) {
         modelFunction = [modelFunction];
-        returnData = [returnData];
       }
       for (let i = 0; i < modelFunction.length; i++) {
-        modelFunction[i].mockResolvedValue(returnData[i]);
+        modelFunction[i].mockResolvedValue(returnData);
       }
       authHelper.getUserInfo.mockReturnValue({ capabilities: capabilities });
       return await app.inject(request);
@@ -53,7 +52,7 @@ const requester = (app, authHelper) => {
      * @returns {*}
      */
     fail: async (modelFunction, request, capabilities = []) => {
-      if (typeof modelFunction !== Array) {
+      if (modelFunction.constructor !== Array) {
         modelFunction = [modelFunction];
       }
       for (let i = 0; i < modelFunction.length; i++) {
@@ -93,45 +92,44 @@ const testRoutes = (args) => {
     });
   });
 
-  describe.each(
-    args.filter((arg) => {
-      return arg.type === routeTypes.Specific;
-    })
-  )("Status 400: Access routes with incorrect parameters", (test) => {
-    const url = test.request.url.substring(0, test.request.url.lastIndexOf("/")) + "/undefined";
-    it(`${test.request.method} - ${url}`, async () => {
-      const response = await testRequester.run(
-        test.modelFunction,
-        {
-          ...test.request,
-          url: url,
-        },
-        test.capabilities
-      );
-      expect(response.statusCode).toBe(400);
-    });
+  // Some tests should only performed on specific type routes (see routeTypes).
+  const specificArgs = args.filter((arg) => {
+    return arg.type === routeTypes.Specific;
   });
+
+  if (specificArgs.length > 0) {
+    describe.each(specificArgs)("Status 400: Access routes with incorrect parameters", (test) => {
+      const url = test.request.url.substring(0, test.request.url.lastIndexOf("/")) + "/undefined";
+      it(`${test.request.method} - ${url}`, async () => {
+        const response = await testRequester.run(
+          test.modelFunction,
+          {
+            ...test.request,
+            url: url,
+          },
+          test.capabilities
+        );
+        expect(response.statusCode).toBe(400);
+      });
+    });
+
+    describe.each(specificArgs)("Status 404: Access routes with no data found", (test) => {
+      it(`${test.request.method} - ${test.request.url}`, async () => {
+        const response = await testRequester.run(
+          test.modelFunction,
+          test.request,
+          test.capabilities,
+          null
+        );
+        expect(response.statusCode).toBe(404);
+      });
+    });
+  }
 
   describe.each(args)("Status 401: Access routes with no user (unauthorized)", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
       const response = await testRequester.run(test.modelFunction, test.request);
       expect(response.statusCode).toBe(401);
-    });
-  });
-
-  describe.each(
-    args.filter((arg) => {
-      return arg.type === routeTypes.Specific;
-    })
-  )("Status 404: Access routes with no data found", (test) => {
-    it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.run(
-        test.modelFunction,
-        test.request,
-        test.capabilities,
-        null
-      );
-      expect(response.statusCode).toBe(404);
     });
   });
 
@@ -151,4 +149,5 @@ const testRoutes = (args) => {
 module.exports = {
   testRoutes,
   routeTypes,
+  requester,
 };

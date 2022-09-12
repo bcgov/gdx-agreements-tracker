@@ -1,19 +1,19 @@
-const model = require("../../src/models/users.js");
+const model = require("../../src/models/ministry.js");
 const { testRoutes, routeTypes } = require("./index.js");
 
-jest.mock("../../src/models/users.js");
+jest.mock("../../src/models/ministry.js");
 
-const capability = ["users_update_all"];
+const capability = ["ministries_update_all"];
 
 testRoutes([
   {
-    request: { method: "GET", url: "/users" },
+    request: { method: "GET", url: "/ministries" },
     modelFunction: model.findAll,
     capabilities: capability,
     type: routeTypes.General,
   },
   {
-    request: { method: "GET", url: "/users/1" },
+    request: { method: "GET", url: "/ministries/1" },
     modelFunction: model.findById,
     capabilities: capability,
     type: routeTypes.Specific,
@@ -21,7 +21,7 @@ testRoutes([
   {
     request: {
       method: "PUT",
-      url: "/users/1",
+      url: "/ministries/1",
       payload: {
         email: "me@gov.bc.ca",
       },
@@ -33,24 +33,14 @@ testRoutes([
   {
     request: {
       method: "POST",
-      url: "/users",
+      url: "/ministries",
       payload: {
-        email: "me@gov.bc.ca",
-        name: "John Testman",
-        role_id: 2,
+        ministry_name: "Test ministry",
+        ministry_short_name: "TSMN",
       },
     },
     modelFunction: model.addOne,
     capabilities: capability,
     type: routeTypes.General,
-  },
-  {
-    request: {
-      method: "DELETE",
-      url: "/users/2",
-    },
-    modelFunction: model.removeOne,
-    capabilities: capability,
-    type: routeTypes.Specific,
   },
 ]);

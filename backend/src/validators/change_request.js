@@ -36,13 +36,12 @@ const getOne = {
 };
 
 const updateOne = {
-  params: S.object().prop("changeRequestId", Schema.Id).prop("projectId", Schema.Id),
+  params: Schema.IdParam,
   body: requestBody,
   response: getUpdateResponse(),
 };
 
 const addOne = {
-  params: S.object().prop("projectId", Schema.Id),
   body: requestBody,
   response: getAddResponse(),
 };

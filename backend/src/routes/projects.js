@@ -13,7 +13,7 @@ const routes = [
     method: "GET",
     url: `/${what}/:id`,
     schema: validators.getOne,
-    handler: controller.getOne,
+    handler: controller.getOneWithContracts,
   },
   {
     method: "PUT",
