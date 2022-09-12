@@ -119,7 +119,11 @@ const testRoutes = (args) => {
     });
   });
 
-  describe.each(args)("Status 404: Access routes with no data found", (test) => {
+  describe.each(
+    args.filter((arg) => {
+      return arg.type === routeTypes.Specific;
+    })
+  )("Status 404: Access routes with no data found", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
       const response = await testRequester.run(
         test.modelFunction,
