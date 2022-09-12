@@ -1,49 +1,8 @@
-const Model = require("../models/projects.js");
-const ContractsModel = require("../models/contracts.js");
+const model = require("../models/projects");
+const contractsModel = require("../models/contracts.js");
+const useController = require("./useController/index.js");
 const what = { single: "project", plural: "projects" };
-const { failedQuery, noQuery, userRequires } = require("./admin_form");
-
-/**
- * Get all items.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
- */
-const getAll = async (request, reply) => {
-  userRequires(request, what, "projects_read_all");
-  let output;
-  try {
-    const result = await Model.findAll();
-    output = !result ? noQuery(reply, `There was a problem looking up ${what.plural}.`) : result;
-  } catch (err) {
-    output = failedQuery(reply, err, what);
-  }
-  return output;
-};
-
-/**
- * Get a specific item by ID.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
- */
-const getOne = async (request, reply) => {
-  userRequires(request, what, "projects_read_all");
-  let output;
-  const targetId = Number(request.params.projectId);
-  try {
-    const result = await Model.findById(targetId);
-    result.contracts = await ContractsModel.findByProjectId(targetId);
-    output = !result
-      ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-      : result;
-  } catch (err) {
-    output = failedQuery(reply, err, what);
-  }
-  return output;
-};
+const controller = useController(model, "projects_update_all", what);
 
 /**
  * Get a specific project's close out data.
@@ -52,17 +11,17 @@ const getOne = async (request, reply) => {
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-const getCloseOut = async (request, reply) => {
-  userRequires(request, what, "projects_read_all");
+controller.getCloseOut = async (request, reply) => {
+  controller.userRequires(request, what, "projects_read_all");
   let output;
-  const targetId = Number(request.params.projectId);
+  const targetId = Number(request.params.id);
   try {
-    const result = await Model.findCloseOutById(targetId);
+    const result = await model.findCloseOutById(targetId);
     output = !result
-      ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
       : result;
   } catch (err) {
-    output = failedQuery(reply, err, what);
+    output = controller.failedQuery(reply, err, what);
   }
   return output;
 };
@@ -76,8 +35,8 @@ const getCloseOut = async (request, reply) => {
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-const notifyCloseOut = async (request, reply) => {
-  userRequires(request, what, "projects_read_all");
+controller.notifyCloseOut = async (request, reply) => {
+  controller.userRequires(request, what, "projects_read_all");
   let output;
   // const targetId = Number(request.params.projectId);
   try {
@@ -90,36 +49,34 @@ const notifyCloseOut = async (request, reply) => {
     };
     // const result = ches.send(message);
     const result = message;
-    output = !result ? noQuery(reply, `Notification could not be sent.`) : result;
+    output = !result ? controller.noQuery(reply, `Notification could not be sent.`) : result;
   } catch (err) {
-    output = failedQuery(reply, err, what);
+    output = controller.failedQuery(reply, err, what);
   }
   return output;
 };
 
 /**
- * Update an item by ID. Use passed info from the request body.
+ * Get a specific item by ID.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-const updateOne = async (request, reply) => {
-  userRequires(request, what, "projects_update_all");
+controller.getOneWithContracts = async (request, reply) => {
+  controller.userRequires(request, what, "projects_read_all");
   let output;
+  const targetId = Number(request.params.projectId);
   try {
-    const result = await Model.updateOne(request.body, request.params.id);
-    output = !result ? noQuery(reply, `The ${what.single} could not be updated.`) : result;
+    const result = await model.findById(targetId);
+    result.contracts = await contractsModel.findByProjectId(targetId);
+    output = !result
+      ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      : result;
   } catch (err) {
-    output = failedQuery(reply, err, what);
+    output = controller.failedQuery(reply, err, what);
   }
   return output;
 };
 
-module.exports = {
-  getAll,
-  getOne,
-  getCloseOut,
-  notifyCloseOut,
-  updateOne,
-};
+module.exports = controller;

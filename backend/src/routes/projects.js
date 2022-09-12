@@ -11,7 +11,7 @@ const routes = [
   },
   {
     method: "GET",
-    url: `/${what}/:projectId`,
+    url: `/${what}/:id`,
     schema: validators.getOne,
     handler: controller.getOne,
   },
@@ -23,13 +23,13 @@ const routes = [
   },
   {
     method: "GET",
-    url: `/${what}/:projectId/close-out`,
+    url: `/${what}/:id/close-out`,
     schema: validators.getOneCloseOut,
     handler: controller.getCloseOut,
   },
   {
     method: "POST",
-    url: `/${what}/:projectId/close-out/notify`,
+    url: `/${what}/:id/close-out/notify`,
     handler: controller.notifyCloseOut,
   },
 ];

@@ -5,7 +5,7 @@ const what = "report";
 const routes = [
   {
     method: "GET",
-    url: `/${what}/projects/:projectId`,
+    url: `/${what}/projects/:id`,
     schema: validators.getOne,
     handler: controller.getOne,
   },

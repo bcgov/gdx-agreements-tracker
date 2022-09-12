@@ -5,15 +5,15 @@ const what = "change_request";
 const routes = [
   {
     method: "GET",
-    url: `/projects/:projectId/${what}`,
+    url: `/projects/:id/${what}`,
     schema: validators.getAll,
-    handler: controller.getAll,
+    handler: controller.getAllById,
   },
   {
     method: "GET",
     url: `/projects/:projectId/${what}/:changeRequestId`,
     schema: validators.getOne,
-    handler: controller.getOne,
+    handler: controller.getOneByTwoIds,
   },
   {
     method: "PUT",
