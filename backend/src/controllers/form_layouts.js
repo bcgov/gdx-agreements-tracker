@@ -1,7 +1,6 @@
-const model = require("../models/form_layouts");
 const useController = require("./useController/index.js");
-
-const what = { single: "form_layouts", plural: "form_layouts" };
-const controller = useController(model, "general_read_all", what);
+const model = require("../models/form_layouts");
+const what = { single: "form_layout", plural: "form_layouts" };
+const controller = useController(model, what, "general");
 
 module.exports = controller;

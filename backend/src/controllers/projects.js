@@ -1,8 +1,8 @@
+const useController = require("./useController/index.js");
 const model = require("../models/projects");
 const contractsModel = require("../models/contracts.js");
-const useController = require("./useController/index.js");
 const what = { single: "project", plural: "projects" };
-const controller = useController(model, "projects_update_all", what);
+const controller = useController(model, what);
 
 /**
  * Get a specific project's close out data.

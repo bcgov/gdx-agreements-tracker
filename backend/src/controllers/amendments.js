@@ -1,7 +1,7 @@
-const model = require("../models/amendments");
 const useController = require("./useController/index.js");
+const model = require("../models/amendments");
 const what = { single: "amendment", plural: "amendments" };
-const controller = useController(model, "amendments_read_all", what);
+const controller = useController(model, what, "contracts");
 
 /**
  * Get a specific item by ID.
@@ -11,7 +11,7 @@ const controller = useController(model, "amendments_read_all", what);
  * @returns {object}
  */
 controller.getContractAmendment = async (request, reply) => {
-  controller.userRequires(request, what, "amendments_read_all");
+  controller.userRequires(request, what, "contracts_read_all");
   const contractId = Number(request.params.contractId);
   const amendmentId = Number(request.params.amendmentId);
   try {
