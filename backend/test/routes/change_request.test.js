@@ -3,19 +3,17 @@ const { testRoutes, routeTypes } = require("./index.js");
 
 jest.mock("../../src/models/change_request.js");
 
-const capability = ["amendments_read_all"];
-
 testRoutes([
   {
     request: { method: "GET", url: "projects/1/change_request" },
     modelFunction: model.findAll,
-    capabilities: capability,
+    capabilities: ["projects_read_all"],
     type: routeTypes.General,
   },
   {
     request: { method: "GET", url: "projects/1/change_request/1" },
     modelFunction: model.findById,
-    capabilities: capability,
+    capabilities: ["projects_read_all"],
     type: routeTypes.Specific,
   },
   {
@@ -27,7 +25,7 @@ testRoutes([
       },
     },
     modelFunction: model.updateOne,
-    capabilities: capability,
+    capabilities: ["projects_update_one"],
     type: routeTypes.Specific,
   },
   {
@@ -39,7 +37,7 @@ testRoutes([
       },
     },
     modelFunction: model.addOne,
-    capabilities: capability,
+    capabilities: ["projects_add_one"],
     type: routeTypes.General,
   },
 ]);

@@ -8,13 +8,11 @@ jest.mock("../../src/facilities/keycloak.js");
 jest.mock("../../src/models/projects.js");
 jest.mock("../../src/models/contracts.js");
 
-const capability = ["projects_update_all"];
-
 testRoutes([
   {
     request: { method: "GET", url: "/projects" },
     modelFunction: model.findAll,
-    capabilities: capability,
+    capabilities: ["projects_read_all"],
     type: routeTypes.General,
   },
   {
@@ -32,7 +30,7 @@ testRoutes([
       },
     },
     modelFunction: model.updateOne,
-    capabilities: capability,
+    capabilities: ["projects_update_one"],
     type: routeTypes.Specific,
   },
   {
@@ -52,7 +50,7 @@ describe("Close out notify function", () => {
       url: "/projects/1/close-out/notify",
     },
     modelFunction: model.updateOne,
-    capabilities: ["projects_read_all"],
+    capabilities: ["projects_update_one"],
     type: routeTypes.Specific,
   };
 
@@ -66,7 +64,9 @@ describe("Close out notify function", () => {
 
   describe("Status 200: Access routes successfully", () => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.run(model.updateOne, test.request, test.capabilities);
+      const response = await testRequester.run(model.updateOne, test.request, [
+        "projects_read_all",
+      ]);
       expect(response.statusCode).toBe(200);
     });
   });

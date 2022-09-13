@@ -1,4 +1,11 @@
 ## Developer Changelog
+### Septermber 13, 2022 (DESCW-565) Backend capabilities
+- Backend 
+  - Added pino prettier `npm i` to install which adds some formatted backend output logs
+  - update capabilities seeds
+    - `npx knex seed:run --specific=01_capabilities.js`
+    - `npx knex seed:run --specific=02_role_capabilities.js`
+  - Updated controller permissions
 
 ### September 13, 2022 (DESCW-567) Backend Route Tests Complete
 - Backend
