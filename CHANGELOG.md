@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### September 13, 2022 (DESCW-567) Backend Route Tests Complete
+- Backend
+  - Added unit tests for all remaining routes
+
 ### September 9, 2022 (DESCW-567) Backend Route Tests
 - Backend
   - Created common route testing suite for all route unit tests to use

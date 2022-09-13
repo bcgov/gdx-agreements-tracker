@@ -66,10 +66,12 @@ controller.notifyCloseOut = async (request, reply) => {
 controller.getOneWithContracts = async (request, reply) => {
   controller.userRequires(request, what, "projects_read_all");
   let output;
-  const targetId = Number(request.params.projectId);
+  const targetId = Number(request.params.id);
   try {
     const result = await model.findById(targetId);
-    result.contracts = await contractsModel.findByProjectId(targetId);
+    if (result) {
+      result.contracts = await contractsModel.findByProjectId(targetId);
+    }
     output = !result
       ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
       : result;

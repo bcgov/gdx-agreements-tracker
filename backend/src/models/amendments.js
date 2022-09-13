@@ -46,7 +46,8 @@ const findById = (contractId, amendmentId) => {
       "contract_amendment.amendment_number": `${contractAmendmentTypeTable}.id`,
     })
     .where({ contract_id: contractId })
-    .where({ "contract_amendment.id": amendmentId });
+    .where({ "contract_amendment.id": amendmentId })
+    .first();
 };
 
 // Update one.

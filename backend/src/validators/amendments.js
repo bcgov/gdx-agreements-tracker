@@ -26,18 +26,17 @@ const getAll = {
 };
 
 const getOne = {
-  params: S.object().prop("contractId", Schema.Id).prop("amendmentId", Schema.Id),
+  params: Schema.IdParam.prop("amendmentId", Schema.Id),
   response: getResponse(singleResponseBody),
 };
 
 const updateOne = {
-  params: S.object().prop("contractId", Schema.Id).prop("amendmentId", Schema.Id),
+  params: Schema.IdParam,
   body: requestBody.minProperties(1),
   response: getUpdateResponse(),
 };
 
 const addOne = {
-  params: S.object().prop("contractId", Schema.Id),
   body: requestBody.required(["contract_id", "amendment_number", "amendment_date"]),
   response: getAddResponse(),
 };

@@ -16,9 +16,9 @@ controller.getContractAmendment = async (request, reply) => {
   const amendmentId = Number(request.params.amendmentId);
   try {
     const result = await model.findById(Number(contractId), Number(amendmentId));
-    return !result || !result.length
+    return !result
       ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-      : result[0];
+      : result;
   } catch (err) {
     return controller.failedQuery(reply, err, what);
   }
