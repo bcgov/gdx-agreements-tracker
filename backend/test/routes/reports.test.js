@@ -9,7 +9,7 @@ testRoutes([
   {
     request: { method: "GET", url: "/report/projects/1" },
     modelFunction: model.findById,
-    capabilities: ["reports_update_all"],
+    capabilities: capability,
     type: routeTypes.Specific,
   },
   {

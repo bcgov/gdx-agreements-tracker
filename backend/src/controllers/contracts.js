@@ -1,7 +1,6 @@
-const model = require("../models/contracts.js");
 const useController = require("./useController/index.js");
-
-const what = { single: "contracts", plural: "contracts" };
-const controller = useController(model, "contracts_read_all", what);
+const model = require("../models/contracts.js");
+const what = { single: "contract", plural: "contracts" };
+const controller = useController(model, what);
 
 module.exports = controller;

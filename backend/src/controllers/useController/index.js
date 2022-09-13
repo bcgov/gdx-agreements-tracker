@@ -1,5 +1,7 @@
 const log = require("../../facilities/logging.js")(module.filename);
-const useController = (model, capability, what) => {
+const useController = (model, what, capabilityPrefix = null) => {
+  capabilityPrefix = capabilityPrefix ?? what.plural;
+
   /**
    * This is the callback for when a query fails, due to an improper syntax.
    *
@@ -49,8 +51,7 @@ const useController = (model, capability, what) => {
    * @returns {object}
    */
   const getAll = async (request, reply) => {
-    userRequires(request, what, capability);
-
+    userRequires(request, what, `${capabilityPrefix}_read_all`);
     try {
       const result = await model.findAll();
       return result ? result : [];
@@ -67,10 +68,10 @@ const useController = (model, capability, what) => {
    * @returns {object}
    */
   const getOne = async (request, reply) => {
-    userRequires(request, what, capability);
+    userRequires(request, what, `${capabilityPrefix}_read_all`);
     const targetId = Number(request.params.id);
     try {
-      const result = await model.findById(targetId); //////////////////////////////////////
+      const result = await model.findById(targetId);
       return !result
         ? noQuery(reply, `The ${what.single} with the specified id does not exist.`)
         : result;
@@ -87,7 +88,7 @@ const useController = (model, capability, what) => {
    * @returns {object}
    */
   const addOne = async (request, reply) => {
-    userRequires(request, what, capability);
+    userRequires(request, what, `${capabilityPrefix}_add_one`);
     try {
       const result = await model.addOne(request.body);
       return result || noQuery(reply, `The ${what.single} could not be added.`);
@@ -104,7 +105,7 @@ const useController = (model, capability, what) => {
    * @returns {object}
    */
   const updateOne = async (request, reply) => {
-    userRequires(request, what, capability);
+    userRequires(request, what, `${capabilityPrefix}_update_one`);
     try {
       const result = await model.updateOne(request.body, Number(request.params.id));
       return result || noQuery(reply, `The ${what.single} could not be updated.`);
@@ -121,7 +122,7 @@ const useController = (model, capability, what) => {
    * @returns {object}
    */
   const deleteOne = async (request, reply) => {
-    userRequires(request, what, capability);
+    userRequires(request, what, `${capabilityPrefix}_delete_one`);
 
     const target = {
       id: Number(request.params.id),

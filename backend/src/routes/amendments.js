@@ -7,7 +7,7 @@ const routes = [
     method: "GET",
     url: `/contracts/:id/${what}`,
     schema: validators.getAll,
-    handler: controller.getAll,
+    handler: controller.getAllAmendments,
   },
   {
     method: "GET",

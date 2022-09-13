@@ -37,7 +37,8 @@
     "knex": "^0.95.14",
     "n-readlines": "^1.0.1",
     "pg": "^8.7.1",
-    "pino": "^7.6.0"
+    "pino": "^7.6.0",
+    "pino-pretty": "^9.1.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.22.0",

@@ -3,19 +3,17 @@ const { testRoutes, routeTypes } = require("./index.js");
 
 jest.mock("../../src/models/users.js");
 
-const capability = ["users_update_all"];
-
 testRoutes([
   {
     request: { method: "GET", url: "/users" },
     modelFunction: model.findAll,
-    capabilities: capability,
+    capabilities: ["users_read_all"],
     type: routeTypes.General,
   },
   {
     request: { method: "GET", url: "/users/1" },
     modelFunction: model.findById,
-    capabilities: capability,
+    capabilities: ["users_read_all"],
     type: routeTypes.Specific,
   },
   {
@@ -27,7 +25,7 @@ testRoutes([
       },
     },
     modelFunction: model.updateOne,
-    capabilities: capability,
+    capabilities: ["users_update_one"],
     type: routeTypes.Specific,
   },
   {
@@ -41,7 +39,7 @@ testRoutes([
       },
     },
     modelFunction: model.addOne,
-    capabilities: capability,
+    capabilities: ["users_add_one"],
     type: routeTypes.General,
   },
   {
@@ -50,7 +48,7 @@ testRoutes([
       url: "/users/2",
     },
     modelFunction: model.removeOne,
-    capabilities: capability,
+    capabilities: ["users_delete_one"],
     type: routeTypes.Specific,
   },
 ]);

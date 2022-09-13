@@ -1,7 +1,7 @@
-const model = require("../models/report");
 const useController = require("./useController/index.js");
+const model = require("../models/report");
 const what = { single: "report", plural: "reports" };
-const controller = useController(model, `reports_update_all`, what);
+const controller = useController(model, what);
 
 /**
  * Get a specific item by ID.

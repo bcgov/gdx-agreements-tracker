@@ -1,7 +1,7 @@
-const model = require("../models/change_request");
 const useController = require("./useController/index.js");
+const model = require("../models/change_request");
 const what = { single: "change_request", plural: "change_requests" };
-const controller = useController(model, "amendments_read_all", what);
+const controller = useController(model, what, "projects");
 
 /**
  * Get all items.
@@ -11,7 +11,7 @@ const controller = useController(model, "amendments_read_all", what);
  * @returns {object}
  */
 controller.getAllById = async (request, reply) => {
-  controller.userRequires(request, what, "amendments_read_all");
+  controller.userRequires(request, what, "projects_read_all");
   try {
     const result = await model.findAll(request.params.id);
     return result ? result : [];
@@ -28,7 +28,7 @@ controller.getAllById = async (request, reply) => {
  * @returns {object}
  */
 controller.getOneByTwoIds = async (request, reply) => {
-  controller.userRequires(request, what, "amendments_read_all");
+  controller.userRequires(request, what, "projects_read_all");
   const projectId = Number(request.params.projectId);
   const changeRequestId = Number(request.params.changeRequestId);
   try {

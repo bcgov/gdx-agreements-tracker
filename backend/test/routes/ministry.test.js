@@ -3,19 +3,17 @@ const { testRoutes, routeTypes } = require("./index.js");
 
 jest.mock("../../src/models/ministry.js");
 
-const capability = ["ministries_update_all"];
-
 testRoutes([
   {
     request: { method: "GET", url: "/ministries" },
     modelFunction: model.findAll,
-    capabilities: capability,
+    capabilities: ["admin_form_read_all"],
     type: routeTypes.General,
   },
   {
     request: { method: "GET", url: "/ministries/1" },
     modelFunction: model.findById,
-    capabilities: capability,
+    capabilities: ["admin_form_read_all"],
     type: routeTypes.Specific,
   },
   {
@@ -27,7 +25,7 @@ testRoutes([
       },
     },
     modelFunction: model.updateOne,
-    capabilities: capability,
+    capabilities: ["admin_form_update_one"],
     type: routeTypes.Specific,
   },
   {
@@ -40,7 +38,7 @@ testRoutes([
       },
     },
     modelFunction: model.addOne,
-    capabilities: capability,
+    capabilities: ["admin_form_add_one"],
     type: routeTypes.General,
   },
 ]);
