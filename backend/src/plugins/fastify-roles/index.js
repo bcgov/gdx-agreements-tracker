@@ -69,7 +69,7 @@ const fastifyRoles = async (fastify, opts) => {
     let isSysAdmin = false;
     let userCan = false;
     const userCapabilities = user?.capabilities || [];
-    const localEnv = undefined === user && 'development' === env;
+    const localEnv = undefined === user && "development" === env;
 
     if ("user" === request.capability?.what?.single) {
       const userRealmRoles = getRealmRoles(request);

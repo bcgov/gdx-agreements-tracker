@@ -26,16 +26,15 @@ const updateOne = {
 };
 
 const addOne = {
-  body: body.required(
-    [
-      "jv_number", 
-      "billed_date", 
-      "amount", 
-      "quarter", 
-      "project_id", 
-      "fiscal_year_id",
-      "client_coding_id"
-    ]),
+  body: body.required([
+    "jv_number",
+    "billed_date",
+    "amount",
+    "quarter",
+    "project_id",
+    "fiscal_year_id",
+    "client_coding_id",
+  ]),
   response: getAddResponse(),
 };
 

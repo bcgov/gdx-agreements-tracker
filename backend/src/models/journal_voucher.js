@@ -4,7 +4,6 @@ const { knex, dataBaseSchemas } = dbConnection();
 const jvTable = `${dataBaseSchemas().data}.jv`;
 
 const findAll = (projectId) => {
-  console.log(projectId)
   return knex
     .select(
       "jv.id",
@@ -23,19 +22,19 @@ const findAll = (projectId) => {
 // Get specific one by id.
 const findById = (id) => {
   return knex
-  .select(
-    "jv.id",
-    "jv.jv_number",
-    "jv.billed_date",
-    "jv.amount",
-    "jv.quarter",
-    "jv.project_id",
-    "jv.fiscal_year_id",
-    "jv.client_coding_id"
-  )
-  .from(jvTable)
-  .where("id", id)
-  .first();
+    .select(
+      "jv.id",
+      "jv.jv_number",
+      "jv.billed_date",
+      "jv.amount",
+      "jv.quarter",
+      "jv.project_id",
+      "jv.fiscal_year_id",
+      "jv.client_coding_id"
+    )
+    .from(jvTable)
+    .where("id", id)
+    .first();
 };
 
 // Update one.

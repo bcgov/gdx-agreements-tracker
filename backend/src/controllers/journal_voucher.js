@@ -1,8 +1,7 @@
 const useController = require("./useController/index.js");
 const model = require("../models/journal_voucher");
 const what = { single: "jv", plural: "jvs" };
-const controller = useController(model, what, 'projects');
-
+const controller = useController(model, what, "projects");
 
 /**
  * Gets all contract Journal vouchers for a specific contract.
@@ -11,7 +10,7 @@ const controller = useController(model, what, 'projects');
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
- controller.getAllJvs = async (request, reply) => {
+controller.getAllJvs = async (request, reply) => {
   controller.userRequires(request, what, "projects_read_all");
   const projectId = Number(request.params.id);
   try {
