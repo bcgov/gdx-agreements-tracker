@@ -30,7 +30,6 @@ const addOne = {
   response: getAddResponse(),
 };
 
-
 const getByEmail = {
   headers: S.object().prop("Authorization", S.string()),
   body: {
@@ -50,5 +49,5 @@ module.exports = {
   updateOne,
   addOne,
   deleteOne,
-  getByEmail
+  getByEmail,
 };

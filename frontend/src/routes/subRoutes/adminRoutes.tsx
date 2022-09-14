@@ -2,7 +2,6 @@ import React from "react";
 import { Route } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import { Admin } from "../../pages";
-import { Users } from "../../pages/Admin/Users";
 import { Contacts } from "../../pages/Admin/Contacts";
 import { Subcontractors } from "../../pages/Admin/Subcontractors";
 import { Suppliers } from "../../pages/Admin/Suppliers";

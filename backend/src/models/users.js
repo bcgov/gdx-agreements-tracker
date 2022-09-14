@@ -43,7 +43,6 @@ const findByEmail = (email) => {
     .from(table)
     .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` })
     .where("email", email);
-    
 };
 
 // Add one.

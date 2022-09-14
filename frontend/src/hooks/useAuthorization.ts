@@ -26,7 +26,6 @@ const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { ema
   useEffect(() => {
     handleCurrentUser();
   }, [useKeycloak().initialized]);
-  console.log('useKeycloak()', useKeycloak())
 
   // const [currentUser, setCurrentUser] = useState(undefined);
 

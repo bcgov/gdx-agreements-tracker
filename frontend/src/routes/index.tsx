@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute, { AuthorizedRoute } from "./ProtectedRoute";
+import { AuthorizedRoute } from "./ProtectedRoute";
 import projectRoutes from "./subRoutes/projectRoutes";
 import contractRoutes from "./subRoutes/contractRoutes";
 import adminRoutes from "./subRoutes/adminRoutes";
@@ -9,10 +9,10 @@ import { Home, Login, PageNotFound, Users } from "../pages";
 import { Main } from "../components";
 import useAuthorization from "hooks/useAuthorization";
 import keycloak from "keycloak";
+import { ICurrentUser } from "types";
 
 const AppRouter: FC = () => {
   const { currentUser } = useAuthorization(keycloak);
-console.log('currentUser', currentUser)
   return (
     <Routes>
       <Route element={<Main />}>
@@ -20,7 +20,7 @@ console.log('currentUser', currentUser)
           path="/"
           element={
             <AuthorizedRoute
-              currentUserRole={(currentUser as any)?.role_id?.label} 
+              currentUserRole={(currentUser as unknown as ICurrentUser)?.role_id?.label}
               allowedRoles={["Administrator"]}
             />
           }
@@ -35,9 +35,11 @@ console.log('currentUser', currentUser)
           path="/"
           element={
             <AuthorizedRoute
-              currentUserRole={(currentUser as any)?.role_id?.label}
+              currentUserRole={(currentUser as unknown as ICurrentUser)?.role_id?.label}
               allowedRoles={["Administrator"]}
-              isPMOSysAdmin={(keycloak as any)?.tokenParsed?.client_roles?.includes("pmo-sys-admin") }
+              isPMOSysAdmin={(
+                keycloak as Keycloak.KeycloakInstance
+              )?.tokenParsed?.client_roles?.includes("pmo-sys-admin")}
             />
           }
         >
