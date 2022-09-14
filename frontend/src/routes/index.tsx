@@ -13,7 +13,6 @@ import { ICurrentUser } from "types";
 
 const AppRouter: FC = () => {
   const { currentUser } = useAuthorization(keycloak);
-  console.log("currentUser", currentUser);
   return (
     <Routes>
       <Route element={<Main />}>

@@ -28,7 +28,7 @@ const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { ema
     handleCurrentUser();
   }, [useKeycloak().initialized]);
 
-  //TODO For Later use 
+  //TODO For Later use
   // const [currentUser, setCurrentUser] = useState(undefined);
 
   // const handleCurrentUser = async () => {
