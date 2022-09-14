@@ -7,7 +7,7 @@ const body = S.object()
   .prop("title", Schema.ShortString)
   .prop("description", S.string())
   .prop("associated_form", Schema.ShortString)
-  .prop("definition", S.array().items(Schema.Picker));
+  .prop("definition", S.anyOf([S.array().items(Schema.Picker)]));
 
 const getAll = {
   response: getResponse(S.array().items(body)),

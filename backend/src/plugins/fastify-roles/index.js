@@ -1,7 +1,8 @@
 "use strict";
-
+require("dotenv").config({ path: ".env" });
 const fp = require("fastify-plugin");
 const { getUserInfo, getRealmRoles } = require("../../facilities/keycloak");
+const env = process.env.NODE_ENV || "production";
 
 /**
  * Fastify Roles plugin, that inserts user object into the request object for each api call.
@@ -68,11 +69,13 @@ const fastifyRoles = async (fastify, opts) => {
     let isSysAdmin = false;
     let userCan = false;
     const userCapabilities = user?.capabilities || [];
+    const localEnv = undefined === user && "development" === env;
+
     if ("user" === request.capability?.what?.single) {
       const userRealmRoles = getRealmRoles(request);
       isSysAdmin = userRealmRoles.includes("pmo-sys-admin");
     }
-    userCan = userCapabilities.includes(request?.capability?.requires) || isSysAdmin;
+    userCan = userCapabilities.includes(request?.capability?.requires) || isSysAdmin || localEnv;
     return userCan;
   };
 
