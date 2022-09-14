@@ -1,5 +1,15 @@
 ## Developer Changelog
-
+### Septermber 14, 2022 (DESCW-574)
+- Backend
+  - initial journal voucher controller/model/route/validator
+  - optimized picklist option code
+  - removed view formatted_picker_options and replaced model with select statement
+    - `npx knex migrate:latest`
+  - updated pickerlist options seed 
+    - `npx knex seed:run --specific=08_picker_options.js`
+- frontend
+  - voucher table.
+  - Created a reusable component for TableData
 ### Septermber 14, 2022 (DESCW-566) Role Base Routing
 - Backend 
   - Added Api to get current user
