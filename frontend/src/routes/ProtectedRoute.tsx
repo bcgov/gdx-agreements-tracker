@@ -30,7 +30,6 @@ export const AuthorizedRoute = ({
   allowedRoles: [string];
   isPMOSysAdmin?: boolean;
 }) => {
-  console.log('currentUserRole', currentUserRole)
   const { initialized, keycloak } = useKeycloak();
   const location = useLocation();
 

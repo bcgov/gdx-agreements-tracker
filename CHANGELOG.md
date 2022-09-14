@@ -1,4 +1,11 @@
 ## Developer Changelog
+
+### Septermber 14, 2022 (DESCW-566) Role Base Routing
+- Backend 
+  - Added Api to get current user
+- Frontend
+  - Added role base routing
+
 ### Septermber 13, 2022 (DESCW-565) Backend capabilities
 - Backend 
   - Added pino prettier `npm i` to install which adds some formatted backend output logs

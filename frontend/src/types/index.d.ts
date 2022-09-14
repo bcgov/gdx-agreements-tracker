@@ -292,3 +292,13 @@ export interface IData {
     options: { id: number; value: string; parent: string }[];
   };
 }
+
+export interface ICurrentUser {
+  id: number;
+  name: string;
+  email: string;
+  role_id: {
+    value: number;
+    label: string;
+  };
+}

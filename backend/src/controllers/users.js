@@ -11,20 +11,20 @@ const controller = useController(model, what);
  * @returns {object}
  */
 
-  controller.getByEmail = async (request, reply) => {
-    controller.userRequires(request, what, "users_read_all");
-    let output;
-    const targetEmail = request.body.email;
-    try {
-      const result = await model.findByEmail(targetEmail);
-      output =
-        !result || !result.length
-          ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-          : result[0];
-    } catch (err) {
-      output = controller.failedQuery(reply, err, what);
-    }
-    return output;
-  };
+controller.getByEmail = async (request, reply) => {
+  controller.userRequires(request, what, "users_read_all");
+  let output;
+  const targetEmail = request.body.email;
+  try {
+    const result = await model.findByEmail(targetEmail);
+    output =
+      !result || !result.length
+        ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+        : result[0];
+  } catch (err) {
+    output = controller.failedQuery(reply, err, what);
+  }
+  return output;
+};
 
 module.exports = controller;
