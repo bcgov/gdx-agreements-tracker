@@ -26,7 +26,7 @@ export const AuthorizedRoute = ({
   allowedRoles,
   isPMOSysAdmin = false,
 }: {
-  currentUserRole: string;
+  currentUserRole: string
   allowedRoles: [string];
   isPMOSysAdmin?: boolean;
 }) => {

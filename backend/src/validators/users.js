@@ -32,12 +32,7 @@ const addOne = {
 
 const getByEmail = {
   headers: S.object().prop("Authorization", S.string()),
-  body: {
-    type: "object",
-    properties: {
-      email: { type: "string", format: "email" },
-    },
-  },
+  body: S.object().prop("email", Schema.Email).required(["email"]),
   response: getAddResponse(),
 };
 
