@@ -23,8 +23,6 @@ const routes = [
     />
     <Route key="resources" path="resources" element={<ProtectedRoute component={Resources} />} />
     <Route key="ministries" path="ministries" element={<ProtectedRoute component={Ministries} />} />
-    <Route key="users" path="users" element={<ProtectedRoute component={Users} />} />
-    <Route key="userId" path="users/:userId" element={<ProtectedRoute component={Users} />} />
   </Route>,
 ];
 

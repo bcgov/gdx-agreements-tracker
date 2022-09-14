@@ -30,6 +30,18 @@ const addOne = {
   response: getAddResponse(),
 };
 
+
+const getByEmail = {
+  headers: S.object().prop("Authorization", S.string()),
+  body: {
+    type: "object",
+    properties: {
+      email: { type: "string", format: "email" },
+    },
+  },
+  response: getAddResponse(),
+};
+
 const deleteOne = getOne;
 
 module.exports = {
@@ -38,4 +50,5 @@ module.exports = {
   updateOne,
   addOne,
   deleteOne,
+  getByEmail
 };

@@ -31,7 +31,19 @@ const findById = (id) => {
 
 // Get specific user by email.
 const findByEmail = (email) => {
-  return knex(table).where("email", email);
+  return knex
+    .select(
+      "users.id",
+      "users.name",
+      "users.email",
+      knex.raw(
+        "(SELECT json_build_object('value', COALESCE(users.role_id,0), 'label', COALESCE(roles.display_name,''))) AS role_id"
+      )
+    )
+    .from(table)
+    .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` })
+    .where("email", email);
+    
 };
 
 // Add one.

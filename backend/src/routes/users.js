@@ -10,6 +10,12 @@ const routes = [
     handler: controller.getAll,
   },
   {
+    method: "POST",
+    url: `/${what}/email`,
+    schema: validators.getByEmail,
+    handler: controller.getByEmail,
+  },
+  {
     method: "GET",
     url: `/${what}/:id`,
     schema: validators.getOne,
