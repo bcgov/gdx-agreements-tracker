@@ -13,6 +13,7 @@ import { ICurrentUser } from "types";
 
 const AppRouter: FC = () => {
   const { currentUser } = useAuthorization(keycloak);
+  console.log("currentUser", currentUser);
   return (
     <Routes>
       <Route element={<Main />}>
@@ -20,7 +21,7 @@ const AppRouter: FC = () => {
           path="/"
           element={
             <AuthorizedRoute
-              currentUserRole={(currentUser as unknown as ICurrentUser)?.role_id?.label}
+              currentUserRole={(currentUser as ICurrentUser)?.role_id?.label}
               allowedRoles={["Administrator"]}
             />
           }
@@ -35,7 +36,7 @@ const AppRouter: FC = () => {
           path="/"
           element={
             <AuthorizedRoute
-              currentUserRole={(currentUser as unknown as ICurrentUser)?.role_id?.label}
+              currentUserRole={(currentUser as ICurrentUser)?.role_id?.label}
               allowedRoles={["Administrator"]}
               isPMOSysAdmin={(
                 keycloak as Keycloak.KeycloakInstance

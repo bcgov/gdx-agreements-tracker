@@ -1,9 +1,10 @@
 import { useKeycloak } from "@react-keycloak/web";
 import { useEffect, useState } from "react";
+import { ICurrentUser } from "types";
 import { apiAxios } from "utils";
 
 const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { email: string } }) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(null);
 
   const handleCurrentUser = async () => {
     if (keycloak.authenticated) {
@@ -19,7 +20,7 @@ const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { ema
           });
       }
     } else {
-      setCurrentUser(undefined);
+      setCurrentUser(null);
     }
   };
 
@@ -27,6 +28,7 @@ const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { ema
     handleCurrentUser();
   }, [useKeycloak().initialized]);
 
+  //TODO For Later use 
   // const [currentUser, setCurrentUser] = useState(undefined);
 
   // const handleCurrentUser = async () => {
