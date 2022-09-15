@@ -25,6 +25,11 @@ export const Project = () => {
       name: "Change Request",
       url: `/projects/${projectId}/change-request`,
     },
+    {
+      key: 2,
+      name: "Billing",
+      url: `/projects/${projectId}/billing`,
+    },
   ];
 
   const chipNavLinksRight: IChipNav[] = [
