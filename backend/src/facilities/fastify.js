@@ -9,6 +9,7 @@ const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
 const fastifyCors = require("fastify-cors");
 const fastifyAuth = require("fastify-auth");
+const fastifyMarkdown = require("fastify-markdown");
 const fastifyRoles = require("../plugins/fastify-roles");
 
 /**
@@ -17,7 +18,8 @@ const fastifyRoles = require("../plugins/fastify-roles");
  * - Decorate the server object with an authentication handler
  * for verifying JWT tokens.
  * - Register the fastify auth plugin used in combination with verifyJWT.
- * - Resgister the fastifyCors plugin.
+ * - Register the fastifyCors plugin.
+ * - Register the fastifyMarkdown plugin.
  * - Register user routes.
  * - After all that is complete, add a preHandler hook. This sites in front
  * of all server requests.
@@ -53,6 +55,7 @@ const fastifyInstance = (options) => {
     .register(fastifyAuth)
     .register(fastifyCors, {})
     .register(fastifyRoles)
+    .register(fastifyMarkdown, { src: true })
     .after(() => {
       app.addHook("preHandler", app.auth([app.verifyJWT]));
 
