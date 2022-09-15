@@ -1,5 +1,15 @@
 ## Developer Changelog
-### Septermber 14, 2022 (DESCW-574)
+
+### September 15, 2022 (DESCW-568) Glossary
+- Backend
+  - Added fastify-markdown plugin to package.json
+    - `npm i`
+  - Created glossary route, controller, validator
+  - Created glossary markdown file
+- Frontend
+  - Created Glossary page component and routing
+
+### September 14, 2022 (DESCW-574)
 - Backend
   - initial journal voucher controller/model/route/validator
   - optimized picklist option code
@@ -10,7 +20,8 @@
 - frontend
   - voucher table.
   - Created a reusable component for TableData
-### Septermber 14, 2022 (DESCW-566) Role Base Routing
+
+### September 14, 2022 (DESCW-566) Role Base Routing
 - Backend 
   - Added Api to get current user
 - Frontend
