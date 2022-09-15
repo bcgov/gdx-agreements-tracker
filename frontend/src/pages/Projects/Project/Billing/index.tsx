@@ -13,10 +13,16 @@ export const Billing: FC = (): JSX.Element => {
    * returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>.
    * reference: https://reactrouter.com/docs/en/v6/hooks/use-params
    *
-   * @returns {string} contractId
+   * @returns {string} projectId
    */
 
   const { projectId } = useParams();
+  const roles = {
+    get: 'projects_read_all',
+    addOne: 'projects_add_one',
+    update: 'projects_update_one',
+    delete: 'projects_delete_one'
+  }
 
   return (
     <>
@@ -28,6 +34,7 @@ export const Billing: FC = (): JSX.Element => {
         createFormInitialValues={{}}
         readFields={readFields}
         editFields={editFields}
+        roles={roles}
       />
     </>
   );

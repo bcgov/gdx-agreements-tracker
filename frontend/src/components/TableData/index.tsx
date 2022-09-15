@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import { Box, Button } from "@mui/material";
 import { Renderer } from "components/Renderer";
 import { Table } from "components/Table";
@@ -12,6 +12,7 @@ import { FormikValues } from "formik";
 import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
+import { IEditFields } from "types";
 
 /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
 // todo: Define a good type. "Any" type temporarily permitted.
@@ -23,6 +24,7 @@ export const TableData = ({
   createFormInitialValues,
   readFields,
   editFields,
+  roles,
 }: {
   itemName: string;
   tableName: string;
@@ -32,8 +34,9 @@ export const TableData = ({
   createFormInitialValues: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readFields: any;
+  editFields: IEditFields[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editFields: any;
+  roles: any;
 }) => {
   const {
     handleEditMode,
@@ -48,6 +51,9 @@ export const TableData = ({
   } = useFormControls();
 
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
+
+  const [userCapabilities, setUserCapabilities] = useState([]);
+
 
   /**
    * returns destructured props from the useFormatTableData hook.
@@ -65,7 +71,7 @@ export const TableData = ({
   });
 
   /**
-   * getAmendment is the fetch function for react query to leverage.
+   * getApiData is the fetch function for react query to leverage.
    *
    * @returns {object} An object that contains the data from the table it's querying.
    */
@@ -73,10 +79,17 @@ export const TableData = ({
     const apiUrl = getOneApiUrl(currentRowData?.id);
     if (currentRowData?.id && apiUrl) {
       const apiData = await apiAxios().get(apiUrl);
+      console.log(apiData);
+      //setUserCapabilities(apiData?.data?.user?.capabilities);
       return apiData.data.data;
     }
   };
 
+  /**
+   * 
+   * @param {number|undefined} id  The current id, used to create the url. 
+   * @returns {string}
+   */
   const getOneApiUrl = (id: number | undefined) => {
     if (undefined !== id) {
       return getOneUrl.replace(/{id}/g, id.toString());
@@ -84,8 +97,13 @@ export const TableData = ({
     return "";
   };
 
+  const hasRole = (requiredRole:any) => {
+    console.log(reactQuery, requiredRole)
+    return true;//userCapabilities.includes(requiredRole);
+  }
+
   /**
-   * returns destructured props from the useFormatTableData hook.
+   * used for the react query.
    *
    * @param   {string}         queryKey     - This is the queryKey.  The queryKey acts as a cache identifier for the UseQueryResult.
    * @param   {Function}       getAmendment - The enpoint as which the API query will use for it's call.
@@ -104,7 +122,9 @@ export const TableData = ({
     }
   );
 
+ 
   return (
+    
     <>
       <Renderer
         isLoading={isLoading}
@@ -127,7 +147,7 @@ export const TableData = ({
                 handleFormType("new");
               }}
             >
-              <Button variant="contained">{`Add New ${itemName}`}</Button>
+              {hasRole(roles.addOne) && <Button variant="contained">{`Add New ${itemName}`}</Button>}
             </Box>
           </>
         }
@@ -161,7 +181,7 @@ export const TableData = ({
                       handleClose: handleClose,
                     });
                   }}
-                  editFields={editFields()}
+                  editFields={editFields}
                 />
               ) : (
                 <EditForm
@@ -177,7 +197,7 @@ export const TableData = ({
                       errorMessage: `There was an issue saving.`,
                     });
                   }}
-                  editFields={editFields()}
+                  editFields={editFields}
                 />
               )}
             </>
