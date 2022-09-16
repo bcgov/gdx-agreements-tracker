@@ -10,6 +10,7 @@ import { Main } from "../components";
 import useAuthorization from "hooks/useAuthorization";
 import keycloak from "keycloak";
 import { ICurrentUser } from "types";
+import Unauthorized from "pages/Unauthorized";
 
 const AppRouter: FC = () => {
   const { currentUser } = useAuthorization(keycloak);
@@ -44,10 +45,11 @@ const AppRouter: FC = () => {
           }
         >
           <Route key="users" path="admin/users" element={<Users />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
+          <Route path="*" element={<PageNotFound />} />
         </Route>
       </Route>
       <Route path="login" element={<Login />} />
-      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

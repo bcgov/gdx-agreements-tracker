@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import React from "react";
+import { useAxios } from "./useAxios";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
@@ -75,8 +76,19 @@ export const useFormatTableData = ({
   apiEndPoint: string;
   handleClick?: Function;
 }) => {
+  // const handleCurrentUser = async () => {
+  //   if (initialized) {
+  //     const currentUser = (await axiosAll())
+  //       .post(`users/email`, { email: keycloak?.tokenParsed?.email })
+  //       .then((user) => {
+  //         return user;
+  //       });
+  //     return currentUser;
+  //   }
+  // };
+  const { axiosAll } = useAxios();
   const getTableData = async () => {
-    const allProjects = await apiAxios()
+    const allProjects = (await axiosAll())
       .get(apiEndPoint)
       .then((tableData: ITableData) => {
         switch (tableData.data.data.length) {
