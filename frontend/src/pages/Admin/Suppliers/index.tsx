@@ -4,7 +4,6 @@ import { Table } from "../../../components";
 import { Renderer } from "components/Renderer";
 import { useFormControls } from "hooks/useFormControls";
 import { GDXModal } from "components/GDXModal";
-import { apiAxios } from "utils";
 import { useQuery, UseQueryResult } from "react-query";
 import { useParams } from "react-router-dom";
 import { readFields } from "./readFields";
@@ -15,6 +14,7 @@ import { EditForm } from "components/EditForm";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { FormikValues } from "formik";
 import { Box, Button } from "@mui/material";
+import { useAxios } from "hooks/useAxios";
 /**
  * The suppliers page
  *
@@ -22,6 +22,8 @@ import { Box, Button } from "@mui/material";
  */
 
 export const Suppliers: FC = (): JSX.Element => {
+  const { axiosAll } = useAxios();
+
   /**
    *
    * useFormControls is a hook that handles all functionality for a form.
@@ -83,7 +85,7 @@ export const Suppliers: FC = (): JSX.Element => {
    */
 
   const getSuppliers = async () => {
-    const suppliers = await apiAxios().get(`/suppliers/${currentRowData?.id}`);
+    const suppliers = await axiosAll().get(`/suppliers/${currentRowData?.id}`);
     return suppliers.data.data[0];
   };
 

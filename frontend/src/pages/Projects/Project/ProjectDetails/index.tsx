@@ -1,17 +1,20 @@
+import { useAxios } from "hooks/useAxios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { GDXAccordion } from "../../../../components/GDXAccordion";
-import { apiAxios } from "../../../../utils";
 import { AgreementSection } from "./AgreementSection";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
 export const ProjectDetails = () => {
-  const { projectId } = useParams();
   const [userHasEditCapability, setEditCapability] = useState(false);
 
+  const { axiosAll } = useAxios();
+
+  const { projectId } = useParams();
+
   const getProject = async () => {
-    const project = await apiAxios().get(`projects/${projectId}`);
+    const project = await axiosAll().get(`projects/${projectId}`);
     return project.data;
   };
 

@@ -1,5 +1,6 @@
 import { render, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
 import { IEditFields } from "types";
 import { CreateForm } from "../../../../frontend/src/components/CreateForm";
 
@@ -27,9 +28,11 @@ jest.mock("@react-keycloak/web", () => ({
 test("Render the Create form component", () => {
   // render the component on virtual dom
   const { getByRole } = render(
-    <QueryClientProvider client={queryClient}>
-      <CreateForm initialValues={initialValues} onSubmit={onSubmit} editFields={editFields} />
-    </QueryClientProvider>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <CreateForm initialValues={initialValues} onSubmit={onSubmit} editFields={editFields} />
+      </QueryClientProvider>
+    </BrowserRouter>
   );
   expect(getByRole("cr_summary_input")).toBeInTheDocument();
   expect(getByRole("submit_button")).toBeInTheDocument();
@@ -39,9 +42,11 @@ test("Render the Create form component", () => {
 test("Submit button", () => {
   // render the component on virtual dom
   const { getByRole } = render(
-    <QueryClientProvider client={queryClient}>
-      <CreateForm initialValues={initialValues} onSubmit={onSubmit} editFields={editFields} />
-    </QueryClientProvider>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <CreateForm initialValues={initialValues} onSubmit={onSubmit} editFields={editFields} />
+      </QueryClientProvider>
+    </BrowserRouter>
   );
   const submitButton = getByRole("submit_button");
 

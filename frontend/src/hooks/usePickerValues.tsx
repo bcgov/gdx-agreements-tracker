@@ -1,6 +1,6 @@
-import { apiAxios } from "../utils";
 import { useQuery } from "react-query";
 import { IPickerTableData } from "../types";
+import { useAxios } from "./useAxios";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
@@ -34,8 +34,10 @@ export const formatPickerOptions = (tableData: IPickerTableData) => {
 };
 
 export const usePickerValues = () => {
+  const { axiosAll } = useAxios();
+
   const getTableData = async () => {
-    const allPickers = await apiAxios()
+    const allPickers = await axiosAll()
       .get("picker_options")
       .then((tableData) => {
         return formatPickerOptions(tableData);

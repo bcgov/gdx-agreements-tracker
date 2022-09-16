@@ -1,4 +1,10 @@
 ## Developer Changelog
+### September 16, 2022 (DESCW-566) Role Base Routing
+- Backend 
+  - Added Api to get current user
+- Frontend
+  - Added role base routing
+  - Add API error handling
 ### September 15, 2022 (DESCW-574)
 - Frontend
   - Adding role check
@@ -24,12 +30,6 @@
 - frontend
   - voucher table.
   - Created a reusable component for TableData
-
-### September 14, 2022 (DESCW-566) Role Base Routing
-- Backend 
-  - Added Api to get current user
-- Frontend
-  - Added role base routing
 
 ### Septermber 13, 2022 (DESCW-565) Backend capabilities
 - Backend 

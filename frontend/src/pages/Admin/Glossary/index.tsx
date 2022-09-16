@@ -1,17 +1,19 @@
 import React, { FC } from "react";
 import { Typography } from "@mui/material";
 import { Renderer } from "components/Renderer";
-import { apiAxios } from "utils";
 import { useQuery } from "react-query";
+import { useAxios } from "hooks/useAxios";
 
 export const Glossary: FC = () => {
+  const { axiosAll } = useAxios();
+
   /**
    * Gets the glossary definition HTML.
    *
    * @returns {null|object}
    */
   const getGlossary = async () => {
-    const response = await apiAxios().get(`/glossary`);
+    const response = await axiosAll().get(`/glossary`);
     return { __html: response.data as string };
   };
 

@@ -3,7 +3,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { useFormatTableData } from "../../../hooks/";
 import { Table } from "../../../components";
 import { useFormControls } from "hooks/useFormControls";
-import apiAxios from "utils/apiAxios";
 import { useQuery } from "react-query";
 import { Renderer } from "components/Renderer";
 import { GDXModal } from "components/GDXModal";
@@ -12,8 +11,11 @@ import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { EditForm } from "components/EditForm";
+import { useAxios } from "hooks/useAxios";
 
 export const Contacts: FC = () => {
+  const { axiosAll } = useAxios();
+
   const {
     handleEditMode,
     handleOpen,
@@ -34,7 +36,7 @@ export const Contacts: FC = () => {
 
   const getContact = async () => {
     if (currentRowData?.id) {
-      const contacts = await apiAxios().get(`/contacts/${currentRowData?.id}`);
+      const contacts = await axiosAll().get(`/contacts/${currentRowData?.id}`);
       // Replaces createFormInitialValues with values from contacts if contacts has a non-null value for that property.
       const contact = Object.assign(
         {},

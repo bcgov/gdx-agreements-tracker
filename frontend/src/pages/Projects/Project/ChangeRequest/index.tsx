@@ -6,19 +6,21 @@ import { useFormatTableData } from "hooks";
 import { useFormControls } from "hooks/useFormControls";
 import { Renderer } from "components/Renderer";
 import { useFormSubmit } from "hooks/useFormSubmit";
-import { apiAxios } from "utils";
 import { useQuery } from "react-query";
 import { ReadForm } from "components/ReadForm";
 import { EditForm } from "components/EditForm";
 import { IEditFields } from "types";
 import { Box, Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
+import { useAxios } from "hooks/useAxios";
 
 /**
- * @returns  the jsx for the change request section of the project form
+ * @returns the jsx for the change request section of the project form
  */
 
 export const ChangeRequest = () => {
+  const { axiosAll } = useAxios();
+
   const {
     handleEditMode,
     handleOpen,
@@ -41,7 +43,7 @@ export const ChangeRequest = () => {
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
   const getChangeRequest = async () => {
-    const changeRequest = await apiAxios().get(
+    const changeRequest = await axiosAll().get(
       `/projects/${projectId}/change_request/${currentRowData?.id}`
     );
     return changeRequest.data.data[0];

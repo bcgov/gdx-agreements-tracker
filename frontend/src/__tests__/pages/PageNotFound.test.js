@@ -1,21 +1,22 @@
 import React from "react";
-import { mountWithTheme } from "../../setupTests";
-import { MemoryRouter } from "react-router-dom";
-import AppRouter from "../../routes";
 import PageNotFound from "../../pages/PageNotFound";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { shallow } from "enzyme";
 
+// Create a client
+const queryClient = new QueryClient();
 //Mock keycloak.
 jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
 
 describe("<PageNotFound /> routing", () => {
-  it("redirects to <PageNotFound /> when an invalid URL is passed", () => {
-    const appWrapper = mountWithTheme(
-      <MemoryRouter initialEntries={["/invalid-url"]}>
-        <AppRouter />
-      </MemoryRouter>
+  it("renders page not found", async () => {
+    const wrapper = shallow(
+      <QueryClientProvider client={queryClient}>
+        <PageNotFound />
+      </QueryClientProvider>
     );
-    expect(appWrapper.find(PageNotFound)).toHaveLength(1);
+    expect(wrapper.text().includes("PageNotFound")).toBe(true);
   });
 });

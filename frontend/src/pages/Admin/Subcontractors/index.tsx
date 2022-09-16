@@ -6,7 +6,6 @@ import { Renderer } from "components/Renderer";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { useFormControls } from "hooks/useFormControls";
 import { GDXModal } from "components/GDXModal";
-import { apiAxios } from "utils";
 import { useQuery, UseQueryResult } from "react-query";
 import { ReadForm } from "components/ReadForm";
 import { EditForm } from "components/EditForm";
@@ -14,8 +13,11 @@ import { Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
 import { FormikValues } from "formik";
 import { readFields, editFields } from "./fields";
+import { useAxios } from "hooks/useAxios";
 
 export const Subcontractors: FC = () => {
+  const { axiosAll } = useAxios();
+
   const {
     handleEditMode,
     handleOpen,
@@ -39,7 +41,7 @@ export const Subcontractors: FC = () => {
   const getSubcontractor = async () => {
     let data = null;
     if (currentRowData?.id) {
-      const subcontractors = await apiAxios().get(`/subcontractors/${currentRowData?.id}`);
+      const subcontractors = await axiosAll().get(`/subcontractors/${currentRowData?.id}`);
       data = subcontractors.data.data;
     }
     return data;
