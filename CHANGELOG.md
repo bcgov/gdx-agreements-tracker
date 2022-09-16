@@ -1,5 +1,9 @@
 ## Developer Changelog
-
+### September 15, 2022 (DESCW-574)
+- Frontend
+  - Adding role check
+  - Updating TableData
+  
 ### September 15, 2022 (DESCW-568) Glossary
 - Backend
   - Added fastify-markdown plugin to package.json

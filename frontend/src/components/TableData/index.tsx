@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
 import { Renderer } from "components/Renderer";
 import { Table } from "components/Table";
@@ -52,8 +52,7 @@ export const TableData = ({
 
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
-  const [userCapabilities, setUserCapabilities] = useState([]);
-
+  const [userCapabilities, setUserCapabilities] = useState<string[]>([]);
 
   /**
    * returns destructured props from the useFormatTableData hook.
@@ -70,6 +69,10 @@ export const TableData = ({
     handleClick: handleOpen,
   });
 
+  useEffect(() => {
+    setUserCapabilities(data?.user?.capabilities);
+  }, [data]);
+
   /**
    * getApiData is the fetch function for react query to leverage.
    *
@@ -79,15 +82,14 @@ export const TableData = ({
     const apiUrl = getOneApiUrl(currentRowData?.id);
     if (currentRowData?.id && apiUrl) {
       const apiData = await apiAxios().get(apiUrl);
-      console.log(apiData);
-      //setUserCapabilities(apiData?.data?.user?.capabilities);
       return apiData.data.data;
     }
   };
 
   /**
-   * 
-   * @param {number|undefined} id  The current id, used to create the url. 
+   * Get the url for a getOne item.
+   *
+   * @param   {number|undefined} id The current id, used to create the url.
    * @returns {string}
    */
   const getOneApiUrl = (id: number | undefined) => {
@@ -97,10 +99,13 @@ export const TableData = ({
     return "";
   };
 
-  const hasRole = (requiredRole:any) => {
-    console.log(reactQuery, requiredRole)
-    return true;//userCapabilities.includes(requiredRole);
-  }
+  const hasRole = (requiredRole: string) => {
+    let allowed = false;
+    if (Array.isArray(userCapabilities) && userCapabilities.length > 0) {
+      allowed = userCapabilities.includes(requiredRole);
+    }
+    return allowed;
+  };
 
   /**
    * used for the react query.
@@ -122,42 +127,43 @@ export const TableData = ({
     }
   );
 
- 
   return (
-    
     <>
-      <Renderer
-        isLoading={isLoading}
-        component={
-          <>
-            <Table
-              columns={data?.columns}
-              rows={data?.rows}
-              loading={isLoading}
-              onRowClick={handleCurrentRowData}
-            />
-            <Box
-              m={1}
-              display="flex"
-              justifyContent="flex-end"
-              alignItems="flex-end"
-              onClick={() => {
-                handleOpen();
-                handleEditMode(true);
-                handleFormType("new");
-              }}
-            >
-              {hasRole(roles.addOne) && <Button variant="contained">{`Add New ${itemName}`}</Button>}
-            </Box>
-          </>
-        }
-      />
+      {hasRole(roles.get) && (
+        <Renderer
+          isLoading={isLoading}
+          component={
+            <>
+              <Table
+                columns={data?.columns}
+                rows={data?.rows}
+                loading={isLoading}
+                onRowClick={handleCurrentRowData}
+              />
+              <Box
+                m={1}
+                display="flex"
+                justifyContent="flex-end"
+                alignItems="flex-end"
+                onClick={() => {
+                  handleOpen();
+                  handleEditMode(true);
+                  handleFormType("new");
+                }}
+              >
+                {hasRole(roles.add) && <Button variant="contained">{`Add New ${itemName}`}</Button>}
+              </Box>
+            </>
+          }
+        />
+      )}
       <GDXModal
         open={open}
         handleClose={handleClose}
         modalTitle={"new" === formType ? `New ${itemName}` : `${itemName} ${reactQuery?.data?.id}`}
         handleEditMode={handleEditMode}
         editMode={editMode}
+        allowEdit={hasRole(roles.update)}
         handleFormType={handleFormType}
       >
         <>

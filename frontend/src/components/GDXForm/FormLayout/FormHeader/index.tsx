@@ -3,19 +3,21 @@ import styled from "@emotion/styled";
 import { AppBar, Toolbar, Typography, Button, FormControl } from "@mui/material";
 import bcgovTheme from "../../../../bcgovTheme";
 import EditIcon from "@mui/icons-material/Edit";
-import { useRoleChecker } from "../../../../hooks/useRoleChecker";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const StyledAppBar = styled(AppBar)({
   borderBottom: bcgovTheme.customSettings.BCGovAccentLine,
 });
 
 const StyledButtonLayout = styled(FormControl)({
-  width: "100px",
   marginLeft: "auto",
-  borderRadius: "10px",
-  backgroundColor: "#FFF",
-  color: "#000",
   padding: "1px",
+  flexDirection: "row",
+});
+
+const StyleButton = styled(Button)({
+  backgroundColor: "#fff !important",
+  marginLeft: "0.5rem",
 });
 
 /**
@@ -28,18 +30,17 @@ export const FormHeader = ({
   formTitle,
   handleEditMode,
   editMode,
+  allowEdit,
   handleFormType,
+  handleClose,
 }: {
   formTitle: string;
   handleEditMode: Function;
   editMode: boolean;
+  allowEdit: boolean;
   handleFormType: Function;
+  handleClose?: Function;
 }) => {
-  const { checkRoleExists }: { checkRoleExists: () => boolean } = useRoleChecker([
-    "pmo-manager",
-    "pmo-sys-admin",
-  ]);
-
   return (
     <div>
       <StyledAppBar position="sticky" role="form-header">
@@ -47,9 +48,10 @@ export const FormHeader = ({
           <Typography variant="h6" noWrap component="div">
             {formTitle}
           </Typography>
-          {!editMode && checkRoleExists() ? (
-            <StyledButtonLayout>
-              <Button
+
+          <StyledButtonLayout>
+            {!editMode && allowEdit ? (
+              <StyleButton
                 onClick={() => {
                   handleEditMode(true);
                   handleFormType("edit");
@@ -57,9 +59,17 @@ export const FormHeader = ({
                 endIcon={<EditIcon />}
               >
                 Edit
-              </Button>
-            </StyledButtonLayout>
-          ) : null}
+              </StyleButton>
+            ) : null}
+            <StyleButton
+              onClick={() => {
+                if (undefined !== handleClose) {
+                  handleClose();
+                }
+              }}
+              endIcon={<HighlightOffIcon />}
+            ></StyleButton>
+          </StyledButtonLayout>
         </Toolbar>
       </StyledAppBar>
     </div>

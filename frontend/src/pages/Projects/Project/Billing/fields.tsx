@@ -44,37 +44,35 @@ export const readFields = (reactQuery: UseQueryResult<FormikValues>) => {
  * @returns {Array}
  */
 export const editFields: IEditFields[] = [
-    {
-      fieldName: "jv_number",
-      fieldLabel: "Journal Voucher Number",
-      fieldType: "singleText",
-      width: "full",
-    },
-    {
-      fieldName: "billed_date",
-      fieldLabel: "Billed Date",
-      fieldType: "date",
-      width: "full",
-    },
-    {
-      fieldName: "amount",
-      fieldLabel: "Amount",
-      fieldType: "singleText",
-      width: "full",
-    },
-    {
-      fieldName: "fiscal_year_id",
-      fieldLabel: "Fiscal Year",
-      fieldType: "select",
-      tableName: "jv",
-      width: "half",
-    },
-    {
-      fieldName: "quarter",
-      fieldLabel: "Quarter",
-      fieldType: "singleText",
-      width: "full",
-    },
-    
-  ];
-
+  {
+    fieldName: "jv_number",
+    fieldLabel: "Journal Voucher Number",
+    fieldType: "singleText",
+    width: "full",
+  },
+  {
+    fieldName: "billed_date",
+    fieldLabel: "Billed Date",
+    fieldType: "date",
+    width: "full",
+  },
+  {
+    fieldName: "amount",
+    fieldLabel: "Amount",
+    fieldType: "singleText",
+    width: "full",
+  },
+  {
+    fieldName: "fiscal_year_id",
+    fieldLabel: "Fiscal Year",
+    fieldType: "select",
+    tableName: "jv",
+    width: "half",
+  },
+  {
+    fieldName: "quarter",
+    fieldLabel: "Quarter",
+    fieldType: "singleText",
+    width: "full",
+  },
+];
