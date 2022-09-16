@@ -54,7 +54,7 @@ export const useAxios = () => {
     }
   };
 
-  const axiosAll = async () => {
+  const axiosAll = () => {
     /**
      * handleApiUrl formulates the api url based on the environment (local or cloud).
      *

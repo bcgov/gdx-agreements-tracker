@@ -1,15 +1,17 @@
 import { useKeycloak } from "@react-keycloak/web";
 import { useEffect, useState } from "react";
 import { ICurrentUser } from "types";
-import { apiAxios } from "utils";
+import { useAxios } from "./useAxios";
 
 const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { email: string } }) => {
   const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(null);
 
+  const { axiosAll } = useAxios();
+
   const handleCurrentUser = async () => {
     if (keycloak.authenticated) {
       if (!currentUser) {
-        await apiAxios()
+        await axiosAll()
           .post(`users/email`, { email: keycloak.tokenParsed.email })
           .then((user) => {
             setCurrentUser(user.data.data);
@@ -32,7 +34,7 @@ const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { ema
   // const [currentUser, setCurrentUser] = useState(undefined);
 
   // const handleCurrentUser = async () => {
-  //   const currentUser = await apiAxios()
+  //   const currentUser = await axiosAll()
   //     .post(`users/email`, { email: keycloak.tokenParsed.email })
   //     .then((user) => {
   //       return user.data.data;

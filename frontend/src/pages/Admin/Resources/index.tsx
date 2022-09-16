@@ -6,7 +6,6 @@ import { Renderer } from "components/Renderer";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { useFormControls } from "hooks/useFormControls";
 import { GDXModal } from "components/GDXModal";
-import { apiAxios } from "utils";
 import { useQuery } from "react-query";
 import { ReadForm } from "components/ReadForm";
 import { EditForm } from "components/EditForm";
@@ -14,8 +13,11 @@ import { Box, Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
 import { editFields } from "./editFields";
 import { readFields } from "./readFields";
+import { useAxios } from "hooks/useAxios";
 
 export const Resources: FC = () => {
+  const { axiosAll } = useAxios();
+
   const {
     handleEditMode,
     handleOpen,
@@ -44,7 +46,7 @@ export const Resources: FC = () => {
   const getResources = async () => {
     let data = null;
     if (currentRowData?.id) {
-      const resources = await apiAxios().get(`/resources/${currentRowData?.id}`);
+      const resources = await axiosAll().get(`/resources/${currentRowData?.id}`);
       data = resources.data.data;
     }
     return data;

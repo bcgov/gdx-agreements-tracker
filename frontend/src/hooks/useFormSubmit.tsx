@@ -2,7 +2,7 @@ import { Snackbar, Alert, AlertColor } from "@mui/material";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { IUseFormSubmitHandlePost, IUseFormSubmitHandleSubmit } from "../types";
-import { apiAxios } from "../utils";
+import { useAxios } from "./useAxios";
 
 /**
  *
@@ -13,6 +13,8 @@ export const useFormSubmit = () => {
   const [showSnackBar, setShowSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState<AlertColor | undefined>("success");
+
+  const { axiosAll } = useAxios();
 
   const queryClient = useQueryClient();
 
@@ -57,7 +59,7 @@ export const useFormSubmit = () => {
         }
       }
     }
-    await apiAxios()
+    await axiosAll()
       .put(apiUrl, deltaChanges)
       .then(() => {
         handleSnackBarMessage(successMessage as string);
@@ -97,7 +99,7 @@ export const useFormSubmit = () => {
         formattedValues[key] = null;
       }
     }
-    await apiAxios()
+    await axiosAll()
       .post(apiUrl, formattedValues)
       .then(() => {
         handleSnackBarMessage(successMessage as string);

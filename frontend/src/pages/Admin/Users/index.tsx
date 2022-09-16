@@ -4,7 +4,6 @@ import { useFormatTableData } from "../../../hooks/";
 import { useFormControls } from "hooks/useFormControls";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { Table } from "../../../components";
-import { apiAxios } from "utils";
 import { useQuery } from "react-query";
 import { Renderer } from "components/Renderer";
 import { ReadForm } from "components/ReadForm";
@@ -13,8 +12,11 @@ import { Box, Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
 import { GDXModal } from "components/GDXModal";
 import { editFields, readFields } from "./fields";
+import { useAxios } from "hooks/useAxios";
 
 export const Users: FC = () => {
+  const { axiosAll } = useAxios();
+
   const {
     handleEditMode,
     handleOpen,
@@ -42,7 +44,7 @@ export const Users: FC = () => {
   const getUsers = async () => {
     let data = null;
     if (currentRowData?.id) {
-      const users = await apiAxios().get(`/users/${currentRowData?.id}`);
+      const users = await axiosAll().get(`/users/${currentRowData?.id}`);
       data = users.data.data;
     }
     return data;

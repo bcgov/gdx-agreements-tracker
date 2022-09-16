@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { Renderer } from "components/Renderer";
 import { useFormControls } from "hooks/useFormControls";
 import { GDXModal } from "components/GDXModal";
-import { apiAxios } from "utils";
 import { useQuery, UseQueryResult } from "react-query";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
@@ -14,6 +13,7 @@ import { FormikValues } from "formik";
 import { Box, Button } from "@mui/material";
 import { Table } from "components/Table";
 import { useFormatTableData } from "hooks";
+import { useAxios } from "hooks/useAxios";
 /**
  * The Amendments page
  *
@@ -21,6 +21,8 @@ import { useFormatTableData } from "hooks";
  */
 
 export const Amendments: FC = (): JSX.Element => {
+  const { axiosAll } = useAxios();
+
   /**
    *
    * useFormControls is a hook that handles all functionality for a form.
@@ -82,7 +84,7 @@ export const Amendments: FC = (): JSX.Element => {
    */
 
   const getAmendment = async () => {
-    const amendment = await apiAxios().get(
+    const amendment = await axiosAll().get(
       `contracts/${contractId}/amendments/${currentRowData?.id}`
     );
     return amendment.data.data;

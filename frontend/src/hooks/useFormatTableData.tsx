@@ -1,4 +1,3 @@
-import { apiAxios } from "../utils";
 import { useQuery } from "react-query";
 import { ITableData } from "../types";
 import { Button } from "@mui/material";

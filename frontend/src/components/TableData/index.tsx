@@ -6,13 +6,13 @@ import { useFormControls } from "hooks/useFormControls";
 import { useFormatTableData } from "hooks";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { GDXModal } from "components/GDXModal";
-import { apiAxios } from "utils";
 import { useQuery, UseQueryResult } from "react-query";
 import { FormikValues } from "formik";
 import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
 import { IEditFields } from "types";
+import { useAxios } from "hooks/useAxios";
 
 /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
 // todo: Define a good type. "Any" type temporarily permitted.
@@ -54,6 +54,8 @@ export const TableData = ({
 
   const [userCapabilities, setUserCapabilities] = useState<string[]>([]);
 
+  const { axiosAll } = useAxios();
+
   /**
    * returns destructured props from the useFormatTableData hook.
    *
@@ -81,7 +83,7 @@ export const TableData = ({
   const getApiData = async () => {
     const apiUrl = getOneApiUrl(currentRowData?.id);
     if (currentRowData?.id && apiUrl) {
-      const apiData = await apiAxios().get(apiUrl);
+      const apiData = await axiosAll().get(apiUrl);
       return apiData.data.data;
     }
   };

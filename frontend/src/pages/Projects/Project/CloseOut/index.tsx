@@ -2,22 +2,24 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { EditForm } from "components/EditForm";
 import { ReadForm } from "components/ReadForm";
 import { Renderer } from "components/Renderer";
+import { useAxios } from "hooks/useAxios";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { apiAxios } from "utils";
 import { editFields, readFields } from "./fields";
 import { Notify } from "./Notify";
 
 export const CloseOut = () => {
+  const { axiosAll } = useAxios();
+
   const { projectId } = useParams();
   const [editMode, setEditMode] = useState(false);
   const [userHasEditCapability, setEditCapability] = useState(false);
   const { handleUpdate, Notification } = useFormSubmit();
 
   const getProject = async () => {
-    const project = await apiAxios().get(`projects/${projectId}/close-out`);
+    const project = await axiosAll().get(`projects/${projectId}/close-out`);
     if (project?.data) {
       return project.data;
     }
