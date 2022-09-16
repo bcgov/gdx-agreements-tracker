@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
-export const PageNotFound = () => {
+export const Unauthorized = () => {
   const StyledLine = styled("div")(() => ({
     margin: "0 50px",
     height: "200px",
@@ -19,12 +19,12 @@ export const PageNotFound = () => {
 
   return (
     <Test>
-      <h2>404</h2>
+      <h2>401</h2>
       <StyledLine />
-      <h3>Page Not Found</h3>
+      <h3>You are unauthorized to view this page</h3>
       <Outlet />
     </Test>
   );
 };
 
-export default PageNotFound;
+export default Unauthorized;

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 import { Loader } from "../components/Loader";
 
@@ -30,6 +30,7 @@ export const AuthorizedRoute = ({
   allowedRoles: [string];
   isPMOSysAdmin?: boolean;
 }) => {
+  const navigate = useNavigate();
   const { initialized, keycloak } = useKeycloak();
   const location = useLocation();
 
@@ -38,7 +39,7 @@ export const AuthorizedRoute = ({
       allowedRoles.includes(currentUserRole) || isPMOSysAdmin ? (
         <Outlet />
       ) : (
-        <div>unauthorized</div>
+        <Navigate to={`/unauthorized`} />
       )
     ) : (
       <Navigate to={`/login?redirect=${location.pathname}`} />
