@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { ITableData } from "../types";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import React from "react";
 
 /**
@@ -29,6 +30,7 @@ export const formatTableColumns = (
             <Button
               variant="contained"
               color="primary"
+              endIcon={<RemoveRedEyeIcon />}
               onClick={
                 // If the handleClick function does not exist, render a Button else render the link component
                 !handleClick
@@ -41,9 +43,7 @@ export const formatTableColumns = (
               component={!handleClick ? Link : Button}
               // If the handlClick function does not exist, apply to property else apply undefined
               to={!handleClick ? `/${tableName}/${cellValues.id}` : undefined}
-            >
-              View
-            </Button>
+            ></Button>
           );
         },
       },
@@ -62,7 +62,7 @@ export const formatTableColumns = (
       });
     });
 
-    resolve({ columns: formattedColumns, rows: tableData.data.data });
+    resolve({ columns: formattedColumns, rows: tableData.data.data, user: tableData.data?.user });
   });
 };
 

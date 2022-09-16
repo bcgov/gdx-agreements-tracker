@@ -40,7 +40,10 @@ export interface IColumn {
 }
 
 export interface ITableData {
-  data: { data: Array<Object> };
+  data: {
+    data: Array<Object>;
+    user: Array<Object>;
+  };
 }
 
 //Declartion that adds custom types to material ui predefined interfaces

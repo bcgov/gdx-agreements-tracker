@@ -10,13 +10,14 @@ const body = S.object()
   .prop("fiscal_year_id", Schema.Id)
   .prop("client_coding_id", Schema.Id);
 
+const responseSingleBody = body.prop("fiscal_year_id", Schema.Picker);
 const getAll = {
   response: getResponse(S.array().items(body)),
 };
 
 const getOne = {
   params: Schema.IdParam,
-  response: getResponse(body),
+  response: getResponse(responseSingleBody),
 };
 
 const updateOne = {
