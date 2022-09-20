@@ -7,7 +7,7 @@ const routes = [
     url: `/ches/health`,
     // schema: validators.getAll,
     handler: controller.getHealth,
-  } 
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {

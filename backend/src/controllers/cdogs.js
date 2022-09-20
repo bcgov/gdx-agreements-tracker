@@ -1,4 +1,4 @@
-const useCommonComponents = require("./useCommonComponents/index.js")
+const useCommonComponents = require("./useCommonComponents/index.js");
 
 /**
  * Get health of CDOGS
@@ -7,6 +7,6 @@ const useCommonComponents = require("./useCommonComponents/index.js")
  * @returns {object}
  */
 
-const controller = useCommonComponents("/api/v2","cdogs");
+const controller = useCommonComponents("/api/v2", "cdogs");
 
 module.exports = controller;
