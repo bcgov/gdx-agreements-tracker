@@ -1,5 +1,14 @@
 ## Developer Changelog
 
+### September 20, 2022 (DESCW-586) CDOGS CHES
+- Backend
+  - CDOGS and CHES functionality
+  - Files added:
+    - backend/src/controllers/useCommonComponents/index.js
+    - backend/src/controllers/cdogs.js
+    - backend/src/controllers/ches.js
+    - backend/src/routes/ches.js
+    - backend/src/routes/cdogs.js
 ### September 15, 2022 (DESCW-568) Glossary
 - Backend
   - Added fastify-markdown plugin to package.json

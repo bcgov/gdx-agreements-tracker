@@ -1,4 +1,4 @@
-const useCommonComponents = require("./useCommonComponents/index.js")
+const useCommonComponents = require("./useCommonComponents/index.js");
 /**
  * Get health of CHES
  *
@@ -6,7 +6,6 @@ const useCommonComponents = require("./useCommonComponents/index.js")
  * @returns {object}
  */
 
- const controller = useCommonComponents("/api/v1","ches");
+const controller = useCommonComponents("/api/v1", "ches");
 
- module.exports = controller;
- 
+module.exports = controller;
