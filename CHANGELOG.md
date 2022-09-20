@@ -16,12 +16,7 @@
 - Frontend
   - Added role base routing
   - Add API error handling
-  
 ### September 15, 2022 (DESCW-568)(DESCW-574) Glossary
-- Frontend
-  - Adding role check
-  - Updating TableData
-
 - Backend
   - Added fastify-markdown plugin to package.json
     - `npm i`
@@ -29,6 +24,8 @@
   - Created glossary markdown file
 - Frontend
   - Created Glossary page component and routing
+  - Adding role check
+  - Updating TableData
 
 ### September 14, 2022 (DESCW-574)
 - Backend
