@@ -39,7 +39,8 @@
     "n-readlines": "^1.0.1",
     "pg": "^8.7.1",
     "pino": "^7.6.0",
-    "pino-pretty": "^9.1.0"
+    "pino-pretty": "^9.1.0",
+    "simple-oauth2": "^4.3.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.22.0",
