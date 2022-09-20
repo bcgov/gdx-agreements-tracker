@@ -36,7 +36,9 @@ export const GDXModal = ({
   const StyledContentBox = styled(Box)({
     padding: "20px",
   });
-
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: Remove the `|| true` from the allowEdit once all Modals are converted to use the `TableData` component otherwise
+  // those items won't be editable.
   return (
     <>
       <Modal
@@ -50,7 +52,7 @@ export const GDXModal = ({
             formTitle={modalTitle}
             handleEditMode={handleEditMode}
             editMode={editMode}
-            allowEdit={allowEdit || false}
+            allowEdit={allowEdit || true}
             handleFormType={handleFormType}
             handleClose={handleClose}
           />

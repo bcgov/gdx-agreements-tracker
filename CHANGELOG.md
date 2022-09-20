@@ -1,4 +1,7 @@
 ## Developer Changelog
+### September 20, 2022 (DESCW-613) 
+- Frontend
+  - Fix model edit button not showing up, with convert to new TableData component
 ### September 16, 2022 (DESCW-566) Role Base Routing
 - Backend 
   - Added Api to get current user
