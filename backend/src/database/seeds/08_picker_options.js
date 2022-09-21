@@ -70,13 +70,6 @@ exports.seed = function (knex) {
       associated_form: tables.contracts,
     },
     {
-      name: "project_status",
-      title: "Status",
-      description: "The status of a project.",
-      definition: { dropDownValues: projectStatus },
-      associated_form: tables.projects,
-    },
-    {
       name: "classification",
       title: "Classification",
       description: "The classification type of the project.",
