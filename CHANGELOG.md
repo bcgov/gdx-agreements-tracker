@@ -1,4 +1,8 @@
 ## Developer Changelog
+### September 21, 2022 ([DESCW-590](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-590))
+- Bump knex version to 2.0.3
+- Backend
+  - Update role capabilities and users roles seeds to reflect that operations now always return an object: [Upgrading knex to version 1.0.0](https://github.com/knex/knex/blob/master/UPGRADING.md#upgrading-to-version-100)
 ### September 20, 2022 (DESCW-613) (DESCW-586) CDOGS CHES
 - Backend
   - CDOGS and CHES functionality
