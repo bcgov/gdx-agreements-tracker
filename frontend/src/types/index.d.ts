@@ -90,6 +90,11 @@ export interface IPickerProps {
   };
 }
 
+// Picker options for multiselect inputs.
+export interface IMultiPickerProps extends Omit<IPickerProps, "fieldValue"> {
+  fieldValue: IOption[];
+}
+
 //checkbox types
 export interface ICheckboxProps {
   onChange: Function;
@@ -200,7 +205,15 @@ export interface IUseFormSubmitHandlePost {
 
 export interface IEditFields {
   fieldName: string;
-  fieldType: "select" | "date" | "singleText" | "multiText" | "checkbox" | "number";
+  fieldType:
+    | "select"
+    | "multiselect"
+    | "date"
+    | "singleText"
+    | "multiText"
+    | "checkbox"
+    | "number"
+    | "readonly";
   fieldLabel: string;
   width: "half" | "full";
   tableName?: string;

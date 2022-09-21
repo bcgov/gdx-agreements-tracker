@@ -4,9 +4,10 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Field } from "formik";
 import React, { ChangeEvent } from "react";
 import { usePickerValues } from "../../hooks";
-import { GDXCheckbox, GDXSelect } from "../GDXForm";
+import { GDXCheckbox, GDXSelect, GDXMultiselect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 import { IOption } from "../../types";
+import { ReadField } from "components/ReadForm/ReadField";
 
 export const FormInput = ({
   setFieldValue,
@@ -19,9 +20,17 @@ export const FormInput = ({
   tableName,
 }: {
   setFieldValue?: Function;
-  fieldValue: string | number | boolean | IOption;
+  fieldValue: string | number | boolean | IOption | IOption[];
   fieldName: string;
-  fieldType: "date" | "singleText" | "multiText" | "select" | "number" | "checkbox";
+  fieldType:
+    | "date"
+    | "singleText"
+    | "multiText"
+    | "select"
+    | "multiselect"
+    | "number"
+    | "checkbox"
+    | "readonly";
   fieldLabel: string;
   handleChange?: Function | ChangeEvent<HTMLInputElement>;
   width: "half" | "full";
@@ -91,6 +100,17 @@ export const FormInput = ({
           />
         </GridItem>
       );
+    case "multiselect":
+      return (
+        <GridItem width={width}>
+          <GDXMultiselect
+            handleChange={handleChange as Function}
+            fieldValue={fieldValue as IOption[]}
+            setFieldValue={setFieldValue as Function}
+            pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
+          />
+        </GridItem>
+      );
     case "number":
       return (
         <GridItem width={width}>
@@ -122,5 +142,7 @@ export const FormInput = ({
           />
         </GridItem>
       );
+    case "readonly":
+      return <ReadField width={width} title={fieldLabel} value={fieldValue as string} />;
   }
 };

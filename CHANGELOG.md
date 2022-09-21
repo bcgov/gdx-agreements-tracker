@@ -1,8 +1,21 @@
 ## Developer Changelog
+
+### September 21, 2022 (DESCW-615) Contracts Frontend
+- Backend
+  - Created routes, controllers, models, validators for Contract and Contract Invoices (only GETs)
+  - Added picker options for Contract form
+    - `npx knex seed:run --specific=08_picker_options.js`
+- Frontend
+  - Created ContractDetailsSection and InvoiceSection page components
+  - Added routing for above
+  - Created GDXMultiselect reusable field component (allows multiple values to be selected in select input)
+  - Added support for "readonly" form inputs shown in some mockups
+
 ### September 21, 2022 ([DESCW-590](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-590))
 - Bump knex version to 2.0.3
 - Backend
   - Update role capabilities and users roles seeds to reflect that operations now always return an object: [Upgrading knex to version 1.0.0](https://github.com/knex/knex/blob/master/UPGRADING.md#upgrading-to-version-100)
+
 ### September 20, 2022 (DESCW-613) (DESCW-586) CDOGS CHES
 - Backend
   - CDOGS and CHES functionality
@@ -14,12 +27,14 @@
     - backend/src/routes/cdogs.js
 - Frontend
   - Fix model edit button not showing up, with convert to new TableData component
+
 ### September 16, 2022 (DESCW-566) Role Base Routing
 - Backend 
   - Added Api to get current user
 - Frontend
   - Added role base routing
   - Add API error handling
+
 ### September 15, 2022 (DESCW-568)(DESCW-574) Glossary
 - Backend
   - Added fastify-markdown plugin to package.json

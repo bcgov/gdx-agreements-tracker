@@ -2,6 +2,8 @@ const {
   yesNoOptions,
   classification,
   agreementType,
+  contractStatus,
+  contractType,
   projectStatus,
   projectType,
   projectFunding,
@@ -14,6 +16,7 @@ exports.seed = function (knex) {
     projects: "project",
     generic: "generic",
     change_request: "change_request",
+    contracts: "contracts",
     subcontractor: "subcontractor",
     supplier: "supplier",
     resource: "resource",
@@ -58,6 +61,13 @@ exports.seed = function (knex) {
       description: "Contract evaluation completed if applicable.",
       definition: { dropDownValues: yesNoOptions },
       associated_form: tables.projects,
+    },
+    {
+      name: "contract_type",
+      title: "Contract Type",
+      description: "The type of contract.",
+      definition: { dropDownValues: contractType },
+      associated_form: tables.contracts,
     },
     {
       name: "contractor_security_terminated",
@@ -124,6 +134,20 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
+      name: "procurement_method",
+      title: "Procurement Method",
+      description: "The procurement method used for the contract.",
+      definition: { tableLookup: "procurement_method" },
+      associated_form: tables.contracts,
+    },
+    {
+      name: "project_id",
+      title: "Project Number",
+      description: "The project the contract belongs to.",
+      definition: { tableLookup: "project" },
+      associated_form: tables.contracts,
+    },
+    {
       name: "project_status",
       title: "Status",
       description: "The status of a project.",
@@ -152,7 +176,6 @@ exports.seed = function (knex) {
       definition: { dropDownValues: projectRecoverable },
       associated_form: tables.projects,
     },
-
     {
       name: "records_filed",
       title: "Records Filed",
@@ -160,7 +183,13 @@ exports.seed = function (knex) {
       definition: { dropDownValues: yesNoOptions },
       associated_form: tables.projects,
     },
-
+    {
+      name: "status",
+      title: "Status",
+      description: "The status of a contract.",
+      definition: { dropDownValues: contractStatus },
+      associated_form: tables.contracts,
+    },
     {
       name: "subcontractor_id",
       title: "Subcontractor",
