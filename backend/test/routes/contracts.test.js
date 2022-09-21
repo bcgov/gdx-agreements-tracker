@@ -19,5 +19,5 @@ testRoutes([
     modelFunction: [model.findById, subcontractorModel.findByContractId],
     capabilities: capability,
     type: routeTypes.Specific,
-  }
+  },
 ]);
