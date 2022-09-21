@@ -20,7 +20,7 @@ const getAll = {
 
 const getOne = {
   params: Schema.IdParam,
-  response: getResponse(body),
+  //response: getResponse(body),
 };
 
 module.exports = {

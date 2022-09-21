@@ -81,6 +81,58 @@ const agreementType = [
 ];
 
 /**
+ * The contract status.
+ */
+const contractStatus = [
+  {
+    value: "Active",
+    label: "Active",
+  },
+  {
+    value: "Draft",
+    label: "Draft",
+  },
+  {
+    value: "Sent",
+    label: "Sent",
+  },
+  {
+    value: "Cancelled",
+    label: "Cancelled",
+  },
+  {
+    value: "Complete",
+    label: "Complete",
+  },
+];
+
+/**
+ * The contract type.
+ */
+const contractType = [
+  {
+    value: "ChangeOrder",
+    label: "Change Order",
+  },
+  {
+    value: "General Service Agreement",
+    label: "General Service Agreement",
+  },
+  {
+    value: "IT General Service Agreement",
+    label: "IT General Service Agreement",
+  },
+  {
+    value: "StandingOffer",
+    label: "Standing Offer",
+  },
+  {
+    value: "Agile Service Agreement",
+    label: "Agile Service Agreement",
+  },
+];
+
+/**
  * The project status.
  */
 const projectStatus = [
@@ -170,6 +222,8 @@ module.exports = {
   yesNoOptions,
   classification,
   agreementType,
+  contractStatus,
+  contractType,
   projectStatus,
   projectType,
   projectFunding,
