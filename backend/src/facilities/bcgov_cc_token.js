@@ -4,7 +4,7 @@ const chesApi = process.env.COMMON_COMPONENT_CHES_API;
 const cdogsApi = process.env.COMMON_COMPONENT_CDOGS_API;
 const config = {
   client: {
-    id: process.env.COMMON_COMPONENT_ID,
+    id: process.env.COMMON_COMPONENT_CLIENT_ID,
     secret: process.env.COMMON_COMPONENT_SECRET,
   },
   auth: {
