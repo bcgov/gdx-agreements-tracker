@@ -54,7 +54,8 @@ If using the docker-compose.yml file to develop locally, you'll need to populate
 
 ### The .env file settings
 ```JWKSURI= #The JSON Web Key Set (keycloak ) endpoint https://mykeycloak.com/realms/my-realm/protocol/openid-connect/certs```
-
+ - There is an up to date sample.env file here backend/sample.env
+    - Refer here: for the variable values: https://console.apps.silver.devops.gov.bc.ca/k8s/ns/acd38d-dev/configmaps/0-gdx-agreements-tracker-api-env-config/yaml
 ### Folder structure
 .content comming soon.
 
@@ -76,3 +77,6 @@ The four files created are:
 * backend/src/validators/{API Name}
 
 Once these files are created, you should have a working API at the url (locally) http://localhost:8080/{API Name}
+
+
+

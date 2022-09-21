@@ -1,5 +1,13 @@
 ## Developer Changelog
-### September 20, 2022 (DESCW-613) 
+### September 20, 2022 (DESCW-613) (DESCW-586) CDOGS CHES
+- Backend
+  - CDOGS and CHES functionality
+  - Files added:
+    - backend/src/controllers/useCommonComponents/index.js
+    - backend/src/controllers/cdogs.js
+    - backend/src/controllers/ches.js
+    - backend/src/routes/ches.js
+    - backend/src/routes/cdogs.js
 - Frontend
   - Fix model edit button not showing up, with convert to new TableData component
 ### September 16, 2022 (DESCW-566) Role Base Routing
@@ -8,12 +16,7 @@
 - Frontend
   - Added role base routing
   - Add API error handling
-### September 15, 2022 (DESCW-574)
-- Frontend
-  - Adding role check
-  - Updating TableData
-  
-### September 15, 2022 (DESCW-568) Glossary
+### September 15, 2022 (DESCW-568)(DESCW-574) Glossary
 - Backend
   - Added fastify-markdown plugin to package.json
     - `npm i`
@@ -21,6 +24,8 @@
   - Created glossary markdown file
 - Frontend
   - Created Glossary page component and routing
+  - Adding role check
+  - Updating TableData
 
 ### September 14, 2022 (DESCW-574)
 - Backend
