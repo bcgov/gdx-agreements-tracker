@@ -57,7 +57,7 @@ exports.seed = function (knex) {
               return knex("role_capabilities").insert(
                 // Use the key-value pairs from above to resolve the array of strings to IDs for the roles_capabilities table.
                 role.capabilities.map((capabilityName) => ({
-                  role_id: id[0],
+                  role_id: id[0].id,
                   capability_id: capabilities[capabilityName],
                 })) // map (role.capabilities)
               ); // insert (role_capabilities)
