@@ -32,7 +32,7 @@ export const ProjectDetails = () => {
 
   useEffect(() => {
     const user = projectQuery?.data?.user;
-    setEditCapability(user && user.capabilities.includes("projects_update_all"));
+    setEditCapability(user && user.capabilities.includes("projects_update_one"));
   }, [projectQuery]);
 
   return (

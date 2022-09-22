@@ -1,13 +1,13 @@
+import React from "react";
 import { FormControlLabel, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Field } from "formik";
-import React, { ChangeEvent } from "react";
 import { usePickerValues } from "../../hooks";
 import { GDXCheckbox, GDXSelect, GDXMultiselect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
-import { IOption } from "../../types";
 import { ReadField } from "components/ReadForm/ReadField";
+import { IOption, IFormInput } from "../../types";
 
 export const FormInput = ({
   setFieldValue,
@@ -18,27 +18,12 @@ export const FormInput = ({
   handleChange,
   width,
   tableName,
-}: {
-  setFieldValue?: Function;
-  fieldValue: string | number | boolean | IOption | IOption[];
-  fieldName: string;
-  fieldType:
-    | "date"
-    | "singleText"
-    | "multiText"
-    | "select"
-    | "multiselect"
-    | "number"
-    | "checkbox"
-    | "readonly";
-  fieldLabel: string;
-  handleChange?: Function | ChangeEvent<HTMLInputElement>;
-  width: "half" | "full";
-  tableName?: string;
-}) => {
+  projectId,
+}: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pickerValues: any = usePickerValues();
+  const pickerValues: any = usePickerValues(projectId);
+
   switch (fieldType) {
     case "date":
       return (
@@ -57,6 +42,20 @@ export const FormInput = ({
               role={`${fieldName}_input`}
             />
           </LocalizationProvider>
+        </GridItem>
+      );
+    case "hidden":
+      return (
+        <GridItem width={"0"}>
+          <Field
+            fullWidth={false}
+            as={TextField}
+            name={fieldName}
+            onChange={handleChange}
+            type={"hidden"}
+            id={fieldName}
+            role={`${fieldName}_input`}
+          />
         </GridItem>
       );
     case "singleText":

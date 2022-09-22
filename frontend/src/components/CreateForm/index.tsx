@@ -32,21 +32,24 @@ export const CreateForm = ({
         return (
           <Form>
             <FormLayout>
-              {editFields.map(({ fieldName, fieldType, fieldLabel, width, tableName }) => {
-                return (
-                  <FormInput
-                    setFieldValue={setFieldValue}
-                    fieldValue={values?.[fieldName]}
-                    fieldName={fieldName}
-                    fieldType={fieldType}
-                    fieldLabel={fieldLabel}
-                    handleChange={handleChange}
-                    width={width}
-                    key={fieldName}
-                    tableName={tableName}
-                  />
-                );
-              })}
+              {editFields.map(
+                ({ fieldName, fieldType, fieldLabel, width, tableName, projectId }) => {
+                  return (
+                    <FormInput
+                      setFieldValue={setFieldValue}
+                      fieldValue={values?.[fieldName]}
+                      fieldName={fieldName}
+                      fieldType={fieldType}
+                      fieldLabel={fieldLabel}
+                      handleChange={handleChange}
+                      width={width}
+                      key={fieldName}
+                      tableName={tableName}
+                      projectId={projectId}
+                    />
+                  );
+                }
+              )}
             </FormLayout>
             <Box
               m={1}

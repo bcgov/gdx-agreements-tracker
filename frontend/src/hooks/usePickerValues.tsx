@@ -33,12 +33,12 @@ export const formatPickerOptions = (tableData: IPickerTableData) => {
   });
 };
 
-export const usePickerValues = () => {
+export const usePickerValues = (projectId: number | undefined) => {
   const { axiosAll } = useAxios();
-
+  const url = projectId ? `picker_options/project/${projectId}` : `picker_options`;
   const getTableData = async () => {
     const allPickers = await axiosAll()
-      .get("picker_options")
+      .get(url)
       .then((tableData) => {
         return formatPickerOptions(tableData);
       });
@@ -46,7 +46,7 @@ export const usePickerValues = () => {
   };
 
   // Queries
-  const { data, isLoading } = useQuery("picker_options", getTableData, {
+  const { data, isLoading } = useQuery(url, getTableData, {
     // todo: When there is an edit and view form built, reassess these options.
     refetchOnWindowFocus: false,
     retryOnMount: false,

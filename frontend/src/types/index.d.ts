@@ -1,4 +1,5 @@
 import { GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { ChangeEvent } from "react";
 
 // Data Structures
 export interface IUser {
@@ -202,21 +203,39 @@ export interface IUseFormSubmitHandlePost {
   errorMessage?: string;
   handleClose: Function;
 }
+export type IEditFieldsFieldType =
+  | "select"
+  | "multiselect"
+  | "date"
+  | "singleText"
+  | "multiText"
+  | "checkbox"
+  | "number"
+  | "readonly"
+  | "hidden";
 
 export interface IEditFields {
   fieldName: string;
-  fieldType:
-    | "select"
-    | "multiselect"
-    | "date"
-    | "singleText"
-    | "multiText"
-    | "checkbox"
-    | "number"
-    | "readonly";
+  fieldType: IEditFieldsFieldType;
   fieldLabel: string;
   width: "half" | "full";
   tableName?: string;
+  projectId?: number | undefined;
+}
+
+/**
+ * Used for FormInput component.
+ */
+export interface IFormInput {
+  setFieldValue?: Function;
+  fieldValue: string | number | boolean | IOption;
+  fieldName: string;
+  fieldType: IEditFieldsFieldType;
+  fieldLabel: string;
+  handleChange?: Function | ChangeEvent<HTMLInputElement>;
+  width: "half" | "full";
+  tableName?: string;
+  projectId?: number | undefined;
 }
 
 export interface IRadioGroup {

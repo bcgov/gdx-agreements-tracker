@@ -11,7 +11,6 @@ import { FormikValues } from "formik";
 import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
-import { IEditFields } from "types";
 import { useAxios } from "hooks/useAxios";
 
 /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
@@ -19,24 +18,32 @@ import { useAxios } from "hooks/useAxios";
 export const TableData = ({
   itemName,
   tableName,
-  getOneUrl,
-  getAllUrl,
+  url,
+
   createFormInitialValues,
   readFields,
   editFields,
   roles,
+  projectId,
 }: {
   itemName: string;
   tableName: string;
-  getOneUrl: string;
-  getAllUrl: string;
+  url: {
+    getAll: string;
+    getOne: string;
+    updateOne: string;
+    addOne: string;
+    deleteOne?: string;
+  };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createFormInitialValues: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readFields: any;
-  editFields: IEditFields[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  editFields: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   roles: any;
+  projectId?: number | undefined;
 }) => {
   const {
     handleEditMode,
@@ -67,7 +74,7 @@ export const TableData = ({
 
   const { data, isLoading } = useFormatTableData({
     tableName: tableName,
-    apiEndPoint: getAllUrl,
+    apiEndPoint: url.getAll,
     handleClick: handleOpen,
   });
 
@@ -81,7 +88,7 @@ export const TableData = ({
    * @returns {object} An object that contains the data from the table it's querying.
    */
   const getApiData = async () => {
-    const apiUrl = getOneApiUrl(currentRowData?.id);
+    const apiUrl = getApiUrl(url.getOne, currentRowData?.id);
     if (currentRowData?.id && apiUrl) {
       const apiData = await axiosAll().get(apiUrl);
       return apiData.data.data;
@@ -91,12 +98,13 @@ export const TableData = ({
   /**
    * Get the url for a getOne item.
    *
-   * @param   {number|undefined} id The current id, used to create the url.
+   * @param   {string}           url The raw url, that might need to be converted to replace id with current id.
+   * @param   {number|undefined} id  The current id, used to create the url.
    * @returns {string}
    */
-  const getOneApiUrl = (id: number | undefined) => {
+  const getApiUrl = (url: string, id: number | undefined) => {
     if (undefined !== id) {
-      return getOneUrl.replace(/{id}/g, id.toString());
+      return url.replace(/{id}/g, id.toString());
     }
     return "";
   };
@@ -118,7 +126,7 @@ export const TableData = ({
    */
   // Queries
   const reactQuery: UseQueryResult<FormikValues> = useQuery(
-    getOneApiUrl(currentRowData?.id),
+    getApiUrl(url.getOne, currentRowData?.id),
     getApiData,
     {
       refetchOnWindowFocus: false,
@@ -181,15 +189,15 @@ export const TableData = ({
                   onSubmit={async (values: any) => {
                     return handlePost({
                       formValues: values,
-                      apiUrl: `/${tableName}`,
+                      apiUrl: url.addOne,
                       handleEditMode: handleEditMode,
-                      queryKeys: [getAllUrl],
+                      queryKeys: [url.getAll],
                       successMessage: `Created successfully.`,
                       errorMessage: `There was an issue creating your item.`,
                       handleClose: handleClose,
                     });
                   }}
-                  editFields={editFields}
+                  editFields={editFields(projectId)}
                 />
               ) : (
                 <EditForm
@@ -198,14 +206,14 @@ export const TableData = ({
                     return handleUpdate({
                       changedValues: values,
                       currentRowData: reactQuery?.data,
-                      apiUrl: getOneApiUrl(reactQuery?.data?.id),
+                      apiUrl: getApiUrl(url.getOne, reactQuery?.data?.id),
                       handleEditMode: handleEditMode,
-                      queryKeys: [getAllUrl, getOneApiUrl(reactQuery?.data?.id)],
+                      queryKeys: [url.getAll, getApiUrl(url.getOne, reactQuery?.data?.id)],
                       successMessage: `Changes saved successfully.`,
                       errorMessage: `There was an issue saving.`,
                     });
                   }}
-                  editFields={editFields}
+                  editFields={editFields(projectId)}
                 />
               )}
             </>

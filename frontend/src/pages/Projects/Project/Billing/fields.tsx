@@ -35,44 +35,66 @@ export const readFields = (reactQuery: UseQueryResult<FormikValues>) => {
       title: "Quarter",
       value: reactQuery?.data?.quarter,
     },
+    {
+      width: "half",
+      title: "Program Area",
+      value: reactQuery?.data?.client_coding_id?.label,
+    },
   ];
 };
 
 /**
  * The edit fields.
  *
+ * @param   {number|undefined} projectId The project id, which allows for specific picker options to use only project related options.
  * @returns {Array}
  */
-export const editFields: IEditFields[] = [
-  {
-    fieldName: "jv_number",
-    fieldLabel: "Journal Voucher Number",
-    fieldType: "singleText",
-    width: "full",
-  },
-  {
-    fieldName: "billed_date",
-    fieldLabel: "Billed Date",
-    fieldType: "date",
-    width: "full",
-  },
-  {
-    fieldName: "amount",
-    fieldLabel: "Amount",
-    fieldType: "singleText",
-    width: "full",
-  },
-  {
-    fieldName: "fiscal_year_id",
-    fieldLabel: "Fiscal Year",
-    fieldType: "select",
-    tableName: "jv",
-    width: "half",
-  },
-  {
-    fieldName: "quarter",
-    fieldLabel: "Quarter",
-    fieldType: "singleText",
-    width: "full",
-  },
-];
+export const editFields: (projectId: number | undefined) => IEditFields[] = (projectId) => {
+  return [
+    {
+      fieldName: "jv_number",
+      fieldLabel: "Journal Voucher Number",
+      fieldType: "singleText",
+      width: "full",
+    },
+    {
+      fieldName: "billed_date",
+      fieldLabel: "Billed Date",
+      fieldType: "date",
+      width: "full",
+    },
+    {
+      fieldName: "amount",
+      fieldLabel: "Amount",
+      fieldType: "singleText",
+      width: "full",
+    },
+    {
+      fieldName: "fiscal_year_id",
+      fieldLabel: "Fiscal Year",
+      fieldType: "select",
+      tableName: "jv",
+      width: "half",
+    },
+    {
+      fieldName: "quarter",
+      fieldLabel: "Quarter",
+      fieldType: "number",
+      width: "half",
+    },
+    {
+      fieldName: "client_coding_id",
+      fieldLabel: "Program Area",
+      fieldType: "select",
+      tableName: "client_coding",
+      projectId: projectId,
+      width: "half",
+    },
+    {
+      fieldName: "project_id",
+      fieldLabel: "Project id",
+      fieldType: "hidden",
+      width: "half",
+    },
+  ];
+};
