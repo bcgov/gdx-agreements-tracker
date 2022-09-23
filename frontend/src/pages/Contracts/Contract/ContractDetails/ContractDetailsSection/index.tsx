@@ -56,7 +56,7 @@ export const ContractDetailsSection = ({
               errorMessage: `There was an issue saving your changes for contract ${contractId}`,
             });
           }}
-          editFields={editFields()}
+          editFields={editFields}
         />
       );
       break;

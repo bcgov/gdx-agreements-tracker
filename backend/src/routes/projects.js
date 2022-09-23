@@ -32,6 +32,29 @@ const routes = [
     url: `/${what}/:id/close-out/notify`,
     handler: controller.notifyCloseOut,
   },
+  {
+    method: "GET",
+    url: `/${what}/:id/lessons-learned`,
+    handler: controller.getLessonsLearned,
+  },
+  {
+    method: "GET",
+    url: `/${what}/:id/lessons-learned/:lessonsLearnedId`,
+    schema: validators.getLessonsLearnedById,
+    handler: controller.getLessonsLearnedById,
+  },
+  {
+    method: "PUT",
+    url: `/${what}/:id/lessons-learned/:lessonsLearnedId`,
+    schema: validators.updateOne,
+    handler: controller.updateLessonsLearnedById,
+  },
+  {
+    method: "POST",
+    url: `/lessons-learned`,
+    schema: validators.addOne,
+    handler: controller.addOne,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {

@@ -4,8 +4,8 @@ import React from "react";
 /**
  * This reusable component renders two pieces of text in one, title and value
  *
- * @param   {{title: string, value: string}}   An object with value and title
- * @returns {React.ReactElement}               A two piece text component
+ * @param   {{title: string, value: string}} An object with value and title
+ * @returns {React.ReactElement}                A two piece text component
  */
 export const TextDisplay = ({ title, value }: { title: string; value: string }) => {
   return (

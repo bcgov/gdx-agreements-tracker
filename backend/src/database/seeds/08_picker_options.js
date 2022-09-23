@@ -13,6 +13,7 @@ const {
 
 exports.seed = function (knex) {
   const tables = {
+    project_lesson: "project_lesson",
     projects: "project",
     generic: "generic",
     change_request: "change_request",
@@ -118,6 +119,13 @@ exports.seed = function (knex) {
       description: "Who the change request was initiated by",
       definition: { dropDownValues: initiatedBy },
       associated_form: tables.change_request,
+    },
+    {
+      name: "lesson_category_id",
+      title: "Category",
+      description: "Lessons Learned Category",
+      definition: { tableLookup: "lesson_category" },
+      associated_form: tables.project_lesson,
     },
     {
       name: "ministry_id",

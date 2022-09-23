@@ -1,13 +1,15 @@
 const dbConnection = require("../database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
 
-const table = `${dataBaseSchemas().data}.project`;
+const projectTable = `${dataBaseSchemas().data}.project`;
 const getFromView = `${dataBaseSchemas().data}.projects_with_json`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
+const lessonsLearned = `${dataBaseSchemas().data}.project_lesson`;
+const lessonCategory = `${dataBaseSchemas().data}.lesson_category`;
 
 // Get all.
 const findAll = () => {
-  return knex(table).select(
+  return knex(projectTable).select(
     "project_number",
     "project_name",
     "project_version",
@@ -36,12 +38,12 @@ const findById = (id) => {
 
 // Update one.
 const updateOne = (body, id) => {
-  return knex(table).where("id", id).update(body);
+  return knex(projectTable).where("id", id).update(body);
 };
 
 // Get close out data by project id.
 const findCloseOutById = (id) => {
-  return knex(`${table} as p`)
+  return knex(`${projectTable} as p`)
     .select(
       "p.id",
       "p.close_out_date",
@@ -84,9 +86,61 @@ const findCloseOutById = (id) => {
     .first();
 };
 
+// Get all lesson learned for specific project id.
+const findProjectLessonsLearned = (id) => {
+  return knex
+    .select(
+      "lc.lesson_category_name as category",
+      "pl.lesson_sub_category",
+      "pl.lesson",
+      "pl.recommendations",
+      "pl.id"
+    )
+    .from(`${lessonsLearned} as pl`)
+    .leftJoin(`${projectTable} as p`, { "pl.project_id": `p.id` })
+    .leftJoin(`${lessonCategory} as lc`, { "pl.lesson_category_id": `lc.id` })
+    .where("pl.project_id", id);
+};
+
+// Get all lesson learned for specific project id.
+const findLessonsLearnedById = (lessonsLearnedId) => {
+  return knex
+    .select(
+      knex.raw(`(
+          SELECT json_build_object(
+            'value', lc.id,
+            'label', lc.lesson_category_name
+          ) as lesson_category_id
+        )`),
+      "pl.lesson_sub_category",
+      "pl.lesson",
+      "pl.recommendations",
+      "pl.id"
+    )
+    .from(`${lessonsLearned} as pl`)
+    .leftJoin(`${projectTable} as p`, { "pl.project_id": `p.id` })
+    .leftJoin(`${lessonCategory} as lc`, { "pl.lesson_category_id": `lc.id` })
+    .where("pl.id", lessonsLearnedId)
+    .first();
+};
+
+// Update one.
+const updateOneProjectLessonsLearned = (body, lessonsLearnedId) => {
+  return knex(lessonsLearned).where("id", lessonsLearnedId).update(body);
+};
+
+// Add one.
+const addOne = (data) => {
+  return knex(lessonsLearned).insert(data);
+};
+
 module.exports = {
   findAll,
   findById,
   findCloseOutById,
+  findProjectLessonsLearned,
+  findLessonsLearnedById,
   updateOne,
+  updateOneProjectLessonsLearned,
+  addOne,
 };
