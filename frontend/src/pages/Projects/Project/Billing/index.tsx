@@ -48,8 +48,7 @@ export const Billing: FC = (): JSX.Element => {
         url={url}
         createFormInitialValues={initialValues}
         readFields={readFields}
-        editFields={editFields}
-        projectId={Number(projectId)}
+        editFields={editFields(Number(projectId))}
         roles={roles}
       />
     </>

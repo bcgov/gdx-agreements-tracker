@@ -211,8 +211,7 @@ export type IEditFieldsFieldType =
   | "multiText"
   | "checkbox"
   | "number"
-  | "readonly"
-  | "hidden";
+  | "readonly";
 
 export interface IEditFields {
   fieldName: string;

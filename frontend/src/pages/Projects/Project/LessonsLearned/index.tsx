@@ -24,6 +24,14 @@ export const LessonsLearned: FC = (): JSX.Element => {
     delete: "projects_delete_one",
   };
 
+  const url = {
+    getAll: `projects/${projectId}/lessons-learned`,
+    getOne: `projects/${projectId}/lessons-learned/{id}`,
+    updateOne: `lessons-learned/{id}`,
+    addOne: `/lessons-learned`,
+    deleteOne: `lessons-learned/{id}`,
+  };
+
   const createFormInitialValues = {
     lesson_category_id: "",
     lesson_sub_category: "",
@@ -37,8 +45,7 @@ export const LessonsLearned: FC = (): JSX.Element => {
       <TableData
         itemName="Lessons Learned"
         tableName="lessons-learned"
-        getOneUrl={`projects/${projectId}/lessons-learned/{id}`}
-        getAllUrl={`projects/${projectId}/lessons-learned`}
+        url={url}
         createFormInitialValues={createFormInitialValues}
         readFields={readFields}
         editFields={editFields}

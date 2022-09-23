@@ -24,7 +24,6 @@ export const TableData = ({
   readFields,
   editFields,
   roles,
-  projectId,
 }: {
   itemName: string;
   tableName: string;
@@ -43,7 +42,6 @@ export const TableData = ({
   editFields: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   roles: any;
-  projectId?: number | undefined;
 }) => {
   const {
     handleEditMode,
@@ -136,7 +134,6 @@ export const TableData = ({
       staleTime: Infinity,
     }
   );
-
   return (
     <>
       {hasRole(roles.get) && (
@@ -197,7 +194,7 @@ export const TableData = ({
                       handleClose: handleClose,
                     });
                   }}
-                  editFields={editFields(projectId)}
+                  editFields={editFields}
                 />
               ) : (
                 <EditForm
@@ -213,7 +210,7 @@ export const TableData = ({
                       errorMessage: `There was an issue saving.`,
                     });
                   }}
-                  editFields={editFields(projectId)}
+                  editFields={editFields}
                 />
               )}
             </>

@@ -92,7 +92,7 @@ export const useFormatTableData = ({
       .then((tableData: ITableData) => {
         switch (tableData.data.data.length) {
           case 0:
-            return { columns: [], rows: [] };
+            return { columns: [], rows: [], user: tableData.data?.user };
 
           default:
             return formatTableColumns(tableData, tableName, handleClick);

@@ -44,20 +44,6 @@ export const FormInput = ({
           </LocalizationProvider>
         </GridItem>
       );
-    case "hidden":
-      return (
-        <GridItem width={"0"}>
-          <Field
-            fullWidth={false}
-            as={TextField}
-            name={fieldName}
-            onChange={handleChange}
-            type={"hidden"}
-            id={fieldName}
-            role={`${fieldName}_input`}
-          />
-        </GridItem>
-      );
     case "singleText":
       return (
         <GridItem width={width}>

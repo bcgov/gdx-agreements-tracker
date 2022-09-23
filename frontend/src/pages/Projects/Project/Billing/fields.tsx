@@ -90,11 +90,5 @@ export const editFields: (projectId: number | undefined) => IEditFields[] = (pro
       projectId: projectId,
       width: "half",
     },
-    {
-      fieldName: "project_id",
-      fieldLabel: "Project id",
-      fieldType: "hidden",
-      width: "half",
-    },
   ];
 };
