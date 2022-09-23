@@ -12,15 +12,8 @@ export const InvoiceProcessing = () => {
     delete: "contracts_delete_one",
   };
 
-  const roles = {
-    get: "contracts_read_all",
-    add: "contracts_add_one",
-    update: "contracts_update_one",
-    delete: "contracts_delete_one",
-  };
-
   const url = {
-    getAll: `contracts/${contractId}/invoices`,
+    getAll: `contracts/${id}/invoices`,
     getOne: `invoices/{id}`,
     updateOne: `invoices/{id}`,
     addOne: `/invoices`,
@@ -30,12 +23,7 @@ export const InvoiceProcessing = () => {
     <TableData
       itemName="Invoice"
       tableName="invoice"
-<<<<<<< HEAD:frontend/src/pages/Contracts/Contract/ContractDetails/InvoiceSection/index.tsx
       url={url}
-=======
-      getOneUrl={`invoices/{id}`}
-      getAllUrl={`contracts/${id}/invoices`}
->>>>>>> f8133be (Renamed Contracts and Invoices controller and model function names to not override base functions.):frontend/src/pages/Contracts/Contract/InvoiceProcessing/index.tsx
       createFormInitialValues={{}}
       readFields={readFields}
       editFields={editFields}
