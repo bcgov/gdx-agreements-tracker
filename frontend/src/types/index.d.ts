@@ -228,7 +228,7 @@ export interface IEditFields {
  */
 export interface IFormInput {
   setFieldValue?: Function;
-  fieldValue: string | number | boolean | IOption;
+  fieldValue: string | number | boolean | IOption | IOption[];
   fieldName: string;
   fieldType: IEditFieldsFieldType;
   fieldLabel: string;
