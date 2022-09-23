@@ -15,7 +15,7 @@ const multiBody = S.object()
   .prop("portfolio_name", Schema.ShortString);
 
 const singleBody = S.object()
-  .prop("co_number", Schema.ShortString)
+  .prop("co_number", Schema.ShortString.minLength(1))
   .prop("contract_number", Schema.ShortString)
   .prop("status", Schema.Picker)
   .prop("amendment_number", Schema.ShortString)
@@ -29,9 +29,9 @@ const singleBody = S.object()
   .prop("total_fee_amount", Schema.Money)
   .prop("total_expense_amount", Schema.Money)
   .prop("requisition_number", Schema.ShortString)
-  .prop("start_date", Schema.Date)
+  .prop("start_date", Schema.RequiredDate)
   .prop("procurement_method_id", Schema.Picker)
-  .prop("end_date", Schema.Date)
+  .prop("end_date", Schema.RequiredDate)
   .prop("description", S.string())
   .prop("notes", S.string());
 
@@ -44,10 +44,10 @@ const requestBody = singleBody
     "supplier_id",
     "procurement_method_id",
   ])
-  .prop("status", Schema.ShortString)
+  .prop("status", Schema.ShortString.minLength(1))
   .prop("fiscal", Schema.Id)
   .prop("project_id", Schema.Id)
-  .prop("contract_type", Schema.ShortString)
+  .prop("contract_type", Schema.ShortString.minLength(1))
   .prop("supplier_id", Schema.Id)
   .prop("procurement_method_id", S.oneOf([Schema.Id, S.const("")]));
 
