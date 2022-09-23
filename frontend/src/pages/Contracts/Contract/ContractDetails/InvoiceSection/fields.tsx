@@ -17,13 +17,11 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
  *
  * @returns {Array}
  */
-export const editFields: () => IEditFields[] = () => {
-  return [
-    {
-      fieldName: "fiscal_year",
-      fieldType: "singleText",
-      fieldLabel: "Fiscal Year",
-      width: "half",
-    },
-  ];
-};
+export const editFields: IEditFields[] = [
+  {
+    fieldName: "fiscal_year",
+    fieldType: "singleText",
+    fieldLabel: "Fiscal Year",
+    width: "half",
+  },
+];

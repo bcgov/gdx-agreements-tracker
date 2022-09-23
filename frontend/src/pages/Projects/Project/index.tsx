@@ -34,6 +34,11 @@ export const Project = () => {
 
   const chipNavLinksRight: IChipNav[] = [
     {
+      key: 4,
+      name: "Lessons Learned",
+      url: `/projects/${projectId}/lessons-learned`,
+    },
+    {
       key: 5,
       name: "Close Out",
       url: `/projects/${projectId}/close-out`,

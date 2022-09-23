@@ -1,4 +1,12 @@
 ## Developer Changelog
+### September 23, 2022 (DESCW-483) Lessons Learned Table
+- Backend
+  - Created routes, controllers, models, validators for Lessons Learned
+  - Added picker options for Lessons Learned
+    - `npx knex seed:run --specific=08_picker_options.js`
+- Frontend
+  - Created Lessons Learned Section Page Component
+  - Added routing for above
 
 ### September 21, 2022 (DESCW-615) Contracts Frontend
 - Backend

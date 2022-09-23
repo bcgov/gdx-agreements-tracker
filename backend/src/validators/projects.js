@@ -110,9 +110,22 @@ const updateOne = {
   response: getUpdateResponse(),
 };
 
+const getLessonsLearnedById = {
+  params: Schema.IdParam.prop("lessonsLearnedtId", Schema.Id),
+  response: getResponse(
+    S.object()
+      .prop("lesson_category_id", Schema.Picker)
+      .prop("lesson_sub_category", S.string())
+      .prop("lesson", S.string())
+      .prop("recommendations", S.string())
+      .prop("id", Schema.Id)
+  ),
+};
+
 module.exports = {
   getAll,
   getOne,
   getOneCloseOut,
   updateOne,
+  getLessonsLearnedById,
 };
