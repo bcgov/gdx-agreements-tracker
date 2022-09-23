@@ -38,9 +38,7 @@ export const AuthorizedRoute = ({
       allowedRoles.includes(currentUserRole) || isPMOSysAdmin ? (
         <Outlet />
       ) : (
-        // TODO Bug fix need for unauthorized
-        // <Navigate to={`/unauthorized`} />
-        <Outlet />
+        <Navigate to={`/unauthorized`} />
       )
     ) : (
       <Navigate to={`/login?redirect=${location.pathname}`} />

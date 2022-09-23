@@ -35,6 +35,7 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:id/lessons-learned`,
+    schema: validators.getAllLessonsLearned,
     handler: controller.getLessonsLearned,
   },
   {
