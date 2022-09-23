@@ -12,13 +12,6 @@ export const InvoiceProcessing = () => {
     delete: "contracts_delete_one",
   };
 
-  const roles = {
-    get: "contracts_read_all",
-    add: "contracts_add_one",
-    update: "contracts_update_one",
-    delete: "contracts_delete_one",
-  };
-
   return (
     <TableData
       itemName="Invoice"
