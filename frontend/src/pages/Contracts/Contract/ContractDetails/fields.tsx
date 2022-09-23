@@ -10,8 +10,10 @@ import { IEditFields, IOption } from "types";
  */
 export const readFields = (query: UseQueryResult<FormikValues>) => {
   return [
+    { width: "half", title: "Change Order Number", value: query?.data?.data?.co_number },
     { width: "half", title: "Contract Number", value: query?.data?.data?.contract_number },
     { width: "half", title: "Status", value: query?.data?.data?.status?.label },
+    { width: "half", title: "Amendment Number", value: query?.data?.data?.amendment_number },
     { width: "half", title: "Fiscal", value: query?.data?.data?.fiscal?.label },
     { width: "half", title: "Project Number", value: query?.data?.data?.project_id?.label },
     { width: "half", title: "Contract Type", value: query?.data?.data?.contract_type?.label },
@@ -42,7 +44,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
     {
       width: "half",
       title: "Procurement Method",
-      value: query?.data?.data?.procurement_method?.label,
+      value: query?.data?.data?.procurement_method_id?.label,
     },
     { width: "half", title: "Assignment End Date", value: query?.data?.data?.end_date },
     {
@@ -61,6 +63,12 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
  */
 export const editFields: IEditFields[] = [
   {
+    fieldName: "co_number",
+    fieldType: "singleText",
+    fieldLabel: "Change Order Number",
+    width: "half",
+  },
+  {
     fieldName: "contract_number",
     fieldType: "singleText",
     fieldLabel: "Contract Number",
@@ -72,6 +80,12 @@ export const editFields: IEditFields[] = [
     fieldLabel: "Status",
     width: "half",
     tableName: "contracts",
+  },
+  {
+    fieldName: "amendment_number",
+    fieldType: "readonly",
+    fieldLabel: "Amendment Number",
+    width: "half",
   },
   {
     fieldName: "fiscal",
@@ -147,7 +161,7 @@ export const editFields: IEditFields[] = [
   {
     width: "half",
     fieldLabel: "Procurement Method",
-    fieldName: "procurement_method",
+    fieldName: "procurement_method_id",
     fieldType: "select",
     tableName: "contracts",
   },
@@ -165,3 +179,21 @@ export const editFields: IEditFields[] = [
   },
   { width: "full", fieldLabel: "Notes", fieldName: "notes", fieldType: "multiText" },
 ];
+
+export const initialValues = {
+  contract_number: "",
+  status: "",
+  fiscal: "",
+  project_id: "",
+  contract_type: "",
+  supplier_id: "",
+  subcontractor_id: [],
+  total_fee_amount: "",
+  total_expense_amount: "",
+  requisition_number: "",
+  start_date: "",
+  procurement_method_id: "",
+  end_date: "",
+  description: "",
+  notes: "",
+};

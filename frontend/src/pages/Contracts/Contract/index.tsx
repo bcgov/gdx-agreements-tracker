@@ -12,24 +12,29 @@ import { ChipNav } from "../../../components/GDXForm/ChipNav";
  */
 
 export const Contract = () => {
-  const { contractId } = useParams();
+  const { id } = useParams();
 
   const chipNavLinks: IChipNav[] = [
     {
       key: 0,
       name: "Contract Details",
-      url: `/contracts/${contractId}`,
+      url: `/contracts/${id}`,
     },
     {
       key: 1,
+      name: "Invoice Processing",
+      url: `/contracts/${id}/invoice-processing`,
+    },
+    {
+      key: 2,
       name: "Amendments",
-      url: `/contracts/${contractId}/amendments`,
+      url: `/contracts/${id}/amendments`,
     },
   ];
 
   return (
     <>
-      <ChipNav navLinks={chipNavLinks} />
+      {"new" !== id && <ChipNav navLinks={chipNavLinks} />}
       <Outlet />
     </>
   );
