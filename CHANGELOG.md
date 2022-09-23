@@ -1,4 +1,15 @@
 ## Developer Changelog
+
+### September 23, 2022 (DESCW-616) Contracts Add/Update
+- Backend
+  - Added add/update functionality to Contracts route, validator, model.
+  - Created models/useModel to provide reusable model functions (diffInsert() for now).
+  - Small change to picker options:
+    - `npx knex seed:run --specific=08_picker_options.js`
+- Frontend
+  - Refactored Contracts pages (separated Contract Details from Invoice Processing).
+  - Created reusable ReadEditPage component to be used for single-item read/edit form pages (Contract Details, Project Registration for example).
+
 ### September 23, 2022 (DESCW-614) Billing
 - Frontend
   - updating TableData component for updates, has new prop for url's
