@@ -122,10 +122,24 @@ const getLessonsLearnedById = {
   ),
 };
 
+const getAllLessonsLearned = {
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("category", S.string())
+        .prop("lesson_sub_category", S.string())
+        .prop("lesson", S.string())
+        .prop("recommendations", S.string())
+        .prop("id", Schema.Id)
+    )
+  ),
+};
+
 module.exports = {
   getAll,
   getOne,
   getOneCloseOut,
   updateOne,
   getLessonsLearnedById,
+  getAllLessonsLearned,
 };
