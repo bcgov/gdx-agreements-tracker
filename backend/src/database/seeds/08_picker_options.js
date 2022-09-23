@@ -142,7 +142,7 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
-      name: "procurement_method",
+      name: "procurement_method_id",
       title: "Procurement Method",
       description: "The procurement method used for the contract.",
       definition: { tableLookup: "procurement_method" },

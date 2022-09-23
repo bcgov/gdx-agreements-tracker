@@ -5,7 +5,7 @@ const table = `${dataBaseSchemas().data}.invoice`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 
 // Get all.
-const findAll = (contractId) => {
+const findAllByContractId = (contractId) => {
   return knex
     .select("i.*", "fy.fiscal_year")
     .from(`${table} as i`)
@@ -19,6 +19,6 @@ const findById = (invoiceId) => {
 };
 
 module.exports = {
-  findAll,
+  findAllByContractId,
   findById,
 };

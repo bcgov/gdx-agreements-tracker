@@ -4,7 +4,7 @@ const subcontractorsModel = require("../models/subcontractors");
 const what = { single: "contract", plural: "contracts" };
 const controller = useController(model, what);
 
-controller.getOne = async (request, reply) => {
+controller.getOneWithSubcontractors = async (request, reply) => {
   controller.userRequires(request, what, "contracts_read_all");
   try {
     const result = await model.findById(request.params.id);
