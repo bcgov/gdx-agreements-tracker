@@ -10,9 +10,22 @@ const body = S.object()
   .prop("fiscal_year_id", Schema.Id)
   .prop("client_coding_id", Schema.Id);
 
-const responseSingleBody = body.prop("fiscal_year_id", Schema.Picker);
+const responseSingleBody = body
+  .prop("fiscal_year_id", Schema.Picker)
+  .prop("client_coding_id", Schema.Picker);
 const getAll = {
-  response: getResponse(S.array().items(body)),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", Schema.Id)
+        .prop("fiscal_year", Schema.ShortString)
+        .prop("quarter", Schema.Id)
+        .prop("jv_number", Schema.ShortString.minLength(1))
+        .prop("billed_date", Schema.ShortString.minLength(1))
+        .prop("amount", Schema.Float)
+        .prop("name", Schema.ShortString)
+    )
+  ),
 };
 
 const getOne = {

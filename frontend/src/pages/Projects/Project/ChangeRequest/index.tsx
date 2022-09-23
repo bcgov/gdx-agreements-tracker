@@ -15,7 +15,7 @@ import { CreateForm } from "components/CreateForm";
 import { useAxios } from "hooks/useAxios";
 
 /**
- * @returns the jsx for the change request section of the project form
+ * @returns  the jsx for the change request section of the project form
  */
 
 export const ChangeRequest = () => {

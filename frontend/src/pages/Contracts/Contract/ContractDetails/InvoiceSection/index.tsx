@@ -13,12 +13,18 @@ export const InvoiceSection = () => {
     delete: "contracts_delete_one",
   };
 
+  const url = {
+    getAll: `contracts/${contractId}/invoices`,
+    getOne: `invoices/{id}`,
+    updateOne: `invoices/{id}`,
+    addOne: `/invoices`,
+    deleteOne: `invoices/{id}`,
+  };
   return (
     <TableData
       itemName="Invoice"
       tableName="invoice"
-      getOneUrl={`invoices/{id}`}
-      getAllUrl={`contracts/${contractId}/invoices`}
+      url={url}
       createFormInitialValues={{}}
       readFields={readFields}
       editFields={editFields}

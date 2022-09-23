@@ -3,6 +3,8 @@ const { knex, dataBaseSchemas } = dbConnection();
 
 const jvTable = `${dataBaseSchemas().data}.jv`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
+const clientCodingTable = `${dataBaseSchemas().data}.client_coding`;
+const contactTable = `${dataBaseSchemas().data}.contact`;
 
 const findAll = (projectId) => {
   return knex
@@ -13,12 +15,15 @@ const findAll = (projectId) => {
       "jv.amount",
       "jv.quarter",
       "jv.project_id",
-      "jv.fiscal_year_id",
-      "jv.client_coding_id"
+      `${fiscalYearTable}.fiscal_year`,
+      knex.raw(`CONCAT(${contactTable}.last_name, ', ', ${contactTable}.first_name) as name`)
     )
     .from(jvTable)
+    .leftJoin(fiscalYearTable, { "jv.fiscal_year_id": `${fiscalYearTable}.id` })
+    .leftJoin(clientCodingTable, { "jv.client_coding_id": `${clientCodingTable}.id` })
+    .leftJoin(contactTable, { "client_coding.contact_id": `${contactTable}.id` })
     .orderBy("jv.jv_number")
-    .where({ project_id: projectId });
+    .where({ "jv.project_id": projectId });
 };
 
 // Get specific one by id.
@@ -34,10 +39,13 @@ const findById = (id) => {
       knex.raw(
         "(SELECT json_build_object('value', jv.fiscal_year_id, 'label', fiscal_year.fiscal_year)) AS fiscal_year_id"
       ),
-      "jv.client_coding_id"
+      knex.raw(
+        "(SELECT json_build_object('value', COALESCE(jv.client_coding_id,0), 'label', COALESCE(client_coding.program_area, client_coding.client))) AS client_coding_id"
+      )
     )
     .from(jvTable)
     .leftJoin(fiscalYearTable, { "jv.fiscal_year_id": `${fiscalYearTable}.id` })
+    .leftJoin(clientCodingTable, { "jv.client_coding_id": `${clientCodingTable}.id` })
     .where("jv.id", id)
     .first();
 };

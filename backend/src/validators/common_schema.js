@@ -16,7 +16,7 @@ const Schema = {
   IdParam: S.object().prop("id", Id),
   Phone: S.oneOf([S.string().pattern("^[0-9]{3} [0-9]{3}-[0-9]{4}$"), S.const("")]),
   Picker: S.object()
-    .prop("value", S.oneOf([Id, S.string()]))
+    .prop("value", S.oneOf([Id, S.string(), S.null()]))
     .prop("label", S.string()),
   ShortString: S.string().maxLength(MaxStringLength),
   Uri: S.oneOf([S.string().format(S.FORMATS.URI), S.const("")]),

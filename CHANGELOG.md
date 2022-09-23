@@ -1,4 +1,10 @@
 ## Developer Changelog
+### September 23, 2022 (DESCW-614) Billing
+- Frontend
+  - updating TableData component for updates, has new prop for url's
+  - fixed not authorized when browser refresh
+  - finishing up Project Billing section
+
 ### September 23, 2022 (DESCW-483) Lessons Learned Table
 - Backend
   - Created routes, controllers, models, validators for Lessons Learned

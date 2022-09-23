@@ -18,13 +18,14 @@ exports.seed = function (knex) {
     generic: "generic",
     change_request: "change_request",
     contracts: "contracts",
+    client_coding: "client_coding",
     subcontractor: "subcontractor",
     supplier: "supplier",
     resource: "resource",
     users: "users",
     amendment_type: "amendment_type",
     contract_amendment: "contract_amendment",
-    jv: "jv",
+    journal_voucher: "jv",
   };
 
   const pickers = [
@@ -48,6 +49,13 @@ exports.seed = function (knex) {
       description: "The classification type of the project.",
       definition: { dropDownValues: classification },
       associated_form: tables.projects,
+    },
+    {
+      name: "client_coding_id",
+      title: "Program Area",
+      description: "Program Area",
+      definition: { tableLookup: "client_coding" },
+      associated_form: tables.client_coding,
     },
     {
       name: "completed_by_contact_id",
@@ -97,7 +105,7 @@ exports.seed = function (knex) {
       title: "Fiscal",
       description: "Fiscal Years",
       definition: { tableLookup: "fiscal_year" },
-      associated_form: tables.jv,
+      associated_form: tables.journal_voucher,
     },
     {
       name: "funding",
