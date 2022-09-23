@@ -15,7 +15,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
 /**
  * The edit fields.
  *
- * @returns {Array}
+ * @returns {IEditFields[]}
  */
 export const editFields: IEditFields[] = [
   {

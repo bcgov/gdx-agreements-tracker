@@ -3,9 +3,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
 
-export const InvoiceSection = () => {
-  const { contractId } = useParams();
-
+export const InvoiceProcessing = () => {
+  const { id } = useParams();
   const roles = {
     get: "contracts_read_all",
     add: "contracts_add_one",
@@ -14,7 +13,7 @@ export const InvoiceSection = () => {
   };
 
   const url = {
-    getAll: `contracts/${contractId}/invoices`,
+    getAll: `contracts/${id}/invoices`,
     getOne: `invoices/{id}`,
     updateOne: `invoices/{id}`,
     addOne: `/invoices`,

@@ -60,7 +60,7 @@ export const Amendments: FC = (): JSX.Element => {
    * @returns {string} contractId
    */
 
-  const { contractId } = useParams();
+  const { id } = useParams();
 
   /**
    * returns destructured props from the useFormatTableData hook.
@@ -73,7 +73,7 @@ export const Amendments: FC = (): JSX.Element => {
 
   const { data, isLoading } = useFormatTableData({
     tableName: "amendment",
-    apiEndPoint: `/contracts/${contractId}/amendments`,
+    apiEndPoint: `/contracts/${id}/amendments`,
     handleClick: handleOpen,
   });
 
@@ -84,9 +84,7 @@ export const Amendments: FC = (): JSX.Element => {
    */
 
   const getAmendment = async () => {
-    const amendment = await axiosAll().get(
-      `contracts/${contractId}/amendments/${currentRowData?.id}`
-    );
+    const amendment = await axiosAll().get(`contracts/${id}/amendments/${currentRowData?.id}`);
     return amendment.data.data;
   };
 
@@ -99,7 +97,7 @@ export const Amendments: FC = (): JSX.Element => {
    */
   // Queries
   const amendmentQuery: UseQueryResult<FormikValues> = useQuery(
-    `/contracts/${contractId}/amendments/${currentRowData?.id}`,
+    `/contracts/${id}/amendments/${currentRowData?.id}`,
     getAmendment,
     {
       refetchOnWindowFocus: false,
@@ -110,7 +108,7 @@ export const Amendments: FC = (): JSX.Element => {
     }
   );
   const createFormInitialValues = {
-    contract_id: contractId,
+    contract_id: id,
     amendment_number: "",
     amendment_date: null,
     description: "",
@@ -170,7 +168,7 @@ export const Amendments: FC = (): JSX.Element => {
                       formValues: values,
                       apiUrl: `/amendments`,
                       handleEditMode: handleEditMode,
-                      queryKeys: [`/contracts/${contractId}/amendments`],
+                      queryKeys: [`/contracts/${id}/amendments`],
                       successMessage: `Changes saved successfully for amendment ${values.contract_id.label}`,
                       errorMessage: `There was an issue saving your changes for amendment ${data?.rows[0].contract}`,
                       handleClose: handleClose,
@@ -188,8 +186,8 @@ export const Amendments: FC = (): JSX.Element => {
                       apiUrl: `amendments/${amendmentQuery?.data?.id}`,
                       handleEditMode: handleEditMode,
                       queryKeys: [
-                        `/contracts/${contractId}/amendments/${currentRowData?.id}`,
-                        `/contracts/${contractId}/amendments`,
+                        `/contracts/${id}/amendments/${currentRowData?.id}`,
+                        `/contracts/${id}/amendments`,
                       ],
                       successMessage: `Changes saved successfully for amendment ${amendmentQuery?.data?.contract_id.label}`,
                       errorMessage: `There was an issue saving your amendment for ${amendmentQuery?.data?.contract_id.label}`,

@@ -336,3 +336,8 @@ export interface ICurrentUser {
     label: string;
   };
 }
+
+export interface IWhat {
+  single: string;
+  plural: string;
+}
