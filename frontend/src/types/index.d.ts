@@ -327,6 +327,14 @@ export interface IData {
   };
 }
 
+export interface ICapability {
+  getAll: string;
+  getOne: string;
+  updateOne: string;
+  addOne: string;
+  deleteOne?: string;
+}
+
 export interface ICurrentUser {
   id: number;
   name: string;

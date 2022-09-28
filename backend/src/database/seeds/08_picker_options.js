@@ -9,6 +9,7 @@ const {
   projectFunding,
   projectRecoverable,
   initiatedBy,
+  billingPeriod,
 } = require("../pick_options/dropdowns");
 
 exports.seed = function (knex) {
@@ -42,6 +43,13 @@ exports.seed = function (knex) {
       description: "The Contract Type",
       definition: { tableLookup: "amendment_type" },
       associated_form: tables.contract_amendment,
+    },
+    {
+      name: "billing_period",
+      title: "Billing Period",
+      description: "The billing period (month)",
+      definition: { dropDownValues: billingPeriod },
+      associated_form: tables.generic,
     },
     {
       name: "classification",

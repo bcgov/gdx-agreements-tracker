@@ -19,11 +19,11 @@ export const TableData = ({
   itemName,
   tableName,
   url,
-
   createFormInitialValues,
   readFields,
   editFields,
   roles,
+  getSelectedRow,
 }: {
   itemName: string;
   tableName: string;
@@ -42,6 +42,7 @@ export const TableData = ({
   editFields: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   roles: any;
+  getSelectedRow?: Function;
 }) => {
   const {
     handleEditMode,
@@ -145,7 +146,13 @@ export const TableData = ({
                 columns={data?.columns}
                 rows={data?.rows}
                 loading={isLoading}
-                onRowClick={handleCurrentRowData}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onRowClick={(row: any) => {
+                  handleCurrentRowData(row);
+                  if (getSelectedRow) {
+                    getSelectedRow(row);
+                  }
+                }}
               />
               <Box
                 m={1}
