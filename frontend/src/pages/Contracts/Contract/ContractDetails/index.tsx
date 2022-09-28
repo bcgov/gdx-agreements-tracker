@@ -1,6 +1,7 @@
 import { Card, Typography } from "@mui/material";
 import { ReadEditPage } from "components/ReadEditPage";
 import { readFields, editFields, initialValues } from "./fields";
+import { ICapability } from "types";
 
 export const ContractDetails = () => {
   return (
@@ -13,7 +14,11 @@ export const ContractDetails = () => {
         readFields={readFields}
         editFields={editFields}
         createFormInitialValues={initialValues}
-        editCapability={"contracts_update_one"}
+        capability={
+          {
+            updateOne: "contracts_update_one",
+          } as ICapability
+        }
         apiRoute={"contracts"}
         redirectRoute={"/contracts"}
       />

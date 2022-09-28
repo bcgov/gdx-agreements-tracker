@@ -11,9 +11,8 @@ export const AgreementSection = ({
   query,
   userHasEditCapability,
 }: {
-  /**
-   * @todo Define a good type. "Any" type temporarily permitted.
-   */
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any;
   userHasEditCapability: boolean;

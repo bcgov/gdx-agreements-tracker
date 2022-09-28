@@ -1,10 +1,15 @@
+import { Grid } from "@mui/material";
 import { TableData } from "components/TableData";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { editFields, readFields } from "./fields";
+import { editFields, initialValues, readFields } from "./fields";
+import { InvoiceDeliverables } from "./InvoiceDeliverables";
+import { InvoiceResources } from "./InvoiceResources";
 
 export const InvoiceProcessing = () => {
   const { id } = useParams();
+  const [invoiceId, setInvoiceId] = useState(0);
+
   const roles = {
     get: "contracts_read_all",
     add: "contracts_add_one",
@@ -16,18 +21,35 @@ export const InvoiceProcessing = () => {
     getAll: `contracts/${id}/invoices`,
     getOne: `invoices/{id}`,
     updateOne: `invoices/{id}`,
-    addOne: `/invoices`,
+    addOne: `contracts/${id}/invoices`,
     deleteOne: `invoices/{id}`,
   };
+
   return (
-    <TableData
-      itemName="Invoice"
-      tableName="invoice"
-      url={url}
-      createFormInitialValues={{}}
-      readFields={readFields}
-      editFields={editFields}
-      roles={roles}
-    />
+    <>
+      <TableData
+        itemName="Invoice"
+        tableName="invoice"
+        url={url}
+        createFormInitialValues={initialValues}
+        readFields={readFields}
+        editFields={editFields}
+        roles={roles}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        getSelectedRow={(row: any) => {
+          setInvoiceId(row.id);
+        }}
+      />
+      {invoiceId > 0 && (
+        <Grid container spacing={2}>
+          <Grid item md={6}>
+            <InvoiceResources invoiceId={invoiceId} contractId={Number(id)} />
+          </Grid>
+          <Grid item md={6}>
+            <InvoiceDeliverables invoiceId={invoiceId} />
+          </Grid>
+        </Grid>
+      )}
+    </>
   );
 };

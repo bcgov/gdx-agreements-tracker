@@ -23,4 +23,22 @@ controller.getAllByContractId = async (request, reply) => {
   }
 };
 
+/**
+ * Add an item based on request body info.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.addOneWithContractId = async (request, reply) => {
+  controller.userRequires(request, what, `contracts_add_one`);
+  const contractId = Number(request.params.id);
+  try {
+    const result = await model.addOne(request.body, contractId);
+    return result || controller.noQuery(reply, `The ${what.single} could not be added.`);
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
 module.exports = controller;

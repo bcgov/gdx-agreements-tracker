@@ -8,7 +8,7 @@ import { useFormSubmit } from "hooks/useFormSubmit";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Navigate, useParams } from "react-router-dom";
-import { IEditFields, IWhat } from "types";
+import { ICapability, IEditFields, IWhat } from "types";
 import { apiAxios } from "utils";
 
 export const ReadEditPage = ({
@@ -16,19 +16,18 @@ export const ReadEditPage = ({
   editFields,
   readFields,
   createFormInitialValues,
-  editCapability,
+  capability,
   apiRoute,
   redirectRoute,
 }: {
   what: IWhat;
   editFields: IEditFields[];
   readFields: Function;
-  /**
-   * @todo Define a good type. "Any" type temporarily permitted.
-   */
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createFormInitialValues: any;
-  editCapability: string;
+  capability: ICapability;
   apiRoute: string;
   redirectRoute: string;
 }) => {
@@ -47,9 +46,8 @@ export const ReadEditPage = ({
     return item.data;
   };
 
-  /**
-   * @todo Define a good type. "Any" type temporarily permitted.
-   */
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const query: any = useQuery(`${apiRoute} - ${id}`, getItem, {
     refetchOnWindowFocus: false,
@@ -61,12 +59,12 @@ export const ReadEditPage = ({
 
   useEffect(() => {
     const user = query?.data?.user;
-    setEditCapability(user && user.capabilities.includes(editCapability));
+    setEditCapability(user && user.capabilities.includes(capability.updateOne));
     if ("new" === id) {
       setNew(true);
       setEditMode(true);
     }
-  }, [query, id, editCapability]);
+  }, [query, id, capability]);
 
   if (createCompleted) {
     return <Navigate to={redirectRoute} />;
