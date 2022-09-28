@@ -1,5 +1,16 @@
 ## Developer Changelog
 
+### September 28, 2022 (DESCW-653) Contracts Add/Update
+- Backend
+  - Created invoice details controller, model, routes, validators.
+  - Added add/update functionality for invoices controller, model, routes, validators.
+  - Change to picker options:
+    - `npx knex seed:run --specific=08_picker_options.js`
+- Frontend
+  - Created InvoiceProcessing/Deliverables and /Resources page components.
+  - Added read/edit form fields for invoices, deliverables, resources components.
+  - Added logic for changing which deliverables/resources are displayed based on invoice table row selected.
+
 ### September 23, 2022 (DESCW-616) Contracts Add/Update
 - Backend
   - Added add/update functionality to Contracts route, validator, model.
