@@ -8,7 +8,6 @@ import { TableComplete } from "components/TableComplete";
  */
 
 export const Suppliers: FC = (): JSX.Element => {
-  
   const createFormInitialValues = {
     supplier_number: 0,
     site_number: "",

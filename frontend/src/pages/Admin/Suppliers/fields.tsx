@@ -9,7 +9,6 @@ import { UseQueryResult } from "react-query";
  * @returns {Array}
  */
 export const readFields = (suppliersQuery: UseQueryResult<FormikValues>) => {
-  console.log('suppliersQuery?.data?.supplier_number', suppliersQuery)
   return [
     {
       value: suppliersQuery?.data?.supplier_number,
