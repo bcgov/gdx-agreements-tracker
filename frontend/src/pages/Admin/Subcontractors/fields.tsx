@@ -23,13 +23,11 @@ export const readFields = (subcontractorsQuery: UseQueryResult<FormikValues>) =>
  *
  * @returns {Array}
  */
-export const editFields: () => IEditFields[] = () => {
-  return [
-    {
-      fieldName: "subcontractor_name",
-      fieldType: "singleText",
-      fieldLabel: "Name",
-      width: "half",
-    },
-  ];
-};
+export const editFields: IEditFields[] = [
+  {
+    fieldName: "subcontractor_name",
+    fieldType: "singleText",
+    fieldLabel: "Name",
+    width: "half",
+  },
+];
