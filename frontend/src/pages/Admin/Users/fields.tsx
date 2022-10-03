@@ -21,26 +21,24 @@ export const readFields = (userQuery: UseQueryResult<FormikValues>) => {
  *
  * @returns {Array}
  */
-export const editFields: () => IEditFields[] = () => {
-  return [
-    {
-      fieldName: "email",
-      fieldType: "singleText",
-      fieldLabel: "Email",
-      width: "half",
-    },
-    {
-      fieldName: "name",
-      fieldType: "singleText",
-      fieldLabel: "Name",
-      width: "half",
-    },
-    {
-      fieldName: "role_id",
-      fieldType: "select",
-      fieldLabel: "User Role",
-      width: "full",
-      tableName: "users",
-    },
-  ];
-};
+export const editFields: IEditFields[] = [
+  {
+    fieldName: "email",
+    fieldType: "singleText",
+    fieldLabel: "Email",
+    width: "half",
+  },
+  {
+    fieldName: "name",
+    fieldType: "singleText",
+    fieldLabel: "Name",
+    width: "half",
+  },
+  {
+    fieldName: "role_id",
+    fieldType: "select",
+    fieldLabel: "User Role",
+    width: "full",
+    tableName: "users",
+  },
+];

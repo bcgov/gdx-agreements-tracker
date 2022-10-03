@@ -1,159 +1,37 @@
 import React, { FC } from "react";
-import { Typography } from "@mui/material";
-import { useFormatTableData } from "../../../hooks/";
-import { Table } from "../../../components";
-import { Renderer } from "components/Renderer";
-import { useFormSubmit } from "hooks/useFormSubmit";
-import { useFormControls } from "hooks/useFormControls";
-import { GDXModal } from "components/GDXModal";
-import { useQuery } from "react-query";
-import { ReadForm } from "components/ReadForm";
-import { EditForm } from "components/EditForm";
-import { Box, Button } from "@mui/material";
-import { CreateForm } from "components/CreateForm";
-import { editFields } from "./editFields";
-import { readFields } from "./readFields";
-import { useAxios } from "hooks/useAxios";
+import { editFields, readFields } from "./fields";
+import { TableData } from "components/TableData";
 
 export const Resources: FC = () => {
-  const { axiosAll } = useAxios();
-
-  const {
-    handleEditMode,
-    handleOpen,
-    handleClose,
-    handleCurrentRowData,
-    handleFormType,
-    formType,
-    open,
-    editMode,
-    currentRowData,
-  } = useFormControls();
-
-  const { data, isLoading } = useFormatTableData({
-    tableName: "resources",
-    apiEndPoint: `resources`,
-    handleClick: handleOpen,
-  });
-
-  const { handlePost, handleUpdate, Notification } = useFormSubmit();
-
-  /**
-   * Gets the resource information for a specific id.
-   *
-   * @returns {null|object}
-   */
-  const getResources = async () => {
-    let data = null;
-    if (currentRowData?.id) {
-      const resources = await axiosAll().get(`/resources/${currentRowData?.id}`);
-      data = resources.data.data;
-    }
-    return data;
+  const createFormInitialValues = {
+    ministry_name: "",
+    ministry_short_name: "",
+    is_active: false,
   };
 
-  // Queries
-  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const resourcesQuery: any = useQuery(`resources - ${currentRowData?.id}`, getResources, {
-    refetchOnWindowFocus: false,
-    retryOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: Infinity,
-  });
+  const roles = {
+    get: "admin_form_read_all",
+    add: "admin_form_add_one",
+    update: "admin_form_update_one",
+    delete: "admin_form_delete_one",
+  };
 
-  const createFormInitialValues = {
-    resource_first_name: "",
-    resource_last_name: "",
-    subcontractor_id: null,
-    supplier_id: null,
+  const url = {
+    getAll: `/resources`,
+    getOne: `/resources/{id}`,
+    updateOne: `/resources/{id}`,
+    addOne: `/resources`,
   };
 
   return (
-    <>
-      <Typography variant="h5" component="h2">
-        Resources
-      </Typography>
-      <Renderer
-        isLoading={isLoading}
-        component={
-          <>
-            <Table
-              columns={data?.columns}
-              rows={data?.rows}
-              loading={isLoading}
-              onRowClick={handleCurrentRowData}
-            />
-            <Box
-              m={1}
-              display="flex"
-              justifyContent="flex-end"
-              alignItems="flex-end"
-              onClick={() => {
-                handleOpen();
-                handleEditMode(true);
-                handleFormType("new");
-              }}
-            >
-              <Button variant="contained">New Resource</Button>
-            </Box>
-          </>
-        }
-      />
-      <GDXModal
-        open={open}
-        handleClose={handleClose}
-        modalTitle={"new" === formType ? `New Resource` : `Resource ${resourcesQuery?.data?.id}`}
-        handleEditMode={handleEditMode}
-        editMode={editMode}
-        handleFormType={handleFormType}
-      >
-        <>
-          {!editMode ? (
-            <ReadForm fields={readFields(resourcesQuery)} />
-          ) : (
-            <>
-              {"new" === formType ? (
-                <CreateForm
-                  initialValues={createFormInitialValues}
-                  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-                  // todo: Define a good type. "Any" type temporarily permitted.
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onSubmit={async (values: any) => {
-                    return handlePost({
-                      formValues: values,
-                      apiUrl: `/resources`,
-                      handleEditMode: handleEditMode,
-                      queryKeys: [`"/resources/${resourcesQuery?.data?.id}"`],
-                      handleClose: handleClose,
-                    });
-                  }}
-                  editFields={editFields()}
-                />
-              ) : (
-                <EditForm
-                  initialValues={resourcesQuery?.data}
-                  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-                  // todo: When using picklist if select is empty, then fails to update.
-                  onSubmit={async (values) => {
-                    return handleUpdate({
-                      changedValues: values,
-                      currentRowData: resourcesQuery?.data,
-                      apiUrl: `resources/${resourcesQuery?.data?.id}`,
-                      handleEditMode: handleEditMode,
-                      queryKeys: [`resources - ${currentRowData?.id}`],
-                    });
-                  }}
-                  editFields={editFields()}
-                />
-              )}
-            </>
-          )}
-        </>
-      </GDXModal>
-      <Notification />
-    </>
+    <TableData
+      itemName="Resource"
+      tableName="resources"
+      url={url}
+      createFormInitialValues={createFormInitialValues}
+      readFields={readFields}
+      editFields={editFields}
+      roles={roles}
+    />
   );
 };

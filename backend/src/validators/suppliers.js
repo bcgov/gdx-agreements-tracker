@@ -35,7 +35,7 @@ const getAll = {
 
 const getOne = {
   params: Schema.IdParam,
-  response: getResponse(S.array().items(singleBody)),
+  response: getResponse(singleBody),
 };
 
 const updateOne = {
