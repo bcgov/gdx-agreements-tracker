@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { editFields, readFields } from "./fields";
-import { TableData } from "components/TableData";
+import { TableComplete } from "components/TableComplete";
 
 export const Resources: FC = () => {
   const createFormInitialValues = {
@@ -24,7 +24,7 @@ export const Resources: FC = () => {
   };
 
   return (
-    <TableData
+    <TableComplete
       itemName="Resource"
       tableName="resources"
       url={url}

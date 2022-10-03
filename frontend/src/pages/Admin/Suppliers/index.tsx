@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { readFields, editFields } from "./fields";
-import { TableData } from "components/TableData";
+import { TableComplete } from "components/TableComplete";
 /**
  * The suppliers page
  *
@@ -45,7 +45,7 @@ export const Suppliers: FC = (): JSX.Element => {
   };
 
   return (
-    <TableData
+    <TableComplete
       itemName="Supplier"
       tableName="suppliers"
       url={url}

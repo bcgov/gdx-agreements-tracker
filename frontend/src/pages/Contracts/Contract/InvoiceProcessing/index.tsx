@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { TableData } from "components/TableData";
+import { TableComplete } from "components/TableComplete";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { editFields, initialValues, readFields } from "./fields";
@@ -27,7 +27,7 @@ export const InvoiceProcessing = () => {
 
   return (
     <>
-      <TableData
+      <TableComplete
         itemName="Invoice"
         tableName="invoice"
         url={url}

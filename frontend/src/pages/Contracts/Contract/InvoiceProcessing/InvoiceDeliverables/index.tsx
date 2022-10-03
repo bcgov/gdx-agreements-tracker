@@ -1,4 +1,4 @@
-import { TableData } from "components/TableData";
+import { TableComplete } from "components/TableComplete";
 import React, { useEffect, useState } from "react";
 import { editFields, initialValues, readFields } from "./fields";
 
@@ -25,7 +25,7 @@ export const InvoiceDeliverables = ({ invoiceId }: { invoiceId: number }) => {
   };
 
   return (
-    <TableData
+    <TableComplete
       itemName={"deliverable"}
       tableName={"deliverables"}
       url={url}

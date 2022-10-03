@@ -1,4 +1,4 @@
-import { TableData } from "components/TableData";
+import { TableComplete } from "components/TableComplete";
 import React, { FC } from "react";
 import { readFields, editFields } from "./fields";
 
@@ -22,7 +22,7 @@ export const Subcontractors: FC = () => {
   };
 
   return (
-    <TableData
+    <TableComplete
       itemName="Subcontractor"
       tableName="subcontractors"
       url={url}

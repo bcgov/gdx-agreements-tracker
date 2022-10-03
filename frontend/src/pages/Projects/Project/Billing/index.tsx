@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
-import { TableData } from "components/TableData";
+import { TableComplete } from "components/TableComplete";
 /**
  * The Amendments page
  *
@@ -42,7 +42,7 @@ export const Billing: FC = (): JSX.Element => {
 
   return (
     <>
-      <TableData
+      <TableComplete
         itemName="Journal Voucher"
         tableName="jv"
         url={url}

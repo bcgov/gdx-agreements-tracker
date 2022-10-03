@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { editFields, readFields } from "./fields";
-import { TableData } from "components/TableData";
+import { TableComplete } from "components/TableComplete";
 import { useParams } from "react-router-dom";
 
 export const Contacts: FC = () => {
@@ -40,7 +40,7 @@ export const Contacts: FC = () => {
   };
 
   return (
-    <TableData
+    <TableComplete
       itemName="Contacts"
       tableName="contact"
       url={url}
