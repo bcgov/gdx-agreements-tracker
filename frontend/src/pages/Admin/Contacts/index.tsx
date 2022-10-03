@@ -1,10 +1,8 @@
 import React, { FC } from "react";
 import { editFields, readFields } from "./fields";
 import { TableComplete } from "components/TableComplete";
-import { useParams } from "react-router-dom";
 
 export const Contacts: FC = () => {
-
   const createFormInitialValues = {
     first_name: "",
     address: "",
