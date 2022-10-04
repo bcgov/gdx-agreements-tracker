@@ -35,7 +35,6 @@ export const Contract = () => {
       name: "Amendments",
       url: `/contracts/${id}/amendments`,
     },
-    
   ];
 
   return (

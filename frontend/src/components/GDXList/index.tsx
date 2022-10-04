@@ -30,15 +30,19 @@ export const GDXList = ({ blocks, title }: IGDXList) => {
         <CardContent>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={4}>
-              {blocks.map((groups: any[], index: number) => {
+              {/* // todo: Define a good type. "Any" type temporarily permitted. // */}
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {blocks.map((groups: any[]) => {
                 return (
                   <>
                     <Grid item sm={4} minWidth={300}>
                       <Paper>
                         <List component="ul" aria-labelledby="category-a">
-                          {groups.map((item: any, index: number) => {
+                          {/* // todo: Define a good type. "Any" type temporarily permitted. // */}
+                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                          {groups.map((item: any) => {
                             return (
-                              <ListItem>
+                              <ListItem key={item}>
                                 <Grid container>
                                   <Grid zeroMinWidth item lg={4} md={6} sm={6}>
                                     <StyledTypographyLeft variant="h6" noWrap>
