@@ -2,6 +2,9 @@
 ### October 3, 2022 (DESCW-627) Update admin forms to use new component TableData
 - Frontend
   - Updated admin forms to use new component TableComplete (formally TableData)
+### October 4, 2022 (DESCW-625) Contract Deliverables
+- Frontend
+  - added new component for rendering table-like data
 
 ### September 28, 2022 (DESCW-653) Contracts Add/Update
 - Backend
