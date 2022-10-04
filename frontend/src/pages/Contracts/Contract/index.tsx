@@ -22,14 +22,20 @@ export const Contract = () => {
     },
     {
       key: 1,
+      name: "Deliverables",
+      url: `/contracts/${id}/deliverables`,
+    },
+    {
+      key: 2,
       name: "Invoice Processing",
       url: `/contracts/${id}/invoice-processing`,
     },
     {
-      key: 2,
+      key: 3,
       name: "Amendments",
       url: `/contracts/${id}/amendments`,
     },
+    
   ];
 
   return (
