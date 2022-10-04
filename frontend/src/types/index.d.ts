@@ -349,3 +349,8 @@ export interface IWhat {
   single: string;
   plural: string;
 }
+
+export interface IGDXList {
+  blocks: Array<[{ label: string; value: any }]>,
+  title:string
+}
