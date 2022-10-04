@@ -351,6 +351,8 @@ export interface IWhat {
 }
 
 export interface IGDXList {
-  blocks: Array<[{ label: string; value: any }]>,
-  title:string
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  blocks: Array<[{ label: string; value: any }]>;
+  title: string;
 }
