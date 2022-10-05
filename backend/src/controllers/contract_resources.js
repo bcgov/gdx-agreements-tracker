@@ -4,7 +4,7 @@ const what = { single: "resource", plural: "resources" };
 const controller = useController(model, what, "contracts");
 
 /**
- * Gets all contract Journal vouchers for a specific contract.
+ * Gets all contract resources for a specific contract.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
@@ -24,7 +24,7 @@ controller.getAllById = async (request, reply) => {
 };
 
 /**
- * Add an item based on request body info.
+ * Add a contract resource item based on request body info.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
