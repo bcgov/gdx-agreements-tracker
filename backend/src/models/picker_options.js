@@ -4,26 +4,23 @@ const pickerOptions = `${dataBaseSchemas().public}.picker_options`;
 
 // Get all.
 const findAll = () => {
-  return knex(pickerOptions).select(
-    "id",
-    "name",
-    "title",
-    "description",
-    knex.raw(getCaseStatements()),
-    "associated_form"
-  );
+  return knex(pickerOptions)
+    .select("name", "title", "description", knex.raw(getCaseStatements()), "associated_form")
+    .unionAll(tableLookups);
 };
 
 // Get all by project id.
 const findAllByProject = (id) => {
-  return knex(pickerOptions).select(
-    "id",
-    "name",
-    "title",
-    "description",
-    knex.raw(getCaseStatements(id)),
-    "associated_form"
-  );
+  return knex(pickerOptions)
+    .select(
+      "id",
+      "name",
+      "title",
+      "description",
+      knex.raw(getCaseStatements(id)),
+      "associated_form"
+    )
+    .unionAll(tableLookups);
 };
 
 const getCaseStatements = (id) => {
@@ -67,6 +64,27 @@ const getClientCodingTableLookup = (id) => {
   // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
   return `WHEN definition ->> 'tableLookup' = 'client_coding' THEN (SELECT COALESCE(json_agg(cc), '[]') FROM (${query}) cc)`;
 };
+
+const getMinisitryPicker = () => {
+  return knex().select(
+    knex.raw("'ministry_option' as name"),
+    knex.raw("'Client Ministry Name' as title"),
+    knex.raw("'Client Ministry Name' as description"),
+    knex.raw(`
+    (
+      SELECT json_agg(ministry) 
+      FROM (
+        SELECT  id AS value, 
+        concat(ministry.ministry_name, ' ', ministry.ministry_short_name) AS label 
+        FROM data.ministry
+      ) 
+      ministry
+    ) as definition`),
+    knex.raw("'_options' as associated_form")
+  );
+};
+
+const tableLookups = [getMinisitryPicker()];
 
 module.exports = {
   findAll,

@@ -74,7 +74,7 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "Ministry ID",
     width: "half",
-    tableName: "project",
+    pickerName: "ministry_option",
   },
   {
     fieldName: "country",

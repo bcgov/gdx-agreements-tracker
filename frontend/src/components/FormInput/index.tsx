@@ -17,12 +17,31 @@ export const FormInput = ({
   fieldLabel,
   handleChange,
   width,
+  pickerName,
   tableName,
   projectId,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pickerValues: any = usePickerValues(projectId);
+
+  const getPickerOptions = () => {
+    const defaults = {
+      associated_table: "_options",
+      definition: [{ value: "", label: "No Option table found" }],
+      description: "No option",
+      id: 0,
+      name: "noop",
+      title: "No option",
+    };
+    let options = defaults;
+    if (pickerName) {
+      options = pickerValues?.data?.pickers["_options"][pickerName];
+    } else {
+      options = pickerValues?.data?.pickers[tableName as string][fieldName];
+    }
+    return options ?? defaults;
+  };
 
   switch (fieldType) {
     case "date":
@@ -75,13 +94,15 @@ export const FormInput = ({
         </GridItem>
       );
     case "select":
+      getPickerOptions();
       return (
         <GridItem width={width}>
           <GDXSelect
             handleChange={handleChange as Function}
+            fieldName={fieldName}
             fieldValue={fieldValue as IOption}
             setFieldValue={setFieldValue as Function}
-            pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
+            pickerData={getPickerOptions()}
           />
         </GridItem>
       );
@@ -91,6 +112,7 @@ export const FormInput = ({
           <GDXMultiselect
             handleChange={handleChange as Function}
             fieldValue={fieldValue as IOption[]}
+            fieldName={fieldName}
             setFieldValue={setFieldValue as Function}
             pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
           />

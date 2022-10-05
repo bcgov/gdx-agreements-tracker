@@ -82,6 +82,7 @@ export interface IPickerLookupData {
 export interface IPickerProps {
   handleChange: Function;
   fieldValue: IOption;
+  fieldName?: string;
   setFieldValue: Function;
   pickerData: {
     associated_table: string;
@@ -222,6 +223,7 @@ export interface IEditFields {
   width: "half" | "full";
   tableName?: string;
   projectId?: number | undefined;
+  pickerName?: string;
 }
 
 /**
@@ -236,6 +238,7 @@ export interface IFormInput {
   handleChange?: Function | ChangeEvent<HTMLInputElement>;
   width: "half" | "full";
   tableName?: string;
+  pickerName?: string;
   projectId?: number | undefined;
 }
 
