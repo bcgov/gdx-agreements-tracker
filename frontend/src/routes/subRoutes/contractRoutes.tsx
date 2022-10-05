@@ -6,11 +6,8 @@ import { Contract, Contracts } from "../../pages";
 import { Amendments } from "pages/Contracts/Contract/Amendments";
 import { ContractDetails } from "pages/Contracts/Contract/ContractDetails";
 import { InvoiceProcessing } from "pages/Contracts/Contract/InvoiceProcessing";
-<<<<<<< HEAD
 import { Deliverables } from "pages/Contracts/Contract/Deliverables";
-=======
 import { ContractResources } from "pages/Contracts/Contract/Resources";
->>>>>>> 3d9748f (Added contract resources getAll/getOne/add/update functionality to backend controller, model, route, validator.)
 
 const contractRoutes = [
   <Route key="contracts" path="/contracts" element={<ProtectedRoute component={Contracts} />} />,
