@@ -28,6 +28,7 @@ export interface ISidebar extends IUseDrawer {}
 export interface ITable {
   rows: GridRowsProp;
   columns: GridColDef[];
+  totalColumns?: string[];
   loading: boolean;
   onRowClick?: Function;
 }

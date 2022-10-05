@@ -6,22 +6,13 @@ import { Contract, Contracts } from "../../pages";
 import { Amendments } from "pages/Contracts/Contract/Amendments";
 import { ContractDetails } from "pages/Contracts/Contract/ContractDetails";
 import { InvoiceProcessing } from "pages/Contracts/Contract/InvoiceProcessing";
+import { ContractResources } from "pages/Contracts/Contract/Resources";
 
 const contractRoutes = [
   <Route key="contracts" path="/contracts" element={<ProtectedRoute component={Contracts} />} />,
   <Route key="id" path="/contracts/:id" element={<ProtectedRoute component={Contract} />}>
     <Route index key="contractdetails" element={<ContractDetails />} />,
-    <Route
-      key="Resources"
-      path="contracts/resources"
-      element={
-        <ProtectedRoute
-          component={() => {
-            return PageLink("Resources");
-          }}
-        />
-      }
-    />
+    <Route key="Resources" path="resources" element={<ContractResources />} />
     ,
     <Route
       key="deliverables"
