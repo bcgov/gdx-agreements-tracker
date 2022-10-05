@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { DataGrid, GridEventListener, GridEvents } from "@mui/x-data-grid";
 import { Box, styled } from "@mui/material";

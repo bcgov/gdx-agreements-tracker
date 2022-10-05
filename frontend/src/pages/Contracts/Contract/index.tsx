@@ -27,13 +27,13 @@ export const Contract = () => {
     },
     {
       key: 2,
-      name: "Invoice Processing",
-      url: `/contracts/${id}/invoice-processing`,
+      name: "Resources",
+      url: `/contracts/${id}/resources`,
     },
     {
       key: 3,
-      name: "Resources",
-      url: `/contracts/${id}/resources`,
+      name: "Invoice Processing",
+      url: `/contracts/${id}/invoice-processing`,
     },
     {
       key: 5,
