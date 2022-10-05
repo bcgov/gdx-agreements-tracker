@@ -22,6 +22,7 @@ export const TableComplete = ({
   createFormInitialValues,
   readFields,
   editFields,
+  totalColumns,
   roles,
   getSelectedRow,
 }: {
@@ -40,6 +41,7 @@ export const TableComplete = ({
   readFields: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editFields: any;
+  totalColumns?: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   roles: any;
   getSelectedRow?: Function;
@@ -135,6 +137,7 @@ export const TableComplete = ({
       staleTime: Infinity,
     }
   );
+
   return (
     <>
       {hasRole(roles.get) && (
@@ -145,6 +148,7 @@ export const TableComplete = ({
               <Table
                 columns={data?.columns}
                 rows={data?.rows}
+                totalColumns={totalColumns ?? []}
                 loading={isLoading}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onRowClick={(row: any) => {

@@ -32,6 +32,11 @@ export const Contract = () => {
     },
     {
       key: 3,
+      name: "Resources",
+      url: `/contracts/${id}/resources`,
+    },
+    {
+      key: 5,
       name: "Amendments",
       url: `/contracts/${id}/amendments`,
     },

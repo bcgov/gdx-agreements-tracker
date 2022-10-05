@@ -39,6 +39,8 @@ const getCaseStatements = (id) => {
     WHEN definition ->> 'tableLookup' = 'project' THEN (SELECT json_agg(proj) FROM (SELECT id AS value, project_number AS label FROM data.project WHERE project_number IS NOT NULL) proj)
     WHEN definition ->> 'tableLookup' = 'procurement_method' THEN (SELECT json_agg(procure) FROM (SELECT id AS value, procurement_method AS label FROM data.procurement_method WHERE procurement_method IS NOT NULL) procure)
     WHEN definition ->> 'tableLookup' = 'lesson_category' THEN (SELECT json_agg(lessoncat) FROM (SELECT id AS value, lesson_category_name AS label FROM data.lesson_category WHERE lesson_category_name IS NOT NULL) lessoncat)
+    WHEN definition ->> 'tableLookup' = 'resource' THEN (SELECT json_agg(resrc) FROM (SELECT resource_id AS value, concat(resource_last_name, ', ', resource_first_name) AS label FROM data.resource WHERE resource_last_name IS NOT NULL) resrc)
+    WHEN definition ->> 'tableLookup' = 'supplier_rate' THEN (SELECT json_agg(suprate) FROM (SELECT sr.id AS value, concat(rt.resource_type, ' ', sr.competency, ' - ', sr.rate)  AS label FROM data.supplier_rate sr JOIN data.resource_type rt ON sr.resource_type_id = rt.id WHERE sr.rate IS NOT NULL) suprate)
     ${getClientCodingTableLookup(id)}
     WHEN definition ->> 'dropDownValues' IS NOT NULL THEN definition -> 'dropDownValues'
   END definition`;

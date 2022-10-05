@@ -208,6 +208,13 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
+      name: "resource_id",
+      title: "Resource",
+      description: "The contract resource.",
+      definition: { tableLookup: "resource" },
+      associated_form: tables.contracts,
+    },
+    {
       name: "status",
       title: "Status",
       description: "The status of a contract.",
@@ -227,6 +234,13 @@ exports.seed = function (knex) {
       description: "Supplier",
       definition: { tableLookup: "supplier" },
       associated_form: tables.resource,
+    },
+    {
+      name: "supplier_rate_id",
+      title: "Supplier Rate",
+      description: "The contract supplier's rate.",
+      definition: { tableLookup: "supplier_rate" },
+      associated_form: tables.contracts,
     },
   ];
 
