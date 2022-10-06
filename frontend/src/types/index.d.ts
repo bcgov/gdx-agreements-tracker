@@ -31,6 +31,7 @@ export interface ITable {
   totalColumns?: string[];
   loading: boolean;
   onRowClick?: Function;
+  allowEdit?: boolean;
 }
 
 // Tables

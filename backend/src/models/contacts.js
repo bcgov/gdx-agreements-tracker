@@ -7,15 +7,20 @@ const ministryTable = `${dataBaseSchemas().data}.ministry`;
 // Get all.
 const findAll = () => {
   return knex(`${table} as c`)
-    .select(
+    .columns(
       "c.id",
       "c.last_name",
       "c.first_name",
-      "c.contact_title",
-      "m.ministry_short_name",
+      { job_title: "c.contact_title" },
+      { ministry_id: "m.ministry_short_name" },
       "c.notes"
     )
-    .leftJoin(`${ministryTable} as m`, "c.ministry_id", "m.id");
+    .select()
+    .leftJoin(`${ministryTable} as m`, "c.ministry_id", "m.id")
+    .orderBy([
+      { column: "c.last_name", order: "asc" },
+      { column: "c.first_name", order: "asc" },
+    ]);
 };
 
 // Get specific one by id.

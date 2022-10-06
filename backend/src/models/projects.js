@@ -1,4 +1,5 @@
 const dbConnection = require("../database/databaseConnection");
+const { dateFormat } = require("../helpers/standards");
 const { knex, dataBaseSchemas } = dbConnection();
 
 const projectTable = `${dataBaseSchemas().data}.project`;
@@ -6,20 +7,26 @@ const getFromView = `${dataBaseSchemas().data}.projects_with_json`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
 const lessonsLearned = `${dataBaseSchemas().data}.project_lesson`;
 const lessonCategory = `${dataBaseSchemas().data}.lesson_category`;
+const portfolio = `${dataBaseSchemas().data}.portfolio`;
 
 // Get all.
 const findAll = () => {
-  return knex(projectTable).select(
-    "project_number",
-    "project_name",
-    "project_version",
-    "portfolio_id",
-    "project_manager",
-    "agreement_end_date",
-    "project_status",
-    "initiation_date",
-    "id"
-  );
+  return knex(`${projectTable} as p`)
+    .column([
+      "p.id",
+      "p.project_number",
+      "p.project_name",
+      { version: "p.project_version" },
+      "port.portfolio_name",
+      { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
+      { registration_date: knex.raw(`TO_CHAR(p.initiation_date :: DATE, '${dateFormat}')`) },
+      { end_date: knex.raw(`TO_CHAR(p.agreement_end_date :: DATE, '${dateFormat}')`) },
+      { status: "p.project_status" },
+    ])
+    .select()
+    .leftJoin(`${portfolio} as port`, "p.portfolio_id", "port.id")
+    .leftJoin(`${contactTable} as c`, "p.project_manager", "c.id")
+    .orderBy("p.id", "desc");
 };
 
 // Get specific one by id.
@@ -88,18 +95,22 @@ const findCloseOutById = (id) => {
 
 // Get all lesson learned for specific project id.
 const findProjectLessonsLearned = (id) => {
-  return knex
-    .select(
-      "lc.lesson_category_name as category",
-      "pl.lesson_sub_category",
+  return knex(`${lessonsLearned} as pl`)
+    .columns(
+      { category: "lc.lesson_category_name" },
+      { subcategory: "pl.lesson_sub_category" },
       "pl.lesson",
       "pl.recommendations",
       "pl.id"
     )
-    .from(`${lessonsLearned} as pl`)
+    .select()
     .leftJoin(`${projectTable} as p`, { "pl.project_id": `p.id` })
     .leftJoin(`${lessonCategory} as lc`, { "pl.lesson_category_id": `lc.id` })
-    .where("pl.project_id", id);
+    .where("pl.project_id", id)
+    .orderBy([
+      { column: "lc.lesson_category_name", order: "asc" },
+      { column: "pl.lesson_sub_category", order: "asc" },
+    ]);
 };
 
 // Get all lesson learned for specific project id.

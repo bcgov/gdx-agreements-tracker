@@ -40,11 +40,19 @@ export const Billing: FC = (): JSX.Element => {
     project_id: projectId,
   };
 
+  const columnWidths = {
+    jv_number: 3,
+    financial_contact: 3,
+    billed_date: 2,
+    amount: 2,
+  };
+
   return (
     <>
       <TableComplete
         itemName="Journal Voucher"
         tableName="jv"
+        columnWidths={columnWidths}
         url={url}
         createFormInitialValues={initialValues}
         readFields={readFields}

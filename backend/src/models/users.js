@@ -6,10 +6,11 @@ const rolesTable = `${dataBaseSchemas().public}.roles`;
 
 // Get all.
 const findAll = () => {
-  return knex
-    .select("users.id", "users.name", "users.email", "roles.display_name")
-    .from(table)
-    .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` });
+  return knex(table)
+    .columns("users.id", "users.name", "users.email", { user_role: "roles.display_name" })
+    .select()
+    .leftJoin(rolesTable, { "public.users.role_id": `${rolesTable}.id` })
+    .orderBy("users.name", "asc");
 };
 
 // Get specific one by id.

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Renderer } from "components/Renderer";
 import { Table } from "components/Table";
 import { useFormControls } from "hooks/useFormControls";
@@ -25,6 +25,7 @@ export const TableComplete = ({
   totalColumns,
   roles,
   getSelectedRow,
+  columnWidths,
 }: {
   itemName: string;
   tableName: string;
@@ -45,6 +46,7 @@ export const TableComplete = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   roles: any;
   getSelectedRow?: Function;
+  columnWidths?: Object;
 }) => {
   const {
     handleEditMode,
@@ -76,6 +78,7 @@ export const TableComplete = ({
   const { data, isLoading } = useFormatTableData({
     tableName: tableName,
     apiEndPoint: url.getAll,
+    columnWidths: columnWidths,
     handleClick: handleOpen,
   });
 
@@ -145,10 +148,14 @@ export const TableComplete = ({
           isLoading={isLoading}
           component={
             <>
+              <Typography variant="h5" component="h2">
+                {itemName}
+              </Typography>
               <Table
                 columns={data?.columns}
                 rows={data?.rows}
                 totalColumns={totalColumns ?? []}
+                allowEdit={hasRole(roles.add)}
                 loading={isLoading}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onRowClick={(row: any) => {

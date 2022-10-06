@@ -3,16 +3,17 @@ const S = require("fluent-json-schema");
 
 const multiBody = S.object()
   .prop("id", Schema.Id)
-  .prop("co_version", Schema.ShortString)
-  .prop("description", S.string())
-  .prop("supplier_name", Schema.ShortString)
-  .prop("start_date", Schema.Date)
-  .prop("end_date", Schema.Date)
-  .prop("total_expense_amount", Schema.Money)
-  .prop("status", Schema.ShortString)
-  .prop("fiscal_year", Schema.ShortString)
   .prop("project_number", Schema.ShortString)
-  .prop("portfolio_name", Schema.ShortString);
+  .prop("project_name", Schema.ShortString)
+  .prop("contract_number", Schema.ShortString)
+  .prop("supplier", Schema.ShortString)
+  .prop("description", S.string())
+
+  .prop("start_date", Schema.ShortString)
+  .prop("end_date", Schema.ShortString)
+  //.prop("total_expense_amount", Schema.Money)
+  .prop("status", Schema.ShortString)
+  .prop("fiscal", Schema.ShortString);
 
 const singleBody = S.object()
   .prop("co_number", Schema.ShortString.minLength(1))

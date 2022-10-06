@@ -47,12 +47,12 @@ const getAll = {
         .prop("id", Schema.Id)
         .prop("project_number", Schema.ShortString)
         .prop("project_name", Schema.ShortString)
-        .prop("project_version", Schema.ShortString)
-        .prop("portfolio_id", Schema.Id)
-        .prop("project_manager", Schema.Id)
-        .prop("agreement_end_date", Schema.Date)
-        .prop("project_status", Schema.ShortString)
-        .prop("initiation_date", Schema.Date)
+        .prop("version", Schema.ShortString)
+        .prop("portfolio_name", Schema.ShortString)
+        .prop("project_manager", Schema.ShortString)
+        .prop("registration_date", Schema.ShortString)
+        .prop("end_date", Schema.ShortString)
+        .prop("status", Schema.ShortString)
     )
   ),
 };
@@ -127,7 +127,7 @@ const getAllLessonsLearned = {
     S.array().items(
       S.object()
         .prop("category", S.string())
-        .prop("lesson_sub_category", S.string())
+        .prop("subcategory", S.string())
         .prop("lesson", S.string())
         .prop("recommendations", S.string())
         .prop("id", Schema.Id)

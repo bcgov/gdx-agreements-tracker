@@ -6,8 +6,9 @@ const multiBody = S.array().items(
     .prop("id", Schema.Id)
     .prop("last_name", Schema.ShortString)
     .prop("first_name", Schema.ShortString)
-    .prop("contact_title", Schema.ShortString)
-    .prop("ministry_short_name", Schema.ShortString)
+    .prop("job_title", Schema.ShortString)
+    .prop("ministry_id", Schema.ShortString)
+    .prop("notes", S.string())
 );
 
 const baseSingleBody = S.object()

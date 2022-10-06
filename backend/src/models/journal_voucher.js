@@ -1,24 +1,28 @@
 const dbConnection = require("../database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
-
+const { dateFormat } = require("../helpers/standards");
 const jvTable = `${dataBaseSchemas().data}.jv`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 const clientCodingTable = `${dataBaseSchemas().data}.client_coding`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
 
 const findAll = (projectId) => {
-  return knex
-    .select(
+  return knex(jvTable)
+    .columns(
       "jv.id",
       "jv.jv_number",
-      knex.raw("TO_CHAR(jv.billed_date :: DATE, 'dd-MON-yyyy') as billed_date"),
+      { billed_date: knex.raw(`TO_CHAR(jv.billed_date :: DATE, '${dateFormat}')`) },
       "jv.amount",
       "jv.quarter",
       "jv.project_id",
-      `${fiscalYearTable}.fiscal_year`,
-      knex.raw(`CONCAT(${contactTable}.last_name, ', ', ${contactTable}.first_name) as name`)
+      { fiscal: `${fiscalYearTable}.fiscal_year` },
+      {
+        financial_contact: knex.raw(
+          `CONCAT(${contactTable}.last_name, ', ', ${contactTable}.first_name)`
+        ),
+      }
     )
-    .from(jvTable)
+    .select()
     .leftJoin(fiscalYearTable, { "jv.fiscal_year_id": `${fiscalYearTable}.id` })
     .leftJoin(clientCodingTable, { "jv.client_coding_id": `${clientCodingTable}.id` })
     .leftJoin(contactTable, { "client_coding.contact_id": `${contactTable}.id` })

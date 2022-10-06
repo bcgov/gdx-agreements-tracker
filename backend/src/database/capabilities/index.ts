@@ -1,5 +1,9 @@
 const capabilities = [
   {
+    capability: "admin_form_add_one",
+    allowed: ["admin"],
+  },
+  {
     capability: "admin_form_read_all",
     allowed: ["admin", "manager"],
   },

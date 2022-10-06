@@ -42,11 +42,17 @@ export const Suppliers: FC = (): JSX.Element => {
     updateOne: `/suppliers/{id}`,
     addOne: `/suppliers`,
   };
+  const columnWidths = {
+    supplier_number: 2,
+    signing_authority: 2,
+    financial_contact: 2,
+  };
 
   return (
     <TableComplete
       itemName="Supplier"
       tableName="suppliers"
+      columnWidths={columnWidths}
       url={url}
       createFormInitialValues={createFormInitialValues}
       readFields={readFields}

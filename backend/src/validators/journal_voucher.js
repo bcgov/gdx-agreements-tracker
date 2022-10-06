@@ -18,12 +18,12 @@ const getAll = {
     S.array().items(
       S.object()
         .prop("id", Schema.Id)
-        .prop("fiscal_year", Schema.ShortString)
+        .prop("fiscal", Schema.ShortString)
         .prop("quarter", Schema.Id)
         .prop("jv_number", Schema.ShortString.minLength(1))
         .prop("billed_date", Schema.ShortString.minLength(1))
         .prop("amount", Schema.Float)
-        .prop("name", Schema.ShortString)
+        .prop("financial_contact", Schema.ShortString)
     )
   ),
 };
