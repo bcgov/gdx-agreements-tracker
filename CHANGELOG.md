@@ -1,10 +1,22 @@
 ## Developer Changelog
-### October 3, 2022 (DESCW-627) Update admin forms to use new component TableData
+
+### October 5, 2022 (DESCW-624) Contract Resources
+- Backend
+  - Created contract resources controller, model, routes, validators.
+  - Added getAll/getOne/update/add functionality to above.
+  - Change to picker options:
+    - `npx knex seed:run --specific=08_picker_options.js`
 - Frontend
-  - Updated admin forms to use new component TableComplete (formally TableData)
+  - Added Contracts/Resources page component.
+  - Created TableTotalFooter to allow tables to display column totals in footer.
+
 ### October 4, 2022 (DESCW-625) Contract Deliverables
 - Frontend
   - added new component for rendering table-like data
+
+### October 3, 2022 (DESCW-627) Update admin forms to use new component TableData
+- Frontend
+  - Updated admin forms to use new component TableComplete (formally TableData)
 
 ### September 28, 2022 (DESCW-653) Contracts Add/Update
 - Backend
