@@ -79,12 +79,17 @@ const verifyUserExists = (token) => {
         .findByEmail(userPayload.email)
         .then((user) => {
           if (0 === user.length) {
+            if (userPayload.client_roles?.includes("pmo-sys-admin")) {
+              // Set user role to admin if token client_roles has pmo-sys-admin.
+              userPayload.role_id = 2;
+            } else {
+              // Otherwise set user role to subscriber.
+              userPayload.role_id = 1;
+            }
             userModel
               .addOne(userPayload)
-              .then(async (id) => {
-                await userModel.addRoleToOne("subscriber", id[0]);
-                await userModel.addRoleToOne("admin", id[0]);
-                resolve(`New user added to database. ID ${id}`);
+              .then((result) => {
+                resolve(`New user added to database. ID ${result[0].id}`);
               })
               .catch((error) => reject(error));
           } else {

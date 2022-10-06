@@ -21,15 +21,15 @@ const capabilities = [
   },
   {
     capability: "contracts_add_one",
-    allowed: ["admin", "manager"],
+    allowed: ["admin"],
   },
   {
     capability: "contracts_update_one",
-    allowed: ["admin", "manager"],
+    allowed: ["admin"],
   },
   {
     capability: "contracts_delete_one",
-    allowed: ["admin", "manager"],
+    allowed: ["admin"],
   },
   {
     capability: "projects_read_all",

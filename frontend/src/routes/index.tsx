@@ -22,7 +22,7 @@ const AppRouter: FC = () => {
           element={
             <AuthorizedRoute
               currentUserRole={(currentUser as ICurrentUser)?.role_id?.label}
-              allowedRoles={["Administrator"]}
+              allowedRoles={["Administrator", "Manager"]}
             />
           }
         >
@@ -37,7 +37,7 @@ const AppRouter: FC = () => {
           element={
             <AuthorizedRoute
               currentUserRole={(currentUser as ICurrentUser)?.role_id?.label}
-              allowedRoles={["Administrator"]}
+              allowedRoles={["Administrator", "Manager"]}
               isPMOSysAdmin={(
                 keycloak as Keycloak.KeycloakInstance
               )?.tokenParsed?.client_roles?.includes("pmo-sys-admin")}
