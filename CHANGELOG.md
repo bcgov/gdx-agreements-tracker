@@ -1,5 +1,14 @@
 ## Developer Changelog
 
+### October 6, 2022 (DESCW-656) Table Lists
+- Backend 
+  - updated models for getAll, and validators to improve Table lists
+  - updated roles
+    - `npx knex seed:run --specific=02_role_capabilities.js`
+  - Frontend
+    - Added columnWidths property to allow tables to have different flex sizes besides 1
+    - updated Projects and Contract lists.
+    - updated amdin form lists.
 ### October 6, 2022 (DESCW-624) Contract Resources Roles
 - Backend
   - Created migration to drop user_roles table and removed all references to it in code (03_users_roles seed, users model, facilities/keycloak).

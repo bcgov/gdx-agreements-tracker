@@ -34,9 +34,6 @@ export const formatTableColumns = (
     return key in obj;
   }
 
-  const hasKey2 = (obj: O, key: PropertyKey): boolean => { return key in obj; }
-
-
   /**
    * This allows the field columnWidths to be passed that adjusts the flex value for > 1.
    *
@@ -46,7 +43,7 @@ export const formatTableColumns = (
   const getFlexValue = (field: PropertyKey) => {
     columnWidths = columnWidths ?? {};
     let flexWidth = 1;
-    if (hasKey2(columnWidths, field)) {
+    if (hasKey(columnWidths, field)) {
       flexWidth = Number(columnWidths[field]);
     }
 

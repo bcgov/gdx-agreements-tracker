@@ -10,7 +10,6 @@ const StyledBox = styled(Box)({
   width: "100%",
 });
 
-
 export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowEdit }: ITable) => {
   const totals: Array<{ id: string; total: number }> = [];
   if (totalColumns) {
