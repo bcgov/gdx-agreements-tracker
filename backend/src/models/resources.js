@@ -1,6 +1,6 @@
 const dbConnection = require("../database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
-
+const { dateFormat } = require("../helpers/standards");
 const table = `${dataBaseSchemas().data}.resource`;
 const supplierTable = `${dataBaseSchemas().data}.supplier`;
 const subcontractorTable = `${dataBaseSchemas().data}.subcontractor`;
@@ -11,18 +11,22 @@ const subcontractorTable = `${dataBaseSchemas().data}.subcontractor`;
  * @returns {object}
  */
 const findAll = () => {
-  return knex
-    .select(
-      "resource.id",
-      "resource.resource_last_name as Last Name",
-      "resource.resource_first_name as First Name",
-      "supplier.supplier_name as Supplier",
-      "subcontractor.subcontractor_name as Subcontractor",
-      knex.raw("TO_CHAR(resource.created_date :: DATE, 'dd-MON-yyyy') as created_date")
+  return knex(`${table} as r`)
+    .columns(
+      "r.id",
+      { last_name: "r.resource_last_name" },
+      { first_name: "r.resource_first_name" },
+      { supplier: "supplier.supplier_name" },
+      { subcontractor: "subcontractor.subcontractor_name" },
+      { created_date: knex.raw(`TO_CHAR(r.created_date :: DATE, '${dateFormat}')`) }
     )
-    .from(table)
-    .leftJoin(supplierTable, { "resource.supplier_id": `${supplierTable}.id` })
-    .leftJoin(subcontractorTable, { "resource.subcontractor_id": `${subcontractorTable}.id` });
+    .select()
+    .leftJoin(supplierTable, { "r.supplier_id": `${supplierTable}.id` })
+    .leftJoin(subcontractorTable, { "r.subcontractor_id": `${subcontractorTable}.id` })
+    .orderBy([
+      { column: "r.resource_last_name", order: "asc" },
+      { column: "r.resource_first_name", order: "asc" },
+    ]);
 };
 
 /**

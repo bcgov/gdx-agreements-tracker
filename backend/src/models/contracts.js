@@ -1,6 +1,7 @@
 const dbConnection = require("../database/databaseConnection");
 const useModel = require("./useModel");
 const { knex, dataBaseSchemas } = dbConnection();
+const { dateFormat } = require("../helpers/standards");
 const { diffInsert } = useModel();
 
 const contractsTable = `${dataBaseSchemas().data}.contract`;
@@ -14,27 +15,28 @@ const contractSubcontractorTable = `${dataBaseSchemas().data}.contract_subcontra
 
 // Get all.
 const findAll = () => {
-  return knex
-    .select(
-      "contract.contract_number",
-      "contract.co_version",
-      "contract.description",
-      "supplier.supplier_name",
-      "contract.start_date",
-      "contract.end_date",
-      "contract.total_expense_amount",
+  return knex(`${contractsTable} as c`)
+    .columns(
+      "p.project_number",
+      "p.project_name",
+      "c.contract_number",
+      "c.co_version",
+      "c.description",
+      { supplier: "supplier.supplier_name" },
+      { start_date: knex.raw(`TO_CHAR(c.start_date :: DATE, '${dateFormat}')`) },
+      { end_date: knex.raw(`TO_CHAR(c.end_date :: DATE, '${dateFormat}')`) },
+      "c.total_expense_amount",
       //"Remaining Amount" Leaving this here because it is on the wireframe but can't find it in the DB
-      "contract.status",
-      "fiscal_year.fiscal_year",
-      "project.project_number",
-      "portfolio.portfolio_name",
-      "contract.id"
+      "c.status",
+      { fiscal: "fy.fiscal_year" },
+      { portfolio: "portfolio.portfolio_name" },
+      "c.id"
     )
-    .from(contractsTable)
-    .leftJoin(fiscalYearTable, { "contract.fiscal": `${fiscalYearTable}.id` })
-    .leftJoin(suppliersTable, { "contract.supplier_id": `${suppliersTable}.id` })
-    .leftJoin(portfolioTable, { "contract.supplier_id": `${portfolioTable}.id` })
-    .leftJoin(projectTable, { "contract.project_id": `${projectTable}.id` });
+    .leftJoin(`${fiscalYearTable} as fy`, { "c.fiscal": `fy.id` })
+    .leftJoin(suppliersTable, { "c.supplier_id": `${suppliersTable}.id` })
+    .leftJoin(portfolioTable, { "c.supplier_id": `${portfolioTable}.id` })
+    .leftJoin(`${projectTable} as p`, { "c.project_id": `p.id` })
+    .orderBy("c.id", "desc");
 };
 
 // Get One

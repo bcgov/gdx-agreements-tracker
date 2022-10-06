@@ -9,13 +9,13 @@ import { useFormSubmit } from "hooks/useFormSubmit";
 import { useQuery } from "react-query";
 import { ReadForm } from "components/ReadForm";
 import { EditForm } from "components/EditForm";
-import { IEditFields } from "types";
 import { Box, Button } from "@mui/material";
 import { CreateForm } from "components/CreateForm";
 import { useAxios } from "hooks/useAxios";
+import { editFields, readFields } from "./fields";
 
 /**
- * @returns the jsx for the change request section of the project form
+ * @returns  the jsx for the change request section of the project form
  */
 
 export const ChangeRequest = () => {
@@ -63,57 +63,6 @@ export const ChangeRequest = () => {
       staleTime: Infinity,
     }
   );
-
-  const readFields = [
-    { width: "half", title: "Version", value: changeRequestQuery?.data?.version },
-    { width: "half", title: "Fiscal Year", value: changeRequestQuery?.data?.fiscal_year?.label },
-    { width: "half", title: "Initiation Date", value: changeRequestQuery?.data?.initiation_date },
-    { width: "half", title: "CR Contact", value: changeRequestQuery?.data?.cr_contact },
-    { width: "half", title: "Initiated By", value: changeRequestQuery?.data?.initiated_by?.label },
-    { width: "half", title: "Approval Date", value: changeRequestQuery?.data?.approval_date },
-    { width: "full", title: "Summary", value: changeRequestQuery?.data?.summary },
-  ];
-
-  const editFields: IEditFields[] = [
-    {
-      fieldName: "fiscal_year",
-      fieldType: "select",
-      fieldLabel: "Fiscal Year",
-      width: "half",
-      tableName: "generic",
-    },
-    {
-      fieldName: "initiation_date",
-      fieldType: "date",
-      fieldLabel: "Initiation Date",
-      width: "half",
-    },
-    {
-      fieldName: "cr_contact",
-      fieldType: "singleText",
-      fieldLabel: "CR Contact",
-      width: "half",
-    },
-    {
-      fieldName: "initiated_by",
-      fieldType: "select",
-      fieldLabel: "Initiated By",
-      width: "half",
-      tableName: "change_request",
-    },
-    {
-      fieldName: "approval_date",
-      fieldType: "date",
-      fieldLabel: "Approval Date",
-      width: "half",
-    },
-    {
-      fieldName: "summary",
-      fieldType: "multiText",
-      fieldLabel: "Summary",
-      width: "full",
-    },
-  ];
 
   const createFormInitialValues = {
     approval_date: null,
@@ -168,7 +117,7 @@ export const ChangeRequest = () => {
       >
         <>
           {!editMode ? (
-            <ReadForm fields={readFields} />
+            <ReadForm fields={readFields(changeRequestQuery)} />
           ) : (
             <>
               {"new" === formType ? (

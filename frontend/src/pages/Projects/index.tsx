@@ -7,15 +7,26 @@ export const Projects: FC = () => {
   const { data, isLoading } = useFormatTableData({
     tableName: "projects",
     apiEndPoint: "projects",
+    columnWidths: {
+      project_name: 3,
+      portfolio_name: 2,
+      project_manager: 2,
+    },
   });
 
   const switchRender = () => {
     switch (isLoading) {
       case true:
         return <LinearProgress />;
-
       case false:
-        return <Table columns={data.columns} rows={data.rows} loading={isLoading} />;
+        return (
+          <Table
+            columns={data.columns}
+            rows={data.rows}
+            loading={isLoading}
+            allowEdit={data?.user?.capabilities.includes("projects_update_one")}
+          />
+        );
       default:
         return <LinearProgress />;
     }

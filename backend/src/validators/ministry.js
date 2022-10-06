@@ -3,9 +3,9 @@ const S = require("fluent-json-schema");
 
 const body = S.object()
   .prop("id", Schema.Id)
-  .prop("ministry_name", Schema.ShortString.minLength(1))
-  .prop("ministry_short_name", Schema.ShortString.minLength(1))
-  .prop("is_active", Schema.ShortString);
+  .prop("Ministry/Organization Name", Schema.ShortString.minLength(1))
+  .prop("abbr", Schema.ShortString.minLength(1))
+  .prop("active", Schema.ShortString);
 
 const singleBody = body.without(["is_active"]).prop("is_active", S.boolean());
 

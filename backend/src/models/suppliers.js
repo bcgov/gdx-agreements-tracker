@@ -5,13 +5,16 @@ const table = `${dataBaseSchemas().data}.supplier`;
 
 // Get all.
 const findAll = () => {
-  return knex(table).select(
-    "id",
-    "supplier_number",
-    "signing_authority_name",
-    "financial_contact_name",
-    "province"
-  );
+  return knex(table)
+    .columns(
+      "id",
+      "supplier_number",
+      { signing_authority: "signing_authority_name" },
+      { financial_contact: "financial_contact_name" },
+      "province"
+    )
+    .select()
+    .orderBy("supplier_number", "asc");
 };
 
 // Get specific one by id.

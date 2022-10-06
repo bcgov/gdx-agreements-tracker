@@ -22,12 +22,16 @@ export const Ministries: FC = () => {
     updateOne: `/ministries/{id}`,
     addOne: `/ministries`,
   };
+  const columnWidths = {
+    "Ministry/Organization Name": 3,
+  };
 
   return (
     <TableComplete
       itemName="Ministry"
       tableName="ministry"
       url={url}
+      columnWidths={columnWidths}
       createFormInitialValues={createFormInitialValues}
       readFields={readFields}
       editFields={editFields}

@@ -5,12 +5,15 @@ const table = `${dataBaseSchemas().data}.ministry`;
 
 // Get all.
 const findAll = () => {
-  return knex(table).select(
-    "id",
-    "ministry_name",
-    "ministry_short_name",
-    knex.raw("(CASE WHEN is_active THEN 'Yes' ELSE 'No' END) AS is_active")
-  );
+  return knex(table)
+    .columns(
+      "id",
+      { "Ministry/Organization Name": "ministry_name" },
+      { abbr: "ministry_short_name" },
+      { active: knex.raw("(CASE WHEN is_active THEN 'Yes' ELSE 'No' END)") }
+    )
+    .select()
+    .orderBy("ministry_name", "asc");
 };
 
 // Get specific one by id.

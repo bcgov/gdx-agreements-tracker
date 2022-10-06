@@ -21,10 +21,16 @@ export const Users: FC = () => {
     addOne: `/users`,
   };
 
+  const columnWidths = {
+    name: 2,
+    email: 2,
+  };
+
   return (
     <TableComplete
       itemName="User"
       tableName="users"
+      columnWidths={columnWidths}
       url={url}
       createFormInitialValues={createFormInitialValues}
       readFields={readFields}

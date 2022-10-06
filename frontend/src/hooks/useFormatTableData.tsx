@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { ITableData } from "../types";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import React from "react";
@@ -17,20 +17,50 @@ import { useAxios } from "./useAxios";
 export const formatTableColumns = (
   tableData: ITableData,
   tableName?: string,
-  handleClick?: Function
+  handleClick?: Function,
+  columnWidths?: Object
 ) => {
+  /**
+   * Small helper function to check if key exists and to make the typescript linter happy.
+   *
+   * @param   {O}           obj The object to check if has key.
+   * @param   {PropertyKey} key The key to check for.
+   * @returns {boolean}
+   */
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+  function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
+    /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+    // todo: Convert to an arrow function.
+    return key in obj;
+  }
+
+  /**
+   * This allows the field columnWidths to be passed that adjusts the flex value for > 1.
+   *
+   * @param   {PropertyKey} field The field key to check for.
+   * @returns {number}
+   */
+  const getFlexValue = (field: PropertyKey) => {
+    columnWidths = columnWidths ?? {};
+    let flexWidth = 1;
+    if (hasKey(columnWidths, field)) {
+      flexWidth = Number(columnWidths[field]);
+    }
+
+    return flexWidth;
+  };
+
   return new Promise((resolve) => {
     const formattedColumns: Array<Object> = [
       {
         field: "edit",
         headerName: "",
         sortable: false,
+
+        maxWidth: 60,
         renderCell: (cellValues: { id: number }) => {
           return (
-            <Button
-              variant="contained"
-              color="primary"
-              endIcon={<RemoveRedEyeIcon />}
+            <IconButton
               onClick={
                 // If the handleClick function does not exist, render a Button else render the link component
                 !handleClick
@@ -43,7 +73,9 @@ export const formatTableColumns = (
               component={!handleClick ? Link : Button}
               // If the handlClick function does not exist, apply to property else apply undefined
               to={!handleClick ? `/${tableName}/${cellValues.id}` : undefined}
-            ></Button>
+            >
+              <RemoveRedEyeIcon />
+            </IconButton>
           );
         },
       },
@@ -57,7 +89,7 @@ export const formatTableColumns = (
           .split("_")
           .join(" ")
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
-        flex: 1,
+        flex: getFlexValue(value[0]),
         id: index,
       });
     });
@@ -70,10 +102,12 @@ export const useFormatTableData = ({
   tableName,
   apiEndPoint,
   handleClick,
+  columnWidths,
 }: {
   tableName: string;
   apiEndPoint: string;
   handleClick?: Function;
+  columnWidths?: Object;
 }) => {
   // const handleCurrentUser = async () => {
   //   if (initialized) {
@@ -95,7 +129,7 @@ export const useFormatTableData = ({
             return { columns: [], rows: [], user: tableData.data?.user };
 
           default:
-            return formatTableColumns(tableData, tableName, handleClick);
+            return formatTableColumns(tableData, tableName, handleClick, columnWidths);
         }
       })
       .catch((error) => {

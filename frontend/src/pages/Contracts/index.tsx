@@ -14,6 +14,12 @@ export const Contracts: FC = () => {
   const { data, isLoading } = useFormatTableData({
     tableName: "contracts",
     apiEndPoint: "contracts",
+    columnWidths: {
+      project_name: 3,
+      description: 3,
+      supplier_name: 2,
+      contract_name: 2,
+    },
   });
 
   // A case statement which allows us to do a conditional render.  You cannot put a switch in the JSX so a function that return a switch is needed.
@@ -21,9 +27,15 @@ export const Contracts: FC = () => {
     switch (isLoading) {
       case true:
         return <LinearProgress />;
-
       case false:
-        return <Table columns={data?.columns} rows={data?.rows} loading={isLoading} />;
+        return (
+          <Table
+            columns={data?.columns}
+            rows={data?.rows}
+            loading={isLoading}
+            allowEdit={data?.user?.capabilities.includes("contracts_update_one")}
+          />
+        );
       default:
         return <LinearProgress />;
     }

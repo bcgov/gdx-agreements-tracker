@@ -9,7 +9,7 @@ const baseBody = S.object()
 
 const getAll = {
   response: getResponse(
-    S.array().items(baseBody.without(["role_id"]).prop("display_name", Schema.ShortString))
+    S.array().items(baseBody.without(["role_id"]).prop("user_role", Schema.ShortString))
   ),
 };
 

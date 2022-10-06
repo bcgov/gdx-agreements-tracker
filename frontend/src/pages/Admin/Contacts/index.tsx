@@ -36,11 +36,16 @@ export const Contacts: FC = () => {
     updateOne: `/contacts/{id}`,
     addOne: `/contacts`,
   };
+  const columnWidths = {
+    job_title: 2,
+    notes: 3,
+  };
 
   return (
     <TableComplete
       itemName="Contacts"
       tableName="contact"
+      columnWidths={columnWidths}
       url={url}
       createFormInitialValues={createFormInitialValues}
       readFields={readFields}

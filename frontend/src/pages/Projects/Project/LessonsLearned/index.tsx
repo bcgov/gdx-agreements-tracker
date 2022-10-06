@@ -40,11 +40,17 @@ export const LessonsLearned: FC = (): JSX.Element => {
     project_id: projectId,
   };
 
+  const columnWidths = {
+    lesson: 3,
+    recommendations: 3,
+  };
+
   return (
     <>
       <TableComplete
         itemName="Lessons Learned"
         tableName="lessons-learned"
+        columnWidths={columnWidths}
         url={url}
         createFormInitialValues={createFormInitialValues}
         readFields={readFields}
