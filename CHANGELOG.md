@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+### October 6, 2022 (DESCW-624) Contract Resources Roles
+- Backend
+  - Created migration to drop user_roles table and removed all references to it in code (03_users_roles seed, users model, facilities/keycloak).
+    - `npx knex migrate:latest`
+- Frontend
+  - Updated routes to allow Manager role to access routes (only allowed Administrator before).
+
 ### October 5, 2022 (DESCW-624) Contract Resources
 - Backend
   - Created contract resources controller, model, routes, validators.
