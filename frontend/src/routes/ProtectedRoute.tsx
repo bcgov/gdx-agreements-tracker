@@ -27,7 +27,7 @@ export const AuthorizedRoute = ({
   isPMOSysAdmin = false,
 }: {
   currentUserRole: string;
-  allowedRoles: [string];
+  allowedRoles: string[];
   isPMOSysAdmin?: boolean;
 }) => {
   const { initialized, keycloak } = useKeycloak();

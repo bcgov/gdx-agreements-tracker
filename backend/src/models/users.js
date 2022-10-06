@@ -53,7 +53,7 @@ const addOne = (userInfo) => {
     name: userInfo.name,
     role_id: userInfo.role_id,
   };
-  return knex(table).insert(createUser);
+  return knex(table).insert(createUser, ["id"]);
 };
 
 // Update one.
@@ -67,15 +67,6 @@ const removeOne = (id) => {
   return knex(table).where("id", id).del();
 };
 
-const addRoleToOne = (roleName, userId) => {
-  knex("roles")
-    .pluck("id")
-    .where("name", roleName)
-    .then((roleId) => {
-      return knex("user_roles").insert({ role_id: roleId[0], user_id: userId }, "id");
-    });
-};
-
 module.exports = {
   findAll,
   findById,
@@ -83,5 +74,4 @@ module.exports = {
   addOne,
   updateOne,
   removeOne,
-  addRoleToOne,
 };

@@ -68,7 +68,7 @@ describe("Verify user exists in DB and if not, add user.", () => {
   it("Finds no user, so it adds one to the DB.", async () => {
     const newUserId = 1;
     userModel.findByEmail.mockResolvedValue([]);
-    userModel.addOne.mockResolvedValue(newUserId);
+    userModel.addOne.mockResolvedValue([{ id: newUserId }]);
     const result = await verifyUserExists(exampleToken);
 
     expect(result).toBe(`New user added to database. ID ${newUserId}`);
