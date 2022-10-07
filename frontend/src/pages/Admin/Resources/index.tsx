@@ -4,9 +4,9 @@ import { TableComplete } from "components/TableComplete";
 
 export const Resources: FC = () => {
   const createFormInitialValues = {
-    ministry_name: "",
-    ministry_short_name: "",
-    is_active: false,
+    resource_last_name: "",
+    resource_first_name: "",
+    resource_id: 0,
   };
 
   const roles = {

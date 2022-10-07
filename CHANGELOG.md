@@ -1,5 +1,8 @@
 ## Developer Changelog
-
+### October 6, 2022 (DESCW-657) 
+- fixed login loading issues
+- converted change request to tableComplete
+- updated Table defaults
 ### October 6, 2022 (DESCW-656) Table Lists
 - Backend 
   - updated models for getAll, and validators to improve Table lists

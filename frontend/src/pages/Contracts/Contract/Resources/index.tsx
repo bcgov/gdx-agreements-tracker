@@ -21,11 +21,16 @@ export const ContractResources = () => {
     deleteOne: `contracts/resources/{id}`,
   };
 
+  const columnWidths = {
+    resource: 2,
+  };
+
   return (
     <TableComplete
-      itemName={"resource"}
+      itemName={"Resources"}
       tableName={"resources"}
       url={url}
+      columnWidths={columnWidths}
       createFormInitialValues={initialValues}
       readFields={readFields}
       editFields={editFields}
