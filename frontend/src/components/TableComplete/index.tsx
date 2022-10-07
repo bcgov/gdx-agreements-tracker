@@ -221,7 +221,7 @@ export const TableComplete = ({
                     return handleUpdate({
                       changedValues: values,
                       currentRowData: reactQuery?.data,
-                      apiUrl: getApiUrl(url.getOne, reactQuery?.data?.id),
+                      apiUrl: getApiUrl(url.updateOne, reactQuery?.data?.id),
                       handleEditMode: handleEditMode,
                       queryKeys: [url.getAll, getApiUrl(url.getOne, reactQuery?.data?.id)],
                       successMessage: `Changes saved successfully.`,

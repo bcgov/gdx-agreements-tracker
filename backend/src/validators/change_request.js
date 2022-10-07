@@ -26,12 +26,10 @@ const getAll = {
 const getOne = {
   params: S.object().prop("changeRequestId", Schema.Id).prop("projectId", Schema.Id),
   response: getResponse(
-    S.array().items(
-      baseBody
-        .without(["initiated_by", "fiscal_year"])
-        .prop("initiated_by", Schema.Picker)
-        .prop("fiscal_year", Schema.Picker)
-    )
+    baseBody
+      .without(["initiated_by", "fiscal_year"])
+      .prop("initiated_by", Schema.Picker)
+      .prop("fiscal_year", Schema.Picker)
   ),
 };
 

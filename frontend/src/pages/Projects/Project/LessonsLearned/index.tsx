@@ -27,7 +27,7 @@ export const LessonsLearned: FC = (): JSX.Element => {
   const url = {
     getAll: `projects/${projectId}/lessons-learned`,
     getOne: `projects/${projectId}/lessons-learned/{id}`,
-    updateOne: `lessons-learned/{id}`,
+    updateOne: `projects/${projectId}/lessons-learned/{id}`,
     addOne: `/lessons-learned`,
     deleteOne: `lessons-learned/{id}`,
   };

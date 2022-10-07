@@ -15,8 +15,24 @@ describe("Testing useFormatTableData Hook", () => {
           rows: [{ field: "id", flex: 1, headerName: "Id", id: 3 }],
           // an array that contains,
           columns: expect.arrayContaining([
-            { field: "field", flex: 1, headerName: "Field", id: 0, hide: false },
-            { field: "flex", flex: 1, headerName: "Flex", id: 1, hide: false },
+            {
+              field: "field",
+              flex: 1,
+              headerName: "Field",
+              id: 0,
+              hide: false,
+              sortable: false,
+              filterable: false,
+            },
+            {
+              field: "flex",
+              flex: 1,
+              headerName: "Flex",
+              id: 1,
+              hide: false,
+              sortable: false,
+              filterable: false,
+            },
           ]),
         })
       );

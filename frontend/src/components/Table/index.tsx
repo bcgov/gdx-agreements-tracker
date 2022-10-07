@@ -6,13 +6,13 @@ import { TableTotalFooter } from "components/Table/TableTotalFooter";
 
 const StyledBox = styled(Box)({
   overflowX: "scroll",
-  height: "50vh",
+  height: "80vh",
   width: "100%",
 });
 
 export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowEdit }: ITable) => {
   const totals: Array<{ id: string; total: number }> = [];
-  if (totalColumns) {
+  if (totalColumns && rows.length > 0) {
     totalColumns.forEach((col: string) => {
       totals.push({
         id: col,
@@ -27,7 +27,7 @@ export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowE
    * @returns {any}
    */
   const tableComponents = () => {
-    if (totalColumns && totalColumns.length > 0) {
+    if (totalColumns && totalColumns.length > 0 && rows.length > 0) {
       return {
         Footer: () => {
           return <TableTotalFooter totals={totals} columns={columns} />;
@@ -44,6 +44,8 @@ export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowE
         rows={rows}
         columns={columns}
         loading={loading}
+        paginationMode={"server"}
+        hideFooter={true}
         disableExtendRowFullWidth={true}
         sx={(theme) => ({
           "& .MuiDataGrid-columnHeaders": {

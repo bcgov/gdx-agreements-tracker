@@ -33,8 +33,8 @@ export const AuthorizedRoute = ({
   const { initialized, keycloak } = useKeycloak();
   const location = useLocation();
 
-  if (initialized && currentUserRole) {
-    return keycloak?.authenticated ? (
+  if (initialized) {
+    return keycloak?.authenticated && currentUserRole ? (
       allowedRoles.includes(currentUserRole) || isPMOSysAdmin ? (
         <Outlet />
       ) : (
