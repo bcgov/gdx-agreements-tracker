@@ -38,6 +38,7 @@ export const InvoiceResources = ({
       createFormInitialValues={initialValues}
       readFields={readFields}
       editFields={editFields(contractId)}
+      totalColumns={["hours", "rate", "amount"]}
       roles={roles}
     />
   );

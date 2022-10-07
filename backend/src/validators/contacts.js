@@ -1,17 +1,45 @@
 const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-const multiBody = S.array().items(
-  S.object()
-    .prop("id", Schema.Id)
-    .prop("last_name", Schema.ShortString)
-    .prop("first_name", Schema.ShortString)
-    .prop("job_title", Schema.ShortString)
-    .prop("ministry_id", Schema.ShortString)
-    .prop("notes", S.string())
-);
+const getAll = {
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", S.number())
+        .prop("last_name", S.string())
+        .prop("first_name", S.string())
+        .prop("job_title", S.string())
+        .prop("ministry_id", S.string())
+        .prop("notes", S.string())
+    )
+  ),
+};
 
-const baseSingleBody = S.object()
+const getOne = {
+  params: Schema.IdParam,
+  response: getResponse(
+    S.object()
+      .prop("id", S.number())
+      .prop("last_name", S.string())
+      .prop("first_name", S.string())
+      .prop("email", S.string())
+      .prop("contact_phone", S.string())
+      .prop("contact_title", S.string())
+      .prop("business_area_id", S.number())
+      .prop("address", S.string())
+      .prop("city", S.string())
+      .prop("province", S.string())
+      .prop("postal", S.string())
+      .prop("country", S.string())
+      .prop("website", S.string())
+      .prop("mobile", S.string())
+      .prop("fax", S.string())
+      .prop("notes", S.string())
+      .prop("ministry_id", Schema.Picker)
+  ),
+};
+
+const addUpdateBody = S.object()
   .prop("id", Schema.Id)
   .prop("last_name", Schema.ShortString.minLength(1))
   .prop("first_name", Schema.ShortString.minLength(1))
@@ -27,28 +55,17 @@ const baseSingleBody = S.object()
   .prop("website", Schema.Uri)
   .prop("mobile", Schema.Phone)
   .prop("fax", Schema.Phone)
-  .prop("notes", S.string());
-
-const requestSingleBody = baseSingleBody.prop("ministry_id", Schema.Id);
-const responseSingleBody = baseSingleBody.prop("ministry_id", Schema.Picker);
-
-const getAll = {
-  response: getResponse(multiBody),
-};
-
-const getOne = {
-  params: Schema.IdParam,
-  response: getResponse(responseSingleBody),
-};
+  .prop("notes", S.string())
+  .prop("ministry_id", Schema.Id);
 
 const updateOne = {
   params: Schema.IdParam,
-  body: requestSingleBody.minProperties(1),
+  body: addUpdateBody,
   response: getUpdateResponse(),
 };
 
 const addOne = {
-  body: requestSingleBody.required(["first_name", "last_name"]),
+  body: addUpdateBody.required(["first_name", "last_name"]),
   response: getAddResponse(),
 };
 

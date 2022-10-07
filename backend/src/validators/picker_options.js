@@ -1,16 +1,18 @@
 const { Schema, getResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-const body = S.object()
-  .prop("id", Schema.Id)
-  .prop("name", Schema.ShortString)
-  .prop("title", Schema.ShortString)
-  .prop("description", S.string())
-  .prop("associated_form", Schema.ShortString)
-  .prop("definition", S.anyOf([S.array().items(Schema.Picker)]));
-
 const getAll = {
-  response: getResponse(S.array().items(body)),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", S.number())
+        .prop("name", S.string())
+        .prop("title", S.string())
+        .prop("description", S.string())
+        .prop("associated_form", S.string())
+        .prop("definition", S.array().items(Schema.Picker))
+    )
+  ),
 };
 
 const getOne = {

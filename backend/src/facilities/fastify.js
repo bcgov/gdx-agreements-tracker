@@ -7,8 +7,8 @@ const {
 } = require("../facilities/keycloak");
 const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
-const fastifyCors = require("fastify-cors");
-const fastifyAuth = require("fastify-auth");
+const fastifyCors = require("@fastify/cors");
+const fastifyAuth = require("@fastify/auth");
 const fastifyMarkdown = require("fastify-markdown");
 const fastifyRoles = require("../plugins/fastify-roles");
 

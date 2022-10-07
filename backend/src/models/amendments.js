@@ -15,6 +15,7 @@ const findAll = (contractId) => {
       knex.raw(
         "TO_CHAR(contract_amendment.amendment_date :: DATE, 'dd-MON-yyyy') as amendment_date"
       ),
+      "contract_amendment.amendment_date",
       "contract_amendment.description"
     )
     .from(contractAmendmentTable)

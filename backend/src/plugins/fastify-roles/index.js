@@ -84,6 +84,6 @@ const fastifyRoles = async (fastify, opts) => {
 };
 
 module.exports = fp(fastifyRoles, {
-  fastify: "3.x",
+  fastify: "4.x",
   name: "fastify-roles",
 });
