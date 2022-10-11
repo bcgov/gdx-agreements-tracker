@@ -1,31 +1,42 @@
 const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-const body = S.object()
-  .prop("id", Schema.Id)
-  .prop("Ministry/Organization Name", Schema.ShortString.minLength(1))
-  .prop("abbr", Schema.ShortString.minLength(1))
-  .prop("active", Schema.ShortString);
-
-const singleBody = body.without(["is_active"]).prop("is_active", S.boolean());
-
 const getAll = {
-  response: getResponse(S.array().items(body)),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", S.number())
+        .prop("Ministry/Organization Name", S.string())
+        .prop("abbr", S.string())
+        .prop("active", S.string())
+    )
+  ),
 };
 
 const getOne = {
   params: Schema.IdParam,
-  response: getResponse(singleBody),
+  response: getResponse(
+    S.object()
+      .prop("id", S.number())
+      .prop("ministry_name", S.string())
+      .prop("ministry_short_name", S.string())
+      .prop("is_active", S.boolean())
+  ),
 };
+
+const addUpdateBody = S.object()
+  .prop("ministry_name", S.string())
+  .prop("ministry_short_name", S.string())
+  .prop("is_active", S.boolean());
 
 const updateOne = {
   params: Schema.IdParam,
-  body: singleBody.minProperties(1),
+  body: addUpdateBody,
   response: getUpdateResponse(),
 };
 
 const addOne = {
-  body: singleBody.required(["ministry_name", "ministry_short_name"]),
+  body: addUpdateBody.required(["ministry_name", "ministry_short_name"]),
   response: getAddResponse(),
 };
 

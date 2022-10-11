@@ -27,7 +27,7 @@ const start = async () => {
   // Initialize connections to external services.
   daemon.initializeConnections();
   try {
-    await server.listen(port, "0.0.0.0");
+    await server.listen({ port: port, host: "0.0.0.0" });
   } catch (err) {
     server.log.error(err);
     process.exit(1);

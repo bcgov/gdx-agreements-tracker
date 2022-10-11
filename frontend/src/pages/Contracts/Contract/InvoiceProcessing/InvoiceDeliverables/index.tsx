@@ -32,6 +32,7 @@ export const InvoiceDeliverables = ({ invoiceId }: { invoiceId: number }) => {
       createFormInitialValues={initialValues}
       readFields={readFields}
       editFields={editFields}
+      totalColumns={["rate"]}
       roles={roles}
     />
   );

@@ -2,10 +2,10 @@ const { Schema, getResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
 const body = S.object()
-  .prop("id", Schema.Id)
-  .prop("associated_table", Schema.ShortString)
-  .prop("title", Schema.ShortString)
-  .prop("associated_table", Schema.ShortString)
+  .prop("id", S.number())
+  .prop("associated_table", S.string())
+  .prop("title", S.string())
+  .prop("associated_table", S.string())
   .prop("definition", S.string());
 
 const getAll = {

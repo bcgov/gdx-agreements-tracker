@@ -1,25 +1,27 @@
 const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-const body = S.object().prop("id", Schema.Id).prop("subcontractor_name", Schema.ShortString);
-
 const getAll = {
-  response: getResponse(S.array().items(body)),
+  response: getResponse(
+    S.array().items(S.object().prop("id", S.number()).prop("subcontractor_name", S.string()))
+  ),
 };
 
 const getOne = {
   params: Schema.IdParam,
-  response: getResponse(body),
+  response: getResponse(S.object().prop("id", S.number()).prop("subcontractor_name", S.string())),
 };
+
+const addUpdateBody = S.object().prop("subcontractor_name", Schema.ShortString);
 
 const updateOne = {
   params: Schema.IdParam,
-  body: body.without(["id"]).minProperties(1),
+  body: addUpdateBody,
   response: getUpdateResponse(),
 };
 
 const addOne = {
-  body: body.without(["id"]).required(["subcontractor_name"]),
+  body: addUpdateBody.required(["subcontractor_name"]),
   response: getAddResponse(),
 };
 

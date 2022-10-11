@@ -22,26 +22,24 @@ export const readFields = (amendmentsQuery: UseQueryResult<FormikValues>) => {
   ];
 };
 
-export const editFields: () => IEditFields[] = () => {
-  return [
-    {
-      fieldName: "amendment_number",
-      fieldType: "select",
-      fieldLabel: "Amendment Type",
-      width: "half",
-      tableName: "contract_amendment",
-    },
-    {
-      fieldName: "amendment_date",
-      fieldType: "date",
-      fieldLabel: "Amendment Date",
-      width: "half",
-    },
-    {
-      fieldName: "description",
-      fieldType: "multiText",
-      fieldLabel: "Description",
-      width: "full",
-    },
-  ];
-};
+export const editFields: IEditFields[] = [
+  {
+    fieldName: "amendment_number",
+    fieldType: "select",
+    fieldLabel: "Amendment Type",
+    width: "half",
+    tableName: "contract_amendment",
+  },
+  {
+    fieldName: "amendment_date",
+    fieldType: "date",
+    fieldLabel: "Amendment Date",
+    width: "half",
+  },
+  {
+    fieldName: "description",
+    fieldType: "multiText",
+    fieldLabel: "Description",
+    width: "full",
+  },
+];

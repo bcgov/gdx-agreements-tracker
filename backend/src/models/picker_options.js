@@ -64,7 +64,8 @@ const getClientCodingTableLookup = (id) => {
       ORDER BY client_coding.program_area
       `;
   }
-  return `WHEN definition ->> 'tableLookup' = 'client_coding' THEN (SELECT json_agg(cc) FROM (${query}) cc)`;
+  // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
+  return `WHEN definition ->> 'tableLookup' = 'client_coding' THEN (SELECT COALESCE(json_agg(cc), '[]') FROM (${query}) cc)`;
 };
 
 module.exports = {

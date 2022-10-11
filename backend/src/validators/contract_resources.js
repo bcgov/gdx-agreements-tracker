@@ -1,19 +1,42 @@
 const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-const body = S.object()
-  .prop("id", Schema.Id)
-  .prop("fiscal", Schema.ShortString)
-  .prop("resource", Schema.ShortString)
-  .prop("assignment_role", Schema.ShortString)
-  .prop("supplier_rate", Schema.ShortString)
-  .prop("assignment_rate", Schema.ShortString)
-  .prop("hours", S.number())
-  .prop("fees_for_resource", Schema.ShortString)
-  .prop("start_date", Schema.Date)
-  .prop("end_date", Schema.Date);
+const getAll = {
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", S.number())
+        .prop("fiscal", S.string())
+        .prop("resource", S.string())
+        .prop("assignment_role", S.string())
+        .prop("supplier_rate", S.string())
+        .prop("assignment_rate", S.number())
+        .prop("hours", S.number())
+        .prop("fees_for_resource", S.number())
+        .prop("start_date", S.string())
+        .prop("end_date", S.string())
+    )
+  ),
+};
 
-const requestBody = S.object()
+const getOne = {
+  params: Schema.IdParam,
+  response: getResponse(
+    S.object()
+      .prop("id", S.number())
+      .prop("fiscal", Schema.Picker)
+      .prop("resource_id", Schema.Picker)
+      .prop("assignment_rate", S.number())
+      .prop("supplier_rate_id", Schema.Picker)
+      .prop("assignment_rate", S.string())
+      .prop("hours", S.number())
+      .prop("fees_for_resource", S.string())
+      .prop("start_date", S.string())
+      .prop("end_date", S.string())
+  ),
+};
+
+const addUpdateBody = S.object()
   .prop("fiscal", Schema.Id)
   .prop("resource_id", Schema.Id)
   .prop("supplier_rate_id", Schema.Id)
@@ -22,31 +45,15 @@ const requestBody = S.object()
   .prop("start_date", Schema.Date)
   .prop("end_date", Schema.Date);
 
-const getAll = {
-  response: getResponse(S.array().items(body)),
-};
-
-const getOne = {
-  params: Schema.IdParam,
-  response: getResponse(
-    body
-      .without(["fiscal", "resource", "supplier_rate", "assignment_rate"])
-      .prop("fiscal", Schema.Picker)
-      .prop("supplier_rate_id", Schema.Picker)
-      .prop("resource_id", Schema.Picker)
-      .prop("assignment_rate", Schema.Money)
-  ),
-};
-
 const updateOne = {
   params: Schema.IdParam,
-  body: requestBody.minProperties(1),
+  body: addUpdateBody,
   response: getUpdateResponse(),
 };
 
 const addOne = {
   params: Schema.IdParam,
-  body: requestBody.required(["resource_id", "supplier_rate_id", "assignment_rate", "fiscal"]),
+  body: addUpdateBody.required(["resource_id", "supplier_rate_id", "assignment_rate", "fiscal"]),
   response: getAddResponse(),
 };
 

@@ -1,4 +1,11 @@
 ## Developer Changelog
+### October 11, 2022 (DESCW-611) Fastify Upgrade
+- Backend
+  - Upgraded Fastify and related packages to latest versions.
+    - `npm i` from /backend directory
+  - Updated all validators (serializer now required to run in strict mode).
+- Frontend
+  - Changed amendments page to use TableComplete component.
 ### October 6, 2022 (DESCW-657) 
 - fixed login loading issues
 - converted change request to tableComplete

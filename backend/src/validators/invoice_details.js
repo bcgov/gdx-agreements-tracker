@@ -1,26 +1,30 @@
 const { Schema, getResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-const resource = S.object()
-  .prop("id", Schema.Id)
-  .prop("resource_name", Schema.ShortString)
-  .prop("hours", S.number())
-  .prop("rate", Schema.Money)
-  .prop("amount", Schema.Money);
-
 const getResources = {
   params: Schema.IdParam,
-  response: getResponse(S.array().items(resource)),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", S.number())
+        .prop("resource_name", S.string())
+        .prop("hours", S.number())
+        .prop("rate", S.number())
+        .prop("amount", S.number())
+    )
+  ),
 };
-
-const deliverable = S.object()
-  .prop("id", Schema.Id)
-  .prop("deliverable_name", Schema.ShortString)
-  .prop("rate", Schema.Money);
 
 const getDeliverables = {
   params: Schema.IdParam,
-  response: getResponse(S.array().items(deliverable)),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", S.number())
+        .prop("deliverable_name", S.string())
+        .prop("rate", S.number())
+    )
+  ),
 };
 
 const getOneResource = {

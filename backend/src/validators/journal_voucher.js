@@ -1,7 +1,36 @@
 const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-const body = S.object()
+const getAll = {
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("id", S.number())
+        .prop("fiscal", S.string())
+        .prop("quarter", S.number())
+        .prop("jv_number", S.string())
+        .prop("billed_date", S.string())
+        .prop("amount", S.string())
+        .prop("financial_contact", S.string())
+    )
+  ),
+};
+
+const getOne = {
+  params: Schema.IdParam,
+  response: getResponse(
+    S.object()
+      .prop("id", S.number())
+      .prop("jv_number", S.string())
+      .prop("billed_date", S.string())
+      .prop("amount", S.string())
+      .prop("fiscal_year_id", Schema.Picker)
+      .prop("quarter", S.number())
+      .prop("client_coding_id", Schema.Picker)
+  ),
+};
+
+const addUpdateBody = S.object()
   .prop("id", Schema.Id)
   .prop("jv_number", Schema.ShortString.minLength(1))
   .prop("billed_date", Schema.ShortString.minLength(1))
@@ -10,37 +39,14 @@ const body = S.object()
   .prop("fiscal_year_id", Schema.Id)
   .prop("client_coding_id", Schema.Id);
 
-const responseSingleBody = body
-  .prop("fiscal_year_id", Schema.Picker)
-  .prop("client_coding_id", Schema.Picker);
-const getAll = {
-  response: getResponse(
-    S.array().items(
-      S.object()
-        .prop("id", Schema.Id)
-        .prop("fiscal", Schema.ShortString)
-        .prop("quarter", Schema.Id)
-        .prop("jv_number", Schema.ShortString.minLength(1))
-        .prop("billed_date", Schema.ShortString.minLength(1))
-        .prop("amount", Schema.Float)
-        .prop("financial_contact", Schema.ShortString)
-    )
-  ),
-};
-
-const getOne = {
-  params: Schema.IdParam,
-  response: getResponse(responseSingleBody),
-};
-
 const updateOne = {
   params: Schema.IdParam,
-  body: body.minProperties(1),
+  body: addUpdateBody,
   response: getUpdateResponse(),
 };
 
 const addOne = {
-  body: body.required([
+  body: addUpdateBody.required([
     "jv_number",
     "billed_date",
     "amount",
