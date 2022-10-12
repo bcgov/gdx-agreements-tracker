@@ -54,7 +54,7 @@ const routes = [
     method: "POST",
     url: `/lessons-learned`,
     schema: validators.addOne,
-    handler: controller.addOne,
+    handler: controller.addLessonsLearned,
   },
 ];
 

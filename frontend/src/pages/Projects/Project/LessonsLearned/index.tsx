@@ -19,7 +19,7 @@ export const LessonsLearned: FC = (): JSX.Element => {
   const { projectId } = useParams();
   const roles = {
     get: "projects_read_all",
-    add: "projects_add_one",
+    add: "project_lessons_add_one",
     update: "projects_update_one",
     delete: "projects_delete_one",
   };

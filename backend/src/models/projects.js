@@ -141,7 +141,7 @@ const updateOneProjectLessonsLearned = (body, lessonsLearnedId) => {
 };
 
 // Add one.
-const addOne = (data) => {
+const addOneProjectLessonsLearned = (data) => {
   return knex(lessonsLearned).insert(data);
 };
 
@@ -153,5 +153,5 @@ module.exports = {
   findLessonsLearnedById,
   updateOne,
   updateOneProjectLessonsLearned,
-  addOne,
+  addOneProjectLessonsLearned,
 };

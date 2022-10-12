@@ -24,6 +24,11 @@ export const ChangeRequest = () => {
     deleteOne: `change_request/{id}`,
   };
 
+  const columnWidths = {
+    summary: 3,
+    types: 2,
+  };
+
   const createFormInitialValues = {
     approval_date: null,
     cr_contact: "",
@@ -33,8 +38,6 @@ export const ChangeRequest = () => {
     link_id: Number(projectId),
     summary: "",
   };
-
-  const columnWidths = {};
 
   return (
     <>
