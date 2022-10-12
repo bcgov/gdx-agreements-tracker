@@ -33,9 +33,15 @@ export const formatPickerOptions = (tableData: IPickerTableData) => {
   });
 };
 
-export const usePickerValues = (projectId: number | undefined) => {
+export const usePickerValues = (projectId: number | undefined, contractId: number | undefined) => {
   const { axiosAll } = useAxios();
-  const url = projectId ? `picker_options/project/${projectId}` : `picker_options`;
+  let url = "picker_options";
+  if (projectId) {
+    url = `picker_options/project/${projectId}`;
+  } else if (contractId) {
+    url = `picker_options/contract/${contractId}`;
+  }
+
   const getTableData = async () => {
     const allPickers = await axiosAll()
       .get(url)

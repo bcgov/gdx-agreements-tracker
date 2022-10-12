@@ -4,6 +4,7 @@ import { TableComplete } from "components/TableComplete";
 import { useParams } from "react-router-dom";
 import { editFields, initialValues, readFields } from "./fields";
 import { InvoiceResources } from "./InvoiceResources";
+import { InvoiceDeliverables } from "./InvoiceDeliverables";
 
 export const InvoiceProcessing = () => {
   const { id } = useParams();
@@ -41,8 +42,11 @@ export const InvoiceProcessing = () => {
       />
       {invoiceId > 0 && (
         <Grid container spacing={2}>
-          <Grid item md={6}>
+          <Grid item md={6} sm={12}>
             <InvoiceResources invoiceId={invoiceId} contractId={Number(id)} />
+          </Grid>
+          <Grid item md={6} sm={12}>
+            <InvoiceDeliverables invoiceId={invoiceId} contractId={Number(id)} />
           </Grid>
         </Grid>
       )}

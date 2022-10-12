@@ -21,20 +21,29 @@ const findAll = () => {
  */
 const findAllByProject = (id) => {
   return knex(pickerOptions)
-    .select("name", "title", "description", knex.raw(getCaseStatements()), "associated_form")
-    .unionAll(getTableLookups(id, false));
+    .select(
+      "id",
+      "name",
+      "title",
+      "description",
+      knex.raw(getCaseStatements(id, null)),
+      "associated_form"
+    )
+    .unionAll(getTableLookups());
 };
 
-/**
- * Controller to get picker options with specific contract related options.
- *
- * @param   {int}   id The contract id.
- * @returns {Array}
- */
+// Get all by contract id.
 const findAllByContract = (id) => {
   return knex(pickerOptions)
-    .select("name", "title", "description", knex.raw(getCaseStatements()), "associated_form")
-    .unionAll(getTableLookups(false, id));
+    .select(
+      "id",
+      "name",
+      "title",
+      "description",
+      knex.raw(getCaseStatements(null, id)),
+      "associated_form"
+    )
+    .unionAll(getTableLookups());
 };
 
 /**
@@ -208,6 +217,26 @@ const tableLookupValues = (projectId, contractId) => {
       label: `project_deliverable.deliverable_name`,
       queryAdditions: `WHERE project_deliverable.deliverable_name IS NOT NULL`,
     },
+    {
+      id: "contractresource",
+      name: "contract_resource",
+      title: "Contract Resource",
+      description: "",
+      table: "data.contract_resource",
+      value: "contract_resource.id",
+      label: `(r.resource_last_name || ', ' || r.resource_first_name)`,
+      queryAdditions: getContractResourceQueryAdditions(contractId),
+    },
+    {
+      id: "contractdeliverable",
+      name: "contract_deliverable",
+      title: "Contract Deliverable",
+      description: "",
+      table: "data.contract_deliverable",
+      value: "contract_deliverable.id",
+      label: `(contract_deliverable.deliverable_name)`,
+      queryAdditions: getContractDeliverableQueryAdditions(contractId),
+    },
   ];
 };
 
@@ -230,13 +259,37 @@ const getClientCodingQueryAdditions = (id) => {
   return query;
 };
 
-/**
- * Gets all the table lookups, using the new pickerOptionSelect, and unions with the dropdown options.
- *
- * @param   {int}   projectId  The project id for picker options that have specific project related lists.
- * @param   {int}   contractId The contract id for picker options that have specific contract related lists.
- * @returns {Array}
- */
+const getContractResourceQueryAdditions = (id) => {
+  let query = `
+    LEFT JOIN data.resource AS r on cr.resource_id = r.resource_id
+    ORDER BY label ASC
+    `;
+  if (Number(id) > 0) {
+    query = `
+      LEFT JOIN data.resource AS r on contract_resource.resource_id = r.resource_id
+      WHERE contract_resource.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  return query;
+};
+
+const getContractDeliverableQueryAdditions = (id) => {
+  let query = `
+    ORDER BY label ASC
+    `;
+  if (Number(id) > 0) {
+    query = `
+      WHERE contract_deliverable.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
+  return `WHEN definition ->> 'tableLookup' = 'contract_deliverable' THEN (SELECT COALESCE(json_agg(condel), '[]') FROM (${query}) condel)`;
+};
+
 const getTableLookups = (projectId, contractId) => {
   const unionQueries = [];
   tableLookupValues(projectId, contractId).forEach((lookup) => {
