@@ -42,11 +42,11 @@ export const InvoiceProcessing = () => {
       />
       {invoiceId > 0 && (
         <Grid container spacing={2}>
-          <Grid item md={6}>
+          <Grid item md={6} sm={12}>
             <InvoiceResources invoiceId={invoiceId} contractId={Number(id)} />
           </Grid>
-          <Grid item md={6}>
-            <InvoiceDeliverables invoiceId={invoiceId} />
+          <Grid item md={6} sm={12}>
+            <InvoiceDeliverables invoiceId={invoiceId} contractId={Number(id)} />
           </Grid>
         </Grid>
       )}

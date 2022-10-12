@@ -223,6 +223,7 @@ export interface IEditFields {
   width: "half" | "full";
   tableName?: string;
   projectId?: number | undefined;
+  contractId?: number | undefined;
   pickerName?: string;
 }
 
@@ -240,6 +241,7 @@ export interface IFormInput {
   tableName?: string;
   pickerName?: string;
   projectId?: number | undefined;
+  contractId?: number | undefined;
 }
 
 export interface IRadioGroup {

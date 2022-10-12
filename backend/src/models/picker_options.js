@@ -17,15 +17,31 @@ const findAllByProject = (id) => {
       "name",
       "title",
       "description",
-      knex.raw(getCaseStatements(id)),
+      knex.raw(getCaseStatements(id, null)),
       "associated_form"
     )
     .unionAll(getTableLookups());
 };
 
-const getCaseStatements = (id) => {
+// Get all by contract id.
+const findAllByContract = (id) => {
+  return knex(pickerOptions)
+    .select(
+      "id",
+      "name",
+      "title",
+      "description",
+      knex.raw(getCaseStatements(null, id)),
+      "associated_form"
+    )
+    .unionAll(getTableLookups());
+};
+
+const getCaseStatements = (projectId, contractId) => {
   return `CASE
-    ${getClientCodingTableLookup(id)}
+    ${getClientCodingTableLookup(projectId)}
+    ${getContractResourcesTableLookup(contractId)}
+    ${getContractDeliverablesTableLookup(contractId)}
     WHEN definition ->> 'dropDownValues' IS NOT NULL THEN definition -> 'dropDownValues'
   END definition`;
 };
@@ -50,6 +66,50 @@ const getClientCodingTableLookup = (id) => {
   }
   // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
   return `WHEN definition ->> 'tableLookup' = 'client_coding' THEN (SELECT COALESCE(json_agg(cc), '[]') FROM (${query}) cc)`;
+};
+
+const getContractResourcesTableLookup = (id) => {
+  let query = `SELECT 
+    cr.id AS value,
+    (r.resource_last_name || ', ' || r.resource_first_name) AS label
+    FROM data.contract_resource AS cr
+    LEFT JOIN data.resource AS r on cr.resource_id = r.resource_id
+    ORDER BY label ASC
+    `;
+  if (Number(id) > 0) {
+    query = `SELECT 
+      cr.id AS value,
+      (r.resource_last_name || ', ' || r.resource_first_name) AS label
+      FROM data.contract_resource AS cr
+      LEFT JOIN data.resource AS r on cr.resource_id = r.resource_id
+      WHERE cr.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
+  return `WHEN definition ->> 'tableLookup' = 'contract_resource' THEN (SELECT COALESCE(json_agg(conres), '[]') FROM (${query}) conres)`;
+};
+
+const getContractDeliverablesTableLookup = (id) => {
+  let query = `SELECT 
+    cd.id AS value,
+    cd.deliverable_name AS label
+    FROM data.contract_deliverable AS cd
+    ORDER BY label ASC
+    `;
+  if (Number(id) > 0) {
+    query = `SELECT 
+      cd.id AS value,
+      cd.deliverable_name AS label
+      FROM data.contract_deliverable AS cd
+      WHERE cd.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
+  return `WHEN definition ->> 'tableLookup' = 'contract_deliverable' THEN (SELECT COALESCE(json_agg(condel), '[]') FROM (${query}) condel)`;
 };
 
 const getTablePickerQuery = (option) => {
@@ -216,4 +276,5 @@ const getTableLookups = () => {
 module.exports = {
   findAll,
   findAllByProject,
+  findAllByContract,
 };
