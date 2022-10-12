@@ -133,7 +133,7 @@ controller.getLessonsLearnedById = async (request, reply) => {
  * @returns {object}
  */
 controller.updateLessonsLearnedById = async (request, reply) => {
-  controller.userRequires(request, what, "project_update_one");
+  controller.userRequires(request, what, "projects_update_one");
   let output;
   const lessonsLearnedId = Number(request.params.lessonsLearnedId);
   try {
