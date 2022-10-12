@@ -1,7 +1,6 @@
 const { Schema, getResponse, getUpdateResponse, getAddResponse } = require("./common_schema.js");
 const S = require("fluent-json-schema");
 
-
 const getAll = {
   params: S.object().prop("projectId", Schema.Id),
   response: getResponse(
@@ -12,7 +11,6 @@ const getAll = {
         .prop("init_date", S.string())
         .prop("types", S.string())
         .prop("summary", S.string())
-
     )
   ),
 };

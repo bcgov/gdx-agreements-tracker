@@ -1,4 +1,14 @@
 ## Developer Changelog
+### October 12, 2022 (DESCW-660) Change Request table
+- Backend
+  - Updated capabilities.
+    - `npx knex seed:run --specific=01_capabilities.js`
+    - `npx knex seed:run --specific=02_role_capabilities.js`
+  - project controller/model
+  - permission issues
+- updated change request table list.
+
+
 ### October 11, 2022 (DESCW-611) Fastify Upgrade
 - Backend
   - Upgraded Fastify and related packages to latest versions.
