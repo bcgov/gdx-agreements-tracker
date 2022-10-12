@@ -80,6 +80,20 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
+      name: "contract_deliverable_id",
+      title: "Contract Deliverable",
+      description: "Deliverable belonging to the current contract.",
+      definition: { tableLookup: "contract_deliverable" },
+      associated_form: tables.contracts,
+    },
+    {
+      name: "contract_resource_id",
+      title: "Contract Resource",
+      description: "Resource belonging to the current contract.",
+      definition: { tableLookup: "contract_resource" },
+      associated_form: tables.contracts,
+    },
+    {
       name: "contract_type",
       title: "Contract Type",
       description: "The type of contract.",

@@ -21,12 +21,24 @@ const findAllByProject = (id) => {
     "name",
     "title",
     "description",
-    knex.raw(getCaseStatements(id)),
+    knex.raw(getCaseStatements(id, null)),
     "associated_form"
   );
 };
 
-const getCaseStatements = (id) => {
+// Get all by contract id.
+const findAllByContract = (id) => {
+  return knex(pickerOptions).select(
+    "id",
+    "name",
+    "title",
+    "description",
+    knex.raw(getCaseStatements(null, id)),
+    "associated_form"
+  );
+};
+
+const getCaseStatements = (projectId, contractId) => {
   return `CASE
     WHEN definition ->> 'tableLookup' = 'fiscal_year' THEN (SELECT json_agg(t) FROM (SELECT id AS value ,fiscal_year AS label FROM data.fiscal_year WHERE fiscal_year IS NOT NULL) t)
     WHEN definition ->> 'tableLookup' = 'ministry' THEN (SELECT json_agg(d) FROM (SELECT  id AS value, concat(ministry.ministry_name, ' ', ministry.ministry_short_name) AS label FROM data.ministry) d)
@@ -41,7 +53,9 @@ const getCaseStatements = (id) => {
     WHEN definition ->> 'tableLookup' = 'lesson_category' THEN (SELECT json_agg(lessoncat) FROM (SELECT id AS value, lesson_category_name AS label FROM data.lesson_category WHERE lesson_category_name IS NOT NULL) lessoncat)
     WHEN definition ->> 'tableLookup' = 'resource' THEN (SELECT json_agg(resrc) FROM (SELECT resource_id AS value, concat(resource_last_name, ', ', resource_first_name) AS label FROM data.resource WHERE resource_last_name IS NOT NULL) resrc)
     WHEN definition ->> 'tableLookup' = 'supplier_rate' THEN (SELECT json_agg(suprate) FROM (SELECT sr.id AS value, concat(rt.resource_type, ' ', sr.competency, ' - ', sr.rate)  AS label FROM data.supplier_rate sr JOIN data.resource_type rt ON sr.resource_type_id = rt.id WHERE sr.rate IS NOT NULL) suprate)
-    ${getClientCodingTableLookup(id)}
+    ${getClientCodingTableLookup(projectId)}
+    ${getContractResourcesTableLookup(contractId)}
+    ${getContractDeliverablesTableLookup(contractId)}
     WHEN definition ->> 'dropDownValues' IS NOT NULL THEN definition -> 'dropDownValues'
   END definition`;
 };
@@ -68,7 +82,52 @@ const getClientCodingTableLookup = (id) => {
   return `WHEN definition ->> 'tableLookup' = 'client_coding' THEN (SELECT COALESCE(json_agg(cc), '[]') FROM (${query}) cc)`;
 };
 
+const getContractResourcesTableLookup = (id) => {
+  let query = `SELECT 
+    cr.id AS value,
+    (r.resource_last_name || ', ' || r.resource_first_name) AS label
+    FROM data.contract_resource AS cr
+    LEFT JOIN data.resource AS r on cr.resource_id = r.resource_id
+    ORDER BY label ASC
+    `;
+  if (Number(id) > 0) {
+    query = `SELECT 
+      cr.id AS value,
+      (r.resource_last_name || ', ' || r.resource_first_name) AS label
+      FROM data.contract_resource AS cr
+      LEFT JOIN data.resource AS r on cr.resource_id = r.resource_id
+      WHERE cr.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
+  return `WHEN definition ->> 'tableLookup' = 'contract_resource' THEN (SELECT COALESCE(json_agg(conres), '[]') FROM (${query}) conres)`;
+};
+
+const getContractDeliverablesTableLookup = (id) => {
+  let query = `SELECT 
+    cd.id AS value,
+    cd.deliverable_name AS label
+    FROM data.contract_deliverable AS cd
+    ORDER BY label ASC
+    `;
+  if (Number(id) > 0) {
+    query = `SELECT 
+      cd.id AS value,
+      cd.deliverable_name AS label
+      FROM data.contract_deliverable AS cd
+      WHERE cd.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  // json_agg() returns null for empty set which breaks frontend select inputs. COALESCE to an empty array.
+  return `WHEN definition ->> 'tableLookup' = 'contract_deliverable' THEN (SELECT COALESCE(json_agg(condel), '[]') FROM (${query}) condel)`;
+};
+
 module.exports = {
   findAll,
   findAllByProject,
+  findAllByContract,
 };

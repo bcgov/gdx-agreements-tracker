@@ -24,16 +24,24 @@ export const InvoiceResources = ({
 
   const url = {
     getAll: `invoices/${id}/resources`,
-    getOne: `/invoices/resources/{id}`,
-    updateOne: ``,
-    addOne: ``,
+    getOne: `invoices/resources/{id}`,
+    updateOne: `invoices/resources/{id}`,
+    addOne: `invoices/${id}/resources`,
     deleteOne: ``,
+  };
+
+  const columnWidths = {
+    resource_assignment: 3,
+    hours: 1,
+    rate: 1,
+    amount: 1,
   };
 
   return (
     <TableComplete
-      itemName={"resource"}
+      itemName={"Resource"}
       tableName={"resources"}
+      columnWidths={columnWidths}
       url={url}
       createFormInitialValues={initialValues}
       readFields={readFields}

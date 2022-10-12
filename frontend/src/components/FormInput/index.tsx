@@ -19,10 +19,11 @@ export const FormInput = ({
   width,
   tableName,
   projectId,
+  contractId,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pickerValues: any = usePickerValues(projectId);
+  const pickerValues: any = usePickerValues(projectId, contractId);
 
   switch (fieldType) {
     case "date":

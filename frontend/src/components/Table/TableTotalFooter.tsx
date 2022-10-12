@@ -1,5 +1,5 @@
-import { Divider, Grid, Paper, TextField, Typography } from "@mui/material";
-import { GridColDef } from "@mui/x-data-grid";
+import { Grid, Paper, TextField, Typography } from "@mui/material";
+import { GridColDef, GridEnrichedColDef } from "@mui/x-data-grid";
 import React from "react";
 
 /**
@@ -20,7 +20,7 @@ export const TableTotalFooter = ({
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
       <Grid container spacing={1}>
-        {columns.map((column: GridColDef, index: number) => {
+        {columns.map((column: GridEnrichedColDef) => {
           if (column.hide) {
             return;
           }
@@ -32,20 +32,17 @@ export const TableTotalFooter = ({
             value = "Total";
           }
           return (
-            <>
-              <Grid item key={column.field} xs>
-                {value !== "Total" && value !== "" && (
-                  <TextField
-                    disabled
-                    variant="standard"
-                    label={column.headerName}
-                    defaultValue={value}
-                  />
-                )}
-                {"Total" === value && <Typography variant="h6">Total</Typography>}
-              </Grid>
-              {index !== columns.length - 1 && <Divider orientation="vertical" flexItem></Divider>}
-            </>
+            <Grid item key={column.field} xs>
+              {value !== "Total" && value !== "" && (
+                <TextField
+                  disabled
+                  variant="standard"
+                  label={column.headerName}
+                  defaultValue={value}
+                />
+              )}
+              {"Total" === value && <Typography variant="h6">Total</Typography>}
+            </Grid>
           );
         })}
       </Grid>

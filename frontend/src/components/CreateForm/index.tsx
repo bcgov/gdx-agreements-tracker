@@ -33,7 +33,7 @@ export const CreateForm = ({
           <Form>
             <FormLayout>
               {editFields.map(
-                ({ fieldName, fieldType, fieldLabel, width, tableName, projectId }) => {
+                ({ fieldName, fieldType, fieldLabel, width, tableName, projectId, contractId }) => {
                   return (
                     <FormInput
                       setFieldValue={setFieldValue}
@@ -46,6 +46,7 @@ export const CreateForm = ({
                       key={fieldName}
                       tableName={tableName}
                       projectId={projectId}
+                      contractId={contractId}
                     />
                   );
                 }
