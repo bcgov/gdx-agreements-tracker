@@ -43,3 +43,11 @@ export const editFields: IEditFields[] = [
     width: "full",
   },
 ];
+
+export const initialValues = (contractId: number | undefined | string) => {
+  return {
+    description: "",
+    amendment_date: "",
+    contract_id: contractId,
+  };
+};

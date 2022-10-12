@@ -8,8 +8,8 @@ const getAll = {
       S.object()
         .prop("id", S.number())
         .prop("contract", S.string())
-        .prop("amendment_type", S.string())
         .prop("amendment_date", S.string())
+        .prop("amendment_type", S.string())
         .prop("description", S.string())
     )
   ),

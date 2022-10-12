@@ -1,8 +1,7 @@
 import { TableComplete } from "components/TableComplete";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { initialValues } from "../ContractDetails/fields";
-import { editFields, readFields } from "./fields";
+import { editFields, readFields, initialValues } from "./fields";
 
 export const Amendments = () => {
   const { id } = useParams();
@@ -22,12 +21,18 @@ export const Amendments = () => {
     deleteOne: `amendments/{id}`,
   };
 
+  const columnWidths = {
+    amendment_type: 2,
+    description: 3,
+  };
+
   return (
     <TableComplete
       itemName={"amendment"}
       tableName={"amendments"}
+      columnWidths={columnWidths}
       url={url}
-      createFormInitialValues={initialValues}
+      createFormInitialValues={initialValues(id)}
       readFields={readFields}
       editFields={editFields}
       roles={roles}

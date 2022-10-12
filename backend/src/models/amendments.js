@@ -8,16 +8,18 @@ const contractAmendmentTypeTable = `${dataBaseSchemas().data}.amendment_type`;
 // Get all.
 const findAll = (contractId) => {
   return knex
-    .select(
+    .columns(
       "contract_amendment.id",
       "contract.co_number as contract",
-      "amendment_type.amendment_type_name AS amendment_type",
-      knex.raw(
-        "TO_CHAR(contract_amendment.amendment_date :: DATE, 'dd-MON-yyyy') as amendment_date"
-      ),
-      "contract_amendment.amendment_date",
+      {
+        amendment_date: knex.raw(
+          "TO_CHAR(contract_amendment.amendment_date :: DATE, 'dd-MON-yyyy')"
+        ),
+      },
+      { amendment_type: "amendment_type.amendment_type_name" },
       "contract_amendment.description"
     )
+    .select()
     .from(contractAmendmentTable)
     .leftJoin(contractsTable, { "contract_amendment.contract_id": `${contractsTable}.id` })
     .leftJoin(contractAmendmentTypeTable, {

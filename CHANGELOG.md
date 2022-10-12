@@ -1,4 +1,10 @@
 ## Developer Changelog
+### October 12, 2022 (DESCW-659) Contract - Amendments table
+- Backend
+  - updated amendments validators and model
+- Frontend
+  - updated amendments component.
+
 ### October 12, 2022 (DESCW-660) Change Request table
 - Backend
   - Updated capabilities.
