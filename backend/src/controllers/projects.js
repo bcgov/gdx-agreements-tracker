@@ -133,7 +133,7 @@ controller.getLessonsLearnedById = async (request, reply) => {
  * @returns {object}
  */
 controller.updateLessonsLearnedById = async (request, reply) => {
-  controller.userRequires(request, what, "projects_update_one");
+  controller.userRequires(request, what, "project_update_one");
   let output;
   const lessonsLearnedId = Number(request.params.lessonsLearnedId);
   try {
@@ -141,6 +141,25 @@ controller.updateLessonsLearnedById = async (request, reply) => {
     output = !result
       ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
       : result;
+  } catch (err) {
+    output = controller.failedQuery(reply, err, what);
+  }
+  return output;
+};
+
+/**
+ * Get a specific project's lessons learned data.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.addLessonsLearned = async (request, reply) => {
+  controller.userRequires(request, what, "project_lessons_add_one");
+  let output;
+  try {
+    const result = await model.addOneProjectLessonsLearned(request.body);
+    output = !result ? controller.noQuery(reply, `Couldn't add a lesson learned.`) : result;
   } catch (err) {
     output = controller.failedQuery(reply, err, what);
   }

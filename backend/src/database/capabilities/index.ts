@@ -41,7 +41,7 @@ const capabilities = [
   },
   {
     capability: "projects_add_one",
-    allowed: ["admin", "manager"],
+    allowed: ["admin"],
   },
   {
     capability: "projects_update_one",
@@ -49,39 +49,15 @@ const capabilities = [
   },
   {
     capability: "projects_delete_one",
-    allowed: ["admin", "manager"],
-  },
-  {
-    capability: "project_lessons_read_all",
-    allowed: ["admin", "manager"],
+    allowed: ["admin"],
   },
   {
     capability: "project_lessons_add_one",
     allowed: ["admin", "manager"],
   },
   {
-    capability: "project_lessons_update_one",
-    allowed: ["admin"],
-  },
-  {
-    capability: "project_lessons_delete_one",
-    allowed: ["admin"],
-  },
-  {
-    capability: "project_statuses_read_all",
-    allowed: ["admin", "manager"],
-  },
-  {
     capability: "project_statuses_add_one",
     allowed: ["admin", "manager"],
-  },
-  {
-    capability: "project_statuses_update_one",
-    allowed: ["admin"],
-  },
-  {
-    capability: "project_statuses_delete_one",
-    allowed: ["admin"],
   },
   {
     capability: "reports_read_all",
@@ -104,7 +80,7 @@ const capabilities = [
     allowed: ["admin"],
   },
   {
-    capability: "users_create_one",
+    capability: "users_add_one",
     allowed: ["admin"],
   },
   {

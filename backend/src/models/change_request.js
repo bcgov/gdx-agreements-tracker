@@ -3,29 +3,40 @@ const { knex, dataBaseSchemas } = dbConnection();
 
 const changeRequestTable = `${dataBaseSchemas().data}.change_request`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
+const changeRequestTypeTable = `${dataBaseSchemas().data}.change_request_crtype`;
+const crTypeTable = `${dataBaseSchemas().data}.crtype`;
+
 // Find all where link_id equals the project_id
 const findAll = (projectId) => {
-  return knex
-    .select(
-      "change_request.id",
-      "change_request.version",
-      "change_request.initiation_date",
-      "change_request.cr_contact",
-      "change_request.initiated_by",
-      "fiscal_year.fiscal_year",
-      "change_request.summary",
-      "change_request.approval_date",
-      "change_request.link_id"
-    )
-    .from(changeRequestTable)
-    .leftJoin(fiscalYearTable, { "change_request.fiscal_year": `${fiscalYearTable}.id` })
-    .where({ link_id: projectId });
+  const typesAgg = knex()
+    .select(knex.raw("string_agg(t.crtype_name, ', ')"))
+    .from(`${changeRequestTypeTable} as crt`)
+    .leftJoin(`${crTypeTable} as t`, function () {
+      this.on("t.id", "=", "crt.crtype_id").on("crt.change_request_id", "=", "change_request.id");
+    });
+
+  return (
+    knex(`${changeRequestTable}`)
+      .columns(
+        "change_request.id",
+        "change_request.version",
+        { init_date: "change_request.initiation_date" },
+        { types: typesAgg },
+        "change_request.initiated_by",
+        "change_request.summary",
+        "change_request.link_id"
+      )
+      .select()
+      .from(changeRequestTable)
+      //.leftJoin(fiscalYearTable, { "change_request.fiscal_year": `${fiscalYearTable}.id` })
+      .where({ link_id: projectId })
+  );
 };
 
 // Get specific one by id.
 const findById = (changeRequestId, projectId) => {
-  return knex
-    .select(
+  return knex(`${changeRequestTable}`)
+    .columns(
       "change_request.id",
       "change_request.version",
       "change_request.initiation_date",
@@ -40,7 +51,7 @@ const findById = (changeRequestId, projectId) => {
       "change_request.approval_date",
       "change_request.link_id"
     )
-    .from(changeRequestTable)
+    .select()
     .leftJoin(fiscalYearTable, { "change_request.fiscal_year": `${fiscalYearTable}.id` })
     .where({ "change_request.id": changeRequestId })
     .where({ "change_request.link_id": projectId })

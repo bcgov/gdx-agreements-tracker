@@ -9,9 +9,9 @@ export const Users: FC = () => {
 
   const roles = {
     get: "admin_form_read_all",
-    add: "admin_form_add_one",
-    update: "admin_form_update_one",
-    delete: "admin_form_delete_one",
+    add: "users_add_one",
+    update: "users_update_one",
+    delete: "users_delete_one",
   };
 
   const url = {
