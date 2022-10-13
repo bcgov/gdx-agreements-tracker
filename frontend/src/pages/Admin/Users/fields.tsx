@@ -39,6 +39,6 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "User Role",
     width: "full",
-    tableName: "users",
+    pickerName: "user_roles_option",
   },
 ];

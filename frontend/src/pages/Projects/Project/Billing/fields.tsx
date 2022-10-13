@@ -73,7 +73,7 @@ export const editFields: (projectId: number | undefined) => IEditFields[] = (pro
       fieldName: "fiscal_year_id",
       fieldLabel: "Fiscal Year",
       fieldType: "select",
-      tableName: "jv",
+      pickerName: "fiscal_year_option",
       width: "half",
     },
     {

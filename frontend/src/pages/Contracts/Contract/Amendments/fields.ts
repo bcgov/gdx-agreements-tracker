@@ -28,7 +28,7 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "Amendment Type",
     width: "half",
-    tableName: "contract_amendment",
+    pickerName: "amendment_type_option",
   },
   {
     fieldName: "amendment_date",

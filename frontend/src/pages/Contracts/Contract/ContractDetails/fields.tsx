@@ -92,14 +92,14 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "Fiscal",
     width: "half",
-    tableName: "generic",
+    pickerName: "fiscal_year_option",
   },
   {
     width: "half",
     fieldLabel: "Project Number",
     fieldName: "project_id",
     fieldType: "select",
-    tableName: "contracts",
+    pickerName: "project_option",
   },
   {
     width: "half",
@@ -163,7 +163,7 @@ export const editFields: IEditFields[] = [
     fieldLabel: "Procurement Method",
     fieldName: "procurement_method_id",
     fieldType: "select",
-    tableName: "contracts",
+    pickerName: "procurement_method_option",
   },
   {
     width: "half",

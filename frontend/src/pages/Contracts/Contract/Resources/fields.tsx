@@ -39,14 +39,14 @@ export const editFields: IEditFields[] = [
     fieldLabel: "Resource",
     fieldName: "resource_id",
     fieldType: "select",
-    tableName: "contracts",
+    pickerName: "resource_option",
   },
   {
     width: "half",
     fieldLabel: "Supplier Rate",
     fieldName: "supplier_rate_id",
     fieldType: "select",
-    tableName: "contracts",
+    pickerName: "supplier_rate_option",
   },
   {
     width: "half",

@@ -94,7 +94,6 @@ export const FormInput = ({
         </GridItem>
       );
     case "select":
-      getPickerOptions();
       return (
         <GridItem width={width}>
           <GDXSelect

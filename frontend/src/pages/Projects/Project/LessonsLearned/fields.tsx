@@ -14,7 +14,6 @@ export const readFields = (reactQuery: UseQueryResult<FormikValues>) => {
       width: "full",
       title: "Category",
       value: reactQuery?.data?.lesson_category_id?.label,
-      tableName: "lesson_category",
     },
     {
       width: "full",
@@ -45,7 +44,7 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "Category",
     width: "full",
-    tableName: "project_lesson",
+    pickerName: "lesson_category_option",
   },
   {
     fieldName: "lesson_sub_category",
