@@ -34,6 +34,7 @@ export const InvoiceProcessing = () => {
         createFormInitialValues={initialValues}
         readFields={readFields}
         editFields={editFields}
+        totalColumns={["invoice_total"]}
         roles={roles}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         getSelectedRow={(row: any) => {
