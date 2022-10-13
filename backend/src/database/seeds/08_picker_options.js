@@ -38,13 +38,6 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
-      name: "amendment_number",
-      title: "Contract Type",
-      description: "The Contract Type",
-      definition: { tableLookup: "amendment_type" },
-      associated_form: tables.contract_amendment,
-    },
-    {
       name: "billing_period",
       title: "Billing Period",
       description: "The billing period (month)",
@@ -61,17 +54,11 @@ exports.seed = function (knex) {
     {
       name: "client_coding_id",
       title: "Program Area",
-      description: "Program Area",
+      description: "Program Area / requires projectid",
       definition: { tableLookup: "client_coding" },
       associated_form: tables.client_coding,
     },
-    {
-      name: "completed_by_contact_id",
-      title: "Contact",
-      description: "The Contact",
-      definition: { tableLookup: "contact" },
-      associated_form: tables.projects,
-    },
+
     {
       name: "contract_ev_completed",
       title: "Contract Evaluation Completed",
@@ -95,27 +82,6 @@ exports.seed = function (knex) {
     },
 
     {
-      name: "fiscal",
-      title: "Fiscal",
-      description: "Fiscal Years",
-      definition: { tableLookup: "fiscal_year" },
-      associated_form: tables.generic,
-    },
-    {
-      name: "fiscal_year",
-      title: "Fiscal",
-      description: "Fiscal Years",
-      definition: { tableLookup: "fiscal_year" },
-      associated_form: tables.generic,
-    },
-    {
-      name: "fiscal_year_id",
-      title: "Fiscal",
-      description: "Fiscal Years",
-      definition: { tableLookup: "fiscal_year" },
-      associated_form: tables.journal_voucher,
-    },
-    {
       name: "funding",
       title: "Funding",
       description: "The funding of a project.",
@@ -137,41 +103,6 @@ exports.seed = function (knex) {
       associated_form: tables.change_request,
     },
     {
-      name: "lesson_category_id",
-      title: "Category",
-      description: "Lessons Learned Category",
-      definition: { tableLookup: "lesson_category" },
-      associated_form: tables.project_lesson,
-    },
-    {
-      name: "ministry_id",
-      title: "Client Ministry Name",
-      description: "Client Ministry field",
-      definition: { tableLookup: "ministry" },
-      associated_form: tables.projects,
-    },
-    {
-      name: "portfolio_id",
-      title: "Portfolio Name",
-      description: "Portfolio of the project.",
-      definition: { tableLookup: "portfolio" },
-      associated_form: tables.projects,
-    },
-    {
-      name: "procurement_method_id",
-      title: "Procurement Method",
-      description: "The procurement method used for the contract.",
-      definition: { tableLookup: "procurement_method" },
-      associated_form: tables.contracts,
-    },
-    {
-      name: "project_id",
-      title: "Project Number",
-      description: "The project the contract belongs to.",
-      definition: { tableLookup: "project" },
-      associated_form: tables.contracts,
-    },
-    {
       name: "project_status",
       title: "Status",
       description: "The status of a project.",
@@ -184,14 +115,6 @@ exports.seed = function (knex) {
       description: "The Project Type of a project.",
       definition: { dropDownValues: projectType },
       associated_form: tables.projects,
-    },
-
-    {
-      name: "role_id",
-      title: "Role",
-      description: "The Role",
-      definition: { tableLookup: "user_roles" },
-      associated_form: tables.users,
     },
     {
       name: "recoverable",
@@ -208,38 +131,10 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
-      name: "resource_id",
-      title: "Resource",
-      description: "The contract resource.",
-      definition: { tableLookup: "resource" },
-      associated_form: tables.contracts,
-    },
-    {
       name: "status",
       title: "Status",
       description: "The status of a contract.",
       definition: { dropDownValues: contractStatus },
-      associated_form: tables.contracts,
-    },
-    {
-      name: "subcontractor_id",
-      title: "Subcontractor",
-      description: "Subcontractors",
-      definition: { tableLookup: "subcontractor" },
-      associated_form: tables.resource,
-    },
-    {
-      name: "supplier_id",
-      title: "Supplier",
-      description: "Supplier",
-      definition: { tableLookup: "supplier" },
-      associated_form: tables.resource,
-    },
-    {
-      name: "supplier_rate_id",
-      title: "Supplier Rate",
-      description: "The contract supplier's rate.",
-      definition: { tableLookup: "supplier_rate" },
       associated_form: tables.contracts,
     },
   ];

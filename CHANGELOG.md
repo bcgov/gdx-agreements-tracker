@@ -1,4 +1,12 @@
 ## Developer Changelog
+### October 13, 2022 (DESCW-638) Picker options update
+- Backend 
+  - updated picker options
+  - `npx knex seed:run --specific=08_picker_options.js`
+  - updated picker options model.
+- Frontend
+  - updated edit and new table to include pickerName attribute.
+
 ### October 12, 2022 (DESCW-659) Contract - Amendments table
 - Backend
   - updated amendments validators and model

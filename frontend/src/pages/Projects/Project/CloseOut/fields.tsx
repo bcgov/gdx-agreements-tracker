@@ -66,7 +66,7 @@ export const editFields: () => IEditFields[] = () => {
       fieldLabel: "Completed by",
       fieldType: "select",
       width: "full",
-      tableName: "project",
+      pickerName: "contact_option",
     },
     {
       fieldName: "actual_completion_date",

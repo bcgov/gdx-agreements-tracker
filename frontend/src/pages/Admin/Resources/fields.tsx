@@ -28,14 +28,14 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "Supplier",
     width: "half",
-    tableName: "resource",
+    pickerName: "supplier_option",
   },
   {
     fieldName: "subcontractor_id",
     fieldType: "select",
     fieldLabel: "Subcontractor",
     width: "half",
-    tableName: "resource",
+    pickerName: "subcontractor_option",
   },
   {
     fieldName: "resource_first_name",

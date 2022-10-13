@@ -90,7 +90,7 @@ export const editFields: () => IEditFields[] = () => {
       fieldType: "select",
       fieldLabel: "Client Ministry Name",
       width: "half",
-      tableName: "project",
+      pickerName: "ministry_option",
     },
     {
       fieldName: "initiation_date",
@@ -103,7 +103,7 @@ export const editFields: () => IEditFields[] = () => {
       fieldType: "select",
       fieldLabel: "Portfolio Name",
       width: "half",
-      tableName: "project",
+      pickerName: "portfolio_option",
     },
     {
       fieldName: "planned_start_date",
@@ -116,7 +116,7 @@ export const editFields: () => IEditFields[] = () => {
       fieldType: "select",
       fieldLabel: "Fiscal",
       width: "half",
-      tableName: "generic",
+      pickerName: "fiscal_year_option",
     },
     {
       fieldName: "planned_end_date",
