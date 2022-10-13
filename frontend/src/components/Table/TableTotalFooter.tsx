@@ -1,5 +1,5 @@
 import { Grid, Paper, TextField, Typography } from "@mui/material";
-import { GridColDef, GridEnrichedColDef } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 import React from "react";
 
 /**
@@ -20,7 +20,7 @@ export const TableTotalFooter = ({
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
       <Grid container spacing={1}>
-        {columns.map((column: GridEnrichedColDef) => {
+        {columns.map((column: GridColDef) => {
           if (column.hide) {
             return;
           }
