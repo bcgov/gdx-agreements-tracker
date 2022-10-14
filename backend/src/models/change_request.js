@@ -54,7 +54,6 @@ const findById = (changeRequestId, projectId) => {
     .select()
     .leftJoin(fiscalYearTable, { "change_request.fiscal_year": `${fiscalYearTable}.id` })
     .where({ "change_request.id": changeRequestId })
-    .where({ "change_request.link_id": projectId })
     .first();
 };
 

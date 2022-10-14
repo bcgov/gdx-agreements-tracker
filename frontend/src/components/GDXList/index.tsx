@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { Card, CardContent, Grid, List, ListItem, Paper, styled, Typography } from "@mui/material";
 import { IGDXList } from "types";
 
-export const GDXList = ({ blocks, title }: IGDXList) => {
+export const GDXList = ({ data, title }: any) => {
   const StyledTypographyLeft = styled(Typography)(() => ({
     textAlign: "left",
   }));
@@ -20,7 +20,7 @@ export const GDXList = ({ blocks, title }: IGDXList) => {
   }));
 
   return (
-    <div>
+    <Grid item xs={12} sm={12} md={12} lg={6} key={"s"}>
       <Card>
         <StyledTitleBox>
           <Typography variant="h6" component="div">
@@ -28,46 +28,52 @@ export const GDXList = ({ blocks, title }: IGDXList) => {
           </Typography>
         </StyledTitleBox>
         <CardContent>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={4}>
-              {/* // todo: Define a good type. "Any" type temporarily permitted. // */}
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {blocks.map((groups: any[]) => {
-                return (
-                  <>
-                    <Grid item sm={4} minWidth={300}>
-                      <Paper>
-                        <List component="ul" aria-labelledby="category-a">
-                          {/* // todo: Define a good type. "Any" type temporarily permitted. // */}
-                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                          {groups.map((item: any) => {
-                            return (
-                              <ListItem key={item}>
-                                <Grid container>
-                                  <Grid zeroMinWidth item lg={4} md={6} sm={6}>
-                                    <StyledTypographyLeft variant="h6" noWrap>
-                                      {item.label}:
-                                    </StyledTypographyLeft>
-                                  </Grid>
-                                  <Grid zeroMinWidth item lg={4} md={6} sm={6}>
-                                    <StyledTypographyRight variant="h6" noWrap>
-                                      {item.value}
-                                    </StyledTypographyRight>
-                                  </Grid>
-                                </Grid>
-                              </ListItem>
-                            );
-                          })}
-                        </List>
-                      </Paper>
+          {Object.entries(data).map(([key, value], index) => {
+            return (
+              <List component="ul" aria-labelledby="category-a">
+                <ListItem key={key}>
+                  <Grid container>
+                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
+                      <StyledTypographyLeft variant="h6" noWrap>
+                        {key}:
+                      </StyledTypographyLeft>
                     </Grid>
-                  </>
-                );
-              })}
-            </Grid>
-          </Box>
+                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
+                      <StyledTypographyRight variant="h6" noWrap>
+                        {value as string}
+                      </StyledTypographyRight>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+              </List>
+            );
+          })}
+          {/* <List component="ul" aria-labelledby="category-a">
+            {Object.entries(data).map(([key, value]) => {
+              return (
+                <ListItem key={key}>
+                  <Grid container>
+                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
+                      <StyledTypographyLeft variant="h6" noWrap>
+                        {key}:
+                      </StyledTypographyLeft>
+                    </Grid>
+                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
+                      <StyledTypographyRight variant="h6" noWrap>
+                        {value as string}
+                      </StyledTypographyRight>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+              );
+            })}
+          </List> */}
         </CardContent>
       </Card>
-    </div>
+    </Grid>
   );
 };
+
+<Grid container spacing={4}>
+  <Grid item></Grid>
+</Grid>;

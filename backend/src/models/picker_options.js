@@ -198,6 +198,16 @@ const tableLookupValues = (projectId, contractId) => {
       label: `COALESCE(client_coding.program_area, client_coding.client)`,
       queryAdditions: getClientCodingQueryAdditions(projectId),
     },
+    {
+      id: "projdel",
+      name: "project_deliverable_option",
+      title: "Project Deliverable",
+      description: "",
+      table: "data.project_deliverable",
+      value: "project_deliverable.id",
+      label: `project_deliverable.deliverable_name`,
+      queryAdditions: `WHERE project_deliverable.deliverable_name IS NOT NULL`,
+    },
   ];
 };
 

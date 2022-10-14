@@ -48,6 +48,8 @@ export const TableComplete = ({
   getSelectedRow?: Function;
   columnWidths?: Object;
 }) => {
+
+
   const {
     handleEditMode,
     handleOpen,
@@ -142,7 +144,6 @@ export const TableComplete = ({
       staleTime: Infinity,
     }
   );
-
   return (
     <>
       {hasRole(roles.get) && (

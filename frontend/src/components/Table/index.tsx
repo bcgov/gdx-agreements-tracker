@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import { DataGrid, GridEventListener, GridEvents } from "@mui/x-data-grid";
 import { Box, styled } from "@mui/material";
 import { ITable } from "../../types";
-import TableFooter from "./TableFooter";
+import { TableTotalFooter } from "components/Table/TableTotalFooter";
 
 const StyledBox = styled(Box)({
   overflowX: "scroll",
-  height: "80vh",
+  maxHeight: "80vh",
   width: "100%",
 });
 
-export const Table = ({ columns, rows, loading, onRowClick }: ITable) => {
-  const [total, setTotal] = useState(0);
+export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowEdit }: ITable) => {
+  const totals: Array<{ id: string; total: number }> = [];
+  if (totalColumns && rows.length > 0) {
+    totalColumns.forEach((col: string) => {
+      totals.push({
+        id: col,
+        total: rows.map((x) => x[col]).reduce((prev, curr) => Number(prev) + Number(curr)),
+      });
+    });
+  }
 
-  const index = columns.findIndex((object) => {
-    return object.field === "invoice_total";
-  });
+  /**
+   * Determines which table footer to show, totals or pagination.
+   *
+   * @returns {any}
+   */
+  const tableComponents = () => {
+    if (totalColumns && totalColumns.length > 0 && rows.length > 0) {
+      return {
+        Footer: () => {
+          return <TableTotalFooter totals={totals} columns={columns} />;
+        },
+      };
+    } else {
+      return {};
+    }
+  };
 
   return (
     <StyledBox>
       <DataGrid
+        autoHeight 
         rows={rows}
         columns={columns}
         loading={loading}
@@ -36,25 +58,7 @@ export const Table = ({ columns, rows, loading, onRowClick }: ITable) => {
           },
         })}
         onRowClick={onRowClick as GridEventListener<GridEvents.rowClick>}
-        components={{
-          Footer: () => {
-            return <TableFooter total={total} index1={index} columns={columns} />;
-          },
-        }}
-        onStateChange={(state) => {
-          const visibleRows = state.filter.visibleRowsLookup;
-          let visibleItems: number[] = [];
-          for (const [id, value] of Object.entries(visibleRows)) {
-            if (value === true) {
-              visibleItems.push(+id);
-            }
-          }
-          console.log(visibleItems);
-          const res = rows.filter((item) => visibleItems.includes(item.id));
-          const total = res.map((item) => item.invoice_total).reduce((a, b) => a + b, 0);
-          console.log(total);
-          setTotal(total);
-        }}
+        components={tableComponents()}
       />
     </StyledBox>
   );

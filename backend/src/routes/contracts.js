@@ -16,6 +16,12 @@ const routes = [
     handler: controller.getOneWithSubcontractors,
   },
   {
+    method: "GET",
+    url: `/contracts/:id/budgets`,
+    //schema: validators.getOne,
+    handler: controller.budgetsByFiscal,
+  },
+  {
     method: "PUT",
     url: `/${what}/:id`,
     schema: validators.updateOne,
