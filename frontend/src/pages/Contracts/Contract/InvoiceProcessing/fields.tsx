@@ -48,6 +48,7 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "Fiscal Year",
     width: "half",
+    pickerName: "fiscal_year_option",
     tableName: "generic",
   },
   { width: "half", fieldLabel: "General Ledger", fieldName: "is_gl", fieldType: "checkbox" },
