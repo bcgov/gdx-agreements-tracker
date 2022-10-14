@@ -10,6 +10,7 @@ const {
   projectRecoverable,
   initiatedBy,
   billingPeriod,
+  deliverable_status
 } = require("../pick_options/dropdowns");
 
 exports.seed = function (knex) {
@@ -72,7 +73,13 @@ exports.seed = function (knex) {
       definition: { dropDownValues: yesNoOptions },
       associated_form: tables.projects,
     },
-
+    {
+      name: "deliverable_status",
+      title: "Deliverable Status",
+      description: "The contract Deliverable Status",
+      definition: { dropDownValues: deliverable_status },
+      associated_form: tables.contracts,
+    },
     {
       name: "funding",
       title: "Funding",

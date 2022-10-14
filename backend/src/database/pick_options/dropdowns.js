@@ -272,6 +272,17 @@ const initiatedBy = [
   },
 ];
 
+const deliverable_status = [
+  {
+    value: "Active",
+    label: "Active",
+  },
+  {
+    value: "Complete",
+    label: "Complete",
+  },
+];
+
 module.exports = {
   yesNoOptions,
   classification,
@@ -284,4 +295,5 @@ module.exports = {
   projectFunding,
   projectRecoverable,
   initiatedBy,
+  deliverable_status
 };

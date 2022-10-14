@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { editFields, initialValues, readFields } from "./fields";
 
 export const ContractResources = () => {
-  const { id } = useParams();
+  const { contractId } = useParams();
 
   const roles = {
     get: "contracts_read_all",
@@ -14,10 +14,10 @@ export const ContractResources = () => {
   };
 
   const url = {
-    getAll: `contracts/${id}/resources`,
+    getAll: `contracts/${contractId}/resources`,
     getOne: `contracts/resources/{id}`,
     updateOne: `contracts/resources/{id}`,
-    addOne: `contracts/${id}/resources`,
+    addOne: `contracts/${contractId}/resources`,
     deleteOne: `contracts/resources/{id}`,
   };
 

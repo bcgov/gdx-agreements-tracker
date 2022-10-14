@@ -11,11 +11,11 @@ import { ContractResources } from "pages/Contracts/Contract/Resources";
 
 const contractRoutes = [
   <Route key="contracts" path="/contracts" element={<ProtectedRoute component={Contracts} />} />,
-  <Route key="id" path="/contracts/:id" element={<ProtectedRoute component={Contract} />}>
+  <Route key="id" path="/contracts/:contractId" element={<ProtectedRoute component={Contract} />}>
     <Route index key="contractdetails" element={<ContractDetails />} />,
     <Route key="resources" path="resources" element={<ContractResources />} />
     ,
-    <Route key="deliverables" path="/contracts/:id/deliverables" element={<Deliverables />} />
+    <Route key="deliverables" path="deliverables" element={<Deliverables />} />
     ,
     <Route
       key="internal-coding"
