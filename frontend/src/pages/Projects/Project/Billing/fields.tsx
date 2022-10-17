@@ -86,7 +86,7 @@ export const editFields: (projectId: number | undefined) => IEditFields[] = (pro
       fieldName: "client_coding_id",
       fieldLabel: "Program Area",
       fieldType: "select",
-      tableName: "client_coding",
+      pickerName: "client_coding_option",
       projectId: projectId,
       width: "half",
     },

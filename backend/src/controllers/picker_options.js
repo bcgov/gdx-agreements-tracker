@@ -13,4 +13,15 @@ controller.findAllByProject = async (request, reply) => {
     return controller.failedQuery(reply, err, what);
   }
 };
+
+controller.findAllByContract = async (request, reply) => {
+  controller.userRequires(request, what, `general_read_all`);
+  try {
+    const targetId = Number(request.params.id);
+    const result = await model.findAllByContract(targetId);
+    return result ? result : [];
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
 module.exports = controller;

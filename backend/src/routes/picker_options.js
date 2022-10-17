@@ -21,6 +21,12 @@ const routes = [
     schema: validators.getAll,
     handler: controller.findAllByProject,
   },
+  {
+    method: "GET",
+    url: `/${what}/contract/:id`,
+    schema: validators.getAll,
+    handler: controller.findAllByContract,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {
