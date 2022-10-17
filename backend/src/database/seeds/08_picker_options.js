@@ -10,7 +10,7 @@ const {
   projectRecoverable,
   initiatedBy,
   billingPeriod,
-  deliverable_status
+  deliverable_status,
 } = require("../pick_options/dropdowns");
 
 exports.seed = function (knex) {

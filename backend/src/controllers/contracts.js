@@ -20,7 +20,6 @@ controller.getOneWithSubcontractors = async (request, reply) => {
   }
 };
 
-
 /**
  * Gets all contract resources for a specific contract.
  *
@@ -28,8 +27,7 @@ controller.getOneWithSubcontractors = async (request, reply) => {
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
- controller.budgetsByFiscal = async (request, reply) => {
-  console.log("request", request.params);
+controller.budgetsByFiscal = async (request, reply) => {
   controller.userRequires(request, what, "contracts_read_all");
   const contractId = Number(request.params.id);
   try {

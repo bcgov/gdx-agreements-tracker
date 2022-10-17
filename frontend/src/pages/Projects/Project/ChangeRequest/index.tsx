@@ -4,7 +4,7 @@ import { editFields, readFields } from "./fields";
 import { TableComplete } from "components/TableComplete";
 
 /**
- * @returns  the jsx for the change request section of the project form
+ * @returns the jsx for the change request section of the project form
  */
 
 export const ChangeRequest = () => {

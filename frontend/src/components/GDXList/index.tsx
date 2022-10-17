@@ -1,9 +1,9 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Card, CardContent, Grid, List, ListItem, Paper, styled, Typography } from "@mui/material";
-import { IGDXList } from "types";
+import { IGDXList, IStandardRow } from "types";
 
-export const GDXList = ({ data, title }: any) => {
+export const GDXList = ({ data, title }: IGDXList) => {
   const StyledTypographyLeft = styled(Typography)(() => ({
     textAlign: "left",
   }));
@@ -28,46 +28,36 @@ export const GDXList = ({ data, title }: any) => {
           </Typography>
         </StyledTitleBox>
         <CardContent>
-          {Object.entries(data).map(([key, value], index) => {
-            return (
-              <List component="ul" aria-labelledby="category-a">
-                <ListItem key={key}>
-                  <Grid container>
-                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
-                      <StyledTypographyLeft variant="h6" noWrap>
-                        {key}:
-                      </StyledTypographyLeft>
-                    </Grid>
-                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
-                      <StyledTypographyRight variant="h6" noWrap>
-                        {value as string}
-                      </StyledTypographyRight>
-                    </Grid>
-                  </Grid>
-                </ListItem>
-              </List>
-            );
-          })}
-          {/* <List component="ul" aria-labelledby="category-a">
-            {Object.entries(data).map(([key, value]) => {
+          <Grid container>
+            {data.map((row: IStandardRow, index: number) => {
               return (
-                <ListItem key={key}>
-                  <Grid container>
-                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
-                      <StyledTypographyLeft variant="h6" noWrap>
-                        {key}:
-                      </StyledTypographyLeft>
-                    </Grid>
-                    <Grid zeroMinWidth item lg={6} md={6} sm={6}>
-                      <StyledTypographyRight variant="h6" noWrap>
-                        {value as string}
-                      </StyledTypographyRight>
-                    </Grid>
-                  </Grid>
-                </ListItem>
+                <Grid xs spacing={3} key={index}>
+                  <List component="ul" aria-labelledby="category-a">
+                    <Paper>
+                      {Object.entries(row).map(([key, value]) => {
+                        return (
+                          <ListItem key={key}>
+                            <Grid container>
+                              <Grid zeroMinWidth item xs={6}>
+                                <StyledTypographyLeft variant="h6" noWrap>
+                                  {key}:
+                                </StyledTypographyLeft>
+                              </Grid>
+                              <Grid zeroMinWidth item xs={6}>
+                                <StyledTypographyRight variant="h6" noWrap>
+                                  {value as string}
+                                </StyledTypographyRight>
+                              </Grid>
+                            </Grid>
+                          </ListItem>
+                        );
+                      })}
+                    </Paper>
+                  </List>
+                </Grid>
               );
             })}
-          </List> */}
+          </Grid>
         </CardContent>
       </Card>
     </Grid>

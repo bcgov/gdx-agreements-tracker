@@ -6,28 +6,27 @@ const routes = [
   {
     method: "GET",
     url: `/contracts/:id/${what}`,
-    // schema: validators.getAll,
+    schema: validators.getAll,
     handler: controller.getAllById,
   },
   {
     method: "GET",
     url: `/contracts/${what}/:id`,
-    //schema: validators.getOne,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
- 
-  // {
-  //   method: "PUT",
-  //   url: `/contracts/${what}/:id`,
-  //   schema: validators.updateOne,
-  //   handler: controller.updateOne,
-  // },
-  // {
-  //   method: "POST",
-  //   url: `/contracts/:id/${what}`,
-  //   schema: validators.addOned,
-  //   handler: controller.addOneWithContractId,
-  // },
+  {
+    method: "PUT",
+    url: `/contracts/${what}/:id`,
+    schema: validators.updateOne,
+    handler: controller.updateOne,
+  },
+  {
+    method: "POST",
+    url: `/contracts/:id/${what}`,
+    schema: validators.addOne,
+    handler: controller.addOneWithContractId,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {

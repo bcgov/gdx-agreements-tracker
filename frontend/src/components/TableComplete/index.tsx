@@ -48,8 +48,6 @@ export const TableComplete = ({
   getSelectedRow?: Function;
   columnWidths?: Object;
 }) => {
-
-
   const {
     handleEditMode,
     handleOpen,

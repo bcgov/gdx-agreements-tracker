@@ -295,5 +295,5 @@ module.exports = {
   projectFunding,
   projectRecoverable,
   initiatedBy,
-  deliverable_status
+  deliverable_status,
 };
