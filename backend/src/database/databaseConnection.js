@@ -7,6 +7,31 @@ const databaseConnection = () => {
 
   const knex = Knex(knexConfig);
 
+  // This creates a new knex query type, so knex.pickerOptionSelect(option: object).
+  if ("undefined" === typeof knex.pickerOptionSelect) {
+    Knex.QueryBuilder.extend("pickerOptionSelect", function (option) {
+      return this.columns(
+        { name: knex.raw(`'${option.name}'`) },
+        { title: knex.raw(`'${option.title}'`) },
+        { description: knex.raw(`'${option.description}'`) },
+        {
+          definition: knex.raw(`
+        (
+          SELECT json_agg(${option.id}) 
+          FROM (
+            SELECT  ${option.value} AS value, 
+            ${option.label} AS label 
+            FROM ${option.table}
+            ${option?.queryAdditions}
+          ) 
+          ${option.id}
+        )`),
+        },
+        { associated_form: knex.raw("'_options'") }
+      );
+    });
+  }
+
   // ...this.knex.context.client.config.connection,
   /**
    * Checks the Knex connection, the database schema, and Objection models.

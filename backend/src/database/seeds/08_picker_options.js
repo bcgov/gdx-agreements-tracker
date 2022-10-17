@@ -52,14 +52,6 @@ exports.seed = function (knex) {
       associated_form: tables.projects,
     },
     {
-      name: "client_coding_id",
-      title: "Program Area",
-      description: "Program Area / requires projectid",
-      definition: { tableLookup: "client_coding" },
-      associated_form: tables.client_coding,
-    },
-
-    {
       name: "contract_ev_completed",
       title: "Contract Evaluation Completed",
       description: "Contract evaluation completed if applicable.",

@@ -1,4 +1,12 @@
 ## Developer Changelog
+### October 17, 2022 (DESCW-638) Picker options update
+- Backend 
+  - update picker options
+  -  `npx knex seed:run --specific=08_picker_options.js`
+  -  allowed for project id / contract id
+-  Frontend
+   -  client coding in billing now uses new picker options
+
 ### October 13, 2022 (DESCW-638) Picker options update
 - Backend 
   - updated picker options
