@@ -18,7 +18,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
       value: query?.data?.description,
       title: "Description",
       width: "full",
-    },    
+    },
     {
       value: query?.data?.completion_date,
       title: "Completion Date",
@@ -35,10 +35,10 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
       width: "half",
     },
     {
-      value: query?.data?.project_deliverable_id.label,
+      value: query?.data?.project_deliverable_id,
       title: "Project Deliverable",
       width: "half",
-    },    
+    },
     {
       value: query?.data?.fiscal.label,
       title: "Fiscal",
@@ -71,7 +71,7 @@ export const editFields: IEditFields[] = [
     fieldType: "multiText",
     fieldLabel: "Description",
     width: "full",
-  },  
+  },
   {
     fieldName: "completion_date",
     fieldType: "date",
@@ -97,7 +97,7 @@ export const editFields: IEditFields[] = [
     fieldLabel: "Project Deliverable",
     width: "half",
     tableName: "contracts",
-  },  
+  },
   {
     fieldName: "fiscal",
     fieldType: "select",

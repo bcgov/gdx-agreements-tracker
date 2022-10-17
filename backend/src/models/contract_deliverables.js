@@ -41,11 +41,9 @@ const updateOne = (body, id) => {
 };
 
 // Add one.
-const addOne = (newResource, contractId) => {
-  newResource.contract_id = contractId;
-  newResource.start_date = "" === newResource.start_date ? null : newResource.start_date;
-  newResource.end_date = "" === newResource.end_date ? null : newResource.end_date;
-  return knex(table).insert(newResource);
+const addOne = (newDeliverable, contractId) => {
+  newDeliverable.contract_id = contractId;
+  return knex(table).insert(newDeliverable);
 };
 
 module.exports = {

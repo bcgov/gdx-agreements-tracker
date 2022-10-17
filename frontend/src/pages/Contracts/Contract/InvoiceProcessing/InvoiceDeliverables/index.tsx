@@ -1,9 +1,9 @@
 import { TableComplete } from "components/TableComplete";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { editFields, initialValues, readFields } from "./fields";
 
-export const InvoiceDeliverables = ({ invoiceId }: { invoiceId: number }) => {
+export const InvoiceDeliverables = () => {
   const { contractId } = useParams();
 
   const roles = {

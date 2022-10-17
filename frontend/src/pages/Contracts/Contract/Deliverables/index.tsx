@@ -1,7 +1,5 @@
 import React from "react";
-
 import { Grid } from "@mui/material";
-import { GDXList } from "components/GDXList";
 import { editFields, readFields, createFormInitialValues } from "./fields";
 import { TableComplete } from "components/TableComplete";
 import { useParams } from "react-router-dom";
@@ -29,7 +27,7 @@ export const Deliverables = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
           <TableComplete
-            itemName="Contracts"
+            itemName="Deliverables"
             tableName="contract"
             url={url}
             createFormInitialValues={createFormInitialValues}
@@ -38,7 +36,6 @@ export const Deliverables = () => {
             roles={roles}
           />
         </Grid>
-       
       </Grid>
     </>
   );

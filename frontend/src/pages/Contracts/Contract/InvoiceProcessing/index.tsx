@@ -1,9 +1,8 @@
+import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import { TableComplete } from "components/TableComplete";
-import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { editFields, initialValues, readFields } from "./fields";
-import { InvoiceDeliverables } from "./InvoiceDeliverables";
 import { InvoiceResources } from "./InvoiceResources";
 
 export const InvoiceProcessing = () => {
@@ -44,9 +43,6 @@ export const InvoiceProcessing = () => {
         <Grid container spacing={2}>
           <Grid item md={6}>
             <InvoiceResources invoiceId={invoiceId} contractId={Number(id)} />
-          </Grid>
-          <Grid item md={6}>
-            <InvoiceDeliverables invoiceId={invoiceId} />
           </Grid>
         </Grid>
       )}

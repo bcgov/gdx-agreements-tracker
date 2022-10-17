@@ -47,7 +47,7 @@ export const Contract = () => {
     <>
       {"new" !== contractId && <ChipNav navLinks={chipNavLinks} />}
       <Outlet />
-     <BudgetDisplay apiUrl={"/contracts/1609/budgets"}/>      
+      <BudgetDisplay apiUrl={"/contracts/1609/budgets"} />
     </>
   );
 };

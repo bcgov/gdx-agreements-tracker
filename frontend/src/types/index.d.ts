@@ -354,10 +354,24 @@ export interface IWhat {
   single: string;
   plural: string;
 }
-
 export interface IGDXList {
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  blocks: Array<[{ label: string; value: any }]>;
+  data: Array<{ [key: string]: number | string }>;
   title: string;
+}
+
+export interface IStandardRow {
+  [key: string]: string | number;
+}
+
+export interface IBudget {
+  fiscal_year: string;
+  invoiced_expenses: number;
+  invoiced_fees: number;
+  invoiced_hours: number;
+  remaining_expenses: number;
+  remaining_fees: number;
+  remaining_hours: number;
+  total_expenses: number;
+  total_fees: number;
+  total_hours: number;
 }

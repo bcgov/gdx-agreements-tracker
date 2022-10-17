@@ -41,7 +41,7 @@ export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowE
   return (
     <StyledBox>
       <DataGrid
-        autoHeight 
+        autoHeight
         rows={rows}
         columns={columns}
         loading={loading}
