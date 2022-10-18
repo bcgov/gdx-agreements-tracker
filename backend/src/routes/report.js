@@ -21,7 +21,7 @@ const routes = [
   },
   {
     method: "GET",
-    url: `/${what}/projects/ProjectStatusReport`,
+    url: `/${what}/projects/:id/ProjectStatusReport`,
     handler: controller.getProjectStatusReport,
   },
 ];

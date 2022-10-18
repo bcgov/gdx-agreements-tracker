@@ -32,6 +32,28 @@ const useCommonComponents = (healthApi, instance) => {
       return error;
     }
   };
+
+  const getReport = async (request, reply, api) => {
+    // Gets grant type client credentials.
+    const client = new ClientCredentials(config);
+    const tokenParams = { scope: "<scope>" };
+
+    const accessToken = await client.getToken(tokenParams);
+    // Using Axios to call api endpoint with Bearer token.
+    const axiosInstance = axios.create({
+      baseURL: `${"cdogs" === instance ? cdogsApi : chesApi}${healthApi}`,
+      timeout: 1000,
+      headers: { Authorization: `Bearer ${accessToken?.token?.access_token}` },
+    });
+
+    try {
+      const response = await axiosInstance.get("/fileTypes");
+      reply.send(response.data);
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  };
   return { getHealth };
 };
 

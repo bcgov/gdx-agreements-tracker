@@ -1,5 +1,6 @@
 const useController = require("./useController/index.js");
 const model = require("../models/report");
+const projectModel = require("../models/projects");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
 
@@ -59,7 +60,16 @@ controller.getProjectQuarterlyReport = async (request, reply) => {
 controller.getProjectStatusReport = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
-    const result = await model.projectStatusReport();
+    const projectId = Number(request.params.id);
+    const reportDate = new Date();
+    const result = {
+      project:  await projectModel.findById(projectId),
+      deliverables : await model.projectStatusReport(projectId),
+      milestones : await model.getMilestones(projectId),
+      alignment: await model.getStrategicAlignment(projectId),
+      status: await projectModel.findMostRecentStatusById(projectId),
+    }
+
     if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
