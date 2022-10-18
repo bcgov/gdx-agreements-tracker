@@ -2,7 +2,6 @@ require("dotenv").config();
 const { loadSecretFileOrUseEnv } = require('./src/helpers/secrets');
 
 module.exports = {
-  supportBigNumbers: false,
   client: "pg",
   useNullAsDefault: true,
   debug: false,
