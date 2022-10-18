@@ -3,6 +3,7 @@ import { ITableData } from "../types";
 import { Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import { useAxios } from "./useAxios";
 
@@ -18,6 +19,7 @@ export const formatTableColumns = (
   tableData: ITableData,
   tableName?: string,
   handleClick?: Function,
+  handleDelete?: Function,
   columnWidths?: Object
 ) => {
   /**
@@ -81,6 +83,29 @@ export const formatTableColumns = (
       },
     ];
 
+    if (handleDelete !== undefined) {
+      formattedColumns.push({
+        field: "delete",
+        headerName: "",
+        sortable: false,
+        filterable: false,
+        maxWidth: 60,
+        renderCell: (cellValues: { id: number }) => {
+          return (
+            <IconButton
+              onClick={() => {
+                handleDelete(cellValues.id);
+              }}
+              size="small"
+              component={Button}
+            >
+              <DeleteIcon />
+            </IconButton>
+          );
+        },
+      });
+    }
+
     Object.entries(tableData.data.data[0]).forEach((value, index) => {
       formattedColumns.push({
         hide: "id" === value[0] && true,
@@ -104,11 +129,13 @@ export const useFormatTableData = ({
   tableName,
   apiEndPoint,
   handleClick,
+  handleDelete,
   columnWidths,
 }: {
   tableName: string;
   apiEndPoint: string;
   handleClick?: Function;
+  handleDelete?: Function;
   columnWidths?: Object;
 }) => {
   // const handleCurrentUser = async () => {
@@ -131,7 +158,13 @@ export const useFormatTableData = ({
             return { columns: [], rows: [], user: tableData.data?.user };
 
           default:
-            return formatTableColumns(tableData, tableName, handleClick, columnWidths);
+            return formatTableColumns(
+              tableData,
+              tableName,
+              handleClick,
+              handleDelete,
+              columnWidths
+            );
         }
       })
       .catch((error) => {

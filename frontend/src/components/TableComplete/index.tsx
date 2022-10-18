@@ -166,18 +166,17 @@ export const TableComplete = ({
                   }
                 }}
               />
-              <Box
-                m={1}
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="flex-end"
-                onClick={() => {
-                  handleOpen();
-                  handleEditMode(true);
-                  handleFormType("new");
-                }}
-              >
-                {hasRole(roles.add) && <Button variant="contained">{`Add New ${itemName}`}</Button>}
+              <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+                {hasRole(roles.add) && (
+                  <Button
+                    onClick={() => {
+                      handleOpen();
+                      handleEditMode(true);
+                      handleFormType("new");
+                    }}
+                    variant="contained"
+                  >{`Add New ${itemName}`}</Button>
+                )}
               </Box>
             </>
           }
