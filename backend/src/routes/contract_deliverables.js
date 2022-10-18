@@ -1,30 +1,30 @@
 const controller = require("../controllers/contract_deliverables");
-const validators = require("../validators/contract_deliverables");
+// const validators = require("../validators/contract_deliverables");//TODO Coming in next PR
 const what = "deliverables";
 
 const routes = [
   {
     method: "GET",
     url: `/contracts/:id/${what}`,
-    //schema: validators.getAll,
+    // schema: validators.getAll,  //TODO Coming in next PR
     handler: controller.getAllById,
   },
   {
     method: "GET",
     url: `/contracts/${what}/:id`,
-    //schema: validators.getOne,
+    // schema: validators.getOne,  //TODO Coming in next PR
     handler: controller.getOne,
   },
   {
     method: "PUT",
     url: `/contracts/${what}/:id`,
-    //schema: validators.updateOne,
+    //schema: validators.updateOne, //TODO Coming in next PR
     handler: controller.updateOne,
   },
   {
     method: "POST",
     url: `/contracts/:id/${what}`,
-    //schema: validators.addOne,
+    //schema: validators.addOne, //TODO Coming in next PR
     handler: controller.addOneWithContractId,
   },
 ];

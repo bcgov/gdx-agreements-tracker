@@ -1,4 +1,12 @@
 ## Developer Changelog
+
+### October 18, 2022 (DESCW-625) Contract Deliverables Section
+- Frontend
+  - Added Deliverables page component
+  - Added new BudgetDisplay component
+
+- Backend
+  - Added controller, model, route, validator for Deliverables
 ### October 17, 2022 (DESCW-638) Picker options update
 - Backend 
   - update picker options

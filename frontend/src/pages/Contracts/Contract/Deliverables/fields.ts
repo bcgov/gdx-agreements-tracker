@@ -35,7 +35,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
       width: "half",
     },
     {
-      value: query?.data?.project_deliverable_id,
+      value: query?.data?.project_deliverable_id.label,
       title: "Project Deliverable",
       width: "half",
     },
@@ -58,7 +58,6 @@ export const editFields: IEditFields[] = [
     fieldType: "singleText",
     fieldLabel: "Deliverable",
     width: "half",
-    tableName: "contract_amendment",
   },
   {
     fieldName: "is_expense",
@@ -96,14 +95,14 @@ export const editFields: IEditFields[] = [
     fieldType: "select",
     fieldLabel: "Project Deliverable",
     width: "half",
-    tableName: "contracts",
+    pickerName: "project_deliverable_option",
   },
   {
     fieldName: "fiscal",
     fieldType: "select",
     fieldLabel: "Fiscal Year",
     width: "half",
-    tableName: "generic",
+    pickerName: "fiscal_year_option",
   },
   {
     fieldName: "comments",
