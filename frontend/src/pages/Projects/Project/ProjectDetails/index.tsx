@@ -1,3 +1,4 @@
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import { useAxios } from "hooks/useAxios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -47,8 +48,8 @@ export const ProjectDetails = () => {
         <AgreementSection query={projectQuery} userHasEditCapability={userHasEditCapability} />
       </GDXAccordion>
       <GDXAccordion sectionTitle="Client Coding">
-        <ClientCodingSection projectId={Number(projectId)} />
-      </GDXAccordion>
+      <ClientCodingSection projectId={Number(projectId)} />
+      </GDXAccordion>   
     </>
   );
 };
