@@ -24,7 +24,7 @@ testRoutes([
   },
   {
     request: { method: "POST", url: "/invoices/1/resources", payload: {} },
-    modelFunction: model.addOne,
+    modelFunction: model.addOneWithInvoiceId,
     capabilities: ["contracts_add_one"],
     type: routeTypes.General,
   },

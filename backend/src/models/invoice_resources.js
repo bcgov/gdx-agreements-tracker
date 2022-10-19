@@ -66,7 +66,7 @@ const updateOne = async (body, id) => {
 };
 
 // Add one.
-const addOne = async (newResource, invoiceId) => {
+const addOneWithInvoiceId = async (newResource, invoiceId) => {
   newResource.invoice_id = invoiceId;
   newResource.rate = await getRate(newResource.contract_resource_id);
   return knex(table).insert(newResource);
@@ -92,5 +92,5 @@ module.exports = {
   findAllByInvoiceId,
   findById,
   updateOne,
-  addOne,
+  addOneWithInvoiceId,
 };

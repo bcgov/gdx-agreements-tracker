@@ -36,7 +36,6 @@ export const editFields: (contractId: number) => IEditFields[] = (contractId) =>
       fieldLabel: "Resource Assignment",
       fieldName: "contract_resource_id",
       fieldType: "select",
-      tableName: "contracts",
       pickerName: "contract_resource",
       contractId: contractId,
     },

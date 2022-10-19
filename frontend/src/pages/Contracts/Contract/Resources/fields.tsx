@@ -33,7 +33,6 @@ export const editFields: IEditFields[] = [
     fieldName: "fiscal",
     fieldType: "select",
     pickerName: "fiscal_year_option",
-    tableName: "generic",
   },
   {
     width: "half",

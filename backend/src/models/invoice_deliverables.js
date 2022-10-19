@@ -54,7 +54,7 @@ const updateOne = (body, id) => {
 };
 
 // Add one.
-const addOne = (newDeliverable, invoiceId) => {
+const addOneWithInvoiceId = (newDeliverable, invoiceId) => {
   newDeliverable.invoice_id = invoiceId;
   return knex(table).insert(newDeliverable);
 };
@@ -63,5 +63,5 @@ module.exports = {
   findAllByInvoiceId,
   findById,
   updateOne,
-  addOne,
+  addOneWithInvoiceId,
 };

@@ -34,7 +34,7 @@ controller.addOneWithInvoiceId = async (request, reply) => {
   controller.userRequires(request, what, `contracts_add_one`);
   const invoiceId = Number(request.params.id);
   try {
-    const result = await model.addOne(request.body, invoiceId);
+    const result = await model.addOneWithInvoiceId(request.body, invoiceId);
     return result || controller.noQuery(reply, `The ${what.single} could not be added.`);
   } catch (err) {
     return controller.failedQuery(reply, err, what);
