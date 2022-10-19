@@ -4,9 +4,10 @@ import { TableComplete } from "components/TableComplete";
 import { useParams } from "react-router-dom";
 import { editFields, initialValues, readFields } from "./fields";
 import { InvoiceResources } from "./InvoiceResources";
+import { InvoiceDeliverables } from "./InvoiceDeliverables";
 
 export const InvoiceProcessing = () => {
-  const { id } = useParams();
+  const { contractId } = useParams();
   const [invoiceId, setInvoiceId] = useState(0);
 
   const roles = {
@@ -17,10 +18,10 @@ export const InvoiceProcessing = () => {
   };
 
   const url = {
-    getAll: `contracts/${id}/invoices`,
+    getAll: `contracts/${contractId}/invoices`,
     getOne: `invoices/{id}`,
     updateOne: `invoices/{id}`,
-    addOne: `contracts/${id}/invoices`,
+    addOne: `contracts/${contractId}/invoices`,
     deleteOne: `invoices/{id}`,
   };
 
@@ -33,6 +34,7 @@ export const InvoiceProcessing = () => {
         createFormInitialValues={initialValues}
         readFields={readFields}
         editFields={editFields}
+        totalColumns={["invoice_total"]}
         roles={roles}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         getSelectedRow={(row: any) => {
@@ -41,8 +43,11 @@ export const InvoiceProcessing = () => {
       />
       {invoiceId > 0 && (
         <Grid container spacing={2}>
-          <Grid item md={6}>
-            <InvoiceResources invoiceId={invoiceId} contractId={Number(id)} />
+          <Grid item md={6} sm={12}>
+            <InvoiceResources invoiceId={invoiceId} contractId={Number(contractId)} />
+          </Grid>
+          <Grid item md={6} sm={12}>
+            <InvoiceDeliverables invoiceId={invoiceId} contractId={Number(contractId)} />
           </Grid>
         </Grid>
       )}

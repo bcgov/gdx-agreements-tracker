@@ -171,7 +171,7 @@ const tableLookupValues = (projectId, contractId) => {
     {
       id: "resourceoption",
       name: "resource_option",
-      title: "",
+      title: "Resource",
       description: "",
       table: "data.resource",
       value: "resource_id",
@@ -208,6 +208,26 @@ const tableLookupValues = (projectId, contractId) => {
       label: `project_deliverable.deliverable_name`,
       queryAdditions: `WHERE project_deliverable.deliverable_name IS NOT NULL`,
     },
+    {
+      id: "contractresource",
+      name: "contract_resource",
+      title: "Contract Resource",
+      description: "",
+      table: "data.contract_resource",
+      value: "contract_resource.id",
+      label: `(r.resource_last_name || ', ' || r.resource_first_name)`,
+      queryAdditions: getContractResourceQueryAdditions(contractId),
+    },
+    {
+      id: "contractdeliverable",
+      name: "contract_deliverable",
+      title: "Contract Deliverable",
+      description: "",
+      table: "data.contract_deliverable",
+      value: "contract_deliverable.id",
+      label: `contract_deliverable.deliverable_name`,
+      queryAdditions: getContractDeliverableQueryAdditions(contractId),
+    },
   ];
 };
 
@@ -221,7 +241,7 @@ const getClientCodingQueryAdditions = (id) => {
   let query = `ORDER BY client_coding.program_area`;
   if (Number(id) > 0) {
     query = `
-      LEFT JOIN data.jv  on data.jv.client_coding_id = data.client_coding.id
+      LEFT JOIN data.jv on data.jv.client_coding_id = data.client_coding.id
       WHERE jv.project_id = ${Number(id)}
       GROUP BY label, value
       ORDER BY client_coding.program_area
@@ -231,12 +251,45 @@ const getClientCodingQueryAdditions = (id) => {
 };
 
 /**
- * Gets all the table lookups, using the new pickerOptionSelect, and unions with the dropdown options.
+ * Gets contract resource query additions.
  *
- * @param   {int}   projectId  The project id for picker options that have specific project related lists.
- * @param   {int}   contractId The contract id for picker options that have specific contract related lists.
- * @returns {Array}
+ * @param   {int}    id The contract id.
+ * @returns {string}
  */
+const getContractResourceQueryAdditions = (id) => {
+  let query = `
+    LEFT JOIN data.resource AS r on contract_resource.resource_id = r.resource_id
+    ORDER BY label ASC
+    `;
+  if (Number(id) > 0) {
+    query = `
+      LEFT JOIN data.resource AS r on contract_resource.resource_id = r.resource_id
+      WHERE contract_resource.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  return query;
+};
+
+/**
+ * Gets contract deliverable query additions.
+ *
+ * @param   {int}    id The contract id.
+ * @returns {string}
+ */
+const getContractDeliverableQueryAdditions = (id) => {
+  let query = `ORDER BY label ASC`;
+  if (Number(id) > 0) {
+    query = `
+      WHERE contract_deliverable.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  return query;
+};
+
 const getTableLookups = (projectId, contractId) => {
   const unionQueries = [];
   tableLookupValues(projectId, contractId).forEach((lookup) => {

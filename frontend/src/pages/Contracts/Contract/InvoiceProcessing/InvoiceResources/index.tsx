@@ -1,5 +1,5 @@
 import { TableComplete } from "components/TableComplete";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { editFields, initialValues, readFields } from "./fields";
 
 export const InvoiceResources = ({
@@ -9,12 +9,6 @@ export const InvoiceResources = ({
   invoiceId: number;
   contractId: number;
 }) => {
-  const [id, setId] = useState(0);
-
-  useEffect(() => {
-    setId(invoiceId);
-  }, [invoiceId]);
-
   const roles = {
     get: "contracts_read_all",
     add: "contracts_add_one",
@@ -23,17 +17,25 @@ export const InvoiceResources = ({
   };
 
   const url = {
-    getAll: `invoices/${id}/resources`,
-    getOne: `/invoices/resources/{id}`,
-    updateOne: ``,
-    addOne: ``,
+    getAll: `invoices/${invoiceId}/resources`,
+    getOne: `invoices/resources/{id}`,
+    updateOne: `invoices/resources/{id}`,
+    addOne: `invoices/${invoiceId}/resources`,
     deleteOne: ``,
+  };
+
+  const columnWidths = {
+    resource_assignment: 3,
+    hours: 1,
+    rate: 1,
+    amount: 1,
   };
 
   return (
     <TableComplete
-      itemName={"resource"}
+      itemName={"Resource"}
       tableName={"resources"}
+      columnWidths={columnWidths}
       url={url}
       createFormInitialValues={initialValues}
       readFields={readFields}

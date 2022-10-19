@@ -7,11 +7,12 @@ import { FormikValues } from "formik";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { ICapability, IEditFields, IWhat } from "types";
 import { apiAxios } from "utils";
 
 export const ReadEditPage = ({
+  id,
   what,
   editFields,
   readFields,
@@ -20,6 +21,7 @@ export const ReadEditPage = ({
   apiRoute,
   redirectRoute,
 }: {
+  id: string | undefined;
   what: IWhat;
   editFields: IEditFields[];
   readFields: Function;
@@ -31,7 +33,6 @@ export const ReadEditPage = ({
   apiRoute: string;
   redirectRoute: string;
 }) => {
-  const { id } = useParams();
   const [editMode, setEditMode] = useState(false);
   const [isNew, setNew] = useState(false);
   const [createCompleted, setCreateCompleted] = useState(false);

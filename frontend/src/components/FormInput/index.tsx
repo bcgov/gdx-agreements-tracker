@@ -20,10 +20,11 @@ export const FormInput = ({
   pickerName,
   tableName,
   projectId,
+  contractId,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pickerValues: any = usePickerValues(projectId);
+  const pickerValues: any = usePickerValues(projectId, contractId);
 
   const getPickerOptions = () => {
     const defaults = {
@@ -110,10 +111,10 @@ export const FormInput = ({
         <GridItem width={width}>
           <GDXMultiselect
             handleChange={handleChange as Function}
-            fieldValue={fieldValue as IOption[]}
             fieldName={fieldName}
+            fieldValue={fieldValue as IOption[]}
             setFieldValue={setFieldValue as Function}
-            pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
+            pickerData={getPickerOptions()}
           />
         </GridItem>
       );

@@ -23,8 +23,8 @@ export const Contract = () => {
     },
     {
       key: 1,
-      name: "Deliverables",
-      url: `/contracts/${contractId}/deliverables`,
+      name: "Invoice Processing",
+      url: `/contracts/${contractId}/invoice-processing`,
     },
     {
       key: 2,
@@ -33,8 +33,8 @@ export const Contract = () => {
     },
     {
       key: 3,
-      name: "Invoice Processing",
-      url: `/contracts/${contractId}/invoice-processing`,
+      name: "Deliverables",
+      url: `/contracts/${contractId}/deliverables`,
     },
     {
       key: 5,
@@ -47,7 +47,7 @@ export const Contract = () => {
     <>
       {"new" !== contractId && <ChipNav navLinks={chipNavLinks} />}
       <Outlet />
-      <BudgetDisplay apiUrl={"/contracts/1609/budgets"} />
+      <BudgetDisplay apiUrl={`/contracts/${contractId}/budgets`} />
     </>
   );
 };

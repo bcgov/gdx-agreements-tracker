@@ -1,11 +1,14 @@
 import { TableComplete } from "components/TableComplete";
 import React from "react";
-import { useParams } from "react-router-dom";
 import { editFields, initialValues, readFields } from "./fields";
 
-export const InvoiceDeliverables = () => {
-  const { contractId } = useParams();
-
+export const InvoiceDeliverables = ({
+  invoiceId,
+  contractId,
+}: {
+  invoiceId: number;
+  contractId: number;
+}) => {
   const roles = {
     get: "contracts_read_all",
     add: "contracts_add_one",
@@ -14,22 +17,29 @@ export const InvoiceDeliverables = () => {
   };
 
   const url = {
-    getAll: `invoices/${contractId}/deliverables`,
+    getAll: `invoices/${invoiceId}/deliverables`,
     getOne: `invoices/deliverables/{id}`,
-    updateOne: ``,
-    addOne: ``,
+    updateOne: `invoices/deliverables/{id}`,
+    addOne: `invoices/${invoiceId}/deliverables`,
     deleteOne: ``,
+  };
+
+  const columnWidths = {
+    deliverable_name: 3,
+    type: 1,
+    rate: 1,
   };
 
   return (
     <TableComplete
-      itemName={"deliverable"}
+      itemName={"Deliverable"}
       tableName={"deliverables"}
+      columnWidths={columnWidths}
       url={url}
       createFormInitialValues={initialValues}
       readFields={readFields}
-      editFields={editFields}
-      totalColumns={["rate"]}
+      editFields={editFields(contractId)}
+      totalColumns={["amount"]}
       roles={roles}
     />
   );

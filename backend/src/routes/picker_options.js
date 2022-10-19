@@ -18,13 +18,13 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/project/:id`,
-    schema: validators.getAll,
+    schema: validators.getAllById,
     handler: controller.findAllByProject,
   },
   {
     method: "GET",
     url: `/${what}/contract/:id`,
-    schema: validators.getAll,
+    schema: validators.getAllById,
     handler: controller.findAllByContract,
   },
 ];

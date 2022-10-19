@@ -119,7 +119,7 @@ export const editFields: IEditFields[] = [
     fieldLabel: "Supplier",
     fieldName: "supplier_id",
     fieldType: "select",
-    tableName: "resource",
+    pickerName: "supplier_option",
   },
   {
     width: "half",
@@ -132,7 +132,7 @@ export const editFields: IEditFields[] = [
     fieldLabel: "Subcontractors",
     fieldName: "subcontractor_id",
     fieldType: "multiselect",
-    tableName: "resource",
+    pickerName: "subcontractor_option",
   },
   {
     width: "half",

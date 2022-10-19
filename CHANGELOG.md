@@ -1,5 +1,15 @@
 ## Developer Changelog
 
+### October 19, 2022 (DESCW-654) Invoice Resources/Deliverables
+- Backend
+  - Updated picker options seeds:
+    -  `npx knex seed:run --specific=08_picker_options.js`
+  - Added controller, model, route, and validators for invoice_resources and invoice_deliverables.
+  - Fixed bugs with picker_options model.
+- Frontend
+  - Added support for contract-specific picker options.
+  - Added read/edit/add for invoice resources and invoice deliverables.
+
 ### October 18, 2022 (DESCW-625) Contract Deliverables Section
 - Frontend
   - Added Deliverables page component
