@@ -17,9 +17,9 @@ const databaseConnection = () => {
         {
           definition: knex.raw(`
         (
-          SELECT json_agg(${option.id}) 
+          SELECT COALESCE(json_agg(${option.id}), '[]')
           FROM (
-            SELECT  ${option.value} AS value, 
+            SELECT ${option.value} AS value, 
             ${option.label} AS label 
             FROM ${option.table}
             ${option?.queryAdditions}

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { editFields, readFields, initialValues } from "./fields";
 
 export const Amendments = () => {
-  const { id } = useParams();
+  const { contractId } = useParams();
 
   const roles = {
     get: "contracts_read_all",
@@ -14,8 +14,8 @@ export const Amendments = () => {
   };
 
   const url = {
-    getAll: `contracts/${id}/amendments`,
-    getOne: `contracts/${id}/amendments/{id}`,
+    getAll: `contracts/${contractId}/amendments`,
+    getOne: `contracts/${contractId}/amendments/{id}`,
     updateOne: `amendments/{id}`,
     addOne: `amendments`,
     deleteOne: `amendments/{id}`,
@@ -32,7 +32,7 @@ export const Amendments = () => {
       tableName={"amendments"}
       columnWidths={columnWidths}
       url={url}
-      createFormInitialValues={initialValues(id)}
+      createFormInitialValues={initialValues(contractId)}
       readFields={readFields}
       editFields={editFields}
       roles={roles}

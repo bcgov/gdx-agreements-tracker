@@ -35,6 +35,7 @@ export const editFields: (contractId: number) => IEditFields[] = (contractId) =>
       fieldName: "contract_deliverable_id",
       fieldType: "select",
       tableName: "contracts",
+      pickerName: "contract_deliverable",
       contractId: contractId,
     },
     { width: "half", fieldLabel: "Fiscal Year", fieldName: "fiscal_year", fieldType: "readonly" },

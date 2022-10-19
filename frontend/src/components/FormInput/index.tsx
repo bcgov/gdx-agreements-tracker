@@ -111,10 +111,10 @@ export const FormInput = ({
         <GridItem width={width}>
           <GDXMultiselect
             handleChange={handleChange as Function}
-            fieldValue={fieldValue as IOption[]}
             fieldName={fieldName}
+            fieldValue={fieldValue as IOption[]}
             setFieldValue={setFieldValue as Function}
-            pickerData={pickerValues?.data?.pickers[tableName as string][fieldName]}
+            pickerData={getPickerOptions()}
           />
         </GridItem>
       );

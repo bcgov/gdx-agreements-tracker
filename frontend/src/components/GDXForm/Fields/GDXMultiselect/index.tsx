@@ -9,9 +9,11 @@ import { IMultiPickerProps, IOption } from "../../../../types";
  * @param   {IOption[]} root0.fieldValue    Inital value of the select
  * @param   {Function}  root0.setFieldValue Function to handle value change
  * @param   {unknown}   root0.pickerData    All picker options
+ * @param   {string}    root0.fieldName     Name of the field
  * @returns {GDXSelect}                     a JSX select
  */
 export const GDXMultiselect: FC<IMultiPickerProps> = ({
+  fieldName,
   fieldValue,
   setFieldValue,
   pickerData,
@@ -23,14 +25,14 @@ export const GDXMultiselect: FC<IMultiPickerProps> = ({
       ) : (
         <Autocomplete
           multiple
-          id={pickerData?.name}
+          id={fieldName}
           options={pickerData?.definition}
           onChange={(event, option) => {
-            setFieldValue(pickerData?.name, option);
+            setFieldValue(fieldName, option);
           }}
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
-            <TextField label={pickerData?.title} name={pickerData?.name} {...params} />
+            <TextField label={pickerData?.title} name={fieldName} {...params} />
           )}
           isOptionEqualToValue={(option: IOption, value: IOption) => {
             return value.value === option.value;

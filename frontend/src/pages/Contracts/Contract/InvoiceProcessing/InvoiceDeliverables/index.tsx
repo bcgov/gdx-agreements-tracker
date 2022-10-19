@@ -1,5 +1,5 @@
 import { TableComplete } from "components/TableComplete";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { editFields, initialValues, readFields } from "./fields";
 
 export const InvoiceDeliverables = ({
@@ -9,12 +9,6 @@ export const InvoiceDeliverables = ({
   invoiceId: number;
   contractId: number;
 }) => {
-  const [id, setId] = useState(0);
-
-  useEffect(() => {
-    setId(invoiceId);
-  }, [invoiceId]);
-
   const roles = {
     get: "contracts_read_all",
     add: "contracts_add_one",
@@ -23,10 +17,10 @@ export const InvoiceDeliverables = ({
   };
 
   const url = {
-    getAll: `invoices/${contractId}/deliverables`,
+    getAll: `invoices/${invoiceId}/deliverables`,
     getOne: `invoices/deliverables/{id}`,
     updateOne: `invoices/deliverables/{id}`,
-    addOne: `invoices/${id}/deliverables`,
+    addOne: `invoices/${invoiceId}/deliverables`,
     deleteOne: ``,
   };
 

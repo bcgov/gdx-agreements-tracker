@@ -7,7 +7,7 @@ import { InvoiceResources } from "./InvoiceResources";
 import { InvoiceDeliverables } from "./InvoiceDeliverables";
 
 export const InvoiceProcessing = () => {
-  const { id } = useParams();
+  const { contractId } = useParams();
   const [invoiceId, setInvoiceId] = useState(0);
 
   const roles = {
@@ -18,10 +18,10 @@ export const InvoiceProcessing = () => {
   };
 
   const url = {
-    getAll: `contracts/${id}/invoices`,
+    getAll: `contracts/${contractId}/invoices`,
     getOne: `invoices/{id}`,
     updateOne: `invoices/{id}`,
-    addOne: `contracts/${id}/invoices`,
+    addOne: `contracts/${contractId}/invoices`,
     deleteOne: `invoices/{id}`,
   };
 
@@ -44,10 +44,10 @@ export const InvoiceProcessing = () => {
       {invoiceId > 0 && (
         <Grid container spacing={2}>
           <Grid item md={6} sm={12}>
-            <InvoiceResources invoiceId={invoiceId} contractId={Number(id)} />
+            <InvoiceResources invoiceId={invoiceId} contractId={Number(contractId)} />
           </Grid>
           <Grid item md={6} sm={12}>
-            <InvoiceDeliverables invoiceId={invoiceId} contractId={Number(id)} />
+            <InvoiceDeliverables invoiceId={invoiceId} contractId={Number(contractId)} />
           </Grid>
         </Grid>
       )}
