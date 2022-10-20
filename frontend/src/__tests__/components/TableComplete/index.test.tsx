@@ -2,8 +2,9 @@ import { TableComplete } from "components/TableComplete";
 import { mount } from "enzyme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
+import { getByRole, render, screen, waitFor } from "@testing-library/react";
 
-import { Container, render, unmountComponentAtNode } from "react-dom";
+import { Container, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { Axios } from "axios";
 import { useFormatTableData } from "hooks/useFormatTableData";
@@ -115,8 +116,28 @@ jest.mock("hooks/useFormSubmit", () => ({
   useFormSubmit: () => ({ handlePost: () => {}, handleUpdate: () => {}, Notification: "" }),
 }));
 
-jest.mock("reactQuery", () => ({
-  reactQuery: { data: [] },
+jest.mock("react-query", () => ({
+  useQuery: () => ({
+    data: {
+      id: 1977,
+      fiscal: {
+        value: 13,
+        label: "22-23",
+      },
+      resource_id: {
+        value: 581,
+        label: "Various, Various",
+      },
+      assignment_rate: "35",
+      supplier_rate_id: {
+        value: 467,
+        label: "$35.00",
+      },
+      hours: 125,
+      start_date: "2022-04-01T07:00:00.000Z",
+      end_date: "",
+    },
+  }),
 }));
 
 const mockRoles = {
@@ -136,12 +157,12 @@ const mockUrl = {
 
 describe("Role Testing", () => {
   test("test", () => {
-    const wrapper = mount(
+    mount(
       <BrowserRouter>
         <TableComplete
-          itemName={"mockItem"}
-          tableName={"mockTable"}
           url={mockUrl}
+          tableName={"mockTable"}
+          itemName={"mockItem"}
           createFormInitialValues={initialValues}
           readFields={readFields}
           editFields={editFields}
@@ -150,7 +171,5 @@ describe("Role Testing", () => {
         />
       </BrowserRouter>
     );
-    console.log("wrapper", wrapper);
-    expect(wrapper);
   });
 });
