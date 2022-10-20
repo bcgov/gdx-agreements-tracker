@@ -17,6 +17,7 @@
     "@mui/x-date-pickers": "^5.0.0-alpha.6",
     "@react-keycloak/web": "^3.4.0",
     "@types/react-table": "^7.7.9",
+    "@types/react-test-renderer": "^18.0.0",
     "axios": "^0.24.0",
     "formik": "^2.2.9",
     "jsdoc": "^3.6.11",

@@ -88,7 +88,7 @@ export const TableComplete = ({
 
   useEffect(() => {
     setUserCapabilities(data?.user?.capabilities);
-  }, [data]);
+  }, []);
 
   /**
    * getApiData is the fetch function for react query to leverage.
@@ -156,7 +156,7 @@ export const TableComplete = ({
    * @returns {UseQueryResult}              - The result of react query which contains things such as the data.
    */
   // Queries
-  export const reactQuery: UseQueryResult<FormikValues> = useQuery(
+  const reactQuery: UseQueryResult<FormikValues> = useQuery(
     getApiUrl(url.getOne, currentRowData?.id),
     getApiData,
     {
