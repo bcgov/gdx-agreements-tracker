@@ -28,4 +28,10 @@ testRoutes([
     capabilities: ["projects_add_one"],
     type: routeTypes.General,
   },
+  {
+    request: { method: "DELETE", url: "/projects/client-coding/1", payload: {} },
+    modelFunction: model.removeOne,
+    capabilities: ["projects_delete_one"],
+    type: routeTypes.Specific,
+  },
 ]);

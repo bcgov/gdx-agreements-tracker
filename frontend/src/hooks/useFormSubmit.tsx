@@ -117,6 +117,33 @@ export const useFormSubmit = () => {
       });
   };
 
+  const handleDelete = async ({
+    apiUrl,
+    queryKeys,
+    successMessage,
+    errorMessage,
+  }: {
+    apiUrl: string;
+    queryKeys: string[];
+    successMessage: string;
+    errorMessage: string;
+  }) => {
+    await axiosAll()
+      .delete(apiUrl)
+      .then(() => {
+        handleSnackBarMessage(successMessage as string);
+        handleSnackBar("success");
+        queryKeys.forEach((queryKey: string) => {
+          queryClient.invalidateQueries(queryKey);
+        });
+      })
+      .catch((err: string) => {
+        handleSnackBarMessage(errorMessage as string);
+        handleSnackBar("error");
+        console.error("error:", err);
+      });
+  };
+
   const Notification = () => {
     return (
       <Snackbar open={showSnackBar} autoHideDuration={3000} onClose={handleCloseSnackBar}>
@@ -127,5 +154,5 @@ export const useFormSubmit = () => {
     );
   };
 
-  return { handlePost, handleUpdate, Notification };
+  return { handlePost, handleUpdate, handleDelete, Notification };
 };

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { AppBar, Toolbar, Typography, Button, FormControl } from "@mui/material";
 import bcgovTheme from "../../../../bcgovTheme";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const StyledAppBar = styled(AppBar)({
@@ -31,6 +32,8 @@ export const FormHeader = ({
   handleEditMode,
   editMode,
   allowEdit,
+  allowDelete,
+  handleDelete,
   handleFormType,
   handleClose,
 }: {
@@ -38,6 +41,8 @@ export const FormHeader = ({
   handleEditMode: Function;
   editMode: boolean;
   allowEdit: boolean;
+  allowDelete: boolean;
+  handleDelete: Function;
   handleFormType: Function;
   handleClose?: Function;
 }) => {
@@ -50,6 +55,19 @@ export const FormHeader = ({
           </Typography>
 
           <StyledButtonLayout>
+            {allowDelete && (
+              <StyleButton
+                onClick={() => {
+                  handleDelete();
+                  if (undefined !== handleClose) {
+                    handleClose();
+                  }
+                }}
+                endIcon={<DeleteIcon />}
+              >
+                Delete
+              </StyleButton>
+            )}
             {!editMode && allowEdit ? (
               <StyleButton
                 onClick={() => {
