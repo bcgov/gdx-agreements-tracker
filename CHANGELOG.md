@@ -1,5 +1,13 @@
 ## Developer Changelog
 
+### October 21, 2022 (DESCW-662) Projects Client Coding Section
+- Backend
+  - Added controller, model, routes, and validators for client coding.
+- Frontend
+  - Created ClientCoding page component and fields.
+  - Fixed bug with GDXAccordion not allowing TableComplete as child.
+  - Added button, capability checking, and request handling for delete requests to TableComplete and associated components.
+
 ### October 19, 2022 (DESCW-654) Invoice Resources/Deliverables
 - Backend
   - Updated picker options seeds:

@@ -18,26 +18,21 @@ export const GDXAccordion = ({
     backgroundColor: "#ECECEC",
   });
 
-  const StyledSectionHeader = styled(Typography)({
+  const StyledTypography = styled(Typography)({
     color: bcgovTheme.palette.primary.main,
     fontWeight: "bold",
   });
 
-  const StyledAccordion = styled(Accordion)({
-    margin: "16px 0",
-  });
-
   return (
-    <StyledAccordion defaultExpanded>
+    <Accordion defaultExpanded>
       <StyledAccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panela-content"
-        id="panela-header"
+        aria-controls="panel-content"
         aria-label="button"
       >
-        <StyledSectionHeader>{sectionTitle}</StyledSectionHeader>
+        <StyledTypography>{sectionTitle}</StyledTypography>
       </StyledAccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
-    </StyledAccordion>
+    </Accordion>
   );
 };

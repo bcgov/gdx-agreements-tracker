@@ -124,11 +124,9 @@ const useController = (model, what, capabilityPrefix = null) => {
   const deleteOne = async (request, reply) => {
     userRequires(request, what, `${capabilityPrefix}_delete_one`);
 
-    const target = {
-      id: Number(request.params.id),
-    };
+    const id = Number(request.params.id);
     try {
-      const result = await model.removeOne(target);
+      const result = await model.removeOne(id);
       return (
         result || noQuery(reply, `The ${what.single} ${request.params.id} could not be deleted.`)
       );

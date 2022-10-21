@@ -63,7 +63,15 @@ const getUpdateResponse = () => {
   getResponse(Schema.Id);
 };
 
+/**
+ * Default delete response returning number.
+ */
+const getDeleteResponse = () => {
+  getResponse(S.number());
+};
+
 exports.Schema = Schema;
 exports.getResponse = getResponse;
 exports.getAddResponse = getAddResponse;
 exports.getUpdateResponse = getUpdateResponse;
+exports.getDeleteResponse = getDeleteResponse;
