@@ -6,7 +6,7 @@ jest.mock("../../src/models/client_coding.js");
 testRoutes([
   {
     request: { method: "GET", url: "/projects/1/client-coding" },
-    modelFunction: model.findAll,
+    modelFunction: model.findAllByProjectId,
     capabilities: ["projects_read_all"],
     type: routeTypes.General,
   },
@@ -24,7 +24,7 @@ testRoutes([
   },
   {
     request: { method: "POST", url: "/projects/1/client-coding", payload: {} },
-    modelFunction: model.addOne,
+    modelFunction: model.addOneWithProjectId,
     capabilities: ["projects_add_one"],
     type: routeTypes.General,
   },

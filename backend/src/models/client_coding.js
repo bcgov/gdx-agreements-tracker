@@ -5,7 +5,7 @@ const table = `${dataBaseSchemas().data}.client_coding`;
 const contactsTable = `${dataBaseSchemas().data}.contact`;
 
 // Get all.
-const findAll = (projectId) => {
+const findAllByProjectId = (projectId) => {
   return knex
     .select("cc.*", {
       financial_contact: knex.raw("(cont.last_name || ', ' || cont.first_name)"),
@@ -39,19 +39,20 @@ const updateOne = (body, id) => {
 };
 
 // Add one.
-const addOne = (newClientCoding, projectId) => {
+const addOneWithProjectId = (newClientCoding, projectId) => {
   newClientCoding.project_id = projectId;
   return knex(table).insert(newClientCoding);
 };
 
+// Remove one.
 const removeOne = (id) => {
   return knex(table).where("id", id).del();
 };
 
 module.exports = {
-  findAll,
+  findAllByProjectId,
   findById,
   updateOne,
-  addOne,
+  addOneWithProjectId,
   removeOne,
 };
