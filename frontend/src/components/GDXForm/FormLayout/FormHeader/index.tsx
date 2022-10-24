@@ -1,24 +1,21 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { AppBar, Toolbar, Typography, Button, FormControl } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Box, IconButton } from "@mui/material";
 import bcgovTheme from "../../../../bcgovTheme";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { DeleteButton } from "components/DeleteButton";
 
 const StyledAppBar = styled(AppBar)({
   borderBottom: bcgovTheme.customSettings.BCGovAccentLine,
 });
 
-const StyledButtonLayout = styled(FormControl)({
-  marginLeft: "auto",
-  padding: "1px",
+const StyledButtonLayout = styled(Box)({
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  justifyContent: "space-between",
   flexDirection: "row",
-});
-
-const StyleButton = styled(Button)({
-  backgroundColor: "#fff !important",
-  marginLeft: "0.5rem",
 });
 
 /**
@@ -49,44 +46,49 @@ export const FormHeader = ({
   return (
     <div>
       <StyledAppBar position="sticky" role="form-header">
-        <Toolbar role="form-header-toolbar">
-          <Typography variant="h6" noWrap component="div">
-            {formTitle}
-          </Typography>
-
+        <Toolbar role="form-header-toolbar" sx={{ paddingRight: "0px" }}>
           <StyledButtonLayout>
-            {allowDelete && (
-              <StyleButton
+            <Box sx={{ display: "flex" }}>
+              <Typography variant="h6" noWrap marginRight={2} alignSelf="center">
+                {formTitle}
+              </Typography>
+              {allowDelete && (
+                <DeleteButton
+                  handleDelete={() => {
+                    if (undefined !== handleClose) {
+                      handleClose();
+                    }
+                    handleDelete();
+                  }}
+                />
+              )}
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              {!editMode && allowEdit ? (
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  onClick={() => {
+                    handleEditMode(true);
+                    handleFormType("edit");
+                  }}
+                  endIcon={<EditIcon />}
+                >
+                  Edit
+                </Button>
+              ) : null}
+              <IconButton
+                color="secondary"
+                size="large"
                 onClick={() => {
-                  handleDelete();
                   if (undefined !== handleClose) {
                     handleClose();
                   }
                 }}
-                endIcon={<DeleteIcon />}
               >
-                Delete
-              </StyleButton>
-            )}
-            {!editMode && allowEdit ? (
-              <StyleButton
-                onClick={() => {
-                  handleEditMode(true);
-                  handleFormType("edit");
-                }}
-                endIcon={<EditIcon />}
-              >
-                Edit
-              </StyleButton>
-            ) : null}
-            <StyleButton
-              onClick={() => {
-                if (undefined !== handleClose) {
-                  handleClose();
-                }
-              }}
-              endIcon={<HighlightOffIcon />}
-            ></StyleButton>
+                <HighlightOffIcon />
+              </IconButton>
+            </Box>
           </StyledButtonLayout>
         </Toolbar>
       </StyledAppBar>

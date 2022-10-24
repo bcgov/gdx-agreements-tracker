@@ -6,14 +6,17 @@ import { createTheme } from "@mui/material/styles";
  * @see https://mui.com/customization/theming/
  */
 
+const primary = "#036";
+
 const bcgovTheme = createTheme({
   palette: {
     primary: {
-      main: "#036",
+      main: primary,
       contrastText: "#fff",
     },
     secondary: {
-      main: "#38598a",
+      main: "#fff",
+      contrastText: primary,
     },
   },
   components: {

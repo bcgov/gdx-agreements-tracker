@@ -18,6 +18,13 @@ export const ClientCodingSection = ({ projectId }: { projectId: number }) => {
     deleteOne: `projects/client-coding/{id}`,
   };
 
+  const columnWidths = {
+    program_area: 2,
+    financial_contact: 2,
+    expense_authority_name: 2,
+    responsibility_centre: 2,
+  };
+
   return (
     <TableComplete
       itemName={"Client Coding"}
@@ -26,6 +33,7 @@ export const ClientCodingSection = ({ projectId }: { projectId: number }) => {
       roles={roles}
       editFields={editFields}
       readFields={readFields}
+      columnWidths={columnWidths}
       createFormInitialValues={initialValues}
     />
   );
