@@ -1,5 +1,4 @@
 const useCommonComponents = require("./useCommonComponents/index.js");
-const useDownloadFile = require("./useDownloadFile/index.js")
 
 const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
 const { ClientCredentials } = require("simple-oauth2");
@@ -99,27 +98,11 @@ controller.renderReport = async (request, reply) => {
     const response = await axiosInstance.post('/template/render', body, config)
       .then((response) => {
         console.log("RESPONSE:", response.data);
-        //return response.data;
-        // // create file link in browser's memory
-        // const href = URL.createObjectURL(response.data);
-        
 
-        // // create "a" HTML element with href to file & click
-        // const link = document.createElement('a');
-        // link.href = href;
-        // link.setAttribute('download', 'file.pdf'); //or any other extension
-        // document.body.appendChild(link);
-        // link.click();
-
-        // // clean up "a" element & remove ObjectURL
-        // document.body.removeChild(link);
-        // URL.revokeObjectURL(href);
-
-        
         reply
         .headers({
           'Content-Type':'application/pdf',
-          "Content-Disposition": "attachment; filename=\"test_request.pdf\""
+          "Content-Disposition": "attachment; filename='test_request.pdf'"
         })
         .send(response.data);
       });
