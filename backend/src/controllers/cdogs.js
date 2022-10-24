@@ -5,8 +5,6 @@ const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
 const { ClientCredentials } = require("simple-oauth2");
 const axios = require("axios");
 
-const report = require("./report.js");
-
 /**
  * Get health of CDOGS
  *
@@ -79,14 +77,14 @@ controller.renderReport = async (request, reply) => {
     formatters: "{}",
     options: {
       cacheReport: true,
-      //convertTo: "pdf",
+      convertTo: "pdf",
       overwrite: true,
       reportName: "test_report"
     },
     template: {
       content: "SGVsbG8sIHtkLmRhdGEucHJvamVjdC5wcm9qZWN0X21hbmFnZXJ9",
       encodingType: "base64",
-      fileType: "docx"
+      fileType: "txt"
     },
   };
 
@@ -94,31 +92,37 @@ controller.renderReport = async (request, reply) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      "Content-Disposition": "attachment",
     },
-    responseType: "blob",
   };
 
   try {
     const response = await axiosInstance.post('/template/render', body, config)
       .then((response) => {
-        console.log("CONFIG:", response.config);
-        // create file link in browser's memory
-        const href = URL.createObjectURL(response.data);
+        console.log("RESPONSE:", response.data);
+        //return response.data;
+        // // create file link in browser's memory
+        // const href = URL.createObjectURL(response.data);
         
 
-        // create "a" HTML element with href to file & click
-        const link = document.createElement('a');
-        link.href = href;
-        link.setAttribute('download', 'file.pdf'); //or any other extension
-        document.body.appendChild(link);
-        link.click();
+        // // create "a" HTML element with href to file & click
+        // const link = document.createElement('a');
+        // link.href = href;
+        // link.setAttribute('download', 'file.pdf'); //or any other extension
+        // document.body.appendChild(link);
+        // link.click();
 
-        // clean up "a" element & remove ObjectURL
-        document.body.removeChild(link);
-        URL.revokeObjectURL(href);
+        // // clean up "a" element & remove ObjectURL
+        // document.body.removeChild(link);
+        // URL.revokeObjectURL(href);
+
+        
+        reply
+        .headers({
+          'Content-Type':'application/pdf',
+          "Content-Disposition": "attachment; filename=\"test_request.pdf\""
+        })
+        .send(response.data);
       });
-    //reply.send(response.data);
   } catch (error) {
     console.error(error);
     return error;

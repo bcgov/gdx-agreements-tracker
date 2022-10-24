@@ -14,7 +14,7 @@ const routes = [
     handler: controller.getFileTypes,
   },
   {
-    method: "POST",
+    method: "GET",
     url: `/cdogs/template/render`,
     handler: controller.renderReport,
   }
