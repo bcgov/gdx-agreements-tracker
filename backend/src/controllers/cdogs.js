@@ -5,6 +5,8 @@ const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
 const { ClientCredentials } = require("simple-oauth2");
 const axios = require("axios");
 
+const report = require("./report.js");
+
 /**
  * Get health of CDOGS
  *
@@ -63,29 +65,60 @@ controller.getAxios = async () => {
 controller.renderReport = async (request, reply) => {
   // Using Axios to call api endpoint with Bearer token
   const axiosInstance = await controller.getAxios();
-  
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
 
   // Fields required to generate a document
   const body = {
-    "data": {"firstName":"Jane","lastName":"Smith"},
-    "formatters": {"myFormatter":"_function_myFormatter|function(data) { return data.slice(1);}","myOtherFormatter":"_function_myOtherFormatter|function(data) {return data.slice(2);}"},
-    "options": {
-      "cacheReport": true,
-      "convertTo": "pdf",
-      "overwrite": true,
-      "reportName": "test_report"
+    data: {
+      data: {
+        project: {
+          project_manager: "Wilson, Mark"
+        }
+      }
     },
-    "template":`Hello {d.firstName} {d.lastName}!`,
+
+    formatters: "{}",
+    options: {
+      cacheReport: true,
+      //convertTo: "pdf",
+      overwrite: true,
+      reportName: "test_report"
+    },
+    template: {
+      content: "SGVsbG8sIHtkLmRhdGEucHJvamVjdC5wcm9qZWN0X21hbmFnZXJ9",
+      encodingType: "base64",
+      fileType: "docx"
+    },
+  };
+
+  // Additional required config  
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Content-Disposition": "attachment",
+    },
+    responseType: "blob",
   };
 
   try {
-    const response = await axiosInstance.post('template/render', body, config);
-    reply.send(response.data);
+    const response = await axiosInstance.post('/template/render', body, config)
+      .then((response) => {
+        console.log("CONFIG:", response.config);
+        // create file link in browser's memory
+        const href = URL.createObjectURL(response.data);
+        
+
+        // create "a" HTML element with href to file & click
+        const link = document.createElement('a');
+        link.href = href;
+        link.setAttribute('download', 'file.pdf'); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+
+        // clean up "a" element & remove ObjectURL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+      });
+    //reply.send(response.data);
   } catch (error) {
     console.error(error);
     return error;

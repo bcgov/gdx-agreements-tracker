@@ -15,7 +15,6 @@ const routes = [
   },
   {
     method: "POST",
-    headers: { 'Content-Type': 'application/json' },
     url: `/cdogs/template/render`,
     handler: controller.renderReport,
   }
