@@ -1,5 +1,10 @@
 ## Developer Changelog
 
+### October 21, 2022 (DESCW-662) Projects Client Coding Delete
+- Frontend
+  - Created DeleteButton and ConfirmationDialog components.
+  - Added above components to FormHeader used in TableComplete modal.
+
 ### October 21, 2022 (DESCW-662) Projects Client Coding Section
 - Backend
   - Added controller, model, routes, and validators for client coding.
