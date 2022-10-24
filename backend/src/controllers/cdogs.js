@@ -5,8 +5,6 @@ const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
 const { ClientCredentials } = require("simple-oauth2");
 const axios = require("axios");
 
-const report = require("./report.js");
-
 /**
  * Get health of CDOGS
  *
