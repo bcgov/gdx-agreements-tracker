@@ -1,6 +1,6 @@
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
-import { IEditFields, IOption } from "types";
+import { IEditField, IOption } from "types";
 
 /**
  * The view fields.
@@ -61,7 +61,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
  *
  * @returns {Array}
  */
-export const editFields: IEditFields[] = [
+export const editFields: IEditField[] = [
   {
     fieldName: "co_number",
     fieldType: "singleText",

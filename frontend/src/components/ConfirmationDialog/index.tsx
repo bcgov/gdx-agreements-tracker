@@ -46,10 +46,21 @@ export const ConfirmationDialog = forwardRef(
           <DialogContentText>{body}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleConfirmClick} color="success" endIcon={<CheckCircle />}>
+          <Button
+            onClick={handleConfirmClick}
+            color="success"
+            variant="outlined"
+            endIcon={<CheckCircle />}
+          >
             Yes
           </Button>
-          <Button onClick={handleClose} color="error" endIcon={<Cancel />} autoFocus>
+          <Button
+            onClick={handleClose}
+            color="error"
+            variant="outlined"
+            endIcon={<Cancel />}
+            autoFocus
+          >
             No
           </Button>
         </DialogActions>

@@ -20,10 +20,7 @@ export const SignoutButton = () => {
   const [selected, setSelected] = useState<string>("");
 
   //Destructure the keycloak functionality
-  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { keycloak }: any = useKeycloak();
+  const { keycloak } = useKeycloak();
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);

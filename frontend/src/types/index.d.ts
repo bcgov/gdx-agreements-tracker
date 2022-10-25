@@ -9,7 +9,7 @@ export interface IUser {
   name: string;
   updated_at: string;
   username: string;
-  roles?: unknown;
+  capabilities: string[];
 }
 
 // Hooks
@@ -216,15 +216,29 @@ export type IEditFieldsFieldType =
   | "number"
   | "readonly";
 
-export interface IEditFields {
+export type IWidth = "half" | "full";
+
+export type IReturnValue = string | number | boolean | string[] | IOption | null | undefined;
+
+export interface IEditField {
   fieldName: string;
   fieldType: IEditFieldsFieldType;
   fieldLabel: string;
-  width: "half" | "full";
+  width: IWidth;
   tableName?: string;
   projectId?: number | undefined;
   contractId?: number | undefined;
   pickerName?: string;
+}
+
+export interface IReadField {
+  width: IWidth;
+  title: string;
+  value: IReturnValue;
+}
+
+export interface IInitialValues {
+  [key: string]: IReturnValue;
 }
 
 /**
