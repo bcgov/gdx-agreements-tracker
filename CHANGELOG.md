@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### October 25, 2022 (DESCW-617) Lint Cleanup
+- Frontend
+  - Fixed various lint warnings across frontend (mainly use of `any` type).
+
 ### October 21, 2022 (DESCW-662) Projects Client Coding Delete
 - Frontend
   - Created DeleteButton and ConfirmationDialog components.
