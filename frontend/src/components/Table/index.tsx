@@ -45,7 +45,7 @@ export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowE
         rows={rows}
         columns={columns}
         loading={loading}
-        // paginationMode={"server"}
+        paginationMode={"client"}
         hideFooter={!totalColumns || 0 === totalColumns.length}
         disableExtendRowFullWidth={true}
         sx={(theme) => ({
