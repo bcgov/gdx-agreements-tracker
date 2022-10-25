@@ -3,6 +3,22 @@ const useCommonComponents = require("./useCommonComponents/index.js");
 const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
 const { ClientCredentials } = require("simple-oauth2");
 const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
+
+/**
+ *
+ * @param  file
+ */
+const loadTemplate = async (file) => {
+  let data;
+  try {
+    data = await fs.readFileSync(file);
+    data = data.toString("base64");
+  } catch (err) {
+  }
+  return data;
+};
 
 /**
  * Get health of CDOGS
