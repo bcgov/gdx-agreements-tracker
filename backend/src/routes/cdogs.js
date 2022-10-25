@@ -17,6 +17,7 @@ const routes = [
     method: "GET",
     url: `/cdogs/template/render`,
     handler: controller.renderReport,
+    onRequest: controller.onRequest,
   }
 ];
 

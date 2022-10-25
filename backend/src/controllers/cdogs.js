@@ -3,6 +3,22 @@ const useCommonComponents = require("./useCommonComponents/index.js");
 const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
 const { ClientCredentials } = require("simple-oauth2");
 const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
+
+/**
+ *
+ * @param  file
+ */
+const loadTemplate = async (file) => {
+  let data;
+  try {
+    data = await fs.readFileSync(file);
+    data = data.toString("base64");
+  } catch (err) {
+  }
+  return data;
+};
 
 /**
  * Get health of CDOGS
@@ -26,7 +42,7 @@ controller.getFileTypes = async (request, reply) => {
 
   try {
     const response = await axiosInstance.get("/fileTypes");
-    reply.send(response.data);
+    return response.data;
   } catch (error) {
     console.error(error);
     return error;
@@ -35,6 +51,7 @@ controller.getFileTypes = async (request, reply) => {
 
 /**
  * Generates an instance of axios using a Bearer token
+ * 
  * @returns {object}
  */
 controller.getAxios = async () => {
@@ -46,20 +63,14 @@ controller.getAxios = async () => {
   const axiosInstance = axios.create({
     baseURL: `${cdogsApi}${api}`,
     timeout: 1000,
-    headers: { "Authorization": `Bearer ${accessToken?.token?.access_token}` },
+    responseType: "arraybuffer",
+    headers: {
+      "Authorization": `Bearer ${accessToken?.token?.access_token}`
+    },
   });
 
   return axiosInstance;
 };
-
-controller.stringToBase64 = async (string) => {
-  //const buff = Buffer.from(string).toString("base64");
-  const reader = new FileReader();
-  const buff = await reader.readAsDataURL('backend/data.json')
-  console.log("BUFF: ", buff);
-  return buff;
-}
-
 
 /**
 * Generates a document from an inline template
@@ -69,10 +80,25 @@ controller.stringToBase64 = async (string) => {
 * @returns {object}
 */
 controller.renderReport = async (request, reply) => {
+  reply
+    .type("application/pdf")
+    .headers({
+      "Content-Disposition": `attachment; filename='test.pdf'`
+    });
+  return request.data;
+};
+
+/**
+ * 
+ * @param {*} request 
+ * @param {*} reply 
+ * @param {*} done 
+ */
+controller.onRequest = async (request, reply, done) => {
+  const fileContent = await loadTemplate(path.resolve(__dirname, "../../reports/test.docx"));
+  
   // Using Axios to call api endpoint with Bearer token
   const axiosInstance = await controller.getAxios();
-
-  //const myContent = await controller.stringToBase64('Hello {d.data.project.project_manager}!');
 
   // Fields required to generate a document
   const body = {
@@ -80,49 +106,40 @@ controller.renderReport = async (request, reply) => {
       data: {
         project: {
           project_manager: "Wilson, Mark"
-        }
-      }
+        },
+      },
     },
-
-    formatters: "{}",
+    //formatters: "{}",
     options: {
-      cacheReport: true,
-      //convertTo: "pdf",
+      //cacheReport: true,
+      convertTo: "pdf",
       overwrite: true,
-      //reportName: "test_report.pdf"
-      reportName: "test_report.txt"
+      //reportName: "test_report.txt"
     },
     template: {
-      content: await controller.stringToBase64('Hello {d.data.project.project_manager}!'),
+      content: fileContent,
       encodingType: "base64",
-      fileType: "txt"
+      fileType: "docx",
+      reportName: "myreport",
     },
   };
 
-  // Additional required config  
+  // Additional required config
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  try {
-    const response = await axiosInstance.post('/template/render', body, config)
-      .then((response) => {
-        console.log("RESPONSE:", response.data);
-
-        reply
-        .headers({
-          //'Content-Type':'application/pdf',
-          'Content-Type': 'application/txt',
-          "Content-Disposition": `attachment; filename=${body.options.reportName}`
-        })
-        .send(response.data);
-      });
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-}
+  axiosInstance
+    .post("/template/render", body, config)
+    .then((response) => {
+      request.data = response.data;
+      done();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 module.exports = controller;
