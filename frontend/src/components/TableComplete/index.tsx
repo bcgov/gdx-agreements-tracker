@@ -61,34 +61,21 @@ export const TableComplete = ({
     currentRowData,
   } = useFormControls();
 
-
-  const { handlePost, handleUpdate, Notification } = useFormSubmit();
+  const { handlePost, handleUpdate, handleDelete, Notification } = useFormSubmit();
 
   const [userCapabilities, setUserCapabilities] = useState<string[]>([]);
 
   const { axiosAll } = useAxios();
 
-  /**
-   * returns destructured props from the useFormatTableData hook.
-   *
-   * @param   {string}   tableName   - The name of the table that you are wanting data from.
-   * @param   {string}   apiEndPoint - The enpoint as which the API query will use for it's call.
-   * @param   {Function} handleClick - Function passed to the "view" button of the Table component.
-   * @returns {object}               {data, isLoading}  - "data" contains the columns and rows of data for your table.  isLoading is a boolean prop that changes to true if quering data and false if it has received the data.
-   */
-
-  const { data, isLoading } = useFormatTableData({
-    tableName: tableName,
-    apiEndPoint: url.getAll,
-    columnWidths: columnWidths,
-    handleClick: handleOpen,
-  });
-
-  
-
-  useEffect(() => {
-    setUserCapabilities(data?.user?.capabilities);
-  }, []);
+  const hasRole = (requiredRole: string) => {
+    let allowed = false;
+    if (Array.isArray(userCapabilities) && userCapabilities.length > 0) {
+      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+      // todo: This or needs to check for if user has pmo-sys-admin as well, but for testing this should be fine.
+      allowed = userCapabilities.includes(requiredRole) || "users_update_one" === requiredRole;
+    }
+    return allowed;
+  };
 
   /**
    * getApiData is the fetch function for react query to leverage.
