@@ -15,7 +15,6 @@ describe("Tests different renders of the <Renderer /> component", () => {
 
   it("Tries to snapshot test the Renderer component", () => {
     expect(wrapper(true).html()).toMatchSnapshot();
-    // expect((wrapper.props().children[0].props.title)).toEqual("Mock Title");
   });
 
   it("Should find the loader because isLoading is true", () => {
@@ -23,7 +22,6 @@ describe("Tests different renders of the <Renderer /> component", () => {
   });
 
   it("Should find the text of the rendered component", () => {
-    console.log('first', wrapper(false).debug())
     expect(wrapper(false).text()).toEqual("Mock Component")
   });
 });

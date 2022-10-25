@@ -45,6 +45,8 @@ export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowE
         rows={rows}
         columns={columns}
         loading={loading}
+        // paginationMode={"server"}
+        hideFooter={!totalColumns || 0 === totalColumns.length}
         disableExtendRowFullWidth={true}
         sx={(theme) => ({
           "& .MuiDataGrid-columnHeaders": {
