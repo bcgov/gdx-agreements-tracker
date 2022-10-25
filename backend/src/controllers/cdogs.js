@@ -52,6 +52,15 @@ controller.getAxios = async () => {
   return axiosInstance;
 };
 
+controller.stringToBase64 = async (string) => {
+  //const buff = Buffer.from(string).toString("base64");
+  const reader = new FileReader();
+  const buff = await reader.readAsDataURL('backend/data.json')
+  console.log("BUFF: ", buff);
+  return buff;
+}
+
+
 /**
 * Generates a document from an inline template
 *
@@ -62,6 +71,8 @@ controller.getAxios = async () => {
 controller.renderReport = async (request, reply) => {
   // Using Axios to call api endpoint with Bearer token
   const axiosInstance = await controller.getAxios();
+
+  //const myContent = await controller.stringToBase64('Hello {d.data.project.project_manager}!');
 
   // Fields required to generate a document
   const body = {
@@ -76,12 +87,13 @@ controller.renderReport = async (request, reply) => {
     formatters: "{}",
     options: {
       cacheReport: true,
-      convertTo: "pdf",
+      //convertTo: "pdf",
       overwrite: true,
-      reportName: "test_report"
+      //reportName: "test_report.pdf"
+      reportName: "test_report.txt"
     },
     template: {
-      content: "SGVsbG8sIHtkLmRhdGEucHJvamVjdC5wcm9qZWN0X21hbmFnZXJ9",
+      content: await controller.stringToBase64('Hello {d.data.project.project_manager}!'),
       encodingType: "base64",
       fileType: "txt"
     },
@@ -101,8 +113,9 @@ controller.renderReport = async (request, reply) => {
 
         reply
         .headers({
-          'Content-Type':'application/pdf',
-          "Content-Disposition": "attachment; filename='test_request.pdf'"
+          //'Content-Type':'application/pdf',
+          'Content-Type': 'application/txt',
+          "Content-Disposition": `attachment; filename=${body.options.reportName}`
         })
         .send(response.data);
       });
