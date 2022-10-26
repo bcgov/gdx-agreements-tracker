@@ -1,9 +1,6 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter } from "react-router-dom";
-import { mount, shallow } from "enzyme";
+import { shallow } from "enzyme";
 import { Renderer } from "components/Renderer";
 import { LinearProgress } from "@mui/material";
-import { Loader } from "components";
 
 describe("Tests different renders of the <Renderer /> component", () => {
   const component = <div>Mock Component</div>;
@@ -22,6 +19,6 @@ describe("Tests different renders of the <Renderer /> component", () => {
   });
 
   it("Should find the text of the rendered component", () => {
-    expect(wrapper(false).text()).toEqual("Mock Component")
+    expect(wrapper(false).text()).toEqual("Mock Component");
   });
 });
