@@ -1,20 +1,24 @@
 const useCommonComponents = require("./useCommonComponents/index.js");
-
+// Authentication
 const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
 const { ClientCredentials } = require("simple-oauth2");
 const axios = require("axios");
+// Template and data reading
 const fs = require("fs");
 const path = require("path");
+const json = require("../../reports/data.json")
 
 /**
- *
- * @param  file
+ * Reads a file and encodes it to the specified format
+ * @param   {string}  path The path of the file to read
+ * @param   {string}  encoding The format with which to encode the file contents
+ * @returns {string} 
  */
-const loadTemplate = async (file) => {
+const loadTemplate = async (path, encoding = "base64") => {
   let data;
   try {
-    data = await fs.readFileSync(file);
-    data = data.toString("base64");
+    data = await fs.readFileSync(path);
+    data = data.toString(encoding);
   } catch (err) {
   }
   return data;
@@ -65,10 +69,9 @@ controller.getAxios = async () => {
     timeout: 1000,
     responseType: "arraybuffer",
     headers: {
-      "Authorization": `Bearer ${accessToken?.token?.access_token}`
+      Authorization: `Bearer ${accessToken?.token?.access_token}`
     },
   });
-
   return axiosInstance;
 };
 
@@ -79,11 +82,11 @@ controller.getAxios = async () => {
 * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
 * @returns {object}
 */
-controller.renderReport = async (request, reply) => {
+controller.renderReport = (request, reply) => {
   reply
     .type("application/pdf")
     .headers({
-      "Content-Disposition": `attachment; filename='test.pdf'`
+      "Content-Disposition": 'attachment'
     });
   return request.data;
 };
@@ -95,32 +98,26 @@ controller.renderReport = async (request, reply) => {
  * @param {*} done 
  */
 controller.onRequest = async (request, reply, done) => {
-  const fileContent = await loadTemplate(path.resolve(__dirname, "../../reports/test.docx"));
-  
+  // Get the template for the report from file
+  const templateContent = await loadTemplate(path.resolve(__dirname, "../../reports/P_Status_MostRecent_Template.docx"));
+
   // Using Axios to call api endpoint with Bearer token
   const axiosInstance = await controller.getAxios();
 
   // Fields required to generate a document
   const body = {
-    data: {
-      data: {
-        project: {
-          project_manager: "Wilson, Mark"
-        },
-      },
-    },
-    //formatters: "{}",
+    data: json,
+    formatters: "{}",
     options: {
-      //cacheReport: true,
+      cacheReport: true,
       convertTo: "pdf",
       overwrite: true,
-      //reportName: "test_report.txt"
+      reportName: "test_report"
     },
     template: {
-      content: fileContent,
+      content: templateContent,
       encodingType: "base64",
       fileType: "docx",
-      reportName: "myreport",
     },
   };
 
@@ -138,7 +135,10 @@ controller.onRequest = async (request, reply, done) => {
       done();
     })
     .catch((err) => {
+      // This error needs to be handled more gracefully and give more information
       console.log(err);
+      request.data = "";
+      done();
     });
 };
 

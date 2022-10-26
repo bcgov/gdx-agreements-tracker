@@ -1,5 +1,6 @@
 const controller = require("../controllers/report");
 const validators = require("../validators/report");
+const controllerCdogs = require("../controllers/cdogs");
 const what = "report";
 
 const routes = [
@@ -22,7 +23,8 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/:id/ProjectStatusReport`,
-    handler: controller.getProjectStatusReport,
+    handler: controllerCdogs.renderReport,
+    onRequest: controllerCdogs.onRequest,
   },
 ];
 const registerRoutes = (fastify, options, done) => {
