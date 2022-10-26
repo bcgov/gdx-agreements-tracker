@@ -24,9 +24,10 @@ export const FormInput = ({
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pickerValues: any = usePickerValues(projectId, contractId);
 
   const getPickerOptions = () => {
+    const pickerValues: any = usePickerValues(projectId, contractId);
+
     const defaults = {
       associated_table: "_options",
       definition: [{ value: "", label: "No Option table found" }],

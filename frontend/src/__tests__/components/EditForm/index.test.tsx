@@ -1,38 +1,68 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter } from "react-router-dom";
-import { EditForm } from "../../../components/EditForm";
-import TestRenderer from "react-test-renderer";
-import ShallowRenderer from "react-test-renderer/shallow";
-import { mount, shallow } from "enzyme";
-import { ReadField } from "components/ReadForm/ReadField";
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { IEditFields } from "types";
+
+import { EditForm } from "../../../components/EditForm";
 
 const editFields: () => IEditFields[] = () => {
   return [
     {
-      fieldName: "mock_field",
-      fieldLabel: "Mock Field",
+      fieldName: "first_name",
+      fieldLabel: "First Name",
+      fieldType: "singleText",
+      width: "full",
+    },
+    {
+      fieldName: "last_name",
+      fieldLabel: "Last Name",
       fieldType: "singleText",
       width: "full",
     },
   ];
 };
 
-const initialValues = { mock_field: "mock value" };
+const initialValues = {
+  first_name: "mock value",
+  last_name: "mock value 2",
+};
 
-const mockFunction = jest.fn();
-
-// jest.mock("@react-keycloak/web", () => ({
-//     FormInput: () => (<Fi>{}</Fi>),
-// }));
-
-describe("Renders <EditForm /> component", () => {
-  const wrapper = shallow(
-    <EditForm initialValues={initialValues} onSubmit={mockFunction} editFields={editFields()} />
+test("rendering and submitting a basic Formik form", async () => {
+  const handleSubmit = jest.fn();
+  render(
+    <EditForm initialValues={initialValues} onSubmit={handleSubmit} editFields={editFields()} />
   );
 
-  it("renders the EditForm component", () => {
-    expect(wrapper.html()).toMatchSnapshot();
-    // expect((wrapper.props().children[0].props.title)).toEqual("Mock Title");
-  });
+  const user = userEvent.setup();
+  const firstNameInput = screen.getByLabelText(/First Name/i);
+  const lastNameInput = screen.getByLabelText(/Last Name/i);
+
+  //Clear mock_field input box
+  await user.clear(firstNameInput);
+  //Enter data into mock_field input box
+  await user.type(firstNameInput, "John");
+
+  //Clear mock_field2 input box
+  await user.clear(lastNameInput);
+  //Enter data into mock_field2 input box
+  await user.type(lastNameInput, "Smith");
+
+  await user.click(screen.getByRole("button", { name: /submit/i }));
+
+  await waitFor(() =>
+    expect(handleSubmit).toHaveBeenCalledWith(
+      { first_name: "John", last_name: "Smith" },
+      expect.objectContaining({
+        resetForm: expect.any(Function),
+        setErrors: expect.any(Function),
+        setFieldError: expect.any(Function),
+        setFieldTouched: expect.any(Function),
+        setFieldValue: expect.any(Function),
+        setStatus: expect.any(Function),
+        setSubmitting: expect.any(Function),
+        setTouched: expect.any(Function),
+        setValues: expect.any(Function),
+      })
+    )
+  );
 });
