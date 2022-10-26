@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from "@mui/material";
-import bcgovTheme from "../../../../bcgovTheme";
+import bcgovTheme from "../../../bcgovTheme";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { DeleteButton } from "components/DeleteButton";
@@ -20,12 +20,12 @@ const StyledButtonLayout = styled(Box)({
 
 /**
  *
- * @param   {{formTitle: string,handleEditMode: Function,editMode: boolean}}
+ * @param   {{modalTitle: string,handleEditMode: Function,editMode: boolean}}
  * @returns                                                                  a JSX header that can be used on any form
  */
 
-export const FormHeader = ({
-  formTitle,
+export const ModalHeader = ({
+  modalTitle,
   handleEditMode,
   editMode,
   allowEdit,
@@ -34,7 +34,7 @@ export const FormHeader = ({
   handleFormType,
   handleClose,
 }: {
-  formTitle: string;
+  modalTitle: string;
   handleEditMode: Function;
   editMode: boolean;
   allowEdit: boolean;
@@ -50,7 +50,7 @@ export const FormHeader = ({
           <StyledButtonLayout>
             <Box sx={{ display: "flex" }}>
               <Typography variant="h6" noWrap marginRight={2} alignSelf="center">
-                {formTitle}
+                {modalTitle}
               </Typography>
               {allowDelete && (
                 <DeleteButton

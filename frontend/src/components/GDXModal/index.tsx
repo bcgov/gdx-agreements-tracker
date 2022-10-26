@@ -1,30 +1,9 @@
 import React from "react";
 import { Box, Modal, styled } from "@mui/material";
-import { FormHeader } from "../GDXForm/FormLayout/FormHeader";
+import { ModalHeader } from "./ModalHeader";
+import { IModal } from "types";
 
-export const GDXModal = ({
-  children,
-  open,
-  handleClose,
-  modalTitle,
-  handleEditMode,
-  editMode,
-  allowEdit,
-  allowDelete,
-  handleDelete,
-  handleFormType,
-}: {
-  children: JSX.Element;
-  open: boolean;
-  handleClose: () => void;
-  modalTitle: string;
-  handleEditMode: Function;
-  editMode: boolean;
-  allowEdit: boolean;
-  allowDelete: boolean;
-  handleDelete: Function;
-  handleFormType: Function;
-}) => {
+export const GDXModal = ({ handleClose, children, open, ...props }: IModal) => {
   const StyledModalBox = styled(Box)({
     position: "absolute",
     top: "50%",
@@ -49,16 +28,7 @@ export const GDXModal = ({
         onClose={handleClose}
       >
         <StyledModalBox>
-          <FormHeader
-            formTitle={modalTitle}
-            handleEditMode={handleEditMode}
-            editMode={editMode}
-            allowEdit={allowEdit}
-            allowDelete={allowDelete}
-            handleDelete={handleDelete}
-            handleFormType={handleFormType}
-            handleClose={handleClose}
-          />
+          <ModalHeader {...props} />
           <StyledContentBox>{children}</StyledContentBox>
         </StyledModalBox>
       </Modal>
