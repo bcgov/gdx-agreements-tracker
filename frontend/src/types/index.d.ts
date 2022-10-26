@@ -391,3 +391,16 @@ export interface IBudget {
   total_fees: number;
   total_hours: number;
 }
+
+export interface IModal {
+  children: JSX.Element;
+  open: boolean;
+  handleClose: () => void;
+  modalTitle: string;
+  handleEditMode: Function;
+  editMode: boolean;
+  allowEdit: boolean;
+  allowDelete: boolean;
+  handleDelete: Function;
+  handleFormType: Function;
+}
