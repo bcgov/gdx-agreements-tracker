@@ -1,6 +1,6 @@
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
-import { IEditFields } from "types";
+import { IEditField } from "types";
 
 /**
  * The view fields.
@@ -49,7 +49,7 @@ export const readFields = (reactQuery: UseQueryResult<FormikValues>) => {
  * @param   {number|undefined} projectId The project id, which allows for specific picker options to use only project related options.
  * @returns {Array}
  */
-export const editFields: (projectId: number | undefined) => IEditFields[] = (projectId) => {
+export const editFields: (projectId: number | undefined) => IEditField[] = (projectId) => {
   return [
     {
       fieldName: "jv_number",

@@ -5,19 +5,15 @@ import { IMultiPickerProps, IOption } from "../../../../types";
 /**
  * Renders an Autocomplete/Select component which allows multiple options to be selected
  *
- * @param               root0               Props passed into component
- * @param   {IOption[]} root0.fieldValue    Inital value of the select
- * @param   {Function}  root0.setFieldValue Function to handle value change
- * @param   {unknown}   root0.pickerData    All picker options
- * @param   {string}    root0.fieldName     Name of the field
- * @returns {GDXSelect}                     a JSX select
+ * @param   {IMultiPickerProps} props passed into component
+ * @returns {GDXSelect}               a JSX select
  */
 export const GDXMultiselect: FC<IMultiPickerProps> = ({
   fieldName,
   fieldValue,
   setFieldValue,
   pickerData,
-}) => {
+}: IMultiPickerProps) => {
   return (
     <>
       {!pickerData ? (

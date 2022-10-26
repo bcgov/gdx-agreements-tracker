@@ -1,6 +1,6 @@
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
-import { IEditFields } from "types";
+import { IEditField } from "types";
 
 /**
  * The view fields.
@@ -27,9 +27,9 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
  * The edit fields.
  *
  * @param   {number}        contractId Id of contract to get resources for.
- * @returns {IEditFields[]}
+ * @returns {IEditField[]}
  */
-export const editFields: (contractId: number) => IEditFields[] = (contractId) => {
+export const editFields: (contractId: number) => IEditField[] = (contractId) => {
   return [
     {
       width: "half",

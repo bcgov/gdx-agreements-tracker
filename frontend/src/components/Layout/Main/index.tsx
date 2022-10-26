@@ -9,9 +9,6 @@ import { Outlet } from "react-router-dom";
 
 const drawerWidth = bcgovTheme.customSettings.drawerWidth;
 
-/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-// todo: Define a good type. "Any" type temporarily permitted.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Main = () => {
   const { drawerOpen, handleDrawerToggle } = useDrawer();
   return (

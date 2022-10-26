@@ -15,14 +15,8 @@ export const Debug: FC = () => {
    * @param   {object}          tokenParsed The keycloak.idTokenParsed object.
    * @returns {React.ReactNode}
    */
-  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getTokenParsed = (tokenParsed: any) => {
-    /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-    // todo: Define a good type. "Any" type temporarily permitted.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return Object.entries(tokenParsed).map((token: Array<any>) => {
+  const getTokenParsed = (tokenParsed: KeycloakTokenParsed) => {
+    return Object.entries(tokenParsed).map((token: Array<string>) => {
       return (
         <tr key={token[0]}>
           <td>{token[0]}</td>
@@ -74,13 +68,10 @@ export const Debug: FC = () => {
           </table>
           <div className="keycloak-token">
             <button
-              /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-              // todo: Define a good type. "Any" type temporarily permitted.
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onClick={(event: any) => {
+              onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                 navigator.clipboard.writeText(keycloak.token ?? "");
-                event.target.style.backgroundColor = "#000";
-                event.target.style.color = "#fff";
+                (event.target as HTMLButtonElement).style.backgroundColor = "#000";
+                (event.target as HTMLButtonElement).style.color = "#fff";
               }}
             >
               Token to Clipboard
@@ -98,5 +89,6 @@ export const Debug: FC = () => {
     </>
   );
 };
+import { KeycloakTokenParsed } from "keycloak-js";
 
 export default Debug;

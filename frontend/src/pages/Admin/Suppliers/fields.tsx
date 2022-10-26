@@ -1,4 +1,4 @@
-import { IEditFields } from "types";
+import { IEditField } from "types";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 
@@ -108,7 +108,7 @@ export const readFields = (suppliersQuery: UseQueryResult<FormikValues>) => {
  *
  * @returns {Array}
  */
-export const editFields: IEditFields[] = [
+export const editFields: IEditField[] = [
   {
     fieldName: "supplier_number",
     fieldType: "number",

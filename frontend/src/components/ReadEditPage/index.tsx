@@ -6,9 +6,9 @@ import { Renderer } from "components/Renderer";
 import { FormikValues } from "formik";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, UseQueryResult } from "react-query";
 import { Navigate } from "react-router-dom";
-import { ICapability, IEditFields, IWhat } from "types";
+import { ICapability, IEditField, IInitialValues, IUser, IWhat } from "types";
 import { apiAxios } from "utils";
 
 export const ReadEditPage = ({
@@ -23,12 +23,9 @@ export const ReadEditPage = ({
 }: {
   id: string | undefined;
   what: IWhat;
-  editFields: IEditFields[];
+  editFields: IEditField[];
   readFields: Function;
-  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-  // todo Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  createFormInitialValues: any;
+  createFormInitialValues: IInitialValues;
   capability: ICapability;
   apiRoute: string;
   redirectRoute: string;
@@ -50,17 +47,21 @@ export const ReadEditPage = ({
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const query: any = useQuery(`${apiRoute} - ${id}`, getItem, {
-    refetchOnWindowFocus: false,
-    retryOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: Infinity,
-  });
+  const query: UseQueryResult<{ data: any; user: IUser }> = useQuery(
+    `${apiRoute} - ${id}`,
+    getItem,
+    {
+      refetchOnWindowFocus: false,
+      retryOnMount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      staleTime: Infinity,
+    }
+  );
 
   useEffect(() => {
     const user = query?.data?.user;
-    setEditCapability(user && user.capabilities.includes(capability.updateOne));
+    setEditCapability(undefined !== user && user.capabilities.includes(capability.updateOne));
     if ("new" === id) {
       setNew(true);
       setEditMode(true);

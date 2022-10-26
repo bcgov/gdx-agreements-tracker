@@ -3,7 +3,7 @@ import { Box, Button } from "@mui/material";
 import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import { FormLayout } from "../GDXForm/FormLayout";
 import { FormInput } from "../FormInput";
-import { IEditFields } from "../../types";
+import { IEditField, IReturnValue } from "../../types";
 
 /**
  * A reusable component used for when you need a create form.
@@ -21,10 +21,14 @@ export const CreateForm = ({
 }: {
   initialValues: FormikValues;
   // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSubmit: ((values: unknown, formikHelpers: FormikHelpers<any>) => void | Promise<any>) &
+  onSubmit: ((
+    values: { [key: string]: IReturnValue },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formikHelpers: FormikHelpers<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) => void | Promise<any>) &
     Function;
-  editFields: IEditFields[];
+  editFields: IEditField[];
 }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>

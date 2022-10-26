@@ -3,7 +3,7 @@ import { Box, Button } from "@mui/material";
 import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import { FormLayout } from "../GDXForm/FormLayout";
 import { FormInput } from "../FormInput";
-import { IEditFields } from "../../types";
+import { IEditField } from "../../types";
 
 export const EditForm = ({
   initialValues,
@@ -15,7 +15,7 @@ export const EditForm = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: ((values: unknown, formikHelpers: FormikHelpers<any>) => void | Promise<any>) &
     Function;
-  editFields: IEditFields[];
+  editFields: IEditField[];
 }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>

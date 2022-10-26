@@ -12,9 +12,9 @@ import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
 import { useAxios } from "hooks/useAxios";
+import { IEditField, IInitialValues, IReturnValue } from "types";
+import { GridEventListener, GridEvents } from "@mui/x-data-grid";
 
-/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-// todo: Define a good type. "Any" type temporarily permitted.
 export const TableComplete = ({
   itemName,
   tableName,
@@ -36,17 +36,18 @@ export const TableComplete = ({
     addOne: string;
     deleteOne?: string;
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  createFormInitialValues: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readFields: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editFields: any;
+  createFormInitialValues: IInitialValues;
+  readFields: Function;
+  editFields: IEditField[];
   totalColumns?: string[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  roles: any;
+  roles: {
+    get: string;
+    update: string;
+    add: string;
+    delete: string;
+  };
   getSelectedRow?: Function;
-  columnWidths?: Object;
+  columnWidths?: { [key: string]: number };
 }) => {
   const {
     handleEditMode,
@@ -154,6 +155,18 @@ export const TableComplete = ({
     }
   );
 
+  /**
+   * Handle row click event from DataGrid.
+   *
+   * @param {any} row The row that was clicked.
+   */
+  const handleRowClick: GridEventListener<GridEvents.rowClick> = (row) => {
+    handleCurrentRowData(row);
+    if (getSelectedRow) {
+      getSelectedRow(row);
+    }
+  };
+
   return (
     <>
       {hasRole(roles.get) && (
@@ -170,13 +183,7 @@ export const TableComplete = ({
                 totalColumns={totalColumns ?? []}
                 allowEdit={hasRole(roles.add)}
                 loading={isLoading}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onRowClick={(row: any) => {
-                  handleCurrentRowData(row);
-                  if (getSelectedRow) {
-                    getSelectedRow(row);
-                  }
-                }}
+                onRowClick={handleRowClick}
               />
               <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
                 {hasRole(roles.add) && (
@@ -213,9 +220,7 @@ export const TableComplete = ({
               {"new" === formType ? (
                 <CreateForm
                   initialValues={createFormInitialValues}
-                  // todo: Define a good type. "Any" type temporarily permitted.
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onSubmit={async (values: any) => {
+                  onSubmit={async (values: { [key: string]: IReturnValue }) => {
                     return handlePost({
                       formValues: values,
                       apiUrl: url.addOne,

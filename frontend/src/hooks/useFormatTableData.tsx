@@ -18,38 +18,8 @@ export const formatTableColumns = (
   tableData: ITableData,
   tableName?: string,
   handleClick?: Function,
-  columnWidths?: Object
+  columnWidths?: { [key: string]: number }
 ) => {
-  /**
-   * Small helper function to check if key exists and to make the typescript linter happy.
-   *
-   * @param   {O}           obj The object to check if has key.
-   * @param   {PropertyKey} key The key to check for.
-   * @returns {boolean}
-   */
-  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-  function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
-    /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-    // todo: Convert to an arrow function.
-    return key in obj;
-  }
-
-  /**
-   * This allows the field columnWidths to be passed that adjusts the flex value for > 1.
-   *
-   * @param   {PropertyKey} field The field key to check for.
-   * @returns {number}
-   */
-  const getFlexValue = (field: PropertyKey) => {
-    columnWidths = columnWidths ?? {};
-    let flexWidth = 1;
-    if (hasKey(columnWidths, field)) {
-      flexWidth = Number(columnWidths[field]);
-    }
-
-    return flexWidth;
-  };
-
   return new Promise((resolve) => {
     const formattedColumns: Array<Object> = [
       {
@@ -82,6 +52,10 @@ export const formatTableColumns = (
     ];
 
     Object.entries(tableData.data.data[0]).forEach((value, index) => {
+      let columnFlex = 1;
+      if (columnWidths && columnWidths[value[0]]) {
+        columnFlex = columnWidths[value[0]];
+      }
       formattedColumns.push({
         hide: "id" === value[0] && true,
         field: value[0],
@@ -89,7 +63,7 @@ export const formatTableColumns = (
           .split("_")
           .join(" ")
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
-        flex: getFlexValue(value[0]),
+        flex: columnFlex,
         id: index,
         sortable: false,
         filterable: false,
@@ -109,7 +83,7 @@ export const useFormatTableData = ({
   tableName: string;
   apiEndPoint: string;
   handleClick?: Function;
-  columnWidths?: Object;
+  columnWidths?: { [key: string]: number };
 }) => {
   // const handleCurrentUser = async () => {
   //   if (initialized) {
@@ -135,13 +109,13 @@ export const useFormatTableData = ({
         }
       })
       .catch((error) => {
-        switch (error.toJSON().status) {
+        switch (error.status) {
           case 404:
-            console.error(error.toJSON());
+            console.error(error);
             return { columns: [], rows: [] };
 
           case 500:
-            console.error(error.toJSON());
+            console.error(error);
             return { columns: [], rows: [] };
         }
       });
