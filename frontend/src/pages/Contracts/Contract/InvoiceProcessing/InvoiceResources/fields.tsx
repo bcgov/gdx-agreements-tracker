@@ -26,7 +26,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
 /**
  * The edit fields.
  *
- * @param   {number}        contractId Id of contract to get resources for.
+ * @param   {number}       contractId Id of contract to get resources for.
  * @returns {IEditField[]}
  */
 export const editFields: (contractId: number) => IEditField[] = (contractId) => {
