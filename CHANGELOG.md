@@ -1,15 +1,23 @@
 ## Developer Changelog
 
+### October 27, 2022 (DESCW-631) Added tests for frontend components
+
+- Frontend
+  - Added tests for TableComplete and all associated components
+
 ### October 25, 2022 (DESCW-617) Lint Cleanup
+
 - Frontend
   - Fixed various lint warnings across frontend (mainly use of `any` type).
 
 ### October 21, 2022 (DESCW-662) Projects Client Coding Delete
+
 - Frontend
   - Created DeleteButton and ConfirmationDialog components.
   - Added above components to FormHeader used in TableComplete modal.
 
 ### October 21, 2022 (DESCW-662) Projects Client Coding Section
+
 - Backend
   - Added controller, model, routes, and validators for client coding.
 - Frontend
@@ -18,9 +26,10 @@
   - Added button, capability checking, and request handling for delete requests to TableComplete and associated components.
 
 ### October 19, 2022 (DESCW-654) Invoice Resources/Deliverables
+
 - Backend
   - Updated picker options seeds:
-    -  `npx knex seed:run --specific=08_picker_options.js`
+    - `npx knex seed:run --specific=08_picker_options.js`
   - Added controller, model, route, and validators for invoice_resources and invoice_deliverables.
   - Fixed bugs with picker_options model.
 - Frontend
@@ -28,22 +37,27 @@
   - Added read/edit/add for invoice resources and invoice deliverables.
 
 ### October 18, 2022 (DESCW-625) Contract Deliverables Section
+
 - Frontend
+
   - Added Deliverables page component
   - Added new BudgetDisplay component
 
 - Backend
   - Added controller, model, route, validator for Deliverables
+
 ### October 17, 2022 (DESCW-638) Picker options update
-- Backend 
+
+- Backend
   - update picker options
-  -  `npx knex seed:run --specific=08_picker_options.js`
-  -  allowed for project id / contract id
--  Frontend
-   -  client coding in billing now uses new picker options
+  - `npx knex seed:run --specific=08_picker_options.js`
+  - allowed for project id / contract id
+- Frontend
+  - client coding in billing now uses new picker options
 
 ### October 13, 2022 (DESCW-638) Picker options update
-- Backend 
+
+- Backend
   - updated picker options
   - `npx knex seed:run --specific=08_picker_options.js`
   - updated picker options model.
@@ -51,12 +65,14 @@
   - updated edit and new table to include pickerName attribute.
 
 ### October 12, 2022 (DESCW-659) Contract - Amendments table
+
 - Backend
   - updated amendments validators and model
 - Frontend
   - updated amendments component.
 
 ### October 12, 2022 (DESCW-660) Change Request table
+
 - Backend
   - Updated capabilities.
     - `npx knex seed:run --specific=01_capabilities.js`
@@ -65,21 +81,25 @@
   - permission issues
 - updated change request table list.
 
-
 ### October 11, 2022 (DESCW-611) Fastify Upgrade
+
 - Backend
   - Upgraded Fastify and related packages to latest versions.
     - `npm i` from /backend directory
   - Updated all validators (serializer now required to run in strict mode).
 - Frontend
   - Changed amendments page to use TableComplete component.
-### October 6, 2022 (DESCW-657) 
+
+### October 6, 2022 (DESCW-657)
+
 - fixed login loading issues
 - converted change request to tableComplete
 - updated Table defaults
 - Removed Admin test, which was testing only for Admin title.
+
 ### October 6, 2022 (DESCW-656) Table Lists
-- Backend 
+
+- Backend
   - updated models for getAll, and validators to improve Table lists
   - updated roles
     - `npx knex seed:run --specific=02_role_capabilities.js`
@@ -87,7 +107,9 @@
     - Added columnWidths property to allow tables to have different flex sizes besides 1
     - updated Projects and Contract lists.
     - updated amdin form lists.
+
 ### October 6, 2022 (DESCW-624) Contract Resources Roles
+
 - Backend
   - Created migration to drop user_roles table and removed all references to it in code (03_users_roles seed, users model, facilities/keycloak).
     - `npx knex migrate:latest`
@@ -95,6 +117,7 @@
   - Updated routes to allow Manager role to access routes (only allowed Administrator before).
 
 ### October 5, 2022 (DESCW-624) Contract Resources
+
 - Backend
   - Created contract resources controller, model, routes, validators.
   - Added getAll/getOne/update/add functionality to above.
@@ -105,14 +128,17 @@
   - Created TableTotalFooter to allow tables to display column totals in footer.
 
 ### October 4, 2022 (DESCW-625) Contract Deliverables
+
 - Frontend
   - added new component for rendering table-like data
 
 ### October 3, 2022 (DESCW-627) Update admin forms to use new component TableData
+
 - Frontend
   - Updated admin forms to use new component TableComplete (formally TableData)
 
 ### September 28, 2022 (DESCW-653) Contracts Add/Update
+
 - Backend
   - Created invoice details controller, model, routes, validators.
   - Added add/update functionality for invoices controller, model, routes, validators.
@@ -124,6 +150,7 @@
   - Added logic for changing which deliverables/resources are displayed based on invoice table row selected.
 
 ### September 23, 2022 (DESCW-616) Contracts Add/Update
+
 - Backend
   - Added add/update functionality to Contracts route, validator, model.
   - Created models/useModel to provide reusable model functions (diffInsert() for now).
@@ -134,12 +161,14 @@
   - Created reusable ReadEditPage component to be used for single-item read/edit form pages (Contract Details, Project Registration for example).
 
 ### September 23, 2022 (DESCW-614) Billing
+
 - Frontend
   - updating TableData component for updates, has new prop for url's
   - fixed not authorized when browser refresh
   - finishing up Project Billing section
 
 ### September 23, 2022 (DESCW-483) Lessons Learned Table
+
 - Backend
   - Created routes, controllers, models, validators for Lessons Learned
   - Added picker options for Lessons Learned
@@ -149,6 +178,7 @@
   - Added routing for above
 
 ### September 21, 2022 (DESCW-615) Contracts Frontend
+
 - Backend
   - Created routes, controllers, models, validators for Contract and Contract Invoices (only GETs)
   - Added picker options for Contract form
@@ -160,11 +190,13 @@
   - Added support for "readonly" form inputs shown in some mockups
 
 ### September 21, 2022 ([DESCW-590](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-590))
+
 - Bump knex version to 2.0.3
 - Backend
   - Update role capabilities and users roles seeds to reflect that operations now always return an object: [Upgrading knex to version 1.0.0](https://github.com/knex/knex/blob/master/UPGRADING.md#upgrading-to-version-100)
 
 ### September 20, 2022 (DESCW-613) (DESCW-586) CDOGS CHES
+
 - Backend
   - CDOGS and CHES functionality
   - Files added:
@@ -177,13 +209,15 @@
   - Fix model edit button not showing up, with convert to new TableData component
 
 ### September 16, 2022 (DESCW-566) Role Base Routing
-- Backend 
+
+- Backend
   - Added Api to get current user
 - Frontend
   - Added role base routing
   - Add API error handling
 
 ### September 15, 2022 (DESCW-568)(DESCW-574) Glossary
+
 - Backend
   - Added fastify-markdown plugin to package.json
     - `npm i`
@@ -195,19 +229,21 @@
   - Updating TableData
 
 ### September 14, 2022 (DESCW-574)
+
 - Backend
   - initial journal voucher controller/model/route/validator
   - optimized picklist option code
   - removed view formatted_picker_options and replaced model with select statement
     - `npx knex migrate:latest`
-  - updated pickerlist options seed 
+  - updated pickerlist options seed
     - `npx knex seed:run --specific=08_picker_options.js`
 - frontend
   - voucher table.
   - Created a reusable component for TableData
 
 ### Septermber 13, 2022 (DESCW-565) Backend capabilities
-- Backend 
+
+- Backend
   - Added pino prettier `npm i` to install which adds some formatted backend output logs
   - update capabilities seeds
     - `npx knex seed:run --specific=01_capabilities.js`
@@ -215,30 +251,36 @@
   - Updated controller permissions
 
 ### September 13, 2022 (DESCW-567) Backend Route Tests Complete
+
 - Backend
   - Added unit tests for all remaining routes
 
 ### September 9, 2022 (DESCW-567) Backend Route Tests
+
 - Backend
   - Created common route testing suite for all route unit tests to use
   - Updated users route tests
 
 ### September 9, 2022 (DESCW-564) Controller Optimization
+
 - Backend
   - Updated Database connection file to be more efficient
   - Updated all models to use new database connection functionality
 
 ### September 8, 2022 (DESCW-563) Route Validators
+
 - Backend
   - Added input validation and response serialization for all other routes
 
 ### September 7, 2022 (DESCW-563) Route Validators
+
 - Backend
   - Added fluent-json-schema dependency to package.json (need to `run npm install`)
   - Created validators/common_schema to provide helpers for validators
   - Added input validation and response serialization for change_request, projects, contacts, users routes
 
 ### August 31, 2022 (DESCW-587) Project Agreements
+
 - Backend
   - Added input validation for agreements fields
 - Frontend
@@ -246,20 +288,24 @@
   - Moved logic for determining user capability into details component, now passed into children
 
 ### August 31, 2022 (DESCW-572) Project Close Out Notify
+
 - Backend
   - Added controller and route for project close out notify function
 - Frontend
   - Changed Notify component to handle checkbox value changes and make API request
 
 ### August 31, 2022 (DESCW-484) Project Reports
+
 - Backend
   - Added controllers, models, and routes for project report queries
 
 ### August 30, 2022 (DESCW-561) Project CloseOut ChipNav
+
 - Frontend
   - Updated ChipNav component to allow justifying chips right
 
 ### August 29, 2022 (DESCW-571) Project Registration
+
 - Backend
   - Added `fiscal` picker option
   - Updated Projects controller getOne() to return contracts associated with project
@@ -270,6 +316,7 @@
   - `npx knex seed:run --specific=08_picker_options.js`
 
 ### August 25, 2022 (DESCW-562) Project Close Out
+
 - Backend
   - Created migration for contacts picker, seeds for multiple pickers
   - Refactored Projects controller to use admin_form functions
@@ -282,10 +329,12 @@
   - `npx knex seed:run --specific=08_picker_options.js`
 
 ### August 25, 2022 (DESCW-537) accordion test
+
 - Frontend
   - added according test.
 
 ### August 25, 2022 (DESCW-556) capabilities
+
 - Backend
   - updated roles and cababilities
   - need to run seeds
@@ -296,6 +345,7 @@
   - fix for null user role_id
 
 ### August,24 2022 (DESCW-560)
+
 - Frontend
   - Restructured and improved ministries and subcontractors page
   - Added test for ministries page component
