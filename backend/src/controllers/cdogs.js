@@ -1,28 +1,4 @@
 const useCommonComponents = require("./useCommonComponents/index.js");
-// Authentication
-const { config, cdogsApi } = require("../facilities/bcgov_cc_token");
-const { ClientCredentials } = require("simple-oauth2");
-const axios = require("axios");
-// Template and data reading
-const fs = require("fs");
-const path = require("path");
-const json = require("../../reports/data.json")
-
-/**
- * Reads a file and encodes it to the specified format
- * @param   {string}  path The path of the file to read
- * @param   {string}  encoding The format with which to encode the file contents
- * @returns {string} 
- */
-const loadTemplate = async (path, encoding = "base64") => {
-  let data;
-  try {
-    data = await fs.readFileSync(path);
-    data = data.toString(encoding);
-  } catch (err) {
-  }
-  return data;
-};
 
 /**
  * Get health of CDOGS
