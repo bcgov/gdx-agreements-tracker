@@ -67,25 +67,45 @@ const updateOne = (body, id) => {
 const findMostRecentStatusById = (id) => {
   return knex(`${projectStatusTable} as project`)
     .select(
-      { project_phase: 'phase.phase_name' },
-      { project_health: 'health.health_name', project_red: 'health.colour_red', project_green: 'health.colour_green', project_blue: 'health.colour_blue' },
-      { schedule_health: 'schedule.health_name', schedule_red: 'schedule.colour_red', schedule_green: 'schedule.colour_green', schedule_blue: 'schedule.colour_blue' },
-      { budget_health: 'budget.health_name', budget_red: 'budget.colour_red', budget_green: 'budget.colour_green', budget_blue: 'budget.colour_blue' },
-      { team_health: 'team.health_name', team_red: 'team.colour_red', team_green: 'team.colour_green', team_blue: 'team.colour_blue' },
+      { project_phase: "phase.phase_name" },
+      {
+        project_health: "health.health_name",
+        project_red: "health.colour_red",
+        project_green: "health.colour_green",
+        project_blue: "health.colour_blue",
+      },
+      {
+        schedule_health: "schedule.health_name",
+        schedule_red: "schedule.colour_red",
+        schedule_green: "schedule.colour_green",
+        schedule_blue: "schedule.colour_blue",
+      },
+      {
+        budget_health: "budget.health_name",
+        budget_red: "budget.colour_red",
+        budget_green: "budget.colour_green",
+        budget_blue: "budget.colour_blue",
+      },
+      {
+        team_health: "team.health_name",
+        team_red: "team.colour_red",
+        team_green: "team.colour_green",
+        team_blue: "team.colour_blue",
+      },
       { reported_by: knex.raw("reported_by.last_name || ', ' || reported_by.first_name") },
       { status_date: knex.raw(`TO_CHAR(project.status_date :: DATE, '${dateFormat}')`) },
-      'project.general_progress_comments',
-      'project.issues_and_decisions',
-      'project.forecast_and_next_steps',
-      'project.identified_risk'
+      "project.general_progress_comments",
+      "project.issues_and_decisions",
+      "project.forecast_and_next_steps",
+      "project.identified_risk"
     )
-    .leftJoin(`${projectPhaseTable} as phase`, 'project.project_phase_id', 'phase.id')
-    .leftJoin(`${healthTable} as health`, 'project.health_id', 'health.id')
-    .leftJoin(`${healthTable} as schedule`, 'project.schedule_health_id', 'schedule.id')
-    .leftJoin(`${healthTable} as budget`, 'project.budget_health_id', 'budget.id')
-    .leftJoin(`${healthTable} as team`, 'project.team_health_id', 'team.id')
-    .leftJoin(`${contactTable} as reported_by`, 'project.reported_by_contact_id', 'reported_by.id')
-    .where( "project.project_id", id )
+    .leftJoin(`${projectPhaseTable} as phase`, "project.project_phase_id", "phase.id")
+    .leftJoin(`${healthTable} as health`, "project.health_id", "health.id")
+    .leftJoin(`${healthTable} as schedule`, "project.schedule_health_id", "schedule.id")
+    .leftJoin(`${healthTable} as budget`, "project.budget_health_id", "budget.id")
+    .leftJoin(`${healthTable} as team`, "project.team_health_id", "team.id")
+    .leftJoin(`${contactTable} as reported_by`, "project.reported_by_contact_id", "reported_by.id")
+    .where("project.project_id", id)
     .orderBy("project.status_date", "desc")
     .first();
 };

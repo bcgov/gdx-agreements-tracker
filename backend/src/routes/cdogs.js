@@ -13,12 +13,6 @@ const routes = [
     url: `/cdogs/fileTypes`,
     handler: controller.getFileTypes,
   },
-  {
-    method: "GET",
-    url: `/cdogs/template/render`,
-    handler: controller.renderReport,
-    onRequest: controller.onRequest,
-  }
 ];
 
 const registerRoutes = (fastify, options, done) => {

@@ -23,8 +23,8 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/:id/ProjectStatusReport`,
-    handler: controllerCdogs.renderReport,
-    onRequest: controllerCdogs.onRequest,
+    handler: controller.getProjectStatusReport,
+    onRequest: controller.getProjectStatusReportOnRequest,
   },
 ];
 const registerRoutes = (fastify, options, done) => {

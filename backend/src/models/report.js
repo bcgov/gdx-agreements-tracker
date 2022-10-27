@@ -30,12 +30,13 @@ const findById = (projectId) => {
     .from(projectTable)
     .leftJoin(
       () => {
-        knex.select(
-          "project_milestone.*",
-          "health_indicator.colour_red",
-          "health_indicator.colour_green",
-          "health_indicator.colour_blue"
-        )
+        knex
+          .select(
+            "project_milestone.*",
+            "health_indicator.colour_red",
+            "health_indicator.colour_green",
+            "health_indicator.colour_blue"
+          )
           .from(projectMilestoneTable)
           .rightJoin(healthIndicatorTable, { "health_indicator.id": "project_milestone.health_id" })
           .as("subquery");
@@ -49,27 +50,33 @@ const findById = (projectId) => {
 const getMilestones = (projectId) => {
   return knex(projectMilestoneTable)
     .select(
-      'project_id',
-      'description',
-      'fiscal_id',
-      { target_completion_date: knex.raw(`TO_CHAR(target_completion_date :: DATE, '${dateFormat}')`) },
-      { actual_completion_date: knex.raw(`TO_CHAR(actual_completion_date :: DATE, '${dateFormat}')`) },
-      'status',
-      'health_id'
+      "project_id",
+      "description",
+      "fiscal_id",
+      {
+        target_completion_date: knex.raw(
+          `TO_CHAR(target_completion_date :: DATE, '${dateFormat}')`
+        ),
+      },
+      {
+        actual_completion_date: knex.raw(
+          `TO_CHAR(actual_completion_date :: DATE, '${dateFormat}')`
+        ),
+      },
+      "status",
+      "health_id"
     )
-    .where({ "project_id": projectId })
-}
+    .where({ project_id: projectId });
+};
 
 // Get the strategic alignment for a specific project by id.
 const getStrategicAlignment = (projectId) => {
   return knex(projectStrategicAlignmentTable)
-    .select(
-      'strategic_alignment.description'
-      )
-    .leftJoin(strategicAlignmentTable, { "strategic_alignment_id": "strategic_alignment.id"})
-    .where({ "project_id": projectId })
-    .andWhere({ "checked": true })
-}
+    .select("strategic_alignment.description")
+    .leftJoin(strategicAlignmentTable, { strategic_alignment_id: "strategic_alignment.id" })
+    .where({ project_id: projectId })
+    .andWhere({ checked: true });
+};
 
 /* 
 Individual Project Reports - Project Status (Most Recent) 
@@ -79,28 +86,30 @@ Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, 
 
 const projectStatusReport = (projectId) => {
   return knex(`${projectTable} as p`)
-      .distinct()
-      .columns(
-        {"project_id":"p.id"},
-        {"deliverable_name": knex.raw(`(CASE WHEN pd.id is null then 'No Deliverables' ELSE pd.deliverable_name END)`)},
-        { start_date: knex.raw(`TO_CHAR(pd.start_date :: DATE, '${dateFormat}')`) },
-        { completion_date: knex.raw(`TO_CHAR(pd.completion_date :: DATE, '${dateFormat}')`) },
-        {"amount":"pd.deliverable_amount"}, 
-        {"percent_complete": knex.raw('??*100', ['pd.percent_complete'])}, 
-        "hi.colour_red", 
-        "hi.colour_green", 
-        "hi.colour_blue", 
-        "pd.deliverable_status",
-        "pd.health_id"
-      )
-      .leftJoin(`${projectDeliverableTable} as pd`, { "p.id": "pd.project_id"})
-      .rightJoin(`${healthIndicatorTable} as hi`, {"hi.id": "pd.health_id"})
-      .where((builder)=>{
-        builder
-          .whereNull('pd.is_expense')
-          .orWhere('pd.is_expense', 'False')
-      })
-      .andWhere({"p.id": projectId,})
+    .distinct()
+    .columns(
+      { project_id: "p.id" },
+      {
+        deliverable_name: knex.raw(
+          `(CASE WHEN pd.id is null then 'No Deliverables' ELSE pd.deliverable_name END)`
+        ),
+      },
+      { start_date: knex.raw(`TO_CHAR(pd.start_date :: DATE, '${dateFormat}')`) },
+      { completion_date: knex.raw(`TO_CHAR(pd.completion_date :: DATE, '${dateFormat}')`) },
+      { amount: "pd.deliverable_amount" },
+      { percent_complete: knex.raw("??*100", ["pd.percent_complete"]) },
+      "hi.colour_red",
+      "hi.colour_green",
+      "hi.colour_blue",
+      "pd.deliverable_status",
+      "pd.health_id"
+    )
+    .leftJoin(`${projectDeliverableTable} as pd`, { "p.id": "pd.project_id" })
+    .rightJoin(`${healthIndicatorTable} as hi`, { "hi.id": "pd.health_id" })
+    .where((builder) => {
+      builder.whereNull("pd.is_expense").orWhere("pd.is_expense", "False");
+    })
+    .andWhere({ "p.id": projectId });
 };
 
 /* 
