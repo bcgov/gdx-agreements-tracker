@@ -5,25 +5,21 @@ import { Outlet, Link } from "react-router-dom";
 import { IData } from "../../types";
 import axios from "axios";
 
-//const [ projectId, updateProjectId ] = useState(0);
-
 let reportUri = "report/projects/532/ProjectStatusReport";
 
 const onExportButtonClick = () => {
-  
   const url = `https://localhost:8080/${reportUri}`;
-  console.log("export", url);
   axios(url,
     {
       method: "GET",
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'responseType': 'arraybuffer', 'Content-Disposition':'attachment; filename="test.pdf"' },
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'responseType': 'arraybuffer' },
       responseType: 'blob',
     })
     .then(response => {
         const fileURL = window.URL.createObjectURL(response.data);
         let alink = document.createElement('a');
         alink.href = fileURL;
-        alink.download = 'SamplePDF.pdf';
+        alink.download = 'SamplePDF.pdf'; // Need dynamic names
         alink.click();
         console.log("RESPONSE: ");
     })
@@ -31,8 +27,6 @@ const onExportButtonClick = () => {
       console.log(err)
     });
 };
-
-
 
 const StyledBox = styled(Box)({
   overflowX: "scroll",
@@ -414,6 +408,12 @@ const data: IData = {
 };
 
 export const Reports: FC = () => {
+  // Should be moved to reportselect
+  const [ reportParams, updateParams ] = useState({ reportId:null, fiscal:null, quarter:null });
+  const handleUpdateParams = (event: any) => {
+    updateParams(event.currentTarget.value);
+  }
+
   const switchRender = () => {
     switch (data.isLoading) {
       case true:
