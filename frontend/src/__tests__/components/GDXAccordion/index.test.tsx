@@ -1,33 +1,18 @@
 import React from "react";
-import { GDXAccordion } from "../../../components";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
+import { mount } from "enzyme";
+import { GDXAccordion } from "components";
 
-describe("Layout GDXAccordion", () => {
-  it("Renders at all.", async () => {
-    const { container } = render(
-      <GDXAccordion sectionTitle={"testSection"}>
-        <div>testChild component</div>
-      </GDXAccordion>,
-      {
-        wrapper: MemoryRouter,
-      }
+describe("Tests different renders of the <Renderer /> component", () => {
+  //This function allows you to render the component with different isLoading props to test different outcomes
+  const wrapper = () => {
+    return mount(
+      <GDXAccordion sectionTitle="mock title">
+        <div>mock component</div>
+      </GDXAccordion>
     );
-    expect(container).not.toBeEmptyDOMElement();
-  });
+  };
 
-  it("button click .", () => {
-    render(
-      <GDXAccordion sectionTitle={"testSection"}>
-        <div>testChild component</div>
-      </GDXAccordion>,
-      {
-        wrapper: MemoryRouter,
-      }
-    );
-    expect(screen.getByRole("button", { expanded: true, name: /button/i })).toBeTruthy();
-    userEvent.click(screen.getByRole("button"));
-    expect(screen.getByRole("button", { expanded: false, name: /button/i })).toBeTruthy();
+  it("test 1", () => {
+    expect(wrapper().html()).toMatchSnapshot();
   });
 });

@@ -24,10 +24,8 @@ export const FormInput = ({
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-  const getPickerOptions = () => {
-    const pickerValues: any = usePickerValues(projectId, contractId);
-
+  const pickerValues: any = usePickerValues(projectId, contractId);
+  const GetPickerOptions = () => {
     const defaults = {
       associated_table: "_options",
       definition: [{ value: "", label: "No Option table found" }],
@@ -103,7 +101,7 @@ export const FormInput = ({
             fieldName={fieldName}
             fieldValue={fieldValue as IOption}
             setFieldValue={setFieldValue as Function}
-            pickerData={getPickerOptions()}
+            pickerData={GetPickerOptions()}
           />
         </GridItem>
       );
@@ -115,7 +113,7 @@ export const FormInput = ({
             fieldName={fieldName}
             fieldValue={fieldValue as IOption[]}
             setFieldValue={setFieldValue as Function}
-            pickerData={getPickerOptions()}
+            pickerData={GetPickerOptions()}
           />
         </GridItem>
       );

@@ -27,6 +27,11 @@ const initialValues = {
   last_name: "mock value 2",
 };
 
+//Mock keycloak.
+jest.mock("../../../hooks/usePickerValues", () => ({
+  usePickerValues: () => [],
+}));
+
 test("rendering and submitting a basic Formik form", async () => {
   const handleSubmit = jest.fn();
   render(

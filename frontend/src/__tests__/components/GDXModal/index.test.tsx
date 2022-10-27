@@ -1,14 +1,10 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
-import { Table } from "components";
-import { GridColDef } from "@mui/x-data-grid";
-import { Button, IconButton } from "@mui/material";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { mount } from "enzyme";
 import { GDXModal } from "components/GDXModal";
 
-let editMode = false;
-let allowEdit = false;
-let allowDelete = false;
+const editMode = false;
+const allowEdit = false;
+const allowDelete = false;
 
 const handleEditMode = () => {
   jest.fn();
@@ -43,11 +39,11 @@ describe("Tests different renders of the <Renderer /> component", () => {
     );
   };
 
-  it("snapshot test", () => {
+  it("snapshot test for modal open", () => {
     expect(wrapper({ open: true }).html()).toMatchSnapshot();
   });
 
-  it("snapshot test", () => {
+  it("snapshot test for modal closed", () => {
     expect(wrapper({ open: false }).html()).toMatchSnapshot();
   });
 });

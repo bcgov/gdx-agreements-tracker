@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import { IEditFields } from "types";
 
 import { EditForm } from "../../../components/EditForm";
-
 const editFields: () => IEditFields[] = () => {
   return [
     {
@@ -26,6 +25,13 @@ const initialValues = {
   first_name: "mock value",
   last_name: "mock value 2",
 };
+
+// usePickerValues
+
+//Mock keycloak.
+jest.mock("../../../hooks/usePickerValues", () => ({
+  usePickerValues: () => [],
+}));
 
 test("rendering and submitting a basic Formik form", async () => {
   const handleSubmit = jest.fn();

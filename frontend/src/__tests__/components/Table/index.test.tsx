@@ -1,5 +1,5 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import { Table } from "components";
 import { GridColDef } from "@mui/x-data-grid";
 import { IconButton } from "@mui/material";
@@ -24,19 +24,12 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [{ id: 1 },{ id: 2 },{ id: 3 }]
+const rows = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
 describe("Tests different renders of the <Renderer /> component", () => {
   //This function allows you to render the component with different isLoading props to test different outcomes
   const wrapper = ({ loading, allowEdit }: { loading: boolean; allowEdit?: boolean }) => {
-    return mount(
-      <Table
-        rows={rows}
-        columns={columns}
-        loading={loading}
-        allowEdit={allowEdit}
-      />
-    );
+    return mount(<Table rows={rows} columns={columns} loading={loading} allowEdit={allowEdit} />);
   };
 
   it("test 1", () => {
@@ -44,7 +37,11 @@ describe("Tests different renders of the <Renderer /> component", () => {
   });
 
   it("test 2", () => {
-    wrapper({ loading: false, allowEdit: true }).find(".mockButton").hostNodes().at(0).simulate("click");
+    wrapper({ loading: false, allowEdit: true })
+      .find(".mockButton")
+      .hostNodes()
+      .at(0)
+      .simulate("click");
     expect(mockFunction.mock.calls.length).toEqual(1);
   });
 });

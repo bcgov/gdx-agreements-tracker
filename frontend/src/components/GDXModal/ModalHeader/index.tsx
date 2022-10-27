@@ -21,7 +21,7 @@ const StyledButtonLayout = styled(Box)({
 /**
  *
  * @param   {{modalTitle: string,handleEditMode: Function,editMode: boolean}}
- * @returns                                                                  a JSX header that can be used on any form
+ * @returns                                                                   a JSX header that can be used on any form
  */
 
 export const ModalHeader = ({
