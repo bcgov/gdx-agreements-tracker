@@ -1,10 +1,5 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter } from "react-router-dom";
 import { ReadForm } from "../../../components/ReadForm";
-import TestRenderer from "react-test-renderer";
-import ShallowRenderer from "react-test-renderer/shallow";
-import { mount, shallow } from "enzyme";
-import { ReadField } from "components/ReadForm/ReadField";
+import { shallow } from "enzyme";
 
 const fields = [
   {
@@ -24,6 +19,5 @@ describe("Renders <ReadForm /> component", () => {
 
   it("renders the ReadForm component", () => {
     expect(wrapper.html()).toMatchSnapshot();
-    // expect((wrapper.props().children[0].props.title)).toEqual("Mock Title");
   });
 });
