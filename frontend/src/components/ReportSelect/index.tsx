@@ -12,6 +12,9 @@ import {
   TextField,
   Checkbox,
   FormGroup,
+  Button,
+  SelectChangeEvent,
+  Autocomplete,
 } from "@mui/material";
 import {
   ICheckbox,
@@ -23,23 +26,27 @@ import {
   ISelect,
   IOption,
 } from "../../types";
-import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { clockClasses, DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { data } from "./fields";
+import { FormInput } from "components/FormInput";
+import { FormLayout } from "components/GDXForm";
+import { Formik, Form, Field } from "formik";
+import { editFields } from "pages/Admin/Users/fields";
+import axios from "axios";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-export const ReportSelect = ({ data }: { data: IData }) => {
+export const ReportSelect = () => {
   // Handle state changes
   const [category, setCategory] = useState(data.reportCategory.defaultValue);
   const [type, setType] = useState(data.reportType.defaultValue);
-  const [date, setDate] = React.useState<Date | null>(new Date());
 
   const handleChangeCategory = (event: React.FormEvent<HTMLInputElement>) => {
     setCategory(event.currentTarget.value);
   };
   const handleChangeType = (event: React.FormEvent<HTMLInputElement>) => {
     setType(event.currentTarget.value);
-  };
-  const handleChangeDate = (newValue: Date | null) => {
-    setDate(newValue);
   };
 
   // Handle rendering complex elements
@@ -58,83 +65,94 @@ export const ReportSelect = ({ data }: { data: IData }) => {
     });
   };
 
-  const renderSelect = (parameter: ISelect) => {
-    return (
-      <FormControl key={parameter.id + "_div"}>
-        <FormLabel id={parameter.id} key={parameter.id + "_label"}>
-          {parameter.label}:
-        </FormLabel>
-        <Select
-          id={parameter.id}
-          defaultValue={parameter.defaultValue}
-          label={parameter.label}
-          key={parameter.id + "_select"}
-        >
-          {parameter.options.map((menuItem: IOption) => {
-            return (
-              <MenuItem value={menuItem.value} key={menuItem.value}>
-                {menuItem.value}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    );
-  };
-
-  const renderDate = (parameter: IDate) => {
-    return (
-      <FormControl key={parameter.id + "_div"}>
-        <FormLabel id={parameter.id} key={parameter.id + "_label"}></FormLabel>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <DesktopDatePicker
-            label="Date desktop"
-            inputFormat="MM/dd/yyyy"
-            value={date}
-            onChange={handleChangeDate}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-      </FormControl>
-    );
-  };
-
-  const renderCheckbox = (parameter: ICheckbox) => {
-    return (
-      <FormControl key={parameter.id + "_div"}>
-        <FormLabel component="legend">{parameter.label}</FormLabel>
-        <FormGroup>
-          {parameter.options.map((checkbox: IOption) => {
-            return (
-              <FormControlLabel
-                control={<Checkbox />}
-                label={checkbox.value}
-                key={checkbox.value}
-              />
-            );
-          })}
-        </FormGroup>
-      </FormControl>
-    );
-  };
-
   const renderParameters = (
     reportParameters: {
       name: string;
       formLabel: string;
       components: Array<ISelect | IDate | ICheckbox>;
     },
-    state: string
+    setFieldValue: any,
+    values: any
   ) => {
     return reportParameters.components.map((component: ISelect | IDate | ICheckbox) => {
-      if (component.parents.includes(state)) {
+      if (component.parents.includes(type)) {
         switch (component.input) {
           case "select":
-            return renderSelect(component);
+            return (
+              <>
+                <FormLabel id={component.id} key={component.id + "_label"}>
+                  {component.label}:
+                </FormLabel>
+                <Select
+                  id={component.id}
+                  defaultValue={component.defaultValue}
+                  label={component.label}
+                  key={component.id + "_select"}
+                  onChange={(event: SelectChangeEvent) => {
+                    setFieldValue(component.id, event.target.value);
+                  }}
+                >
+                  {component.options.map((menuItem: IOption) => {
+                    return (
+                      <MenuItem value={menuItem.value} key={menuItem.value}>
+                        {menuItem.value}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </>
+            );
           case "date":
-            return renderDate(component);
+            return (
+              <>
+                <FormLabel id={component.id} key={component.id + "_label"}>
+                  Date:
+                </FormLabel>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <Field
+                    onChange={(value: unknown) => {
+                      setFieldValue(`${component.id} _datePicker`, value);
+                    }}
+                    value={values[`${component.id} _datePicker`]}
+                    as={DesktopDatePicker}
+                    renderInput={(params: Object) => <TextField {...params} fullWidth={true} />}
+                    fullWidth={true}
+                    id={`${component.id} _datePicker`}
+                  />
+                </LocalizationProvider>
+              </>
+            );
           case "checkbox":
-            return renderCheckbox(component);
+            return (
+              <>
+                <FormLabel id={component.id} key={component.id + "_label"}>
+                  Portfolio:
+                </FormLabel>
+                <Autocomplete
+                  onChange={(event, selectedOptions, reason) => {
+                    setFieldValue(`reports-portfolio`, selectedOptions);
+                  }}
+                  multiple
+                  id="reports-portfolio"
+                  options={component.options}
+                  disableCloseOnSelect
+                  getOptionLabel={(option) => option.label as string}
+                  renderOption={(props, option, { selected }) => (
+                    <li {...props}>
+                      <Checkbox
+                        icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                        checkedIcon={<CheckBoxIcon fontSize="small" />}
+                        style={{ marginRight: 8 }}
+                        checked={selected}
+                      />
+                      {option.label}
+                    </li>
+                  )}
+                  style={{ width: 500 }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </>
+            );
           default:
             return <FormControl></FormControl>;
         }
@@ -142,56 +160,119 @@ export const ReportSelect = ({ data }: { data: IData }) => {
     });
   };
 
-  const renderDescription = (reportDescription: IDescription, state: string) => {
+  const renderDescription = (reportDescription: IDescription) => {
     return reportDescription.options.map(
       (description: { id: number; value: string; parent: string }) => {
-        if (state === description.parent) {
+        if (type === description.parent) {
           return <p key={description.id}>{description.value}</p>;
         }
       }
     );
   };
 
+  const onExportButtonClick = (values: any) => {
+    console.log("values", values);
+    // console.log("values", values);
+    // const url = `https://localhost:8080/${reportUri}`;
+    // axios(url, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //     responseType: "arraybuffer",
+    //   },
+    //   responseType: "blob",
+    // })
+    //   .then((response:any) => {
+    //     const fileURL = window.URL.createObjectURL(response.data);
+    //     let alink = document.createElement("a");
+    //     alink.href = fileURL;
+    //     alink.download = "SamplePDF.pdf"; // Need dynamic names
+    //     alink.click();
+    //     console.log("RESPONSE: ");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+
+  const initialValues = { [data.reportCategory.name]: data.reportCategory.defaultValue };
+
   return (
-    <FormControl>
-      <Grid container spacing={2}>
-        <Grid item>
-          <FormLabel id="category-control-group">{data.reportCategory.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            <RadioGroup
-              name={data.reportCategory.name}
-              value={category}
-              defaultValue={data.reportCategory.defaultValue}
-              onChange={handleChangeCategory}
-            >
-              {renderRadioGroup(data.reportCategory, null)}
-            </RadioGroup>
-          </Box>
-        </Grid>
-        <Grid item>
-          <FormLabel id="type-control-group">{data.reportType.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            <RadioGroup
-              name={data.reportType.name}
-              value={type}
-              defaultValue={data.reportType.defaultValue}
-              onChange={handleChangeType}
-            >
-              {renderRadioGroup(data.reportType, category)}
-            </RadioGroup>
-          </Box>
-        </Grid>
-        <Grid item>
-          <FormLabel id="parameters-control-group">{data.reportParameters.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            {renderParameters(data.reportParameters, type)}
-          </Box>
-          <FormLabel id="description">{data.reportDescription.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            {renderDescription(data.reportDescription, type)}
-          </Box>
-        </Grid>
-      </Grid>
-    </FormControl>
+    <>
+      <Formik initialValues={initialValues} onSubmit={onExportButtonClick}>
+        {({ setFieldValue, values, handleChange, dirty }: any) => {
+          return (
+            <Form>
+              <FormControl>
+                <Grid container spacing={2}>
+                  <Grid item>
+                    <FormLabel id="category-control-group">
+                      {data.reportCategory.formLabel}
+                    </FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      <RadioGroup
+                        name={data.reportCategory.name}
+                        value={values[data.reportCategory.name]}
+                        onChange={(event, value) => {
+                          setFieldValue(data.reportCategory.name, value);
+                          handleChangeCategory(event);
+                        }}
+                      >
+                        {renderRadioGroup(data.reportCategory, null)}
+                      </RadioGroup>
+                    </Box>
+                  </Grid>
+                  <Grid item>
+                    <FormLabel id="type-control-group">{data.reportType.formLabel}</FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      <RadioGroup
+                        name={data.reportType.name}
+                        value={values[data.reportType.name]}
+                        onChange={(event, value) => {
+                          setFieldValue(data.reportType.name, value);
+                          handleChangeType(event);
+                        }}
+                      >
+                        {renderRadioGroup(data.reportType, category)}
+                      </RadioGroup>
+                    </Box>
+                  </Grid>
+                  <Grid item>
+                    <FormLabel id="parameters-control-group">
+                      {data.reportParameters.formLabel}
+                    </FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      {renderParameters(data.reportParameters, setFieldValue, values)}
+                    </Box>
+                    <FormLabel id="description">{data.reportDescription.formLabel}</FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      {renderDescription(data.reportDescription)}
+                    </Box>
+                  </Grid>
+                </Grid>
+              </FormControl>
+
+              <Box
+                m={1}
+                display="flex"
+                justifyContent="flex-end"
+                alignItems="flex-end"
+                role={"submit_button"}
+              >
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="success"
+                  disabled={dirty ? false : true}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Form>
+          );
+        }}
+      </Formik>
+    </>
   );
 };
