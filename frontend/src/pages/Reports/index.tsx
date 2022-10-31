@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import { Box, Grid, styled, Button, LinearProgress, FormControl, Typography } from "@mui/material";
 import { ReportSelect } from "../../components";
 import { Outlet, Link } from "react-router-dom";
-import { IData } from "../../types";
 import axios from "axios";
 let reportUri = "report/projects/532/ProjectStatusReport";
 

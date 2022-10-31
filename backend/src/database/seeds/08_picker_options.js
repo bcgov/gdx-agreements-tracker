@@ -11,6 +11,7 @@ const {
   initiatedBy,
   billingPeriod,
   deliverable_status,
+  quarter
 } = require("../pick_options/dropdowns");
 
 exports.seed = function (knex) {
@@ -114,6 +115,14 @@ exports.seed = function (knex) {
       description: "The Project Type of a project.",
       definition: { dropDownValues: projectType },
       associated_form: tables.projects,
+    },
+    
+    {
+      name: "quarter",
+      title: "Quarter",
+      description: "The fiscal quarter",
+      definition: { dropDownValues: quarter },
+      associated_form: tables.generic,
     },
     {
       name: "recoverable",

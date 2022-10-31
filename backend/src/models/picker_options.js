@@ -228,6 +228,16 @@ const tableLookupValues = (projectId, contractId) => {
       label: `contract_deliverable.deliverable_name`,
       queryAdditions: getContractDeliverableQueryAdditions(contractId),
     },
+    {
+      id: "contract",
+      name: "contract_option",
+      title: "Contract",
+      description: "the contract",
+      table: "data.contract",
+      value: "contract.id",
+      label: `co_number`, 
+      queryAdditions: ``,    
+    },
   ];
 };
 

@@ -315,40 +315,6 @@ export interface IDescription {
   options: { id: number; value: string; parent: string }[];
 }
 
-export interface IData {
-  isLoading: boolean;
-  reportCategory: {
-    name: string;
-    formLabel: string;
-    defaultValue: string;
-    options: {
-      parent: string | null;
-      value: string;
-      label: string;
-    }[];
-  };
-  reportType: {
-    name: string;
-    formLabel: string;
-    defaultValue: string;
-    options: {
-      parent: string;
-      value: string;
-      label: string;
-    }[];
-  };
-  reportParameters: {
-    name: string;
-    formLabel: string;
-    components: Array<ISelect | IDate | ICheckbox>;
-  };
-  reportDescription: {
-    name: string;
-    formLabel: string;
-    options: { id: number; value: string; parent: string }[];
-  };
-}
-
 export interface ICapability {
   getAll: string;
   getOne: string;
