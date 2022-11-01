@@ -106,7 +106,7 @@ export const reportType = {
       reportCategory: "divisional_project_reports",
       value: "projects_registered_by_date_period",
       label: "Projects Registered by Date/Period",
-      reportParamCategory: [fieldTypes.date, fieldTypes.portfolio],
+      reportParamCategory: [fieldTypes.date, fieldTypes.portfolio, fieldTypes.date],
     },
     {
       reportCategory: "divisional_project_reports",
@@ -250,6 +250,12 @@ export const reportParameters: IReportParams = {
       fieldLabel: "Contract",
       width: "half",
       pickerName: "contract_option",
+    },
+    {
+      fieldName: "date",
+      fieldType: "date",
+      fieldLabel: "Date",
+      width: "half",
     },
   ],
 };
