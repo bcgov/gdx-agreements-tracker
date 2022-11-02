@@ -47,7 +47,7 @@ export const Project = () => {
 
   return (
     <>
-      <ChipNav navLinks={chipNavLinks} navLinksRight={chipNavLinksRight} />
+      {"new" !== projectId && <ChipNav navLinks={chipNavLinks} navLinksRight={chipNavLinksRight} />}
       <Outlet />
     </>
   );

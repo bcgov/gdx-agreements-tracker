@@ -123,6 +123,7 @@ const getLessonsLearnedById = {
 };
 
 const getAllLessonsLearned = {
+  params: Schema.IdParam,
   response: getResponse(
     S.array().items(
       S.object()

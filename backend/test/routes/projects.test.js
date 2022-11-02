@@ -1,5 +1,6 @@
 const model = require("../../src/models/projects.js");
 const contractsModel = require("../../src/models/contracts.js");
+const projectContactsModel = require("../../src/models/projects/contacts");
 const { testRoutes, routeTypes, requester } = require("./index.js");
 const authHelper = require("../../src/facilities/keycloak.js");
 const serverConfig = require("../../src/facilities/fastify.js");
@@ -7,6 +8,7 @@ const serverConfig = require("../../src/facilities/fastify.js");
 jest.mock("../../src/facilities/keycloak.js");
 jest.mock("../../src/models/projects.js");
 jest.mock("../../src/models/contracts.js");
+jest.mock("../../src/models/projects/contacts");
 
 testRoutes([
   {
@@ -37,6 +39,47 @@ testRoutes([
     request: { method: "GET", url: "/projects/1/close-out" },
     modelFunction: model.findCloseOutById,
     capabilities: ["projects_read_all"],
+    type: routeTypes.General,
+  },
+  {
+    request: { method: "GET", url: "/projects/1/lessons-learned" },
+    modelFunction: model.findProjectLessonsLearned,
+    capabilities: ["projects_read_all"],
+    type: routeTypes.General,
+  },
+  {
+    request: { method: "GET", url: "/projects/1/lessons-learned/1" },
+    modelFunction: model.findLessonsLearnedById,
+    capabilities: ["projects_read_all"],
+    type: routeTypes.Specific,
+  },
+  // Todo: Uncomment when validators are added for lessons-learned add/update.
+  // {
+  //   request: { method: "PUT", url: "/projects/1/lessons-learned/1", payload: {} },
+  //   modelFunction: model.updateOneProjectLessonsLearned,
+  //   capabilities: ["projects_update_one"],
+  //   type: routeTypes.Specific,
+  // },
+  // {
+  //   request: { method: "POST", url: "/projects/1/lessons-learned", payload: {} },
+  //   modelFunction: model.addOneProjectLessonsLearned,
+  //   capabilities: ["projects_add_one"],
+  //   type: routeTypes.General,
+  // },
+  {
+    request: { method: "GET", url: "/projects/1/contacts" },
+    modelFunction: projectContactsModel.findAllById,
+    capabilities: ["projects_read_all"],
+    type: routeTypes.General,
+  },
+  {
+    request: {
+      method: "PUT",
+      url: "/projects/1/contacts",
+      payload: {},
+    },
+    modelFunction: projectContactsModel.updateOne,
+    capabilities: ["projects_update_one"],
     type: routeTypes.General,
   },
 ]);

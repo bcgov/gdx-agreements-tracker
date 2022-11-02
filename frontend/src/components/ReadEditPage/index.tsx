@@ -82,7 +82,7 @@ export const ReadEditPage = ({
           {userHasEditCapability && (
             <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
               <Button variant="contained" onClick={() => setEditMode(true)}>
-                Change Contract
+                Change {what.single}
               </Button>
             </Box>
           )}

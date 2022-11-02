@@ -11,6 +11,7 @@ import { IMultiPickerProps, IOption } from "../../../../types";
 export const GDXMultiselect: FC<IMultiPickerProps> = ({
   fieldName,
   fieldValue,
+  fieldLabel,
   setFieldValue,
   pickerData,
 }: IMultiPickerProps) => {
@@ -28,11 +29,13 @@ export const GDXMultiselect: FC<IMultiPickerProps> = ({
           }}
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
-            <TextField label={pickerData?.title} name={fieldName} {...params} />
+            <TextField
+              label={fieldLabel ? fieldLabel : pickerData?.title}
+              name={fieldName}
+              {...params}
+            />
           )}
-          isOptionEqualToValue={(option: IOption, value: IOption) => {
-            return value.value === option.value;
-          }}
+          isOptionEqualToValue={(option: IOption, value: IOption) => value.value === option.value}
         />
       )}
     </>
