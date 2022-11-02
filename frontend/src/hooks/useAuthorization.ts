@@ -1,3 +1,4 @@
+import { useKeycloak } from "@react-keycloak/web";
 import { useEffect, useState } from "react";
 import { ICurrentUser } from "types";
 import { useAxios } from "./useAxios";
@@ -27,7 +28,7 @@ const useAuthorization = (keycloak: { authenticated: boolean; tokenParsed: { ema
 
   useEffect(() => {
     handleCurrentUser();
-  });
+  }, [useKeycloak().initialized]);
 
   //TODO For Later use
   // const [currentUser, setCurrentUser] = useState(undefined);

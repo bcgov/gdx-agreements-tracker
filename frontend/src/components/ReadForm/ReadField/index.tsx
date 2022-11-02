@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Paper } from "@mui/material";
 import React from "react";
+import { IReturnValue } from "types";
 import { GridItem } from "../../GDXForm/FormLayout/GridItem";
 
 export const ReadField = ({
@@ -10,7 +11,7 @@ export const ReadField = ({
 }: {
   width: string;
   title: string;
-  value: string | number;
+  value: IReturnValue;
 }) => {
   const StyledPaper = styled(Paper)({
     height: "auto",
@@ -23,7 +24,7 @@ export const ReadField = ({
     <GridItem width={width}>
       <StyledPaper>
         <h3>{title}</h3>
-        <p>{value}</p>
+        <p>{Array.isArray(value) ? value.join(" | ") : value}</p>
       </StyledPaper>
     </GridItem>
   );

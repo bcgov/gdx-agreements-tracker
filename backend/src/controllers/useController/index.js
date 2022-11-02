@@ -61,6 +61,24 @@ const useController = (model, what, capabilityPrefix = null) => {
   };
 
   /**
+   * Get all items belonging to a parent id.
+   *
+   * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+   * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+   * @returns {object}
+   */
+  const getAllByParentId = async (request, reply) => {
+    userRequires(request, what, `${capabilityPrefix}_read_all`);
+    try {
+      const targetId = Number(request.params.id);
+      const result = await model.findAllById(targetId);
+      return result ? result : [];
+    } catch (err) {
+      return failedQuery(reply, err, what);
+    }
+  };
+
+  /**
    * Get a specific item by ID.
    *
    * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
@@ -135,7 +153,17 @@ const useController = (model, what, capabilityPrefix = null) => {
     }
   };
 
-  return { getAll, getOne, addOne, updateOne, deleteOne, failedQuery, noQuery, userRequires };
+  return {
+    getAll,
+    getAllByParentId,
+    getOne,
+    addOne,
+    updateOne,
+    deleteOne,
+    failedQuery,
+    noQuery,
+    userRequires,
+  };
 };
 
 module.exports = useController;
