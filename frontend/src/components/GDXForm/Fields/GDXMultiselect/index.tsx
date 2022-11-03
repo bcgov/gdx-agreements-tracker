@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import { Autocomplete, Checkbox, Skeleton, TextField, TextFieldProps } from "@mui/material";
+import { Autocomplete, Skeleton, TextField, TextFieldProps } from "@mui/material";
 import { IMultiPickerProps, IOption } from "../../../../types";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 /**
  * Renders an Autocomplete/Select component which allows multiple options to be selected
