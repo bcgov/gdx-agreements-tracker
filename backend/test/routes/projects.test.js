@@ -53,6 +53,7 @@ testRoutes([
     capabilities: ["projects_read_all"],
     type: routeTypes.Specific,
   },
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // Todo: Uncomment when validators are added for lessons-learned add/update.
   // {
   //   request: { method: "PUT", url: "/projects/1/lessons-learned/1", payload: {} },
