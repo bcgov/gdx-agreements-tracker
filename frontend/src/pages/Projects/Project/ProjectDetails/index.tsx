@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { GDXAccordion } from "../../../../components/GDXAccordion";
 import { AgreementSection } from "./AgreementSection";
 import { ClientCodingSection } from "./ClientCodingSection";
+import { ContactsSection } from "./ContactsSection";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
 export const ProjectDetails = () => {
@@ -43,12 +44,19 @@ export const ProjectDetails = () => {
           userHasEditCapability={userHasEditCapability}
         />
       </GDXAccordion>
-      <GDXAccordion sectionTitle="Agreement">
-        <AgreementSection query={projectQuery} userHasEditCapability={userHasEditCapability} />
-      </GDXAccordion>
-      <GDXAccordion sectionTitle="Client Coding">
-        <ClientCodingSection projectId={Number(projectId)} />
-      </GDXAccordion>
+      {"new" !== projectId && (
+        <>
+          <GDXAccordion sectionTitle="Agreement">
+            <AgreementSection query={projectQuery} userHasEditCapability={userHasEditCapability} />
+          </GDXAccordion>
+          <GDXAccordion sectionTitle="Contacts">
+            <ContactsSection projectId={Number(projectId)} />
+          </GDXAccordion>
+          <GDXAccordion sectionTitle="Client Coding">
+            <ClientCodingSection projectId={Number(projectId)} />
+          </GDXAccordion>
+        </>
+      )}
     </>
   );
 };

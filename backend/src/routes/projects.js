@@ -1,5 +1,7 @@
 const controller = require("../controllers/projects");
+const projectContactsController = require("../controllers/projects/contacts");
 const validators = require("../validators/projects");
+const projectContactsValidators = require("../validators/projects/contacts");
 const what = "projects";
 
 const routes = [
@@ -55,6 +57,18 @@ const routes = [
     url: `/lessons-learned`,
     schema: validators.addOne,
     handler: controller.addLessonsLearned,
+  },
+  {
+    method: "GET",
+    url: `/${what}/:id/contacts`,
+    schema: projectContactsValidators.getAll,
+    handler: projectContactsController.getAllByParentId,
+  },
+  {
+    method: "PUT",
+    url: `/${what}/:id/contacts`,
+    schema: projectContactsValidators.updateOne,
+    handler: projectContactsController.updateOne,
   },
 ];
 

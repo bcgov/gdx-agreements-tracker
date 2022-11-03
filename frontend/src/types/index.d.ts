@@ -83,6 +83,7 @@ export interface IPickerProps {
   handleChange: Function;
   fieldValue: IOption;
   fieldName?: string;
+  fieldLabel?: string;
   setFieldValue: Function;
   pickerData: {
     associated_table: string;

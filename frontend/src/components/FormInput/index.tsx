@@ -100,6 +100,7 @@ export const FormInput = ({
             handleChange={handleChange as Function}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption}
+            fieldLabel={fieldLabel}
             setFieldValue={setFieldValue as Function}
             pickerData={GetPickerOptions()}
           />
@@ -112,6 +113,7 @@ export const FormInput = ({
             handleChange={handleChange as Function}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption[]}
+            fieldLabel={fieldLabel}
             setFieldValue={setFieldValue as Function}
             pickerData={GetPickerOptions()}
           />

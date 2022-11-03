@@ -1,5 +1,15 @@
 ## Developer Changelog
 
+### November 2, 2022 (DESCW-623) Project Contacts Section
+
+- Backend
+  - Created migration to add unique constraint to contact_project table
+    - `npx knex migrate:latest`
+  - Created controller, model, routes, and validators for project contacts
+- Frontend
+  - Created/implemented ProjectDetails/ContactSection page
+  - Changed Select and Multiselect components to optionally use a fieldLabel given in editFields
+
 ### October 27, 2022 (DESCW-631) Added tests for frontend components
 
 - Frontend
