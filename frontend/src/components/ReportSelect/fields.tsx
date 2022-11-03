@@ -12,14 +12,18 @@ const fieldTypes = {
 export const reportCategory = {
   name: "report_category",
   formLabel: "Category",
-  defaultValue: { label: "Individual Project Reports", value: "individual_project_reports" },
+  defaultOption: { label: "Individual Project Reports", value: "individual_project_reports" },
   options: [
-    { label: "Individual Project Reports", value: "individual_project_reports" },
+    { label: "Individual Project Reports",
+      value: "individual_project_reports",
+    },
     {
       label: "Individual Contract Reports",
       value: "individual_contract_reports",
     },
-    { label: "Divisional Project Reports", value: "divisional_project_reports" },
+    { label: "Divisional Project Reports",
+      value: "divisional_project_reports",
+    },
     {
       label: "Divisional Project Financials",
       value: "divisional_project_financials",
@@ -34,11 +38,11 @@ export const reportCategory = {
 export const reportType = {
   name: "report_type",
   formLabel: "Type",
-  defaultValue: { label: "Individual Project Reports", value: "individual_project_reports" },
+  defaultOption: { label: "Individual Project Reports", value: "individual_project_reports" },
   options: [
     {
       reportCategory: "individual_project_reports",
-      value: "project_status_most_recent",
+      value: "ProjectStatusReport",
       label: "Project Status (Most Recent)",
       reportParamCategory: [fieldTypes.project],
     },
@@ -136,7 +140,7 @@ export const reportDescription = {
     {
       value:
         "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status and milestone status.",
-      reportType: "project_status_most_recent",
+      reportType: "ProjectStatusReport",
     },
     {
       value:

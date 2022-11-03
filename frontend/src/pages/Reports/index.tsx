@@ -5,30 +5,6 @@ import { Outlet, Link } from "react-router-dom";
 import axios from "axios";
 let reportUri = "report/projects/532/ProjectStatusReport";
 
-const onExportButtonClick = () => {
-  const url = `https://localhost:8080/${reportUri}`;
-  axios(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      responseType: "arraybuffer",
-    },
-    responseType: "blob",
-  })
-    .then((response) => {
-      const fileURL = window.URL.createObjectURL(response.data);
-      let alink = document.createElement("a");
-      alink.href = fileURL;
-      alink.download = "SamplePDF.pdf"; // Need dynamic names
-      alink.click();
-      console.log("RESPONSE: ");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
 const StyledBox = styled(Box)({
   overflowX: "scroll",
   height: "75vh",
@@ -55,17 +31,6 @@ export const Reports: FC = () => {
           </Grid>
         </FormControl>
       </StyledBox>
-      <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-        <Button component={Link} to={"/reports/preview"} variant="contained">
-          Preview
-        </Button>
-        <Button onClick={onExportButtonClick} variant="contained">
-          Export PDF
-        </Button>
-        <Button component={Link} to={"/reports/export-xls"} variant="contained">
-          Export XLS
-        </Button>
-      </Box>
       <Outlet />
     </>
   );

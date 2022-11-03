@@ -13,10 +13,11 @@ import { IOption, IReportParamOptions } from "../../types";
 import { reportCategory, reportType, reportDescription, reportParameters } from "./fields";
 import { FormInput } from "components/FormInput";
 import { Formik, Form, Field } from "formik";
+import axios from "axios";
 
 export const ReportSelect = () => {
   // Handle state changes
-  const [category, setCategory] = useState<any>(reportCategory.defaultValue);
+  const [category, setCategory] = useState<any>();
   const [reportParamCategory, setReportParamCategory] = useState<any>();
   const [currentReportType, setCurrentReportType] = useState(null);
 
@@ -32,8 +33,8 @@ export const ReportSelect = () => {
     setCurrentReportType(value);
   };
 
-  const renderRadioGroup = (radioCategory: any) => {
-    return radioCategory.options.map((radioButton: any) => {
+  const renderRadioGroup = (params: any) => {
+    return params.options.map((radioButton: any) => {
       if (radioButton?.reportCategory) {
         if (radioButton?.reportCategory === category) {
           return (
@@ -70,7 +71,7 @@ export const ReportSelect = () => {
             return (
               <FormInput
                 setFieldValue={setFieldValue}
-                fieldValue={values?.[fieldName]}
+                fieldValue={values?.[fieldName] || ''}
                 fieldName={fieldName}
                 fieldType={fieldType}
                 fieldLabel={fieldLabel}
@@ -96,34 +97,32 @@ export const ReportSelect = () => {
   };
 
   const onExportButtonClick = (values: any) => {
-    console.log("values", values);
-    // console.log("values", values);
-    // const url = `https://localhost:8080/${reportUri}`;
-    // axios(url, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //     responseType: "arraybuffer",
-    //   },
-    //   responseType: "blob",
-    // })
-    //   .then((response:any) => {
-    //     const fileURL = window.URL.createObjectURL(response.data);
-    //     let alink = document.createElement("a");
-    //     alink.href = fileURL;
-    //     alink.download = "SamplePDF.pdf"; // Need dynamic names
-    //     alink.click();
-    //     console.log("RESPONSE: ");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    const baseUri = `https://localhost:8080/report/projects`;
+    const reportUri = `${values.report_type}`;
+    // This will need to change as more report types are added
+    const url = `${baseUri}/${values.project.value}/${reportUri}`;
+    axios(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        responseType: "arraybuffer",
+      },
+      responseType: "blob",
+    })
+      .then((response: any) => {
+        const fileURL = window.URL.createObjectURL(response.data);
+        let alink = document.createElement("a");
+        alink.href = fileURL;
+        alink.download = "SamplePDF.pdf"; // Need dynamic names
+        alink.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const initialValues = { [reportCategory.name]: reportCategory.defaultValue };
-
-  
+  const initialValues = { [reportCategory.name]: reportCategory.defaultOption };
 
   return (
     <>
@@ -132,13 +131,13 @@ export const ReportSelect = () => {
           return (
             <Form>
               <FormControl>
-                <Grid container spacing={2}>
-                  <Grid item>
+                <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid item xs={4} sm={4} md={6}>
                     <FormLabel id="category-control-group">{reportCategory.formLabel}</FormLabel>
                     <Box border={2} borderRadius={1} padding={1}>
                       <RadioGroup
                         name={reportCategory.name}
-                        value={values[reportCategory.name]}
+                        value={values[reportCategory.name] || ''}
                         onChange={(event, value) => {
                           setFieldValue(reportCategory.name, value);
                           handleChangeCategory(value);
@@ -148,12 +147,12 @@ export const ReportSelect = () => {
                       </RadioGroup>
                     </Box>
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={4} sm={4} md={6}>
                     <FormLabel id="type-control-group">{reportType.formLabel}</FormLabel>
                     <Box border={2} borderRadius={1} padding={1}>
                       <RadioGroup
                         name={reportType.name}
-                        value={values[reportType.name]}
+                        value={values[reportType.name] || ''}
                         onChange={(event, value) => {
                           setFieldValue(reportType.name, value);
                           handleChangeType(value);
@@ -163,13 +162,15 @@ export const ReportSelect = () => {
                       </RadioGroup>
                     </Box>
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="parameters-control-group">
                       {reportParameters.formLabel}
                     </FormLabel>
                     <Box border={2} borderRadius={1} padding={1}>
                       {renderParameters(setFieldValue, handleChange, values)}
                     </Box>
+                  </Grid>
+                  <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="description">{reportDescription.formLabel}</FormLabel>
                     <Box border={2} borderRadius={1} padding={1}>
                       {renderDescription()}
@@ -188,10 +189,10 @@ export const ReportSelect = () => {
                 <Button
                   type="submit"
                   variant="contained"
-                  color="success"
+                  color="primary"
                   disabled={dirty ? false : true}
                 >
-                  Submit
+                  Export PDF
                 </Button>
               </Box>
             </Form>
