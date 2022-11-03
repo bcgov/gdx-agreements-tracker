@@ -11,7 +11,7 @@ const {
   initiatedBy,
   billingPeriod,
   deliverable_status,
-  quarter
+  quarter,
 } = require("../pick_options/dropdowns");
 
 exports.seed = function (knex) {
@@ -116,7 +116,7 @@ exports.seed = function (knex) {
       definition: { dropDownValues: projectType },
       associated_form: tables.projects,
     },
-    
+
     {
       name: "quarter",
       title: "Quarter",

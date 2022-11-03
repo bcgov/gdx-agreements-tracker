@@ -371,3 +371,16 @@ export interface IReportParams {
   formLabel: string;
   options: IEditField[];
 }
+
+export interface IModal {
+  children: JSX.Element;
+  open: boolean;
+  handleClose: () => void;
+  modalTitle: string;
+  handleEditMode: Function;
+  editMode: boolean;
+  allowEdit: boolean;
+  allowDelete: boolean;
+  handleDelete: Function;
+  handleFormType: Function;
+}

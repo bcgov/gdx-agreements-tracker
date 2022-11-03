@@ -235,8 +235,8 @@ const tableLookupValues = (projectId, contractId) => {
       description: "the contract",
       table: "data.contract",
       value: "contract.id",
-      label: `co_number`, 
-      queryAdditions: ``,    
+      label: `co_number`,
+      queryAdditions: ``,
     },
   ];
 };

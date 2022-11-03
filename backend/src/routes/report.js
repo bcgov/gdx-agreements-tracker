@@ -1,6 +1,5 @@
 const controller = require("../controllers/report");
 const validators = require("../validators/report");
-const controllerCdogs = require("../controllers/cdogs");
 const what = "report";
 
 const routes = [

@@ -12,14 +12,14 @@ import {
 import { IOption, IReportParamOptions } from "../../types";
 import { reportCategory, reportType, reportDescription, reportParameters } from "./fields";
 import { FormInput } from "components/FormInput";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import axios from "axios";
 
 export const ReportSelect = () => {
   // Handle state changes
-  const [category, setCategory] = useState<any>();
-  const [reportParamCategory, setReportParamCategory] = useState<any>();
-  const [currentReportType, setCurrentReportType] = useState(null);
+  const [category, setCategory] = useState<string>();
+  const [reportParamCategory, setReportParamCategory] = useState<string[] | null>(null);
+  const [currentReportType, setCurrentReportType] = useState<string | null>(null);
 
   const handleChangeCategory = (value: string) => {
     setCurrentReportType(null);
@@ -27,14 +27,22 @@ export const ReportSelect = () => {
     setCategory(value);
   };
 
-  const handleChangeType = (value: any) => {
+  const handleChangeType = (value: string) => {
     const option = reportType.options.find((option) => option.value === value);
     setReportParamCategory((option as IReportParamOptions).reportParamCategory);
     setCurrentReportType(value);
   };
 
-  const renderRadioGroup = (params: any) => {
-    return params.options.map((radioButton: any) => {
+  const renderRadioGroup = (params: {
+    name: string;
+    formLabel: string;
+    defaultOption: { label: string; value: string };
+    options: {
+      value: string;
+      label: string;
+    }[];
+  }) => {
+    return params.options.map((radioButton: { [key: string]: string }) => {
       if (radioButton?.reportCategory) {
         if (radioButton?.reportCategory === category) {
           return (
@@ -71,7 +79,7 @@ export const ReportSelect = () => {
             return (
               <FormInput
                 setFieldValue={setFieldValue}
-                fieldValue={values?.[fieldName] || ''}
+                fieldValue={values?.[fieldName] || ""}
                 fieldName={fieldName}
                 fieldType={fieldType}
                 fieldLabel={fieldLabel}
@@ -96,7 +104,9 @@ export const ReportSelect = () => {
     });
   };
 
-  const onExportButtonClick = (values: any) => {
+  const onExportButtonClick = (values: {
+    [key: string]: { value: number | string; label: string };
+  }) => {
     const baseUri = `https://localhost:8080/report/projects`;
     const reportUri = `${values.report_type}`;
     // This will need to change as more report types are added
@@ -110,15 +120,16 @@ export const ReportSelect = () => {
       },
       responseType: "blob",
     })
-      .then((response: any) => {
+      .then((response) => {
         const fileURL = window.URL.createObjectURL(response.data);
-        let alink = document.createElement("a");
+        const alink = document.createElement("a");
         alink.href = fileURL;
         alink.download = `${values.report_type}.pdf`;
         alink.click();
       })
       .catch((err) => {
-        console.log(err);
+        // Handle the error gracefully - to be addressed in a future ticket
+        alert(err);
       });
   };
 
@@ -127,7 +138,7 @@ export const ReportSelect = () => {
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={onExportButtonClick}>
-        {({ setFieldValue, values, handleChange, dirty }: any) => {
+        {({ setFieldValue, values, handleChange, dirty }) => {
           return (
             <Form>
               <FormControl>
@@ -137,7 +148,7 @@ export const ReportSelect = () => {
                     <Box border={2} borderRadius={1} padding={1}>
                       <RadioGroup
                         name={reportCategory.name}
-                        value={values[reportCategory.name] || ''}
+                        value={values[reportCategory.name] || ""}
                         onChange={(event, value) => {
                           setFieldValue(reportCategory.name, value);
                           handleChangeCategory(value);
@@ -152,7 +163,7 @@ export const ReportSelect = () => {
                     <Box border={2} borderRadius={1} padding={1}>
                       <RadioGroup
                         name={reportType.name}
-                        value={values[reportType.name] || ''}
+                        value={values[reportType.name] || ""}
                         onChange={(event, value) => {
                           setFieldValue(reportType.name, value);
                           handleChangeType(value);

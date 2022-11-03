@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
-import { Box, Grid, styled, Button, LinearProgress, FormControl, Typography } from "@mui/material";
+import { FC } from "react";
+import { Box, Grid, styled, FormControl, Typography } from "@mui/material";
 import { ReportSelect } from "../../components";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const StyledBox = styled(Box)({
   overflowX: "scroll",

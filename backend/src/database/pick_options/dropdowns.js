@@ -23,7 +23,7 @@ const yesNoOptions = [
 /**
  * Yes no options.
  */
- const quarter = [
+const quarter = [
   {
     value: "1",
     label: "Q1",
@@ -318,5 +318,5 @@ module.exports = {
   projectRecoverable,
   initiatedBy,
   deliverable_status,
-  quarter
+  quarter,
 };

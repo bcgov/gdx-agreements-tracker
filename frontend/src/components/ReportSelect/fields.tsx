@@ -1,4 +1,4 @@
-import { IEditField, IReportParams } from "types";
+import { IReportParams } from "types";
 
 const fieldTypes = {
   project: "project",
@@ -14,16 +14,12 @@ export const reportCategory = {
   formLabel: "Category",
   defaultOption: { label: "Individual Project Reports", value: "individual_project_reports" },
   options: [
-    { label: "Individual Project Reports",
-      value: "individual_project_reports",
-    },
+    { label: "Individual Project Reports", value: "individual_project_reports" },
     {
       label: "Individual Contract Reports",
       value: "individual_contract_reports",
     },
-    { label: "Divisional Project Reports",
-      value: "divisional_project_reports",
-    },
+    { label: "Divisional Project Reports", value: "divisional_project_reports" },
     {
       label: "Divisional Project Financials",
       value: "divisional_project_financials",

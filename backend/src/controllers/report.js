@@ -23,7 +23,9 @@ const loadTemplate = async (path, encoding = "base64") => {
   try {
     data = await fs.readFileSync(path);
     data = data.toString(encoding);
-  } catch (err) {}
+  } catch (err) {
+    alert(err); // TODO: more graceful error reporting
+  }
   return data;
 };
 
@@ -125,7 +127,7 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
       milestones: await model.getMilestones(projectId),
       alignment: await model.getStrategicAlignment(projectId),
       status: await projectModel.findMostRecentStatusById(projectId),
-      reportDate: reportDate
+      reportDate: reportDate,
     };
     const body = await getDocumentApiBody(result, "P_Status_MostRecent_Template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
@@ -141,7 +143,6 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
     reply.code(500);
     return { message: `There was a problem looking up this Project Status Report.` };
   }
- 
 };
 
 module.exports = controller;
