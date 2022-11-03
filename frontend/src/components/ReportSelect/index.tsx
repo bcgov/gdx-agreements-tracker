@@ -114,7 +114,7 @@ export const ReportSelect = () => {
         const fileURL = window.URL.createObjectURL(response.data);
         let alink = document.createElement("a");
         alink.href = fileURL;
-        alink.download = "SamplePDF.pdf"; // Need dynamic names
+        alink.download = `${values.report_type}.pdf`;
         alink.click();
       })
       .catch((err) => {

@@ -359,15 +359,15 @@ export interface IBudget {
   total_hours: number;
 }
 
-export interface IModal {
-  children: JSX.Element;
-  open: boolean;
-  handleClose: () => void;
-  modalTitle: string;
-  handleEditMode: Function;
-  editMode: boolean;
-  allowEdit: boolean;
-  allowDelete: boolean;
-  handleDelete: Function;
-  handleFormType: Function;
+export interface IReportParamOptions {
+  reportCategory: string;
+  value: string;
+  label: string;
+  reportParamCategory: string[];
+}
+
+export interface IReportParams {
+  name: string;
+  formLabel: string;
+  options: IEditField[];
 }
