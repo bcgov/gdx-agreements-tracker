@@ -4,6 +4,10 @@
 - Backend
   - Updated report routes
   - Created Template and updated the cdogs API query for Project Status (Most Recent)
+  - Updated capabilities.
+  - `npx knex seed:run --specific=01_capabilities.js`
+  - Updated picker options
+  - `npx knex seed:run --specific=08_picker_options.js`
 - Frontend
   - Added ability to export Project Status Report (Most Recent) as a pdf on the report page
 
