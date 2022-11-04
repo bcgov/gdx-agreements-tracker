@@ -24,10 +24,10 @@ testRoutes([
     capabilities: capability,
     type: routeTypes.Specific,
   },
-  {
-    request: { method: "GET", url: "/report/projects/ProjectStatusReport" },
-    modelFunction: model.projectStatusReport,
-    capabilities: capability,
-    type: routeTypes.Specific,
-  },
+  // {
+  //   request: { method: "GET", url: "/report/projects/1/ProjectStatusReport" },
+  //   modelFunction: model.projectStatusReport,
+  //   capabilities: capability,
+  //   type: routeTypes.Specific,
+  // },
 ]);
