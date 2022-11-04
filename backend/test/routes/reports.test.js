@@ -24,6 +24,7 @@ testRoutes([
     capabilities: capability,
     type: routeTypes.Specific,
   },
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // {
   //   request: { method: "GET", url: "/report/projects/1/ProjectStatusReport" },
   //   modelFunction: model.projectStatusReport,
