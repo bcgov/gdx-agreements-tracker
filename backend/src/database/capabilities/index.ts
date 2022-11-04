@@ -61,7 +61,7 @@ const capabilities = [
   },
   {
     capability: "reports_read_all",
-    allowed: ["admin"],
+    allowed: ["admin", "manager", "gdx"],
   },
   {
     capability: "reports_create_one",

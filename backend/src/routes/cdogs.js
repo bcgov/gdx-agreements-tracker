@@ -8,6 +8,11 @@ const routes = [
     // schema: validators.getAll,
     handler: controller.getHealth,
   },
+  {
+    method: "GET",
+    url: `/cdogs/fileTypes`,
+    handler: controller.getFileTypes,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {

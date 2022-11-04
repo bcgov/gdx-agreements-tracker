@@ -21,6 +21,28 @@ const yesNoOptions = [
 ];
 
 /**
+ * Yes no options.
+ */
+const quarter = [
+  {
+    value: "1",
+    label: "Q1",
+  },
+  {
+    value: "2",
+    label: "Q2",
+  },
+  {
+    value: "3",
+    label: "Q3",
+  },
+  {
+    value: "4",
+    label: "Q4",
+  },
+];
+
+/**
  * Project classifications type for a project.
  */
 const classification = [
@@ -296,4 +318,5 @@ module.exports = {
   projectRecoverable,
   initiatedBy,
   deliverable_status,
+  quarter,
 };

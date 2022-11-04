@@ -82,3 +82,9 @@ Once these files are created, you should have a working API at the url (locally)
 
 # Migrations
 Database migrations that target the `data` database (changing the `data.projects` for example) may fail in some environment since they require the table structures to already exist before they can be run. We may need to change the way these `data` migrations are run so that we can ensure the order of database creation -> migrations -> seeds is correct.
+## Use of cdogs and ches
+```
+  const cdogs = useCommonComponents("{cdogs|ches}");
+  const result = cdogs.api.get('/{uri}', config={});
+  const result = cdogs.api.post('/{uri}', body={}, config={});
+```

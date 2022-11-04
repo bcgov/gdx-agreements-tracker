@@ -21,8 +21,9 @@ const routes = [
   },
   {
     method: "GET",
-    url: `/${what}/projects/ProjectStatusReport`,
+    url: `/${what}/projects/:id/ProjectStatusReport`,
     handler: controller.getProjectStatusReport,
+    onRequest: controller.getProjectStatusReportOnRequest,
   },
 ];
 const registerRoutes = (fastify, options, done) => {

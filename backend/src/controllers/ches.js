@@ -6,6 +6,6 @@ const useCommonComponents = require("./useCommonComponents/index.js");
  * @returns {object}
  */
 
-const controller = useCommonComponents("/api/v1", "ches");
+const controller = useCommonComponents("ches");
 
 module.exports = controller;

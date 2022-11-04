@@ -7,45 +7,54 @@ import {
   FormControl,
   FormLabel,
   Grid,
-  Select,
-  MenuItem,
-  TextField,
-  Checkbox,
-  FormGroup,
+  Button,
 } from "@mui/material";
-import {
-  ICheckbox,
-  IData,
-  IDate,
-  IDescription,
-  IRadioButton,
-  IRadioGroup,
-  ISelect,
-  IOption,
-} from "../../types";
-import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { IOption, IReportParamOptions } from "../../types";
+import { reportCategory, reportType, reportDescription, reportParameters } from "./fields";
+import { FormInput } from "components/FormInput";
+import { Formik, Form } from "formik";
+import axios from "axios";
 
-export const ReportSelect = ({ data }: { data: IData }) => {
+export const ReportSelect = () => {
   // Handle state changes
-  const [category, setCategory] = useState(data.reportCategory.defaultValue);
-  const [type, setType] = useState(data.reportType.defaultValue);
-  const [date, setDate] = React.useState<Date | null>(new Date());
+  const [category, setCategory] = useState<string>();
+  const [reportParamCategory, setReportParamCategory] = useState<string[] | null>(null);
+  const [currentReportType, setCurrentReportType] = useState<string | null>(null);
 
-  const handleChangeCategory = (event: React.FormEvent<HTMLInputElement>) => {
-    setCategory(event.currentTarget.value);
-  };
-  const handleChangeType = (event: React.FormEvent<HTMLInputElement>) => {
-    setType(event.currentTarget.value);
-  };
-  const handleChangeDate = (newValue: Date | null) => {
-    setDate(newValue);
+  const handleChangeCategory = (value: string) => {
+    setCurrentReportType(null);
+    setReportParamCategory(null);
+    setCategory(value);
   };
 
-  // Handle rendering complex elements
-  const renderRadioGroup = (radioGroup: IRadioGroup, state: string | null) => {
-    return radioGroup.options.map((radioButton: IRadioButton) => {
-      if (state === radioButton.parent) {
+  const handleChangeType = (value: string) => {
+    const option = reportType.options.find((option) => option.value === value);
+    setReportParamCategory((option as IReportParamOptions).reportParamCategory);
+    setCurrentReportType(value);
+  };
+
+  const renderRadioGroup = (params: {
+    name: string;
+    formLabel: string;
+    defaultOption: { label: string; value: string };
+    options: {
+      value: string;
+      label: string;
+    }[];
+  }) => {
+    return params.options.map((radioButton: { [key: string]: string }) => {
+      if (radioButton?.reportCategory) {
+        if (radioButton?.reportCategory === category) {
+          return (
+            <FormControlLabel
+              value={radioButton.value}
+              label={radioButton.label}
+              key={radioButton.value + "_radio_button"}
+              control={<Radio />}
+            />
+          );
+        }
+      } else {
         return (
           <FormControlLabel
             value={radioButton.value}
@@ -58,140 +67,149 @@ export const ReportSelect = ({ data }: { data: IData }) => {
     });
   };
 
-  const renderSelect = (parameter: ISelect) => {
-    return (
-      <FormControl key={parameter.id + "_div"}>
-        <FormLabel id={parameter.id} key={parameter.id + "_label"}>
-          {parameter.label}:
-        </FormLabel>
-        <Select
-          id={parameter.id}
-          defaultValue={parameter.defaultValue}
-          label={parameter.label}
-          key={parameter.id + "_select"}
-        >
-          {parameter.options.map((menuItem: IOption) => {
+  const renderParameters = (
+    setFieldValue: Function | undefined,
+    handleChange: Function | React.ChangeEvent<HTMLInputElement> | undefined,
+    values: { [x: string]: string | number | boolean | IOption | IOption[] }
+  ) => {
+    {
+      return reportParameters.options.map(
+        ({ fieldName, fieldType, fieldLabel, width, tableName, pickerName }) => {
+          if (reportParamCategory?.includes(fieldName, 0)) {
             return (
-              <MenuItem value={menuItem.value} key={menuItem.value}>
-                {menuItem.value}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    );
-  };
-
-  const renderDate = (parameter: IDate) => {
-    return (
-      <FormControl key={parameter.id + "_div"}>
-        <FormLabel id={parameter.id} key={parameter.id + "_label"}></FormLabel>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <DesktopDatePicker
-            label="Date desktop"
-            inputFormat="MM/dd/yyyy"
-            value={date}
-            onChange={handleChangeDate}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-      </FormControl>
-    );
-  };
-
-  const renderCheckbox = (parameter: ICheckbox) => {
-    return (
-      <FormControl key={parameter.id + "_div"}>
-        <FormLabel component="legend">{parameter.label}</FormLabel>
-        <FormGroup>
-          {parameter.options.map((checkbox: IOption) => {
-            return (
-              <FormControlLabel
-                control={<Checkbox />}
-                label={checkbox.value}
-                key={checkbox.value}
+              <FormInput
+                setFieldValue={setFieldValue}
+                fieldValue={values?.[fieldName] || ""}
+                fieldName={fieldName}
+                fieldType={fieldType}
+                fieldLabel={fieldLabel}
+                handleChange={handleChange}
+                width={width}
+                key={fieldName}
+                tableName={tableName}
+                pickerName={pickerName}
               />
             );
-          })}
-        </FormGroup>
-      </FormControl>
-    );
+          }
+        }
+      );
+    }
   };
 
-  const renderParameters = (
-    reportParameters: {
-      name: string;
-      formLabel: string;
-      components: Array<ISelect | IDate | ICheckbox>;
-    },
-    state: string
-  ) => {
-    return reportParameters.components.map((component: ISelect | IDate | ICheckbox) => {
-      if (component.parents.includes(state)) {
-        switch (component.input) {
-          case "select":
-            return renderSelect(component);
-          case "date":
-            return renderDate(component);
-          case "checkbox":
-            return renderCheckbox(component);
-          default:
-            return <FormControl></FormControl>;
-        }
+  const renderDescription = () => {
+    return reportDescription.options.map((description) => {
+      if (description?.reportType?.includes(currentReportType as unknown as string, 0)) {
+        return <p key={description.value}>{description.value}</p>;
       }
     });
   };
 
-  const renderDescription = (reportDescription: IDescription, state: string) => {
-    return reportDescription.options.map(
-      (description: { id: number; value: string; parent: string }) => {
-        if (state === description.parent) {
-          return <p key={description.id}>{description.value}</p>;
-        }
-      }
-    );
+  const onExportButtonClick = (values: {
+    [key: string]: { value: number | string; label: string };
+  }) => {
+    const baseUri = `https://localhost:8080/report/projects`;
+    const reportUri = `${values.report_type}`;
+    // This will need to change as more report types are added
+    const url = `${baseUri}/${values.project.value}/${reportUri}`;
+    axios(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        responseType: "arraybuffer",
+      },
+      responseType: "blob",
+    })
+      .then((response) => {
+        const fileURL = window.URL.createObjectURL(response.data);
+        const alink = document.createElement("a");
+        alink.href = fileURL;
+        alink.download = `${values.report_type}.pdf`;
+        alink.click();
+      })
+      .catch((err) => {
+        // Handle the error gracefully - to be addressed in a future ticket
+        alert(err);
+      });
   };
 
+  const initialValues = { [reportCategory.name]: reportCategory.defaultOption };
+
   return (
-    <FormControl>
-      <Grid container spacing={2}>
-        <Grid item>
-          <FormLabel id="category-control-group">{data.reportCategory.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            <RadioGroup
-              name={data.reportCategory.name}
-              value={category}
-              defaultValue={data.reportCategory.defaultValue}
-              onChange={handleChangeCategory}
-            >
-              {renderRadioGroup(data.reportCategory, null)}
-            </RadioGroup>
-          </Box>
-        </Grid>
-        <Grid item>
-          <FormLabel id="type-control-group">{data.reportType.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            <RadioGroup
-              name={data.reportType.name}
-              value={type}
-              defaultValue={data.reportType.defaultValue}
-              onChange={handleChangeType}
-            >
-              {renderRadioGroup(data.reportType, category)}
-            </RadioGroup>
-          </Box>
-        </Grid>
-        <Grid item>
-          <FormLabel id="parameters-control-group">{data.reportParameters.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            {renderParameters(data.reportParameters, type)}
-          </Box>
-          <FormLabel id="description">{data.reportDescription.formLabel}</FormLabel>
-          <Box border={2} borderRadius={1} padding={1}>
-            {renderDescription(data.reportDescription, type)}
-          </Box>
-        </Grid>
-      </Grid>
-    </FormControl>
+    <>
+      <Formik initialValues={initialValues} onSubmit={onExportButtonClick}>
+        {({ setFieldValue, values, handleChange, dirty }) => {
+          return (
+            <Form>
+              <FormControl>
+                <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid item xs={4} sm={4} md={6}>
+                    <FormLabel id="category-control-group">{reportCategory.formLabel}</FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      <RadioGroup
+                        name={reportCategory.name}
+                        value={values[reportCategory.name] || ""}
+                        onChange={(event, value) => {
+                          setFieldValue(reportCategory.name, value);
+                          handleChangeCategory(value);
+                        }}
+                      >
+                        {renderRadioGroup(reportCategory)}
+                      </RadioGroup>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4} sm={4} md={6}>
+                    <FormLabel id="type-control-group">{reportType.formLabel}</FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      <RadioGroup
+                        name={reportType.name}
+                        value={values[reportType.name] || ""}
+                        onChange={(event, value) => {
+                          setFieldValue(reportType.name, value);
+                          handleChangeType(value);
+                        }}
+                      >
+                        {renderRadioGroup(reportType)}
+                      </RadioGroup>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4} sm={8} md={12}>
+                    <FormLabel id="parameters-control-group">
+                      {reportParameters.formLabel}
+                    </FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      {renderParameters(setFieldValue, handleChange, values)}
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4} sm={8} md={12}>
+                    <FormLabel id="description">{reportDescription.formLabel}</FormLabel>
+                    <Box border={2} borderRadius={1} padding={1}>
+                      {renderDescription()}
+                    </Box>
+                  </Grid>
+                </Grid>
+              </FormControl>
+
+              <Box
+                m={1}
+                display="flex"
+                justifyContent="flex-end"
+                alignItems="flex-end"
+                role={"submit_button"}
+              >
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={dirty ? false : true}
+                >
+                  Export PDF
+                </Button>
+              </Box>
+            </Form>
+          );
+        }}
+      </Formik>
+    </>
   );
 };

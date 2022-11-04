@@ -1,10 +1,14 @@
 const dbConnection = require("../database/databaseConnection");
+const { dateFormat } = require("../helpers/standards");
 const { knex, dataBaseSchemas } = dbConnection();
 
 // Relevant database tables
 const projectMilestoneTable = `${dataBaseSchemas().data}.project_milestone`;
 const projectTable = `${dataBaseSchemas().data}.project`;
+const projectDeliverableTable = `${dataBaseSchemas().data}.project_deliverable`;
 const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
+const projectStrategicAlignmentTable = `${dataBaseSchemas().data}.project_strategic_alignment`;
+const strategicAlignmentTable = `${dataBaseSchemas().data}.strategic_alignment`;
 
 // Get a specific report by project id.
 const findById = (projectId) => {
@@ -26,12 +30,13 @@ const findById = (projectId) => {
     .from(projectTable)
     .leftJoin(
       () => {
-        this.select(
-          "project_milestone.*",
-          "health_indicator.colour_red",
-          "health_indicator.colour_green",
-          "health_indicator.colour_blue"
-        )
+        knex
+          .select(
+            "project_milestone.*",
+            "health_indicator.colour_red",
+            "health_indicator.colour_green",
+            "health_indicator.colour_blue"
+          )
           .from(projectMilestoneTable)
           .rightJoin(healthIndicatorTable, { "health_indicator.id": "project_milestone.health_id" })
           .as("subquery");
@@ -41,41 +46,70 @@ const findById = (projectId) => {
     .where({ "project.id": projectId });
 };
 
+// Get the milestones for a specific project by id.
+const getMilestones = (projectId) => {
+  return knex(projectMilestoneTable)
+    .select(
+      "project_id",
+      "description",
+      "fiscal_id",
+      {
+        target_completion_date: knex.raw(
+          `TO_CHAR(target_completion_date :: DATE, '${dateFormat}')`
+        ),
+      },
+      {
+        actual_completion_date: knex.raw(
+          `TO_CHAR(actual_completion_date :: DATE, '${dateFormat}')`
+        ),
+      },
+      "status",
+      "health_id"
+    )
+    .where({ project_id: projectId });
+};
+
+// Get the strategic alignment for a specific project by id.
+const getStrategicAlignment = (projectId) => {
+  return knex(projectStrategicAlignmentTable)
+    .select("strategic_alignment.description")
+    .leftJoin(strategicAlignmentTable, { strategic_alignment_id: "strategic_alignment.id" })
+    .where({ project_id: projectId })
+    .andWhere({ checked: true });
+};
+
 /* 
 Individual Project Reports - Project Status (Most Recent) 
 Purpose: Shows the most recent status report on a  specific project
 Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status, milestone status.
 */
 
-const projectStatusReport = () => {
-  return knex.raw(
-    `SELECT DISTINCT *
-    FROM (
-        SELECT 
-        data.project_deliverable.id, 
-        data.project.id  AS project_id, 
-        (CASE 
-        WHEN data.project_deliverable.id is null then 'No Deliverables' 
-        ELSE data.project_deliverable.deliverable_name
-      END) as deliverable_name, 
-        data.project_deliverable.start_date, 
-        data.project_deliverable.completion_date, 
-        data.project_deliverable.deliverable_amount, 
-        data.project_deliverable.percent_complete, 
-        data.health_indicator.colour_red, 
-        data.health_indicator.colour_green, 
-        data.health_indicator.colour_blue, 
-        data.project_deliverable.deliverable_status 
-        FROM data.project 
-        LEFT JOIN (
-            data.health_indicator 
-            RIGHT JOIN data.project_deliverable 
-            ON data.health_indicator.id = data.project_deliverable.health_id
-        ) 
-        ON data.project.id  = data.project_deliverable.project_id 
-        WHERE (((data.project_deliverable.is_expense)=False Or (data.project_deliverable.is_expense) Is Null))
-    )  AS rpt_P_StatusSummary`
-  );
+const projectStatusReport = (projectId) => {
+  return knex(`${projectTable} as p`)
+    .distinct()
+    .columns(
+      { project_id: "p.id" },
+      {
+        deliverable_name: knex.raw(
+          `(CASE WHEN pd.id is null then 'No Deliverables' ELSE pd.deliverable_name END)`
+        ),
+      },
+      { start_date: knex.raw(`TO_CHAR(pd.start_date :: DATE, '${dateFormat}')`) },
+      { completion_date: knex.raw(`TO_CHAR(pd.completion_date :: DATE, '${dateFormat}')`) },
+      { amount: "pd.deliverable_amount" },
+      { percent_complete: knex.raw("??*100", ["pd.percent_complete"]) },
+      "hi.colour_red",
+      "hi.colour_green",
+      "hi.colour_blue",
+      "pd.deliverable_status",
+      "pd.health_id"
+    )
+    .leftJoin(`${projectDeliverableTable} as pd`, { "p.id": "pd.project_id" })
+    .rightJoin(`${healthIndicatorTable} as hi`, { "hi.id": "pd.health_id" })
+    .where((builder) => {
+      builder.whereNull("pd.is_expense").orWhere("pd.is_expense", "False");
+    })
+    .andWhere({ "p.id": projectId });
 };
 
 /* 
@@ -164,6 +198,8 @@ const projectQuarterlyReport = () => {
 
 module.exports = {
   findById,
+  getMilestones,
+  getStrategicAlignment,
   projectStatusReport,
   projectBudgetReport,
   projectQuarterlyReport,
