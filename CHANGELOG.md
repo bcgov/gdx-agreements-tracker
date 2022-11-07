@@ -1,5 +1,10 @@
 ## Developer Changelog
 
+### November 7, 2022 (DESCW-40) Projects List Filter
+- Frontend
+  - Re-enabled table filtering and sorting
+  - Added initialState prop to Table component to allow setting default filter values (projects status filter defaults to "active")
+
 ### November 2, 2022 (DESCW-633) Project Status Report
 - Backend
   - Updated report routes
