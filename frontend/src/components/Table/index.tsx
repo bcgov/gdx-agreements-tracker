@@ -53,6 +53,7 @@ export const Table = ({
         rows={rows}
         columns={columns}
         loading={loading}
+        disableExtendRowFullWidth={true}
         sx={(theme) => ({
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: allowEdit ? theme.palette.primary.main : "#606060",
