@@ -154,63 +154,60 @@ export const ReportSelect = () => {
                 <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="category-control-group">{reportCategory.formLabel}</FormLabel>
-                      <RadioGroup
-                        name={reportCategory.name}
-                        value={values[reportCategory.name] || ""}
-                        onChange={(event, value) => {
-                          setFieldValue(reportCategory.name, value);
-                          handleChangeCategory(value);
-                        }}
-                      >
-                        {renderRadioGroup(reportCategory)}
-                      </RadioGroup>
+                    <RadioGroup
+                      name={reportCategory.name}
+                      value={values[reportCategory.name] || ""}
+                      onChange={(event, value) => {
+                        setFieldValue(reportCategory.name, value);
+                        handleChangeCategory(value);
+                      }}
+                    >
+                      {renderRadioGroup(reportCategory)}
+                    </RadioGroup>
                   </Grid>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="type-control-group">{reportType.formLabel}</FormLabel>
-                      <RadioGroup
-                        name={reportType.name}
-                        value={values[reportType.name] || ""}
-                        onChange={(event, value) => {
-                          setFieldValue(reportType.name, value);
-                          handleChangeType(value);
-                        }}
-                      >
-                        {renderRadioGroup(reportType)}
-                      </RadioGroup>
+                    <RadioGroup
+                      name={reportType.name}
+                      value={values[reportType.name] || ""}
+                      onChange={(event, value) => {
+                        setFieldValue(reportType.name, value);
+                        handleChangeType(value);
+                      }}
+                    >
+                      {renderRadioGroup(reportType)}
+                    </RadioGroup>
                   </Grid>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="parameters-control-group">
                       {reportParameters.formLabel}
                     </FormLabel>
-                      {renderParameters(setFieldValue, handleChange, values)}
+                    {renderParameters(setFieldValue, handleChange, values)}
                   </Grid>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="description">{reportDescription.formLabel}</FormLabel>
-                      {renderDescription()}
+                    {renderDescription()}
                   </Grid>
                   <Grid item>
-                  <Box
-                m={1}
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="flex-end"
-                role={"submit_button"}
-              >
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={dirty ? false : true}
-                >
-                  Export PDF
-                </Button>
-              </Box>
+                    <Box
+                      m={1}
+                      display="flex"
+                      justifyContent="flex-end"
+                      alignItems="flex-end"
+                      role={"submit_button"}
+                    >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={dirty ? false : true}
+                      >
+                        Export PDF
+                      </Button>
+                    </Box>
                   </Grid>
-                  
                 </Grid>
               </FormControl>
-
-
             </Form>
           );
         }}
