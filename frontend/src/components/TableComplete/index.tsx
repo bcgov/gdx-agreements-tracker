@@ -13,13 +13,14 @@ import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
 import { useAxios } from "hooks/useAxios";
 import { IEditField, IInitialValues, IReturnValue } from "types";
-import { GridEventListener, GridEvents } from "@mui/x-data-grid";
+import { GridEventListener, GridEvents, GridInitialState } from "@mui/x-data-grid";
 
 export const TableComplete = ({
   itemName,
   tableName,
   url,
   createFormInitialValues,
+  initialState,
   readFields,
   editFields,
   totalColumns,
@@ -37,6 +38,7 @@ export const TableComplete = ({
     deleteOne?: string;
   };
   createFormInitialValues: IInitialValues;
+  initialState?: GridInitialState;
   readFields: Function;
   editFields: IEditField[];
   totalColumns?: string[];
@@ -181,6 +183,7 @@ export const TableComplete = ({
                 columns={data?.columns}
                 rows={data?.rows}
                 totalColumns={totalColumns ?? []}
+                initialState={initialState}
                 allowEdit={hasRole(roles.add)}
                 loading={isLoading}
                 onRowClick={handleRowClick}

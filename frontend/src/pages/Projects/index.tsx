@@ -3,6 +3,7 @@ import { Box, Button, LinearProgress, Typography } from "@mui/material";
 import { useFormatTableData } from "../../hooks";
 import { Table } from "../../components";
 import { Outlet, Link } from "react-router-dom";
+import { GridInitialState } from "@mui/x-data-grid";
 export const Projects: FC = () => {
   const { data, isLoading } = useFormatTableData({
     tableName: "projects",
@@ -14,6 +15,14 @@ export const Projects: FC = () => {
     },
   });
 
+  const initialState: GridInitialState = {
+    filter: {
+      filterModel: {
+        items: [{ columnField: "status", operatorValue: "equals", value: "Active" }],
+      },
+    },
+  };
+
   const switchRender = () => {
     switch (isLoading) {
       case true:
@@ -23,6 +32,7 @@ export const Projects: FC = () => {
           <Table
             columns={data.columns}
             rows={data.rows}
+            initialState={initialState}
             loading={isLoading}
             allowEdit={data?.user?.capabilities.includes("projects_update_one")}
           />

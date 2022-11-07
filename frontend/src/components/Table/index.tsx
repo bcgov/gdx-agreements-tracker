@@ -10,7 +10,15 @@ const StyledBox = styled(Box)({
   width: "100%",
 });
 
-export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowEdit }: ITable) => {
+export const Table = ({
+  columns,
+  rows,
+  totalColumns,
+  initialState,
+  loading,
+  onRowClick,
+  allowEdit,
+}: ITable) => {
   const totals: Array<{ id: string; total: number }> = [];
   if (totalColumns && rows.length > 0) {
     totalColumns.forEach((col: string) => {
@@ -45,11 +53,13 @@ export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowE
         rows={rows}
         columns={columns}
         loading={loading}
-        disableExtendRowFullWidth={true}
         sx={(theme) => ({
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: allowEdit ? theme.palette.primary.main : "#606060",
             color: theme.palette.primary.contrastText,
+          },
+          "& .MuiSvgIcon-root": {
+            fill: theme.palette.primary.contrastText,
           },
           "& .MuiDataGrid-menuIconButton": {
             color: theme.palette.primary.contrastText,
@@ -57,6 +67,7 @@ export const Table = ({ columns, rows, totalColumns, loading, onRowClick, allowE
         })}
         onRowClick={onRowClick as GridEventListener<GridEvents.rowClick>}
         components={tableComponents()}
+        initialState={initialState}
       />
     </StyledBox>
   );

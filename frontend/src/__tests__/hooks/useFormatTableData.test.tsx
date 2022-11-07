@@ -21,8 +21,6 @@ describe("Testing useFormatTableData Hook", () => {
               headerName: "Field",
               id: 0,
               hide: false,
-              sortable: false,
-              filterable: false,
             },
             {
               field: "flex",
@@ -30,8 +28,6 @@ describe("Testing useFormatTableData Hook", () => {
               headerName: "Flex",
               id: 1,
               hide: false,
-              sortable: false,
-              filterable: false,
             },
           ]),
         })

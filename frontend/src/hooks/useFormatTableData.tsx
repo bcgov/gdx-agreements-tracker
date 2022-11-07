@@ -25,8 +25,6 @@ export const formatTableColumns = (
       {
         field: "edit",
         headerName: "",
-        sortable: false,
-        filterable: false,
         maxWidth: 60,
         renderCell: (cellValues: { id: number }) => {
           return (
@@ -65,8 +63,6 @@ export const formatTableColumns = (
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
         flex: columnFlex,
         id: index,
-        sortable: false,
-        filterable: false,
       });
     });
 

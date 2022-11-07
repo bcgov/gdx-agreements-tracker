@@ -1,4 +1,4 @@
-import { GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { GridRowsProp, GridColDef, GridInitialState } from "@mui/x-data-grid";
 import { ChangeEvent } from "react";
 
 // Data Structures
@@ -28,6 +28,7 @@ export interface ISidebar extends IUseDrawer {}
 export interface ITable {
   rows: GridRowsProp;
   columns: GridColDef[];
+  initialState?: GridInitialState;
   totalColumns?: string[];
   loading: boolean;
   onRowClick?: Function;
