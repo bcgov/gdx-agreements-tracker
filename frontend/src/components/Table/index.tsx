@@ -59,7 +59,7 @@ export const Table = ({
             backgroundColor: allowEdit ? theme.palette.primary.main : "#606060",
             color: theme.palette.primary.contrastText,
           },
-          "& .MuiSvgIcon-root": {
+          "& .MuiDataGrid-columnHeaders .MuiSvgIcon-root": {
             fill: theme.palette.primary.contrastText,
           },
           "& .MuiDataGrid-menuIconButton": {
