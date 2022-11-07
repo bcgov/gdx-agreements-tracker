@@ -151,10 +151,9 @@ export const ReportSelect = () => {
           return (
             <Form>
               <FormControl>
-                <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
-                  <Grid item xs={4} sm={4} md={6}>
+                <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="category-control-group">{reportCategory.formLabel}</FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
                       <RadioGroup
                         name={reportCategory.name}
                         value={values[reportCategory.name] || ""}
@@ -165,11 +164,9 @@ export const ReportSelect = () => {
                       >
                         {renderRadioGroup(reportCategory)}
                       </RadioGroup>
-                    </Box>
                   </Grid>
-                  <Grid item xs={4} sm={4} md={6}>
+                  <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="type-control-group">{reportType.formLabel}</FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
                       <RadioGroup
                         name={reportType.name}
                         value={values[reportType.name] || ""}
@@ -180,26 +177,19 @@ export const ReportSelect = () => {
                       >
                         {renderRadioGroup(reportType)}
                       </RadioGroup>
-                    </Box>
                   </Grid>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="parameters-control-group">
                       {reportParameters.formLabel}
                     </FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
                       {renderParameters(setFieldValue, handleChange, values)}
-                    </Box>
                   </Grid>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="description">{reportDescription.formLabel}</FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
                       {renderDescription()}
-                    </Box>
                   </Grid>
-                </Grid>
-              </FormControl>
-
-              <Box
+                  <Grid item>
+                  <Box
                 m={1}
                 display="flex"
                 justifyContent="flex-end"
@@ -215,6 +205,12 @@ export const ReportSelect = () => {
                   Export PDF
                 </Button>
               </Box>
+                  </Grid>
+                  
+                </Grid>
+              </FormControl>
+
+
             </Form>
           );
         }}
