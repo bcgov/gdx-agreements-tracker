@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+### November 7, 2022 (DESCW-40) Projects List Filter
+- Frontend
+  - Committed package-lock file!
+    - If frontend unit tests are failing you may need to run `npm ci`
+  - Re-enabled table filtering and sorting
+  - Added initialState prop to Table component to allow setting default filter values (projects status filter defaults to "active")
+
 ### November 2, 2022 (DESCW-633) Project Status Report
 - Backend
   - Updated report routes
