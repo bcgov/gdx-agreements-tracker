@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 'lts/gallium'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Print Node version
         run: node -v
