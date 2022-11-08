@@ -35,7 +35,7 @@ jobs:
         run: node -v
 
       - name: Install packages
-        run: npm i
+        run: npm ci
 
       - name: Run ESLint
         run: npm run lint
