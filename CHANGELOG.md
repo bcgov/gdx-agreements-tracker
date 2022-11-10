@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### November 10, 2022 (DESCW-720) Project Status Summary Report
+- Backend
+  - Added controller function, model functions, routes for Project Status Summary Report
+
 ### November 7, 2022 (DESCW-40) Projects List Filter
 - Frontend
   - Committed package-lock file!
