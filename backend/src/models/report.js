@@ -73,6 +73,7 @@ const getProjectById = (projectId) => {
       knex(`${contactProjectTable} as cp`)
         .first("cp.project_id", { name: knex.raw("c.last_name || ', ' || c.first_name") })
         .join(`${contactTable} as c`, "cp.contact_id", "c.id")
+        // Client Sponsor role id is 1.
         .where("cp.contact_role", 1)
         .andWhere("cp.project_id", projectId)
         .as("client_exec"),
@@ -82,6 +83,7 @@ const getProjectById = (projectId) => {
       knex(`${contactProjectTable} as cp`)
         .first("cp.project_id", { name: knex.raw("c.last_name || ', ' || c.first_name") })
         .join(`${contactTable} as c`, "cp.contact_id", "c.id")
+        // GDX Sponsor role id is 4.
         .where("cp.contact_role", 4)
         .andWhere("cp.project_id", projectId)
         .as("gdx_exec"),
@@ -136,27 +138,30 @@ Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, 
 
 const projectStatusReport = (projectId) => {
   return knex(`${projectTable} as p`)
+    .distinct()
     .columns(
       { project_id: "p.id" },
-      { deliverable_name: "pd.deliverable_name" },
+      {
+        deliverable_name: knex.raw(
+          `(CASE WHEN pd.id is null then 'No Deliverables' ELSE pd.deliverable_name END)`
+        ),
+      },
       { start_date: knex.raw(`TO_CHAR(pd.start_date :: DATE, '${dateFormat}')`) },
       { completion_date: knex.raw(`TO_CHAR(pd.completion_date :: DATE, '${dateFormat}')`) },
       { amount: "pd.deliverable_amount" },
       { percent_complete: knex.raw("??*100", ["pd.percent_complete"]) },
-      "pd.id",
       "hi.colour_red",
       "hi.colour_green",
       "hi.colour_blue",
       "pd.deliverable_status",
       "pd.health_id"
     )
-    .join(`${projectDeliverableTable} as pd`, { "p.id": "pd.project_id" })
+    .leftJoin(`${projectDeliverableTable} as pd`, { "p.id": "pd.project_id" })
     .rightJoin(`${healthIndicatorTable} as hi`, { "hi.id": "pd.health_id" })
     .where((builder) => {
       builder.whereNull("pd.is_expense").orWhere("pd.is_expense", "False");
     })
-    .andWhere({ "p.id": projectId })
-    .orderBy("pd.id", "ASC");
+    .andWhere({ "p.id": projectId });
 };
 
 /* 
@@ -166,23 +171,26 @@ Description: Run by project number shows deliverable amounts, their budgets, amo
 */
 
 const projectBudgetReport = () => {
-  return knex.raw(`
-    SELECT 
-    data.project.id AS projectId, -- project
-    cr.Version, 
-    cr.initiation_date,    
-    cr.initiated_by, 
-    cr.Summary  --cr
-    FROM data.project 
-    LEFT JOIN data.change_request as cr
-    ON data.project.id = cr.link_id
-    LEFT JOIN data.change_request_crtype as crc
-    ON cr.id = crc.change_request_id
-    LEFT JOIN data.crtype as crtype
-    ON crtype.id = crc.crtype_id
-    WHERE crc.change_request_id = cr.id
-    GROUP BY projectId, cr.id
-  `);
+  return knex.raw(
+    `SELECT DISTINCT *
+    FROM (
+        SELECT 
+        data.project.id AS projectId, -- project
+        cr.Version, 
+        cr.initiation_date,    
+        cr.initiated_by, 
+        cr.Summary  --cr
+        FROM data.project 
+        LEFT JOIN data.change_request as cr
+        ON data.project.id = cr.link_id
+        LEFT JOIN data.change_request_crtype as crc
+        ON cr.id = crc.change_request_id
+        LEFT JOIN data.crtype as crtype
+        ON crtype.id = crc.crtype_id
+        WHERE crc.change_request_id = cr.id
+        GROUP BY projectId, cr.id
+    )  AS rpt_P_BudgetSummary`
+  );
 };
 
 /* 
