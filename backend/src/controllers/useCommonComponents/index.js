@@ -19,7 +19,7 @@ const useCommonComponents = (instance) => {
     // Using Axios to call api endpoint with Bearer token.
     return axios.create({
       baseURL: `${"cdogs" === instance ? cdogsApi : chesApi}/api/v2`,
-      timeout: 1000,
+      timeout: 10000,
       headers: {
         Authorization: `Bearer ${accessToken?.token?.access_token}`,
         "Content-Type": "application/json",

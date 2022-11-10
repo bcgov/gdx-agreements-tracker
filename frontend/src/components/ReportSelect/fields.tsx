@@ -44,7 +44,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project_status_summary",
+      value: "project-status-summary",
       label: "Project Status Summary",
       reportParamCategory: [fieldTypes.project],
     },
