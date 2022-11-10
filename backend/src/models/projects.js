@@ -38,6 +38,7 @@ const findAll = () => {
 const findById = (id) => {
   return knex(`${getFromView} as p`)
     .select(
+      "*",
       "p.id",
       "p.project_number",
       "p.project_name",

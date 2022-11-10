@@ -108,6 +108,7 @@ controller.getProjectStatusReport = async (request, reply) => {
   });
   return request.data;
 };
+
 /**
  * Get a specific item by ID.
  *
@@ -142,6 +143,43 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
   } catch (err) {
     reply.code(500);
     return { message: `There was a problem looking up this Project Status Report.` };
+  }
+};
+
+/**
+ * Get a Project Status Summary Report for a specific project.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.getProjectStatusSummaryReportOnRequest = async (request, reply) => {
+  controller.userRequires(request, what, "reports_read_all");
+  try {
+    const projectId = Number(request.params.id);
+    const reportDate = new Date();
+    // Get the data from the database.
+    const result = {
+      project: await model.getProjectById(projectId),
+      deliverables: await model.projectStatusReport(projectId),
+      milestones: await model.getMilestones(projectId),
+      alignment: await model.getStrategicAlignment(projectId),
+      statuses: await model.getProjectStatuses(projectId),
+      lessons: await model.getLessonsLearned(projectId),
+      reportDate: reportDate,
+    };
+    const body = await getDocumentApiBody(result, "P_StatusSummary_template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    request.data = pdf;
+    if (!result) {
+      reply.code(404);
+      return { message: `The ${what.single} with the specified id does not exist.` };
+    } else {
+      return result;
+    }
+  } catch (err) {
+    reply.code(500);
+    return { message: `There was a problem looking up this Project Status Summary Report.` };
   }
 };
 
