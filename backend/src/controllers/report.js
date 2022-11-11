@@ -183,4 +183,37 @@ controller.getProjectStatusSummaryReportOnRequest = async (request, reply) => {
   }
 };
 
+/**
+ * Get a Project Status Summary Report for a specific project.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.getProjectQuarterlyBillingReportOnRequest = async (request, reply) => {
+  controller.userRequires(request, what, "reports_read_all");
+  try {
+    const projectId = Number(request.params.id);
+    const fiscal = Number(request.query.fiscal);
+    const quarter = Number(request.query.quarter);
+    const reportDate = new Date();
+    // Get the data from the database.
+    const result = {
+      reportDate: reportDate,
+    };
+    const body = await getDocumentApiBody(result, "P_QuarterlyBillingRequest_template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    request.data = pdf;
+    if (!result) {
+      reply.code(404);
+      return { message: `The ${what.single} with the specified id does not exist.` };
+    } else {
+      return result;
+    }
+  } catch (err) {
+    reply.code(500);
+    return { message: `There was a problem looking up this Project Quarterly Billing Report.` };
+  }
+};
+
 module.exports = controller;

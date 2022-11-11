@@ -16,6 +16,7 @@ import { Formik, Form } from "formik";
 import axios from "axios";
 
 export const ReportSelect = () => {
+  const queryFields = ["fiscal", "quarter"];
   // Handle state changes
   const [category, setCategory] = useState<string>();
   const [reportParamCategory, setReportParamCategory] = useState<string[] | null>(null);
@@ -111,8 +112,16 @@ export const ReportSelect = () => {
     const reportUri = `${values.report_type}`;
     // This will need to change as more report types are added
     const url = `${baseUri}/${values.project.value}/${reportUri}`;
+    // Build querystring params
+    const querystringParams = new URLSearchParams();
+    for (const field in values) {
+      if (queryFields.includes(field)) {
+        querystringParams.append(field, values[field].value.toString());
+      }
+    }
     axios(url, {
       method: "GET",
+      params: querystringParams,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

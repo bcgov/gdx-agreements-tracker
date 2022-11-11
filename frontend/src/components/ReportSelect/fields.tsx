@@ -62,9 +62,9 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project_quarterly_billing_request",
+      value: "project-quarterly-billing-request",
       label: "Project Quarterly Billing Request",
-      reportParamCategory: [fieldTypes.project],
+      reportParamCategory: [fieldTypes.project, fieldTypes.fiscal, fieldTypes.quarter],
     },
     {
       reportCategory: "individual_contract_reports",
