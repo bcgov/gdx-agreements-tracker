@@ -1,17 +1,18 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { Projects, Project } from "../../pages";
-import { ChangeRequest } from "../../pages/Projects/Project/ChangeRequest";
-import { ProjectDetails } from "../../pages/Projects/Project/ProjectDetails";
+import { Projects, Project } from "pages";
+import { ChangeRequest } from "pages/Projects/Project/ChangeRequest";
+import { ProjectDetails } from "pages/Projects/Project/ProjectDetails";
 import { CloseOut } from "pages/Projects/Project/CloseOut";
 import { Billing } from "pages/Projects/Project/Billing";
 import { LessonsLearned } from "pages/Projects/Project/LessonsLearned";
-
+import { Status } from "pages/Projects/Project/Status";
 const projectRoutes = [
   <Route key="project" path="projects" element={<Projects />} />,
   <Route key="projectprojectId" path="projects/:projectId" element={<Project />}>
     ,
     <Route index key="projectdetails" element={<ProjectDetails />} />,
+    <Route key="projectStatus" path="status" element={<Status />} />,
     <Route key="changeRequest" path="change-request" element={<ChangeRequest />} />,
     <Route key="projectBilling" path="billing" element={<Billing />} />,
     <Route key="projectLessonsLearned" path="lessons-learned" element={<LessonsLearned />} />

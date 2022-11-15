@@ -5,7 +5,7 @@ const what = "project_status";
 const routes = [
   {
     method: "GET",
-    url: `/${what}`,
+    url: `/projects/:id/${what}`,
     schema: validators.getAll,
     handler: controller.getAll,
   },
