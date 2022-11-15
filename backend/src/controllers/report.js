@@ -71,17 +71,16 @@ controller.getProjectBudgetReportOnRequest = async (request, reply) => {
     const reportDate = new Date();
     // Get the data from the database.
     const result = {
-      project: await model.projectBudgetReport(projectId)
-      // project: await projectModel.findById(projectId),
-      // budget: await model.getProjectBudget(projectId),
-      // status: await projectModel.findMostRecentStatusById(projectId),
-      // change_request: await model.getChangeRequests(projectId),
-      // contracts: await model.getContracts(projectId),
-      // reportDate: reportDate.toLocaleDateString("en-US", {
-      //   day: "numeric",
-      //   month: "numeric",
-      //   year: "numeric",
-      // }),
+      project: await projectModel.findById(projectId),
+      budget: await model.getProjectBudget(projectId),
+      status: await projectModel.findMostRecentStatusById(projectId),
+      change_request: await model.getChangeRequests(projectId),
+      contracts: await model.getContracts(projectId),
+      reportDate: reportDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+      }),
     };
 
     const body = await getDocumentApiBody(result, "P_Budget_Report_Template.docx");
@@ -96,7 +95,7 @@ controller.getProjectBudgetReportOnRequest = async (request, reply) => {
     }
   } catch (err) {
     reply.code(500);
-    return { message: `There was a problem looking up this Project Status Report.` };
+    return { message: `There was a problem looking up this Project Budget Report.` };
   }
 };
 
