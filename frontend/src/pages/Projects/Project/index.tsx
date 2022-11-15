@@ -22,11 +22,16 @@ export const Project = () => {
     },
     {
       key: 1,
+      name: "Status",
+      url: `/projects/${projectId}/status`,
+    },
+    {
+      key: 2,
       name: "Change Request",
       url: `/projects/${projectId}/change-request`,
     },
     {
-      key: 2,
+      key: 3,
       name: "Billing",
       url: `/projects/${projectId}/billing`,
     },
