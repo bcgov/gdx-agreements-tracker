@@ -17,6 +17,13 @@ const contactTable = `${dataBaseSchemas().data}.contact`;
 const healthTable = `${dataBaseSchemas().data}.health_indicator`;
 const lessonsLearnedTable = `${dataBaseSchemas().data}.project_lesson`;
 const contactProjectTable = `${dataBaseSchemas().data}.contact_project`;
+const projectBudgetTable = `${dataBaseSchemas().data}.project_budget`;
+const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
+const changeRequestTable = `${dataBaseSchemas().data}.change_request`;
+const changeRequestTypeLookupTable = `${dataBaseSchemas().data}.change_request_crtype`;
+const changeRequestTypeTable = `${dataBaseSchemas().data}.crtype`;
+const contractTable = `${dataBaseSchemas().data}.contract`;
+const supplierTable = `${dataBaseSchemas().data}.supplier`;
 
 // Get a specific report by project id.
 const findById = (projectId) => {
@@ -129,6 +136,64 @@ const getStrategicAlignment = (projectId) => {
 // Get the lessons learned for a specific project by id.
 const getLessonsLearned = (projectId) => {
   return knex(lessonsLearnedTable).select("*").where("project_id", projectId);
+};
+
+// Get the project budget for a specific project by id
+const getProjectBudget = (projectId) => {
+  return knex(`${projectBudgetTable} as pb`)
+    .select({
+      fiscal: `fy.fiscal_year`,
+      deliverable_name: `pd.deliverable_name`,
+      deliverable_amount: `pd.deliverable_amount`,
+      recoverable: `pd.recoverable_amount`,
+      recovered_to_date: knex.raw(
+        `SUM(pb.q1_amount) + SUM(pb.q2_amount) + SUM(pb.q3_amount) + SUM(pb.q4_amount)`
+      ),
+      remaining: knex.raw(
+        `pd.recoverable_amount - (SUM(pb.q1_amount) + SUM(pb.q2_amount) + SUM(pb.q3_amount) + SUM(pb.q4_amount))`
+      ),
+    })
+    .rightJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
+    .leftJoin(`${fiscalYearTable} as fy`, { "pd.fiscal": "fy.id" })
+    .where({ "pd.project_id": projectId })
+    .groupBy(
+      `fy.fiscal_year`,
+      `pd.deliverable_name`,
+      `pd.recoverable_amount`,
+      `pd.deliverable_amount`
+    )
+    .orderBy(`fy.fiscal_year`);
+};
+
+// Get the change requests for a specific project by id
+const getChangeRequests = (projectId) => {
+  return knex(`${changeRequestTable} as cr`)
+    .select({
+      version: "cr.version",
+      initiated_by: "cr.initiated_by",
+      initiation_date: knex.raw(`TO_CHAR(cr.initiation_date :: DATE, '${dateFormat}')`),
+      summary: "cr.summary",
+      type: knex.raw(`string_agg(crt.crtype_name, ', ')`),
+    })
+    .leftJoin(`${changeRequestTypeLookupTable} as crtl`, { "crtl.change_request_id": "cr.id" })
+    .leftJoin(`${changeRequestTypeTable} as crt`, { "crtl.crtype_id": "crt.id" })
+    .groupBy("cr.id")
+    .where({ "cr.link_id": projectId })
+    .orderBy("cr.version");
+};
+
+// Get the contracts for a specific project by id
+const getContracts = (projectId) => {
+  return knex(`${contractTable} as ct`)
+    .select("*", {
+      supplier: "st.supplier_name",
+      end_date: knex.raw(`TO_CHAR(ct.end_date :: DATE, '${dateFormat}')`),
+      fiscal: "fy.fiscal_year"
+    })
+    .leftJoin(`${supplierTable} as st`, { "st.id": "ct.supplier_id" })
+    .leftJoin(`${fiscalYearTable} as fy`, {"fy.id": "ct.fiscal"})
+    .where({ "ct.project_id": projectId })
+    .orderBy("ct.co_number");
 };
 
 /* 
@@ -319,6 +384,9 @@ module.exports = {
   findById,
   getMilestones,
   getStrategicAlignment,
+  getProjectBudget,
+  getChangeRequests,
+  getContracts,
   projectStatusReport,
   getProjectById,
   projectBudgetReport,

@@ -50,7 +50,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project_budget_summary",
+      value: "budgetsummary",
       label: "Project Budget Summary",
       reportParamCategory: [fieldTypes.project],
     },

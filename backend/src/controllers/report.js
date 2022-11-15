@@ -64,10 +64,30 @@ const getDocumentApiBody = async (
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-controller.getProjectBudgetReport = async (request, reply) => {
+controller.getProjectBudgetReportOnRequest = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
-    const result = await model.projectBudgetReport();
+    const projectId = Number(request.params.id);
+    const reportDate = new Date();
+    // Get the data from the database.
+    const result = {
+      project: await model.projectBudgetReport(projectId)
+      // project: await projectModel.findById(projectId),
+      // budget: await model.getProjectBudget(projectId),
+      // status: await projectModel.findMostRecentStatusById(projectId),
+      // change_request: await model.getChangeRequests(projectId),
+      // contracts: await model.getContracts(projectId),
+      // reportDate: reportDate.toLocaleDateString("en-US", {
+      //   day: "numeric",
+      //   month: "numeric",
+      //   year: "numeric",
+      // }),
+    };
+
+    const body = await getDocumentApiBody(result, "P_Budget_Report_Template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // Injects the pdf data into the request object.
+    request.data = pdf;
     if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
@@ -76,7 +96,7 @@ controller.getProjectBudgetReport = async (request, reply) => {
     }
   } catch (err) {
     reply.code(500);
-    return { message: `There was a problem looking up this Project Budget Report.` };
+    return { message: `There was a problem looking up this Project Status Report.` };
   }
 };
 
@@ -103,7 +123,7 @@ controller.getProjectQuarterlyReport = async (request, reply) => {
   }
 };
 
-controller.getProjectStatusReport = async (request, reply) => {
+controller.getReport = async (request, reply) => {
   reply.type("application/pdf").headers({
     "Content-Disposition": 'attachment;filename="test.pdf"',
   });
