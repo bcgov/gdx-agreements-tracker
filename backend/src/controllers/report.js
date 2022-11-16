@@ -41,7 +41,8 @@ const getDocumentApiBody = async (
   );
   return {
     data: data,
-    formatters: "{}",
+    formatters:
+      '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
     options: {
       cacheReport: true,
       convertTo: convertTo,
@@ -199,8 +200,15 @@ controller.getProjectQuarterlyBillingReportOnRequest = async (request, reply) =>
     const reportDate = new Date();
     // Get the data from the database.
     const result = {
+      project: await model.getProjectById(projectId),
+      deliverables: await model.getDeliverableBudgets(projectId, fiscal, quarter),
+      jv: await model.getJournalVoucher(projectId, fiscal, quarter),
+      client: await model.getClientCoding(projectId),
+      quarter: "Q" + quarter,
       reportDate: reportDate,
     };
+    // Calculate grand total from each deliverable amount.
+    result.deliverables_total = result.deliverables.reduce((acc, d) => acc + d.amount, 0);
     const body = await getDocumentApiBody(result, "P_QuarterlyBillingRequest_template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
     request.data = pdf;
