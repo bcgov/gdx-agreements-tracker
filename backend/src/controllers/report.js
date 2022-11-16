@@ -41,7 +41,8 @@ const getDocumentApiBody = async (
   );
   return {
     data: data,
-    formatters: "{}",
+    formatters:
+      '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
     options: {
       cacheReport: true,
       convertTo: convertTo,
@@ -180,6 +181,46 @@ controller.getProjectStatusSummaryReportOnRequest = async (request, reply) => {
   } catch (err) {
     reply.code(500);
     return { message: `There was a problem looking up this Project Status Summary Report.` };
+  }
+};
+
+/**
+ * Get a Project Status Summary Report for a specific project.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.getProjectQuarterlyBillingReportOnRequest = async (request, reply) => {
+  controller.userRequires(request, what, "reports_read_all");
+  try {
+    const projectId = Number(request.params.id);
+    const fiscal = Number(request.query.fiscal);
+    const quarter = Number(request.query.quarter);
+    const reportDate = new Date();
+    // Get the data from the database.
+    const result = {
+      project: await model.getProjectById(projectId),
+      deliverables: await model.getDeliverableBudgets(projectId, fiscal, quarter),
+      jv: await model.getJournalVoucher(projectId, fiscal, quarter),
+      client: await model.getClientCoding(projectId),
+      quarter: "Q" + quarter,
+      reportDate: reportDate,
+    };
+    // Calculate grand total from each deliverable amount.
+    result.deliverables_total = result.deliverables.reduce((acc, d) => acc + d.amount, 0);
+    const body = await getDocumentApiBody(result, "P_QuarterlyBillingRequest_template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    request.data = pdf;
+    if (!result) {
+      reply.code(404);
+      return { message: `The ${what.single} with the specified id does not exist.` };
+    } else {
+      return result;
+    }
+  } catch (err) {
+    reply.code(500);
+    return { message: `There was a problem looking up this Project Quarterly Billing Report.` };
   }
 };
 

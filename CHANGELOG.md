@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### November 16, 2022 (DESCW-727) Project Quarterly Billing Request Report
+- Backend
+  - Added controller function, model functions, routes for Project Quarterly Billing Request Report
+
 ### November 10, 2022 (DESCW-720) Project Status Summary Report
 - Backend
   - Added controller function, model functions, routes for Project Status Summary Report
