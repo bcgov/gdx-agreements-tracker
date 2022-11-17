@@ -1,4 +1,7 @@
 ## Developer Changelog
+- Backend
+  - Added controller, model and routes for Budget Summary Report
+  - Changed report routes to use a common handler: getReport
 
 ### November 16, 2022 (DESCW-727) Project Quarterly Billing Request Report
 - Backend

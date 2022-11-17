@@ -74,6 +74,7 @@ controller.getProjectBudgetReportOnRequest = async (request, reply) => {
       project: await projectModel.findById(projectId),
       budget: await model.getProjectBudget(projectId),
       status: await projectModel.findMostRecentStatusById(projectId),
+      deliverable_summaries: await model.getDeliverableSummaries(projectId),
       change_request: await model.getChangeRequests(projectId),
       contracts: await model.getContracts(projectId),
       contract_summaries: await model.getContractSummary(projectId),
