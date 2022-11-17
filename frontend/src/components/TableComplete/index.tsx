@@ -133,6 +133,8 @@ export const TableComplete = ({
     handleClick: handleOpen,
   });
 
+  console.log('data', data)
+
   useEffect(() => {
     setUserCapabilities(data?.user?.capabilities);
   }, [data]);
