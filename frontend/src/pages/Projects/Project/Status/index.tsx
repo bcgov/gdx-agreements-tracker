@@ -25,7 +25,7 @@ export const Status: FC = (): JSX.Element => {
   };
 
   const url = {
-    getAll: `projects/${projectId}/lessons-learned`,
+    getAll: `projects/${projectId}/status`,
     getOne: `projects/${projectId}/lessons-learned/{id}`,
     updateOne: `projects/${projectId}/lessons-learned/{id}`,
     addOne: `/lessons-learned`,
@@ -46,20 +46,10 @@ export const Status: FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      <TableComplete
-        itemName="Deliverables Breakdown"
-        tableName="Deliverables Breakdown"
-        columnWidths={columnWidths}
-        url={url}
-        createFormInitialValues={createFormInitialValues}
-        readFields={deliverablesBreakdownReadFields}
-        editFields={deliverablesBreakdownEditFields}
-        roles={roles}
-      />
+    <> 
       <TableComplete
         itemName="Status Summary"
-        tableName="Status Summary"
+        tableName="project_status"
         columnWidths={columnWidths}
         url={url}
         createFormInitialValues={createFormInitialValues}

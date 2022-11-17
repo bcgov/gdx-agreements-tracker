@@ -1,13 +1,13 @@
 const controller = require("../controllers/project_status");
 const validators = require("../validators/project_status");
-const what = "project_status";
+const what = "status";
 
 const routes = [
   {
     method: "GET",
     url: `/projects/:id/${what}`,
-    schema: validators.getAll,
-    handler: controller.getAll,
+    // schema: validators.getAll,
+    handler: controller.findAllByProject,
   },
   {
     method: "GET",
