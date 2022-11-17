@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { ITableData } from "../types";
-import { Button, IconButton } from "@mui/material";
+import { Button, Chip, IconButton, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import React from "react";
@@ -20,6 +20,15 @@ export const formatTableColumns = (
   handleClick?: Function,
   columnWidths?: { [key: string]: number }
 ) => {
+  const StyledChip = styled(Chip)({
+    backgroundColor: "red",
+    fontWeight: "bold",
+    width: "25%",
+    height: "35%",
+    border: "solid 3px #dbcad7",
+    borderRadius: "4px",
+  });
+
   return new Promise((resolve) => {
     const formattedColumns: Array<Object> = [
       {
@@ -50,6 +59,8 @@ export const formatTableColumns = (
     ];
 
     Object.entries(tableData.data.data[0]).forEach((value, index) => {
+     
+
       let columnFlex = 1;
       if (columnWidths && columnWidths[value[0]]) {
         columnFlex = columnWidths[value[0]];
@@ -63,6 +74,11 @@ export const formatTableColumns = (
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
         flex: columnFlex,
         id: index,
+        renderCell: (cellValues: { id: number }) => {
+          if (value[1].red & value[1].green & value[1].blue) {
+            return <StyledChip variant="outlined" />;
+          }          
+        },
       });
     });
 
