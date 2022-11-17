@@ -213,7 +213,7 @@ const getDeliverableSummaries = (projectId) => {
     FROM data.project_budget AS pb
     
     LEFT JOIN data.project_deliverable AS pd ON pb.project_deliverable_id = pd.id
-    WHERE pd.project_id = 1059
+    WHERE pd.project_id = ${projectId}
     GROUP BY pd.fiscal) as q1
     INNER JOIN
     (SELECT
@@ -221,7 +221,7 @@ const getDeliverableSummaries = (projectId) => {
     SUM(deliverable_amount) AS current_budget,
     SUM(recoverable_amount) AS recovery_amount
     FROM data.project_deliverable
-    WHERE project_id = 1059
+    WHERE project_id = ${projectId}
     GROUP BY fiscal) AS q2
     ON q2.fiscal = q1.fiscal
     LEFT JOIN data.fiscal_year AS fy ON fy.id = q1.fiscal`
