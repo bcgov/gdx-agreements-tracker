@@ -14,7 +14,6 @@ const routes = [
     url: `/${what}/projects/:id/budgetsummary`,
     handler: controller.getReport,
     onRequest: controller.getProjectBudgetReportOnRequest,
-    //handler: controller.getProjectBudgetReportOnRequest,
   },
   {
     method: "GET",
@@ -30,7 +29,7 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/:id/project-status-summary`,
-    handler: controller.getProjectStatusReport,
+    handler: controller.getReport,
     onRequest: controller.getProjectStatusSummaryReportOnRequest,
   },
   {

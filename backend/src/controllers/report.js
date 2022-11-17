@@ -76,6 +76,7 @@ controller.getProjectBudgetReportOnRequest = async (request, reply) => {
       status: await projectModel.findMostRecentStatusById(projectId),
       change_request: await model.getChangeRequests(projectId),
       contracts: await model.getContracts(projectId),
+      contract_summaries: await model.getContractSummary(projectId),
       reportDate: reportDate.toLocaleDateString("en-US", {
         day: "numeric",
         month: "numeric",

@@ -173,7 +173,7 @@ const getChangeRequests = (projectId) => {
       initiated_by: "cr.initiated_by",
       initiation_date: knex.raw(`TO_CHAR(cr.initiation_date :: DATE, '${dateFormat}')`),
       summary: "cr.summary",
-      type: knex.raw(`string_agg(crt.crtype_name, ', ')`),
+      type: knex.raw(`string_agg(crt.crtype_name, ', ')`), 
     })
     .leftJoin(`${changeRequestTypeLookupTable} as crtl`, { "crtl.change_request_id": "cr.id" })
     .leftJoin(`${changeRequestTypeTable} as crt`, { "crtl.crtype_id": "crt.id" })
@@ -188,13 +188,29 @@ const getContracts = (projectId) => {
     .select("*", {
       supplier: "st.supplier_name",
       end_date: knex.raw(`TO_CHAR(ct.end_date :: DATE, '${dateFormat}')`),
-      fiscal: "fy.fiscal_year"
+      fiscal: "fy.fiscal_year",
+      contract_amount: knex.raw("ct.total_fee_amount + ct.total_expense_amount")
     })
     .leftJoin(`${supplierTable} as st`, { "st.id": "ct.supplier_id" })
     .leftJoin(`${fiscalYearTable} as fy`, {"fy.id": "ct.fiscal"})
     .where({ "ct.project_id": projectId })
     .orderBy("ct.co_number");
 };
+
+// Get the contract totals per fiscal year for a specific project by id
+const getContractSummary = (projectId) => {
+  return knex(`${contractTable} as ct`)
+  .select(
+    {fiscal: "fy.fiscal_year",
+    total_contract_amount: knex.raw("SUM(ct.total_fee_amount) + SUM(ct.total_expense_amount)"),
+    total_fee_amount: knex.sum("ct.total_fee_amount"),
+    total_expense_amount: knex.sum("ct.total_expense_amount"),
+  }
+  )
+  .leftJoin(`${fiscalYearTable} as fy`, {"fy.id": "ct.fiscal"})
+  .groupBy("fy.fiscal_year")
+  .where({ "ct.project_id": projectId })
+}
 
 /* 
 Individual Project Reports - Project Status (Most Recent) 
@@ -387,6 +403,7 @@ module.exports = {
   getProjectBudget,
   getChangeRequests,
   getContracts,
+  getContractSummary,
   projectStatusReport,
   getProjectById,
   projectBudgetReport,
