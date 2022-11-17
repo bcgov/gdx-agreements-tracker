@@ -18,7 +18,7 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/ProjectQuarterlyReport`,
-    handler: controller.getReport,
+    handler: controller.getProjectQuarterlyReport,
   },
   {
     method: "GET",
