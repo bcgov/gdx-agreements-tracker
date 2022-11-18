@@ -38,7 +38,7 @@ export const reportType = {
   options: [
     {
       reportCategory: "individual_project_reports",
-      value: "ProjectStatusReport",
+      value: "project-status-report",
       label: "Project Status (Most Recent)",
       reportParamCategory: [fieldTypes.project],
     },
@@ -50,7 +50,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project_budget_summary",
+      value: "budget-summary",
       label: "Project Budget Summary",
       reportParamCategory: [fieldTypes.project],
     },

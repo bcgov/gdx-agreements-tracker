@@ -151,70 +151,63 @@ export const ReportSelect = () => {
           return (
             <Form>
               <FormControl>
-                <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
-                  <Grid item xs={4} sm={4} md={6}>
+                <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="category-control-group">{reportCategory.formLabel}</FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
-                      <RadioGroup
-                        name={reportCategory.name}
-                        value={values[reportCategory.name] || ""}
-                        onChange={(event, value) => {
-                          setFieldValue(reportCategory.name, value);
-                          handleChangeCategory(value);
-                        }}
-                      >
-                        {renderRadioGroup(reportCategory)}
-                      </RadioGroup>
-                    </Box>
+                    <RadioGroup
+                      name={reportCategory.name}
+                      value={values[reportCategory.name] || ""}
+                      onChange={(event, value) => {
+                        setFieldValue(reportCategory.name, value);
+                        handleChangeCategory(value);
+                      }}
+                    >
+                      {renderRadioGroup(reportCategory)}
+                    </RadioGroup>
                   </Grid>
-                  <Grid item xs={4} sm={4} md={6}>
+                  <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="type-control-group">{reportType.formLabel}</FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
-                      <RadioGroup
-                        name={reportType.name}
-                        value={values[reportType.name] || ""}
-                        onChange={(event, value) => {
-                          setFieldValue(reportType.name, value);
-                          handleChangeType(value);
-                        }}
-                      >
-                        {renderRadioGroup(reportType)}
-                      </RadioGroup>
-                    </Box>
+                    <RadioGroup
+                      name={reportType.name}
+                      value={values[reportType.name] || ""}
+                      onChange={(event, value) => {
+                        setFieldValue(reportType.name, value);
+                        handleChangeType(value);
+                      }}
+                    >
+                      {renderRadioGroup(reportType)}
+                    </RadioGroup>
                   </Grid>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="parameters-control-group">
                       {reportParameters.formLabel}
                     </FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
-                      {renderParameters(setFieldValue, handleChange, values)}
-                    </Box>
+                    {renderParameters(setFieldValue, handleChange, values)}
                   </Grid>
                   <Grid item xs={4} sm={8} md={12}>
                     <FormLabel id="description">{reportDescription.formLabel}</FormLabel>
-                    <Box border={2} borderRadius={1} padding={1}>
-                      {renderDescription()}
+                    {renderDescription()}
+                  </Grid>
+                  <Grid item>
+                    <Box
+                      m={1}
+                      display="flex"
+                      justifyContent="flex-end"
+                      alignItems="flex-end"
+                      role={"submit_button"}
+                    >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={dirty ? false : true}
+                      >
+                        Export PDF
+                      </Button>
                     </Box>
                   </Grid>
                 </Grid>
               </FormControl>
-
-              <Box
-                m={1}
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="flex-end"
-                role={"submit_button"}
-              >
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={dirty ? false : true}
-                >
-                  Export PDF
-                </Button>
-              </Box>
             </Form>
           );
         }}

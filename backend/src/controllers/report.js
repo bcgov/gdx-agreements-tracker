@@ -64,10 +64,31 @@ const getDocumentApiBody = async (
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-controller.getProjectBudgetReport = async (request, reply) => {
+controller.getProjectBudgetReportOnRequest = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
-    const result = await model.projectBudgetReport();
+    const projectId = Number(request.params.id);
+    const reportDate = new Date();
+    // Get the data from the database.
+    const result = {
+      project: await projectModel.findById(projectId),
+      budget: await model.getProjectBudget(projectId),
+      status: await projectModel.findMostRecentStatusById(projectId),
+      deliverableSummaries: await model.getDeliverableSummaries(projectId),
+      changeRequest: await model.getChangeRequests(projectId),
+      contracts: await model.getContracts(projectId),
+      contractSummaries: await model.getContractSummary(projectId),
+      reportDate: reportDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+      }),
+    };
+
+    const body = await getDocumentApiBody(result, "P_Budget_Report_Template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // Injects the pdf data into the request object.
+    request.data = pdf;
     if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
@@ -103,7 +124,7 @@ controller.getProjectQuarterlyReport = async (request, reply) => {
   }
 };
 
-controller.getProjectStatusReport = async (request, reply) => {
+controller.getReport = async (request, reply) => {
   reply.type("application/pdf").headers({
     "Content-Disposition": 'attachment;filename="test.pdf"',
   });
