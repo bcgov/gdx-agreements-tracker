@@ -28,7 +28,7 @@ export const GDXModal = ({ handleClose, children, open, ...props }: IModal) => {
         onClose={handleClose}
       >
         <StyledModalBox>
-          <ModalHeader {...props} />
+          <ModalHeader onClose={handleClose} {...props} />
           <StyledContentBox>{children}</StyledContentBox>
         </StyledModalBox>
       </Modal>
