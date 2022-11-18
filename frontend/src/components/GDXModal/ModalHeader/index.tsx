@@ -32,7 +32,7 @@ export const ModalHeader = ({
   allowDelete,
   handleDelete,
   handleFormType,
-  handleClose,
+  onClose,
 }: {
   modalTitle: string;
   handleEditMode: Function;
@@ -41,7 +41,7 @@ export const ModalHeader = ({
   allowDelete: boolean;
   handleDelete: Function;
   handleFormType: Function;
-  handleClose?: Function;
+  onClose: Function;
 }) => {
   return (
     <div>
@@ -55,9 +55,7 @@ export const ModalHeader = ({
               {allowDelete && (
                 <DeleteButton
                   handleDelete={() => {
-                    if (undefined !== handleClose) {
-                      handleClose();
-                    }
+                    onClose();
                     handleDelete();
                   }}
                 />
@@ -81,9 +79,7 @@ export const ModalHeader = ({
                 color="secondary"
                 size="large"
                 onClick={() => {
-                  if (undefined !== handleClose) {
-                    handleClose();
-                  }
+                  onClose();
                 }}
               >
                 <HighlightOffIcon />
