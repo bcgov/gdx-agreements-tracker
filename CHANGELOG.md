@@ -1,5 +1,10 @@
 ## Developer Changelog
 
+### November 18, 2022 (DESCW-29) Contracts List Filters
+- Frontend
+  - Added initial filter state contracts list
+  - Fixed bug in GDXModal causing close button not to close modal
+
 ### November 16, 2022 (DESCW-727) Project Quarterly Billing Request Report
 - Backend
   - Added controller function, model functions, routes for Project Quarterly Billing Request Report
