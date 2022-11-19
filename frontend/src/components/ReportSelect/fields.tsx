@@ -56,7 +56,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project_quarterly_review",
+      value: "project-quarterly-review",
       label: "Project Quarterly Review",
       reportParamCategory: [fieldTypes.project],
     },

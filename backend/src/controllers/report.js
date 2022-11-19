@@ -10,6 +10,8 @@ const path = require("path");
 
 const cdogs = useCommonComponents("cdogs");
 const pdfConfig = { responseType: "arraybuffer" };
+/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+//fixme: make all parameters use snake_case
 
 /**
  * Reads a file and encodes it to the specified format
@@ -121,6 +123,45 @@ controller.getProjectQuarterlyReport = async (request, reply) => {
   } catch (err) {
     reply.code(500);
     return { message: `There was a problem looking up this Project Quarterly Report.` };
+  }
+};
+
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.getProjectQuarterlyReviewReportOnRequest = async (request, reply) => {
+  controller.userRequires(request, what, "reports_read_all");
+  try {
+    const projectId = Number(request.params.id);
+    const reportDate = new Date();
+    const fiscal_breakdown = await model.getQuarterlyFiscalSummaries(projectId);
+    // Get the data from the database.
+    const result = {
+      project: await projectModel.findById(projectId),
+      deliverables: await model.getQuarterlyDeliverables(projectId, fiscal_breakdown),
+      report_date: reportDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+      }),
+    };
+    const body = await getDocumentApiBody(result, "P_Quarterly_Review_Template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // Injects the pdf data into the request object.
+    request.data = pdf;
+    if (!result) {
+      reply.code(404);
+      return { message: `The ${what.single} with the specified id does not exist.` };
+    } else {
+      return result;
+    }
+  } catch (err) {
+    reply.code(500);
+    return { message: `There was a problem looking up this Project Status Report.` };
   }
 };
 

@@ -371,6 +371,74 @@ const getJournalVoucher = (projectId, fiscal, quarter) => {
     .first();
 };
 
+// Get the quarterly fiscal summary for a specific project by id
+const getQuarterlyFiscalSummaries = (projectId) => {
+  const fiscal_summary = knex("data.fiscal_year as fy")
+    .select({
+      fiscal_year: "fiscal_year",
+      detail_total: knex.sum("detail_amount"),
+      //q1_client_total: knex.sum("???"),
+      //q2_client_total: knex.sum("???"),
+      //q3_client_total: knex.sum("???"),
+      //q4_client_total: knex.sum("???"),
+      q1_fiscal_total: knex.sum("q1_amount"),
+      q2_fiscal_total: knex.sum("q2_amount"),
+      q3_fiscal_total: knex.sum("q3_amount"),
+      q4_fiscal_total: knex.sum("q4_amount"),
+    })
+    .leftJoin("data.project_deliverable as pd", { "fy.id": `pd.fiscal` })
+    .leftJoin("data.project_budget as pb", { "pd.id": "pb.project_deliverable_id" })
+    .where(`pd.project_id`, projectId)
+    .groupBy("fy.fiscal_year")
+    .orderBy(`fy.fiscal_year`);
+  return fiscal_summary;
+};
+
+// Get the breakdown for deliverables for a specific project by id
+const getQuarterlyDeliverables = (projectId, fiscal_summary) => {
+  let data = [];
+  for (let fiscal in fiscal_summary) {
+    const details = knex(`data.project_deliverable as pd`)
+      .select({
+        fiscal_year: "fy.fiscal_year",
+        id: "pd.id",
+        deliverable_name: "deliverable_name",
+        detail_amount: "detail_amount",
+        q1_amount: "q1_amount",
+        q2_amount: "q2_amount",
+        q3_amount: "q3_amount",
+        q4_amount: "q4_amount",
+        resource_type: "resource_type",
+        porfolio_abbrev: "portfolio_abbrev",
+        responsibility: "responsibility",
+        service_line: "port.service_line",
+        stob: "pb.stob",
+        expense_authority_name: "expense_authority_name",
+      })
+      .leftJoin(`data.project_budget as pb`, { "pd.id": "pb.project_deliverable_id" })
+      .leftJoin(`data.client_coding as cc`, { "cc.id": "pb.client_coding_id" })
+      .leftJoin(`data.portfolio as port`, { "port.id": "pb.recovery_area" })
+      .leftJoin(`data.fiscal_year as fy`, { "fy.id": "pd.fiscal" })
+      .where({ "pd.project_id": projectId })
+      .andWhere({ "fy.fiscal_year": fiscal_summary[fiscal].fiscal_year })
+      .orderBy("deliverable_name")
+      // Construct the array of fiscal breakdown and summaries
+      .then((details) => {
+        data.push({
+          fiscal_year: fiscal_summary[fiscal].fiscal_year,
+          q1_fiscal_total: fiscal_summary[fiscal].q1_fiscal_total,
+          q2_fiscal_total: fiscal_summary[fiscal].q2_fiscal_total,
+          q3_fiscal_total: fiscal_summary[fiscal].q3_fiscal_total,
+          q4_fiscal_total: fiscal_summary[fiscal].q4_fiscal_total,
+          detail_fiscal_total: fiscal_summary[fiscal].detail_total,
+          details: details,
+        });
+      });
+  }
+
+  return data;
+};
+
 /* 
 Individual Project Reports - Project Quarterly Review 
 Purpose: To outline how a project budget is broken down between quarters and the distribution of the recoveries over portfolios. Designed as a guide to review with PM each quarter and confirm billing amounts. Shows cross-fiscal amounts and breakdown between multiple clients as well.
@@ -439,9 +507,11 @@ module.exports = {
   getProjectById,
   projectBudgetReport,
   projectQuarterlyReport,
+  getQuarterlyDeliverables,
   getProjectStatuses,
   getDeliverableBudgets,
   getClientCoding,
   getJournalVoucher,
   getLessonsLearned,
+  getQuarterlyFiscalSummaries,
 };

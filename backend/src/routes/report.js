@@ -17,8 +17,9 @@ const routes = [
   },
   {
     method: "GET",
-    url: `/${what}/projects/ProjectQuarterlyReport`,
-    handler: controller.getProjectQuarterlyReport,
+    url: `/${what}/projects/:id/project-quarterly-review`,
+    handler: controller.getReport,
+    onRequest: controller.getProjectQuarterlyReviewReportOnRequest,
   },
   {
     method: "GET",
