@@ -21,15 +21,6 @@ export const formatTableColumns = (
   handleClick?: Function,
   columnWidths?: { [key: string]: number }
 ) => {
-  const StyledChip = styled(Chip)({
-    backgroundColor: "red",
-    fontWeight: "bold",
-    width: "25%",
-    height: "35%",
-    border: "solid 3px #dbcad7",
-    borderRadius: "4px",
-  });
-
   return new Promise((resolve) => {
     const formattedColumns: Array<Object> = [
       {
@@ -59,8 +50,6 @@ export const formatTableColumns = (
       },
     ];
     Object.entries(tableData.data.data[0]).forEach((value, index) => {
-     
-
       let columnFlex = 1;
       if (columnWidths && columnWidths[value[0]]) {
         columnFlex = columnWidths[value[0]];
