@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import React from "react";
 import { useAxios } from "./useAxios";
+import { TableHealthChip } from "components/TableComplete/TableHealthChip";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
@@ -20,15 +21,6 @@ export const formatTableColumns = (
   handleClick?: Function,
   columnWidths?: { [key: string]: number }
 ) => {
-  const StyledChip = styled(Chip)({
-    backgroundColor: "red",
-    fontWeight: "bold",
-    width: "25%",
-    height: "35%",
-    border: "solid 3px #dbcad7",
-    borderRadius: "4px",
-  });
-
   return new Promise((resolve) => {
     const formattedColumns: Array<Object> = [
       {
@@ -57,10 +49,7 @@ export const formatTableColumns = (
         },
       },
     ];
-
     Object.entries(tableData.data.data[0]).forEach((value, index) => {
-     
-
       let columnFlex = 1;
       if (columnWidths && columnWidths[value[0]]) {
         columnFlex = columnWidths[value[0]];
@@ -75,9 +64,13 @@ export const formatTableColumns = (
         flex: columnFlex,
         id: index,
         renderCell: (cellValues: { id: number }) => {
-          if (value[1].red & value[1].green & value[1].blue) {
-            return <StyledChip variant="outlined" />;
-          }          
+          if (
+            value[1]?.red !== undefined &&
+            value[1]?.green !== undefined &&
+            value[1]?.blue !== undefined
+          ) {
+            return <TableHealthChip variant="outlined" colors={value[1]} />;
+          }
         },
       });
     });
