@@ -250,6 +250,9 @@ export const TableComplete = ({
                       errorMessage: `There was an issue saving.`,
                     });
                   }}
+                  onCancel={() => {
+                    handleEditMode(false);
+                  }}
                   editFields={editFields}
                 />
               )}

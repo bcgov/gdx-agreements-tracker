@@ -165,6 +165,9 @@ export const ContactsSection = ({ projectId }: { projectId: number }) => {
                 errorMessage: "There was an issue saving contacts.",
               });
             }}
+            onCancel={() => {
+              setEditMode(false);
+            }}
             editFields={editFields}
           />
         </>

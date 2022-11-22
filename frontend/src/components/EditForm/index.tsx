@@ -8,6 +8,7 @@ import { IEditField } from "../../types";
 export const EditForm = ({
   initialValues,
   onSubmit,
+  onCancel,
   editFields,
 }: {
   initialValues: FormikValues;
@@ -15,6 +16,7 @@ export const EditForm = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: ((values: unknown, formikHelpers: FormikHelpers<any>) => void | Promise<any>) &
     Function;
+  onCancel: Function;
   editFields: IEditField[];
 }) => {
   return (
@@ -53,15 +55,29 @@ export const EditForm = ({
                 }
               )}
             </FormLayout>
-            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <Button
-                type="submit"
-                variant="contained"
-                color="success"
-                disabled={dirty ? false : true}
-              >
-                Submit
-              </Button>
+            <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <Box>
+                <Button
+                  onClick={() => {
+                    onCancel();
+                  }}
+                  type="button"
+                  variant="contained"
+                  color="secondary"
+                >
+                  Cancel
+                </Button>
+              </Box>
+              <Box ml={1}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="success"
+                  disabled={dirty ? false : true}
+                >
+                  Submit
+                </Button>
+              </Box>
             </Box>
           </Form>
         );

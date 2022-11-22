@@ -124,6 +124,9 @@ export const ReadEditPage = ({
                   errorMessage: `There was an issue saving your changes for ${what.single} ${id}`,
                 });
               }}
+              onCancel={() => {
+                setEditMode(false);
+              }}
               editFields={editFields}
             />
           )}
