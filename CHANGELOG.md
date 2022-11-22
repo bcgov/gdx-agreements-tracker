@@ -1,4 +1,10 @@
 ## Developer Changelog
+
+### November 22, 2022 (DESCW-658) Edit Cancel Button
+- Frontend
+  - Added cancel button to EditForms so user can return to ReadForm without page refresh
+
+### November 18, 2022 (DESCW-725) Budget Summary Report
 - Backend
   - Added controller, model and routes for Budget Summary Report
   - Changed report routes to use a common handler: getReport

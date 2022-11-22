@@ -60,6 +60,9 @@ export const AgreementSection = ({
               queryKeys: [`project - ${projectId}`],
             });
           }}
+          onCancel={() => {
+            setEditMode(false);
+          }}
           editFields={editFields()}
         />
       );

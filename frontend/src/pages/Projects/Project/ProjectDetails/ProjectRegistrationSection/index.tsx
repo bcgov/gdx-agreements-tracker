@@ -69,6 +69,9 @@ export const ProjectRegistrationSection = ({
               errorMessage: `There was an issue saving your changes for project ${projectId}`,
             });
           }}
+          onCancel={() => {
+            setEditMode(false);
+          }}
           editFields={editFields()}
         />
       );
