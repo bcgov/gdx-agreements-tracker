@@ -6,14 +6,26 @@ const routes = [
   {
     method: "GET",
     url: `/projects/:id/${what}`,
-    // schema: validators.getAll,
+    schema: validators.getAll,
     handler: controller.findAllByProject,
   },
   {
     method: "GET",
-    url: `/${what}/:id`,
-    schema: validators.getOne,
+    url: `/projects/${what}/:id`,
+    // schema: validators.getOne,
     handler: controller.getOne,
+  },
+  {
+    method: "PUT",
+    url: `/projects/${what}/:id`,
+    // schema: validators.updateOne,
+    handler: controller.updateOne,
+  },
+  {
+    method: "POST",
+    url: `/projects/${what}`,
+    // schema: validators.addOne,
+    handler: controller.addOne
   },
 ];
 

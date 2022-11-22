@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
-import { deliverablesBreakdownEditFields, deliverablesBreakdownReadFields } from "./fields";
 import { TableComplete } from "components/TableComplete";
+import { projectStatusReadFields, projectStatusEditFields } from "./fields";
 /**
  * The Amendments page
  *
@@ -19,17 +19,16 @@ export const Status: FC = (): JSX.Element => {
   const { projectId } = useParams();
   const roles = {
     get: "projects_read_all",
-    add: "project_lessons_add_one",
+    add: "project_add_one",
     update: "projects_update_one",
     delete: "projects_delete_one",
   };
 
   const url = {
     getAll: `projects/${projectId}/status`,
-    getOne: `projects/${projectId}/lessons-learned/{id}`,
-    updateOne: `projects/${projectId}/lessons-learned/{id}`,
-    addOne: `/lessons-learned`,
-    deleteOne: `lessons-learned/{id}`,
+    getOne: `projects/status/{id}`,
+    updateOne: `projects/status/{id}`,
+    addOne: `projects/status`,
   };
 
   const createFormInitialValues = {
@@ -46,15 +45,15 @@ export const Status: FC = (): JSX.Element => {
   };
 
   return (
-    <> 
+    <>
       <TableComplete
         itemName="Status Summary"
         tableName="project_status"
         columnWidths={columnWidths}
         url={url}
         createFormInitialValues={createFormInitialValues}
-        readFields={deliverablesBreakdownReadFields}
-        editFields={deliverablesBreakdownEditFields}
+        readFields={projectStatusReadFields}
+        editFields={projectStatusEditFields}
         roles={roles}
       />
     </>
