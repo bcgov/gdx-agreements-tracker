@@ -1,6 +1,6 @@
 const useController = require("./useController/index.js");
 const model = require("../models/project_status");
-const what = { single: "project_status", plural: "project_statuses" };
+const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
 
 controller.findAllByProject = async (request, reply) => {

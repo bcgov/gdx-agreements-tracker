@@ -37,6 +37,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @param {string}         capability The capability it requires to have access.
    */
   const userRequires = (request, what, capability) => {
+    console.log('capability', capability)
     request.capability = {
       requires: capability,
       what: what,

@@ -35,16 +35,12 @@ const findAll = (projectId) => {
         team_health: knex.raw(
           "( SELECT json_build_object('red', th.colour_red, 'green', th.colour_green, 'blue', th.colour_blue) )"
         ),
-      },
+      }
     )
     .join(`${projectPhaseTable} as pp`, "ps.project_phase_id", "pp.id")
     .join(`${contactTable} as c`, "ps.reported_by_contact_id", "c.id")
     .join(`${healthIndicatorTable} as ph`, "ps.health_id", "ph.id")
-    .leftJoin(
-      `${healthIndicatorTable} as sh`,
-      "ps.schedule_health_id",
-      "sh.id"
-    )
+    .leftJoin(`${healthIndicatorTable} as sh`, "ps.schedule_health_id", "sh.id")
     .leftJoin(`${healthIndicatorTable} as bh`, "ps.budget_health_id", "bh.id")
     .leftJoin(`${healthIndicatorTable} as th`, "ps.team_health_id", "th.id")
     .where("ps.project_id", projectId);
@@ -52,10 +48,22 @@ const findAll = (projectId) => {
 
 // Get specific one by id.
 const findById = (projectStatusId) => {
-  return knex(projectStatusTable).where("id", projectStatusId);
+  return knex(projectStatusTable).where("id", projectStatusId).first();
+};
+
+// Update one.
+const updateOne = (body, id) => {
+  return knex(projectStatusTable).where("id", id).update(body);
+};
+
+// Add one.
+const addOne = (newStatus) => {
+  return knex(projectStatusTable).insert(newStatus);
 };
 
 module.exports = {
   findAll,
   findById,
+  updateOne,
+  addOne
 };
