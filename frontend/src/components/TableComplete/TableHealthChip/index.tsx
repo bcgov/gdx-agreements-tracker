@@ -1,5 +1,4 @@
 import { Chip, styled } from "@mui/material";
-import React from "react";
 
 export const TableHealthChip = styled(Chip, {
   shouldForwardProp: (prop) => prop !== "colors",

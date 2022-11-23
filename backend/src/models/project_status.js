@@ -5,7 +5,6 @@ const projectStatusTable = `${dataBaseSchemas().data}.project_status`;
 const projectPhaseTable = `${dataBaseSchemas().data}.project_phase`;
 const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
-const { dateFormat } = require("../helpers/standards");
 
 // Get all.
 const findAll = (projectId) => {
@@ -48,7 +47,39 @@ const findAll = (projectId) => {
 
 // Get specific one by id.
 const findById = (projectStatusId) => {
-  return knex(projectStatusTable).where("id", projectStatusId).first();
+  return knex(`${projectStatusTable} as ps`)
+    .columns({
+      health_id: knex.raw("( SELECT json_build_object('value', ph.id, 'label', ph.health_name) )"),
+      budget_health_id: knex.raw(
+        "( SELECT json_build_object('value', bh.id, 'label', bh.health_name) )"
+      ),
+      schedule_health_id: knex.raw(
+        "( SELECT json_build_object('value', sh.id, 'label', sh.health_name) )"
+      ),
+      team_health_id: knex.raw(
+        "( SELECT json_build_object('value', th.id, 'label', th.health_name) )"
+      ),
+      project_phase_id: knex.raw(
+        "( SELECT json_build_object('value', pp.id, 'label', pp.phase_name) )"
+      ),
+      reported_by_contact_id: knex.raw(
+        "( SELECT json_build_object('value', c.id, 'label', c.last_name || ', ' || c.first_name) )"
+      ),
+      id: "ps.id",
+      status_date: "ps.status_date",
+      general_progress_comments: "ps.general_progress_comments",
+      issues_and_decisions: "ps.issues_and_decisions",
+      forecast_and_next_steps: "ps.forecast_and_next_steps",
+      identified_risk: "ps.identified_risk",
+    })
+    .join(`${projectPhaseTable} as pp`, "ps.project_phase_id", "pp.id")
+    .join(`${contactTable} as c`, "ps.reported_by_contact_id", "c.id")
+    .join(`${healthIndicatorTable} as ph`, "ps.health_id", "ph.id")
+    .leftJoin(`${healthIndicatorTable} as sh`, "ps.schedule_health_id", "sh.id")
+    .leftJoin(`${healthIndicatorTable} as bh`, "ps.budget_health_id", "bh.id")
+    .leftJoin(`${healthIndicatorTable} as th`, "ps.team_health_id", "th.id")
+    .where("ps.id", projectStatusId)
+    .first();
 };
 
 // Update one.
@@ -65,5 +96,5 @@ module.exports = {
   findAll,
   findById,
   updateOne,
-  addOne
+  addOne,
 };
