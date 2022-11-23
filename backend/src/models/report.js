@@ -377,11 +377,11 @@ const getQuarterlyFiscalSummaries = (projectId) => {
   return knex("data.fiscal_year as fy")
     .select({
       fiscal_year: "fiscal_year",
-      detail_client_total: knex.sum("detail_amount"),
-      q1_client_total: knex.sum("q1_amount"),
-      q2_client_total: knex.sum("q2_amount"),
-      q3_client_total: knex.sum("q3_amount"),
-      q4_client_total: knex.sum("q4_amount"),
+      detail_total: knex.sum("detail_amount"),
+      q1_total: knex.sum("q1_amount"),
+      q2_total: knex.sum("q2_amount"),
+      q3_total: knex.sum("q3_amount"),
+      q4_total: knex.sum("q4_amount"),
       client: "pb.client_coding_id",
     })
     .leftJoin("data.project_deliverable as pd", { "fy.id": "pd.fiscal" })
@@ -426,11 +426,11 @@ const getQuarterlyDeliverables = (projectId, fiscal_summary) => {
         .then((results) => {
           return {
             fiscal_year: fiscal_summary[fiscal].fiscal_year,
-            q1_client_total: fiscal_summary[fiscal].q1_client_total,
-            q2_client_total: fiscal_summary[fiscal].q2_client_total,
-            q3_client_total: fiscal_summary[fiscal].q3_client_total,
-            q4_client_total: fiscal_summary[fiscal].q4_client_total,
-            detail_client_total: fiscal_summary[fiscal].detail_client_total,
+            q1_client_total: fiscal_summary[fiscal].q1_total,
+            q2_client_total: fiscal_summary[fiscal].q2_total,
+            q3_client_total: fiscal_summary[fiscal].q3_total,
+            q4_client_total: fiscal_summary[fiscal].q4_total,
+            detail_client_total: fiscal_summary[fiscal].detail_total,
             details: results,
           };
         })
