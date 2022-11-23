@@ -1,5 +1,8 @@
 ## Developer Changelog
 
+### November 22, 2022 (DESCW-663) Project Status Section
+- Frontend Backend
+  - Added project Status Section
 ### November 22, 2022 (DESCW-658) Edit Cancel Button
 - Frontend
   - Added cancel button to EditForms so user can return to ReadForm without page refresh
