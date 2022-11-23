@@ -19,7 +19,7 @@ export const Status: FC = (): JSX.Element => {
   const { projectId } = useParams();
   const roles = {
     get: "projects_read_all",
-    add: "project_add_one",
+    add: "projects_add_one",
     update: "projects_update_one",
     delete: "projects_delete_one",
   };
@@ -32,10 +32,16 @@ export const Status: FC = (): JSX.Element => {
   };
 
   const createFormInitialValues = {
-    lesson_category_id: "",
-    lesson_sub_category: "",
-    lesson: "",
-    recommendations: "",
+    identified_risk: "",
+    forecast_and_next_steps: "",
+    issues_and_decisions: "",
+    general_progress_comments: "",
+    budget_health_id: "",
+    status_date: null,
+    schedule_health_id: "",
+    reported_by_contact_id: "",
+    health_id: "",
+    project_phase_id: "",
     project_id: projectId,
   };
 

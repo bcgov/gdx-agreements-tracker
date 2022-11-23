@@ -10,18 +10,18 @@ import { IEditField } from "types";
  */
 export const projectStatusReadFields = (reactQuery: UseQueryResult<FormikValues>) => {
   return [
-    { width: "half", title: "Phase", value: reactQuery?.data?.project_phase_id },
-    { width: "half", title: "Overall Project Health", value: reactQuery?.data?.health_id },
-    { width: "half", title: "Reported By", value: reactQuery?.data?.reported_by_contact_id },
-    { width: "half", title: "Schedule Health", value: reactQuery?.data?.schedule_health_id },
+    { width: "half", title: "Phase", value: reactQuery?.data?.project_phase_id.label },
+    { width: "half", title: "Overall Project Health", value: reactQuery?.data?.health_id.label },
+    { width: "half", title: "Reported By", value: reactQuery?.data?.reported_by_contact_id.label },
+    { width: "half", title: "Schedule Health", value: reactQuery?.data?.schedule_health_id.label },
     { width: "half", title: "Start Date", value: reactQuery?.data?.status_date },
-    { width: "half", title: "Budget Health", value: reactQuery?.data?.budget_health_id },
+    { width: "half", title: "Budget Health", value: reactQuery?.data?.budget_health_id.label },
     {
       width: "half",
       title: "General and progress comments this period",
       value: reactQuery?.data?.general_progress_comments,
     },
-    { width: "half", title: "Team Health", value: reactQuery?.data?.team_health_id },
+    { width: "half", title: "Team Health", value: reactQuery?.data?.team_health_id.label },
 
     {
       width: "half",
@@ -46,27 +46,31 @@ export const projectStatusReadFields = (reactQuery: UseQueryResult<FormikValues>
 export const projectStatusEditFields: IEditField[] = [
   {
     fieldName: "project_phase_id",
-    fieldType: "number",
+    fieldType: "select",
     fieldLabel: "Phase",
     width: "half",
+    pickerName: "project_phase_option",
   },
   {
     fieldName: "health_id",
-    fieldType: "number",
+    fieldType: "select",
     fieldLabel: "Overall Project Health",
     width: "half",
+    pickerName: "health_status_option",
   },
   {
     fieldName: "reported_by_contact_id",
-    fieldType: "number",
+    fieldType: "select",
     fieldLabel: "Reported By",
     width: "half",
+    pickerName: "contact_option",
   },
   {
     fieldName: "schedule_health_id",
-    fieldType: "number",
+    fieldType: "select",
     fieldLabel: "Schedule Health",
     width: "half",
+    pickerName: "health_status_option",
   },
   {
     fieldName: "status_date",
@@ -76,9 +80,10 @@ export const projectStatusEditFields: IEditField[] = [
   },
   {
     fieldName: "budget_health_id",
-    fieldType: "number",
+    fieldType: "select",
     fieldLabel: "Budget Health",
     width: "half",
+    pickerName: "health_status_option",
   },
   {
     fieldName: "general_progress_comments",
@@ -88,9 +93,10 @@ export const projectStatusEditFields: IEditField[] = [
   },
   {
     fieldName: "team_health_id",
-    fieldType: "number",
+    fieldType: "select",
     fieldLabel: "Team Health",
     width: "half",
+    pickerName: "health_status_option",
   },
   {
     fieldName: "issues_and_decisions",

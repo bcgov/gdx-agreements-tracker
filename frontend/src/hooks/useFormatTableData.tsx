@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { ITableData } from "../types";
-import { Button, Chip, IconButton, styled } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import React from "react";
@@ -63,13 +63,13 @@ export const formatTableColumns = (
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
         flex: columnFlex,
         id: index,
-        renderCell: (cellValues: { id: number }) => {
+        renderCell: (params: { value: { red: number; green: number; blue: number } }) => {
           if (
-            value[1]?.red !== undefined &&
-            value[1]?.green !== undefined &&
-            value[1]?.blue !== undefined
+            params.value.red !== undefined &&
+            params.value.green !== undefined &&
+            params.value.blue !== undefined
           ) {
-            return <TableHealthChip variant="outlined" colors={value[1]} />;
+            return <TableHealthChip variant="outlined" colors={params.value} />;
           }
         },
       });

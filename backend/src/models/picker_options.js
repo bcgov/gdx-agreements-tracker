@@ -238,6 +238,26 @@ const tableLookupValues = (projectId, contractId) => {
       label: `co_number`,
       queryAdditions: ``,
     },
+    {
+      id: "health",
+      name: "health_status_option",
+      title: "Health Status",
+      description: "the Health Status",
+      table: "data.health_indicator",
+      value: "id",
+      label: "health_name",
+      queryAdditions: ``,
+    },
+    {
+      id: "projectphase",
+      name: "project_phase_option",
+      title: "Project Phase",
+      description: "the project phase",
+      table: "data.project_phase",
+      value: "id",
+      label: "phase_name",
+      queryAdditions: `ORDER BY sort_order ASC`,
+    },
   ];
 };
 

@@ -156,7 +156,6 @@ export const TableComplete = ({
       staleTime: Infinity,
     }
   );
-console.log('reactQuery', reactQuery)
   /**
    * Handle row click event from DataGrid.
    *
