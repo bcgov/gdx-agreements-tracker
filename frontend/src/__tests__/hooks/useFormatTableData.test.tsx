@@ -15,20 +15,21 @@ describe("Testing useFormatTableData Hook", () => {
           rows: [{ field: "id", flex: 1, headerName: "Id", id: 3 }],
           // an array that contains,
           columns: expect.arrayContaining([
-            {
+            // an Object that contains,
+            expect.objectContaining({
               field: "field",
               flex: 1,
               headerName: "Field",
               id: 0,
               hide: false,
-            },
-            {
-              field: "flex",
+            }),
+            expect.objectContaining({
+              field: "id",
               flex: 1,
-              headerName: "Flex",
-              id: 1,
-              hide: false,
-            },
+              headerName: "Id",
+              id: 3,
+              hide: true,
+            }),
           ]),
         })
       );

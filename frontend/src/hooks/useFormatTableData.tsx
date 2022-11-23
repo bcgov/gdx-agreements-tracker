@@ -54,7 +54,8 @@ export const formatTableColumns = (
       if (columnWidths && columnWidths[value[0]]) {
         columnFlex = columnWidths[value[0]];
       }
-      formattedColumns.push({
+
+      const fColumn = {
         hide: "id" === value[0] && true,
         field: value[0],
         headerName: value[0]
@@ -72,7 +73,9 @@ export const formatTableColumns = (
             return <TableHealthChip variant="outlined" colors={params.value} />;
           }
         },
-      });
+      };
+
+      formattedColumns.push(fColumn);
     });
 
     resolve({ columns: formattedColumns, rows: tableData.data.data, user: tableData.data?.user });
