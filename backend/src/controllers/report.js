@@ -10,8 +10,6 @@ const path = require("path");
 
 const cdogs = useCommonComponents("cdogs");
 const pdfConfig = { responseType: "arraybuffer" };
-/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-//fixme: make all parameters use snake_case
 
 /**
  * Reads a file and encodes it to the specified format
@@ -76,11 +74,11 @@ controller.getProjectBudgetReportOnRequest = async (request, reply) => {
       project: await projectModel.findById(projectId),
       budget: await model.getProjectBudget(projectId),
       status: await projectModel.findMostRecentStatusById(projectId),
-      deliverableSummaries: await model.getDeliverableSummaries(projectId),
-      changeRequest: await model.getChangeRequests(projectId),
+      deliverable_summaries: await model.getDeliverableSummaries(projectId),
+      change_request: await model.getChangeRequests(projectId),
       contracts: await model.getContracts(projectId),
-      contractSummaries: await model.getContractSummary(projectId),
-      reportDate: reportDate.toLocaleDateString("en-US", {
+      contract_summaries: await model.getContractSummary(projectId),
+      report_date: reportDate.toLocaleDateString("en-US", {
         day: "numeric",
         month: "numeric",
         year: "numeric",
@@ -229,7 +227,7 @@ controller.getProjectStatusSummaryReportOnRequest = async (request, reply) => {
       alignment: await model.getStrategicAlignment(projectId),
       statuses: await model.getProjectStatuses(projectId),
       lessons: await model.getLessonsLearned(projectId),
-      reportDate: reportDate,
+      report_date: reportDate,
     };
     const body = await getDocumentApiBody(result, "P_StatusSummary_template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
@@ -267,7 +265,7 @@ controller.getProjectQuarterlyBillingReportOnRequest = async (request, reply) =>
       jv: await model.getJournalVoucher(projectId, fiscal, quarter),
       client: await model.getClientCoding(projectId),
       quarter: "Q" + quarter,
-      reportDate: reportDate,
+      report_date: reportDate,
     };
     // Calculate grand total from each deliverable amount.
     result.deliverables_total = result.deliverables.reduce((acc, d) => acc + d.amount, 0);
