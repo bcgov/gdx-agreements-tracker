@@ -391,7 +391,7 @@ const getQuarterlyFiscalSummaries = (projectId) => {
     .orderBy("fy.fiscal_year", "pb.client_coding_id");
 };
 
-// Get the breakdown for deliverables for a specific project by id
+// Get the breakdown for deliverables for a specific project by id and fiscal_summary
 const getQuarterlyDeliverables = (projectId, fiscal_summary) => {
   let data = [];
   for (let fiscal in fiscal_summary) {
