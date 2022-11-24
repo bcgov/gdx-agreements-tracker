@@ -4,14 +4,14 @@ const serverConfig = require("../../src/facilities/fastify.js");
 jest.mock("../../src/facilities/keycloak.js");
 
 // Mock log functions, otherwise tests fail.
-jest.mock("../../src/facilities/logging.js", () => () => {
-  return {
-    info: jest.fn(),
-    error: jest.fn(),
-    warn: jest.fn(),
-    debug: jest.fn(),
-  };
-});
+// jest.mock("../../src/facilities/logging.js", () => () => {
+//   return {
+//     info: jest.fn(),
+//     error: jest.fn(),
+//     warn: jest.fn(),
+//     debug: jest.fn(),
+//   };
+// });
 
 let testRequester;
 
