@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### November 22, 2022 (DESCW-726) Quarterly Review Report
+- Backend
+  - Added controller function, model functions, routes for Project Quarterly Review Report
+
 ### November 22, 2022 (DESCW-663) Project Status Section
 - Frontend Backend
   - Added project Status Section

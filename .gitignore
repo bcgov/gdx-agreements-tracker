@@ -54,3 +54,6 @@ backend/yarn.lock
 
 #postgres query file for local queries using VScode PostgreSQL extension
 backend/temp.postgres
+
+# backups of open documents
+backend/reports/~*

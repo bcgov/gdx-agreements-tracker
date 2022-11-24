@@ -74,11 +74,11 @@ controller.getProjectBudgetReportOnRequest = async (request, reply) => {
       project: await projectModel.findById(projectId),
       budget: await model.getProjectBudget(projectId),
       status: await projectModel.findMostRecentStatusById(projectId),
-      deliverableSummaries: await model.getDeliverableSummaries(projectId),
-      changeRequest: await model.getChangeRequests(projectId),
+      deliverable_summaries: await model.getDeliverableSummaries(projectId),
+      change_request: await model.getChangeRequests(projectId),
       contracts: await model.getContracts(projectId),
-      contractSummaries: await model.getContractSummary(projectId),
-      reportDate: reportDate.toLocaleDateString("en-US", {
+      contract_summaries: await model.getContractSummary(projectId),
+      report_date: reportDate.toLocaleDateString("en-US", {
         day: "numeric",
         month: "numeric",
         year: "numeric",
@@ -121,6 +121,45 @@ controller.getProjectQuarterlyReport = async (request, reply) => {
   } catch (err) {
     reply.code(500);
     return { message: `There was a problem looking up this Project Quarterly Report.` };
+  }
+};
+
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.getProjectQuarterlyReviewReportOnRequest = async (request, reply) => {
+  controller.userRequires(request, what, "reports_read_all");
+  try {
+    const projectId = Number(request.params.id);
+    const reportDate = new Date();
+    const fiscal_breakdown = await model.getQuarterlyFiscalSummaries(projectId);
+    // Get the data from the database.
+    const result = {
+      project: await projectModel.findById(projectId),
+      deliverables: await model.getQuarterlyDeliverables(projectId, fiscal_breakdown),
+      report_date: reportDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+      }),
+    };
+    const body = await getDocumentApiBody(result, "P_Quarterly_Review_Template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // Injects the pdf data into the request object.
+    request.data = pdf;
+    if (!result) {
+      reply.code(404);
+      return { message: `The ${what.single} with the specified id does not exist.` };
+    } else {
+      return result;
+    }
+  } catch (err) {
+    reply.code(500);
+    return { message: `There was a problem looking up this Project Status Report.` };
   }
 };
 
@@ -188,7 +227,7 @@ controller.getProjectStatusSummaryReportOnRequest = async (request, reply) => {
       alignment: await model.getStrategicAlignment(projectId),
       statuses: await model.getProjectStatuses(projectId),
       lessons: await model.getLessonsLearned(projectId),
-      reportDate: reportDate,
+      report_date: reportDate,
     };
     const body = await getDocumentApiBody(result, "P_StatusSummary_template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
@@ -226,7 +265,7 @@ controller.getProjectQuarterlyBillingReportOnRequest = async (request, reply) =>
       jv: await model.getJournalVoucher(projectId, fiscal, quarter),
       client: await model.getClientCoding(projectId),
       quarter: "Q" + quarter,
-      reportDate: reportDate,
+      report_date: reportDate,
     };
     // Calculate grand total from each deliverable amount.
     result.deliverables_total = result.deliverables.reduce((acc, d) => acc + d.amount, 0);

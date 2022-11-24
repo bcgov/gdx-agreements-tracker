@@ -48,6 +48,7 @@ const findById = (id) => {
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
       { portfolio: "p.portfolio_id" },
       { ministry: "p.ministry_id" },
+      { start_date: knex.raw(`TO_CHAR(p.agreement_start_date :: DATE, '${dateFormat}')`) },
       { registration_date: knex.raw(`TO_CHAR(p.initiation_date :: DATE, '${dateFormat}')`) },
       { end_date: knex.raw(`TO_CHAR(p.agreement_end_date :: DATE, '${dateFormat}')`) },
       knex.raw("planned_budget::numeric::float8"),
