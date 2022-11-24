@@ -1,7 +1,5 @@
 const controller = require("../controllers/projects");
-const projectContactsController = require("../controllers/projects/contacts");
 const validators = require("../validators/projects");
-const projectContactsValidators = require("../validators/projects/contacts");
 const what = "projects";
 
 const routes = [
