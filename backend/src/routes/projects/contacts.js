@@ -7,21 +7,15 @@ const what = "projects";
 const routes = [
   {
     method: "GET",
-    url: `/${what}`,
-    schema: validators.getAll,
-    handler: controller.getAll,
-  },
-  {
-    method: "GET",
-    url: `/${what}/:id`,
-    schema: validators.getOne,
-    handler: controller.getOneWithContracts,
+    url: `/${what}/:id/contacts`,
+    schema: projectContactsValidators.getAll,
+    handler: projectContactsController.getAllByParentId,
   },
   {
     method: "PUT",
-    url: `/${what}/:id`,
-    schema: validators.updateOne,
-    handler: controller.updateOne,
+    url: `/${what}/:id/contacts`,
+    schema: projectContactsValidators.updateOne,
+    handler: projectContactsController.updateOne,
   },
 ];
 

@@ -7,21 +7,14 @@ const what = "projects";
 const routes = [
   {
     method: "GET",
-    url: `/${what}`,
-    schema: validators.getAll,
-    handler: controller.getAll,
+    url: `/${what}/:id/close-out`,
+    schema: validators.getOneCloseOut,
+    handler: controller.getCloseOut,
   },
   {
-    method: "GET",
-    url: `/${what}/:id`,
-    schema: validators.getOne,
-    handler: controller.getOneWithContracts,
-  },
-  {
-    method: "PUT",
-    url: `/${what}/:id`,
-    schema: validators.updateOne,
-    handler: controller.updateOne,
+    method: "POST",
+    url: `/${what}/:id/close-out/notify`,
+    handler: controller.notifyCloseOut,
   },
 ];
 
