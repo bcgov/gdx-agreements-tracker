@@ -7,21 +7,27 @@ const what = "projects";
 const routes = [
   {
     method: "GET",
-    url: `/${what}`,
-    schema: validators.getAll,
-    handler: controller.getAll,
+    url: `/${what}/:id/lessons-learned`,
+    schema: validators.getAllLessonsLearned,
+    handler: controller.getLessonsLearned,
   },
   {
     method: "GET",
-    url: `/${what}/:id`,
-    schema: validators.getOne,
-    handler: controller.getOneWithContracts,
+    url: `/${what}/:id/lessons-learned/:lessonsLearnedId`,
+    schema: validators.getLessonsLearnedById,
+    handler: controller.getLessonsLearnedById,
   },
   {
     method: "PUT",
-    url: `/${what}/:id`,
+    url: `/${what}/:id/lessons-learned/:lessonsLearnedId`,
     schema: validators.updateOne,
-    handler: controller.updateOne,
+    handler: controller.updateLessonsLearnedById,
+  },
+  {
+    method: "POST",
+    url: `/lessons-learned`,
+    schema: validators.addOne,
+    handler: controller.addLessonsLearned,
   },
 ];
 
