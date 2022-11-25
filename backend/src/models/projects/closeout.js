@@ -1,11 +1,11 @@
-const dbConnection = require("../../database/databaseConnection");
+const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
 
 const projectTable = `${dataBaseSchemas().data}.project`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
 
 // Get close out data by project id.
-const findCloseOutById = (id) => {
+const findById = (id) => {
   return knex(`${projectTable} as p`)
     .select(
       "p.id",
@@ -50,5 +50,5 @@ const findCloseOutById = (id) => {
 };
 
 module.exports = {
-  findCloseOutById,
+  findById,
 };

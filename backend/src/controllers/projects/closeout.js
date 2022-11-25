@@ -4,28 +4,6 @@ const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
 
 /**
- * Get a specific project's close out data.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
- */
-controller.getCloseOut = async (request, reply) => {
-  controller.userRequires(request, what, "projects_read_all");
-  let output;
-  const targetId = Number(request.params.id);
-  try {
-    const result = await model.findCloseOutById(targetId);
-    output = !result
-      ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-      : result;
-  } catch (err) {
-    output = controller.failedQuery(reply, err, what);
-  }
-  return output;
-};
-
-/**
  * Sends notification email when a project is closed out.
  *
  * @todo This should send email via CHES API. Also needs email content.

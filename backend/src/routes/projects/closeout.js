@@ -7,7 +7,7 @@ const routes = [
     method: "GET",
     url: `/${what}/:id/close-out`,
     schema: validators.getOneCloseOut,
-    handler: controller.getCloseOut,
+    handler: controller.getOne,
   },
   {
     method: "POST",

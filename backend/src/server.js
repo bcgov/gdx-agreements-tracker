@@ -1,5 +1,5 @@
 require("dotenv").config({ path: ".env" });
-require('module-alias/register');
+require("module-alias/register");
 const log = require("./facilities/logging.js")(module.filename);
 const fastifyInstance = require("./facilities/fastify");
 const port = process.env.SERVER_PORT || 8080;
