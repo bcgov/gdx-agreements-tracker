@@ -12,7 +12,7 @@ const controller = useController(model, what);
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
-controller.notifyCloseOut = async (request, reply) => {
+controller.notify = async (request, reply) => {
   controller.userRequires(request, what, "projects_read_all");
   let output;
   // const targetId = Number(request.params.projectId);

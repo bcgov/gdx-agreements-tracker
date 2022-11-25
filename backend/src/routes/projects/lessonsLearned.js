@@ -1,18 +1,19 @@
 const controller = require("@controllers/projects/lessonsLearned");
-const validators = require("@validators/projects");
+const validators = require("@validators/projects/lessonsLearned");
+
 const what = "projects";
 
 const routes = [
   {
     method: "GET",
     url: `/${what}/:id/lessons-learned`,
-    schema: validators.getAllLessonsLearned,
+    schema: validators.getAll,
     handler: controller.getAllByParentId,
   },
   {
     method: "GET",
     url: `/${what}/:projectId/lessons-learned/:id`,
-    schema: validators.getLessonsLearnedById,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {

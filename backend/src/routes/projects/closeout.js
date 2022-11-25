@@ -1,18 +1,18 @@
-const controller = require("../../controllers/projects/closeout.js");
-const validators = require("../../validators/projects");
+const controller = require("@controllers/projects/closeout");
+const validators = require("@validators/projects/closeout");
 const what = "projects";
 
 const routes = [
   {
     method: "GET",
     url: `/${what}/:id/close-out`,
-    schema: validators.getOneCloseOut,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
     method: "POST",
     url: `/${what}/:id/close-out/notify`,
-    handler: controller.notifyCloseOut,
+    handler: controller.notify,
   },
 ];
 
