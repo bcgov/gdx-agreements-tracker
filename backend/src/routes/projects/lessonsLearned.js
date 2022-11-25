@@ -7,25 +7,25 @@ const routes = [
     method: "GET",
     url: `/${what}/:id/lessons-learned`,
     schema: validators.getAllLessonsLearned,
-    handler: controller.getLessonsLearned,
+    handler: controller.getAllByParentId,
   },
   {
     method: "GET",
-    url: `/${what}/:id/lessons-learned/:lessonsLearnedId`,
+    url: `/${what}/:projectId/lessons-learned/:id`,
     schema: validators.getLessonsLearnedById,
-    handler: controller.getLessonsLearnedById,
+    handler: controller.getOne,
   },
   {
     method: "PUT",
-    url: `/${what}/:id/lessons-learned/:lessonsLearnedId`,
+    url: `/${what}/:projectId/lessons-learned/:id`,
     schema: validators.updateOne,
-    handler: controller.updateLessonsLearnedById,
+    handler: controller.updateOne,
   },
   {
     method: "POST",
     url: `/lessons-learned`,
     schema: validators.addOne,
-    handler: controller.addLessonsLearned,
+    handler: controller.addOne,
   },
 ];
 

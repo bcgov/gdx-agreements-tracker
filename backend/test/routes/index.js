@@ -1,17 +1,17 @@
-const authHelper = require("../../src/facilities/keycloak.js");
-const serverConfig = require("../../src/facilities/fastify.js");
+const authHelper = require("@facilities/keycloak.js");
+const serverConfig = require("@facilities/fastify.js");
 
-jest.mock("../../src/facilities/keycloak.js");
+jest.mock("@facilities/keycloak.js");
 
 // Mock log functions, otherwise tests fail.
-// jest.mock("../../src/facilities/logging.js", () => () => {
-//   return {
-//     info: jest.fn(),
-//     error: jest.fn(),
-//     warn: jest.fn(),
-//     debug: jest.fn(),
-//   };
-// });
+jest.mock("@facilities/logging.js", () => () => {
+  return {
+    info: jest.fn(),
+    error: jest.fn(),
+    warn: jest.fn(),
+    debug: jest.fn(),
+  };
+});
 
 let testRequester;
 
@@ -41,6 +41,7 @@ const requester = (app, authHelper) => {
         modelFunction[i].mockResolvedValue(returnData);
       }
       authHelper.getUserInfo.mockReturnValue({ capabilities: capabilities });
+
       return await app.inject(request);
     },
     /**

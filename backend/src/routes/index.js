@@ -14,12 +14,12 @@ const getFileList = (dirName) => {
     } else {
       let routeFile = `${dirName}/${item.name}`;
       routeFile = routeFile.replace("src/routes/", "");
-      if ("index.js" !== routeFile) {
-        exports[routeFile.replace(".js", "").replace("/", "-")] = require("./" + routeFile);
+      if ("/index.js" !== routeFile) {
+        exports[routeFile.replace(".js", "")] = require("./" + routeFile);
       }
     }
   }
   return files;
 };
 
-getFileList();
+getFileList("src/routes/");

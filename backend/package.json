@@ -26,7 +26,8 @@
     "@controllers": "./src/controllers",
     "@routes": "./src/routes",
     "@validators": "./src/validators",
-    "@database": "./src/database"
+    "@database": "./src/database",
+    "@facilities": "./src/facilities"
   },
   "author": "Shawn Turple",
   "license": "Apache-2.0",

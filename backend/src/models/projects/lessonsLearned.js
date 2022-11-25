@@ -6,7 +6,7 @@ const lessonsLearned = `${dataBaseSchemas().data}.project_lesson`;
 const lessonCategory = `${dataBaseSchemas().data}.lesson_category`;
 
 // Get all lesson learned for specific project id.
-const findProjectLessonsLearned = (id) => {
+const findAllById = (id) => {
   return knex(`${lessonsLearned} as pl`)
     .columns(
       { category: "lc.lesson_category_name" },
@@ -26,7 +26,7 @@ const findProjectLessonsLearned = (id) => {
 };
 
 // Get all lesson learned for specific project id.
-const findLessonsLearnedById = (lessonsLearnedId) => {
+const findById = (lessonsLearnedId) => {
   return knex
     .select(
       knex.raw(`(
@@ -48,18 +48,18 @@ const findLessonsLearnedById = (lessonsLearnedId) => {
 };
 
 // Update one.
-const updateOneProjectLessonsLearned = (body, lessonsLearnedId) => {
+const updateOne = (body, lessonsLearnedId) => {
   return knex(lessonsLearned).where("id", lessonsLearnedId).update(body);
 };
 
 // Add one.
-const addOneProjectLessonsLearned = (data) => {
+const addOne = (data) => {
   return knex(lessonsLearned).insert(data);
 };
 
 module.exports = {
-  findProjectLessonsLearned,
-  findLessonsLearnedById,
-  updateOneProjectLessonsLearned,
-  addOneProjectLessonsLearned,
+  findAllById,
+  findById,
+  updateOne,
+  addOne,
 };
