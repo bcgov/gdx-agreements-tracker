@@ -1,4 +1,5 @@
-const { Schema, getResponse, getUpdateResponse } = require("./common_schema.js");
+
+const { Schema, getResponse, getUpdateResponse } = require("../common_schema.js");
 const S = require("fluent-json-schema");
 
 const yesNoEnum = ["Yes", "No", "N/A", null];
