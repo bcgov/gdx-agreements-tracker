@@ -21,6 +21,13 @@
   "engines": {
     "node": "^16.16"
   },
+  "_moduleAliases": {
+    "@models": "./src/models",
+    "@controllers": "./src/controllers",
+    "@routes": "./src/routes",
+    "@validators": "./src/validators",
+    "@database": "./src/database"
+  },
   "author": "Shawn Turple",
   "license": "Apache-2.0",
   "dependencies": {
@@ -36,6 +43,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwks-client": "^1.4.0",
     "knex": "^2.0.3",
+    "module-alias": "^2.2.2",
     "n-readlines": "^1.0.1",
     "pg": "^8.7.1",
     "pino": "^7.6.0",
