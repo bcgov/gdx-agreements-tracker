@@ -4,6 +4,7 @@
   - Reorganized backend for projects (Run npm i to install new dependencies)
   - Reorganized backend for reports
   - Reorganized backend for amendments
+  - Reorganized backend for change_requests
 ### November 22, 2022 (DESCW-726) Quarterly Review Report
 - Backend
   - Added controller function, model functions, routes for Project Quarterly Review Report
