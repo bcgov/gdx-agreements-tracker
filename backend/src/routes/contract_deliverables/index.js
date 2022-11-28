@@ -1,4 +1,4 @@
-const controller = require("../controllers/contract_deliverables");
+const controller = require("@controllers/contract_deliverables");
 // const validators = require("../validators/contract_deliverables");//TODO Coming in next PR
 const what = "deliverables";
 
