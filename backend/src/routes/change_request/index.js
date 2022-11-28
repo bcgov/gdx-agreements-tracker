@@ -1,5 +1,5 @@
-const controller = require("../controllers/change_request");
-const validators = require("../validators/change_request");
+const controller = require("@controllers/change_request");
+const validators = require("@validators/change_request");
 const what = "change_request";
 
 const routes = [
