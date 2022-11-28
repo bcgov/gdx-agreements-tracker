@@ -1,5 +1,5 @@
-const dbConnection = require("../database/databaseConnection");
-const { dateFormat } = require("../helpers/standards");
+const dbConnection = require("@database/databaseConnection");
+const { dateFormat } = require("../../helpers/standards");
 const { knex, dataBaseSchemas } = dbConnection();
 
 // Relevant database tables

@@ -1,7 +1,7 @@
-const useController = require("./useController/index.js");
-const useCommonComponents = require("./useCommonComponents/index.js");
-const model = require("../models/report");
-const projectModel = require("../models/projects");
+const useController = require("../useController/index");
+const useCommonComponents = require("../useCommonComponents/index");
+const model = require("@models/reports/index");
+const projectModel = require("@models/projects");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
 // Template and data reading
