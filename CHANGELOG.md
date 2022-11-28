@@ -6,6 +6,7 @@
   - Reorganized backend for amendments
   - Reorganized backend for change_requests
   - Reorganized backend for client_coding
+  - Reorganized backend for contacts
 ### November 22, 2022 (DESCW-726) Quarterly Review Report
 - Backend
   - Added controller function, model functions, routes for Project Quarterly Review Report
