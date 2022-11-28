@@ -1,7 +1,7 @@
 ## Developer Changelog
 ### November 25, 2022 (DESCW-708) Projects Backend Reorg
 - Backend
-  - Reorganized backend for projects 
+  - Reorganized backend for projects (Run npm i to install new dependencies)
 ### November 22, 2022 (DESCW-726) Quarterly Review Report
 - Backend
   - Added controller function, model functions, routes for Project Quarterly Review Report
