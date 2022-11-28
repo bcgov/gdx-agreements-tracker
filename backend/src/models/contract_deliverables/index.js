@@ -1,4 +1,4 @@
-const dbConnection = require("../database/databaseConnection");
+const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
 
 const table = `${dataBaseSchemas().data}.contract_deliverable`;

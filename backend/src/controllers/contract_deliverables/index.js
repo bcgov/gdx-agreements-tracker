@@ -1,5 +1,5 @@
-const useController = require("./useController/index.js");
-const model = require("../models/contract_deliverables");
+const useController = require("../useController/index.js");
+const model = require("@models/contract_deliverables");
 const what = { single: "form_layout", plural: "contract_deliverables" };
 const controller = useController(model, what, "contracts");
 
