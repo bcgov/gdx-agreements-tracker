@@ -1,7 +1,7 @@
-const model = require("../../src/models/report.js");
-const { testRoutes, routeTypes } = require("./index.js");
+const model = require("@models/reports/index");
+const { testRoutes, routeTypes } = require("../index.js");
 
-jest.mock("../../src/models/report.js");
+jest.mock("@models/reports/index");
 
 const capability = ["reports_read_all"];
 
