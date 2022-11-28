@@ -1,5 +1,5 @@
-const { getAll, getOne, updateOne, addOne } = require("../../src/controllers/contacts");
-const contactsModel = require("../../src/models/contacts.js");
+const { getAll, getOne, updateOne, addOne } = require("@controllers/contacts");
+const contactsModel = require("@models/contacts.js");
 
 const contacts = [
   {
@@ -45,7 +45,7 @@ const contacts = [
 ];
 
 // Mock user DB methods.
-jest.mock("../../src/models/contacts");
+jest.mock("@models/contacts");
 
 describe("Testing user controllers", () => {
   it("Gets an array of all contacts", async () => {

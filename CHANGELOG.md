@@ -1,5 +1,7 @@
 ## Developer Changelog
+
 ### November 25, 2022 (DESCW-708) Projects Backend Reorg
+
 - Backend
   - Reorganized backend for projects (Run npm i to install new dependencies)
   - Reorganized backend for reports
@@ -8,36 +10,45 @@
   - Reorganized backend for client_coding
 
 ### November 22, 2022 (DESCW-726) Quarterly Review Report
+
 - Backend
   - Added controller function, model functions, routes for Project Quarterly Review Report
 
 ### November 22, 2022 (DESCW-663) Project Status Section
+
 - Frontend Backend
   - Added project Status Section
+
 ### November 22, 2022 (DESCW-658) Edit Cancel Button
+
 - Frontend
   - Added cancel button to EditForms so user can return to ReadForm without page refresh
 
 ### November 18, 2022 (DESCW-725) Budget Summary Report
+
 - Backend
   - Added controller, model and routes for Budget Summary Report
   - Changed report routes to use a common handler: getReport
   - Changed project status most recent and budget summary report to match new standard
 
 ### November 18, 2022 (DESCW-29) Contracts List Filters
+
 - Frontend
   - Added initial filter state contracts list
   - Fixed bug in GDXModal causing close button not to close modal
 
 ### November 16, 2022 (DESCW-727) Project Quarterly Billing Request Report
+
 - Backend
   - Added controller function, model functions, routes for Project Quarterly Billing Request Report
 
 ### November 10, 2022 (DESCW-720) Project Status Summary Report
+
 - Backend
   - Added controller function, model functions, routes for Project Status Summary Report
 
 ### November 7, 2022 (DESCW-40) Projects List Filter
+
 - Frontend
   - Committed package-lock file!
     - If frontend unit tests are failing you may need to run `npm ci`
@@ -45,6 +56,7 @@
   - Added initialState prop to Table component to allow setting default filter values (projects status filter defaults to "active")
 
 ### November 2, 2022 (DESCW-633) Project Status Report
+
 - Backend
   - Updated report routes
   - Created Template and updated the cdogs API query for Project Status (Most Recent)
