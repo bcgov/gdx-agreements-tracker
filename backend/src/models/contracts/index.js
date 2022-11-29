@@ -1,7 +1,7 @@
-const dbConnection = require("../database/databaseConnection");
-const useModel = require("./useModel");
+const dbConnection = require("@database/databaseConnection");
+const useModel = require("../useModel");
 const { knex, dataBaseSchemas } = dbConnection();
-const { dateFormat } = require("../helpers/standards");
+const { dateFormat } = require("../../helpers/standards");
 const { diffInsert } = useModel();
 
 const contractsTable = `${dataBaseSchemas().data}.contract`;

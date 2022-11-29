@@ -1,6 +1,6 @@
 const useController = require("@controllers/useController");
 const model = require("@models/projects");
-const contractsModel = require("@models/contracts.js");
+const contractsModel = require("@models/contracts/index");
 const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
 
