@@ -1,9 +1,9 @@
-const model = require("../../src/models/contracts.js");
-const subcontractorModel = require("../../src/models/subcontractors");
-const { testRoutes, routeTypes } = require("./index.js");
+const model = require("@models/contracts/index");
+const subcontractorModel = require("@models/subcontractors");
+const { testRoutes, routeTypes } = require("../index.js");
 
-jest.mock("../../src/models/contracts.js");
-jest.mock("../../src/models/subcontractors.js");
+jest.mock("@models/contracts/index");
+jest.mock("@models/subcontractors.js");
 
 const capability = ["contracts_read_all"];
 

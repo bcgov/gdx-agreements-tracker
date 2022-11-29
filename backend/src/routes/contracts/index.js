@@ -1,5 +1,5 @@
-const controller = require("../controllers/contracts");
-const validators = require("../validators/contracts");
+const controller = require("@controllers/contracts");
+const validators = require("@validators/contracts");
 const what = "contracts";
 
 const routes = [
