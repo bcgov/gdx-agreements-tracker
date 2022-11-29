@@ -1,4 +1,4 @@
-const useCommonComponents = require("./useCommonComponents/index.js");
+const useCommonComponents = require("../useCommonComponents/index.js");
 /**
  * Get health of CHES
  *
