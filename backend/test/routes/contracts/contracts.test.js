@@ -3,7 +3,7 @@ const subcontractorModel = require("@models/subcontractors");
 const { testRoutes, routeTypes } = require("../index.js");
 
 jest.mock("@models/contracts/index");
-jest.mock("@models/subcontractors.js");
+jest.mock("@models/subcontractors");
 
 const capability = ["contracts_read_all"];
 
