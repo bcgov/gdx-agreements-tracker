@@ -1,4 +1,4 @@
-const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("../common_schema.js");
+const { Schema, getResponse, getAddResponse, getUpdateResponse } = require("../common_schema");
 const S = require("fluent-json-schema");
 
 const body = S.object()

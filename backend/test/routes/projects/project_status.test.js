@@ -1,7 +1,7 @@
-const model = require("@models/project_status");
+const model = require("@models/projects/project_status");
 const { testRoutes, routeTypes } = require("../index.js");
 
-jest.mock("@models/project_status");
+jest.mock("@models/projects/project_status");
 
 testRoutes([
   {
