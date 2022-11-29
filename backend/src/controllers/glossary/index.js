@@ -1,4 +1,4 @@
-const useController = require("./useController/index.js");
+const useController = require("../useController/index.js");
 const what = { single: "glossary", plural: "glossary" };
 const controller = useController(null, what);
 const path = require("path");
