@@ -1,7 +1,7 @@
-const authHelper = require("../../src/facilities/keycloak.js");
-const serverConfig = require("../../src/facilities/fastify.js");
+const authHelper = require("@facilities/keycloak.js");
+const serverConfig = require("@facilities/fastify.js");
 
-jest.mock("../../src/facilities/keycloak.js");
+jest.mock("@facilities/keycloak.js");
 
 // Mock markdown plugin so we can mock the reply.markdown() return value.
 jest.mock("fastify-markdown", () => async () => {
@@ -9,7 +9,7 @@ jest.mock("fastify-markdown", () => async () => {
 });
 
 // Mock log functions, otherwise tests fail.
-jest.mock("../../src/facilities/logging.js", () => () => {
+jest.mock("@facilities/logging.js", () => () => {
   return {
     info: jest.fn(),
     error: jest.fn(),
