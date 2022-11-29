@@ -1,5 +1,5 @@
-const controller = require("../controllers/form_layouts");
-const validators = require("../validators/form_layouts");
+const controller = require("@controllers/form_layouts");
+const validators = require("@validators/form_layouts");
 const what = "form_layouts";
 
 const routes = [
