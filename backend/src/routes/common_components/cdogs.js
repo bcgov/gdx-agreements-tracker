@@ -1,4 +1,4 @@
-const controller = require("../controllers/cdogs");
+const controller = require("@controllers/common_components/cdogs");
 // const validators = require("../validators/journal_voucher");
 
 const routes = [

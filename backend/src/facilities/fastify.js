@@ -1,5 +1,5 @@
 require("dotenv").config({ path: "../.env" });
-const allRoutes = require("../routes/index.js");
+const allRoutes = require("@routes/index.js");
 const {
   getBearerTokenFromRequest,
   verifyToken,
