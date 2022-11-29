@@ -1,7 +1,7 @@
-const model = require("../../src/models/form_layouts.js");
-const { testRoutes, routeTypes } = require("./index.js");
+const model = require("@models/form_layouts/index");
+const { testRoutes, routeTypes } = require("../index.js");
 
-jest.mock("../../src/models/form_layouts.js");
+jest.mock("@models/form_layouts/index");
 
 const capability = ["general_read_all"];
 
