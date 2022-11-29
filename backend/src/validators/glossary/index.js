@@ -1,4 +1,4 @@
-const { getResponse } = require("./common_schema.js");
+const { getResponse } = require("../common_schema");
 
 const getAll = {
   response: getResponse(),

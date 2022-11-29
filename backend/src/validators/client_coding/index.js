@@ -4,7 +4,7 @@ const {
   getUpdateResponse,
   getAddResponse,
   getDeleteResponse,
-} = require("../common_schema.js");
+} = require("../common_schema");
 const S = require("fluent-json-schema");
 
 const getAll = {
