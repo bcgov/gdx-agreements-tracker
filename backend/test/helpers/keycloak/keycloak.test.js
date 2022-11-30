@@ -8,13 +8,13 @@ const {
   verifyUserExists,
   getUserInfo,
 } = require("@facilities/keycloak");
-const userModel = require("@models/users");
+const userModel = require("@models/admin/users");
 let app;
 let exampleToken;
 let request;
 
 // Mock user DB methods.
-jest.mock("@models/users");
+jest.mock("@models/admin/users");
 
 describe("Unauthorized routes.", () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 const jwksClient = require("jwks-client");
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/users");
-const capabilityModel = require("../models/capabilities");
+const userModel = require("@models/admin/users");
+const capabilityModel = require("@models/capabilities");
 
 /**
  * Parse the request header for the authorization token.
