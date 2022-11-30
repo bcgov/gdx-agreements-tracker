@@ -1,9 +1,9 @@
 const model = require("@models/projects");
-const contractsModel = require("@models/contracts/index");
+const contractsModel = require("@models/contracts");
 const { testRoutes, routeTypes } = require("../index.js");
 
 jest.mock("@facilities/keycloak.js");
-jest.mock("@models/contracts/index");
+jest.mock("@models/contracts");
 jest.mock("@models/projects");
 
 testRoutes([
