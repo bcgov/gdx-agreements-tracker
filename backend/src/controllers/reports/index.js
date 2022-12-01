@@ -301,10 +301,11 @@ controller.getProjectDashboardReportOnRequest = async (request, reply) => {
       dashboard: await model.getDashboardByPortfolios(portfolios),
       report_date: reportDate,
     };
-    //const body = await getDocumentApiBody(result, "");
-    //const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-    //request.data = pdf;
     result.dashboard = groupByPortfolio(result.dashboard);
+    // todo: Uncomment when template document is created.
+    // const body = await getDocumentApiBody(result, "PA_StatusDashboard_template.docx");
+    // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // request.data = pdf;
     if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };

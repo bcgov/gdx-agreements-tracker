@@ -1,5 +1,13 @@
 ## Developer Changelog
 
+### December 1, 2022 (DESCW-732) Project Dashboard Report
+
+- Backend
+  - Created route, controller function, and model function for Project Status Dashboard report
+- Frontend
+  - Changed ReportSelect component to temporarily allow downloading reports as json.
+  - Fixed bug with multiselect input initial value.
+
 ### November 25, 2022 (DESCW-708) Projects Backend Reorg
 
 - Backend
