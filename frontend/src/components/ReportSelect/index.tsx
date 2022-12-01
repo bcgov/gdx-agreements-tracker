@@ -16,7 +16,9 @@ import { Formik, Form } from "formik";
 import axios from "axios";
 
 export const ReportSelect = () => {
-  const queryFields = ["fiscal", "quarter"];
+  const queryFields = ["fiscal", "quarter", "portfolio"];
+  // todo: These reports will download as a json file temporarily. Remove when templates are created.
+  const jsonReports = ["project-dashboard"];
   // Handle state changes
   const [category, setCategory] = useState<string>();
   const [reportParamCategory, setReportParamCategory] = useState<string[] | null>(null);
@@ -80,7 +82,7 @@ export const ReportSelect = () => {
             return (
               <FormInput
                 setFieldValue={setFieldValue}
-                fieldValue={values?.[fieldName] || ""}
+                fieldValue={values?.[fieldName] || ("multiselect" === fieldType ? [] : "")}
                 fieldName={fieldName}
                 fieldType={fieldType}
                 fieldLabel={fieldLabel}
@@ -110,15 +112,28 @@ export const ReportSelect = () => {
   }) => {
     const baseUri = `https://localhost:8080/report/projects`;
     const reportUri = `${values.report_type}`;
+    let url = "";
     // This will need to change as more report types are added
-    const url = `${baseUri}/${values.project.value}/${reportUri}`;
+    if (values.project) {
+      url = `${baseUri}/${values.project.value}/${reportUri}`;
+    } else {
+      url = `${baseUri}/${reportUri}`;
+    }
     // Build querystring params
     const querystringParams = new URLSearchParams();
     for (const field in values) {
       if (queryFields.includes(field)) {
-        querystringParams.append(field, values[field].value.toString());
+        if (values[field] instanceof Array) {
+          const options = values[field] as unknown as IOption[];
+          for (const value of options) {
+            querystringParams.append(field, value.value.toString());
+          }
+        } else {
+          querystringParams.append(field, values[field].value.toString());
+        }
       }
     }
+
     axios(url, {
       method: "GET",
       params: querystringParams,
@@ -133,7 +148,11 @@ export const ReportSelect = () => {
         const fileURL = window.URL.createObjectURL(response.data);
         const alink = document.createElement("a");
         alink.href = fileURL;
-        alink.download = `${values.report_type}.pdf`;
+        if (jsonReports.includes(reportUri)) {
+          alink.download = `${values.report_type}.json`;
+        } else {
+          alink.download = `${values.report_type}.pdf`;
+        }
         alink.click();
       })
       .catch((err) => {
