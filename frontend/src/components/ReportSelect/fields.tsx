@@ -86,7 +86,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "active_projects",
+      value: "active-projects",
       label: "Active Projects",
       reportParamCategory: [fieldTypes.portfolio],
     },
