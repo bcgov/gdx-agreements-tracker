@@ -80,7 +80,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "project_dashboard",
+      value: "project-dashboard",
       label: "Project Dashboard",
       reportParamCategory: [fieldTypes.portfolio],
     },
