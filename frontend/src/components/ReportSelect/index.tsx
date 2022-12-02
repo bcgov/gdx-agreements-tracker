@@ -18,7 +18,7 @@ import axios from "axios";
 export const ReportSelect = () => {
   const queryFields = ["fiscal", "quarter", "portfolio"];
   // todo: These reports will download as a json file temporarily. Remove when templates are created.
-  const jsonReports = ["project-dashboard"];
+  const jsonReports = ["project-dashboard", "active-projects"];
   // Handle state changes
   const [category, setCategory] = useState<string>();
   const [reportParamCategory, setReportParamCategory] = useState<string[] | null>(null);

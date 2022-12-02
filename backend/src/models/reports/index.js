@@ -545,6 +545,38 @@ const getDashboardByPortfolios = (portfolios) => {
   return query;
 };
 
+/**
+ * Gets the data for a Divisional Active Projects Report
+ *
+ * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
+ * @returns {any[]}
+ */
+const getActiveProjects = (portfolios) => {
+  const results = knex(`data.portfolio as portfolio`)
+    .select({
+      project_number: "project.project_number",
+      project_name: "project.project_name",
+      project_manager: knex.raw("contact.last_name || ', ' || contact.first_name"),
+      description: "project.description",
+      project_type: "project.project_type",
+      start_date: knex.raw(`TO_CHAR(project.initiation_date :: DATE, '${dateFormat}')`),
+      end_date: knex.raw(`TO_CHAR(project.planned_end_date :: DATE, '${dateFormat}')`),
+      planned_budget: "project.planned_budget",
+      client_ministry: "ministry_short_name",
+    })
+    .where("project.project_status", "Active")
+    .leftJoin("data.project as project", { "portfolio.id": "project.portfolio_id" })
+    .leftJoin("data.contact as contact", { "contact.id": "project.project_manager" })
+    .leftJoin("data.ministry as ministry", { "ministry.id": "project.ministry_id" });
+  if (undefined !== portfolios) {
+    if (!(portfolios instanceof Array)) {
+      portfolios = [portfolios];
+    }
+    results.whereIn("project.portfolio_id", portfolios);
+  }
+  return results;
+};
+
 module.exports = {
   findById,
   getMilestones,
@@ -566,4 +598,5 @@ module.exports = {
   getLessonsLearned,
   getQuarterlyFiscalSummaries,
   getDashboardByPortfolios,
+  getActiveProjects,
 };

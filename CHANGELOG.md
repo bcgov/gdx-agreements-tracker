@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+### December 1, 2022(DESCW-691) Divisional Active Projects Report
+- Backend
+  - Created route, controller, and model for Divisional Active Projects Report
+- Frontend
+  - Added Active Projects Report to the list of json reports.
+
+
 ### December 1, 2022 (DESCW-732) Project Dashboard Report
 
 - Backend
