@@ -356,7 +356,7 @@ controller.getActiveProjectsReportOnRequest = async (request, reply) => {
 };
 
 /**
- * Get a Project Lessons Learned Report for a specific array of portfolio.
+ * Get a Project Lessons Learned Report for a given fiscal year.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
