@@ -301,7 +301,7 @@ controller.getProjectDashboardReportOnRequest = async (request, reply) => {
       dashboard: await model.getDashboardByPortfolios(portfolios),
       report_date: reportDate,
     };
-    result.dashboard = groupByPortfolio(result.dashboard);
+    result.dashboard = groupByProperty(result.dashboard, "portfolio_id");
     // todo: Uncomment when template document is created.
     // const body = await getDocumentApiBody(result, "PA_StatusDashboard_template.docx");
     // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
@@ -356,19 +356,57 @@ controller.getActiveProjectsReportOnRequest = async (request, reply) => {
 };
 
 /**
- * Separates an array of projects into groups by their portfolio.
+ * Get a Project Lessons Learned Report for a specific array of portfolio.
  *
- * @param   {any[]}   rows Array of projects ordered by portfolio.
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.getProjectLessonsLearnedReportOnRequest = async (request, reply) => {
+  controller.userRequires(request, what, "reports_read_all");
+  try {
+    const fiscalYear = request.query.fiscal;
+    const projectId = request.query.project;
+    const portfolioIds = request.query.portfolio;
+    // Get the data from the database.
+    const result = {
+      lessons_learned: await model.getLessonsLearnedReport(fiscalYear, projectId, portfolioIds),
+      report_date: new Date(),
+    };
+    if (result.lessons_learned.length > 0) {
+      result.lessons_learned = groupByProperty(result.lessons_learned, "lesson_category_id");
+    }
+    // todo: Uncomment when template document is created.
+    // const body = await getDocumentApiBody(result, "PA_StatusDashboard_template.docx");
+    // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // request.data = pdf;
+    if (!result) {
+      reply.code(404);
+      return { message: `The ${what.single} with the specified id does not exist.` };
+    } else {
+      return result;
+    }
+  } catch (err) {
+    reply.code(500);
+    return { message: `There was a problem looking up this Projects Lessons Learned Report.` };
+  }
+};
+
+/**
+ * Separates an array of projects into groups by a property.
+ *
+ * @param   {any[]}   rows     Array of projects ordered by the property to be grouped on.
+ * @param   {string}  property Object property to group by.
  * @returns {any[][]}
  */
-const groupByPortfolio = (rows) => {
+const groupByProperty = (rows, property) => {
   const groupedRows = [];
-  let currentPortfolio = rows[0].portfolio_id;
+  let currentValue = rows[0][property];
   let currentGroup = [];
   for (let i = 0; i < rows.length; i++) {
-    if (currentPortfolio !== rows[i].portfolio_id) {
+    if (currentValue !== rows[i][property]) {
       groupedRows.push(currentGroup);
-      currentPortfolio = rows[i].portfolio_id;
+      currentValue = rows[i][property];
       currentGroup = [];
     }
     currentGroup.push(rows[i]);

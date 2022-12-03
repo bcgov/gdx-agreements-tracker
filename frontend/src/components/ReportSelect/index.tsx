@@ -9,19 +9,27 @@ import {
   Grid,
   Button,
 } from "@mui/material";
-import { IOption, IReportParamOptions } from "../../types";
-import { reportCategory, reportType, reportDescription, reportParameters } from "./fields";
+import { IEditField, IOption, IReportParamOptions } from "../../types";
 import { FormInput } from "components/FormInput";
+import { useAxios } from "hooks/useAxios";
 import { Formik, Form } from "formik";
-import axios from "axios";
+import {
+  reportCategory,
+  reportDescription,
+  reportParameters,
+  reportType,
+  requestTypes,
+} from "./fields";
 
 export const ReportSelect = () => {
-  const queryFields = ["fiscal", "quarter", "portfolio"];
+  const { axiosAll } = useAxios();
   // todo: These reports will download as a json file temporarily. Remove when templates are created.
-  const jsonReports = ["project-dashboard", "active-projects"];
+  const jsonReports = ["project-dashboard", "active-projects", "project-lessons-learned"];
   // Handle state changes
   const [category, setCategory] = useState<string>();
-  const [reportParamCategory, setReportParamCategory] = useState<string[] | null>(null);
+  const [reportParamCategory, setReportParamCategory] = useState<
+    { field: IEditField; type: number; isRequired: boolean }[] | null
+  >(null);
   const [currentReportType, setCurrentReportType] = useState<string | null>(null);
 
   const handleChangeCategory = (value: string) => {
@@ -76,26 +84,23 @@ export const ReportSelect = () => {
     values: { [x: string]: string | number | boolean | IOption | IOption[] }
   ) => {
     {
-      return reportParameters.options.map(
-        ({ fieldName, fieldType, fieldLabel, width, tableName, pickerName }) => {
-          if (reportParamCategory?.includes(fieldName, 0)) {
-            return (
-              <FormInput
-                setFieldValue={setFieldValue}
-                fieldValue={values?.[fieldName] || ("multiselect" === fieldType ? [] : "")}
-                fieldName={fieldName}
-                fieldType={fieldType}
-                fieldLabel={fieldLabel}
-                handleChange={handleChange}
-                width={width}
-                key={fieldName}
-                tableName={tableName}
-                pickerName={pickerName}
-              />
-            );
-          }
-        }
-      );
+      return reportParamCategory?.map((item) => {
+        const { fieldName, fieldType, fieldLabel, width, tableName, pickerName } = item.field;
+        return (
+          <FormInput
+            setFieldValue={setFieldValue}
+            fieldValue={values?.[fieldName] || ("multiselect" === fieldType ? [] : "")}
+            fieldName={fieldName}
+            fieldType={fieldType}
+            fieldLabel={fieldLabel}
+            handleChange={handleChange}
+            width={width}
+            key={fieldName}
+            tableName={tableName}
+            pickerName={pickerName}
+          />
+        );
+      });
     }
   };
 
@@ -110,55 +115,66 @@ export const ReportSelect = () => {
   const onExportButtonClick = (values: {
     [key: string]: { value: number | string; label: string };
   }) => {
-    const baseUri = `https://localhost:8080/report/projects`;
     const reportUri = `${values.report_type}`;
-    let url = "";
-    // This will need to change as more report types are added
-    if (values.project) {
-      url = `${baseUri}/${values.project.value}/${reportUri}`;
-    } else {
-      url = `${baseUri}/${reportUri}`;
-    }
-    // Build querystring params
+    let url = `report/projects/${reportUri}`;
+    let routeParam;
     const querystringParams = new URLSearchParams();
-    for (const field in values) {
-      if (queryFields.includes(field)) {
-        if (values[field] instanceof Array) {
-          const options = values[field] as unknown as IOption[];
-          for (const value of options) {
-            querystringParams.append(field, value.value.toString());
+    try {
+      // Build querystring and route params from input values.
+      if (reportParamCategory) {
+        for (const param of reportParamCategory) {
+          if (values[param.field.fieldName]) {
+            const field = param.field.fieldName;
+            const value = values[param.field.fieldName];
+            // If the input is query type, add the value(s) to the querystring.
+            if (param.type === requestTypes.query) {
+              if (value instanceof Array) {
+                // Multiselect input values come as arrays and each element must be added to querystring.
+                const options = value as unknown as IOption[];
+                for (const value of options) {
+                  querystringParams.append(field, value.value.toString());
+                }
+              } else {
+                querystringParams.append(field, values[field].value.toString());
+              }
+            } else {
+              // If the request type is route, we will add that value to the route params.
+              routeParam = value;
+            }
+          } else if (param.isRequired) {
+            throw new Error(`${param.field.fieldName} field is required.`);
           }
-        } else {
-          querystringParams.append(field, values[field].value.toString());
         }
       }
+      // This will need to change as more report types are added
+      if (routeParam) {
+        url = `report/projects/${routeParam}/${reportUri}`;
+      }
+      axiosAll()
+        .get(url, {
+          params: querystringParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            responseType: "arraybuffer",
+          },
+          responseType: "blob",
+        })
+        .then((response) => {
+          const fileURL = window.URL.createObjectURL(response.data);
+          const alink = document.createElement("a");
+          alink.href = fileURL;
+          if (jsonReports.includes(reportUri)) {
+            alink.download = `${values.report_type}.json`;
+          } else {
+            alink.download = `${values.report_type}.pdf`;
+          }
+          alink.click();
+        });
+    } catch (err) {
+      // Handle the error gracefully - to be addressed in a future ticket
+      alert(err);
     }
-
-    axios(url, {
-      method: "GET",
-      params: querystringParams,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        responseType: "arraybuffer",
-      },
-      responseType: "blob",
-    })
-      .then((response) => {
-        const fileURL = window.URL.createObjectURL(response.data);
-        const alink = document.createElement("a");
-        alink.href = fileURL;
-        if (jsonReports.includes(reportUri)) {
-          alink.download = `${values.report_type}.json`;
-        } else {
-          alink.download = `${values.report_type}.pdf`;
-        }
-        alink.click();
-      })
-      .catch((err) => {
-        // Handle the error gracefully - to be addressed in a future ticket
-        alert(err);
-      });
   };
 
   const initialValues = { [reportCategory.name]: reportCategory.defaultOption };
