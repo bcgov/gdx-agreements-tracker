@@ -1,12 +1,52 @@
 import { IReportParams } from "types";
 
 const fieldTypes = {
-  project: "project",
-  fiscal: "fiscal",
-  portfolio: "portfolio",
-  date: "date",
-  contract: "contract",
-  quarter: "quarter",
+  fiscal: {
+    fieldName: "fiscal",
+    fieldType: "select",
+    fieldLabel: "Fiscal",
+    width: "half",
+    pickerName: "fiscal_year_option",
+  },
+  project: {
+    fieldName: "project",
+    fieldType: "select",
+    fieldLabel: "Project #",
+    width: "half",
+    pickerName: "project_option",
+  },
+  quarter: {
+    fieldName: "quarter",
+    fieldType: "select",
+    fieldLabel: "Quarter",
+    width: "half",
+    tableName: "generic",
+  },
+  portfolio: {
+    fieldName: "portfolio",
+    fieldType: "multiselect",
+    fieldLabel: "Portfolio",
+    width: "half",
+    pickerName: "portfolio_option",
+  },
+  contract: {
+    fieldName: "contract",
+    fieldType: "select",
+    fieldLabel: "Contract",
+    width: "half",
+    pickerName: "contract_option",
+  },
+  date: {
+    fieldName: "date",
+    fieldType: "date",
+    fieldLabel: "Date",
+    width: "half",
+  },
+};
+
+export const requestTypes = {
+  query: 1,
+  route: 2,
 };
 
 export const reportCategory = {
@@ -40,85 +80,186 @@ export const reportType = {
       reportCategory: "individual_project_reports",
       value: "project-status-report",
       label: "Project Status (Most Recent)",
-      reportParamCategory: [fieldTypes.project],
+      reportParamCategory: [
+        {
+          field: fieldTypes.project,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
     },
     {
       reportCategory: "individual_project_reports",
       value: "project-status-summary",
       label: "Project Status Summary",
-      reportParamCategory: [fieldTypes.project],
+      reportParamCategory: [
+        {
+          field: fieldTypes.project,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
     },
     {
       reportCategory: "individual_project_reports",
       value: "budget-summary",
       label: "Project Budget Summary",
-      reportParamCategory: [fieldTypes.project],
+      reportParamCategory: [
+        {
+          field: fieldTypes.project,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
     },
     {
       reportCategory: "individual_project_reports",
       value: "project-quarterly-review",
       label: "Project Quarterly Review",
-      reportParamCategory: [fieldTypes.project],
+      reportParamCategory: [
+        {
+          field: fieldTypes.project,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
     },
     {
       reportCategory: "individual_project_reports",
       value: "project-quarterly-billing-request",
       label: "Project Quarterly Billing Request",
-      reportParamCategory: [fieldTypes.project, fieldTypes.fiscal, fieldTypes.quarter],
+      reportParamCategory: [
+        {
+          field: fieldTypes.project,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.query,
+        },
+        {
+          field: fieldTypes.quarter,
+          type: requestTypes.query,
+        },
+      ],
     },
     {
       reportCategory: "individual_contract_reports",
       value: "contract_summary",
       label: "Contract Summary",
-      reportParamCategory: [fieldTypes.contract],
+      reportParamCategory: [
+        {
+          field: fieldTypes.contract,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
       value: "project_status_roll_up",
       label: "Project Status Roll-up",
-      reportParamCategory: [fieldTypes.portfolio],
+      reportParamCategory: [
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
       value: "project-dashboard",
       label: "Project Dashboard",
-      reportParamCategory: [fieldTypes.portfolio],
+      reportParamCategory: [
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
       value: "active-projects",
       label: "Active Projects",
-      reportParamCategory: [fieldTypes.portfolio],
+      reportParamCategory: [
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "project_lessons_learned",
+      value: "project-lessons-learned",
       label: "Project Lessons Learned",
-      reportParamCategory: [fieldTypes.portfolio, fieldTypes.fiscal, fieldTypes.project],
+      reportParamCategory: [
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.query,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.project,
+          type: requestTypes.query,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
       value: "ministry_project_usage",
       label: "Ministry Project Usage",
-      reportParamCategory: [fieldTypes.portfolio, fieldTypes.fiscal],
+      reportParamCategory: [
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.query,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
       value: "projects_registered_by_date_period",
       label: "Projects Registered by Date/Period",
-      reportParamCategory: [fieldTypes.date, fieldTypes.portfolio, fieldTypes.date],
+      reportParamCategory: [
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+        {
+          field: fieldTypes.date,
+          type: requestTypes.query,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
       value: "projects_registered_by_fiscal",
       label: "Projects Registered by Fiscal",
-      reportParamCategory: [fieldTypes.fiscal],
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
       value: "change_request_types",
       label: "Change Request Types",
-      reportParamCategory: [fieldTypes.fiscal],
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+        },
+      ],
     },
     {
       reportCategory: "divisional_project_reports",
@@ -215,47 +356,4 @@ export const reportDescription = {
 export const reportParameters: IReportParams = {
   name: "report_parameters",
   formLabel: "Parameters",
-  options: [
-    {
-      fieldName: "fiscal",
-      fieldType: "select",
-      fieldLabel: "Fiscal",
-      width: "half",
-      pickerName: "fiscal_year_option",
-    },
-    {
-      fieldName: "project",
-      fieldType: "select",
-      fieldLabel: "Project #",
-      width: "half",
-      pickerName: "project_option",
-    },
-    {
-      fieldName: "quarter",
-      fieldType: "select",
-      fieldLabel: "Quarter",
-      width: "half",
-      tableName: "generic",
-    },
-    {
-      fieldName: "portfolio",
-      fieldType: "multiselect",
-      fieldLabel: "Portfolio",
-      width: "half",
-      pickerName: "portfolio_option",
-    },
-    {
-      fieldName: "contract",
-      fieldType: "select",
-      fieldLabel: "Contract",
-      width: "half",
-      pickerName: "contract_option",
-    },
-    {
-      fieldName: "date",
-      fieldType: "date",
-      fieldLabel: "Date",
-      width: "half",
-    },
-  ],
 };

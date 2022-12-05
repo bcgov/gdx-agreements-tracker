@@ -531,7 +531,10 @@ const getDashboardByPortfolios = (portfolios) => {
     .leftJoin(`${healthTable} as schedule`, "status.schedule_health_id", "schedule.id")
     .leftJoin(`${healthTable} as budget`, "status.budget_health_id", "budget.id")
     .leftJoin(`${healthTable} as team`, "status.team_health_id", "team.id")
-    .where("fy.is_current", 1)
+    .where(() => {
+      knex.where("fy.is_current", 1).orWhere("p.project_status", "Active");
+    })
+    .whereNot("pp.phase_name", "Archive")
     .orderBy([
       { column: "po.portfolio_name", order: "asc" },
       { column: "p.project_number", order: "desc" },
@@ -577,6 +580,46 @@ const getActiveProjects = (portfolios) => {
   return results;
 };
 
+/**
+ * Gets the data for a Divisional Active Projects Report
+ *
+ * @param   {number}   fiscalYear   Fiscal year id to limit report to.
+ * @param   {number}   projectId    Optional project id to limit report to. If empty, returns data for all projects.
+ * @param   {number[]} portfolioIds Optional array of portfolio ids to limit report to. If empty, returns data for all portfolios.
+ * @returns {any[]}
+ */
+const getLessonsLearnedReport = (fiscalYear, projectId, portfolioIds) => {
+  const results = knex("data.project as p")
+    .select({
+      lesson_category_id: "pl.lesson_category_id",
+      lesson_category: "lc.lesson_category_name",
+      project_number: "p.project_number",
+      project_name: "p.project_name",
+      portfolio: "po.portfolio_abbrev",
+      lesson_sub_category: "pl.lesson_sub_category",
+      lesson: "pl.lesson",
+      recommendations: "pl.recommendations",
+    })
+    .join("data.project_lesson as pl", "p.id", "pl.project_id")
+    .join("data.lesson_category as lc", "pl.lesson_category_id", "lc.id")
+    .join("data.portfolio as po", "p.portfolio_id", "po.id")
+    .where("p.fiscal", fiscalYear)
+    .orderBy([
+      { column: "lc.lesson_category_name", order: "asc" },
+      { column: "p.project_number", order: "asc" },
+    ]);
+  if (undefined !== projectId) {
+    results.where("p.id", projectId);
+  }
+  if (undefined !== portfolioIds) {
+    if (!(portfolioIds instanceof Array)) {
+      portfolioIds = [portfolioIds];
+    }
+    results.whereIn("p.portfolio_id", portfolioIds);
+  }
+  return results;
+};
+
 module.exports = {
   findById,
   getMilestones,
@@ -599,4 +642,5 @@ module.exports = {
   getQuarterlyFiscalSummaries,
   getDashboardByPortfolios,
   getActiveProjects,
+  getLessonsLearnedReport,
 };

@@ -1,6 +1,17 @@
 ## Developer Changelog
 
-### December 1, 2022(DESCW-691) Divisional Active Projects Report
+### December 2, 2022 (DESCW-730) Project Lessons Learned Report
+- Backend
+  - Created route, controller, and model for Project Lessons Learned Report
+  - Fixed bug in Project Dashboard report
+  - Changed Report Controller groupByPortfolio() to generic groupByProperty()
+- Frontend
+  - Changed ReportSelect Component:
+    - Handles required/optional fields
+    - Handles route params vs. querystring params
+    - Fixed hardcoded localhost url, now using UseAxios hook
+
+### December 1, 2022 (DESCW-691) Divisional Active Projects Report
 - Backend
   - Created route, controller, and model for Divisional Active Projects Report
 - Frontend

@@ -364,13 +364,16 @@ export interface IReportParamOptions {
   reportCategory: string;
   value: string;
   label: string;
-  reportParamCategory: string[];
+  reportParamCategory: {
+    field: IEditField;
+    type: number;
+    isRequired: boolean;
+  }[];
 }
 
 export interface IReportParams {
   name: string;
   formLabel: string;
-  options: IEditField[];
 }
 
 export interface IModal {
