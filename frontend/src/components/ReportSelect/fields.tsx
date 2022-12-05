@@ -158,7 +158,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "project_status_roll_up",
+      value: "project-status-roll-up",
       label: "Project Status Roll-up",
       reportParamCategory: [
         {
