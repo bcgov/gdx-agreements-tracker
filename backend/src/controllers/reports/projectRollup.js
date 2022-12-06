@@ -1,61 +1,7 @@
 const useController = require("../useController/index");
-const useCommonComponents = require("../useCommonComponents/index");
 const model = require("@models/reports/projectRollup");
-const projectModel = require("@models/projects");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
-// Template and data reading
-const fs = require("fs");
-const path = require("path");
-
-const cdogs = useCommonComponents("cdogs");
-const pdfConfig = { responseType: "arraybuffer" };
-
-/**
- * Reads a file and encodes it to the specified format
- *
- * @param   {string} path     The path of the file to read
- * @param   {string} encoding The format with which to encode the file contents
- * @returns {string}
- */
-const loadTemplate = async (path, encoding = "base64") => {
-  let data;
-  try {
-    data = await fs.readFileSync(path);
-    data = data.toString(encoding);
-  } catch (err) {
-    alert(err); // TODO: more graceful error reporting
-  }
-  return data;
-};
-
-const getDocumentApiBody = async (
-  data,
-  templateFileName,
-  templateType = "docx",
-  reportName = "report",
-  convertTo = "pdf"
-) => {
-  const templateContent = await loadTemplate(
-    path.resolve(__dirname, `../../reports/${templateFileName}`)
-  );
-  return {
-    data: data,
-    formatters:
-      '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
-    options: {
-      cacheReport: true,
-      convertTo: convertTo,
-      overwrite: true,
-      reportName: reportName,
-    },
-    template: {
-      content: templateContent,
-      encodingType: "base64",
-      fileType: templateType,
-    },
-  };
-};
 
 /**
  * Get a Project rollup Report for a specific array of portfolio.
@@ -74,7 +20,9 @@ controller.getProjectStatusRollup = async (request, reply) => {
       rollup: await model.getRollupByPortfolios(portfolios),
       report_date: reportDate,
     };
-    result.rollup = groupByPortfolio(result.rollup)
+    if (result.rollup.length > 0) {
+      result.rollup = groupByPortfolio(result.rollup);
+    }
     // todo: Uncomment when template document is created.
     // const body = await getDocumentApiBody(result, "PA_Statusrollup_template.docx");
     // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
@@ -86,7 +34,6 @@ controller.getProjectStatusRollup = async (request, reply) => {
       return result;
     }
   } catch (err) {
-    console.log('err', err)
     reply.code(500);
     return { message: `There was a problem looking up this Project rollup Report.` };
   }
