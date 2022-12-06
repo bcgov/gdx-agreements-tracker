@@ -2,7 +2,7 @@ const controller = require("@controllers/reports/projectRollup.js");
 // const validators = require("@validators/report");
 const what = "report";
 
-const routes = [  
+const routes = [
   {
     method: "GET",
     url: `/${what}/projects/project-status-roll-up`,
