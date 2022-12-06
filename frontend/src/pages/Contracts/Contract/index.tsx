@@ -37,6 +37,11 @@ export const Contract = () => {
       url: `/contracts/${contractId}/deliverables`,
     },
     {
+      key: 4,
+      name: "GDX Internal Coding",
+      url: `/contracts/${contractId}/internal-coding`,
+    },
+    {
       key: 5,
       name: "Amendments",
       url: `/contracts/${contractId}/amendments`,

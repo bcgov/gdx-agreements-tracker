@@ -66,6 +66,7 @@ export const formatTableColumns = (
         id: index,
         renderCell: (params: { value: { red: number; green: number; blue: number } }) => {
           if (
+            params.value &&
             params.value.red !== undefined &&
             params.value.green !== undefined &&
             params.value.blue !== undefined

@@ -28,7 +28,7 @@ export const InvoiceProcessing = () => {
   return (
     <>
       <TableComplete
-        itemName="Invoice"
+        itemName="Invoices"
         tableName="invoice"
         url={url}
         createFormInitialValues={initialValues}
