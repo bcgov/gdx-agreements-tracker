@@ -54,6 +54,11 @@ const routes = [
     url: `/${what}/projects/project-lessons-learned`,
     handler: controller.getProjectLessonsLearnedReportOnRequest,
   },
+  {
+    method: "GET",
+    url: `/${what}/projects/:id/contract-summary`,
+    handler: controller.getContractSummaryReportOnRequest,
+  },
 ];
 const registerRoutes = (fastify, options, done) => {
   // Ensure all of the routes above get registered.

@@ -146,7 +146,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_contract_reports",
-      value: "contract_summary",
+      value: "contract-summary",
       label: "Contract Summary",
       reportParamCategory: [
         {
