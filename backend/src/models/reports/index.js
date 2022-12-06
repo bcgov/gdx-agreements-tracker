@@ -675,8 +675,8 @@ const getContractInvoices = (contractId) => {
 /**
  * Gets the contract payment summary for a specific contract by id and fiscal year
  *
- * @param   {number}     contractId Contract id to limit report to.
- * @param   {string}     fiscalYear Fiscal year to summarize over.
+ * @param   {number} contractId Contract id to limit report to.
+ * @param   {string} fiscalYear Fiscal year to summarize over.
  * @returns {any[]}
  */
 const getContractPaymentSummary = (contractId, fiscalYear) => {
