@@ -684,7 +684,7 @@ const getContractPaymentSummary = (contractId, fiscalYear) => {
     .select({
       fiscal: "fiscal_year",
       fees_invoiced: knex.raw("SUM(unit_amount * rate)"),
-      rees_remaining: knex.raw("MIN(total_fee_amount) - SUM(unit_amount * rate)"),
+      fees_remaining: knex.raw("MIN(total_fee_amount) - SUM(unit_amount * rate)"),
     })
     .leftJoin("data.invoice as invoice", { "detail.invoice_id": "invoice.id" })
     .leftJoin("data.contract as contract", { "contract.id": "invoice.contract_id" })
