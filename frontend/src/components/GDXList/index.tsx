@@ -31,7 +31,7 @@ export const GDXList = ({ data, title }: IGDXList) => {
           <Grid container>
             {data.map((row: IStandardRow, index: number) => {
               return (
-                <Grid xs spacing={3} key={index}>
+                <Grid item xs key={index}>
                   <List component="ul" aria-labelledby="category-a">
                     <Paper>
                       {Object.entries(row).map(([key, value]) => {
