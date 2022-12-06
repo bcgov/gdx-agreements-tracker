@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+### December 6, 2022 (DESCW-690) Individual Contract Summary Report
+- Backend
+  - Created route, controller, and model for contract summary report
+- Frontend
+  - Added Active Projects Report to the list of json reports.
+  - Small bug fix for a problem with accessing values inside parameter objects
+
 ### December 2, 2022 (DESCW-730) Project Lessons Learned Report
 - Backend
   - Created route, controller, and model for Project Lessons Learned Report

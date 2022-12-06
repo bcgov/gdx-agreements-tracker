@@ -415,6 +415,16 @@ controller.getContractSummaryReportOnRequest = async (request, reply) => {
         year: "numeric",
       }),
     };
+    if (result.contract_invoice.length > 0) {
+      result.contract_invoice = groupByProperty(result.contract_invoice, "fiscal");
+      for (let fiscal in result.contract_invoice) {
+        const fiscalYear = result.contract_invoice[fiscal][0].fiscal;
+        result.contract_invoice[fiscal] = {
+          payment_summary: await model.getContractPaymentSummary(contractId, fiscalYear),
+          details: result.contract_invoice[fiscal],
+        };
+      }
+    }
     // todo: Uncomment when template document is created.
     // const body = await getDocumentApiBody(result, "PA_StatusDashboard_template.docx");
     // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);

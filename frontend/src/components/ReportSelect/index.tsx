@@ -24,7 +24,12 @@ import {
 export const ReportSelect = () => {
   const { axiosAll } = useAxios();
   // todo: These reports will download as a json file temporarily. Remove when templates are created.
-  const jsonReports = ["project-dashboard", "active-projects", "project-lessons-learned", "contract-summary"];
+  const jsonReports = [
+    "project-dashboard",
+    "active-projects",
+    "project-lessons-learned",
+    "contract-summary",
+  ];
   // Handle state changes
   const [category, setCategory] = useState<string>();
   const [reportParamCategory, setReportParamCategory] = useState<
@@ -139,7 +144,7 @@ export const ReportSelect = () => {
               }
             } else {
               // If the request type is route, we will add that value to the route params.
-              routeParam = value;
+              routeParam = value.value;
             }
           } else if (param.isRequired) {
             throw new Error(`${param.field.fieldName} field is required.`);
