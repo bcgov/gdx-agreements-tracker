@@ -1,4 +1,10 @@
 ## Developer Changelog
+### December 6, 2022 (DESCW-733) Project Status Rollup Report
+- Backend
+  - Created route, controller, and model for project rollup report
+- Frontend
+  - Added Active Projects rollup to the list of json reports.
+
 
 ### December 6, 2022 (DESCW-690) Individual Contract Summary Report
 - Backend
