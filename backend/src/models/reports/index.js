@@ -671,11 +671,12 @@ const getContractInvoices = (contractId) => {
     .orderBy("invoice_number");
   return results;
 };
+
 /**
  * Gets the contract payment summary for a specific contract by id and fiscal year
  *
- * @param   {*}     contractId Contract id to limit report to.
- * @param   {*}     fiscalYear Fiscal year to summarize over
+ * @param   {number}     contractId Contract id to limit report to.
+ * @param   {string}     fiscalYear Fiscal year to summarize over.
  * @returns {any[]}
  */
 const getContractPaymentSummary = (contractId, fiscalYear) => {
