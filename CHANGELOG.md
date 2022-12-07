@@ -1,10 +1,17 @@
 ## Developer Changelog
+
+### December 6, 2022 (DESCW-689) Contract GDX Internal Coding
+- Backend
+  - Created controller, model, route, validators for Contract Internal Coding
+- Frontend
+  - Created Internal Coding page component and fields file
+  - Fixed console errors due to incorrect usage of Grid component in GDXList
+
 ### December 6, 2022 (DESCW-733) Project Status Rollup Report
 - Backend
   - Created route, controller, and model for project rollup report
 - Frontend
   - Added Active Projects rollup to the list of json reports.
-
 
 ### December 6, 2022 (DESCW-690) Individual Contract Summary Report
 - Backend

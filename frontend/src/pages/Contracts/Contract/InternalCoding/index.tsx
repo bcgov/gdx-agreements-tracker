@@ -3,7 +3,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { editFields, readFields, initialValues } from "./fields";
 
-export const Amendments = () => {
+export const InternalCoding = () => {
   const { contractId } = useParams();
 
   const roles = {
@@ -14,25 +14,24 @@ export const Amendments = () => {
   };
 
   const url = {
-    getAll: `contracts/${contractId}/amendments`,
-    getOne: `contracts/${contractId}/amendments/{id}`,
-    updateOne: `amendments/{id}`,
-    addOne: `amendments`,
-    deleteOne: `amendments/{id}`,
+    getAll: `contracts/${contractId}/internal-coding`,
+    getOne: `contracts/internal-coding/{id}`,
+    updateOne: `contracts/internal-coding/{id}`,
+    addOne: `contracts/${contractId}/internal-coding`,
   };
 
   const columnWidths = {
-    amendment_type: 2,
-    description: 3,
+    portfolio: 2,
+    qualified_receiver: 2,
   };
 
   return (
     <TableComplete
-      itemName={"Amendments"}
-      tableName={"amendment"}
+      itemName={"Internal Coding"}
+      tableName={"internal coding"}
       columnWidths={columnWidths}
       url={url}
-      createFormInitialValues={initialValues(contractId)}
+      createFormInitialValues={initialValues}
       readFields={readFields}
       editFields={editFields}
       roles={roles}
