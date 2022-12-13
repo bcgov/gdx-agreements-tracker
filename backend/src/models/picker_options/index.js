@@ -206,7 +206,7 @@ const tableLookupValues = (projectId, contractId) => {
       table: "data.project_deliverable",
       value: "project_deliverable.id",
       label: `project_deliverable.deliverable_name`,
-      queryAdditions: `WHERE project_deliverable.deliverable_name IS NOT NULL`,
+      queryAdditions: getProjectDeliverablesQueryAdditions(projectId),
     },
     {
       id: "contractresource",
@@ -257,6 +257,26 @@ const tableLookupValues = (projectId, contractId) => {
       value: "id",
       label: "phase_name",
       queryAdditions: `ORDER BY sort_order ASC`,
+    },
+    {
+      id: "recoveryType",
+      name: "recovery_type_option",
+      title: "Recovery",
+      description: "the project budget recovery",
+      table: "data.recovery_type",
+      value: "id",
+      label: "recovery_type_name",
+      queryAdditions: ``,
+    },
+    {
+      id: "resourceType",
+      name: "resource_type_option",
+      title: "Resource",
+      description: "the project resources",
+      table: "data.resource_type",
+      value: "id",
+      label: "resource_type", //The column you want to pull lookup data from
+      queryAdditions: ``, //You can leave this blank
     },
   ];
 };
@@ -313,6 +333,24 @@ const getContractDeliverableQueryAdditions = (id) => {
   if (Number(id) > 0) {
     query = `
       WHERE contract_deliverable.contract_id = ${Number(id)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  return query;
+};
+
+/**
+ * Gets contract deliverable query additions.
+ *
+ * @param   {int}    projectId The project id.
+ * @returns {string}
+ */
+const getProjectDeliverablesQueryAdditions = (projectId) => {
+  let query = `WHERE project_deliverable.deliverable_name IS NOT NULL`;
+  if (Number(projectId) > 0) {
+    query = `
+      WHERE project_deliverable.project_id = ${Number(projectId)}
       GROUP BY label, value
       ORDER BY label ASC
       `;
