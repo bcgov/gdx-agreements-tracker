@@ -305,6 +305,17 @@ const deliverable_status = [
   },
 ];
 
+const project_budget_resource_type = [
+  {
+    value: "Staff",
+    label: "Staff",
+  },
+  {
+    value: "Contract",
+    label: "Contract",
+  },
+];
+
 module.exports = {
   yesNoOptions,
   classification,
@@ -319,4 +330,5 @@ module.exports = {
   initiatedBy,
   deliverable_status,
   quarter,
+  project_budget_resource_type,
 };
