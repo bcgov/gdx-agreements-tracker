@@ -1,5 +1,15 @@
 ## Developer Changelog
 
+
+### December 6, 2022 (DESCW-733) Project Status Rollup Report
+- Backend
+  - updated picker options
+  - `npx knex seed:run --specific=08_picker_options.js`
+  - updated picker options model.
+  
+- Frontend
+  - Added project budget section
+
 ### December 6, 2022 (DESCW-689) Contract GDX Internal Coding
 - Backend
   - Created controller, model, route, validators for Contract Internal Coding
