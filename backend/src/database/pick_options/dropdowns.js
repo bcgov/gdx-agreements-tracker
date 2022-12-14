@@ -305,7 +305,7 @@ const deliverable_status = [
   },
 ];
 
-const project_budget_resource_type = [
+const resourceType = [
   {
     value: "Staff",
     label: "Staff",
@@ -330,5 +330,5 @@ module.exports = {
   initiatedBy,
   deliverable_status,
   quarter,
-  project_budget_resource_type,
+  resourceType,
 };
