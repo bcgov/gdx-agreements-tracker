@@ -1,24 +1,24 @@
 const controller = require("@controllers/projects/budget");
-// const validators = require("@validators/projects/budget");
+const validators = require("@validators/projects/budget");
 const what = "budget";
 
 const routes = [
   {
     method: "GET",
     url: `/projects/:id/${what}`,
-    // schema: validators.getAll,
+    schema: validators.getAll,
     handler: controller.getAllByParentId,
   },
   {
     method: "GET",
     url: `/projects/${what}/:id`,
-    // schema: validators.getOne,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
     method: "PUT",
     url: `/projects/${what}/:id`,
-    // schema: validators.updateOne,
+    schema: validators.updateOne,
     handler: controller.updateOne,
   },
   {

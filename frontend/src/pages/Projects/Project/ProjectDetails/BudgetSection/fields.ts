@@ -9,7 +9,6 @@ import { IEditField } from "types";
  * @returns {Array}
  */
 export const readFields = (query: UseQueryResult<FormikValues>) => {
-  console.log("query?.data", query?.data);
   return [
     {
       width: "half",
@@ -89,7 +88,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
     {
       width: "half",
       title: "Client Coding",
-      value: query?.data?.client_coding_id, //TODO This column needs to be updated in the future to reflect backend data
+      value: query?.data?.client_coding_id?.label,
     },
     {
       width: "half",
@@ -102,6 +101,7 @@ export const readFields = (query: UseQueryResult<FormikValues>) => {
 /**
  * The edit fields.
  *
+ * @param   {number|undefined} projectId The project id, which allows for specific picker options to use only project related options.
  * @returns {Array}
  */
 export const editFields: (projectId: number | undefined) => IEditField[] = (projectId) => {
@@ -186,14 +186,14 @@ export const editFields: (projectId: number | undefined) => IEditField[] = (proj
       fieldLabel: "Recovery Area",
       fieldName: "recovery_area",
       fieldType: "select",
-      pickerName: "recovery_type_option",
+      pickerName: "recovery_area_option",
     },
     {
       width: "half",
       fieldLabel: "Resource Type",
       fieldName: "resource_type",
       fieldType: "select",
-      pickerName: "resource_type_option",
+      tableName: "project_budget",
     },
     {
       width: "half",
@@ -207,13 +207,15 @@ export const editFields: (projectId: number | undefined) => IEditField[] = (proj
       fieldName: "client_coding_id",
       fieldType: "select",
       pickerName: "client_coding_option",
+      projectId: projectId,
     },
     {
       width: "half",
       fieldLabel: "Contract",
       fieldName: "contract_id",
       fieldType: "select",
-      pickerName: "contract_option",
+      pickerName: "budget_contract_option",
+      projectId: projectId,
     },
   ];
 };

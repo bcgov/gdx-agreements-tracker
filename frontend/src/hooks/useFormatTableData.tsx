@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { ITableData } from "../types";
-import { Button, IconButton } from "@mui/material";
+import { Button, Checkbox, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import React from "react";
@@ -72,6 +72,9 @@ export const formatTableColumns = (
             params.value.blue !== undefined
           ) {
             return <TableHealthChip variant="outlined" colors={params.value} />;
+          }
+          if ("boolean" === typeof params.value) {
+            return <Checkbox disabled checked={params.value} />;
           }
         },
       };

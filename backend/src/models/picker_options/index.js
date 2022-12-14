@@ -239,6 +239,16 @@ const tableLookupValues = (projectId, contractId) => {
       queryAdditions: ``,
     },
     {
+      id: "projectBudgetContract",
+      name: "budget_contract_option", //To be use din the fron end fields file
+      title: "Contract", //Title for the frontend if you don't provide a title in the fields file
+      description: "the contract related to the project budget",
+      table: "data.contract", // The table you want to lookup to
+      value: "contract.id", //The value for the picker ex: {label:"example", value:contract.id}
+      label: `co_number`, //The label for the picker ex: {label:"example", value:contract.id}
+      queryAdditions: getProjectBudgetContractQueryAdditions(projectId), //Any extra queries you want to add to the lookup example filters.
+    },
+    {
       id: "health",
       name: "health_status_option",
       title: "Health Status",
@@ -278,6 +288,16 @@ const tableLookupValues = (projectId, contractId) => {
       label: "resource_type", //The column you want to pull lookup data from
       queryAdditions: ``, //You can leave this blank
     },
+    {
+      id: "recoveryArea",
+      name: "recovery_area_option",
+      title: "Recovery",
+      description: "the project budget recovery",
+      table: "data.portfolio",
+      value: "id",
+      label: "portfolio_name",
+      queryAdditions: ``,
+    },
   ];
 };
 
@@ -291,8 +311,7 @@ const getClientCodingQueryAdditions = (id) => {
   let query = `ORDER BY client_coding.program_area`;
   if (Number(id) > 0) {
     query = `
-      LEFT JOIN data.jv on data.jv.client_coding_id = data.client_coding.id
-      WHERE jv.project_id = ${Number(id)}
+      WHERE project_id = ${Number(id)}
       GROUP BY label, value
       ORDER BY client_coding.program_area
       `;
@@ -351,6 +370,24 @@ const getProjectDeliverablesQueryAdditions = (projectId) => {
   if (Number(projectId) > 0) {
     query = `
       WHERE project_deliverable.project_id = ${Number(projectId)}
+      GROUP BY label, value
+      ORDER BY label ASC
+      `;
+  }
+  return query;
+};
+
+/**
+ * Gets contract deliverable query additions.
+ *
+ * @param   {int}    projectId The project id.
+ * @returns {string}
+ */
+const getProjectBudgetContractQueryAdditions = (projectId) => {
+  let query = `WHERE contract.project_id IS NOT NULL`;
+  if (Number(projectId) > 0) {
+    query = `
+      WHERE contract.project_id = ${Number(projectId)}
       GROUP BY label, value
       ORDER BY label ASC
       `;

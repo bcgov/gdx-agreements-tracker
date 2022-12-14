@@ -12,6 +12,7 @@ const {
   billingPeriod,
   deliverable_status,
   quarter,
+  resourceType,
 } = require("../pick_options/dropdowns");
 
 exports.seed = function (knex) {
@@ -29,6 +30,7 @@ exports.seed = function (knex) {
     amendment_type: "amendment_type",
     contract_amendment: "contract_amendment",
     journal_voucher: "jv",
+    project_budget: "project_budget",
   };
 
   const pickers = [
@@ -137,6 +139,13 @@ exports.seed = function (knex) {
       description: "Project documentation filled in accordance with records management.",
       definition: { dropDownValues: yesNoOptions },
       associated_form: tables.projects,
+    },
+    {
+      name: "resource_type",
+      title: "Resource Type",
+      description: "Resource Type",
+      definition: { dropDownValues: resourceType },
+      associated_form: tables.project_budget,
     },
     {
       name: "status",
