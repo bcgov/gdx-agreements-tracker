@@ -66,7 +66,7 @@ const addUpdateBody = S.object()
   .prop("project_deliverable_id", Schema.Id)
   .prop("notes", S.anyOf([S.string(), S.null()]))
   .prop("detail_amount", Schema.Money)
-  .prop("resource_type", Schema.Id)
+  .prop("resource_type", S.string())
   .prop("stob", S.string())
   .prop("client_coding_id", Schema.Id)
   .prop("co_number", Schema.Id);

@@ -26,13 +26,14 @@ const findAllById = (projectId) => {
       knex.raw("prb.detail_amount::numeric::float8"),
       "rec.recovery_type_name",
       "prb.stob",
-      "prb.client_coding_id", //TODO Add a lookup in the future.
+      "cc.program_area",
       "cntr.co_number"
     )
     .leftJoin(`${fiscalYearTable} as fy`, { "prb.fiscal": `fy.id` })
     .leftJoin(`${projectDeliverableTable} as prd`, { "prb.project_deliverable_id": "prd.id" })
     .leftJoin(`${recoveriesTable} as rec`, { "prb.recovery_area": "rec.id" })
     .leftJoin(`${contractsTable} as cntr`, { "prb.contract_id": "cntr.id" })
+    .leftJoin(`${clientCodingTable} as cc`, { "prb.client_coding_id": "cc.id" })
     .orderBy("prb.id")
     .where({ "prd.project_id": projectId });
 };
@@ -66,7 +67,7 @@ const findById = (id) => {
       ),
       "prb.stob",
       knex.raw(
-        "(SELECT json_build_object('value', prb.client_coding_id, 'label', COALESCE(cc.program_area, ''))) AS client_coding_id"
+        "(SELECT json_build_object('value', prb.client_coding_id, 'label', COALESCE(cc.program_area, cc.client))) AS client_coding_id"
       ),
       knex.raw(
         "(SELECT json_build_object('value', prb.contract_id, 'label', COALESCE(cr.co_number, ''))) AS contract_id"
