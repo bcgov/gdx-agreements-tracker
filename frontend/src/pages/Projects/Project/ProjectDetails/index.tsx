@@ -7,6 +7,7 @@ import { AgreementSection } from "./AgreementSection";
 import { BudgetSection } from "./BudgetSection";
 import { ClientCodingSection } from "./ClientCodingSection";
 import { ContactsSection } from "./ContactsSection";
+import { DeliverablesSection } from "./Deliverables";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
 export const ProjectDetails = () => {
@@ -52,6 +53,9 @@ export const ProjectDetails = () => {
           </GDXAccordion>
           <GDXAccordion sectionTitle="Contacts">
             <ContactsSection projectId={Number(projectId)} />
+          </GDXAccordion>
+          <GDXAccordion sectionTitle="Deliverables">
+            <DeliverablesSection projectId={Number(projectId)} />
           </GDXAccordion>
           <GDXAccordion sectionTitle="Client Coding">
             <ClientCodingSection projectId={Number(projectId)} />
