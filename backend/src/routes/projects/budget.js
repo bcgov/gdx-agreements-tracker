@@ -24,7 +24,7 @@ const routes = [
   {
     method: "POST",
     url: `/projects/${what}`,
-    // schema: validators.addOne,
+    schema: validators.addOne,
     handler: controller.addOne,
   },
 ];
