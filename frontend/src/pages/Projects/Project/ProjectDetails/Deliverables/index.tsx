@@ -11,11 +11,10 @@ export const DeliverablesSection = ({ projectId }: { projectId: number }) => {
   };
 
   const url = {
-    getAll: `projects/${projectId}/deliverablecal`,
-    getOne: `projects/budget/{id}`,
-    updateOne: `projects/budget/{id}`,
-    addOne: `projects/budget`,
-    deleteOne: `projects/budget/{id}`,
+    getAll: `projects/${projectId}/deliverables`,
+    getOne: `projects/deliverables/{id}`,
+    updateOne: `projects/deliverables/{id}`,
+    addOne: `projects/deliverables`,
   };
 
   const columnWidths = {
@@ -27,14 +26,14 @@ export const DeliverablesSection = ({ projectId }: { projectId: number }) => {
 
   return (
     <TableComplete
-      itemName={"Budget"}
-      tableName={"budget"}
+      itemName={"Deliverables"}
+      tableName={"deliverable"}
       url={url}
       roles={roles}
-      editFields={editFields(Number(projectId))}
+      editFields={editFields}
       readFields={readFields}
       columnWidths={columnWidths}
-      createFormInitialValues={initialValues}
+      createFormInitialValues={initialValues(Number(projectId))}
     />
   );
 };

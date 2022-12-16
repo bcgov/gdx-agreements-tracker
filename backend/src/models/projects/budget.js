@@ -89,8 +89,8 @@ const updateOne = (body, id) => {
 };
 
 // Add one.
-const addOne = (newJv) => {
-  return knex(projectBudgetTable).insert(newJv);
+const addOne = (newBudget) => {
+  return knex(projectBudgetTable).insert(newBudget);
 };
 
 module.exports = {

@@ -31,6 +31,7 @@ exports.seed = function (knex) {
     contract_amendment: "contract_amendment",
     journal_voucher: "jv",
     project_budget: "project_budget",
+    project_deliverables: "project_deliverables",
   };
 
   const pickers = [
@@ -79,9 +80,9 @@ exports.seed = function (knex) {
     {
       name: "deliverable_status",
       title: "Deliverable Status",
-      description: "The contract Deliverable Status",
+      description: "The Deliverable Status",
       definition: { dropDownValues: deliverable_status },
-      associated_form: tables.contracts,
+      associated_form: tables.generic,
     },
     {
       name: "funding",
