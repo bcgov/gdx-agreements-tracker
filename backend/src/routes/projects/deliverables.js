@@ -1,6 +1,6 @@
-const controller = require("@controllers/projects/budget");
-const validators = require("@validators/projects/budget");
-const what = "budget";
+const controller = require("@controllers/projects/deliverables");
+const validators = require("@validators/projects/deliverables");
+const what = "deliverables";
 
 const routes = [
   {

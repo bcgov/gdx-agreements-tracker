@@ -88,7 +88,7 @@ export const editFields: IEditField[] = [
     fieldType: "select",
     fieldLabel: "Deliverable Status",
     width: "half",
-    tableName: "contracts",
+    tableName: "generic",
   },
   {
     fieldName: "project_deliverable_id",
