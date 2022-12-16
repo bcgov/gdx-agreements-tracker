@@ -1,7 +1,15 @@
 ## Developer Changelog
+### December 16, 2022 (DESCW-686) Project deliverables section
+- Backend
+  - updated picker options
+  - `npx knex seed:run --specific=08_picker_options.js`
+  - updated picker options model.
+  - Added project deliverables backend
 
+- Frontend
+  - Added project deliverable section
 
-### December 6, 2022 (DESCW-733) Project Status Rollup Report
+### December 6, 2022 (DESCW-733) Project budget section
 - Backend
   - updated picker options
   - `npx knex seed:run --specific=08_picker_options.js`
