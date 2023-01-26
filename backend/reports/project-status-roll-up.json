@@ -3,8 +3,8 @@
         "rollup": {
             "portfolios": [
                 {
-                    "portfolio_name": "Portfolio 4",
-                    "portfolio_list": [
+                    "portfolio_name": "portfolio 4",
+                    "projects": [
                         {
                             "portfolio_id": 4,
                             "project_number": "23-015",
@@ -138,8 +138,8 @@
                     ]
                 },
                 {
-                    "portfolio_name": "Portfolio 8",
-                    "portfolio_list": [
+                    "portfolio_name": "portfolio 8",
+                    "projects": [
                         {
                             "portfolio_id": 8,
                             "project_number": "23-019",
@@ -195,8 +195,8 @@
                     ]
                 },
                 {
-                    "portfolio_name": "Portfolio 12",
-                    "portfolio_list": [
+                    "portfolio_name": "portfolio 12",
+                    "projects": [
                         {
                             "portfolio_id": 12,
                             "project_number": "23-018",
@@ -226,8 +226,8 @@
                     ]
                 },
                 {
-                    "portfolio_name": "Portfolio 15",
-                    "portfolio_list": [
+                    "portfolio_name": "portfolio 15",
+                    "projects": [
                         {
                             "portfolio_id": 15,
                             "project_number": "23-013",
@@ -244,8 +244,8 @@
                     ]
                 },
                 {
-                    "portfolio_name": "Portfolio 10",
-                    "portfolio_list": [
+                    "portfolio_name": "portfolio 10",
+                    "projects": [
                         {
                             "portfolio_id": 10,
                             "project_number": "23-005",
@@ -262,8 +262,8 @@
                     ]
                 },
                 {
-                    "portfolio_name": "Portfolio 6",
-                    "portfolio_list": [
+                    "portfolio_name": "portfolio 6",
+                    "projects": [
                         {
                             "portfolio_id": 6,
                             "project_number": "23-011",
