@@ -1,4 +1,8 @@
 ## Developer Changelog
+### February 3, 2022 Helper functions for reports
+- Backend
+  - added loadTemplate, groupByProperty and getDocumentApiBody helpers 
+
 ### December 16, 2022 (DESCW-686) Project deliverables section
 - Backend
   - updated picker options
