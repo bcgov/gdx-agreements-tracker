@@ -180,6 +180,18 @@ controller.getReport = async (request, reply) => {
 controller.getProjectStatusReportOnRequest = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
+    console.log(`
+    
+
+    WHAT: ${what}
+    REQUEST: ${request}
+    
+
+
+
+
+    
+    `);
     const projectId = Number(request.params.id);
     const reportDate = new Date();
     // Get the data from the database.
