@@ -1,7 +1,8 @@
+// Utility imports
 const fs = require("fs");
 const path = require("path");
 
-// pdf configuration
+// Constants
 const pdfConfig = { responseType: "arraybuffer" };
 
 /**
@@ -31,11 +32,12 @@ const getDocumentApiBody = async (
   templateFileName,
   templateType = "docx",
   reportName = "report",
-  convertTo = "docx"
+  convertTo = "pdf"
 ) => {
   const templateContent = await loadTemplate(
-    path.resolve(__dirname, `../../../reports/${templateFileName}`)
+    path.resolve(__dirname, `../../../../reports/${templateFileName}`)
   );
+
   return {
     data: data,
     formatters:

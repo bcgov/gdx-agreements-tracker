@@ -180,18 +180,6 @@ controller.getReport = async (request, reply) => {
 controller.getProjectStatusReportOnRequest = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
-    console.log(`
-    
-
-    WHAT: ${what}
-    REQUEST: ${request}
-    
-
-
-
-
-    
-    `);
     const projectId = Number(request.params.id);
     const reportDate = new Date();
     // Get the data from the database.
@@ -205,6 +193,16 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
     };
     const body = await getDocumentApiBody(result, "P_Status_MostRecent_Template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+
+    console.log(`
+    
+  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+
+  ${pdf}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    `);
+
     // Injects the pdf data into the request object.
     request.data = pdf;
     if (!result) {

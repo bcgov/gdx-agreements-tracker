@@ -1,7 +1,7 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
 const model = require("@models/reports/projectRollup");
-const utils = require("./utils");
+const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
 const _ = require("lodash");
@@ -30,14 +30,22 @@ controller.getProjectStatusRollup = async (request, reply) => {
       report_date: reportDate,
     };
 
-    if (result.rollup.length > 0) {
+    if (!_.isEmpty(result.rollup)) {
       result.rollup = { portfolios: groupByPortfolio(result.rollup, "portfolio_name") };
     }
 
-    // const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
-    //const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-    const testBody = await getDocumentApiBody(result, "test.docx");
-    const pdf = await cdogs.api.post("/template/render", testBody, pdfConfig);
+    const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
+
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+
+    console.log(`
+    
+  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+
+  ${pdf}
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    `);
 
     // Inject the pdf data into the request object
     request.data = pdf;
@@ -51,15 +59,8 @@ controller.getProjectStatusRollup = async (request, reply) => {
   } catch (err) {
     reply.code(500);
     console.error(`
-
-
-
     ERROR:
     ${err}
-
-
-
-
     `);
     return { message: `There was a problem looking up this Project rollup Report.` };
   }
