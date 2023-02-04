@@ -56,8 +56,16 @@ const getDocumentApiBody = async (
   };
 };
 
+const getReport = async (request, reply) => {
+  reply.type("application/pdf").headers({
+    "Content-Disposition": 'attachment;filename="test.pdf"',
+  });
+  return request.data;
+};
+
 module.exports = {
   pdfConfig,
   loadTemplate,
   getDocumentApiBody,
+  getReport,
 };

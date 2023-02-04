@@ -10,6 +10,7 @@ const _ = require("lodash");
 const cdogs = useCommonComponents("cdogs");
 const pdfConfig = utils.pdfConfig;
 const getDocumentApiBody = utils.getDocumentApiBody;
+controller.getReport = utils.getReport;
 
 /**
  * Get a Project rollup Report for a specific array of portfolio.
@@ -37,15 +38,6 @@ controller.getProjectStatusRollup = async (request, reply) => {
     const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
 
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-
-    console.log(`
-    
-  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
-
-  ${pdf}
-
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-    `);
 
     // Inject the pdf data into the request object
     request.data = pdf;
