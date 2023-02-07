@@ -37,14 +37,6 @@ controller.getProjectStatusRollup = async (request, reply) => {
     );
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
-    /*
-    console.log(`
-    DATE: ${body.data.report_date}
-    rollup: 
-    `);
-    console.table(body.data.rollup.portfolios);
-    */
-
     // Inject the pdf data into the request object
     request.data = pdf;
 

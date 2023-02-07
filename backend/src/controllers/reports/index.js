@@ -1,12 +1,16 @@
 const useController = require("../useController/index");
 const useCommonComponents = require("../useCommonComponents/index");
 const model = require("@models/reports/index");
+const projModel = require("@models/reports/projectRollup");
 const projectModel = require("@models/projects");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
 // Template and data reading
 const fs = require("fs");
 const path = require("path");
+
+// testing portfolio rollup
+const utils = require("./helpers");
 
 const cdogs = useCommonComponents("cdogs");
 const pdfConfig = { responseType: "arraybuffer" };
@@ -182,8 +186,19 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
   try {
     const projectId = Number(request.params.id);
     const reportDate = new Date();
+
+    // portfolios testing
+    const portfolios = request.query.portfolio;
+    const portfolioRollup = await projModel.getRollupByPortfolios(portfolios);
+
     // Get the data from the database.
     const result = {
+      data: {
+        report_date: "2023-02-07T16:29:06.378Z",
+        rollup: {
+          portfolios: utils.groupByProperty(portfolioRollup, "portfolio_name"),
+        },
+      },
       project: await projectModel.findById(projectId),
       deliverables: await model.projectStatusReport(projectId),
       milestones: await model.getMilestones(projectId),

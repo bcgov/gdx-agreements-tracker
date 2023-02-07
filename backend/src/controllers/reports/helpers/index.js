@@ -61,7 +61,6 @@ const getReport = async (request, reply) => {
   reply.type("application/pdf").headers({
     "Content-Disposition": 'attachment;filename="test.pdf"',
   });
-  console.table(request.data.rollup.portfolios);
 
   return request.data;
 };
