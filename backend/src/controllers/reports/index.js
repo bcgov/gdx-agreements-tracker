@@ -191,7 +191,7 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
       status: await projectModel.findMostRecentStatusById(projectId),
       reportDate: reportDate,
     };
-    const body = await getDocumentApiBody(result, "P_Status_MostRecent_Template.docx");
+    const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Injects the pdf data into the request object.

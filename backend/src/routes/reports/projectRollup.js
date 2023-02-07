@@ -6,6 +6,7 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/project-status-roll-up`,
+    // handler: controller.getProjectStatusRollup,
     onRequest: controller.getProjectStatusRollup,
     handler: controller.getReport,
   },

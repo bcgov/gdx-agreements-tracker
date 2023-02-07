@@ -1,6 +1,7 @@
 // Utility imports
 const fs = require("fs");
 const path = require("path");
+const _ = require("lodash");
 
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
@@ -60,12 +61,39 @@ const getReport = async (request, reply) => {
   reply.type("application/pdf").headers({
     "Content-Disposition": 'attachment;filename="test.pdf"',
   });
+  console.table(request.data.rollup.portfolios);
+
   return request.data;
 };
 
+/**
+ * Separates an array of projects into groups by property.
+ *
+ * this moves each array of projects onto "projects" key, and the property onto a {property} key
+ * the Carbone.io engine needs to see objects nested in arrays, or arrays nested in objects, or else it can't iterate through.
+ * arrays inside of arrays, or objects inside of objects can't be iterated properly (at depth n+1)
+ *
+ * @param   {any[]}   rows Array of projects ordered by some property.
+ * @param   {string}  prop string matches property name we want to group the rows by
+ * @returns {any[][]}
+ */
+const groupByProperty = (rows, prop) => {
+  if (_.isEmpty(rows)) return rows;
+
+  const sliceOneGroup = (value, key) => ({
+    [prop]: key,
+    projects: [...value],
+  });
+  const rowsByProp = _.groupBy(rows, prop);
+  const propGroup = _.map(rowsByProp, sliceOneGroup);
+
+  return propGroup;
+};
+
 module.exports = {
-  pdfConfig,
-  loadTemplate,
   getDocumentApiBody,
   getReport,
+  groupByProperty,
+  loadTemplate,
+  pdfConfig,
 };
