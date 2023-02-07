@@ -188,17 +188,19 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
     const reportDate = new Date();
 
     // portfolios testing
-    const portfolios = request.query.portfolio;
-    const portfolioRollup = await projModel.getRollupByPortfolios(portfolios);
+    //const portfolios = request.query.portfolio;
+    //const portfolioRollup = await projModel.getRollupByPortfolios(portfolios);
 
     // Get the data from the database.
     const result = {
+      /*
       data: {
         report_date: "2023-02-07T16:29:06.378Z",
         rollup: {
           portfolios: utils.groupByProperty(portfolioRollup, "portfolio_name"),
         },
       },
+      */
       project: await projectModel.findById(projectId),
       deliverables: await model.projectStatusReport(projectId),
       milestones: await model.getMilestones(projectId),
@@ -206,7 +208,7 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
       status: await projectModel.findMostRecentStatusById(projectId),
       reportDate: reportDate,
     };
-    const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
+    const body = await getDocumentApiBody(result, "P_Status_MostRecent_template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Injects the pdf data into the request object.

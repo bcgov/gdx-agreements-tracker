@@ -30,11 +30,9 @@ controller.getProjectStatusRollup = async (request, reply) => {
       report_date: await getDate(),
       rollup: { portfolios: groupByProperty(portfolioRollup, "portfolio_name") },
     };
+    console.log(result);
 
-    const body = await getDocumentApiBody(
-      result,
-      "PA_StatusPortfolioRollup_template.docx.backup.docx"
-    );
+    const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Inject the pdf data into the request object
