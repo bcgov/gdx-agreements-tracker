@@ -29,7 +29,6 @@ export const ReportSelect = () => {
     "active-projects",
     "project-lessons-learned",
     "contract-summary",
-    "project-status-roll-up",
   ];
   // Handle state changes
   const [category, setCategory] = useState<string>();

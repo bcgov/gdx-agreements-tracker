@@ -20,6 +20,7 @@ const getRollupByPortfolios = (portfolios) => {
   const query = knex(`${projectTable} as p`)
     .select(
       "p.portfolio_id",
+      "po.portfolio_name",
       "p.project_number",
       "p.project_name",
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },

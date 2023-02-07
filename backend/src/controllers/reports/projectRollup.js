@@ -1,7 +1,14 @@
+const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
 const model = require("@models/reports/projectRollup");
+const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
+
+// Template and data reading
+const cdogs = useCommonComponents("cdogs");
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+controller.getReport = getReport;
 
 /**
  * Get a Project rollup Report for a specific array of portfolio.
@@ -13,20 +20,23 @@ const controller = useController(model, what);
 controller.getProjectStatusRollup = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
-    const portfolios = request.query.portfolio;
-    const reportDate = new Date();
     // Get the data from the database.
+    const getDate = async () => new Date();
+    const portfolios = request.query.portfolio;
+    let portfolioRollup = await model.getRollupByPortfolios(portfolios);
+
     const result = {
-      rollup: await model.getRollupByPortfolios(portfolios),
-      report_date: reportDate,
+      test: "TEST",
+      report_date: await getDate(),
+      rollup: { portfolios: groupByProperty(portfolioRollup, "portfolio_name") },
     };
-    if (result.rollup.length > 0) {
-      result.rollup = groupByPortfolio(result.rollup);
-    }
-    // todo: Uncomment when template document is created.
-    // const body = await getDocumentApiBody(result, "PA_Statusrollup_template.docx");
-    // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-    // request.data = pdf;
+
+    const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
+    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+
+    // Inject the pdf data into the request object
+    request.data = pdf;
+
     if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
@@ -34,32 +44,13 @@ controller.getProjectStatusRollup = async (request, reply) => {
       return result;
     }
   } catch (err) {
+    console.error(`
+    ERROR:
+    ${err}
+    `);
     reply.code(500);
     return { message: `There was a problem looking up this Project rollup Report.` };
   }
 };
 
-/**
- * Separates an array of projects into groups by their portfolio.
- *
- * @param   {any[]}   rows Array of projects ordered by portfolio.
- * @returns {any[][]}
- */
-const groupByPortfolio = (rows) => {
-  const groupedRows = [];
-  let currentPortfolio = rows[0].portfolio_id;
-  let currentGroup = [];
-  for (let i = 0; i < rows.length; i++) {
-    if (currentPortfolio !== rows[i].portfolio_id) {
-      groupedRows.push(currentGroup);
-      currentPortfolio = rows[i].portfolio_id;
-      currentGroup = [];
-    }
-    currentGroup.push(rows[i]);
-  }
-  if (currentGroup.length > 0) {
-    groupedRows.push(currentGroup);
-  }
-  return groupedRows;
-};
 module.exports = controller;

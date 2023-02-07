@@ -197,7 +197,6 @@ const getContracts = (projectId) => {
     .orderBy("ct.co_number");
 };
 /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-// todo: replace this raw query with a knex version. See feature/knex-budget-summary
 // Get the deliverable totals per fiscal year for a specific project by id
 const getDeliverableSummaries = (projectId) => {
   return knex.raw(

@@ -1,4 +1,10 @@
 ## Developer Changelog
+
+### Feb 7, 2023 (DESCW-839) portfolio-status-rollup report query
+- Backend
+  - Updated route, controller, and model for project rollup report
+  - separated utility functions into helper folder
+
 ### February 3, 2022 Helper functions for reports
 - Backend
   - added loadTemplate, groupByProperty and getDocumentApiBody helpers 
