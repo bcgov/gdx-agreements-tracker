@@ -47,7 +47,8 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/active-projects`,
-    handler: controller.getActiveProjectsReportOnRequest,
+    handler: controller.getReport,
+    onRequest: controller.getActiveProjectsReportOnRequest,
   },
   {
     method: "GET",

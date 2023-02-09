@@ -556,6 +556,7 @@ const getDashboardByPortfolios = (portfolios) => {
 const getActiveProjects = (portfolios) => {
   const results = knex(`data.portfolio as portfolio`)
     .select({
+      portfolio_name: "portfolio.portfolio_name",
       project_number: "project.project_number",
       project_name: "project.project_name",
       project_manager: knex.raw("contact.last_name || ', ' || contact.first_name"),
