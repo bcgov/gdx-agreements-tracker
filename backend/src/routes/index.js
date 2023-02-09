@@ -7,6 +7,7 @@ Reference :https://gist.github.com/richmarr/1122217/578a2767ec126b9b9526b6ac6df7
 const { readdirSync } = require("fs");
 
 const getFileList = (dirName) => {
+  console.log('dirName', dirName)
   let files = [];
   const items = readdirSync(dirName, { withFileTypes: true });
 
