@@ -1,6 +1,6 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
-const model = require("@models/reports/projectRollup");
+const model = require("@models/reports/Tab_35_rpt_PA_StatusPortfolioRollup.js");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
@@ -24,7 +24,9 @@ controller.Tab_35_rpt_PA_StatusPortfolioRollup = async (request, reply) => {
     const getDate = async () => new Date();
 
     const portfolios = request.query.portfolio;
-    let portfolioRollup = await model.Tab_35_rpt_PA_StatusPortfolioRollup(portfolios);
+    console.log('portfolios123', portfolios)
+    let portfolioRollup = await model.Tab_35_rpt_PA_StatusPortfolioRollup();
+    console.log('portfolioRollup123', portfolioRollup)
 
     const result = {
       report_date: await getDate(),
