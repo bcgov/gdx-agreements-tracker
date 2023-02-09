@@ -1,5 +1,9 @@
 ## Developer Changelog
 
+### Feb 9, 2023 (DESCW-940) portfolio-status-rollup report template
+- Backend
+  - Updated portfolio rollup report template
+
 ### Feb 7, 2023 (DESCW-839) portfolio-status-rollup report query
 - Backend
   - Updated route, controller, and model for project rollup report

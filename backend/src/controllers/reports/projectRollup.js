@@ -21,14 +21,14 @@ controller.getProjectStatusRollup = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
     const portfolios = request.query.portfolio;
-    let portfolioRollup = await model.getRollupByPortfolios(portfolios);
+    const portfolioRollup = await model.getRollupByPortfolios(portfolios);
 
     const result = {
-      test: "TEST",
-      report_date: await getDate(),
-      rollup: { portfolios: groupByProperty(portfolioRollup, "portfolio_name") },
+      report_date: new Date(),
+      rollup: {
+        portfolios: groupByProperty(portfolioRollup, "portfolio_name"),
+      },
     };
 
     const body = await getDocumentApiBody(result, "PA_StatusPortfolioRollup_template.docx");
