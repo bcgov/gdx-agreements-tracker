@@ -7,7 +7,7 @@ const { knex } = dbConnection();
  * @returns {any[]}
  */
 const Tab_4_rpt_CA_Capital_GDX = () => {
-  const query = knex().raw();
+  const query = knex.raw();
 
   return query;
 };

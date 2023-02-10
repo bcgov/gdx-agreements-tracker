@@ -29,7 +29,6 @@ export const ReportSelect = () => {
     "active-projects",
     "project-lessons-learned",
     "contract-summary",
-    "Tab_35_rpt_PA_StatusPortfolioRollup"
   ];
   // Handle state changes
   const [category, setCategory] = useState<string>();
