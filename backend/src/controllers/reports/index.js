@@ -41,21 +41,6 @@ const getDocumentApiBody = async (
   const templateContent = await loadTemplate(
     path.resolve(__dirname, `../../../reports/${templateFileName}`)
   );
-  console.log(`
-  
-  data: ${data},
-  templateFileName: ${templateFileName},
-  path: ${path.resolve(__dirname, `../../../reports/${templateFileName}`)}
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  `);
   return {
     data: data,
     formatters:
@@ -347,27 +332,26 @@ controller.getActiveProjectsReportOnRequest = async (request, reply) => {
   try {
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
-    const groupByPortfolios = utils.groupByProperty;
-    const activeProjects = await model.getActiveProjects(portfolios);
-    const activeProjectsGroupedByPortfolioName = groupByPortfolios(
-      activeProjects,
-      "portfolio_name"
-    );
-    const report_date = reportDate.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "numeric",
-      year: "numeric",
-    });
+    // const groupByPortfolios = utils.groupByProperty;
+    // const activeProjects = await model.getActiveProjects(portfolios);
+    //  const activeProjectsGroupedByPortfolioName = groupByPortfolios(
+    //   activeProjects,
+    //   "portfolio_name"
+    // );
 
     // Get the data from the database.
     const result = {
-      active_projects: activeProjectsGroupedByPortfolioName,
-      report_date,
+      active_projects: await model.getActiveProjects(portfolios),
+      report_date: reportDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+      }),
     };
 
-    const body = await getDocumentApiBody(result, "PA_ActiveProjectsByPortfolio_template.docx");
-    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-    request.data = pdf;
+    // const body = await getDocumentApiBody(result, "PA_ActiveProjectsByPortfolio_template.docx");
+    // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    //request.data = pdf;
 
     if (!result) {
       reply.code(404);

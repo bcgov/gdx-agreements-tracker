@@ -566,6 +566,7 @@ const getActiveProjects = (portfolios) => {
       end_date: knex.raw(`TO_CHAR(project.planned_end_date :: DATE, '${dateFormat}')`),
       planned_budget: "project.planned_budget",
       client_ministry: "ministry_short_name",
+      // total_planned_budget:
     })
     .where("project.project_status", "Active")
     .leftJoin("data.project as project", { "portfolio.id": "project.portfolio_id" })
