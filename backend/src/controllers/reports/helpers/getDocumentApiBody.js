@@ -9,7 +9,7 @@ const getDocumentApiBody = async (
   convertTo = "pdf"
 ) => {
   const templateContent = await loadTemplate(
-    path.resolve(__dirname, `../../../../reports/${templateFileName}`)
+    path.resolve(__dirname, `@reportTemplates/docx/${templateFileName}`)
   );
   return {
     data: data,

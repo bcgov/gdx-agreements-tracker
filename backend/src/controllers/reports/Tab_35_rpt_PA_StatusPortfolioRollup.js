@@ -4,6 +4,8 @@ const model = require("@models/reports/Tab_35_rpt_PA_StatusPortfolioRollup.js");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
+const log = require("../../facilities/logging")(module.filename);
+
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
@@ -24,14 +26,14 @@ controller.Tab_35_rpt_PA_StatusPortfolioRollup = async (request, reply) => {
     const getDate = async () => new Date();
 
     const portfolios = request.query.portfolio;
-    console.log('portfolios123', portfolios)
     let portfolioRollup = await model.Tab_35_rpt_PA_StatusPortfolioRollup();
-    console.log('portfolioRollup123', portfolioRollup)
-
+  
     const result = {
       report_date: await getDate(),
-      rollup: { portfolios: groupByProperty(portfolioRollup, "portfolio_name") },
-    };
+      rollup: { portfolios: portfolioRollup },
+    };    
+    
+    request.data = result
 
     const body = await getDocumentApiBody(result, "Tab_35_rpt_PA_StatusPortfolioRollup.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);

@@ -27,7 +27,8 @@
     "@routes": "./src/routes",
     "@validators": "./src/validators",
     "@database": "./src/database",
-    "@facilities": "./src/facilities"
+    "@facilities": "./src/facilities",
+    "@reportTemplates": "./reports"
   },
   "author": "Shawn Turple",
   "license": "Apache-2.0",
