@@ -1,6 +1,6 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
-const model = require("@models/reports/projectRollup");
+const model = require("@models/reports/Tab_48_rpt_PF_FinanceRecoverySummary");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
@@ -23,12 +23,10 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
     // Get the data from the database.
     const getDate = async () => new Date();
 
-    //TODO replace "variableName" with proper variable and "variableName2" with variable to pass if needed.  The Model is already correct.
-    let variableName = await model.Tab_48_rpt_PF_FinanceRecoverySummary("variableName2");
+
 
     const result = {
       report_date: await getDate(),
-      result: groupByProperty(variableName, "PROPERTY TO GROUP BY"), //TODO this is where result would go
     };
 
     const body = await getDocumentApiBody(result, "Tab_48_rpt_PF_FinanceRecoverySummary.docx");
