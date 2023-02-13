@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig } = utils;
 controller.getReport = getReport;
 
 /**
@@ -22,7 +22,6 @@ controller.Tab_16_rpt_P_QuarterlyReview = async (request, reply) => {
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
-
 
     const result = {
       report_date: await getDate(),
