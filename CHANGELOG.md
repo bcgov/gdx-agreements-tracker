@@ -1,5 +1,5 @@
 ## Developer Changelog
-### Feb 10, 2023 (DESCW-839) portfolio-status-rollup report query
+### Feb 10, 2023 (DESCW-942) portfolio-status-rollup report query
 - Backend
   - Added all blank templates for reports (xlxs, docx)
   - Added boilerplate controllers, models, routes for reports

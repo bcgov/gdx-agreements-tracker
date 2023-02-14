@@ -21,10 +21,20 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
+    const portfolios = request.query.portfolio;
+    const reportDate = new Date();
+    const { query, planned_budget_totals } = model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio;
+    const activeProjects = await query(portfolios);
+    const activeProjectsPlannedBudgetTotals = await planned_budget_totals(portfolios);
 
     const result = {
-      report_date: await getDate(),
+      report_date: reportDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+      }),
+      activeProjects: activeProjects,
+      activeProjectsPlannedBudgetTotals: activeProjectsPlannedBudgetTotals,
     };
 
     const body = await getDocumentApiBody(result, "Tab_19_rpt_PA_ActiveProjectsbyPortfolio.docx");
