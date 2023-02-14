@@ -4,7 +4,6 @@ const model = require("@models/reports/index");
 const projectModel = require("@models/projects");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
-const utils = require("./helpers");
 
 // Template and data reading
 const fs = require("fs");

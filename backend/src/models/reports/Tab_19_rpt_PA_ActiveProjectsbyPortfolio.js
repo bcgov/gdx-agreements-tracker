@@ -4,10 +4,11 @@ const { knex } = dbConnection();
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
  *
+ * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
  * @returns {any[]}
  */
 const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
-  const query = knex().raw(`
+  const query = knex.raw(`
     SELECT project.portfolio_id,
         project.planned_budget,
         portfolio.portfolio_name AS portfolio,
@@ -33,7 +34,7 @@ const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
     query.whereIn("project.portfolio_id", portfolios);
   }
 
-  const planned_budget_totals = knex().raw(`
+  const planned_budget_totals = knex.raw(`
     SELECT portfolio.id as portfolio_id,
         SUM(project.planned_budget) as TOTAL_BUDGET
     FROM (
