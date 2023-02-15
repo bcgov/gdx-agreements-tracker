@@ -23,18 +23,26 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
-    const { query, planned_budget_totals } = model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio;
-    const activeProjects = await query(portfolios);
-    const activeProjectsPlannedBudgetTotals = await planned_budget_totals(portfolios);
+    const activeProjects = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio(portfolios);
+    const plannedBudgetTotals = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals(
+      portfolios
+    );
 
+    // const groupByPortfolios = utils.groupByProperty;
+    // const activeProjects = await model.getActiveProjects(portfolios);
+    //  const activeProjectsGroupedByPortfolioName = groupByPortfolios(
+    //   activeProjects,
+    //   "portfolio_name"
+    // );
+    // shape the results in a 'parseable' way
     const result = {
       report_date: reportDate.toLocaleDateString("en-US", {
         day: "numeric",
         month: "numeric",
         year: "numeric",
       }),
-      activeProjects: activeProjects,
-      activeProjectsPlannedBudgetTotals: activeProjectsPlannedBudgetTotals,
+      active_projects: activeProjects.rows,
+      planned_budget_totals: plannedBudgetTotals.rows,
     };
 
     const body = await getDocumentApiBody(result, "Tab_19_rpt_PA_ActiveProjectsbyPortfolio.docx");

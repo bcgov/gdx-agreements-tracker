@@ -8,7 +8,7 @@ const { knex } = dbConnection();
  * @returns {any[]}
  */
 const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
-  const query = knex.raw(`
+  const active_projects = knex.raw(`
     SELECT project.portfolio_id,
         project.planned_budget,
         portfolio.portfolio_name AS portfolio,
@@ -16,7 +16,7 @@ const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
         c.last_name || ', ' || c.first_name project_manager,
         project.planned_start_date,
         project.planned_end_date,
-        ministry.ministry_short_name AS client_ministry,
+        ministry.ministry_short_name AS client_ministry
         FROM (
             data.portfolio
             RIGHT JOIN data.project ON portfolio.id = project.portfolio_id
@@ -24,19 +24,22 @@ const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
         )
         INNER JOIN data.ministry ON project.ministry_id = ministry.id
     WHERE(((project.project_status) = 'Active'))
-    ORDER BY portfolio,
+    ORDER BY portfolio_id,
         project.project_number desc;
   `);
   if (undefined !== portfolios) {
     if (!(portfolios instanceof Array)) {
       portfolios = [portfolios];
     }
-    query.whereIn("project.portfolio_id", portfolios);
+    active_projects.whereIn("project.portfolio_id", portfolios);
   }
 
+  return active_projects;
+};
+const Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals = (portfolios) => {
   const planned_budget_totals = knex.raw(`
     SELECT portfolio.id as portfolio_id,
-        SUM(project.planned_budget) as TOTAL_BUDGET
+        (SUM(project.planned_budget)) as TOTAL_BUDGET
     FROM (
             data.project
             LEFT JOIN data.portfolio ON portfolio.id = project.portfolio_id
@@ -48,15 +51,12 @@ const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
     if (!(portfolios instanceof Array)) {
       portfolios = [portfolios];
     }
-    planned_budget_totals.whereIn("project.portfolio_id", portfolios);
+    planned_budget_totals.whereIn("portfolio_id", portfolios);
   }
-
-  return {
-    query: query,
-    planned_budget_totals: planned_budget_totals,
-  };
+  return planned_budget_totals;
 };
 
 module.exports = {
   Tab_19_rpt_PA_ActiveProjectsbyPortfolio,
+  Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals,
 };

@@ -331,12 +331,6 @@ controller.getActiveProjectsReportOnRequest = async (request, reply) => {
   try {
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
-    // const groupByPortfolios = utils.groupByProperty;
-    // const activeProjects = await model.getActiveProjects(portfolios);
-    //  const activeProjectsGroupedByPortfolioName = groupByPortfolios(
-    //   activeProjects,
-    //   "portfolio_name"
-    // );
 
     // Get the data from the database.
     const result = {

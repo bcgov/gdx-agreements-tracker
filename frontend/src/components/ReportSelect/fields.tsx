@@ -180,7 +180,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "active-projects",
+      value: "Tab_19_rpt_PA_ActiveProjectsbyPortfolio",
       label: "Active Projects",
       reportParamCategory: [
         {
