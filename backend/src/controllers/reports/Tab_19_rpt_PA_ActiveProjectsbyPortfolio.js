@@ -23,15 +23,16 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
-    const groupByPortfolios = utils.groupByProperty;
-    const activeProjects = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio(portfolios);
-    const activeProjectsGroupedByPortfolioName = groupByPortfolios(
-      activeProjects.rows,
-      "portfolio"
-    );
-    const plannedBudgetTotals = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals(
+    const activeProjects = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio.active_projects(
       portfolios
     );
+    const activeProjectsGroupedByPortfolioName = groupByProperty(
+      activeProjects.rows,
+      "portfolio_name"
+    );
+
+    const plannedBudgetTotals =
+      await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio.planned_budget_totals(portfolios).rows;
 
     // shape the results in a 'parseable' way
     const result = {
@@ -41,16 +42,15 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
         year: "numeric",
       }),
       active_projects: activeProjectsGroupedByPortfolioName,
-      planned_budget_totals: plannedBudgetTotals.rows,
+      planned_budget_totals: plannedBudgetTotals,
     };
-    /*
 
     const body = await getDocumentApiBody(result, "Tab_19_rpt_PA_ActiveProjectsbyPortfolio.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    console.log(body.data);
 
     // Inject the pdf data into the request object
     request.data = pdf;
-    */
 
     if (!result) {
       reply.code(404);
