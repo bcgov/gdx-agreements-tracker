@@ -9,7 +9,21 @@ const { knex } = dbConnection();
  */
 const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
   // make a comma-separated list of portfolio numbers to use in the raw query below
-  const portfolioList = portfolios.length > 1 ? portfolios.join(",") : portfolios;
+
+  const getPortfolioFilterSQL = () => {
+    if (!portfolios) return `WHERE(project.project_status IN ('Active'))`;
+
+    switch (portfolios) {
+      case typeof portfolios === "undefined":
+        return `WHERE(project.project_status IN ('Active'))`;
+      case Array.isArray(portfolios):
+        const portfolioList = portfolios?.length > 1 ? portfolios.join(",") : portfolios;
+        return `WHERE(project.project_status IN ('Active')) AND (project.portfolio_id IN (${portfolioList}))`;
+    }
+
+    return `WHERE(project.project_status IN ('Active')) AND (project.portfolio_id IN (${portfolioList}))`;
+  };
+
   const active_projects = knex.raw(`
     SELECT project.portfolio_id,
         project.planned_budget,
