@@ -8,6 +8,8 @@ const { knex } = dbConnection();
  * @returns {any[]}
  */
 const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
+  // make a comma-separated list of portfolio numbers to use in the raw query below
+  const portfolioList = portfolios.length > 1 ? portfolios.join(",") : portfolios;
   const active_projects = knex.raw(`
     SELECT project.portfolio_id,
         project.planned_budget,
@@ -23,21 +25,28 @@ const Tab_19_rpt_PA_ActiveProjectsbyPortfolio = (portfolios) => {
             LEFT JOIN data.contact as c ON project.project_manager = c.id
         )
         INNER JOIN data.ministry ON project.ministry_id = ministry.id
-    WHERE(((project.project_status) = 'Active'))
+    WHERE(project.project_status IN ('Active')) AND (project.portfolio_id IN (${portfolioList}))
     ORDER BY portfolio_id,
         project.project_number desc;
   `);
   if (undefined !== portfolios) {
-    if (!(portfolios instanceof Array)) {
-      portfolios = [portfolios];
-    }
-    active_projects.whereIn("project.portfolio_id", portfolios);
+    console.log(`
+
+
+
+
+
+    PORTFOLIOS: ${portfolios}
+    
+    
+    
+    `);
   }
 
   return active_projects;
 };
-const Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals = (portfolios) => {
-  const planned_budget_totals = knex.raw(`
+const Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals = (portfolios) =>
+  knex.raw(`
     SELECT portfolio.id as portfolio_id,
         (SUM(project.planned_budget)) as TOTAL_BUDGET
     FROM (
@@ -47,14 +56,6 @@ const Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals = (portfolios) => {
     WHERE(project.project_status = 'Active')
     GROUP BY portfolio.id;
   `);
-  if (undefined !== portfolios) {
-    if (!(portfolios instanceof Array)) {
-      portfolios = [portfolios];
-    }
-    planned_budget_totals.whereIn("portfolio_id", portfolios);
-  }
-  return planned_budget_totals;
-};
 
 module.exports = {
   Tab_19_rpt_PA_ActiveProjectsbyPortfolio,
