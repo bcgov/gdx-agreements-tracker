@@ -14,8 +14,7 @@ const useCommonComponents = (instance) => {
   const getAxiosInstance = async () => {
     // Gets grant type client credentials.
     const client = new ClientCredentials(config);
-    const tokenParams = { scope: "<scope>" };
-    const accessToken = await client.getToken(tokenParams);
+    const accessToken = await client.getToken();
     // Using Axios to call api endpoint with Bearer token.
     return axios.create({
       baseURL: `${"cdogs" === instance ? cdogsApi : chesApi}/api/v2`,
