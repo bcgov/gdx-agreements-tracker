@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
 controller.getReport = getReport;
 
 /**
@@ -23,17 +23,16 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
+    const groupByPortfolios = utils.groupByProperty;
     const activeProjects = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio(portfolios);
+    const activeProjectsGroupedByPortfolioName = groupByPortfolios(
+      activeProjects.rows,
+      "portfolio"
+    );
     const plannedBudgetTotals = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio_budget_totals(
       portfolios
     );
 
-    // const groupByPortfolios = utils.groupByProperty;
-    // const activeProjects = await model.getActiveProjects(portfolios);
-    //  const activeProjectsGroupedByPortfolioName = groupByPortfolios(
-    //   activeProjects,
-    //   "portfolio_name"
-    // );
     // shape the results in a 'parseable' way
     const result = {
       report_date: reportDate.toLocaleDateString("en-US", {
@@ -41,15 +40,17 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
         month: "numeric",
         year: "numeric",
       }),
-      active_projects: activeProjects.rows,
+      active_projects: activeProjectsGroupedByPortfolioName,
       planned_budget_totals: plannedBudgetTotals.rows,
     };
+    /*
 
     const body = await getDocumentApiBody(result, "Tab_19_rpt_PA_ActiveProjectsbyPortfolio.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Inject the pdf data into the request object
     request.data = pdf;
+    */
 
     if (!result) {
       reply.code(404);
