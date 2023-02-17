@@ -25,7 +25,7 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
     const portfolios = request.query.portfolio;
     const activeProjects = await model.active_projects(portfolios);
     const plannedBudgetTotals = await model.planned_budget_totals(portfolios);
-    const reportTotal = await model.report_total();
+    const reportTotal = await model.report_total(portfolios);
 
     // Chunk model info so template engine can parse it
     const activeProjectsGroupedByPortfolioName = groupByProperty(
