@@ -1,4 +1,13 @@
 ## Developer Changelog
+### Feb 17, 2023 (DESCW-692) active-projects-by-portfolio
+- Backend
+  - Added template and updated it
+  - Fixed DESCW-839 template which had unused carbone template statement
+  - updated model to pull needed totals
+  - updated controller to shape model output for templating engine
+  - installed lodash in backend 
+  - 'hacked' the webpack checks on github by modifying the node version
+    - see bcgov-engagement repo, branch: Feature/dseng260 in package.json Line 25
 ### Feb 7, 2023 (DESCW-839) portfolio-status-rollup report query
 - Backend
   - Added all blank templates for reports (xlxs, docx)
