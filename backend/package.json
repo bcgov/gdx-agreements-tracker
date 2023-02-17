@@ -45,7 +45,6 @@
     "jsonwebtoken": "^8.5.1",
     "jwks-client": "^1.4.0",
     "knex": "^2.0.3",
-    "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "n-readlines": "^1.0.1",
     "pg": "^8.7.1",
