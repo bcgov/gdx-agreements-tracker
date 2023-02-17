@@ -4,7 +4,6 @@ const model = require("@models/reports/index");
 const projectModel = require("@models/projects");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
-
 // Template and data reading
 const fs = require("fs");
 const path = require("path");
@@ -331,7 +330,6 @@ controller.getActiveProjectsReportOnRequest = async (request, reply) => {
   try {
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
-
     // Get the data from the database.
     const result = {
       active_projects: await model.getActiveProjects(portfolios),
@@ -341,11 +339,10 @@ controller.getActiveProjectsReportOnRequest = async (request, reply) => {
         year: "numeric",
       }),
     };
-
-    // const body = await getDocumentApiBody(result, "PA_ActiveProjectsByPortfolio_template.docx");
+    // todo: Uncomment when template document is created.
+    // const body = await getDocumentApiBody(result, "PA_StatusDashboard_template.docx");
     // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-    //request.data = pdf;
-
+    // request.data = pdf;
     if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
