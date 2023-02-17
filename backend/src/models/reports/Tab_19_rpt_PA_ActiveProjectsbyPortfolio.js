@@ -2,14 +2,17 @@ const _ = require("lodash");
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
+// filters query results to work around knex.raw()'s inability to chain methods
+const portfolioFilter = (portfolios) =>
+  _.isUndefined(portfolios)
+    ? `WHERE(project.project_status IN ('Active'))`
+    : `WHERE(project.project_status IN ('Active')) AND (project.portfolio_id IN (${_.castArray(
+        portfolios
+      ).join(",")}))`;
+
 module.exports = {
   active_projects: (portfolios) => {
     // make a comma-separated list of portfolio numbers to use in the raw query below
-    const portfolioFilter = _.isUndefined(portfolios)
-      ? `WHERE(project.project_status IN ('Active'))`
-      : `WHERE(project.project_status IN ('Active')) AND (project.portfolio_id IN (${_.castArray(
-          portfolios
-        ).join(",")}))`;
 
     /**
      * Gets data for the Divisional Project Reports - Project Dashboard report.
@@ -35,7 +38,7 @@ module.exports = {
         LEFT JOIN data.contact as c ON project.project_manager = c.id
     )
     INNER JOIN data.ministry ON project.ministry_id = ministry.id
-    ${portfolioFilter}
+    ${portfolioFilter(portfolios)}
     ORDER BY portfolio_name,
         project.project_number desc;
   `);
@@ -57,10 +60,10 @@ module.exports = {
       ORDER BY portfolio.portfolio_name;
   `),
 
-  report_total: () =>
+  report_total: (portfolios) =>
     knex.raw(`
       SELECT (SUM(project.planned_budget)) as report_total
       FROM data.project       
-      WHERE project.project_status = 'Active';
+      ${portfolioFilter(portfolios)}
   `),
 };
