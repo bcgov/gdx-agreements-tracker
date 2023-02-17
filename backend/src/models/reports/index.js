@@ -556,7 +556,6 @@ const getDashboardByPortfolios = (portfolios) => {
 const getActiveProjects = (portfolios) => {
   const results = knex(`data.portfolio as portfolio`)
     .select({
-      portfolio_name: "portfolio.portfolio_name",
       project_number: "project.project_number",
       project_name: "project.project_name",
       project_manager: knex.raw("contact.last_name || ', ' || contact.first_name"),
@@ -566,7 +565,6 @@ const getActiveProjects = (portfolios) => {
       end_date: knex.raw(`TO_CHAR(project.planned_end_date :: DATE, '${dateFormat}')`),
       planned_budget: "project.planned_budget",
       client_ministry: "ministry_short_name",
-      // total_planned_budget:
     })
     .where("project.project_status", "Active")
     .leftJoin("data.project as project", { "portfolio.id": "project.portfolio_id" })

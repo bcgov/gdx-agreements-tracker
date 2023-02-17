@@ -6,7 +6,6 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/Tab_19_rpt_PA_ActiveProjectsbyPortfolio`,
-    // handler: controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio,
     onRequest: controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio,
     handler: controller.getReport,
   },
