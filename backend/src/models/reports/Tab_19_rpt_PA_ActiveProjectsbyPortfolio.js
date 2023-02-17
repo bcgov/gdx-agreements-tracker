@@ -21,6 +21,7 @@ module.exports = {
     SELECT project.portfolio_id,
       portfolio.portfolio_name AS portfolio_name,
       project.project_number,
+      project.project_name,
       c.last_name || ', ' || c.first_name project_manager,
       project.description,
       project.project_type,
@@ -35,7 +36,7 @@ module.exports = {
     )
     INNER JOIN data.ministry ON project.ministry_id = ministry.id
     ${portfolioFilter}
-    ORDER BY portfolio_id,
+    ORDER BY portfolio_name,
         project.project_number desc;
   `);
 
@@ -53,6 +54,13 @@ module.exports = {
       )
       WHERE(project.project_status = 'Active')
       GROUP BY portfolio.id
-      ORDER BY portfolio.id;
+      ORDER BY portfolio.portfolio_name;
+  `),
+
+  report_total: () =>
+    knex.raw(`
+      SELECT (SUM(project.planned_budget)) as report_total
+      FROM data.project       
+      WHERE project.project_status = 'Active';
   `),
 };

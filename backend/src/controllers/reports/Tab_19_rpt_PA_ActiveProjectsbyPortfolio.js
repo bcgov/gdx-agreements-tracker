@@ -23,19 +23,19 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
   try {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
-    const reportDate = new Date();
     const activeProjects = await model.active_projects(portfolios);
+    const plannedBudgetTotals = await model.planned_budget_totals(portfolios);
+    const reportTotal = await model.report_total();
+
+    // Chunk model info so template engine can parse it
     const activeProjectsGroupedByPortfolioName = groupByProperty(
       activeProjects.rows,
       "portfolio_name"
     );
-
-    const plannedBudgetTotals = await model.planned_budget_totals(portfolios);
     const plannedBudgetTotalsKeyedByPortfolioId = _.keyBy(
       plannedBudgetTotals.rows,
       "portfolio_name"
     );
-
     const activeProjectsWithBudgetTotals = _.map(
       activeProjectsGroupedByPortfolioName,
       (portfolio) => ({
@@ -43,22 +43,17 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
         total_budget: plannedBudgetTotalsKeyedByPortfolioId[portfolio.portfolio_name].total_budget,
       })
     );
+    const reportTotalRow = _.first(reportTotal.rows);
 
-    // shape the results in a 'parseable' way
+    // Lay out final JSON body for api call to cdogs server
     const result = {
-      report_date: reportDate.toLocaleDateString("en-US", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-      }),
       active_projects: activeProjectsWithBudgetTotals,
+      total: reportTotalRow,
     };
 
+    // Inject the pdf data into the request object
     const body = await getDocumentApiBody(result, "Tab_19_rpt_PA_ActiveProjectsbyPortfolio.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-    console.log(body.data);
-
-    // Inject the pdf data into the request object
     request.data = pdf;
 
     if (!result) {
