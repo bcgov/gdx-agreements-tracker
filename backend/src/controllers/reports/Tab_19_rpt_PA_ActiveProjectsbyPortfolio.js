@@ -24,16 +24,13 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
-    const activeProjects = await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio.active_projects(
-      portfolios
-    );
+    const activeProjects = await model.active_projects(portfolios);
     const activeProjectsGroupedByPortfolioName = groupByProperty(
       activeProjects.rows,
       "portfolio_name"
     );
 
-    const plannedBudgetTotals =
-      await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio.planned_budget_totals(portfolios);
+    const plannedBudgetTotals = await model.planned_budget_totals(portfolios);
     const plannedBudgetTotalsKeyedByPortfolioId = _.keyBy(
       plannedBudgetTotals.rows,
       "portfolio_name"
