@@ -4,6 +4,7 @@ const model = require("@models/reports/Tab_19_rpt_PA_ActiveProjectsbyPortfolio")
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
+const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
@@ -32,7 +33,19 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
     );
 
     const plannedBudgetTotals =
-      await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio.planned_budget_totals(portfolios).rows;
+      await model.Tab_19_rpt_PA_ActiveProjectsbyPortfolio.planned_budget_totals(portfolios);
+    const plannedBudgetTotalsKeyedByPortfolioId = _.keyBy(
+      plannedBudgetTotals.rows,
+      "portfolio_name"
+    );
+
+    const activeProjectsWithBudgetTotals = _.map(
+      activeProjectsGroupedByPortfolioName,
+      (portfolio) => ({
+        ...portfolio,
+        total_budget: plannedBudgetTotalsKeyedByPortfolioId[portfolio.portfolio_name].total_budget,
+      })
+    );
 
     // shape the results in a 'parseable' way
     const result = {
@@ -41,8 +54,7 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
         month: "numeric",
         year: "numeric",
       }),
-      active_projects: activeProjectsGroupedByPortfolioName,
-      planned_budget_totals: plannedBudgetTotals,
+      active_projects: activeProjectsWithBudgetTotals,
     };
 
     const body = await getDocumentApiBody(result, "Tab_19_rpt_PA_ActiveProjectsbyPortfolio.docx");
