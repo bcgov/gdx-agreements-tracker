@@ -1,10 +1,10 @@
 {
   "name": "gdx-agreements-tracker-front-end",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "Apache-2.0",
   "engineStrict": true,
   "engines": {
-    "node": "^16.16"
+    "node": "=18.14.1"
   },
   "dependencies": {
     "@bcgov/bc-sans": "^1.0.1",
