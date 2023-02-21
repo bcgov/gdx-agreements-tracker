@@ -9,6 +9,8 @@
   - Updated node version to "=18.14.1"
 - Frontend
   - Updated node version to "=18.14.1"
+- GITHUB TESTS
+  - Updated from 16.x/gallium to 18.x
 ### Feb 7, 2023 (DESCW-839) portfolio-status-rollup report query
 - Backend
   - Added all blank templates for reports (xlxs, docx)
