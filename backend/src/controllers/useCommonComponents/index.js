@@ -13,7 +13,7 @@ const axios = require("axios");
 const useCommonComponents = (instance) => {
   const getAxiosInstance = async () => {
     // Gets grant type client credentials.
-    const client = new ClientCredentials(config);
+    const client = new ClientCredentials("cdogs" === instance ? config.cdogs : config.ches);
     const accessToken = await client.getToken();
     // Using Axios to call api endpoint with Bearer token.
     return axios.create({
