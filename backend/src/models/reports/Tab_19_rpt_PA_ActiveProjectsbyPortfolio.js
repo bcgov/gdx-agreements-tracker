@@ -12,8 +12,6 @@ const portfolioFilter = (portfolios) =>
 
 module.exports = {
   active_projects: (portfolios) => {
-    // make a comma-separated list of portfolio numbers to use in the raw query below
-
     /**
      * Gets data for the Divisional Project Reports - Project Dashboard report.
      *

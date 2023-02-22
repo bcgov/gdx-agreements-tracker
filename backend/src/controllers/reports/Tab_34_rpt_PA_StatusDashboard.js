@@ -21,10 +21,12 @@ controller.Tab_34_rpt_PA_StatusDashboard = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
+    const portfolios = request.query.portfolio;
 
+    // Lay out final JSON body for POST to CDOGS API
     const result = {
-      report_date: await getDate(),
+      report_date: await (async () => new Date())(),
+      active_projects: await model.query(portfolios),
     };
 
     const body = await getDocumentApiBody(result, "Tab_34_rpt_PA_StatusDashboard.docx");
@@ -42,7 +44,7 @@ controller.Tab_34_rpt_PA_StatusDashboard = async (request, reply) => {
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);
-    return { message: `There was a problem looking up this Project rollup Report.` };
+    return { message: `There was a problem looking up this Project Status Dashboard Report.` };
   }
 };
 
