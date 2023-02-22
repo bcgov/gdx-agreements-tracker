@@ -1,4 +1,11 @@
 ## Developer Changelog
+
+ ### Feb 21, 2023 (DESCW-833) Update Secrets fro CDOGS and CHES
+
+ - Backend
+   - Updated secrets for ches and cdogs to most recent version
+   - Updated code to account for unique secrets and id's for cdogs and ches
+   
 ### Feb 17, 2023 (DESCW-692) active-projects-by-portfolio
 - Backend
   - Added template and updated it
