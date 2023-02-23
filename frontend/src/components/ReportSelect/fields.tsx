@@ -169,7 +169,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "project-dashboard",
+      value: "Tab_34_rpt_PA_StatusDashboard",
       label: "Project Dashboard",
       reportParamCategory: [
         {

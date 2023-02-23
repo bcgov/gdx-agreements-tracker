@@ -6,9 +6,9 @@ const _ = require("lodash");
 const portfolioFilter = (portfolios) => {
   if (!portfolios) return `WHERE  fy.is_current = true OR p.project_status = 'Active'`;
 
-  return `WHERE  fy.is_current = true 
-    OR p.project_status = 'Active' 
-    AND (p.portfolio_id IN (${_.castArray(portfolios).join(",")}))`;
+  return `WHERE  (fy.is_current = true 
+    OR p.project_status = 'Active')
+    AND (po.id IN (${_.castArray(portfolios).join(",")}))`;
 };
 
 /**
@@ -21,25 +21,21 @@ module.exports = (portfolios) =>
   knex.raw(`
     WITH
     q AS (
-    SELECT p.id AS project_id,
-    po.portfolio_name,
-    p.project_number,
+    SELECT p.project_number,
     p.project_name,
-    fy.fiscal_year,
     c.first_name || ' ' || c.last_name AS project_manager,
     COALESCE( p.agreement_start_date, p.planned_start_date ) AS start_date,
     COALESCE( p.agreement_end_date, p.planned_end_date ) AS end_date,
     ps.status_date,
-    ps.id AS project_status_id,
-    pp.phase_name,
+    pp.phase_name AS phase,
+    COALESCE(budget.health_name, 'NULL') AS budget,
+    COALESCE(schedule.health_name, 'NULL') AS schedule,
+    COALESCE(team.health_name, 'NULL') AS team,
+    COALESCE(health.health_name, 'NULL') AS health,
     ps.issues_and_decisions,
     ps.forecast_and_next_steps,
-    health.health_name AS project_health,
-    schedule.health_name AS schedule_health,
-    budget.health_name AS budget_health,
-    team.health_name AS team_health,
-    m.ministry_name,
-    p.portfolio_id,
+    po.portfolio_name,
+
     row_number() OVER ( PARTITION by p.id order by ps.status_date desc, ps.id desc ) AS r
     FROM data.project AS p
     INNER JOIN data.fiscal_year AS fy on p.fiscal = fy.id
@@ -54,6 +50,6 @@ module.exports = (portfolios) =>
     LEFT JOIN data.health_indicator AS team on ps.team_health_id = team.id
     ${portfolioFilter(portfolios)}
     )
-    SELECT * FROM q WHERE r = 1 AND phase_name != 'archive'
-    ORDER BY portfolio_name;
+    SELECT * FROM q WHERE r = 1 AND phase != 'Archive'
+    ORDER BY portfolio_name, project_number DESC;
 `);
