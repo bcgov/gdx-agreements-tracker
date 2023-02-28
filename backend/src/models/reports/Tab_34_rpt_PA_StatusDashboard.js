@@ -2,23 +2,17 @@ const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 const _ = require("lodash");
 
-// filter raw query results by the value of the portfolios argument.
-const portfolioFilter = (portfolios) => {
-  if (!portfolios) return `WHERE  fy.is_current = true OR p.project_status = 'Active'`;
-
-  return `WHERE  (fy.is_current = true 
-    OR p.project_status = 'Active')
-    AND (po.id IN (${_.castArray(portfolios).join(",")}))`;
-};
-
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
  *
  * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
  * @returns {any[]}
  */
-module.exports = (portfolios) =>
-  knex.raw(`
+module.exports = (portfolios = [0]) => {
+  const portfolioList = _.castArray(portfolios);
+
+  const rawQuery = knex.raw(
+    `
     WITH
     q AS (
     SELECT p.project_number,
@@ -35,6 +29,7 @@ module.exports = (portfolios) =>
     ps.issues_and_decisions,
     ps.forecast_and_next_steps,
     po.portfolio_name,
+    po.id as portfolio_id,
 
     row_number() OVER ( PARTITION by p.id order by ps.status_date desc, ps.id desc ) AS r
     FROM data.project AS p
@@ -48,8 +43,18 @@ module.exports = (portfolios) =>
     LEFT JOIN data.health_indicator AS schedule on ps.schedule_health_id = schedule.id
     LEFT JOIN data.health_indicator AS budget on ps.budget_health_id = budget.id
     LEFT JOIN data.health_indicator AS team on ps.team_health_id = team.id
-    ${portfolioFilter(portfolios)}
+    WHERE  (fy.is_current = true OR p.project_status = 'Active')
     )
-    SELECT * FROM q WHERE r = 1 AND phase != 'Archive'
+    SELECT * FROM q 
+    WHERE r = 1 
+    AND phase != 'Archive'
+    AND (q.portfolio_id IN (${portfolioList.map((_) => "?").join(",")}) OR (${
+      0 === portfolioList[0]
+    }))
     ORDER BY portfolio_name, project_number DESC;
-`);
+`,
+    portfolioList
+  );
+
+  return rawQuery;
+};
