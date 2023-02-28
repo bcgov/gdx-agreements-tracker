@@ -22,19 +22,21 @@ controller.Tab_34_rpt_PA_StatusDashboard = async (request, reply) => {
   try {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
-    const dashboardResults = await model(portfolios);
+    const dashboardResults = await model.Tab_34_rpt_PA_StatusDashboard(portfolios);
 
     // Chunk model info so template engine can parse it
     const dashboardProjectsGroupedByPortfolioName = groupByProperty(
-      dashboardResults.rows,
+      dashboardResults,
       "portfolio_name"
     );
+
 
     // Lay out final JSON body for POST to CDOGS API
     const result = {
       report_date: await (async () => new Date())(),
-      dashboard: dashboardProjectsGroupedByPortfolioName,
+      dashboard:dashboardProjectsGroupedByPortfolioName,
     };
+    console.log('result', result)
 
     const body = await getDocumentApiBody(result, "Tab_34_rpt_PA_StatusDashboard.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
