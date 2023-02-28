@@ -191,7 +191,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "project-lessons-learned",
+      value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
       label: "Project Lessons Learned",
       reportParamCategory: [
         {

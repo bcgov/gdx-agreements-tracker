@@ -18,6 +18,8 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_25_rpt_PA_LessonsLearnedbyCategory = async (request, reply) => {
+  let lessonsLearnedByCategory = await model.Tab_25_rpt_PA_LessonsLearnedbyCategory(request.query);
+
   controller.userRequires(request, what, "reports_read_all");
   try {
     // Get the data from the database.
@@ -25,11 +27,11 @@ controller.Tab_25_rpt_PA_LessonsLearnedbyCategory = async (request, reply) => {
 
     const result = {
       report_date: await getDate(),
+      lessonsLearnedByCategory,
     };
 
     const body = await getDocumentApiBody(result, "Tab_25_rpt_PA_LessonsLearnedbyCategory.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-
     // Inject the pdf data into the request object
     request.data = pdf;
 
