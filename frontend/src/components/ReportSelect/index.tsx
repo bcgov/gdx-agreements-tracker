@@ -24,11 +24,7 @@ import {
 export const ReportSelect = () => {
   const { axiosAll } = useAxios();
   // todo: These reports will download as a json file temporarily. Remove when templates are created.
-<<<<<<< HEAD
   const jsonReports = ["project-dashboard", "contract-summary"];
-=======
-  const jsonReports = ["project-lessons-learned", "contract-summary"];
->>>>>>> 649a82a (DESCW-838 update template)
   // Handle state changes
   const [category, setCategory] = useState<string>();
   const [reportParamCategory, setReportParamCategory] = useState<

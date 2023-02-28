@@ -1,4 +1,5 @@
 const dbConnection = require("@database/databaseConnection");
+const { request } = require("http");
 const { knex } = dbConnection();
 
 /**
@@ -26,6 +27,8 @@ const Tab_25_rpt_PA_LessonsLearnedbyCategory = (requestParams) => {
     INNER JOIN (data.lesson_category INNER JOIN data.project_lesson ON data.lesson_category.id = data.project_lesson.lesson_category_id) 
     ON project.id = data.project_lesson.project_id`)
   );
+
+  console.log(requestParams);
 
   if (requestParams.portfolio_id) {
     query.where({ "data.project.portfolio_id": requestParams.portfolio_id });

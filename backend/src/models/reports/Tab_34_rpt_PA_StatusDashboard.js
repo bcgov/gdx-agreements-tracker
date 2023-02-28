@@ -8,10 +8,11 @@ const _ = require("lodash");
  * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
  * @returns {any[]}
  */
-module.exports = (portfolios = [0]) => {
-  const portfolioList = _.castArray(portfolios);
+module.exports = (portfolios) => {
+  // module.exports = (portfolios = [0]) => {
+  // const portfolioList = _.castArray(portfolios);
 
-  const rawQuery = knex.raw(
+  const query = knex.raw(
     `
     WITH
     q AS (
@@ -48,13 +49,29 @@ module.exports = (portfolios = [0]) => {
     SELECT * FROM q 
     WHERE r = 1 
     AND phase != 'Archive'
-    AND (q.portfolio_id IN (${portfolioList.map((_) => "?").join(",")}) OR (${
-      0 === portfolioList[0]
-    }))
     ORDER BY portfolio_name, project_number DESC;
-`,
-    portfolioList
+`
   );
 
-  return rawQuery;
+  if (portfolios) {
+    console.log(`
+    
+    
+    portfolios: ${portfolios}
+    
+    
+    
+    `);
+
+    query.where({
+      "data.project.portfolio_id": portfolios,
+    });
+  }
+
+  /*AND (q.portfolio_id IN (${portfolioList.map((_) => "?").join(",")}) OR (${
+      0 === portfolioList[0]
+    }))
+    */
+
+  return query;
 };
