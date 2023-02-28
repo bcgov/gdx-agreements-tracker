@@ -12,8 +12,9 @@ module.exports = (portfolios) => {
   // module.exports = (portfolios = [0]) => {
   // const portfolioList = _.castArray(portfolios);
 
-  const query = knex.raw(
-    `
+  const query = knex.select(
+    knex.raw(
+      `
     WITH
     q AS (
     SELECT p.project_number,
@@ -51,8 +52,9 @@ module.exports = (portfolios) => {
     AND phase != 'Archive'
     ORDER BY portfolio_name, project_number DESC;
 `
+    )
   );
-
+  /*
   if (portfolios) {
     console.log(`
     
@@ -64,9 +66,10 @@ module.exports = (portfolios) => {
     `);
 
     query.where({
-      "data.project.portfolio_id": portfolios,
+      "portfolio_id": "4",
     });
   }
+  */
 
   /*AND (q.portfolio_id IN (${portfolioList.map((_) => "?").join(",")}) OR (${
       0 === portfolioList[0]
