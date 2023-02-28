@@ -1,12 +1,20 @@
 ## Developer Changelog
 
- ### Feb 21, 2023 (DESCW-833) Update Secrets fro CDOGS and CHES
+### Feb 28, 2023 (DESCW-930) Divisional Project Reports
 
- - Backend
-   - Updated secrets for ches and cdogs to most recent version
-   - Updated code to account for unique secrets and id's for cdogs and ches
-   
+- Backend
+  - Created route, controller, and model for Divisional Projects
+- Frontend
+  - Added Divisional Projects Reports functionality and report template.
+
+### Feb 21, 2023 (DESCW-833) Update Secrets fro CDOGS and CHES
+
+- Backend
+  - Updated secrets for ches and cdogs to most recent version
+  - Updated code to account for unique secrets and id's for cdogs and ches
+
 ### Feb 17, 2023 (DESCW-692) active-projects-by-portfolio
+
 - Backend
   - Added template and updated it
   - Fixed DESCW-839 template which had unused carbone template statement
@@ -18,21 +26,28 @@
   - Updated node version to "=18.14.1"
 - GITHUB TESTS
   - Updated from 16.x/gallium to 18.x
+
 ### Feb 7, 2023 (DESCW-839) portfolio-status-rollup report query
+
 - Backend
   - Added all blank templates for reports (xlxs, docx)
   - Added boilerplate controllers, models, routes for reports
+
 ### Feb 7, 2023 (DESCW-839) portfolio-status-rollup report query
+
 - Backend
   - Updated route, controller, and model for project rollup report
   - separated utility functions into helper folder
 
 ### February 3, 2022 Helper functions for reports
+
 - Backend
-  - added loadTemplate, groupByProperty and getDocumentApiBody helpers 
+  - added loadTemplate, groupByProperty and getDocumentApiBody helpers
 
 ### December 16, 2022 (DESCW-686) Project deliverables section
+
 - Backend
+
   - updated picker options
   - `npx knex seed:run --specific=08_picker_options.js`
   - updated picker options model.
@@ -42,15 +57,16 @@
   - Added project deliverable section
 
 ### December 6, 2022 (DESCW-733) Project budget section
+
 - Backend
   - updated picker options
   - `npx knex seed:run --specific=08_picker_options.js`
   - updated picker options model.
-  
 - Frontend
   - Added project budget section
 
 ### December 6, 2022 (DESCW-689) Contract GDX Internal Coding
+
 - Backend
   - Created controller, model, route, validators for Contract Internal Coding
 - Frontend
@@ -58,12 +74,14 @@
   - Fixed console errors due to incorrect usage of Grid component in GDXList
 
 ### December 6, 2022 (DESCW-733) Project Status Rollup Report
+
 - Backend
   - Created route, controller, and model for project rollup report
 - Frontend
   - Added Active Projects rollup to the list of json reports.
 
 ### December 6, 2022 (DESCW-690) Individual Contract Summary Report
+
 - Backend
   - Created route, controller, and model for contract summary report
 - Frontend
@@ -71,6 +89,7 @@
   - Small bug fix for a problem with accessing values inside parameter objects
 
 ### December 2, 2022 (DESCW-730) Project Lessons Learned Report
+
 - Backend
   - Created route, controller, and model for Project Lessons Learned Report
   - Fixed bug in Project Dashboard report
@@ -82,11 +101,11 @@
     - Fixed hardcoded localhost url, now using UseAxios hook
 
 ### December 1, 2022 (DESCW-691) Divisional Active Projects Report
+
 - Backend
   - Created route, controller, and model for Divisional Active Projects Report
 - Frontend
   - Added Active Projects Report to the list of json reports.
-
 
 ### December 1, 2022 (DESCW-732) Project Dashboard Report
 
