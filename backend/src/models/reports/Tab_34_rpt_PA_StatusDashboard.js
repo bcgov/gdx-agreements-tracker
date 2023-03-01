@@ -5,7 +5,7 @@ const _ = require("lodash");
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
  *
- * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
+ * @param   {string[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
  * @returns {any[]}
  */
 module.exports = (portfolios) => {
