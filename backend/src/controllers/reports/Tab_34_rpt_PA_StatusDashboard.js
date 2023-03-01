@@ -35,7 +35,6 @@ controller.Tab_34_rpt_PA_StatusDashboard = async (request, reply) => {
       report_date: await (async () => new Date())(),
       dashboard: dashboardProjectsGroupedByPortfolioName,
     };
-    console.table("result", result.dashboard);
 
     const body = await getDocumentApiBody(result, "Tab_34_rpt_PA_StatusDashboard.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
