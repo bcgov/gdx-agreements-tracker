@@ -2,7 +2,7 @@ import React from "react";
 import { DataGrid, GridEventListener, GridEvents } from "@mui/x-data-grid";
 import { Box, styled } from "@mui/material";
 import { ITable } from "../../types";
-import { TableTotalFooter } from "components/Table/TableTotalFooter";
+import { TableComponents } from "components/Table/TableComponents";
 
 const StyledBox = styled(Box)({
   overflowX: "scroll",
@@ -19,33 +19,6 @@ export const Table = ({
   onRowClick,
   allowEdit,
 }: ITable) => {
-  const totals: Array<{ id: string; total: number }> = [];
-  if (totalColumns && rows.length > 0) {
-    totalColumns.forEach((col: string) => {
-      totals.push({
-        id: col,
-        total: rows.map((x) => x[col]).reduce((prev, curr) => Number(prev) + Number(curr)),
-      });
-    });
-  }
-
-  /**
-   * Determines which table footer to show, totals or pagination.
-   *
-   * @returns {any}
-   */
-  const tableComponents = () => {
-    if (totalColumns && totalColumns.length > 0 && rows.length > 0) {
-      return {
-        Footer: () => {
-          return <TableTotalFooter totals={totals} columns={columns} />;
-        },
-      };
-    } else {
-      return {};
-    }
-  };
-
   return (
     <StyledBox>
       <DataGrid
@@ -67,7 +40,7 @@ export const Table = ({
           },
         })}
         onRowClick={onRowClick as GridEventListener<GridEvents.rowClick>}
-        components={tableComponents()}
+        components={TableComponents(totalColumns, rows, columns)}
         initialState={initialState}
       />
     </StyledBox>
