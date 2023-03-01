@@ -211,7 +211,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "ministry_project_usage",
+      value: "rpt_PA_Ministry",
       label: "Ministry Project Usage",
       reportParamCategory: [
         {
