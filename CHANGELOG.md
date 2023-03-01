@@ -6,6 +6,11 @@
 - Frontend
   - Added Project Dashboard Reports functionality and report template.
 
+### Mar 1, 2023 (DESCW-697) Add search to tables
+
+- Frontend
+  - Added Search function to table component
+
 ### Feb 28, 2023 (DESCW-930) Divisional Project Reports
 
 - Backend
