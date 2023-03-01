@@ -8,10 +8,7 @@ const _ = require("lodash");
  * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
  * @returns {any[]}
  */
-const Tab_34_rpt_PA_StatusDashboard = (portfolios) => {
-  const portfolioArray = _.castArray(portfolios);
-  const isValidPortfolioList = portfolioArray.every((p) => p);
-
+module.exports = (portfolios) => {
   const query = knex.select(
     knex.raw(`* from (
         SELECT p.project_number,
@@ -44,15 +41,13 @@ const Tab_34_rpt_PA_StatusDashboard = (portfolios) => {
         WHERE  (fy.is_current = true OR p.project_status = 'Active') 
         ) as q`)
   );
-
-  // reduce results to manageable number
   query.where({ r: 1 });
   query.orderBy([{ column: "portfolio_name" }, { column: "project_number", order: "desc" }]);
 
   // filter by the portfolio list passed in from the frontend(if valid)
-  if (isValidPortfolioList) query.whereIn("q.portfolio_id", portfolioArray);
+  if (undefined !== portfolios) {
+    query.whereIn("q.portfolio_id", _.castArray(portfolios));
+  }
 
   return query;
 };
-
-module.exports = { Tab_34_rpt_PA_StatusDashboard };

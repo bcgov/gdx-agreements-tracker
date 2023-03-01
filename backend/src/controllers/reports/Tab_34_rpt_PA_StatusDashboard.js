@@ -22,7 +22,7 @@ controller.Tab_34_rpt_PA_StatusDashboard = async (request, reply) => {
   try {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
-    const dashboardResults = await model.Tab_34_rpt_PA_StatusDashboard(portfolios);
+    const dashboardResults = await model(portfolios);
 
     // Chunk model info so template engine can parse it
     const dashboardProjectsGroupedByPortfolioName = groupByProperty(
