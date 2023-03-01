@@ -39,7 +39,7 @@ const Tab_34_rpt_PA_StatusDashboard = (portfolios) => {
   LEFT JOIN data.health_indicator AS schedule on ps.schedule_health_id = schedule.id
   LEFT JOIN data.health_indicator AS budget on ps.budget_health_id = budget.id
   LEFT JOIN data.health_indicator AS team on ps.team_health_id = team.id
-  WHERE  (fy.is_current = true OR p.project_status = 'Active')
+  WHERE  (fy.is_current = true OR p.project_status = 'Active') 
   ) as q
 
 `)
@@ -47,8 +47,8 @@ const Tab_34_rpt_PA_StatusDashboard = (portfolios) => {
   // WHERE r = 1
   // AND phase != 'Archive'
   // ORDER BY portfolio_name, project_number DESC;
+  query.where({ r: 1 });
   query.where({ portfolio_id: portfolios });
-  console.log('query ', query )
   return query;
 };
 
