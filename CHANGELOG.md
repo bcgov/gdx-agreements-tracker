@@ -1,4 +1,10 @@
 ## Developer Changelog
+### MAR 1, 2023 (DESCW-838) Project dashboard by Portfolio
+
+- Backend
+  - Created route, controller, and model for Divisional Projects
+- Frontend
+  - Added Project Dashboard Reports functionality and report template.
 
 ### Feb 28, 2023 (DESCW-930) Divisional Project Reports
 
