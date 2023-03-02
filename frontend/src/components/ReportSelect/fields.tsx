@@ -221,6 +221,7 @@ export const reportType = {
         {
           field: fieldTypes.fiscal,
           type: requestTypes.query,
+          isRequired: true,
         },
       ],
     },

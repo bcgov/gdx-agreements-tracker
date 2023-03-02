@@ -23,32 +23,11 @@ controller.rpt_PA_Ministry = async (request, reply) => {
   try {
     // Get the data from the database.
     const portfolios = request.query.portfolio;
-    const activeProjects = await model.active_projects(portfolios);
-    const plannedBudgetTotals = await model.planned_budget_totals(portfolios);
-    const reportTotal = await model.report_total(portfolios);
-
-    // Chunk model info so template engine can parse it
-    const activeProjectsGroupedByPortfolioName = groupByProperty(
-      activeProjects.rows,
-      "portfolio_name"
-    );
-    const plannedBudgetTotalsKeyedByPortfolioId = _.keyBy(
-      plannedBudgetTotals.rows,
-      "portfolio_name"
-    );
-    const activeProjectsWithBudgetTotals = _.map(
-      activeProjectsGroupedByPortfolioName,
-      (portfolio) => ({
-        ...portfolio,
-        total_budget: plannedBudgetTotalsKeyedByPortfolioId[portfolio.portfolio_name].total_budget,
-      })
-    );
-    const reportTotalRow = _.first(reportTotal.rows);
+    const projectSummaryByMinistry = await model.active_projects(portfolios);
 
     // Lay out final JSON body for api call to cdogs server
     const result = {
-      active_projects: activeProjectsWithBudgetTotals,
-      total: reportTotalRow,
+      project_summary: projectSummaryByMinistry,
     };
 
     /*
