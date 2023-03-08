@@ -22,12 +22,11 @@ controller.rpt_PA_Ministry = async (request, reply) => {
   controller.userRequires(request, what, "reports_read_all");
   try {
     // Get the data from the database.
-    const portfolios = request.query.portfolio;
-    const projectSummaryByMinistry = await model.active_projects(portfolios);
+    const projectSummaryByMinistry = await model.rpt_PA_Ministry(request.query);
 
     // Lay out final JSON body for api call to cdogs server
     const result = {
-      project_summary: projectSummaryByMinistry,
+      ...projectSummaryByMinistry,
     };
 
     /*
