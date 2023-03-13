@@ -6,9 +6,9 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/rpt_PA_Ministry`,
-    handler: controller.rpt_PA_Ministry,
-    // onRequest: controller.rpt_PA_Ministry,
-    // handler: controller.getReport,
+    // handler: controller.rpt_PA_Ministry,
+    onRequest: controller.rpt_PA_Ministry,
+    handler: controller.getReport,
   },
 ];
 const registerRoutes = (fastify, options, done) => {

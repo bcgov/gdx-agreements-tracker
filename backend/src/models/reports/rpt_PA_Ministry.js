@@ -10,6 +10,16 @@ const { knex } = dbConnection();
  * @returns {any[]}
  */
 
+const getFiscalYear = (requestParams) => {
+  const query = knex.select(knex.raw(`fiscal_year from data.fiscal_year`));
+
+  if (requestParams.fiscal) {
+    query.where({ "fiscal_year.id": requestParams.fiscal });
+  }
+
+  return query;
+};
+
 const rpt_PA_Ministry = (requestParams) => {
   const query = knex
     .with(
@@ -31,7 +41,11 @@ const rpt_PA_Ministry = (requestParams) => {
     .select(
       knex.raw(`
      * FROM(
-    SELECT ministry.ministry_name,
+    SELECT
+      CASE
+        WHEN ministry.ministry_name IS NULL THEN ' '
+        ELSE ministry.ministry_name
+      END,
       portfolio.portfolio_abbrev,
       project.project_number,
       project.project_name,
@@ -41,12 +55,17 @@ const rpt_PA_Ministry = (requestParams) => {
       project.planned_end_date,
 
       -- budget total for this project
-      COALESCE (client_coding.client_amount, project.total_project_budget) AS total_project_budget,
+      CASE
+        WHEN client_coding.client_amount IS NULL
+        THEN project.total_project_budget
+      END AS total_project_budget,
 
+      -- client sponsor
       CASE
           WHEN client_coding.client_amount IS NULL THEN client_sponsor
           ELSE contact.first_name || ' ' || contact.last_name
       END AS client_sponsor_name,
+
       c.first_name || ' ' || c.last_name as project_manager,
         portfolio.id as portfolio_id,
         project.ministry_id,
@@ -99,10 +118,7 @@ const rpt_PA_Ministry = (requestParams) => {
         ) ON fiscal_year.id = historical_projects.fiscal_year
   ) as projectByMinistry
   `)
-    )
-    .debug();
-
-  // console.table(requestParams);
+    );
 
   // Order and Group by ministry name
   query.groupByRaw(
@@ -134,5 +150,4 @@ const rpt_PA_Ministry = (requestParams) => {
   return query;
 };
 
-const rpt_PA_Ministry_ = (requestParams) => {};
-module.exports = { rpt_PA_Ministry };
+module.exports = { rpt_PA_Ministry, getFiscalYear };
