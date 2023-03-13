@@ -8,6 +8,7 @@ import { GDXCheckbox, GDXSelect, GDXMultiselect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 import { ReadField } from "components/ReadForm/ReadField";
 import { IOption, IFormInput } from "../../types";
+import moment from "moment";
 
 export const FormInput = ({
   setFieldValue,
@@ -49,8 +50,9 @@ export const FormInput = ({
         <GridItem width={width}>
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <Field
-              onChange={(newValue: unknown) => {
-                setFieldValue?.(fieldName, newValue) as Function;
+              onChange={(newValue: { toDate: () => moment.MomentInput }) => {
+                const formatDate = moment(newValue.toDate()).format("YYYY-MM-DD");
+                setFieldValue?.(fieldName, formatDate) as Function;
               }}
               value={fieldValue}
               as={DatePicker}
