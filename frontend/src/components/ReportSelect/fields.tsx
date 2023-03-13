@@ -226,7 +226,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "projects_registered_by_date_period",
+      value: "rpt_PA_Registered",
       label: "Projects Registered by Date/Period",
       reportParamCategory: [
         {

@@ -112,9 +112,7 @@ export const ReportSelect = () => {
     });
   };
 
-  const onExportButtonClick = (values: {
-    [key: string]: { value: number | string; label: string };
-  }) => {
+  const onExportButtonClick = (values: { [key: string]: { value: string } }) => {
     const reportUri = `${values.report_type}`;
     let url = `report/projects/${reportUri}`;
     let routeParam;
@@ -130,12 +128,14 @@ export const ReportSelect = () => {
             if (param.type === requestTypes.query) {
               if (value instanceof Array) {
                 // Multiselect input values come as arrays and each element must be added to querystring.
-                const options = value as unknown as IOption[];
+                const options = value;
                 for (const value of options) {
-                  querystringParams.append(field, value.value.toString());
+                  querystringParams.append(field, value.value);
                 }
+              } else if (values[field].value) {
+                querystringParams.append(field, values[field].value);
               } else {
-                querystringParams.append(field, values[field].value.toString());
+                querystringParams.append(field, value.toString());
               }
             } else {
               // If the request type is route, we will add that value to the route params.
