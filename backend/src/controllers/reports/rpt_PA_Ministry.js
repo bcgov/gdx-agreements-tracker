@@ -24,18 +24,20 @@ controller.rpt_PA_Ministry = async (request, reply) => {
     // Get the data from the database.
     const projectSummary = await model.rpt_PA_Ministry(request.query);
     const projectSummaryByMinistry = groupByProperty(projectSummary, "ministry_name");
+    const projectSummaryFiscal = await model.getFiscalYear(request.query);
+    const fiscalYear = _.first(projectSummaryFiscal)?.["fiscal_year"];
 
     // Lay out final JSON body for api call to cdogs server
     const result = {
-      ...projectSummaryByMinistry,
+      fiscal_year: fiscalYear,
+      ministries: projectSummaryByMinistry,
     };
 
-    /*
+    console.table(result.ministries);
     // Inject the pdf data into the request object
-    const body = await getDocumentApiBody(result, "Tab_19_rpt_PA_ActiveProjectsbyPortfolio.docx");
+    const body = await getDocumentApiBody(result, "rpt_PA_Ministry.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
     request.data = pdf;
-    */
 
     if (!result) {
       reply.code(404);
