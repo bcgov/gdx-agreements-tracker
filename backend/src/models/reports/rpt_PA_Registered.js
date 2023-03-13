@@ -4,7 +4,7 @@ const { knex } = dbConnection();
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
  *
- * @param           requestParams portfolio: Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
+ * @param           requestParams portfolio: Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios. date: Optional date param. to limit report to.
  * @returns {any[]}
  */
 
@@ -42,7 +42,6 @@ const rpt_PA_Registered = (requestParams) => {
     //Check if the portfolio param has multiple values. If It does add a "knex.whereIn" passing the portfolios (in the format of an Array).
     if (Array.isArray(requestParams.portfolio)) {
       query.whereIn("data.project.portfolio_id", requestParams.portfolio);
-      //Else use a "knex.where" for the single portfolio param.
     } else {
       query.where({ " data.project.portfolio_id": requestParams.portfolio });
     }
