@@ -1,4 +1,12 @@
 ## Developer Changelog
+
+### MAR 13, 2023 (DESCW-970) Project registered by date/year
+
+- Backend
+  - Created route, controller, and model for Project registered by date/year
+- Frontend
+  - Added Project Registered Reports functionality and report template.
+
 ### MAR 1, 2023 (DESCW-838) Project dashboard by Portfolio
 
 - Backend
