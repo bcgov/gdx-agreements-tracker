@@ -31,30 +31,29 @@ const rpt_PA_Ministry = (requestParams) => {
     .select(
       knex.raw(`
      * FROM(
-    SELECT project.project_number,
-        project.project_name,
-        portfolio.portfolio_abbrev,
+    SELECT ministry.ministry_name,
+      portfolio.portfolio_abbrev,
+      project.project_number,
+      project.project_name,
+      project.project_type,
+      project.description,
+      project.planned_start_date,
+      project.planned_end_date,
+
+      -- budget total for this project
+      COALESCE (client_coding.client_amount, project.total_project_budget) AS total_project_budget,
+
+      CASE
+          WHEN client_coding.client_amount IS NULL THEN client_sponsor
+          ELSE contact.first_name || ' ' || contact.last_name
+      END AS client_sponsor_name,
+      c.first_name || ' ' || c.last_name as project_manager,
         portfolio.id as portfolio_id,
-        project.description,
         project.ministry_id,
-        ministry.ministry_name,
         ministry.ministry_short_name,
-        project.planned_start_date,
-        project.planned_end_date,
-        CASE
-            WHEN client_coding.client_amount IS NULL THEN (project.total_project_budget)
-            ELSE data.client_coding.client_amount
-        END AS total_project_budget,
         portfolio.portfolio_name,
-        --project.project_manager,
-        c.first_name || ' ' || c.last_name as project_manager,
-        CASE
-            WHEN client_coding.client_amount IS NULL THEN client_sponsor
-            ELSE contact.first_name || ' ' || contact.last_name
-        END AS client_sponsor_name,
         fiscal_year.fiscal_year,
-        fiscal_year.id AS fiscal_year_id,
-        project.project_type
+        fiscal_year.id AS fiscal_year_id
     FROM (
             data.client_coding
             RIGHT JOIN (
@@ -69,26 +68,27 @@ const rpt_PA_Ministry = (requestParams) => {
             ) ON client_coding.project_id = project.id
         )
         LEFT JOIN data.contact as contact ON client_coding.contact_id = contact.id
-        LEFT JOIN data.contact as c on data.project.project_manager = c.id --GET CLIENT SPONSOR STUFF
+        LEFT JOIN data.contact as c on data.project.project_manager = c.id
+        --GET CLIENT SPONSOR STUFF
         LEFT JOIN client_sponsor_list ON client_sponsor_list.project_id = project.id
     UNION ALL
-    SELECT historical_projects.project_number,
-        historical_projects.project_name,
-        portfolio.portfolio_abbrev,
+    SELECT ministry.ministry_name,
+      portfolio.portfolio_abbrev,
+      historical_projects.project_number,
+      historical_projects.project_name,
+      historical_projects.project_type,
+      historical_projects.description,
+      historical_projects.start_date,
+      historical_projects.end_date,
+      historical_projects.total_project_budget,
+      NULL AS client_sponsor,
+      historical_projects.project_manager,
         portfolio.id as portfolio_id,
-        historical_projects.description,
         historical_projects.ministry_id,
-        ministry.ministry_name,
         ministry.ministry_short_name,
-        historical_projects.start_date,
-        historical_projects.end_date,
-        historical_projects.total_project_budget,
         portfolio.portfolio_name,
-        historical_projects.project_manager,
-        NULL AS client_sponsor,
         fiscal_year.fiscal_year,
-        fiscal_year.id AS fiscal_year_id,
-        historical_projects.project_type
+        fiscal_year.id AS fiscal_year_id
     FROM data.fiscal_year as fiscal_year
         INNER JOIN (
             data.ministry as ministry
@@ -97,13 +97,19 @@ const rpt_PA_Ministry = (requestParams) => {
                 INNER JOIN data.historical_projects as historical_projects ON historical_projects.portfolio_id = portfolio.id
             ) ON ministry.id = historical_projects.ministry_id
         ) ON fiscal_year.id = historical_projects.fiscal_year
-  ) as projectByMinistry`)
+  ) as projectByMinistry
+  `)
     )
     .debug();
 
-  console.table(requestParams);
+  // console.table(requestParams);
 
-  /*
+  // Order and Group by ministry name
+  query.groupByRaw(
+    "ministry_name, project_number, project_name, portfolio_abbrev, description, ministry_id, ministry_short_name, planned_start_date, planned_end_date, total_project_budget, portfolio_name, project_manager, client_sponsor_name,fiscal_year, project_type, portfolio_id, fiscal_year_id"
+  );
+  query.orderByRaw("ministry_name NULLS FIRST");
+
   // filter by the portfolio list passed in from the frontend(if valid)
   if (requestParams.portfolio) {
     const portfolio = requestParams.portfolio;
@@ -111,32 +117,22 @@ const rpt_PA_Ministry = (requestParams) => {
     if (requestParams.portfolio instanceof Array) {
       query.whereIn("portfolio_id", portfolio);
     } else {
-      console.log(`
-
-
-    IN IF BLOCK (SINGULAR)
-
-    REQUESTPARAMS.PORTFOLIO = ${requestParams.portfolio}
-    `);
-
       query.where("portfolio_id", portfolio);
     }
   }
-*/
-  // filter by the fiscal year passed in from the frontend(if valid)
+
   if (requestParams.fiscal) {
     query.where({ fiscal_year_id: requestParams.fiscal });
   }
-  /*
-  // filter by the fiscal year passed in from the frontend(if valid)
+
   if (requestParams.projectType) {
-    query.where({
-      project_type: requestParams.projectType,
-    });
+    query.where({ project_type: requestParams.projectType });
+  } else {
+    query.where({ project_type: "External" });
   }
-  */
 
   return query;
 };
 
+const rpt_PA_Ministry_ = (requestParams) => {};
 module.exports = { rpt_PA_Ministry };
