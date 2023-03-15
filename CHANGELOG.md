@@ -3,6 +3,12 @@
 
 - Backend
   - Created migration for new project by ministry view
+### MAR 15, 2023 (DESCW-967) PA ministry queries
+
+- Backend
+  - Created route, controller, and model for pa by ministry
+- Frontend
+  - Added Project Registered Reports functionality and report template (initial template)
 
 ### MAR 13, 2023 (DESCW-970) Project registered by date/year
 
