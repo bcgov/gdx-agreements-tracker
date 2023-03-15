@@ -1,4 +1,3 @@
-const _ = require("lodash");
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
@@ -11,9 +10,8 @@ const { knex } = dbConnection();
  */
 
 const rpt_PA_Ministry = (requestParams) => {
-  const query = knex
-    .select(
-      knex.raw(`
+  const query = knex.select(
+    knex.raw(`
         COALESCE(ministry_name, ' ') as ministry_name,
         portfolio_abbrev,
         project_number,
@@ -29,15 +27,7 @@ const rpt_PA_Ministry = (requestParams) => {
         ministry_id
       FROM data.view_project_ministry_client_sponsor
   `)
-    )
-    .debug();
-
-  // Order and Group by ministry name
-  /* query.groupByRaw(
-    "ministry_name, project_number, project_name, portfolio_abbrev, description, ministry_id, ministry_short_name, planned_start_date, planned_end_date, total_project_budget, portfolio_name, project_manager, client_sponsor_name,fiscal_year, project_type, portfolio_id, fiscal_year_id"
   );
-  query.orderByRaw("ministry_name NULLS FIRST");
-  */
 
   // filter by the portfolio list passed in from the frontend(if valid)
   if (requestParams.portfolio) {
@@ -91,8 +81,25 @@ const projectsAndBudgetsPerMinistry = (requestParams) => {
   query.groupByRaw("ministry_id, ministry_name, fiscal_year, fiscal_year_id");
   query.orderByRaw("ministry_name NULLS FIRST");
 
+  // filter by the portfolio list passed in from the frontend(if valid)
+  if (requestParams.portfolio) {
+    const portfolio = requestParams.portfolio;
+
+    if (requestParams.portfolio instanceof Array) {
+      query.whereIn("portfolio_id", portfolio);
+    } else {
+      query.where("portfolio_id", portfolio);
+    }
+  }
+
   if (requestParams.fiscal) {
-    query.where({ fiscal_year_id: requestParams.fiscal, project_type: "External" }).debug();
+    query.where({ fiscal_year_id: requestParams.fiscal });
+  }
+
+  if (requestParams.projectType) {
+    query.where({ project_type: requestParams.projectType });
+  } else {
+    query.where({ project_type: "External" });
   }
 
   return query;
@@ -101,22 +108,34 @@ const projectsAndBudgetsPerMinistry = (requestParams) => {
 /*
  * gets the grand total of project budgets for all ministries in this fiscal year
  */
-const totalBudgetForMinistries = (requestParams) => {
+const reportTotals = (requestParams) => {
   const query = knex.select(
     knex.raw(`
-        COALESCE(ministry_name, ' ') as ministry_name,
-        sum(total_project_budget) as total_per_ministry,
-        count(*)::int as number_of_projects
+      sum(total_project_budget) as total_budget,
+      count(project_number) as total_projects
       FROM data.view_project_ministry_client_sponsor
     `)
   );
 
-  // Order and Group by ministry name
-  query.groupByRaw("ministry_id, ministry_name, fiscal_year, fiscal_year_id");
-  query.orderByRaw("ministry_name NULLS FIRST");
-
   if (requestParams.fiscal) {
-    query.where({ fiscal_year_id: requestParams.fiscal, project_type: "External" }).debug();
+    query.where({ fiscal_year_id: requestParams.fiscal });
+  }
+
+  if (requestParams.projectType) {
+    query.where({ project_type: requestParams.projectType });
+  } else {
+    query.where({ project_type: "External" });
+  }
+
+  // filter by the portfolio list passed in from the frontend(if valid)
+  if (requestParams.portfolio) {
+    const portfolio = requestParams.portfolio;
+
+    if (requestParams.portfolio instanceof Array) {
+      query.whereIn("portfolio_id", portfolio);
+    } else {
+      query.where("portfolio_id", portfolio);
+    }
   }
 
   return query;
@@ -126,5 +145,5 @@ module.exports = {
   rpt_PA_Ministry,
   getFiscalYear,
   projectsAndBudgetsPerMinistry,
-  totalBudgetForMinistries,
+  reportTotals,
 };
