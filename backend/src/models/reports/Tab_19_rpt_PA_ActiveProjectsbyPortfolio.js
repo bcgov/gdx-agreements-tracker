@@ -6,8 +6,9 @@ const { knex } = dbConnection();
 const portfolioFilter = (portfolios) =>
   _.isUndefined(portfolios)
     ? `WHERE(project.project_status IN ('Active'))`
-    : `WHERE(project.project_status IN ('Active'))
-       AND (project.portfolio_id IN (${_.castArray(portfolios).join(",")}))`;
+    : `WHERE(project.project_status IN ('Active')) AND (project.portfolio_id IN (${_.castArray(
+        portfolios
+      ).join(",")}))`;
 
 module.exports = {
   active_projects: (portfolios) => {
@@ -60,7 +61,7 @@ module.exports = {
   report_total: (portfolios) =>
     knex.raw(`
       SELECT (SUM(project.planned_budget)) as report_total
-      FROM data.project
+      FROM data.project       
       ${portfolioFilter(portfolios)}
   `),
 };
