@@ -1,8 +1,4 @@
 ## Developer Changelog
-### MAR 15, 2023 (DESCW-970) Project registered by date/year
-
-- Backend
-  - Created migration for new project by ministry view
 ### MAR 15, 2023 (DESCW-967) PA ministry queries
 
 - Backend
@@ -10,6 +6,10 @@
 - Frontend
   - Added Project Registered Reports functionality and report template (initial template)
 
+### MAR 15, 2023 (DESCW-1002) add migration
+
+- Backend
+  - Created migration for new project by ministry view
 ### MAR 13, 2023 (DESCW-970) Project registered by date/year
 
 - Backend

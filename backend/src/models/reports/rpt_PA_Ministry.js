@@ -25,7 +25,7 @@ const rpt_PA_Ministry = (requestParams) => {
         project_manager,
         portfolio_id,
         ministry_id
-      FROM data.view_project_ministry_client_sponsor
+      FROM data.v_projects_by_ministry
   `)
   );
 
@@ -73,7 +73,7 @@ const projectsAndBudgetsPerMinistry = (requestParams) => {
         COALESCE(ministry_name, ' ') as ministry_name,
         sum(total_project_budget) as total_per_ministry,
         count(*)::int as number_of_projects
-      FROM data.view_project_ministry_client_sponsor
+      FROM data.v_projects_by_ministry
     `)
   );
 
@@ -113,7 +113,7 @@ const reportTotals = (requestParams) => {
     knex.raw(`
       sum(total_project_budget) as total_budget,
       count(project_number) as total_projects
-      FROM data.view_project_ministry_client_sponsor
+      FROM data.v_projects_by_ministry
     `)
   );
 
