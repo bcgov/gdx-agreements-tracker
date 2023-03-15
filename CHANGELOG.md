@@ -1,4 +1,8 @@
 ## Developer Changelog
+### MAR 15, 2023 (DESCW-970) Project registered by date/year
+
+- Backend
+  - Created migration for new project by ministry view
 
 ### MAR 13, 2023 (DESCW-970) Project registered by date/year
 
