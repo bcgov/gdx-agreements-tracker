@@ -28,13 +28,9 @@ controller.rpt_PA_Ministry = async (request, reply) => {
     const fiscalYear = _.first(projectSummaryFiscal)?.["fiscal_year"];
     const projectsPerMinistry = await model.projectsAndBudgetsPerMinistry(request.query);
     const projectsPerMinistryKeyedByMinistryName = _.keyBy(projectsPerMinistry, "ministry_name");
-    /*
-    console.log(` PROJECTS BY MINISTRY `);
-    console.table(projectsPerMinistry);
-
-    console.log(` projects per ministry keyed by ministry name`);
-    console.table(projectsPerMinistryKeyedByMinistryName);
-    */
+    const reportTotals = await model.reportTotals(request.query);
+    const reportTotalCount = _.first(reportTotals).total_projects;
+    const reportTotalBudget = _.first(reportTotals).total_budget;
 
     const projectSummaryByMinistryWithBudgetsAndNumberOfProjects = _.map(
       projectSummaryByMinistry,
@@ -53,6 +49,8 @@ controller.rpt_PA_Ministry = async (request, reply) => {
     const result = {
       fiscal_year: fiscalYear,
       ministries: projectSummaryByMinistryWithBudgetsAndNumberOfProjects,
+      total_projects: reportTotalCount,
+      total_budget: reportTotalBudget,
     };
 
     // Inject the pdf data into the request object
