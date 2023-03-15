@@ -26,14 +26,35 @@ controller.rpt_PA_Ministry = async (request, reply) => {
     const projectSummaryByMinistry = groupByProperty(projectSummary, "ministry_name");
     const projectSummaryFiscal = await model.getFiscalYear(request.query);
     const fiscalYear = _.first(projectSummaryFiscal)?.["fiscal_year"];
+    const projectsPerMinistry = await model.projectsAndBudgetsPerMinistry(request.query);
+    const projectsPerMinistryKeyedByMinistryName = _.keyBy(projectsPerMinistry, "ministry_name");
+    /*
+    console.log(` PROJECTS BY MINISTRY `);
+    console.table(projectsPerMinistry);
+
+    console.log(` projects per ministry keyed by ministry name`);
+    console.table(projectsPerMinistryKeyedByMinistryName);
+    */
+
+    const projectSummaryByMinistryWithBudgetsAndNumberOfProjects = _.map(
+      projectSummaryByMinistry,
+      (ministry) => ({
+        ...ministry,
+        total_per_ministry:
+          null === ministry.ministry_id
+            ? projectsPerMinistryKeyedByMinistryName[" "].total_per_ministry
+            : projectsPerMinistryKeyedByMinistryName[ministry.ministry_name].total_per_ministry,
+        number_of_projects:
+          projectsPerMinistryKeyedByMinistryName[ministry.ministry_name].number_of_projects,
+      })
+    );
 
     // Lay out final JSON body for api call to cdogs server
     const result = {
       fiscal_year: fiscalYear,
-      ministries: projectSummaryByMinistry,
+      ministries: projectSummaryByMinistryWithBudgetsAndNumberOfProjects,
     };
 
-    console.table(result.ministries);
     // Inject the pdf data into the request object
     const body = await getDocumentApiBody(result, "rpt_PA_Ministry.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
