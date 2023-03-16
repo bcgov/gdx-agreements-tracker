@@ -1,4 +1,7 @@
 ## Developer Changelog
+### MAR 16, 2023 (DESCW-966) PA ministry template
+  - Backend
+    - finalized the template
 ### MAR 15, 2023 (DESCW-967) PA ministry queries
 
 - Backend
