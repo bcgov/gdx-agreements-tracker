@@ -242,7 +242,7 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "projects_registered_by_fiscal",
+      value: "rpt_PA_Fiscal_Registry",
       label: "Projects Registered by Fiscal",
       reportParamCategory: [
         {
