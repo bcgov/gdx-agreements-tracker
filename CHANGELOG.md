@@ -1,4 +1,12 @@
 ## Developer Changelog
+
+### MAR 20, 2023 (DESCW-964) PA Fiscal Template and Query
+
+- Backend
+  - Created route, controller, and model for pa by fiscal
+- Frontend
+  - Added Project Registered Reports by fiscal and report template (initial template)
+
 ### MAR 16, 2023 (DESCW-966) PA ministry template
   - Backend
     - finalized the template
