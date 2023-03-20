@@ -139,7 +139,6 @@ export const ReportSelect = () => {
               }
             } else {
               // If the request type is route, we will add that value to the route params.
-              // routeParam = value.value;
               querystringParams.append(field, value.value.toString());
             }
           } else if (param.isRequired) {
