@@ -13,42 +13,13 @@ const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
 controller.getReport = getReport;
 
 /**
- * Get a Project rollup Report for a specific array of portfolio.
+ * Get a Fiscal Registry Report for a specific array of portfolio.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
 controller.rpt_PA_Fiscal_Registry = async (request, reply) => {
-  // const portfolios = [
-  //   {
-  //     portfolio:"citz",
-  //     projectData: [
-  //       {
-  //         portfolio: "citz",
-  //         projectName: "my project name",
-  //       },
-  //       {
-  //         portfolio: "citz",
-  //         projectName: "my project name",
-  //       },
-  //     ],
-  //     totalBudget: "1,022,000",
-  //   },
-  //   {
-  //     portfolio:"test2",
-  //     projectData: [
-  //       {
-  //         projectName: "my project name2",
-  //       },
-  //       {
-  //         projectName: "my project name2",
-  //       },
-  //     ],
-  //     totalBudget: "3,442,030",
-  //   },
-  // ];
-
   controller.userRequires(request, what, "reports_read_all");
   try {
     const fiscalRegistry = await model.fiscalRegistry(request.query);
@@ -86,7 +57,7 @@ controller.rpt_PA_Fiscal_Registry = async (request, reply) => {
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);
-    return { message: `There was a problem looking up this Project rollup Report.` };
+    return { message: `There was a problem looking up this Fiscal Registry Report.` };
   }
 };
 
