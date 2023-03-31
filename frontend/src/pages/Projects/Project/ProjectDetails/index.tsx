@@ -1,3 +1,4 @@
+import { useKeycloak } from "@react-keycloak/web";
 import { useAxios } from "hooks/useAxios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -17,15 +18,22 @@ export const ProjectDetails = () => {
 
   const { projectId } = useParams();
 
+  //Destructure the keycloak functionality
+  const { keycloak } = useKeycloak();
+
   const getProject = async () => {
-    const project = await axiosAll().get(`projects/${projectId}`);
+    const project = await axiosAll().get(`projects/${projectId}`, {
+      headers: {
+        locked_row_id: projectId as string,
+        locked_table: "project",
+        locked_by: keycloak?.idTokenParsed?.email,
+      },
+    });
+    project.data.table = "project";
     return project.data;
   };
 
-  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-  // todo Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const projectQuery: any = useQuery(`project - ${projectId}`, getProject, {
+  const projectQuery = useQuery(`project - ${projectId}`, getProject, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,
