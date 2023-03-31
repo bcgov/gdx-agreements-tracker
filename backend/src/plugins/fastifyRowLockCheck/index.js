@@ -50,7 +50,3 @@ module.exports = fp(fastifyRowLockCheck, {
   fastify: "4.x",
   name: "fastifyRowLockCheck",
 });
-
-// fastify.addHook('preSerialization', async (request, reply, payload) => {
-//   return { wrapped: payload }
-// })
