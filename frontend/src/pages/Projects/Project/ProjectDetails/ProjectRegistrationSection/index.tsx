@@ -46,55 +46,30 @@ export const ProjectRegistrationSection = ({
     case true: // db row is locked
       switch (query?.data?.dbRowLock?.currentUser) {
         case true: // db row is locked & current user
-          switch (editMode) {
-            case false: // db row is locked & current user & not edit mode
-              content = (
-                <>
-                  <ReadForm fields={readFields(query)} />
-                  {userHasEditCapability && (
-                    <>
-                      <FormEditButton
-                        buttonText="Change Registration"
-                        onClick={async () => {
-                          await handleDbLock(query, projectId).then(() => {
-                            handleEditMode(true).then(() => {
-                              query.refetch();
-                            });
-                          });
-                        }}
-                      />
-                    </>
-                  )}
-                </>
-              );
-              break;
-
-            case true: //edit mode
-              content = (
-                <EditForm
-                  initialValues={query?.data?.data}
-                  onSubmit={async (values) => {
-                    return handleUpdate({
-                      changedValues: values,
-                      currentRowData: query?.data?.data,
-                      apiUrl: `projects/${projectId}`,
-                      handleEditMode: handleEditMode,
-                      queryKeys: [`project - ${projectId}`],
-                      successMessage: `Changes saved successfully for project ${projectId}`,
-                      errorMessage: `There was an issue saving your changes for project ${projectId}`,
-                    });
-                  }}
-                  onCancel={async () => {
-                    await lockRemover(query?.data?.dbRowLock?.lockId).then(() => {
-                      handleEditMode(false);
-                    });
-                  }}
-                  editFields={editFields()}
-                />
-              );
-
-              break;
-          }
+          content = (
+            <EditForm
+              initialValues={query?.data?.data}
+              onSubmit={async (values) => {
+                return handleUpdate({
+                  changedValues: values,
+                  currentRowData: query?.data?.data,
+                  apiUrl: `projects/${projectId}`,
+                  handleEditMode: handleEditMode,
+                  queryKeys: [`project - ${projectId}`],
+                  successMessage: `Changes saved successfully for project ${projectId}`,
+                  errorMessage: `There was an issue saving your changes for project ${projectId}`,
+                });
+              }}
+              onCancel={async () => {
+                await lockRemover(query?.data?.dbRowLock).then(async () => {
+                  await query.refetch().then(() => {
+                    handleEditMode(false);
+                  });
+                });
+              }}
+              editFields={editFields()}
+            />
+          );
           break;
 
         case false: // not current user
@@ -120,10 +95,10 @@ export const ProjectRegistrationSection = ({
                       <FormEditButton
                         buttonText="Take Over Editing"
                         onClick={async () => {
-                          await lockRemover(query.data.dbRowLock.lockId).then(async () => {
-                            await handleDbLock(query, projectId).then(() => {
-                              handleEditMode(true).then(() => {
-                                query.refetch();
+                          await lockRemover(query?.data?.dbRowLock).then(async () => {
+                            await handleDbLock(query, projectId).then(async () => {
+                              await query.refetch().then(() => {
+                                handleEditMode(true);
                               });
                             });
                           });
@@ -141,7 +116,7 @@ export const ProjectRegistrationSection = ({
 
     case false: //db row is not locked  - query?.data?.dbRowLock?.locked
       switch (editMode) {
-        case false: // db row is locked & current user & not edit mode
+        case false: //  db row is not locked & not edit mode
           content = (
             <>
               <ReadForm fields={readFields(query)} />
@@ -150,9 +125,9 @@ export const ProjectRegistrationSection = ({
                   <FormEditButton
                     buttonText="Change Registration"
                     onClick={async () => {
-                      await handleDbLock(query, projectId).then(() => {
-                        handleEditMode(true).then(() => {
-                          query.refetch();
+                      await handleDbLock(query, projectId).then(async () => {
+                        await query.refetch().then(() => {
+                          handleEditMode(true);
                         });
                       });
                     }}
@@ -163,7 +138,7 @@ export const ProjectRegistrationSection = ({
           );
           break;
 
-        case true: //edit mode
+        case true: //db row is not locked & edit mode
           content = (
             <EditForm
               initialValues={query?.data?.data}
@@ -179,8 +154,10 @@ export const ProjectRegistrationSection = ({
                 });
               }}
               onCancel={async () => {
-                await lockRemover(query?.data?.dbRowLock?.lockId).then(() => {
-                  handleEditMode(false);
+                await lockRemover(query?.data?.dbRowLock).then(async () => {
+                  await query.refetch().then(() => {
+                    handleEditMode(false);
+                  });
                 });
               }}
               editFields={editFields()}
