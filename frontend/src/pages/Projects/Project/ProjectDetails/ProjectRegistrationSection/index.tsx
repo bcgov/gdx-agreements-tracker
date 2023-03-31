@@ -74,41 +74,39 @@ export const ProjectRegistrationSection = ({
 
         case false: // not current user
           content = (
-            <>
-              <Grid container spacing={2}>
-                <Grid item xs={6} md={6}>
-                  <Skeleton variant="rectangular" />
-                </Grid>
-                <Grid item xs={6} md={6}>
-                  <Skeleton variant="rectangular" />
-                </Grid>
-                <Grid item xs={6} md={6}>
-                  <LockPersonIcon />
-                  <h1>section locked for editing by: {query?.data?.dbRowLock.locked_by}</h1>
-                </Grid>
-                <Grid item xs={6} md={6}></Grid>
-                <Grid item xs={4} md={4}></Grid>
-                <Grid item xs={4} md={4}></Grid>
-                <Grid item xs={4} md={4}>
-                  {userHasEditCapability && (
-                    <>
-                      <FormEditButton
-                        buttonText="Take Over Editing"
-                        onClick={async () => {
-                          await lockRemover(query?.data?.dbRowLock).then(async () => {
-                            await handleDbLock(query, projectId).then(async () => {
-                              await query.refetch().then(() => {
-                                handleEditMode(true);
-                              });
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={6}>
+                <Skeleton variant="rectangular" />
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <Skeleton variant="rectangular" />
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <LockPersonIcon />
+                <h1>section locked for editing by: {query?.data?.dbRowLock.locked_by}</h1>
+              </Grid>
+              <Grid item xs={6} md={6}></Grid>
+              <Grid item xs={4} md={4}></Grid>
+              <Grid item xs={4} md={4}></Grid>
+              <Grid item xs={4} md={4}>
+                {userHasEditCapability && (
+                  <>
+                    <FormEditButton
+                      buttonText="Take Over Editing"
+                      onClick={async () => {
+                        await lockRemover(query?.data?.dbRowLock).then(async () => {
+                          await handleDbLock(query, projectId).then(async () => {
+                            await query.refetch().then(() => {
+                              handleEditMode(true);
                             });
                           });
-                        }}
-                      />
-                    </>
-                  )}
-                </Grid>
+                        });
+                      }}
+                    />
+                  </>
+                )}
               </Grid>
-            </>
+            </Grid>
           );
           break;
       }
@@ -121,18 +119,16 @@ export const ProjectRegistrationSection = ({
             <>
               <ReadForm fields={readFields(query)} />
               {userHasEditCapability && (
-                <>
-                  <FormEditButton
-                    buttonText="Change Registration"
-                    onClick={async () => {
-                      await handleDbLock(query, projectId).then(async () => {
-                        await query.refetch().then(() => {
-                          handleEditMode(true);
-                        });
+                <FormEditButton
+                  buttonText="Change Registration"
+                  onClick={async () => {
+                    await handleDbLock(query, projectId).then(async () => {
+                      await query.refetch().then(() => {
+                        handleEditMode(true);
                       });
-                    }}
-                  />
-                </>
+                    });
+                  }}
+                />
               )}
             </>
           );
