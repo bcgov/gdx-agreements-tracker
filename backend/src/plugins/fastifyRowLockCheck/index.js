@@ -15,22 +15,14 @@ const fastifyRowLockCheck = async (fastify, options) => {
       .getLockByParams(requestData)
       .then((lockInfo) => {
         if (lockInfo) {
-          if (lockInfo.locked_by === requestData.locked_by) {
-            dbRowLock = {
-              locked: true,
-              locked_by: lockInfo.locked_by,
-              currentUser: true,
-              lockId: lockInfo.id,
-            };
-          } else {
-            //The user performing this query does not match the user who has the row locked
-            dbRowLock = {
-              locked: true,
-              locked_by: lockInfo.locked_by,
-              currentUser: false,
-              lockId: lockInfo.id,
-            };
-          }
+          dbRowLock = {
+            locked: true,
+            locked_by: lockInfo.locked_by,
+            currentUser: lockInfo.locked_by === requestData.locked_by ? true : false,
+            lockId: lockInfo.id,
+            locked_table: lockInfo.locked_table,
+            locked_row_id: lockInfo.locked_row_id,
+          };
         } else {
           dbRowLock = { locked: false, locked_by: null };
         }

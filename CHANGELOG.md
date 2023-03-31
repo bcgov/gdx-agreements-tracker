@@ -3,12 +3,16 @@
 ---
 
 **MAR 31, 2023 (DESCW-405) DB Locking Mechanism**
-| IMPORTANT |
+| IMPORTANT! |
 | --- |
 
 - Make sure to run seeds: 01_capabilities and 02_role_capabilities.
+
   - `npx knex seed:run –specific “01_capabilities.js`
   - `npx knex seed:run –specific “02_role_capabilities.js`
+
+- Make sure to run migration latest:
+  - `npx knex migrate:latest `
 
 | Backend |
 | ------- |

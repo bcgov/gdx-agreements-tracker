@@ -12,8 +12,13 @@ export const useFormLock = () => {
 
   const { axiosAll } = useAxios();
 
-  const lockRemover = async (lockId: number) => {
-    await axiosAll().delete(`db_lock/${lockId}`);
+  const lockRemover = async (lockInfo: {
+    locked_row_id: string;
+    locked_date: string;
+    locked_table: string;
+    locked_by: string;
+  }) => {
+    await axiosAll().delete(`db_lock/${lockInfo.locked_row_id}`, { headers: lockInfo });
   };
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,7 +52,7 @@ export const useFormLock = () => {
         },
       })
       .then(async (returnedRow) => {
-        if (0 === returnedRow.data.length) {
+        if (!returnedRow) {
           await formLocker();
         } else {
           if (row.data.user.email === returnedRow.data.data.locked_by) {

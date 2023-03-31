@@ -41,9 +41,13 @@ controller.getLockByParams = async (request, reply) => {
 controller.deleteLockByParams = async (request, reply) => {
   controller.userRequires(request, what, `db_lock_delete_one`);
 
-  const id = Number(request.params.id);
+  const requestData = {
+    locked_row_id: Number(request.headers.locked_row_id),
+    locked_table: request.headers.locked_table,
+    locked_by: request.headers.locked_by,
+  };
   try {
-    const result = await model.removeOne(id);
+    const result = await model.removeOne(requestData);
     return result;
   } catch (err) {
     return controller.failedQuery(reply, err, what);

@@ -52,6 +52,8 @@ const getResponse = (data) => {
           .prop("locked_by", S.string().raw({ nullable: true }))
           .prop("currentUser", S.boolean())
           .prop("lockId", S.string())
+          .prop("locked_table", S.string())
+          .prop("locked_row_id", S.number())
       ),
     default: S.object().prop("data", S.object().prop("message", S.string())),
   };

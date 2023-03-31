@@ -9,8 +9,13 @@ const addLockByParams = (requestData) => {
 };
 
 // Remove one.
-const removeOne = (dbLockId) => {
-  return knex(`${dBLockTable} as dbLock`).where("dbLock.id", dbLockId).del();
+const removeOne = (requestData) => {
+  const { locked_row_id, locked_table, locked_by } = requestData;
+  return knex(`${dBLockTable} as dbLock`)
+    .where("dbLock.locked_table", locked_table)
+    .where("dbLock.locked_by", locked_by)
+    .where("dbLock.locked_row_id", locked_row_id)
+    .del();
 };
 
 // Get specific one by id.
