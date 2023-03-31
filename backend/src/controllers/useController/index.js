@@ -13,7 +13,7 @@ const useController = (model, what, capabilityPrefix = null) => {
   const failedQuery = (reply, error, what) => {
     reply.code(500);
     log.error(error);
-    return { message: `There was a problem with the query for ${what.plural}.` };
+    return { message: error, item: what.plural };
   };
 
   /**

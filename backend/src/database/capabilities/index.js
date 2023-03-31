@@ -95,6 +95,18 @@ const capabilities = [
     capability: "general_read_all",
     allowed: ["admin", "manager", "gdx", "subscriber"],
   },
+  {
+    capability: "db_lock_add_one",
+    allowed: ["admin", "manager", "gdx", "subscriber"],
+  },
+  {
+    capability: "db_lock_read_all",
+    allowed: ["admin", "manager", "gdx", "subscriber"],
+  },
+  {
+    capability: "db_lock_delete_one",
+    allowed: ["admin", "manager", "gdx", "subscriber"],
+  },
 ];
 
 /**

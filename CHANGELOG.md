@@ -1,5 +1,38 @@
 ## Developer Changelog
 
+---
+
+**MAR 31, 2023 (DESCW-405) DB Locking Mechanism**
+| IMPORTANT |
+| --- |
+
+- Make sure to run seeds: 01_capabilities and 02_role_capabilities.
+  - `npx knex seed:run –specific “01_capabilities.js`
+  - `npx knex seed:run –specific “02_role_capabilities.js`
+
+| Backend |
+| ------- |
+
+- Added database locking mechanism(db_lock) - Added controller, routes, and models for db_lock
+  - Added new capabilities for admins.
+    - db_lock_add_one
+    - db_lock_read_all
+    - db_lock_delete_one
+  - Updated error message handling for failed Query function in useController hook
+  - Added new Fastify plugin for checking role check on a section: fastifyRowLockCheck
+  - Updated common_schema validator to include new property “db_row_lock”
+
+| Frontend |
+| -------- |
+
+- Added new reusable button for running db locking functions, taking over lock function, - and putting form in edit mode.
+- Updated hook index to include new and old hooks for import efficiency.
+- Added new lock for handling form section locking(db_lock) called “useFormLock”
+  - Updated project registration section to use new form locking(db_lock) mechanism.
+- Added a more in-depth switch handler for rendering the project registration section (will need to be made more efficient in future tickets)
+
+---
+
 ### MAR 20, 2023 (DESCW-964) PA Fiscal Template and Query
 
 - Backend
@@ -8,8 +41,10 @@
   - Added Project Registered Reports by fiscal and report template (initial template)
 
 ### MAR 16, 2023 (DESCW-966) PA ministry template
-  - Backend
-    - finalized the template
+
+- Backend
+  - finalized the template
+
 ### MAR 15, 2023 (DESCW-967) PA ministry queries
 
 - Backend
@@ -21,6 +56,7 @@
 
 - Backend
   - Created migration for new project by ministry view
+
 ### MAR 13, 2023 (DESCW-970) Project registered by date/year
 
 - Backend

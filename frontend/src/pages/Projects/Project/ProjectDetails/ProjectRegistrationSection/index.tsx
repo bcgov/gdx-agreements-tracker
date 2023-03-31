@@ -1,11 +1,13 @@
-import { Box, Button } from "@mui/material";
+import { Grid, Skeleton } from "@mui/material";
 import { EditForm } from "components/EditForm";
 import { ReadForm } from "components/ReadForm";
 import { Renderer } from "components/Renderer";
-import { useFormSubmit } from "hooks/useFormSubmit";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
+import { useFormControls, useFormSubmit, useFormLock } from "hooks";
+import { FormEditButton } from "components/FormEditButton";
+import LockPersonIcon from "@mui/icons-material/LockPerson";
 
 export const ProjectRegistrationSection = ({
   query,
@@ -18,8 +20,10 @@ export const ProjectRegistrationSection = ({
   userHasEditCapability: boolean;
 }) => {
   const { projectId } = useParams();
-  const [editMode, setEditMode] = useState(false);
   const { handleUpdate, Notification } = useFormSubmit();
+  const { handleEditMode, editMode } = useFormControls();
+
+  const { handleDbLock, lockRemover } = useFormLock();
 
   useEffect(() => {
     // Certain properties when lacking a value have null labels causing errors.
@@ -38,46 +42,155 @@ export const ProjectRegistrationSection = ({
   }, [query]);
 
   let content = <></>;
-  switch (editMode) {
-    case false:
-    default:
-      content = (
-        <>
-          <ReadForm fields={readFields(query)} />
-          {userHasEditCapability && (
-            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <Button variant="contained" onClick={() => setEditMode(true)}>
-                Change Registration
-              </Button>
-            </Box>
-          )}
-        </>
-      );
+  switch (query?.data?.dbRowLock?.locked) {
+    case true: // db row is locked
+      switch (query?.data?.dbRowLock?.currentUser) {
+        case true: // db row is locked & current user
+          switch (editMode) {
+            case false: // db row is locked & current user & not edit mode
+              content = (
+                <>
+                  <ReadForm fields={readFields(query)} />
+                  {userHasEditCapability && (
+                    <>
+                      <FormEditButton
+                        buttonText="Change Registration"
+                        onClick={async () => {
+                          await handleDbLock(query, projectId).then(() => {
+                            handleEditMode(true).then(() => {
+                              query.refetch();
+                            });
+                          });
+                        }}
+                      />
+                    </>
+                  )}
+                </>
+              );
+              break;
+
+            case true: //edit mode
+              content = (
+                <EditForm
+                  initialValues={query?.data?.data}
+                  onSubmit={async (values) => {
+                    return handleUpdate({
+                      changedValues: values,
+                      currentRowData: query?.data?.data,
+                      apiUrl: `projects/${projectId}`,
+                      handleEditMode: handleEditMode,
+                      queryKeys: [`project - ${projectId}`],
+                      successMessage: `Changes saved successfully for project ${projectId}`,
+                      errorMessage: `There was an issue saving your changes for project ${projectId}`,
+                    });
+                  }}
+                  onCancel={async () => {
+                    await lockRemover(query?.data?.dbRowLock?.lockId).then(() => {
+                      handleEditMode(false);
+                    });
+                  }}
+                  editFields={editFields()}
+                />
+              );
+
+              break;
+          }
+          break;
+
+        case false: // not current user
+          content = (
+            <>
+              <Grid container spacing={2}>
+                <Grid item xs={6} md={6}>
+                  <Skeleton variant="rectangular" />
+                </Grid>
+                <Grid item xs={6} md={6}>
+                  <Skeleton variant="rectangular" />
+                </Grid>
+                <Grid item xs={6} md={6}>
+                  <LockPersonIcon />
+                  <h1>section locked for editing by: {query?.data?.dbRowLock.locked_by}</h1>
+                </Grid>
+                <Grid item xs={6} md={6}></Grid>
+                <Grid item xs={4} md={4}></Grid>
+                <Grid item xs={4} md={4}></Grid>
+                <Grid item xs={4} md={4}>
+                  {userHasEditCapability && (
+                    <>
+                      <FormEditButton
+                        buttonText="Take Over Editing"
+                        onClick={async () => {
+                          await lockRemover(query.data.dbRowLock.lockId).then(async () => {
+                            await handleDbLock(query, projectId).then(() => {
+                              handleEditMode(true).then(() => {
+                                query.refetch();
+                              });
+                            });
+                          });
+                        }}
+                      />
+                    </>
+                  )}
+                </Grid>
+              </Grid>
+            </>
+          );
+          break;
+      }
       break;
-    case true:
-      content = (
-        <EditForm
-          initialValues={query?.data?.data}
-          onSubmit={async (values) => {
-            return handleUpdate({
-              changedValues: values,
-              currentRowData: query?.data?.data,
-              apiUrl: `projects/${projectId}`,
-              handleEditMode: setEditMode,
-              queryKeys: [`project - ${projectId}`],
-              successMessage: `Changes saved successfully for project ${projectId}`,
-              errorMessage: `There was an issue saving your changes for project ${projectId}`,
-            });
-          }}
-          onCancel={() => {
-            setEditMode(false);
-          }}
-          editFields={editFields()}
-        />
-      );
+
+    case false: //db row is not locked  - query?.data?.dbRowLock?.locked
+      switch (editMode) {
+        case false: // db row is locked & current user & not edit mode
+          content = (
+            <>
+              <ReadForm fields={readFields(query)} />
+              {userHasEditCapability && (
+                <>
+                  <FormEditButton
+                    buttonText="Change Registration"
+                    onClick={async () => {
+                      await handleDbLock(query, projectId).then(() => {
+                        handleEditMode(true).then(() => {
+                          query.refetch();
+                        });
+                      });
+                    }}
+                  />
+                </>
+              )}
+            </>
+          );
+          break;
+
+        case true: //edit mode
+          content = (
+            <EditForm
+              initialValues={query?.data?.data}
+              onSubmit={async (values) => {
+                return handleUpdate({
+                  changedValues: values,
+                  currentRowData: query?.data?.data,
+                  apiUrl: `projects/${projectId}`,
+                  handleEditMode: handleEditMode,
+                  queryKeys: [`project - ${projectId}`],
+                  successMessage: `Changes saved successfully for project ${projectId}`,
+                  errorMessage: `There was an issue saving your changes for project ${projectId}`,
+                });
+              }}
+              onCancel={async () => {
+                await lockRemover(query?.data?.dbRowLock?.lockId).then(() => {
+                  handleEditMode(false);
+                });
+              }}
+              editFields={editFields()}
+            />
+          );
+
+          break;
+      }
       break;
   }
-
   return (
     <>
       <Renderer isLoading={query.isLoading} component={content} />
