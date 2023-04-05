@@ -5,27 +5,15 @@ import projectRoutes from "./subRoutes/projectRoutes";
 import contractRoutes from "./subRoutes/contractRoutes";
 import adminRoutes from "./subRoutes/adminRoutes";
 import reportRoutes from "./subRoutes/reportRoutes";
-import { Home, Login, PageNotFound, Users } from "../pages";
+import { Home, Login, PageNotFound } from "../pages";
 import { Main } from "../components";
-import useAuthorization from "hooks/useAuthorization";
-import keycloak from "keycloak";
-import { ICurrentUser } from "types";
 import Unauthorized from "pages/Unauthorized";
 
 const AppRouter: FC = () => {
-  const { currentUser } = useAuthorization(keycloak);
   return (
     <Routes>
       <Route element={<Main />}>
-        <Route
-          path="/"
-          element={
-            <AuthorizedRoute
-              currentUserRole={(currentUser as ICurrentUser)?.role_id?.label}
-              allowedRoles={["Administrator", "Manager"]}
-            />
-          }
-        >
+        <Route path="/" element={<AuthorizedRoute allowedRoles={["Administrator", "Manager"]} />}>
           <Route index element={<Home />} />
           {projectRoutes}
           {contractRoutes}
@@ -34,17 +22,10 @@ const AppRouter: FC = () => {
         </Route>
         <Route
           path="/"
-          element={
-            <AuthorizedRoute
-              currentUserRole={(currentUser as ICurrentUser)?.role_id?.label}
-              allowedRoles={["Administrator", "Manager"]}
-              isPMOSysAdmin={(
-                keycloak as Keycloak.KeycloakInstance
-              )?.tokenParsed?.client_roles?.includes("pmo-sys-admin")}
-            />
-          }
+          element={<AuthorizedRoute allowedRoles={["Administrator", "Manager", "pmo-sys-admin"]} />}
         >
-          <Route key="users" path="admin/users" element={<Users />} />
+          {/* //TODO Temp removing while we transition to using Keycloak Server for role management. */}
+          {/* <Route key="users" path="admin/users" element={<Users />} /> */}
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>

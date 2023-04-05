@@ -1,5 +1,4 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
 export const Unauthorized = () => {
@@ -9,7 +8,7 @@ export const Unauthorized = () => {
     borderLeft: "1px solid #999",
   }));
 
-  const Test = styled("div")(() => ({
+  const StyledDiv = styled("div")(() => ({
     display: "flex",
     justifyContent: "space-between",
     width: "30%",
@@ -18,12 +17,11 @@ export const Unauthorized = () => {
   }));
 
   return (
-    <Test>
+    <StyledDiv>
       <h2>401</h2>
       <StyledLine />
       <h3>You are unauthorized to view this page</h3>
-      <Outlet />
-    </Test>
+    </StyledDiv>
   );
 };
 

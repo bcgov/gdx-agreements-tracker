@@ -1,6 +1,12 @@
 ## Developer Changelog
+**April 5, 2023 (DESCW-1008) fix logon bug**
+| Frontend |
+| -------- |
+
+- Changed the frontend Authorized routes to use keycloak roles over the postgresql
 
 ---
+
 
 **MAR 31, 2023 (DESCW-405) DB Locking Mechanism**
 | IMPORTANT! |
