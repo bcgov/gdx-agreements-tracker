@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 import { Loader } from "../components/Loader";
+import Unauthorized from "pages/Unauthorized";
 
 interface Props {
   component: FC;
@@ -21,30 +22,20 @@ const ProtectedRoute: FC<Props> = ({ component: Component }) => {
   }
 };
 
-export const AuthorizedRoute = ({
-  currentUserRole,
-  allowedRoles,
-  isPMOSysAdmin = false,
-}: {
-  currentUserRole: string;
-  allowedRoles: string[];
-  isPMOSysAdmin?: boolean;
-}) => {
-  const { initialized, keycloak } = useKeycloak();
-  const location = useLocation();
-
-  if (initialized) {
-    return keycloak?.authenticated && currentUserRole ? (
-      allowedRoles.includes(currentUserRole) || isPMOSysAdmin ? (
+export const AuthorizedRoute = () => {
+  const { keycloak } = useKeycloak();
+  if (keycloak.authenticated) {
+    if (!keycloak?.tokenParsed?.client_roles) {
+      return <Unauthorized />;
+    } else {
+      return keycloak?.tokenParsed?.client_roles.includes("pmo-sys-admin") ? (
         <Outlet />
       ) : (
         <Navigate to={`/unauthorized`} />
-      )
-    ) : (
-      <Navigate to={`/login?redirect=${location.pathname}`} />
-    );
+      );
+    }
   } else {
-    return <Loader />;
+    return <Navigate to={`/login?redirect=${location.pathname}`} />;
   }
 };
 
