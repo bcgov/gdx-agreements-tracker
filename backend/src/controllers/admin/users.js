@@ -12,7 +12,7 @@ const controller = useController(model, what);
  */
 
 controller.getByEmail = async (request, reply) => {
-  controller.userRequires(request, what, "users_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   let output;
   const targetEmail = request.body.email;
   try {

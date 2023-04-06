@@ -65,7 +65,7 @@ const getDocumentApiBody = async (
  * @returns {object}
  */
 controller.getProjectBudgetReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const projectId = Number(request.params.id);
     const reportDate = new Date();
@@ -109,7 +109,7 @@ controller.getProjectBudgetReportOnRequest = async (request, reply) => {
  * @returns {object}
  */
 controller.getProjectQuarterlyReport = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const result = await model.projectQuarterlyReport();
     if (!result) {
@@ -132,7 +132,7 @@ controller.getProjectQuarterlyReport = async (request, reply) => {
  * @returns {object}
  */
 controller.getProjectQuarterlyReviewReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const projectId = Number(request.params.id);
     const reportDate = new Date();
@@ -178,7 +178,7 @@ controller.getReport = async (request, reply) => {
  * @returns {object}
  */
 controller.getProjectStatusReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const projectId = Number(request.params.id);
     const reportDate = new Date();
@@ -215,7 +215,7 @@ controller.getProjectStatusReportOnRequest = async (request, reply) => {
  * @returns {object}
  */
 controller.getProjectStatusSummaryReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const projectId = Number(request.params.id);
     const reportDate = new Date();
@@ -252,7 +252,7 @@ controller.getProjectStatusSummaryReportOnRequest = async (request, reply) => {
  * @returns {object}
  */
 controller.getProjectQuarterlyBillingReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const projectId = Number(request.params.id);
     const fiscal = Number(request.query.fiscal);
@@ -292,7 +292,7 @@ controller.getProjectQuarterlyBillingReportOnRequest = async (request, reply) =>
  * @returns {object}
  */
 controller.getProjectDashboardReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
@@ -326,7 +326,7 @@ controller.getProjectDashboardReportOnRequest = async (request, reply) => {
  * @returns {object}
  */
 controller.getActiveProjectsReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const portfolios = request.query.portfolio;
     const reportDate = new Date();
@@ -363,7 +363,7 @@ controller.getActiveProjectsReportOnRequest = async (request, reply) => {
  * @returns {object}
  */
 controller.getProjectLessonsLearnedReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const fiscalYear = request.query.fiscal;
     const projectId = request.query.project;
@@ -400,7 +400,7 @@ controller.getProjectLessonsLearnedReportOnRequest = async (request, reply) => {
  * @returns {object}
  */
 controller.getContractSummaryReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const contractId = request.params.id;
     const reportDate = new Date();

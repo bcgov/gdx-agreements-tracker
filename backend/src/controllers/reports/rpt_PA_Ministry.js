@@ -19,7 +19,7 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.rpt_PA_Ministry = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
     const projectSummary = await model.rpt_PA_Ministry(request.query);

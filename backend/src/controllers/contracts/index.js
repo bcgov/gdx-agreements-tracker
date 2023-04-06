@@ -5,7 +5,7 @@ const what = { single: "contract", plural: "contracts" };
 const controller = useController(model, what);
 
 controller.getOneWithSubcontractors = async (request, reply) => {
-  controller.userRequires(request, what, "contracts_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const result = await model.findById(request.params.id);
     // Attach all subcontractors associated with the contract.
@@ -28,7 +28,7 @@ controller.getOneWithSubcontractors = async (request, reply) => {
  * @returns {object}
  */
 controller.budgetsByFiscal = async (request, reply) => {
-  controller.userRequires(request, what, "contracts_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const contractId = Number(request.params.id);
   try {
     const result = await model.findBudgetsByFiscal(Number(contractId));

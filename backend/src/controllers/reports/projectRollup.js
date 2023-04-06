@@ -18,7 +18,7 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.getProjectStatusRollup = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     // Get the data from the database.
     const getDate = async () => new Date();

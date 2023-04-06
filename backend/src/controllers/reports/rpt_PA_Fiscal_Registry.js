@@ -20,7 +20,7 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.rpt_PA_Fiscal_Registry = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     const fiscalRegistry = await model.fiscalRegistry(request.query);
     const plannedBudgetTotals = await model.planned_budget_totals(request.query);

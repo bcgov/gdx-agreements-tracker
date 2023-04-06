@@ -11,7 +11,7 @@ const controller = useController(model, what, "contracts");
  * @returns {object}
  */
 controller.getAllByContractId = async (request, reply) => {
-  controller.userRequires(request, what, "contracts_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const contractId = Number(request.params.id);
   try {
     const result = await model.findAllByContractId(Number(contractId));
@@ -31,7 +31,7 @@ controller.getAllByContractId = async (request, reply) => {
  * @returns {object}
  */
 controller.addOneWithContractId = async (request, reply) => {
-  controller.userRequires(request, what, `contracts_add_one`);
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const contractId = Number(request.params.id);
   try {
     const result = await model.addOne(request.body, contractId);

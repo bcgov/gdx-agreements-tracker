@@ -18,7 +18,7 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_21_rpt_PA_Billing_Historical = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
     const getDate = async () => new Date();

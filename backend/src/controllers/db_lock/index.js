@@ -4,7 +4,7 @@ const what = { single: "db_lock", plural: "db_locks" };
 const controller = useController(model, what, "db_lock");
 
 controller.addLockByParams = async (request, reply) => {
-  controller.userRequires(request, what, `db_lock_add_one`);
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const requestData = {
       locked_row_id: Number(request.body.headers.locked_row_id),
@@ -21,7 +21,7 @@ controller.addLockByParams = async (request, reply) => {
 };
 
 controller.getLockByParams = async (request, reply) => {
-  controller.userRequires(request, what, `db_lock_read_all`);
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
 
   try {
     const requestData = {
@@ -39,7 +39,7 @@ controller.getLockByParams = async (request, reply) => {
 };
 
 controller.deleteLockByParams = async (request, reply) => {
-  controller.userRequires(request, what, `db_lock_delete_one`);
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
 
   const requestData = {
     locked_row_id: Number(request.headers.locked_row_id),
