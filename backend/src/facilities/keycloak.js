@@ -1,7 +1,6 @@
 const jwksClient = require("jwks-client");
 const jwt = require("jsonwebtoken");
 const userModel = require("@models/admin/users");
-const capabilityModel = require("@models/capabilities");
 
 /**
  * Parse the request header for the authorization token.
@@ -116,14 +115,11 @@ const getUserInfo = async (request) => {
   const decodedToken = jwt.decode(token, { complete: true });
   if (decodedToken) {
     const payload = decodedToken.payload;
-    const user = await userModel.findByEmail(payload.email).then((r) => r[0]);
-    const capabilities = user ? await capabilityModel.findAllByUserId(user.id).then() : [];
     return {
       name: payload.name,
       email: payload.email,
       preferred_username: payload.idir_username,
       roles: payload?.client_roles,
-      capabilities: capabilities,
     };
   }
   return;
