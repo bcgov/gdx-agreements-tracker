@@ -4,18 +4,16 @@ import { ReadForm } from "components/ReadForm";
 import { Renderer } from "components/Renderer";
 import { useAxios } from "hooks/useAxios";
 import { useFormSubmit } from "hooks/useFormSubmit";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
-import { Notify } from "./Notify";
 
 export const CloseOut = () => {
   const { axiosAll } = useAxios();
 
   const { projectId } = useParams();
   const [editMode, setEditMode] = useState(false);
-  const [userHasEditCapability, setEditCapability] = useState(false);
   const { handleUpdate, Notification } = useFormSubmit();
 
   const getProject = async () => {
@@ -37,26 +35,19 @@ export const CloseOut = () => {
     staleTime: Infinity,
   });
 
-  useEffect(() => {
-    const user = projectQuery?.data?.user;
-    setEditCapability(user && user.capabilities.includes("projects_update_one"));
-  }, [projectQuery]);
-
   let content = <></>;
   switch (editMode) {
     case false:
     default:
       content = (
         <>
-          {!userHasEditCapability && <Notify projectId={projectId} />}
           <ReadForm fields={readFields(projectQuery)} />
-          {userHasEditCapability && (
-            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <Button variant="contained" onClick={() => setEditMode(true)}>
-                Change Close Out
-              </Button>
-            </Box>
-          )}
+
+          <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+            <Button variant="contained" onClick={() => setEditMode(true)}>
+              Change Close Out
+            </Button>
+          </Box>
         </>
       );
       break;

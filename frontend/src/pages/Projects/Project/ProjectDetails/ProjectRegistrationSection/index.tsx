@@ -11,13 +11,11 @@ import LockPersonIcon from "@mui/icons-material/LockPerson";
 
 export const ProjectRegistrationSection = ({
   query,
-  userHasEditCapability,
 }: {
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any;
-  userHasEditCapability: boolean;
 }) => {
   const { projectId } = useParams();
   const { handleUpdate, Notification } = useFormSubmit();
@@ -89,22 +87,18 @@ export const ProjectRegistrationSection = ({
               <Grid item xs={4} md={4}></Grid>
               <Grid item xs={4} md={4}></Grid>
               <Grid item xs={4} md={4}>
-                {userHasEditCapability && (
-                  <>
-                    <FormEditButton
-                      buttonText="Take Over Editing"
-                      onClick={async () => {
-                        await lockRemover(query?.data?.dbRowLock).then(async () => {
-                          await handleDbLock(query, projectId).then(async () => {
-                            await query.refetch().then(() => {
-                              handleEditMode(true);
-                            });
-                          });
+                <FormEditButton
+                  buttonText="Take Over Editing"
+                  onClick={async () => {
+                    await lockRemover(query?.data?.dbRowLock).then(async () => {
+                      await handleDbLock(query, projectId).then(async () => {
+                        await query.refetch().then(() => {
+                          handleEditMode(true);
                         });
-                      }}
-                    />
-                  </>
-                )}
+                      });
+                    });
+                  }}
+                />
               </Grid>
             </Grid>
           );
@@ -118,18 +112,16 @@ export const ProjectRegistrationSection = ({
           content = (
             <>
               <ReadForm fields={readFields(query)} />
-              {userHasEditCapability && (
-                <FormEditButton
-                  buttonText="Change Registration"
-                  onClick={async () => {
-                    await handleDbLock(query, projectId).then(async () => {
-                      await query.refetch().then(() => {
-                        handleEditMode(true);
-                      });
+              <FormEditButton
+                buttonText="Change Registration"
+                onClick={async () => {
+                  await handleDbLock(query, projectId).then(async () => {
+                    await query.refetch().then(() => {
+                      handleEditMode(true);
                     });
-                  }}
-                />
-              )}
+                  });
+                }}
+              />
             </>
           );
           break;

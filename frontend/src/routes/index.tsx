@@ -13,17 +13,14 @@ const AppRouter: FC = () => {
   return (
     <Routes>
       <Route element={<Main />}>
-        <Route path="/" element={<AuthorizedRoute allowedRoles={["Administrator", "Manager"]} />}>
+        <Route path="/" element={<AuthorizedRoute />}>
           <Route index element={<Home />} />
           {projectRoutes}
           {contractRoutes}
           {adminRoutes}
           {reportRoutes}
         </Route>
-        <Route
-          path="/"
-          element={<AuthorizedRoute allowedRoles={["Administrator", "Manager", "pmo-sys-admin"]} />}
-        >
+        <Route path="/" element={<AuthorizedRoute />}>
           {/* //TODO Temp removing while we transition to using Keycloak Server for role management. */}
           {/* <Route key="users" path="admin/users" element={<Users />} /> */}
           <Route path="unauthorized" element={<Unauthorized />} />

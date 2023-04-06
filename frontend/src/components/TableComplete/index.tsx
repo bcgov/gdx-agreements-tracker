@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { Renderer } from "components/Renderer";
 import { Table } from "components/Table";
@@ -24,7 +24,6 @@ export const TableComplete = ({
   readFields,
   editFields,
   totalColumns,
-  roles,
   getSelectedRow,
   columnWidths,
 }: {
@@ -65,19 +64,7 @@ export const TableComplete = ({
 
   const { handlePost, handleUpdate, handleDelete, Notification } = useFormSubmit();
 
-  const [userCapabilities, setUserCapabilities] = useState<string[]>([]);
-
   const { axiosAll } = useAxios();
-
-  const hasRole = (requiredRole: string) => {
-    let allowed = false;
-    if (Array.isArray(userCapabilities) && userCapabilities.length > 0) {
-      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-      // todo: This or needs to check for if user has pmo-sys-admin as well, but for testing this should be fine.
-      allowed = userCapabilities.includes(requiredRole) || "users_update_one" === requiredRole;
-    }
-    return allowed;
-  };
 
   /**
    * getApiData is the fetch function for react query to leverage.
@@ -133,10 +120,6 @@ export const TableComplete = ({
     handleClick: handleOpen,
   });
 
-  useEffect(() => {
-    setUserCapabilities(data?.user?.capabilities);
-  }, [data]);
-
   /**
    * used for the react query.
    *
@@ -170,47 +153,41 @@ export const TableComplete = ({
 
   return (
     <>
-      {hasRole(roles.get) && (
-        <Renderer
-          isLoading={isLoading}
-          component={
-            <>
-              <Typography variant="h5" component="h2">
-                {itemName}
-              </Typography>
-              <Table
-                columns={data?.columns}
-                rows={data?.rows}
-                totalColumns={totalColumns ?? []}
-                initialState={initialState}
-                allowEdit={hasRole(roles.add)}
-                loading={isLoading}
-                onRowClick={handleRowClick}
-              />
-              <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-                {hasRole(roles.add) && (
-                  <Button
-                    onClick={() => {
-                      handleOpen();
-                      handleEditMode(true);
-                      handleFormType("new");
-                    }}
-                    variant="contained"
-                  >{`Add New ${itemName}`}</Button>
-                )}
-              </Box>
-            </>
-          }
-        />
-      )}
+      <Renderer
+        isLoading={isLoading}
+        component={
+          <>
+            <Typography variant="h5" component="h2">
+              {itemName}
+            </Typography>
+            <Table
+              columns={data?.columns}
+              rows={data?.rows}
+              totalColumns={totalColumns ?? []}
+              initialState={initialState}
+              loading={isLoading}
+              onRowClick={handleRowClick}
+            />
+            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+              <Button
+                onClick={() => {
+                  handleOpen();
+                  handleEditMode(true);
+                  handleFormType("new");
+                }}
+                variant="contained"
+              >{`Add New ${itemName}`}</Button>
+            </Box>
+          </>
+        }
+      />
+
       <GDXModal
         open={open}
         handleClose={handleClose}
         modalTitle={"new" === formType ? `New ${itemName}` : `${itemName} ${reactQuery?.data?.id}`}
         handleEditMode={handleEditMode}
         editMode={editMode}
-        allowEdit={hasRole(roles.update)}
-        allowDelete={hasRole(roles.delete) && undefined !== url.deleteOne && "new" !== formType}
         handleDelete={handleDeleteClick}
         handleFormType={handleFormType}
       >

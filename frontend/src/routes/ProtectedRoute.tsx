@@ -23,10 +23,7 @@ const ProtectedRoute: FC<Props> = ({ component: Component }) => {
 };
 
 export const AuthorizedRoute = () => {
-  
   const { keycloak } = useKeycloak();
-  console.log('keycloak', keycloak)
-
   if (keycloak.authenticated) {
     if (!keycloak?.tokenParsed?.client_roles) {
       return <Unauthorized />;

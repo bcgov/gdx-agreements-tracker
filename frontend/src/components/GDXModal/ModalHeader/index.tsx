@@ -28,8 +28,6 @@ export const ModalHeader = ({
   modalTitle,
   handleEditMode,
   editMode,
-  allowEdit,
-  allowDelete,
   handleDelete,
   handleFormType,
   onClose,
@@ -37,8 +35,6 @@ export const ModalHeader = ({
   modalTitle: string;
   handleEditMode: Function;
   editMode: boolean;
-  allowEdit: boolean;
-  allowDelete: boolean;
   handleDelete: Function;
   handleFormType: Function;
   onClose: Function;
@@ -52,17 +48,15 @@ export const ModalHeader = ({
               <Typography variant="h6" noWrap marginRight={2} alignSelf="center">
                 {modalTitle}
               </Typography>
-              {allowDelete && (
-                <DeleteButton
-                  handleDelete={() => {
-                    onClose();
-                    handleDelete();
-                  }}
-                />
-              )}
+              <DeleteButton
+                handleDelete={() => {
+                  onClose();
+                  handleDelete();
+                }}
+              />
             </Box>
             <Box sx={{ display: "flex" }}>
-              {!editMode && allowEdit ? (
+              {!editMode ? (
                 <Button
                   color="secondary"
                   variant="contained"

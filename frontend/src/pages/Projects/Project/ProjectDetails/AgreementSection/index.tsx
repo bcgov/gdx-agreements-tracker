@@ -9,13 +9,11 @@ import { editFields, readFields } from "./fields";
 
 export const AgreementSection = ({
   query,
-  userHasEditCapability,
 }: {
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any;
-  userHasEditCapability: boolean;
 }) => {
   const { projectId } = useParams();
   const [editMode, setEditMode] = useState(false);
@@ -37,13 +35,11 @@ export const AgreementSection = ({
       content = (
         <>
           <ReadForm fields={readFields(query)} />
-          {userHasEditCapability && (
-            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <Button variant="contained" onClick={() => setEditMode(true)}>
-                Change Agreement
-              </Button>
-            </Box>
-          )}
+          <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+            <Button variant="contained" onClick={() => setEditMode(true)}>
+              Change Agreement
+            </Button>
+          </Box>
         </>
       );
       break;

@@ -383,8 +383,6 @@ export interface IModal {
   modalTitle: string;
   handleEditMode: Function;
   editMode: boolean;
-  allowEdit: boolean;
-  allowDelete: boolean;
   handleDelete: Function;
   handleFormType: Function;
 }
