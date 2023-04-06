@@ -34,7 +34,6 @@ export const Projects: FC = () => {
             rows={data.rows}
             initialState={initialState}
             loading={isLoading}
-            allowEdit={data?.user?.capabilities.includes("projects_update_one")}
           />
         );
       default:

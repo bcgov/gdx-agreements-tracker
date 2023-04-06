@@ -33,7 +33,6 @@ export const ReadEditPage = ({
   const [editMode, setEditMode] = useState(false);
   const [isNew, setNew] = useState(false);
   const [createCompleted, setCreateCompleted] = useState(false);
-  const [userHasEditCapability, setEditCapability] = useState(false);
   const { handlePost, handleUpdate, Notification } = useFormSubmit();
 
   const getItem = async () => {
@@ -60,8 +59,6 @@ export const ReadEditPage = ({
   );
 
   useEffect(() => {
-    const user = query?.data?.user;
-    setEditCapability(undefined !== user && user.capabilities.includes(capability.updateOne));
     if ("new" === id) {
       setNew(true);
       setEditMode(true);
@@ -79,13 +76,11 @@ export const ReadEditPage = ({
       content = (
         <>
           <ReadForm fields={readFields(query)} />
-          {userHasEditCapability && (
-            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <Button variant="contained" onClick={() => setEditMode(true)}>
-                Change {what.single}
-              </Button>
-            </Box>
-          )}
+          <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+            <Button variant="contained" onClick={() => setEditMode(true)}>
+              Change {what.single}
+            </Button>
+          </Box>
         </>
       );
       break;

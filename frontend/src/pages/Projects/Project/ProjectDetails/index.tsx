@@ -1,6 +1,6 @@
 import { useKeycloak } from "@react-keycloak/web";
 import { useAxios } from "hooks/useAxios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { GDXAccordion } from "../../../../components/GDXAccordion";
@@ -12,8 +12,6 @@ import { DeliverablesSection } from "./Deliverables";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
 export const ProjectDetails = () => {
-  const [userHasEditCapability, setEditCapability] = useState(false);
-
   const { axiosAll } = useAxios();
 
   const { projectId } = useParams();
@@ -41,23 +39,15 @@ export const ProjectDetails = () => {
     staleTime: Infinity,
   });
 
-  useEffect(() => {
-    const user = projectQuery?.data?.user;
-    setEditCapability(user && user.capabilities.includes("projects_update_one"));
-  }, [projectQuery]);
-
   return (
     <>
       <GDXAccordion sectionTitle="Project Registration">
-        <ProjectRegistrationSection
-          query={projectQuery}
-          userHasEditCapability={userHasEditCapability}
-        />
+        <ProjectRegistrationSection query={projectQuery} />
       </GDXAccordion>
       {"new" !== projectId && (
         <>
           <GDXAccordion sectionTitle="Agreement">
-            <AgreementSection query={projectQuery} userHasEditCapability={userHasEditCapability} />
+            <AgreementSection query={projectQuery} />
           </GDXAccordion>
           <GDXAccordion sectionTitle="Contacts">
             <ContactsSection projectId={Number(projectId)} />

@@ -43,7 +43,6 @@ export const Contracts: FC = () => {
             rows={data?.rows}
             initialState={initialState}
             loading={isLoading}
-            allowEdit={data?.user?.capabilities.includes("contracts_update_one")}
           />
         );
       default:

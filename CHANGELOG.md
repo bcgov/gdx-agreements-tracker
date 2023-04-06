@@ -6,6 +6,7 @@
 
 - Updated controllers to use new userRquires function
 - Added keycloak roles and capabilities to useController hook
+- Updated frontend to use keycloak roles and capabilities
 
 ---
 

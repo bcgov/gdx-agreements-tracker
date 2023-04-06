@@ -23,13 +23,6 @@ interface IContactsPayload {
 }
 
 export const ContactsSection = ({ projectId }: { projectId: number }) => {
-  const roles = {
-    get: "projects_read_all",
-    add: "projects_add_one",
-    update: "projects_update_one",
-    delete: "projects_delete_one",
-  };
-
   const { handleUpdate, Notification } = useFormSubmit();
   const { axiosAll } = useAxios();
   const [editMode, setEditMode] = useState(false);
@@ -139,13 +132,11 @@ export const ContactsSection = ({ projectId }: { projectId: number }) => {
       content = (
         <>
           <ReadForm fields={readFields} />
-          {contactData?.data?.user && contactData?.data?.user.capabilities.includes(roles.update) && (
-            <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-              <Button variant="contained" onClick={() => setEditMode(true)}>
-                Change Contacts
-              </Button>
-            </Box>
-          )}
+          <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+            <Button variant="contained" onClick={() => setEditMode(true)}>
+              Change Contacts
+            </Button>
+          </Box>
         </>
       );
       break;

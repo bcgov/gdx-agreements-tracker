@@ -35,10 +35,6 @@ export const sidebarMenuLinks = [
         url: "/admin/ministries",
       },
       {
-        name: "User Management",
-        url: "/admin/users",
-      },
-      {
         name: "Glossary",
         url: "/admin/glossary",
       },
