@@ -1,4 +1,13 @@
 ## Developer Changelog
+
+**April 6, 2023 (DESCW-1008) Added keycloak roles and capabilities to controller hook**
+| Backend |
+| -------- |
+
+- Added keycloak roles and capabilities to useController hook
+
+---
+
 **April 5, 2023 (DESCW-1008) fix logon bug**
 | Frontend |
 | -------- |
