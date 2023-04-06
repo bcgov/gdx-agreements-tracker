@@ -12,7 +12,8 @@ const path = require("path");
  * @returns {object}
  */
 const getAll = async (request, reply) => {
-  controller.userRequires(request, what, "admin_form_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
+
   try {
     const result = await reply.markdown(
       path.join(__dirname, "..", "..", "docs", "Glossary", "Glossary.md")

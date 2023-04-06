@@ -20,7 +20,7 @@ controller.getReport = getReport;
 controller.rpt_PA_Registered = async (request, reply) => {
   const projectsRegistered = await model.rpt_PA_Registered(request.query);
 
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
     const getDate = async () => new Date();

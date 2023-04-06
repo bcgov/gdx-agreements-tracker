@@ -13,7 +13,7 @@ const controller = useController(model, what);
  * @returns {object}
  */
 controller.notify = async (request, reply) => {
-  controller.userRequires(request, what, "projects_read_all");
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   let output;
   // const targetId = Number(request.params.projectId);
   try {

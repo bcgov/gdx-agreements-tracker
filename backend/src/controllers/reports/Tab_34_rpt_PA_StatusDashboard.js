@@ -18,7 +18,7 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_34_rpt_PA_StatusDashboard = async (request, reply) => {
-  controller.userRequires(request, what, "reports_read_all");
+  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
     const portfolios = request.query.portfolio;

@@ -40,7 +40,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @param                  role       The role that is required to access the data
    * @param                  reply      The fastify reply object
    */
-  const userRequires = async (request, capability, role, reply) => {
+  const userRequires = async (request, role, reply) => {
     const roles = await getRealmRoles(request);
     if (!roles.includes(role)) {
       reply.code(401);
@@ -55,7 +55,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const getAll = async (request, reply) => {
-    userRequires(request, what, "PMO-Manager-Edit-Capability2", reply);
+    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const result = await model.findAll();
       return result ? result : [];
@@ -72,7 +72,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const getAllByParentId = async (request, reply) => {
-    userRequires(request, what, `PMO-Manager-Edit-Capability`, reply);
+    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const targetId = Number(request.params.id);
       const result = await model.findAllById(targetId);
@@ -90,7 +90,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const getOne = async (request, reply) => {
-    userRequires(request, what, `PMO-Manager-Edit-Capability`, reply);
+    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     const targetId = Number(request.params.id);
     try {
       const result = await model.findById(targetId);
@@ -110,7 +110,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const addOne = async (request, reply) => {
-    userRequires(request, what, `PMO-Manager-Edit-Capability`, reply);
+    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const result = await model.addOne(request.body);
       return result || noQuery(reply, `The ${what.single} could not be added.`);
@@ -127,7 +127,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const updateOne = async (request, reply) => {
-    userRequires(request, what, `PMO-Manager-Edit-Capability`, reply);
+    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const result = await model.updateOne(request.body, Number(request.params.id));
       return result || noQuery(reply, `The ${what.single} could not be updated.`);
@@ -144,7 +144,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const deleteOne = async (request, reply) => {
-    userRequires(request, what, `PMO-Manager-Edit-Capability`, reply);
+    userRequires(request, "PMO-Manager-Edit-Capability", reply);
 
     const id = Number(request.params.id);
     try {
