@@ -1,4 +1,8 @@
-const authHelper = require("@facilities/keycloak.js");
+const {
+  getRealmRoles,
+  verifyToken,
+  getBearerTokenFromRequest,
+} = require("@facilities/keycloak.js");
 const serverConfig = require("@facilities/fastify.js");
 
 jest.mock("@facilities/keycloak.js");
@@ -18,11 +22,10 @@ let testRequester;
 /**
  * Sets up a test and provides functions for making mock requests.
  *
- * @param   {*} app        Fastify app
- * @param   {*} authHelper Keycloak authorization
+ * @param   {*} app Fastify app
  * @returns {*}
  */
-const requester = (app, authHelper) => {
+const requester = (app) => {
   return {
     /**
      * Performs a mock request.
@@ -40,7 +43,7 @@ const requester = (app, authHelper) => {
       for (let i = 0; i < modelFunction.length; i++) {
         modelFunction[i].mockResolvedValue(returnData);
       }
-      authHelper.getUserInfo.mockReturnValue({ capabilities: capabilities });
+      getRealmRoles.mockReturnValue(capabilities);
 
       return await app.inject(request);
     },
@@ -61,7 +64,7 @@ const requester = (app, authHelper) => {
           throw new Error();
         });
       }
-      authHelper.getUserInfo.mockReturnValue({ capabilities: capabilities });
+      getRealmRoles.mockReturnValue(capabilities);
       return await app.inject(request);
     },
   };
@@ -80,15 +83,17 @@ const routeTypes = { Specific: "Specific", General: "General" };
 const testRoutes = (args) => {
   beforeEach(() => {
     const app = serverConfig();
-    authHelper.getBearerTokenFromRequest.mockReturnValueOnce("tokenString");
-    authHelper.verifyToken.mockResolvedValue(true);
-    authHelper.getRealmRoles.mockReturnValue([]);
-    testRequester = requester(app, authHelper);
+    getBearerTokenFromRequest.mockReturnValueOnce("tokenString");
+    verifyToken.mockResolvedValue(true);
+    getRealmRoles.mockReturnValue([]);
+    testRequester = requester(app);
   });
 
   describe.each(args)("Status 200: Access routes successfully", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.run(test.modelFunction, test.request, test.capabilities);
+      const response = await testRequester.run(test.modelFunction, test.request, [
+        "PMO-Manager-Edit-Capability",
+      ]);
       expect(response.statusCode).toBe(200);
     });
   });
@@ -108,7 +113,7 @@ const testRoutes = (args) => {
             ...test.request,
             url: url,
           },
-          test.capabilities
+          ["PMO-Manager-Edit-Capability"]
         );
         expect(response.statusCode).toBe(400);
       });
@@ -119,7 +124,7 @@ const testRoutes = (args) => {
         const response = await testRequester.run(
           test.modelFunction,
           test.request,
-          test.capabilities,
+          ["PMO-Manager-Edit-Capability"],
           null
         );
         expect(response.statusCode).toBe(404);
@@ -136,11 +141,9 @@ const testRoutes = (args) => {
 
   describe.each(args)("Status 500: Database/model errors", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.fail(
-        test.modelFunction,
-        test.request,
-        test.capabilities
-      );
+      const response = await testRequester.fail(test.modelFunction, test.request, [
+        "PMO-Manager-Edit-Capability",
+      ]);
       expect(response.statusCode).toBe(500);
     });
   });

@@ -1,4 +1,9 @@
-const authHelper = require("@facilities/keycloak.js");
+const {
+  getRealmRoles,
+  verifyToken,
+  getBearerTokenFromRequest,
+} = require("@facilities/keycloak.js");
+
 const serverConfig = require("@facilities/fastify.js");
 
 jest.mock("@facilities/keycloak.js");
@@ -23,14 +28,14 @@ let app;
 
 beforeEach(() => {
   app = serverConfig();
-  authHelper.getBearerTokenFromRequest.mockReturnValueOnce("tokenString");
-  authHelper.verifyToken.mockResolvedValue(true);
-  authHelper.getRealmRoles.mockReturnValue([]);
+  getBearerTokenFromRequest.mockReturnValueOnce("tokenString");
+  verifyToken.mockResolvedValue(true);
+  getRealmRoles.mockReturnValue([]);
 });
 
 describe("Status 200: Access routes successfully", () => {
   it(`${request.method} - ${request.url}`, async () => {
-    authHelper.getUserInfo.mockReturnValue({ capabilities: ["admin_form_read_all"] });
+    getRealmRoles.mockReturnValue(["PMO-Manager-Edit-Capability"]);
     app.decorateReply("markdown", () => {
       return "Success";
     });
@@ -41,7 +46,7 @@ describe("Status 200: Access routes successfully", () => {
 
 describe("Status 401: Access routes with no user (unauthorized)", () => {
   it(`${request.method} - ${request.url}`, async () => {
-    authHelper.getUserInfo.mockReturnValue({ capabilities: [] });
+    getRealmRoles.mockReturnValue([]);
     const response = await app.inject(request);
     expect(response.statusCode).toBe(401);
   });
@@ -49,7 +54,7 @@ describe("Status 401: Access routes with no user (unauthorized)", () => {
 
 describe("Status 500: Plugin errors", () => {
   it(`${request.method} - ${request.url}`, async () => {
-    authHelper.getUserInfo.mockReturnValue({ capabilities: ["admin_form_read_all"] });
+    getRealmRoles.mockReturnValue(["PMO-Manager-Edit-Capability"]);
     app.decorateReply("markdown", () => {
       throw new Error();
     });

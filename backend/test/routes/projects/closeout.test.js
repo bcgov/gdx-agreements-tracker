@@ -1,6 +1,10 @@
 const model = require("@models/projects/closeout.js");
 const { testRoutes, routeTypes, requester } = require("../index.js");
-const authHelper = require("@facilities/keycloak.js");
+const {
+  getRealmRoles,
+  verifyToken,
+  getBearerTokenFromRequest,
+} = require("@facilities/keycloak.js");
 const serverConfig = require("@facilities/fastify.js");
 
 jest.mock("@facilities/keycloak.js");
@@ -10,7 +14,6 @@ testRoutes([
   {
     request: { method: "GET", url: "/projects/1/close-out" },
     modelFunction: model.findById,
-    capabilities: ["projects_read_all"],
     type: routeTypes.General,
   },
 ]);
@@ -24,22 +27,21 @@ describe("Close out notify function", () => {
       url: "/projects/1/close-out/notify",
     },
     modelFunction: model.findById,
-    capabilities: ["projects_update_one"],
     type: routeTypes.Specific,
   };
 
   beforeEach(() => {
     const app = serverConfig();
-    authHelper.getBearerTokenFromRequest.mockReturnValueOnce("tokenString");
-    authHelper.verifyToken.mockResolvedValue(true);
-    authHelper.getRealmRoles.mockReturnValue([]);
-    testRequester = requester(app, authHelper);
+    getBearerTokenFromRequest.mockReturnValueOnce("tokenString");
+    verifyToken.mockResolvedValue(true);
+    getRealmRoles.mockReturnValue([]);
+    testRequester = requester(app);
   });
 
   describe("Status 200: Access routes successfully", () => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
       const response = await testRequester.run(test.modelFunction, test.request, [
-        "projects_read_all",
+        "PMO-Manager-Edit-Capability",
       ]);
       expect(response.statusCode).toBe(200);
     });

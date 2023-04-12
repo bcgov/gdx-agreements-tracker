@@ -10,7 +10,6 @@ const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");
 const fastifyAuth = require("@fastify/auth");
 const fastifyMarkdown = require("fastify-markdown");
-const fastifyRoles = require("../plugins/fastify-roles");
 const fastifyRowLockCheck = require("../plugins/fastifyRowLockCheck");
 
 /**
@@ -55,20 +54,10 @@ const fastifyInstance = (options) => {
     })
     .register(fastifyAuth)
     .register(fastifyCors, {})
-    .register(fastifyRoles)
     .register(fastifyMarkdown, { src: true })
     .register(fastifyRowLockCheck)
     .after(() => {
       app.addHook("preHandler", app.auth([app.verifyJWT]));
-
-      // Register root route.
-      app.route({
-        method: "GET",
-        url: "/",
-        handler: async () => {
-          return { hello: "world" };
-        },
-      });
 
       app.route({
         method: "GET",

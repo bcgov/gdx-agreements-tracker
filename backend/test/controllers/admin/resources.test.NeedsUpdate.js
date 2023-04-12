@@ -1,3 +1,6 @@
+// Commenting this test out for now, as fastify hooks is handling permission, so need to re-think.
+/*
+
 const { getAll } = require("@controllers/admin/resources");
 const resourcesModel = require("@models/admin/resources");
 
@@ -49,8 +52,7 @@ describe("Testing resource controller with proper permission", () => {
     result.forEach((resourcesObject) => expect("id" in resourcesObject).toBe(true));
   });
 });
-// Commenting this test out for now, as fastify hooks is handling permission, so need to re-think.
-/*
+
 describe("Testing resource controller with no permission", () => {
   it("Should return a message for not the correct permission.", async () => {
     resourcesModel.findAll.mockResolvedValue(resources);
@@ -67,6 +69,8 @@ describe("Testing resource controller with no permission", () => {
     const result = await getAll(sampleRequest2, sampleReply);
     expect(result).not.toBeDefined();
   });
-});*/
+});
 
 exports.resources = resources;
+
+*/

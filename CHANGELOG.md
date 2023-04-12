@@ -1,5 +1,13 @@
 ## Developer Changelog
 
+**April 12, 2023 (DESCW-1008) Made backend more efficient for role handling**
+| Backend |
+| -------- |
+
+- Removed Fastify plugin "fasify roles"
+
+---
+
 **April 6, 2023 (DESCW-1008) Added keycloak roles and capabilities to controller hook**
 | Backend |
 | -------- |

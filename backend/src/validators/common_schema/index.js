@@ -37,15 +37,6 @@ const getResponse = (data) => {
     "2xx": S.object()
       .prop("data", data)
       .prop(
-        "user",
-        S.object()
-          .prop("capabilities", S.array().items(S.string()))
-          .prop("email", S.string())
-          .prop("name", S.string())
-          .prop("preferred_username", S.string())
-          .prop("roles", S.array().items(S.string()))
-      )
-      .prop(
         "dbRowLock",
         S.object()
           .prop("locked", S.boolean())
