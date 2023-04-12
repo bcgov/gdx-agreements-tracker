@@ -31,14 +31,17 @@ const fastifyRowLockCheck = async (fastify, options) => {
   };
 
   const addLockStatus = async (request, reply, payload) => {
+    payload = {
+      data: payload,
+    };
     if (
       request.headers.locked_table &&
       request.headers.locked_row_id &&
       request.headers.locked_by
     ) {
       payload.dbRowLock = dbRowLock;
-      return payload;
     }
+
     return payload;
   };
 
