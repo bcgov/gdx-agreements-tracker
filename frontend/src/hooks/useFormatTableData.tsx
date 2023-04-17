@@ -97,16 +97,7 @@ export const useFormatTableData = ({
   handleClick?: Function;
   columnWidths?: { [key: string]: number };
 }) => {
-  // const handleCurrentUser = async () => {
-  //   if (initialized) {
-  //     const currentUser = (await axiosAll())
-  //       .post(`users/email`, { email: keycloak?.tokenParsed?.email })
-  //       .then((user) => {
-  //         return user;
-  //       });
-  //     return currentUser;
-  //   }
-  // };
+
   const { axiosAll } = useAxios();
   const getTableData = async () => {
     const allProjects = (await axiosAll())
