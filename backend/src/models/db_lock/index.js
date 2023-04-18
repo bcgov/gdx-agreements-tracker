@@ -30,6 +30,8 @@ const getLockByParams = (requestData, reply) => {
     .then((rows) => {
       // no matching lock found
       if (0 === rows?.length) {
+        //No content (204)
+        //TODO Move the reply functionality to the plugin backend/src/plugins/fastifyRowLockCheck/index.js
         reply.code(204);
         return {
           message: `No lock found for ${locked_by} on table ${locked_table} for row id ${locked_row_id}`,

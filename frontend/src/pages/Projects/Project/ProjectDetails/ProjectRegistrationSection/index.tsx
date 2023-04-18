@@ -21,7 +21,7 @@ export const ProjectRegistrationSection = ({
   const { handleUpdate, Notification } = useFormSubmit();
   const { handleEditMode, editMode } = useFormControls();
 
-  const { handleDbLock, lockRemover } = useFormLock();
+  const { handleDbLock, removeLock } = useFormLock();
 
   useEffect(() => {
     // Certain properties when lacking a value have null labels causing errors.
@@ -40,6 +40,7 @@ export const ProjectRegistrationSection = ({
   }, [query]);
 
   let content = <></>;
+
   switch (query?.data?.dbRowLock?.locked) {
     case true: // db row is locked
       switch (query?.data?.dbRowLock?.currentUser) {
@@ -59,7 +60,7 @@ export const ProjectRegistrationSection = ({
                 });
               }}
               onCancel={async () => {
-                await lockRemover(query?.data?.dbRowLock).then(async () => {
+                await removeLock(query?.data?.dbRowLock).then(async () => {
                   await query.refetch().then(() => {
                     handleEditMode(false);
                   });
@@ -90,7 +91,7 @@ export const ProjectRegistrationSection = ({
                 <FormEditButton
                   buttonText="Take Over Editing"
                   onClick={async () => {
-                    await lockRemover(query?.data?.dbRowLock).then(async () => {
+                    await removeLock(query?.data?.dbRowLock).then(async () => {
                       await handleDbLock(query, projectId).then(async () => {
                         await query.refetch().then(() => {
                           handleEditMode(true);
@@ -142,7 +143,7 @@ export const ProjectRegistrationSection = ({
                 });
               }}
               onCancel={async () => {
-                await lockRemover(query?.data?.dbRowLock).then(async () => {
+                await removeLock(query?.data?.dbRowLock).then(async () => {
                   await query.refetch().then(() => {
                     handleEditMode(false);
                   });
@@ -163,3 +164,15 @@ export const ProjectRegistrationSection = ({
     </>
   );
 };
+// import { EditForm } from "components/EditForm";
+
+// export const ProjectRegistrationSection = () => {
+//   return (
+//     <>
+//       <div>Read Form</div>
+//       <div>Edit Form</div>
+//     </>
+//   )
+// }
+
+// export default ProjectRegistrationSection

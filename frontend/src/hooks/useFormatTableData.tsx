@@ -97,7 +97,6 @@ export const useFormatTableData = ({
   handleClick?: Function;
   columnWidths?: { [key: string]: number };
 }) => {
-
   const { axiosAll } = useAxios();
   const getTableData = async () => {
     const allProjects = (await axiosAll())

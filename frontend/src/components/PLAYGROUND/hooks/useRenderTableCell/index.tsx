@@ -4,7 +4,7 @@ import { useState, ReactNode, useEffect, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const useRenderTableCell = () => {
-  const [selectedRow, setSelectedRow] = useState<{ id: number } | null>(null);
+  const [selectedRow, setSelectedRow] = useState<null | { id: number }>(null);
 
   const navigate = useNavigate();
 
@@ -14,11 +14,11 @@ export const useRenderTableCell = () => {
 
   useEffect(() => {
     if (selectedRow !== null) {
-      navigate(`/projects/${selectedRow?.id}`);
+      navigate(`/projects/${selectedRow.id}`);
     }
   }, [selectedRow]);
 
-  const linkCell: ReactNode = (params: GridRenderEditCellParams) => {
+  const LinkCell: ReactNode = (params: GridRenderEditCellParams) => {
     return (
       <Link
         color="inherit"
@@ -31,5 +31,8 @@ export const useRenderTableCell = () => {
     );
   };
 
-  return [linkCell, selectedRow];
+  return [LinkCell, selectedRow];
 };
+
+export { TableCheckMark } from "./TableCheckMark";
+export { TableHealthChip } from "./TableHealthChip";
