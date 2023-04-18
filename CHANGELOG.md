@@ -1,5 +1,15 @@
 ## Developer Changelog
 
+
+**April 18, 2023 (DESCW-1041) DB Locking Mech pt.2**
+| Frontend |
+| -------- |
+
+- Starting restructure of frontend tables to help with readabliltiy and performance.
+- Temp disabled frontend tests because of restructure. 
+
+---
+
 **April 12, 2023 (DESCW-1008) Made backend more efficient for role handling**
 | Backend |
 | -------- |
