@@ -57,14 +57,12 @@
 //   );
 // };
 
-
-import { ProjectsSandbox } from 'components/PLAYGROUND/Pages/ProjectsSandbox';
+import { ProjectsSandbox } from "components/PLAYGROUND/Pages/ProjectsSandbox";
 
 export const Projects = () => {
   return (
     <>
       <ProjectsSandbox />
     </>
-  )
-}
-
+  );
+};

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAxios } from "../hooks/useAxios";
+import { useKeycloak } from "@react-keycloak/web";
 
 export const useFormLock = () => {
   const [formLock, setFormLock] = useState({
@@ -12,7 +13,8 @@ export const useFormLock = () => {
 
   const { axiosAll } = useAxios();
 
-  const lockRemover = async (lockInfo: {
+  const { keycloak } = useKeycloak();
+  const removeLock = async (lockInfo: {
     locked_row_id: string;
     locked_date: string;
     locked_table: string;
@@ -28,7 +30,7 @@ export const useFormLock = () => {
     const formLocker = async () => {
       setFormLock({
         locked: true,
-        lockedBy: row.data.user.email,
+        lockedBy: keycloak?.idTokenParsed?.email,
         lockedTable: row.data.table,
         lockedDate: new Date() as unknown as string,
         lockedRow: rowToLock as string,
@@ -38,7 +40,7 @@ export const useFormLock = () => {
           locked_row_id: rowToLock as string,
           locked_date: new Date() as unknown as string,
           locked_table: row.data.table,
-          locked_by: row.data.user.email,
+          locked_by: keycloak?.idTokenParsed?.email,
         },
       });
     };
@@ -48,21 +50,21 @@ export const useFormLock = () => {
         headers: {
           locked_date: new Date() as unknown as string,
           locked_table: row.data.table,
-          locked_by: row.data.user.email,
+          locked_by: keycloak?.idTokenParsed?.email,
         },
       })
       .then(async (returnedRow) => {
         if (!returnedRow) {
           await formLocker();
         } else {
-          if (row.data.user.email === returnedRow.data.data.locked_by) {
+          if (keycloak?.idTokenParsed?.email === returnedRow.data.data.locked_by) {
             return;
           } else {
             const response = confirm(
               `Would you like to take over editing from ${returnedRow.data.data.locked_by}`
             );
             if (response) {
-              await lockRemover(row.data.dbRowLock.lockId).then(() => {
+              await removeLock(row.data.dbRowLock.lockId).then(() => {
                 formLocker();
               });
             }
@@ -81,6 +83,6 @@ export const useFormLock = () => {
     checkDbLock,
     handleDbLock,
     formLock,
-    lockRemover,
+    removeLock,
   };
 };

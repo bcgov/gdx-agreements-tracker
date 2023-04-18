@@ -1,16 +1,18 @@
-import { Link } from "@mui/material";
-import { GridInitialState, GridRenderEditCellParams } from "@mui/x-data-grid";
-import { useRenderCell } from "components/PLAYGROUND/Table/useRenderCell";
-import React, { useState } from "react";
+import { GridInitialState } from "@mui/x-data-grid";
+import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCell";
 
-export const tableConfig = () => {
-
+export const TableConfig = () => {
   const defaultFlex = 3;
 
-  const [linkCell, selectedRow] = useRenderCell()
+  const [linkCell, selectedRow] = useRenderTableCell();
 
   const tableColumns = [
-    { field: "project_number", headerName: "Project Number", flex: defaultFlex, renderCell: linkCell },
+    {
+      field: "project_number",
+      headerName: "Project Number",
+      flex: defaultFlex,
+      renderCell: linkCell,
+    },
     { field: "project_name", headerName: "Project Name", flex: defaultFlex },
     { field: "version", headerName: "Version", flex: defaultFlex },
     { field: "portfolio_name", headerName: "Portfolio Name", flex: defaultFlex },
