@@ -1,18 +1,25 @@
-import { Grid, Skeleton } from "@mui/material";
 import { EditForm } from "components/EditForm";
 import { ReadForm } from "components/ReadForm";
-import { Renderer } from "components/Renderer";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { editFields, readFields } from "./fields";
 import { useFormControls, useFormSubmit, useFormLock } from "hooks";
 import { FormEditButton } from "components/FormEditButton";
-import LockPersonIcon from "@mui/icons-material/LockPerson";
+import useDBLockRender from "hooks/useDBLockRender";
+import useFormRender from "hooks/useFormRender";
+
+/**
+ * This is a React component that renders a form for registering a project, with options for editing
+ * and locking the form.
+ *
+ * @param - The `ProjectRegistrationSection` component takes in a single object as its parameter,
+ *    which has a `query` property. The `query` property is of type `any`, but it is expected to contain
+ *    data related to a specific project. The component uses this data to render a form that allows the
+ */
 
 export const ProjectRegistrationSection = ({
   query,
 }: {
-  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any;
@@ -20,8 +27,62 @@ export const ProjectRegistrationSection = ({
   const { projectId } = useParams();
   const { handleUpdate, Notification } = useFormSubmit();
   const { handleEditMode, editMode } = useFormControls();
-
   const { handleDbLock, removeLock } = useFormLock();
+
+  const editForm = (
+    <EditForm
+      initialValues={query?.data?.data}
+      onSubmit={async (values) => {
+        return handleUpdate({
+          changedValues: values,
+          currentRowData: query?.data?.data,
+          apiUrl: `projects/${projectId}`,
+          handleEditMode: handleEditMode,
+          queryKeys: [`project - ${projectId}`],
+          successMessage: `Changes saved successfully for project ${projectId}`,
+          errorMessage: `There was an issue saving your changes for project ${projectId}`,
+        });
+      }}
+      onCancel={async () => {
+        await removeLock(query?.data?.dbRowLock).then(async () => {
+          await query.refetch().then(() => {
+            handleEditMode(false);
+          });
+        });
+      }}
+      editFields={editFields()}
+    />
+  );
+
+  const readForm = (
+    <>
+      <ReadForm fields={readFields(query)} />
+      <FormEditButton
+        buttonText="Change Registration"
+        onClick={async () => {
+          await handleDbLock(query, projectId).then(async () => {
+            await query.refetch().then(() => {
+              handleEditMode(true);
+            });
+          });
+        }}
+      />
+    </>
+  );
+
+  const [renderForm] = useFormRender(
+    editForm,
+    readForm,
+    editMode,
+    query?.data?.dbRowLock?.currentUser
+  );
+  const [renderDBLock] = useDBLockRender(
+    query?.data?.dbRowLock,
+    handleDbLock,
+    removeLock,
+    query,
+    handleEditMode
+  );
 
   useEffect(() => {
     // Certain properties when lacking a value have null labels causing errors.
@@ -39,140 +100,16 @@ export const ProjectRegistrationSection = ({
     }
   }, [query]);
 
-  let content = <></>;
-
-  switch (query?.data?.dbRowLock?.locked) {
-    case true: // db row is locked
-      switch (query?.data?.dbRowLock?.currentUser) {
-        case true: // db row is locked & current user
-          content = (
-            <EditForm
-              initialValues={query?.data?.data}
-              onSubmit={async (values) => {
-                return handleUpdate({
-                  changedValues: values,
-                  currentRowData: query?.data?.data,
-                  apiUrl: `projects/${projectId}`,
-                  handleEditMode: handleEditMode,
-                  queryKeys: [`project - ${projectId}`],
-                  successMessage: `Changes saved successfully for project ${projectId}`,
-                  errorMessage: `There was an issue saving your changes for project ${projectId}`,
-                });
-              }}
-              onCancel={async () => {
-                await removeLock(query?.data?.dbRowLock).then(async () => {
-                  await query.refetch().then(() => {
-                    handleEditMode(false);
-                  });
-                });
-              }}
-              editFields={editFields()}
-            />
-          );
-          break;
-
-        case false: // not current user
-          content = (
-            <Grid container spacing={2}>
-              <Grid item xs={6} md={6}>
-                <Skeleton variant="rectangular" />
-              </Grid>
-              <Grid item xs={6} md={6}>
-                <Skeleton variant="rectangular" />
-              </Grid>
-              <Grid item xs={6} md={6}>
-                <LockPersonIcon />
-                <h1>section locked for editing by: {query?.data?.dbRowLock.locked_by}</h1>
-              </Grid>
-              <Grid item xs={6} md={6}></Grid>
-              <Grid item xs={4} md={4}></Grid>
-              <Grid item xs={4} md={4}></Grid>
-              <Grid item xs={4} md={4}>
-                <FormEditButton
-                  buttonText="Take Over Editing"
-                  onClick={async () => {
-                    await removeLock(query?.data?.dbRowLock).then(async () => {
-                      await handleDbLock(query, projectId).then(async () => {
-                        await query.refetch().then(() => {
-                          handleEditMode(true);
-                        });
-                      });
-                    });
-                  }}
-                />
-              </Grid>
-            </Grid>
-          );
-          break;
-      }
-      break;
-
-    case false: //db row is not locked  - query?.data?.dbRowLock?.locked
-      switch (editMode) {
-        case false: //  db row is not locked & not edit mode
-          content = (
-            <>
-              <ReadForm fields={readFields(query)} />
-              <FormEditButton
-                buttonText="Change Registration"
-                onClick={async () => {
-                  await handleDbLock(query, projectId).then(async () => {
-                    await query.refetch().then(() => {
-                      handleEditMode(true);
-                    });
-                  });
-                }}
-              />
-            </>
-          );
-          break;
-
-        case true: //db row is not locked & edit mode
-          content = (
-            <EditForm
-              initialValues={query?.data?.data}
-              onSubmit={async (values) => {
-                return handleUpdate({
-                  changedValues: values,
-                  currentRowData: query?.data?.data,
-                  apiUrl: `projects/${projectId}`,
-                  handleEditMode: handleEditMode,
-                  queryKeys: [`project - ${projectId}`],
-                  successMessage: `Changes saved successfully for project ${projectId}`,
-                  errorMessage: `There was an issue saving your changes for project ${projectId}`,
-                });
-              }}
-              onCancel={async () => {
-                await removeLock(query?.data?.dbRowLock).then(async () => {
-                  await query.refetch().then(() => {
-                    handleEditMode(false);
-                  });
-                });
-              }}
-              editFields={editFields()}
-            />
-          );
-
-          break;
-      }
-      break;
-  }
   return (
     <>
-      <Renderer isLoading={query.isLoading} component={content} />
+      {query.isLoading ? (
+        <div>Loading</div>
+      ) : (
+        renderDBLock(() => {
+          return renderForm();
+        })
+      )}
       <Notification />
     </>
   );
 };
-// import { EditForm } from "components/EditForm";
-
-// export const ProjectRegistrationSection = () => {
-//   return (
-//     <>
-//       <div>Read Form</div>
-//       <div>Edit Form</div>
-//     </>
-//   )
-// }
-
-// export default ProjectRegistrationSection

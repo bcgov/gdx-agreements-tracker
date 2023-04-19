@@ -14,6 +14,17 @@ export const useFormLock = () => {
   const { axiosAll } = useAxios();
 
   const { keycloak } = useKeycloak();
+
+  /**
+   * This function removes a lock on a database row using the provided lock information.
+   *
+   * @param          lockInfo               - `lockInfo` is an object that contains information about a database lock. It has
+   *                                        the following properties:
+   * @param {number} lockInfo.locked_row_id - `locked_row_id` is the DBlock table row id of the row associated to the current lock.
+   * @param {Date}   lockInfo.locked_date   - `locked_date`   is the date the current lock was applied.
+   * @param {string} lockInfo.locked_table  - `locked_table`  is the the db table where the current lock's, locked_row_id exists.
+   * @param {string} lockInfo.locked_by     - `locked_by`     is the user who has the current item locked
+   */
   const removeLock = async (lockInfo: {
     locked_row_id: string;
     locked_date: string;
@@ -22,6 +33,16 @@ export const useFormLock = () => {
   }) => {
     await axiosAll().delete(`db_lock/${lockInfo.locked_row_id}`, { headers: lockInfo });
   };
+
+  /**
+   * This function handles locking and unlocking of database rows for editing.
+   *
+   * @param {any}                row       - The `row` parameter is an object that contains data related to a database row.
+   *                                       It is used in the `handleDbLock` function to determine which row to lock and which table it belongs
+   *                                       to.
+   * @param {string | undefined} rowToLock - The `rowToLock` parameter is a string that represents the
+   *                                       ID of the row that needs to be locked in the database.
+   */
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDbLock = async (row: any, rowToLock: string | undefined) => {
@@ -77,10 +98,7 @@ export const useFormLock = () => {
       });
   };
 
-  const checkDbLock = () => {};
-
   return {
-    checkDbLock,
     handleDbLock,
     formLock,
     removeLock,
