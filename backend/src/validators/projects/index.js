@@ -26,8 +26,8 @@ const getOne = {
     S.object()
       .prop("project_number", S.string())
       .prop("project_name", S.string())
-      .prop("project_version", S.string())
-      .prop("ministry_id", Schema.Picker)
+      .prop("project_version", S.anyOf([S.string(), S.null()]))
+      .prop("ministry_id", S.anyOf([Schema.Picker, S.null()]))
       .prop("initiation_date", S.string())
       .prop("portfolio_id", Schema.Picker)
       .prop("planned_start_date", S.string())
@@ -42,10 +42,11 @@ const getOne = {
       .prop("recoverable_amount", S.number())
       .prop("agreement_type", Schema.Picker)
       .prop("agreement_start_date", S.string())
-      .prop("agreement_signed_date", S.string())
+      .prop("agreement_signed_date", S.anyOf([S.string(), S.null()]))
       .prop("agreement_end_date", S.string())
       .prop("description", S.string())
-      .prop("notes", S.string())
+      .prop("notes", S.anyOf([S.string(), S.null()]))
+
       .prop(
         "contracts",
         S.array().items(S.object().prop("id", S.number()).prop("co_number", S.string()))
