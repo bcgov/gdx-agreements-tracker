@@ -11,12 +11,11 @@ import { ContactsSection } from "./ContactsSection";
 import { DeliverablesSection } from "./Deliverables";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
+/* This code exports a functional component called `ProjectDetails` that renders a series of
+`GDXAccordion` components, each containing a different section of information related to a project. */
 export const ProjectDetails = () => {
   const { axiosAll } = useAxios();
-
   const { projectId } = useParams();
-
-  //Destructure the keycloak functionality
   const { keycloak } = useKeycloak();
 
   const getProject = async () => {
@@ -38,7 +37,6 @@ export const ProjectDetails = () => {
     retry: false,
     staleTime: Infinity,
   });
-
   return (
     <>
       <GDXAccordion sectionTitle="Project Registration">
