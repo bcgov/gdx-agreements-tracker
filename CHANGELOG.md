@@ -1,5 +1,13 @@
 ## Developer Changelog
 
+**April 19, 2023 (DESCW-1041) DB Locking Mech pt.3**
+| Frontend |
+| -------- |
+
+- Added reusbale DB Lock functionality
+- Applied reusbale DB Lock functionality to section "Projects/Project/ProjectRegistrationSection"
+
+---
 
 **April 18, 2023 (DESCW-1041) DB Locking Mech pt.2**
 | Frontend |
