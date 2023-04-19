@@ -11,21 +11,26 @@ const controller = useController(model, what);
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
  */
+
 controller.getOneWithContracts = async (request, reply) => {
   controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   let output;
   const targetId = Number(request.params.id);
   try {
     const result = await model.findById(targetId);
+    
     if (result) {
       result.contracts = await contractsModel.findByProjectId(targetId);
     }
+
+    console.log('result', result)
     output = !result
       ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
       : result;
   } catch (err) {
     output = controller.failedQuery(reply, err, what);
   }
+
   return output;
 };
 
