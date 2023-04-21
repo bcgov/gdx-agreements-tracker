@@ -1,5 +1,4 @@
 import { DBLock } from "components/DBLock";
-import React from "react";
 import { UseQueryResult } from "react-query";
 
 /**
@@ -25,8 +24,7 @@ const useDBLockRender = (
   lock: { locked: boolean; currentUser: boolean },
   handleDbLock: Function,
   removeLock: Function,
-  query: UseQueryResult,
-  handleEditMode: Function
+  query: UseQueryResult
 ) => {
   const renderDBLock = (component: Function) => {
     if (lock.locked) {
@@ -38,7 +36,7 @@ const useDBLockRender = (
             handleDbLock={handleDbLock}
             removeLock={removeLock}
             query={query}
-            handleEditMode={handleEditMode}
+            handleFormType={() => {}}
           />
         );
       }

@@ -1,3 +1,4 @@
+import { LinearProgress } from "@mui/material";
 import { useKeycloak } from "@react-keycloak/web";
 import { useAxios } from "hooks/useAxios";
 import React from "react";
@@ -39,26 +40,32 @@ export const ProjectDetails = () => {
   });
   return (
     <>
-      <GDXAccordion sectionTitle="Project Registration">
-        <ProjectRegistrationSection query={projectQuery} />
-      </GDXAccordion>
-      {"new" !== projectId && (
+      {projectQuery.isLoading ? (
+        <LinearProgress />
+      ) : (
         <>
-          <GDXAccordion sectionTitle="Agreement">
-            <AgreementSection query={projectQuery} />
+          <GDXAccordion sectionTitle="Project Registration">
+            <ProjectRegistrationSection />
           </GDXAccordion>
-          <GDXAccordion sectionTitle="Contacts">
-            <ContactsSection projectId={Number(projectId)} />
-          </GDXAccordion>
-          <GDXAccordion sectionTitle="Deliverables">
-            <DeliverablesSection projectId={Number(projectId)} />
-          </GDXAccordion>
-          <GDXAccordion sectionTitle="Client Coding">
-            <ClientCodingSection projectId={Number(projectId)} />
-          </GDXAccordion>
-          <GDXAccordion sectionTitle="Budget">
-            <BudgetSection projectId={Number(projectId)} />
-          </GDXAccordion>
+          {"new" !== projectId && (
+            <>
+              <GDXAccordion sectionTitle="Agreement">
+                <AgreementSection query={projectQuery} />
+              </GDXAccordion>
+              <GDXAccordion sectionTitle="Contacts">
+                <ContactsSection projectId={Number(projectId)} />
+              </GDXAccordion>
+              <GDXAccordion sectionTitle="Deliverables">
+                <DeliverablesSection projectId={Number(projectId)} />
+              </GDXAccordion>
+              <GDXAccordion sectionTitle="Client Coding">
+                <ClientCodingSection projectId={Number(projectId)} />
+              </GDXAccordion>
+              <GDXAccordion sectionTitle="Budget">
+                <BudgetSection projectId={Number(projectId)} />
+              </GDXAccordion>
+            </>
+          )}
         </>
       )}
     </>

@@ -191,8 +191,8 @@ export interface IUseFormSubmitHandleSubmit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentRowData: any;
   apiUrl: string;
-  handleEditMode: Function;
-  queryKeys: string[];
+  handleEditMode?: Function;
+  queryKeys?: string[];
   successMessage?: string;
   errorMessage?: string;
 }
@@ -202,11 +202,11 @@ export interface IUseFormSubmitHandlePost {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formValues: any;
   apiUrl: string;
-  handleEditMode: Function;
-  queryKeys: string[];
+  handleEditMode?: Function;
+  queryKeys?: string[];
   successMessage?: string;
   errorMessage?: string;
-  handleClose: Function;
+  handleClose?: Function;
 }
 export type IEditFieldsFieldType =
   | "select"
@@ -385,4 +385,13 @@ export interface IModal {
   editMode: boolean;
   handleDelete: Function;
   handleFormType: Function;
+}
+
+export interface IFormRenderer {
+  queryKey: string[];
+  readFields: Function;
+  editFields: Function;
+  rowId: string | undefined;
+  postUrl: string;
+  updateUrl: string;
 }

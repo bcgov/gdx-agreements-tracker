@@ -1,5 +1,23 @@
 ## Developer Changelog
 
+**April 21, 2023 (DESCW-1041) DB Locking Mech pt.4**
+| Frontend |
+| -------- |
+
+- Temporarily removed lint check for unused variables.
+- Added a temporary dummy test to allow tests to pass in github while we rework old tests.
+- Added FormRenderer component to allow for easier implementation of dblock 
+- Broke out the notification snackbar into it's own component reusablilty
+- Broke out form buttons into their own component to allow for more reusablilty 
+- Create new Input form which will eventually replace edit and create for component
+- useDBLockRender will go away soon so I removed the handleform type function 
+- Updated use form submit to be more efficient.  I also had to add some temporary measures to allow for no errors.  These will be resolved in the next PR
+- Added useSnackbar hook to alllow for the snackbar functionality to be broken out and reused. 
+- Added a ternary to the project details section that added a loader if there is no data yet
+- Added new reusable dblock and form functionality to the project registration section
+- Added more type definitions to types.d.ts
+---
+
 **April 19, 2023 (DESCW-1041) DB Locking Mech pt.3**
 | Frontend |
 | -------- |

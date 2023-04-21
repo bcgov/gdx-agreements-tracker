@@ -9,7 +9,7 @@ interface IDBLockProps {
   // todo: Define a good type. "Any" type temporarily permitted.  The query:any type will be fixed when we upgrade to ReactQuery V4.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: any;
-  handleEditMode: Function;
+  handleFormType: (formType: "read" | "edit" | "new") => void;
 }
 
 /* This is a functional component called `DBLock` that takes in four props: `handleDbLock`,
@@ -20,7 +20,7 @@ component also uses the `useParams` hook from React Router to get the `projectId
 URL. When the `FormEditButton` is clicked, it calls various functions passed in as props to remove a
 lock on a database row, handle a new lock, and set the edit mode to true. */
 
-export const DBLock = ({ handleDbLock, removeLock, query, handleEditMode }: IDBLockProps) => {
+export const DBLock = ({ handleDbLock, removeLock, query, handleFormType }: IDBLockProps) => {
   const { projectId } = useParams();
 
   return (
@@ -45,7 +45,7 @@ export const DBLock = ({ handleDbLock, removeLock, query, handleEditMode }: IDBL
             await removeLock(query?.data?.dbRowLock).then(async () => {
               await handleDbLock(query, projectId).then(async () => {
                 await query.refetch().then(() => {
-                  handleEditMode(true);
+                  handleFormType("edit");
                 });
               });
             });
