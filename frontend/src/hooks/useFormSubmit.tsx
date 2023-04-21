@@ -1,6 +1,3 @@
-import { Snackbar, Alert, AlertColor } from "@mui/material";
-import { useState } from "react";
-import { useQueryClient } from "react-query";
 import { IUseFormSubmitHandlePost, IUseFormSubmitHandleSubmit } from "../types";
 import { useAxios } from "./useAxios";
 
@@ -10,33 +7,7 @@ import { useAxios } from "./useAxios";
  */
 
 export const useFormSubmit = () => {
-  const [showSnackBar, setShowSnackBar] = useState(false);
-  const [snackBarMessage, setSnackBarMessage] = useState("");
-  const [snackbarType, setSnackbarType] = useState<AlertColor | undefined>("success");
-
   const { axiosAll } = useAxios();
-
-  const queryClient = useQueryClient();
-
-  const handleSnackBar = (status: string) => {
-    setShowSnackBar(true);
-    switch (status) {
-      case "success":
-        setSnackbarType("success");
-        break;
-      case "error":
-        setSnackbarType("error");
-        break;
-    }
-  };
-
-  const handleCloseSnackBar = () => {
-    setShowSnackBar(false);
-  };
-
-  const handleSnackBarMessage = (message: string) => {
-    setSnackBarMessage(message);
-  };
 
   const handleUpdate = async ({
     changedValues,
@@ -59,21 +30,17 @@ export const useFormSubmit = () => {
         }
       }
     }
-    await axiosAll()
-      .put(apiUrl, deltaChanges)
-      .then(() => {
-        handleSnackBarMessage(successMessage as string);
-        handleSnackBar("success");
-        handleEditMode(false);
-        queryKeys.forEach((queryKey: string) => {
-          queryClient.invalidateQueries(queryKey);
+    return async () => {
+      await axiosAll()
+        .put(apiUrl, deltaChanges)
+        .then((data) => {
+          return data.status;
+        })
+        .catch((err: string) => {
+          console.error("error:", err);
+          return err;
         });
-      })
-      .catch((err: string) => {
-        handleSnackBarMessage(errorMessage as string);
-        handleSnackBar("error");
-        console.error("error:", err);
-      });
+    };
   };
 
   const handlePost = async ({
@@ -101,18 +68,8 @@ export const useFormSubmit = () => {
     }
     await axiosAll()
       .post(apiUrl, formattedValues)
-      .then(() => {
-        handleSnackBarMessage(successMessage as string);
-        handleSnackBar("success");
-        handleEditMode(false);
-        queryKeys.forEach((queryKey: string) => {
-          queryClient.invalidateQueries(queryKey);
-        });
-        handleClose();
-      })
+      .then(() => {})
       .catch((err: string) => {
-        handleSnackBarMessage(errorMessage as string);
-        handleSnackBar("error");
         console.error("error:", err);
       });
   };
@@ -130,28 +87,14 @@ export const useFormSubmit = () => {
   }) => {
     await axiosAll()
       .delete(apiUrl)
-      .then(() => {
-        handleSnackBarMessage(successMessage as string);
-        handleSnackBar("success");
-        queryKeys.forEach((queryKey: string) => {
-          queryClient.invalidateQueries(queryKey);
-        });
-      })
+      .then(() => {})
       .catch((err: string) => {
-        handleSnackBarMessage(errorMessage as string);
-        handleSnackBar("error");
         console.error("error:", err);
       });
   };
-
+  //TODO Remove this component and update where it's being used with new method for snackbar rendering
   const Notification = () => {
-    return (
-      <Snackbar open={showSnackBar} autoHideDuration={3000} onClose={handleCloseSnackBar}>
-        <Alert variant={"filled"} severity={snackbarType} sx={{ width: "100%" }}>
-          {snackBarMessage}
-        </Alert>
-      </Snackbar>
-    );
+    return <div>This will be removed</div>;
   };
 
   return { handlePost, handleUpdate, handleDelete, Notification };

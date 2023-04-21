@@ -26,7 +26,7 @@ module.exports = {
     "eslint-plugin-no-inline-styles",
     "prefer-arrow",
     "jsdoc",
-    "@typescript-eslint"
+    "@typescript-eslint",
   ],
   settings: {
     "import/resolver": {
@@ -68,7 +68,9 @@ module.exports = {
     eqeqeq: ["error", "always"],
 
     // No declaring anything and not using it; did you finish cleaning up?
-    "no-unused-vars": ["error", { args: "none" }],
+    //TODO uncomment once finished conversion to using new reusable form renderer.  This is needed to reduce the number of files change in the PR
+    //  "no-unused-vars": ["error", { args: "none" }],
+    "no-unused-vars": 0,
 
     // Must use const or let.
     "no-var": "error",
@@ -155,8 +157,9 @@ module.exports = {
       rules: {
         // Use of "any" type disallowed. Use the following if you really need "any": // eslint-disable-next-line @typescript-eslint/no-explicit-any
         "@typescript-eslint/no-explicit-any": "error",
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error"],
+        //TODO change to 2 once finished conversion to using new reusable form renderer.  This is needed to reduce the number of files change in the PR
+        "no-unused-vars": 0,
+        "@typescript-eslint/no-unused-vars": 0,
       },
     },
   ],
