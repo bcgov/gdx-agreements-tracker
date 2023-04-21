@@ -18,12 +18,10 @@ controller.getOneWithContracts = async (request, reply) => {
   const targetId = Number(request.params.id);
   try {
     const result = await model.findById(targetId);
-    
+
     if (result) {
       result.contracts = await contractsModel.findByProjectId(targetId);
     }
-
-    console.log('result', result)
     output = !result
       ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
       : result;
