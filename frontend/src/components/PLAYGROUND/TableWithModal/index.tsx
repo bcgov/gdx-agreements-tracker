@@ -17,7 +17,7 @@ const TableWithModal = ({ apiEndPoint }: { apiEndPoint: string }) => {
     apiEndPoint: apiEndPoint,
   });
 
-  const {tableColumns, initialState} = TableConfig();
+  const { tableColumns, initialState } = TableConfig();
   return isLoading ? (
     <LinearProgress />
   ) : (
