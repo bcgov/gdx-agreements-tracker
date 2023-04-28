@@ -30,17 +30,15 @@ export const useFormSubmit = () => {
         }
       }
     }
-    return async () => {
-      await axiosAll()
-        .put(apiUrl, deltaChanges)
-        .then((data) => {
-          return data.status;
-        })
-        .catch((err: string) => {
-          console.error("error:", err);
-          return err;
-        });
-    };
+    axiosAll()
+      .put(apiUrl, deltaChanges)
+      .then((data) => {
+        return data.status;
+      })
+      .catch((err: string) => {
+        console.error("error:", err);
+        return err;
+      });
   };
 
   const handlePost = async ({

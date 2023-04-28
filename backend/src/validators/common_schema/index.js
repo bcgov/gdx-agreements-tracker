@@ -34,18 +34,7 @@ const Schema = {
  */
 const getResponse = (data) => {
   return {
-    "2xx": S.object()
-      .prop("data", data)
-      .prop(
-        "dbRowLock",
-        S.object()
-          .prop("locked", S.boolean())
-          .prop("locked_by", S.string().raw({ nullable: true }))
-          .prop("currentUser", S.boolean())
-          .prop("lockId", S.string())
-          .prop("locked_table", S.string())
-          .prop("locked_row_id", S.number())
-      ),
+    "2xx": S.object().prop("data", data),
     default: S.object().prop("data", S.object().prop("message", S.string())),
   };
 };

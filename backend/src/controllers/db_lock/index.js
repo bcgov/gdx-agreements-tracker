@@ -7,10 +7,10 @@ controller.addLockByParams = async (request, reply) => {
   controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const requestData = {
-      locked_row_id: Number(request.body.headers.locked_row_id),
-      locked_table: request.body.headers.locked_table,
-      locked_by: request.body.headers.locked_by,
-      locked_date: request.body.headers.locked_date,
+      locked_row_ids: request.body.params.locked_row_ids,
+      locked_table: request.body.params.locked_table,
+      locked_by: request.body.params.locked_by,
+      locked_date: request.body.params.locked_date,
     };
 
     const result = await model.addLockByParams(requestData, reply);
@@ -22,17 +22,35 @@ controller.addLockByParams = async (request, reply) => {
 
 controller.getLockByParams = async (request, reply) => {
   controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
-
   try {
     const requestData = {
-      locked_row_id: Number(request.headers.locked_row_id),
-      locked_table: request.headers.locked_table,
-      locked_by: request.headers.locked_by,
-      locked_date: request.headers.locked_date,
+      locked_row_ids: request.body.params.locked_row_ids,
+      locked_table: request.body.params.locked_table,
+      locked_by: request.body.params.locked_by,
+      locked_date: request.body.params.locked_date,
     };
 
     const result = await model.getLockByParams(requestData, reply);
-    return result;
+    if (!result) {
+      await model.addLockByParams(requestData).then(() => {
+        return {
+          locked: false,
+          lockedBy: requestData.locked_by,
+        };
+      });
+    } else {
+      if (result.locked_by === requestData.locked_by) {
+        return {
+          locked: false,
+          lockedBy: result.locked_by,
+        };
+      } else {
+        return {
+          locked: true,
+          lockedBy: result.locked_by,
+        };
+      }
+    }
   } catch (err) {
     return controller.failedQuery(reply, err, what);
   }
@@ -40,12 +58,12 @@ controller.getLockByParams = async (request, reply) => {
 
 controller.deleteLockByParams = async (request, reply) => {
   controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
-
   const requestData = {
-    locked_row_id: Number(request.headers.locked_row_id),
-    locked_table: request.headers.locked_table,
-    locked_by: request.headers.locked_by,
+    locked_row_ids: request.body.params.locked_row_ids,
+    locked_table: request.body.params.locked_table,
+    locked_by: request.body.params.locked_by,
   };
+
   try {
     const result = await model.removeOne(requestData);
     return result;

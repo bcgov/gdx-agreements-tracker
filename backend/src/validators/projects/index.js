@@ -27,7 +27,7 @@ const getOne = {
       .prop("project_number", S.string())
       .prop("project_name", S.string())
       .prop("project_version", S.anyOf([S.string(), S.null()]))
-      .prop("ministry_id", S.anyOf([Schema.Picker, S.null()]))
+      .prop("ministry", S.anyOf([Schema.Picker, S.null()]))
       .prop("initiation_date", S.string())
       .prop("portfolio_id", Schema.Picker)
       .prop("planned_start_date", S.string())

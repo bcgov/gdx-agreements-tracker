@@ -1,6 +1,14 @@
 import { Link } from "@mui/material";
-import { GridRenderEditCellParams } from "@mui/x-data-grid";
-import { useState, ReactNode, useEffect, SetStateAction } from "react";
+import { GridRenderCellParams, GridRenderEditCellParams } from "@mui/x-data-grid";
+import {
+  useState,
+  ReactNode,
+  useEffect,
+  SetStateAction,
+  ReactChild,
+  ReactFragment,
+  ReactPortal,
+} from "react";
 import { useNavigate } from "react-router-dom";
 
 export const useRenderTableCell = () => {
@@ -18,7 +26,7 @@ export const useRenderTableCell = () => {
     }
   }, [selectedRow]);
 
-  const LinkCell: ReactNode = (params: GridRenderEditCellParams) => {
+  const LinkCell = (params: GridRenderCellParams) => {
     return (
       <Link
         color="inherit"
@@ -31,7 +39,7 @@ export const useRenderTableCell = () => {
     );
   };
 
-  return [LinkCell, selectedRow];
+  return { LinkCell, selectedRow };
 };
 
 export { TableCheckMark } from "./TableCheckMark";
