@@ -388,10 +388,18 @@ export interface IModal {
 }
 
 export interface IFormRenderer {
-  queryKey: string[];
-  readFields: Function;
-  editFields: Function;
-  rowId: string | undefined;
+  queryKey: string;
+  readFields: { width: string; title: string; value: IReturnValue }[];
+  editFields: IEditField[];
   postUrl: string;
   updateUrl: string;
+  query: AxiosResponse | undefined;
+  rowsToLock: number[];
+}
+export interface IDBRowlock {
+  data: { data: { table: string } };
+}
+
+export interface ILockData {
+  data: { locked: boolean; lockedBy: string };
 }

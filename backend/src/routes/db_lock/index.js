@@ -4,19 +4,19 @@ const what = "db_lock";
 const routes = [
   {
     method: "POST",
-    url: `/${what}`,
+    url: `/${what}/add`,
     // schema: validators.addOne,
     handler: controller.addLockByParams,
   },
   {
-    method: "GET",
-    url: `/${what}`,
+    method: "POST",
+    url: `/${what}/get`,
     // schema: validators.getOne,
     handler: controller.getLockByParams,
   },
   {
-    method: "DELETE",
-    url: `/${what}/:id`,
+    method: "POST",
+    url: `/${what}/delete`,
     // schema: validators.addOne,
     handler: controller.deleteLockByParams,
   },

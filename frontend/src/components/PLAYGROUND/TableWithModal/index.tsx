@@ -17,12 +17,12 @@ const TableWithModal = ({ apiEndPoint }: { apiEndPoint: string }) => {
     apiEndPoint: apiEndPoint,
   });
 
-  const [tableColumns, initialState] = TableConfig();
+  const {tableColumns, initialState} = TableConfig();
   return isLoading ? (
     <LinearProgress />
   ) : (
     <>
-      <Table columns={tableColumns} rows={data.data.data} initialState={initialState} />
+      {/* <Table columns={tableColumns} rows={data.data.data} initialState={initialState} /> */}
       {/* TODO add this button back in future iteration. */}
       {/* <Button
         onClick={() => {

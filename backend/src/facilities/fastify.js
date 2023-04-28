@@ -10,7 +10,7 @@ const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");
 const fastifyAuth = require("@fastify/auth");
 const fastifyMarkdown = require("fastify-markdown");
-const fastifyRowLockCheck = require("../plugins/fastifyRowLockCheck");
+const fastifyPayload = require("../plugins/fastifyPayload");
 
 /**
  * Fastify server configuration.
@@ -55,7 +55,7 @@ const fastifyInstance = (options) => {
     .register(fastifyAuth)
     .register(fastifyCors, {})
     .register(fastifyMarkdown, { src: true })
-    .register(fastifyRowLockCheck)
+    .register(fastifyPayload)
     .after(() => {
       app.addHook("preHandler", app.auth([app.verifyJWT]));
 

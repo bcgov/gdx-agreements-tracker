@@ -1,56 +1,51 @@
+import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 import { IEditField } from "types";
 
-/**
- * The view fields.
- *
- * @param   {UseQueryResult<FormikValues>} projectQuery The react query data for specific project.
- * @returns {Array}
- */
-export const readFields = (projectQuery: UseQueryResult<FormikValues>) => {
-  return [
-    { width: "half", title: "Project Number", value: projectQuery?.data?.data?.project_number },
-    { width: "half", title: "Project Name", value: projectQuery?.data?.data?.project_name },
-    { width: "half", title: "Version", value: projectQuery?.data?.data?.project_version },
+export const formFields = (query: AxiosResponse | undefined) => {
+  const readFields = [
+    { width: "half", title: "Project Number", value: query?.data?.data.project_number },
+    { width: "half", title: "Project Name", value: query?.data?.data.project_name },
+    { width: "half", title: "Version", value: query?.data?.data.project_version },
     {
       width: "half",
       title: "Client Ministry Name",
-      value: projectQuery?.data?.data?.ministry_id?.label,
+      value: query?.data?.data.ministry?.label,
     },
-    { width: "half", title: "Initiation Date", value: projectQuery?.data?.data?.initiation_date },
+    { width: "half", title: "Initiation Date", value: query?.data?.data.initiation_date },
     {
       width: "half",
       title: "Portfolio Name",
-      value: projectQuery?.data?.data?.portfolio_id?.label,
+      value: query?.data?.data.portfolio_id?.label,
     },
     {
       width: "half",
       title: "Planned Start Date",
-      value: projectQuery?.data?.data?.planned_start_date,
+      value: query?.data?.data.planned_start_date,
     },
-    { width: "half", title: "Fiscal", value: projectQuery?.data?.data?.fiscal?.label },
-    { width: "half", title: "Planned End Date", value: projectQuery?.data?.data?.planned_end_date },
-    { width: "half", title: "Planned Budget", value: projectQuery?.data?.data?.planned_budget },
-    { width: "half", title: "Project Type", value: projectQuery?.data?.data?.project_type?.label },
+    { width: "half", title: "Fiscal", value: query?.data?.data.fiscal?.label },
+    { width: "half", title: "Planned End Date", value: query?.data?.data.planned_end_date },
+    { width: "half", title: "Planned Budget", value: query?.data?.data.planned_budget },
+    { width: "half", title: "Project Type", value: query?.data?.data.project_type?.label },
     {
       width: "half",
       title: "Project Status",
-      value: projectQuery?.data?.data?.project_status?.label,
+      value: query?.data?.data.project_status?.label,
     },
-    { width: "half", title: "Funding", value: projectQuery?.data?.data?.funding?.label },
-    { width: "half", title: "Total Budget", value: projectQuery?.data?.data?.total_project_budget },
-    { width: "half", title: "Recovery", value: projectQuery?.data?.data?.recoverable?.label },
+    { width: "half", title: "Funding", value: query?.data?.data.funding?.label },
+    { width: "half", title: "Total Budget", value: query?.data?.data.total_project_budget },
+    { width: "half", title: "Recovery", value: query?.data?.data.recoverable?.label },
     {
       width: "half",
       title: "Recoverable Total",
-      value: projectQuery?.data?.data?.recoverable_amount,
+      value: query?.data?.data.recoverable_amount,
     },
     {
       width: "half",
       title: "Contract #",
-      value: projectQuery?.data?.data?.contracts
-        ? (projectQuery?.data?.data?.contracts as Array<{ id: number; co_number: string }>)
+      value: query?.data?.data.contracts
+        ? (query?.data?.data.contracts as Array<{ id: number; co_number: string }>)
             .map((c) => {
               return c.co_number;
             })
@@ -58,15 +53,7 @@ export const readFields = (projectQuery: UseQueryResult<FormikValues>) => {
         : "",
     },
   ];
-};
-
-/**
- * The edit fields.
- *
- * @returns {Array}
- */
-export const editFields: () => IEditField[] = () => {
-  return [
+  const editFields: IEditField[] = [
     {
       fieldName: "project_number",
       fieldType: "singleText",
@@ -86,7 +73,7 @@ export const editFields: () => IEditField[] = () => {
       width: "half",
     },
     {
-      fieldName: "ministry_id",
+      fieldName: "ministry",
       fieldType: "select",
       fieldLabel: "Client Ministry Name",
       width: "half",
@@ -171,4 +158,6 @@ export const editFields: () => IEditField[] = () => {
       width: "half",
     },
   ];
+
+  return { readFields, editFields };
 };

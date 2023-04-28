@@ -10,41 +10,35 @@ const addLockByParams = (requestData) => {
 
 // Remove one.
 const removeOne = (requestData) => {
-  const { locked_row_id, locked_table, locked_by } = requestData;
-  return knex(`${dBLockTable} as dbLock`)
-    .where("dbLock.locked_table", locked_table)
-    .where("dbLock.locked_by", locked_by)
-    .where("dbLock.locked_row_id", locked_row_id)
-    .del();
+  const { locked_row_ids, locked_table, locked_by } = requestData;
+  return knex.raw(`
+  DELETE FROM data.db_lock
+  WHERE locked_row_ids && ARRAY [${locked_row_ids}] AND
+  locked_table = '${locked_table}' AND
+  locked_by = '${locked_by}'
+  `);
 };
 
-// Get specific one by id.
-const getLockByParams = (requestData, reply) => {
-  const { locked_row_id, locked_table, locked_by } = requestData;
-  const getLock = knex
-    .select("dbLock.*")
-    .from(`${dBLockTable} as dbLock`)
-    .where("dbLock.locked_row_id", locked_row_id)
-    .where("dbLock.locked_table", locked_table)
+// Get by ids.
+const getLockByParams = (requestData) => {
+  const { locked_row_ids, locked_table } = requestData;
+  return knex
+    .select(
+      knex.raw(
+        `*
+        FROM data.db_lock
+        WHERE locked_row_ids && ARRAY [${locked_row_ids}] AND
+        locked_table = '${locked_table}'
+        `
+      )
+    )
     .first()
     .then((rows) => {
-      // no matching lock found
-      if (0 === rows?.length) {
-        //No content (204)
-        //TODO Move the reply functionality to the plugin backend/src/plugins/fastifyRowLockCheck/index.js
-        // reply.code(204);
-        return {
-          message: `No lock found for ${locked_by} on table ${locked_table} for row id ${locked_row_id}`,
-        };
-      } else {
-        return rows;
-      }
+      return rows;
     })
     .catch((err) => {
       throw err;
     });
-
-  return getLock;
 };
 
 module.exports = {

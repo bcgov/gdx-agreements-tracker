@@ -1,5 +1,5 @@
-import TableWithModal from "components/PLAYGROUND/TableWithModal";
+import { Table } from "components/PLAYGROUND/Table";
 
 export const ProjectsSandbox = () => {
-  return <TableWithModal apiEndPoint={"projects"} />;
+  return <Table apiEndPoint={"projects"} />;
 };

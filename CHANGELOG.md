@@ -1,4 +1,29 @@
 ## Developer Changelog
+**April 28, 2023 (DESCW-1041) DB Locking Refactor Final**
+| Frontend |
+| -------- |
+
+- Form render is now more simplified. Now instead of showing a lock when the section is locked, it shows a read form. The way to determine if the section is locked is to click the edit button which will query for lock information.
+- updated useRenderTableCell to follow React best practices.
+- Updated project page to use table component from tablewithmodal as it doesn't need a modal
+- Temp. disabled table with modal functionality.
+- Added new hook for handling form data. (useFormData)
+- Made useFormLock for simplified and updated type definitions.
+- removed unnecessary async from useFormSubmit
+- changed "fields" config files to be called "formFields"
+- updated project details section to handle more functionality for efficiency elsewhere. 
+
+| Backend |
+| ------- |
+
+- Made db_lock controller more efficient. Now it handles everything from checking lock, lock owner and adding locks all in one function.
+- Removed fastifyRowLockCheck and changed it to send back the payload now only. It is now called fastifyPayload.
+- Cleaned up the db_lock model to be more efficient and easier to read.
+- Changed all db_lock routes to be posts to allow for passing parameters.  Although all routes use the POST method, the model of those routes add, remove, and get respectively.
+- Removed old db_lock validation from common validation schema
+- Updated projects validator to check for correct data and allow for null values where necessary.
+
+---
 
 **April 21, 2023 (DESCW-1041) DB Locking Mech pt.4**
 | Frontend |

@@ -1,21 +1,35 @@
 import { FormRenderer } from "components/FormRenderer";
+import { useFormData } from "hooks/useFormData";
 import { useParams } from "react-router";
-import { editFields, readFields } from "./fields";
+import { formFields } from "./formFields";
+import { UseQueryResult } from "react-query";
+import { FormikValues } from "formik";
 
 /**
- * This is a TypeScript React component that renders a form for viewing and updating project registration information
+ * This is a TypeScript React component that renders a form for registering a project and uses hooks to
+ * fetch and update data.
+ *
+ * @returns The `ProjectRegistrationSection` component is being returned.
  */
 
 export const ProjectRegistrationSection = () => {
   const { projectId } = useParams();
+  const query = useFormData({
+    url: `/projects/${projectId}`,
+    tableName: "projects",
+    lockedRow: projectId as string,
+  });
+  const { readFields, editFields } = formFields(query.data);
+
   return (
     <FormRenderer
-      queryKey={[`project - ${projectId}`]}
+      queryKey={`/projects/${projectId}`}
       readFields={readFields}
       editFields={editFields}
-      rowId={projectId}
       postUrl="/projects"
       updateUrl={`/projects/${projectId}`}
+      query={query}
+      rowsToLock={[Number(projectId)]}
     />
   );
 };
