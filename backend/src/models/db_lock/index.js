@@ -11,29 +11,22 @@ const addLockByParams = (requestData) => {
 // Remove one.
 const removeOne = (requestData) => {
   const { locked_row_ids, locked_table, locked_by } = requestData;
-  return knex.raw(`
-  DELETE FROM data.db_lock
-  WHERE locked_row_ids && ARRAY [${locked_row_ids}] AND
-  locked_table = '${locked_table}' AND
-  locked_by = '${locked_by}'
-  `);
+  return knex(dBLockTable)
+    .where("locked_table", locked_table)
+    .where("locked_by", locked_by)
+    .whereIn("locked_row_ids", [[locked_row_ids]])
+    .del();
 };
 
 // Get by ids.
 const getLockByParams = (requestData) => {
   const { locked_row_ids, locked_table } = requestData;
-  return knex
-    .select(
-      knex.raw(
-        `*
-        FROM data.db_lock
-        WHERE locked_row_ids && ARRAY [${locked_row_ids}] AND
-        locked_table = '${locked_table}'
-        `
-      )
-    )
+  return knex(dBLockTable)
+    .where("locked_table", locked_table)
+    .whereIn("locked_row_ids", [[locked_row_ids]])
     .first()
     .then((rows) => {
+      console.log("rows", rows);
       return rows;
     })
     .catch((err) => {
