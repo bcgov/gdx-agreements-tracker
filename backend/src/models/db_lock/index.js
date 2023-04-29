@@ -26,7 +26,6 @@ const getLockByParams = (requestData) => {
     .whereIn("locked_row_ids", [[locked_row_ids]])
     .first()
     .then((rows) => {
-      console.log("rows", rows);
       return rows;
     })
     .catch((err) => {
