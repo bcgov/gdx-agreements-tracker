@@ -1,4 +1,10 @@
 ## Developer Changelog
+**April 29, 2023 SQL injection prevention patch**
+| Backend |
+| -------- |
+
+- updated model for db_lock to use knex instead of raw to help prevent SQL injection.  
+
 **April 28, 2023 (DESCW-1041) DB Locking Refactor Final**
 | Frontend |
 | -------- |
