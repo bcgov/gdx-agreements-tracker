@@ -4,7 +4,7 @@ import FormModal from "../FormModal";
 import { Table } from "../Table";
 import { useFormatTableData } from "../Table/useFormatTable";
 import InputForm from "../InputForm";
-import { TableConfig } from "../Pages/ProjectsSandbox/TableConfig";
+import { TableConfig } from "../Pages/ProjectsSandbox/tableConfig";
 
 /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
 property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
