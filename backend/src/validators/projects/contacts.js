@@ -9,6 +9,7 @@ const getAll = {
         .prop("role_id", S.number())
         .prop("role_type", S.string())
         .prop("contacts", S.array().items(Schema.Picker))
+        .prop("rows_to_lock", S.array().items(Schema.Id))
     )
   ),
 };

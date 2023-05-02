@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { TableConfig } from "../Pages/ProjectsSandbox/TableConfig";
+import { TableConfig } from "../Pages/ProjectsSandbox/tableConfig";
 import { useFormatTableData } from "./useFormatTable";
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

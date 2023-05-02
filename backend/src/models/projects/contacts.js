@@ -5,7 +5,6 @@ const table = `${dataBaseSchemas().data}.contact_project`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
 const contactRoleTable = `${dataBaseSchemas().data}.contact_role`;
 
-// Get all.
 const findAllById = (projectId) => {
   return knex
     .columns({ role_id: "cr.id" }, "cr.role_type", {
@@ -28,12 +27,11 @@ const findAllById = (projectId) => {
 
 // Update one.
 const updateOne = (body, projectId) => {
-  const contacts = body.contacts;
   return knex.transaction(async (trx) => {
-    if (contacts.length > 0) {
+    if (body.length > 0) {
       // If there are any new rows to insert, insert them.
       return trx(table)
-        .insert(contacts)
+        .insert(body)
         .onConflict(["contact_id", "project_id", "contact_role"])
         .merge()
         .returning("id")

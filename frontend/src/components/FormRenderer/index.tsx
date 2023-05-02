@@ -32,6 +32,7 @@ export const FormRenderer = ({
   updateUrl,
   query,
   rowsToLock,
+  initialValues = query?.data?.data?.data,
 }: IFormRenderer): JSX.Element => {
   const { handleUpdate, handlePost } = useFormSubmit();
   const { handleFormType, formType } = useFormControls();
@@ -73,7 +74,7 @@ export const FormRenderer = ({
           handleSnackbar();
         });
     } else {
-      await handlePost({ formValues: values, apiUrl: postUrl }).then(() => {
+      await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
         handleFormType("read");
       });
     }
@@ -107,12 +108,11 @@ export const FormRenderer = ({
       );
     });
   };
-
   if ("edit" === formType) {
     return (
       <InputForm
         handleOnSubmit={handleOnSubmit}
-        initialValues={query?.data?.data?.data}
+        initialValues={initialValues}
         handleOnCancel={handleOnCancel}
         editFields={editFields}
       />

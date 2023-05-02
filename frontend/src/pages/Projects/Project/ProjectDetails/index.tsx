@@ -53,7 +53,7 @@ export const ProjectDetails = () => {
                 <AgreementSection query={projectQuery} />
               </GDXAccordion>
               <GDXAccordion sectionTitle="Contacts">
-                <ContactsSection projectId={Number(projectId)} />
+                <ContactsSection />
               </GDXAccordion>
               <GDXAccordion sectionTitle="Deliverables">
                 <DeliverablesSection projectId={Number(projectId)} />
