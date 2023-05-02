@@ -395,7 +395,7 @@ export interface IFormRenderer {
   updateUrl: string;
   query: AxiosResponse | undefined;
   rowsToLock: number[];
-  initialValues?:FormikValues
+  initialValues?: FormikValues;
 }
 export interface IDBRowlock {
   data: { data: { table: string } };
@@ -404,7 +404,7 @@ export interface IDBRowlock {
 export interface ILockData {
   data: { locked: boolean; lockedBy: string };
 }
- export interface IContactRole {
+export interface IContactRole {
   role_id: number;
   role_type: string;
   contacts: Array<IOption>;

@@ -6,35 +6,34 @@ const formFields = (query: Array<FormikValues>) => {
   const readFields = !query
     ? []
     : query?.map((row) => {
-      return {
-        width: "half",
-        title: row.role_type,
-        value: row.contacts.map((contact: { label: string }) => {
-          return contact.label;
-        }),
-      };
-    });
+        return {
+          width: "half",
+          title: row.role_type,
+          value: row.contacts.map((contact: { label: string }) => {
+            return contact.label;
+          }),
+        };
+      });
 
   const roleSplitRegex = /(?=[A-Z][a-z])/;
 
   const editFields: IEditField[] = !query
     ? []
-    : query.map((role: any) => ({
-      fieldName: role.role_id,
-      fieldLabel: role.role_type.split(roleSplitRegex).join(" "),
-      fieldType: "multiselect",
-      pickerName: "contact_option",
-      width: "half",
-    }))
-
+    : query.map((role) => ({
+        fieldName: role.role_id,
+        fieldLabel: role.role_type.split(roleSplitRegex).join(" "),
+        fieldType: "multiselect",
+        pickerName: "contact_option",
+        width: "half",
+      }));
 
   const initialValues = () => {
-    const row: any = {};
+    const row: FormikValues[string] = {};
     !query
       ? []
       : query.map((role) => {
-        row[role.role_id] = role.contacts;
-      });
+          row[role.role_id] = role.contacts;
+        });
     return row;
   };
 
@@ -42,4 +41,3 @@ const formFields = (query: Array<FormikValues>) => {
 };
 
 export default formFields;
-
