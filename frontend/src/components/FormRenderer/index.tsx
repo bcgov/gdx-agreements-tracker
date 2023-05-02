@@ -32,7 +32,10 @@ export const FormRenderer = ({
   updateUrl,
   query,
   rowsToLock,
+  initialValues = query?.data?.data?.data
 }: IFormRenderer): JSX.Element => {
+  console.log('query?.data?.data?.data', query?.data?.data?.data)
+  console.log('editFields', editFields)
   const { handleUpdate, handlePost } = useFormSubmit();
   const { handleFormType, formType } = useFormControls();
   const { handleDbLock, removeLock } = useFormLock();
@@ -73,7 +76,7 @@ export const FormRenderer = ({
           handleSnackbar();
         });
     } else {
-      await handlePost({ formValues: values, apiUrl: postUrl }).then(() => {
+      await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
         handleFormType("read");
       });
     }
@@ -96,6 +99,7 @@ export const FormRenderer = ({
    * form type to "edit".
    */
   const handleOnChange = async () => {
+    console.log('rowsToLock', rowsToLock)
     await handleDbLock(query, rowsToLock).then(async (lockData: ILockData) => {
       if (!lockData.data.locked) {
         return await query.refetch().then(() => {
@@ -107,12 +111,12 @@ export const FormRenderer = ({
       );
     });
   };
-
+  console.log('query?.data?.data?.data22', query?.data?.data?.data)
   if ("edit" === formType) {
     return (
       <InputForm
         handleOnSubmit={handleOnSubmit}
-        initialValues={query?.data?.data?.data}
+        initialValues={initialValues}
         handleOnCancel={handleOnCancel}
         editFields={editFields}
       />

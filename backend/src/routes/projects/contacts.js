@@ -12,7 +12,7 @@ const routes = [
   {
     method: "PUT",
     url: `/${what}/:id/contacts`,
-    schema: validators.updateOne,
+    // schema: validators.updateOne,
     handler: controller.updateOne,
   },
 ];
