@@ -23,10 +23,17 @@ controller.Tab_18_rpt_P_StatusSummary = async (request, reply) => {
     // Get the data from the database.
     const getDate = async () => new Date();
 
+    const projectId = Number(request.query.project);
+    // Get the data from the database.
     const result = {
+      project: await model.getProjectById(projectId),
+      deliverables: await model.projectStatusReport(projectId),
+      milestones: await model.getMilestones(projectId),
+      alignment: await model.getStrategicAlignment(projectId),
+      statuses: await model.getProjectStatuses(projectId),
+      lessons: await model.getLessonsLearned(projectId),
       report_date: await getDate(),
     };
-
     const body = await getDocumentApiBody(result, "Tab_18_rpt_P_StatusSummary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 

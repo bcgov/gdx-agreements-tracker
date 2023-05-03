@@ -90,7 +90,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project-status-summary",
+      value: "Tab_18_rpt_P_StatusSummary",
       label: "Project Status Summary",
       reportParamCategory: [
         {
