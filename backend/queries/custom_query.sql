@@ -1,0 +1,55 @@
+WITH qry_changerequest_count_by_initiated_by AS (
+  SELECT cr.link_id AS cr_project_id,
+    cr.fiscal_year AS cr_fiscal_year_id,
+    coalesce(cr.initiated_by, 'None') AS qry_cr_initiated_by,
+    count(*) AS cr_count
+  FROM data.change_request AS cr
+  GROUP BY 1,
+    2,
+    3
+  ORDER BY cr_project_id
+)
+SELECT p.project_number AS project_number,
+  p.project_name AS project_name,
+  fy.fiscal_year AS fiscal_year,
+  cr_count.cr_count AS total_crs,
+  coalesce(cr.initiated_by, 'None') AS cr_initiated_by,
+  sum(
+    CASE
+      WHEN crtype.crtype_name = 'Budget' THEN 1
+      ELSE 0
+    END
+  ) AS budget_sum,
+  sum(
+    CASE
+      WHEN crtype.crtype_name = 'Schedule' THEN 1
+      ELSE 0
+    END
+  ) AS schedule_sum,
+  sum(
+    CASE
+      WHEN crtype.crtype_name = 'Scope' THEN 1
+      ELSE 0
+    END
+  ) AS scope_sum,
+  sum(
+    CASE
+      WHEN crtype.crtype_name IS NULL THEN 1
+      ELSE 0
+    END
+  ) AS none_sum
+FROM data.change_request_crtype AS cr_ct
+  JOIN data.crtype AS crtype ON crtype.id = cr_ct.crtype_id
+  RIGHT JOIN data.change_request AS cr ON cr_ct.change_request_id = cr.id
+  JOIN data.fiscal_year AS fy ON fy.id = cr.fiscal_year
+  JOIN data.project AS p ON p.id = cr.link_id
+  LEFT JOIN qry_changerequest_count_by_initiated_by AS cr_count ON cr_count.cr_project_id = p.id
+  AND cr_count.cr_fiscal_year_id = fy.id
+  AND cr_count.qry_cr_initiated_by = coalesce(cr.initiated_by, 'None')
+GROUP BY 1,
+  2,
+  3,
+  4,
+  5
+ORDER BY project_number,
+  fiscal_year
