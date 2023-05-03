@@ -1,35 +1,23 @@
+import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 import { IEditField } from "types";
 
-/**
- * The view fields.
- *
- * @param   {UseQueryResult<FormikValues>} projectQuery The react query data for specific project.
- * @returns {Array}
- */
-export const readFields = (projectQuery: UseQueryResult<FormikValues>) => {
-  return [
+export const formFields = (query: AxiosResponse | undefined) => {
+  const readFields = [
     {
       width: "half",
       title: "Agreement Type",
-      value: projectQuery?.data?.data?.agreement_type?.label,
+      value: query?.data?.data?.agreement_type?.label,
     },
-    { width: "half", title: "Start Date", value: projectQuery?.data?.data?.agreement_start_date },
-    { width: "half", title: "Signed Date", value: projectQuery?.data?.data?.agreement_signed_date },
-    { width: "half", title: "End Date", value: projectQuery?.data?.data?.agreement_end_date },
-    { width: "full", title: "Description", value: projectQuery?.data?.data?.description },
-    { width: "full", title: "Notes", value: projectQuery?.data?.data?.notes },
+    { width: "half", title: "Start Date", value: query?.data?.data?.agreement_start_date },
+    { width: "half", title: "Signed Date", value: query?.data?.data?.agreement_signed_date },
+    { width: "half", title: "End Date", value: query?.data?.data?.agreement_end_date },
+    { width: "full", title: "Description", value: query?.data?.data?.description },
+    { width: "full", title: "Notes", value: query?.data?.data?.notes },
   ];
-};
 
-/**
- * The edit fields.
- *
- * @returns {Array}
- */
-export const editFields: () => IEditField[] = () => {
-  return [
+  const editFields: IEditField[] = [
     {
       fieldName: "agreement_type",
       fieldLabel: "Agreement Type",
@@ -68,4 +56,6 @@ export const editFields: () => IEditField[] = () => {
       width: "full",
     },
   ];
+
+  return { readFields, editFields };
 };

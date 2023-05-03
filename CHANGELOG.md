@@ -1,9 +1,11 @@
 ## Developer Changelog
-**April 29, 2023 SQL injection prevention patch**
+
+**May2, 2023 Added DbLock to more sections**
 | Backend || Frontend |
 | -------- |
 
 - Added dblock to project contacts section. 
+- Added dblock to project agreements section. 
 
 **April 29, 2023 SQL injection prevention patch**
 | Backend |
