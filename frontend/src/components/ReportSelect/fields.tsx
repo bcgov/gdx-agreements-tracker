@@ -264,9 +264,14 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "multi_year_statistics_for_project_change_requests",
+      value: "rpt_PA_ChangeRequestTypesFYSummary",
       label: "Multi-Year Statistics for Project Change Requests",
-      reportParamCategory: [],
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+        },
+      ],
     },
   ],
 };
