@@ -1,5 +1,11 @@
 ## Developer Changelog
 
+**May 3, 2023 (DESCW-1098)**
+- Backend
+  - updated report controllers for Individual Projects
+- Frontend
+  - updated route settings for Individual Projects
+
 **May2, 2023 Added DbLock to more sections**
 **May 2, 2023 (DESCW-1097)**
 - Backend

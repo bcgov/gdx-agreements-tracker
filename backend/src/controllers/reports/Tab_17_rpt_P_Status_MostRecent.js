@@ -1,6 +1,8 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
-const model = require("@models/reports/Tab_17_rpt_P_Status_MostRecent");
+//const model = require("@models/reports/Tab_17_rpt_P_Status_MostRecent");
+const model = require("@models/reports/index");
+const projectModel = require("@models/projects");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
@@ -22,8 +24,13 @@ controller.Tab_17_rpt_P_Status_MostRecent = async (request, reply) => {
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
-
+    const projectId = Number(request.query.project);
     const result = {
+      project: await projectModel.findById(projectId),
+      deliverables: await model.projectStatusReport(projectId),
+      milestones: await model.getMilestones(projectId),
+      alignment: await model.getStrategicAlignment(projectId),
+      status: await projectModel.findMostRecentStatusById(projectId),
       report_date: await getDate(),
     };
 

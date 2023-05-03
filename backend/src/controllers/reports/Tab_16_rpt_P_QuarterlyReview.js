@@ -1,6 +1,8 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
-const model = require("@models/reports/Tab_16_rpt_P_QuarterlyReview");
+//const model = require("@models/reports/Tab_16_rpt_P_QuarterlyReview");
+const model = require("@models/reports/index");
+const projectModel = require("@models/projects");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
@@ -22,8 +24,12 @@ controller.Tab_16_rpt_P_QuarterlyReview = async (request, reply) => {
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
+    const projectId = Number(request.query.project);
+    const fiscal_breakdown = await model.getQuarterlyFiscalSummaries(projectId);
 
     const result = {
+      project: await projectModel.findById(projectId),
+      deliverables: await model.getQuarterlyDeliverables(projectId, fiscal_breakdown),
       report_date: await getDate(),
     };
 
