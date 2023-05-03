@@ -1,4 +1,8 @@
 ## Developer Changelog
+**May 3, 2023 fixed issue with duplicate clicks for dblocking mechanism**
+| Backend |
+| -------- |
+fixed issue with duplicate clicks for dblocking mechanism
 
 **May 3, 2023 db_lock migratino update**
 | Backend |
