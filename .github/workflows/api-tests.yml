@@ -37,8 +37,11 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: Node Version
+        run: node -v 
+
       - name: Install packages
-        run: npm install
+        run: npm ci 
 
       - name: Run ESLint
         run: npm run lint
