@@ -78,7 +78,7 @@ export const reportType = {
   options: [
     {
       reportCategory: "individual_project_reports",
-      value: "project-status-report",
+      value: "Tab_17_rpt_P_Status_MostRecent",
       label: "Project Status (Most Recent)",
       reportParamCategory: [
         {
@@ -102,7 +102,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "budget-summary",
+      value: "Tab_14_rpt_P_BudgetSummary",
       label: "Project Budget Summary",
       reportParamCategory: [
         {
@@ -114,7 +114,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project-quarterly-review",
+      value: "Tab_16_rpt_P_QuarterlyReview",
       label: "Project Quarterly Review",
       reportParamCategory: [
         {
@@ -126,7 +126,7 @@ export const reportType = {
     },
     {
       reportCategory: "individual_project_reports",
-      value: "project-quarterly-billing-request",
+      value: "Tab_15_rpt_P_QuarterlyBillingRequest",
       label: "Project Quarterly Billing Request",
       reportParamCategory: [
         {
