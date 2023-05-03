@@ -2,7 +2,14 @@ const dbConnection = require("@database/databaseConnection");
 const { dateFormat } = require("../../helpers/standards");
 const { knex, dataBaseSchemas } = dbConnection();
 // This is here for backwards compatibility
-const { getProjectById, projectStatusReport, getMilestones, getStrategicAlignment, getProjectStatuses, getLessonsLearned } = require("@models/reports/project");
+const {
+  getProjectById,
+  projectStatusReport,
+  getMilestones,
+  getStrategicAlignment,
+  getProjectStatuses,
+  getLessonsLearned,
+} = require("@models/reports/project");
 
 // Relevant database tables
 const projectMilestoneTable = `${dataBaseSchemas().data}.project_milestone`;
@@ -58,9 +65,6 @@ const findById = (projectId) => {
     )
     .where({ "project.id": projectId });
 };
-
-
-
 
 // Get the project budget for a specific project by id
 const getProjectBudget = (projectId) => {
@@ -166,8 +170,6 @@ const getContractSummary = (projectId) => {
     .where({ "ct.project_id": projectId });
 };
 
-
-
 /* 
 Individual Project Reports - Project Budget Summary 
 Purpose: Provide up to date information on any particular Project, can be used to provide client with information on their project budget.
@@ -196,7 +198,6 @@ const projectBudgetReport = () => {
     )  AS rpt_P_BudgetSummary`
   );
 };
-
 
 // Get array of deliverables with summed budget amounts.
 const getDeliverableBudgets = (projectId, fiscal, quarter) => {

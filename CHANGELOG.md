@@ -1,6 +1,14 @@
 ## Developer Changelog
 
 **May2, 2023 Added DbLock to more sections**
+**May 2, 2023 (DESCW-1097)**
+- Backend
+  - updated Tab_18 controller and model
+  - created a project.js model for common project model queries
+- Frontend
+  - Updated pointer of Individual Project Reports > Status Summary to point to Tab_18
+
+**April 29, 2023 SQL injection prevention patch**
 | Backend || Frontend |
 | -------- |
 

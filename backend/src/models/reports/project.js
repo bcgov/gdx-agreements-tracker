@@ -21,9 +21,9 @@ const strategicAlignmentTable = `${dataBaseSchemas().data}.strategic_alignment`;
 
 /**
  * Get the project information for a specific project by id.
- * 
- * @param {int} projectId   The project id for the single project.
- * @returns 
+ *
+ * @param   {int}   projectId The project id for the single project.
+ * @returns {any[]}
  */
 const getProjectById = (projectId) => {
   return knex(`${getFromView} as p`)
@@ -67,10 +67,10 @@ const getProjectById = (projectId) => {
 /**
  * Individual Project Reports - Project Status (Most Recent).
  * Purpose: Shows the most recent status report on a  specific project.
- * Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status, milestone status. 
- * 
- * @param {int} projectId The project id
- * @returns 
+ * Description: Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status, milestone status.
+ *
+ * @param   {int}   projectId The project id
+ * @returns {any[]}
  */
 const projectStatusReport = (projectId) => {
   return knex(`${projectTable} as p`)
@@ -100,12 +100,11 @@ const projectStatusReport = (projectId) => {
     .andWhere({ "p.id": projectId });
 };
 
-
 /**
  * Get the milestones for a specific project by id.
- * 
- * @param {int} projectId The project id.
- * @returns 
+ *
+ * @param   {int}   projectId The project id.
+ * @returns {any[]}
  */
 const getMilestones = (projectId) => {
   return knex(projectMilestoneTable)
@@ -129,12 +128,11 @@ const getMilestones = (projectId) => {
     .where({ project_id: projectId });
 };
 
-
 /**
  * Get the strategic alignment for a specific project by id.
- * 
- * @param {int} projectId 
- * @returns 
+ *
+ * @param   {int}   projectId The project id.
+ * @returns {any[]}
  */
 const getStrategicAlignment = (projectId) => {
   return knex(projectStrategicAlignmentTable)
@@ -144,12 +142,11 @@ const getStrategicAlignment = (projectId) => {
     .andWhere({ checked: true });
 };
 
-
 /**
- * Individual Project Reports - Project Status Summary 
- * 
- * @param {int} projectId The project id.
- * @returns 
+ * Individual Project Reports - Project Status Summary
+ *
+ * @param   {int}   projectId The project id.
+ * @returns {any[]}
  */
 const getProjectStatuses = (projectId) => {
   return knex(`${projectStatusTable} as ps`)
@@ -182,9 +179,9 @@ const getProjectStatuses = (projectId) => {
 
 /**
  * Get the lessons learned for a specific project by id.
- * 
- * @param {int} projectId The Project Id
- * @returns 
+ *
+ * @param   {int}   projectId The Project Id
+ * @returns {any[]}
  */
 const getLessonsLearned = (projectId) => {
   return knex(lessonsLearnedTable).select("*").where("project_id", projectId);
@@ -196,5 +193,5 @@ module.exports = {
   getMilestones,
   getStrategicAlignment,
   getProjectStatuses,
-  getLessonsLearned
+  getLessonsLearned,
 };
