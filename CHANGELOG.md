@@ -1,5 +1,12 @@
 ## Developer Changelog
 
+**May 3, 2023 db_lock migratino update**
+| Backend |
+| -------- |
+
+ - Added update migration update for db_lock table. 
+ - Added debug for github actions
+
 **May 3, 2023 (DESCW-1098)**
 - Backend
   - updated report controllers for Individual Projects
