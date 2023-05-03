@@ -32,7 +32,7 @@ controller.getLockByParams = async (request, reply) => {
 
     const result = await model.getLockByParams(requestData, reply);
     if (!result) {
-      await model.addLockByParams(requestData).then(() => {
+     return await model.addLockByParams(requestData).then(() => {
         return {
           locked: false,
           lockedBy: requestData.locked_by,
