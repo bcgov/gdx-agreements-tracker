@@ -22,31 +22,24 @@ controller.getReport = getReport;
 controller.rpt_PA_ChangeRequestTypesFYSummary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
-    const { rows: changeRequestTypes } = await model.changeRequestTypes(request.query);
+    // Get the data from the database.
+    const changeRequestTypes = await model.changeRequestTypes(request.query);
     // Lay out final JSON body for api call to cdogs server
     const result = {
-      changeRequestTypes: changeRequestTypes,
+      changeRequestTypes: changeRequestTypes?.rows,
     };
-    console.log(`Result:
 
-
-
-
-
-    ${JSON.stringify(result, null, 3)}`);
-    /*
-    const body = await getDocumentApiBody(result, "rpt_PA_ChangeRequestTypesFYSummary.docx");
+    const body = await getDocumentApiBody(result, "rpt_PA_ChangeRequestTypesFY-Summary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Inject the pdf data into the request object
     request.data = pdf;
-    */
 
-    if (!changeRequestTypes) {
+    if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
     } else {
-      return changeRequestTypes;
+      return result;
     }
   } catch (err) {
     console.error(`ERROR: ${err}`);
