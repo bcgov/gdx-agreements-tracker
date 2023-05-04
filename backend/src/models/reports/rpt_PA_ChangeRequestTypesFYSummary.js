@@ -10,8 +10,6 @@ const { knex } = dbConnection();
 
 const handleParams = (query, requestParams) => {
   if (requestParams.fiscal) {
-    console.log(`
-    FISCAL: ${requestParams.fiscal}`);
     query.where("q.fiscal", requestParams.fiscal);
   }
 };
