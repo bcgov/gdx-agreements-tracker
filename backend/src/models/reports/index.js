@@ -1,34 +1,18 @@
 const dbConnection = require("@database/databaseConnection");
 const { dateFormat } = require("../../helpers/standards");
-const { knex, dataBaseSchemas } = dbConnection();
+const { knex } = dbConnection();
 // This is here for backwards compatibility
 const {
-  getProjectById,
-  projectStatusReport,
-  getMilestones,
-  getStrategicAlignment,
-  getProjectStatuses,
-  getLessonsLearned,
-} = require("@models/reports/project");
-
-// Relevant database tables
-const projectMilestoneTable = `${dataBaseSchemas().data}.project_milestone`;
-const projectTable = `${dataBaseSchemas().data}.project`;
-const portfolioTable = `${dataBaseSchemas().data}.portfolio`;
-const projectDeliverableTable = `${dataBaseSchemas().data}.project_deliverable`;
-const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
-const projectStatusTable = `${dataBaseSchemas().data}.project_status`;
-const projectPhaseTable = `${dataBaseSchemas().data}.project_phase`;
-const projectBudgetTable = `${dataBaseSchemas().data}.project_budget`;
-const contactTable = `${dataBaseSchemas().data}.contact`;
-const healthTable = `${dataBaseSchemas().data}.health_indicator`;
-
-const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
-const changeRequestTable = `${dataBaseSchemas().data}.change_request`;
-const changeRequestTypeLookupTable = `${dataBaseSchemas().data}.change_request_crtype`;
-const changeRequestTypeTable = `${dataBaseSchemas().data}.crtype`;
-const contractTable = `${dataBaseSchemas().data}.contract`;
-const supplierTable = `${dataBaseSchemas().data}.supplier`;
+  projectMilestoneTable,
+  projectTable,
+  portfolioTable,
+  healthIndicatorTable,
+  projectStatusTable,
+  projectPhaseTable,
+  contactTable,
+  healthTable,
+  fiscalYearTable,
+} = require("@models/useDbTables");
 
 // Get a specific report by project id.
 const findById = (projectId) => {
@@ -66,110 +50,6 @@ const findById = (projectId) => {
     .where({ "project.id": projectId });
 };
 
-// Get the project budget for a specific project by id
-const getProjectBudget = (projectId) => {
-  return knex(`${projectBudgetTable} as pb`)
-    .select({
-      fiscal: `fy.fiscal_year`,
-      deliverable_name: `pd.deliverable_name`,
-      deliverable_amount: `pd.deliverable_amount`,
-      recoverable: `pd.recoverable_amount`,
-      recovered_to_date: knex.raw(
-        `SUM(pb.q1_amount) + SUM(pb.q2_amount) + SUM(pb.q3_amount) + SUM(pb.q4_amount)`
-      ),
-      remaining: knex.raw(
-        `pd.recoverable_amount - (SUM(pb.q1_amount) + SUM(pb.q2_amount) + SUM(pb.q3_amount) + SUM(pb.q4_amount))`
-      ),
-    })
-    .rightJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
-    .leftJoin(`${fiscalYearTable} as fy`, { "pd.fiscal": "fy.id" })
-    .where({ "pd.project_id": projectId })
-    .groupBy(
-      `fy.fiscal_year`,
-      `pd.deliverable_name`,
-      `pd.recoverable_amount`,
-      `pd.deliverable_amount`
-    )
-    .orderBy(`fy.fiscal_year`);
-};
-
-// Get the change requests for a specific project by id
-const getChangeRequests = (projectId) => {
-  return knex(`${changeRequestTable} as cr`)
-    .select({
-      version: "cr.version",
-      initiated_by: "cr.initiated_by",
-      initiation_date: knex.raw(`TO_CHAR(cr.initiation_date :: DATE, '${dateFormat}')`),
-      summary: "cr.summary",
-      type: knex.raw(`string_agg(crt.crtype_name, ', ')`),
-    })
-    .leftJoin(`${changeRequestTypeLookupTable} as crtl`, { "crtl.change_request_id": "cr.id" })
-    .leftJoin(`${changeRequestTypeTable} as crt`, { "crtl.crtype_id": "crt.id" })
-    .groupBy("cr.id")
-    .where({ "cr.link_id": projectId })
-    .orderBy("cr.version");
-};
-
-// Get the contracts for a specific project by id
-const getContracts = (projectId) => {
-  return knex(`${contractTable} as ct`)
-    .select("*", {
-      supplier: "st.supplier_name",
-      end_date: knex.raw(`TO_CHAR(ct.end_date :: DATE, '${dateFormat}')`),
-      fiscal: "fy.fiscal_year",
-      contract_amount: knex.raw("ct.total_fee_amount + ct.total_expense_amount"),
-    })
-    .leftJoin(`${supplierTable} as st`, { "st.id": "ct.supplier_id" })
-    .leftJoin(`${fiscalYearTable} as fy`, { "fy.id": "ct.fiscal" })
-    .where({ "ct.project_id": projectId })
-    .orderBy("ct.co_number");
-};
-/* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
-// Get the deliverable totals per fiscal year for a specific project by id
-const getDeliverableSummaries = (projectId) => {
-  return knex.raw(
-    `SELECT
-    fiscal_year,
-    current_budget,
-    recovery_amount,
-    recovered_td,
-    current_budget - recovered_td AS balance_remaining
-    FROM 
-    (SELECT
-    pd.fiscal,
-    SUM(q1_amount + q2_amount + q3_amount + q4_amount) AS recovered_td --good
-    FROM data.project_budget AS pb
-    
-    LEFT JOIN data.project_deliverable AS pd ON pb.project_deliverable_id = pd.id
-    WHERE pd.project_id = ${projectId}
-    GROUP BY pd.fiscal) as q1
-    INNER JOIN
-    (SELECT
-     fiscal,
-    SUM(deliverable_amount) AS current_budget,
-    SUM(recoverable_amount) AS recovery_amount
-    FROM data.project_deliverable
-    WHERE project_id = ${projectId}
-    GROUP BY fiscal) AS q2
-    ON q2.fiscal = q1.fiscal
-    LEFT JOIN data.fiscal_year AS fy ON fy.id = q1.fiscal`
-  );
-};
-
-// Get the contract totals per fiscal year for a specific project by id
-const getContractSummary = (projectId) => {
-  return knex(`${contractTable} as ct`)
-    .select({
-      fiscal: "fy.fiscal_year",
-      total_contract_amount: knex.raw("SUM(ct.total_fee_amount) + SUM(ct.total_expense_amount)"),
-      total_fee_amount: knex.sum("ct.total_fee_amount"),
-      total_expense_amount: knex.sum("ct.total_expense_amount"),
-    })
-    .leftJoin(`${fiscalYearTable} as fy`, { "fy.id": "ct.fiscal" })
-    .groupBy("fy.fiscal_year")
-    .where({ "ct.project_id": projectId });
-};
-
 /* 
 Individual Project Reports - Project Budget Summary 
 Purpose: Provide up to date information on any particular Project, can be used to provide client with information on their project budget.
@@ -197,107 +77,6 @@ const projectBudgetReport = () => {
         GROUP BY projectId, cr.id
     )  AS rpt_P_BudgetSummary`
   );
-};
-
-// Get array of deliverables with summed budget amounts.
-const getDeliverableBudgets = (projectId, fiscal, quarter) => {
-  return knex(`${projectBudgetTable} as pb`)
-    .select("pd.deliverable_name", {
-      amount: knex.raw(`SUM(pb.q${quarter}_amount::numeric::float8)`),
-    })
-    .join(`${projectDeliverableTable} as pd`, "pb.project_deliverable_id", "pd.id")
-    .where("pd.project_id", projectId)
-    .andWhere("pb.fiscal", fiscal)
-    .groupBy("pd.id")
-    .orderBy("pd.deliverable_name", "ASC")
-    .having(knex.raw(`SUM(pb.q${quarter}_amount::numeric::float8)`), ">", 0);
-};
-
-// Get project's client coding data.
-const getClientCoding = (projectId) => {
-  return knex(`data.client_coding as cc`)
-    .select("cc.*", "c.*", { client_name: knex.raw("c.last_name || ', ' || c.first_name") })
-    .join(`${contactTable} as c`, "cc.contact_id", "c.id")
-    .where("cc.project_id", projectId)
-    .first();
-};
-
-// Get project's journal voucher data.
-const getJournalVoucher = (projectId, fiscal, quarter) => {
-  return knex(`data.jv`)
-    .select("*")
-    .where("project_id", projectId)
-    .andWhere("fiscal_year_id", fiscal)
-    .andWhere("quarter", quarter)
-    .first();
-};
-
-// Get the quarterly fiscal summary for a specific project by id
-const getQuarterlyFiscalSummaries = (projectId) => {
-  // Client specific summaries grouped by fiscal year
-  return knex("data.fiscal_year as fy")
-    .select({
-      fiscal_year: "fiscal_year",
-      detail_total: knex.sum("detail_amount"),
-      q1_total: knex.sum("q1_amount"),
-      q2_total: knex.sum("q2_amount"),
-      q3_total: knex.sum("q3_amount"),
-      q4_total: knex.sum("q4_amount"),
-      client: "pb.client_coding_id",
-    })
-    .leftJoin("data.project_deliverable as pd", { "fy.id": "pd.fiscal" })
-    .leftJoin("data.project_budget as pb", { "pd.id": "pb.project_deliverable_id" })
-    .where("pd.project_id", projectId)
-    .groupBy("fy.fiscal_year", "pb.client_coding_id")
-    .orderBy("fy.fiscal_year", "pb.client_coding_id");
-};
-
-// Get the breakdown for deliverables for a specific project by id and fiscal_summary
-const getQuarterlyDeliverables = (projectId, fiscal_summary) => {
-  let data = [];
-  for (let fiscal in fiscal_summary) {
-    data.push(
-      knex(`data.project_deliverable as pd`)
-        .select({
-          fiscal_year: "fy.fiscal_year",
-          id: "pd.id",
-          deliverable_name: "deliverable_name",
-          detail_amount: "detail_amount",
-          q1_amount: "q1_amount",
-          q2_amount: "q2_amount",
-          q3_amount: "q3_amount",
-          q4_amount: "q4_amount",
-          resource_type: "resource_type",
-          porfolio_abbrev: "portfolio_abbrev",
-          responsibility: "responsibility",
-          service_line: "port.service_line",
-          stob: "pb.stob",
-          expense_authority_name: "expense_authority_name",
-        })
-        .leftJoin(`data.project_budget as pb`, { "pd.id": "pb.project_deliverable_id" })
-        .leftJoin(`data.client_coding as cc`, { "cc.id": "pb.client_coding_id" })
-        .leftJoin(`data.portfolio as port`, { "port.id": "pb.recovery_area" })
-        .leftJoin(`data.fiscal_year as fy`, { "fy.id": "pd.fiscal" })
-        .where({ "pd.project_id": projectId })
-        .andWhere({ "fy.fiscal_year": fiscal_summary[fiscal].fiscal_year })
-        // For client specific breakdown
-        .andWhere({ "cc.id": fiscal_summary[fiscal].client })
-        .orderBy("deliverable_name")
-        // Construct the array of fiscal breakdown and summaries
-        .then((results) => {
-          return {
-            fiscal_year: fiscal_summary[fiscal].fiscal_year,
-            q1_client_total: fiscal_summary[fiscal].q1_total,
-            q2_client_total: fiscal_summary[fiscal].q2_total,
-            q3_client_total: fiscal_summary[fiscal].q3_total,
-            q4_client_total: fiscal_summary[fiscal].q4_total,
-            detail_client_total: fiscal_summary[fiscal].detail_total,
-            details: results,
-          };
-        })
-    );
-  }
-  return Promise.all(data);
 };
 
 /* 
@@ -584,26 +363,10 @@ const getContractAmendments = (contractId) => {
 
 module.exports = {
   findById,
-  getMilestones,
-  getStrategicAlignment,
-  getProjectBudget,
-  getChangeRequests,
-  getContracts,
-  getDeliverableSummaries,
-  getContractSummary,
   getContractSummaryReport,
   getContractAmendments,
-  projectStatusReport,
-  getProjectById,
   projectBudgetReport,
   projectQuarterlyReport,
-  getQuarterlyDeliverables,
-  getProjectStatuses,
-  getDeliverableBudgets,
-  getClientCoding,
-  getJournalVoucher,
-  getLessonsLearned,
-  getQuarterlyFiscalSummaries,
   getDashboardByPortfolios,
   getActiveProjects,
   getLessonsLearnedReport,

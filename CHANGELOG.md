@@ -1,4 +1,15 @@
 ## Developer Changelog
+** May 4, 2023 (DESCW-1105)**
+- Backend
+  - restored docx reports for Individual Projects 
+    - project status (most recent) Tab_17
+    - project budget Tab_14
+    - project quarterly Tab_16
+    - Project quarterly billing request Tab_15
+  - refactored models for; Tab_14 - Tab_16
+  - Added model/useDbTables - to store the table name and schema
+  - Added model/report/useProject - to store common used functions.
+
 **May 3, 2023 fixed issue with duplicate clicks for dblocking mechanism**
 | Backend |
 | -------- |
