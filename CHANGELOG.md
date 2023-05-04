@@ -9,6 +9,8 @@
 
 - Backend
   - Updated packages dependencies
+**May 4, 2023 (DESCW-1128)**
+Upgrade node docker builds to 18.14
 
 **May 4, 2023 (DESCW-1105)**
 
