@@ -1,5 +1,5 @@
 # Base alpine images with node.js
-FROM node:16.16.0-alpine3.16
+FROM node:18.14-alpine3.17
 
 ENV BUILDER_VERSION 1.0
 
