@@ -8,4 +8,4 @@ ADD tsconfig.json .
 ADD .eslintrc.js .
 ADD .prettierrc.js .
 RUN yarn
-RUN yarn build --prod
+RUN yarn build --openssl-legacy-provider --prod
