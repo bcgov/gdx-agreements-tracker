@@ -2,22 +2,23 @@
  * This is for global project models, which are used by multiple controllers.
  */
 const dbConnection = require("@database/databaseConnection");
-const { dateFormat } = require("../../helpers/standards");
-const { knex, dataBaseSchemas } = dbConnection();
-
-const contactTable = `${dataBaseSchemas().data}.contact`;
-const contactProjectTable = `${dataBaseSchemas().data}.contact_project`;
-const getFromView = `${dataBaseSchemas().data}.projects_with_json`;
-const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
-const healthTable = `${dataBaseSchemas().data}.health_indicator`;
-const lessonsLearnedTable = `${dataBaseSchemas().data}.project_lesson`;
-const projectTable = `${dataBaseSchemas().data}.project`;
-const projectDeliverableTable = `${dataBaseSchemas().data}.project_deliverable`;
-const projectMilestoneTable = `${dataBaseSchemas().data}.project_milestone`;
-const projectPhaseTable = `${dataBaseSchemas().data}.project_phase`;
-const projectStatusTable = `${dataBaseSchemas().data}.project_status`;
-const projectStrategicAlignmentTable = `${dataBaseSchemas().data}.project_strategic_alignment`;
-const strategicAlignmentTable = `${dataBaseSchemas().data}.strategic_alignment`;
+const { dateFormat } = require("../../../helpers/standards");
+const { knex } = dbConnection();
+const {
+  contactTable,
+  contactProjectTable,
+  getFromView,
+  healthIndicatorTable,
+  healthTable,
+  lessonsLearnedTable,
+  projectTable,
+  projectDeliverableTable,
+  projectMilestoneTable,
+  projectPhaseTable,
+  projectStatusTable,
+  projectStrategicAlignmentTable,
+  strategicAlignmentTable,
+} = require("@models/useDbTables");
 
 /**
  * Get the project information for a specific project by id.

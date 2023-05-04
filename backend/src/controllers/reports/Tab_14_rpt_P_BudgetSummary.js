@@ -1,8 +1,6 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
-//const model = require("@models/reports/Tab_14_rpt_P_BudgetSummary");
-const model = require("@models/reports/index");
-const projectModel = require("@models/projects");
+const model = require("@models/reports/Tab_14_rpt_P_BudgetSummary");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
@@ -26,9 +24,9 @@ controller.Tab_14_rpt_P_BudgetSummary = async (request, reply) => {
     const getDate = async () => new Date();
     const projectId = Number(request.query.project);
     const result = {
-      project: await projectModel.findById(projectId),
+      project: await model.findById(projectId),
       budget: await model.getProjectBudget(projectId),
-      status: await projectModel.findMostRecentStatusById(projectId),
+      status: await model.findMostRecentStatusById(projectId),
       deliverable_summaries: await model.getDeliverableSummaries(projectId),
       change_request: await model.getChangeRequests(projectId),
       contracts: await model.getContracts(projectId),

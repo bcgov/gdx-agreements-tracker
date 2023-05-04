@@ -1,17 +1,20 @@
-const dbConnection = require("@database/databaseConnection");
-const { knex } = dbConnection();
-
-/**
- * Gets data for the Divisional Project Reports - Project Dashboard report.
- *
- * @returns {any[]}
- */
-const Tab_17_rpt_P_Status_MostRecent = () => {
-  const query = knex().raw();
-
-  return query;
-};
+const {
+  getProjectById,
+  projectStatusReport,
+  getMilestones,
+  getStrategicAlignment,
+  getProjectStatuses,
+  getLessonsLearned,
+} = require("@models/reports/useProject");
+const { findById, findMostRecentStatusById } = require("@models/projects");
 
 module.exports = {
-  Tab_17_rpt_P_Status_MostRecent,
+  findById,
+  findMostRecentStatusById,
+  getProjectById,
+  projectStatusReport,
+  getMilestones,
+  getStrategicAlignment,
+  getProjectStatuses,
+  getLessonsLearned,
 };

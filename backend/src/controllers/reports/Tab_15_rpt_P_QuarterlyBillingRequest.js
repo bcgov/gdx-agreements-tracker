@@ -1,7 +1,6 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
-//const model = require("@models/reports/Tab_15_rpt_P_QuarterlyBillingRequest");
-const model = require("@models/reports/index");
+const model = require("@models/reports/Tab_15_rpt_P_QuarterlyBillingRequest");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
