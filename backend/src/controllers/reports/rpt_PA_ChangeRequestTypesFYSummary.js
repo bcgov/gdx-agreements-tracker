@@ -22,24 +22,7 @@ controller.getReport = getReport;
 controller.rpt_PA_ChangeRequestTypesFYSummary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
-    const changeRequestTypes = await model.changeRequestTypes(request.query);
-
-    /*
-    const fiscalRegistry = await model.fiscalRegistry(request.query);
-    const plannedBudgetTotals = await model.planned_budget_totals(request.query);
-    const reportTotal = await model.report_total(request.query);
-
-    const fiscalRegistryGroupedByPortfolioName = groupByProperty(fiscalRegistry, "portfolio_name");
-    const plannedBudgetTotalsKeyedByPortfolioId = _.keyBy(plannedBudgetTotals, "portfolio_name");
-
-    const fiscalRegistryBudgetTotals = _.map(fiscalRegistryGroupedByPortfolioName, (portfolio) => ({
-      ...portfolio,
-      total_budget: plannedBudgetTotalsKeyedByPortfolioId[portfolio.portfolio_name].total_budget,
-    }));
-
-    const reportTotalRow = _.first(reportTotal).total_budget;
-
-    */
+    const { rows: changeRequestTypes } = await model.changeRequestTypes(request.query);
     // Lay out final JSON body for api call to cdogs server
     const result = {
       changeRequestTypes: changeRequestTypes,
