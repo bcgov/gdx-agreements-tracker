@@ -9,6 +9,8 @@
   - refactored models for; Tab_14 - Tab_16
   - Added model/useDbTables - to store the table name and schema
   - Added model/report/useProject - to store common used functions.
+- Frontend
+  - fix typescript error
 
 **May 3, 2023 fixed issue with duplicate clicks for dblocking mechanism**
 | Backend |

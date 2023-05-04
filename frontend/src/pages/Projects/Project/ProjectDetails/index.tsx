@@ -50,7 +50,7 @@ export const ProjectDetails = () => {
           {"new" !== projectId && (
             <>
               <GDXAccordion sectionTitle="Agreement">
-                <AgreementSection query={projectQuery} />
+                <AgreementSection />
               </GDXAccordion>
               <GDXAccordion sectionTitle="Contacts">
                 <ContactsSection />
