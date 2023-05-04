@@ -68,8 +68,7 @@ module.exports = {
                      4,
                      5,
                      6
-          ) AS q`
-        ) // end knex.raw()
+          ) AS q`) // end knex.raw()
       ) // end knex.select()
       .groupByRaw("1,2,3,4,5,6,7,8,9")
       .orderByRaw("1,3");
