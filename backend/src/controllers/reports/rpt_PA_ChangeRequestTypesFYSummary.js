@@ -4,11 +4,10 @@ const model = require("@models/reports/rpt_PA_ChangeRequestTypesFYSummary");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
-const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig } = utils;
 
 controller.getReport = getReport;
 
@@ -29,14 +28,11 @@ controller.rpt_PA_ChangeRequestTypesFYSummary = async (request, reply) => {
       changeRequestTypes,
     };
 
-    console.table(result);
-    /*
     const body = await getDocumentApiBody(result, "rpt_PA_ChangeRequestTypesFY-Summary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Inject the pdf data into the request object
     request.data = pdf;
-    */
 
     if (!result) {
       reply.code(404);
