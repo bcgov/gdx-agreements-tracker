@@ -14,7 +14,6 @@ metadata:
 spec:
   failedBuildsHistoryLimit: 2
   successfulBuildsHistoryLimit: 2
-  strategy:
   dockerStrategy:
     forcePull: true
   source:
@@ -23,8 +22,8 @@ spec:
       ref: development
       uri: https://github.com/bcgov/gdx-agreements-tracker.git
     type: Git
-    strategy:
-      type: Docker
+  strategy:
+    type: Docker
   output:
     to:
       kind: ImageStreamTag

@@ -18,6 +18,7 @@ LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
 
 # Copy extra files to the image.
 COPY ./s2i/root/ /
+COPY ./s2i/api/ /
 
 ENV \
     # The $HOME is not set by default, but some applications needs this variable
