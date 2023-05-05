@@ -15,7 +15,17 @@ import { TableTotalFooter } from "./TotalFooter";
 export const TableComponents = (
   totalColumns: string[] | undefined,
   rows: GridRowsProp,
-  columns: GridColDef[]
+  columns: {
+    hide: boolean;
+    field: React.Key | null | undefined;
+    headerName:
+      | boolean
+      | React.ReactChild
+      | React.ReactFragment
+      | React.ReactPortal
+      | null
+      | undefined;
+  }[]
 ) => {
   const totals: Array<{ id: string; total: number }> = [];
   if (totalColumns && rows.length > 0) {

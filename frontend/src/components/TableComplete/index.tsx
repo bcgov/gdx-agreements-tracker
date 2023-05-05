@@ -13,7 +13,7 @@ import { CreateForm } from "components/CreateForm";
 import { EditForm } from "components/EditForm";
 import { useAxios } from "hooks/useAxios";
 import { IEditField, IInitialValues, IReturnValue } from "types";
-import { GridEventListener, GridEvents, GridInitialState } from "@mui/x-data-grid";
+import { GridEventListener, GridEvents, GridInitialState, GridRowParams } from "@mui/x-data-grid";
 
 export const TableComplete = ({
   itemName,
@@ -142,12 +142,12 @@ export const TableComplete = ({
   /**
    * Handle row click event from DataGrid.
    *
-   * @param {any} row The row that was clicked.
+   * @param {GridRowParams} params The row that was clicked.
    */
-  const handleRowClick: GridEventListener<GridEvents.rowClick> = (row) => {
-    handleCurrentRowData(row);
+  const handleRowClick = (params: GridRowParams) => {
+    handleCurrentRowData(params);
     if (getSelectedRow) {
-      getSelectedRow(row);
+      getSelectedRow(params);
     }
   };
 

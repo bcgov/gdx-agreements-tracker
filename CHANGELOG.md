@@ -1,11 +1,19 @@
 ## Developer Changelog
+
+**May 5, 2023**
+
+- Frontend
+  - Upgraded to mui-x version 6
+
 **May 5, 2023 (DESCW-1129)**
+
 - Backend
   - Updated packages dependencies
 
 **May 4, 2023 (DESCW-1105)**
+
 - Backend
-  - restored docx reports for Individual Projects 
+  - restored docx reports for Individual Projects
     - project status (most recent) Tab_17
     - project budget Tab_14
     - project quarterly Tab_16
@@ -25,10 +33,11 @@ fixed issue with duplicate clicks for dblocking mechanism
 | Backend |
 | -------- |
 
- - Added update migration update for db_lock table. 
- - Added debug for github actions
+- Added update migration update for db_lock table.
+- Added debug for github actions
 
 **May 3, 2023 (DESCW-1098)**
+
 - Backend
   - updated report controllers for Individual Projects
 - Frontend
@@ -36,6 +45,7 @@ fixed issue with duplicate clicks for dblocking mechanism
 
 **May2, 2023 Added DbLock to more sections**
 **May 2, 2023 (DESCW-1097)**
+
 - Backend
   - updated Tab_18 controller and model
   - created a project.js model for common project model queries
@@ -46,14 +56,14 @@ fixed issue with duplicate clicks for dblocking mechanism
 | Backend || Frontend |
 | -------- |
 
-- Added dblock to project contacts section. 
-- Added dblock to project agreements section. 
+- Added dblock to project contacts section.
+- Added dblock to project agreements section.
 
 **April 29, 2023 SQL injection prevention patch**
 | Backend |
 | -------- |
 
-- updated model for db_lock to use knex instead of raw to help prevent SQL injection.  
+- updated model for db_lock to use knex instead of raw to help prevent SQL injection.
 
 **April 28, 2023 (DESCW-1041) DB Locking Refactor Final**
 | Frontend |
@@ -67,7 +77,7 @@ fixed issue with duplicate clicks for dblocking mechanism
 - Made useFormLock for simplified and updated type definitions.
 - removed unnecessary async from useFormSubmit
 - changed "fields" config files to be called "formFields"
-- updated project details section to handle more functionality for efficiency elsewhere. 
+- updated project details section to handle more functionality for efficiency elsewhere.
 
 | Backend |
 | ------- |
@@ -75,7 +85,7 @@ fixed issue with duplicate clicks for dblocking mechanism
 - Made db_lock controller more efficient. Now it handles everything from checking lock, lock owner and adding locks all in one function.
 - Removed fastifyRowLockCheck and changed it to send back the payload now only. It is now called fastifyPayload.
 - Cleaned up the db_lock model to be more efficient and easier to read.
-- Changed all db_lock routes to be posts to allow for passing parameters.  Although all routes use the POST method, the model of those routes add, remove, and get respectively.
+- Changed all db_lock routes to be posts to allow for passing parameters. Although all routes use the POST method, the model of those routes add, remove, and get respectively.
 - Removed old db_lock validation from common validation schema
 - Updated projects validator to check for correct data and allow for null values where necessary.
 

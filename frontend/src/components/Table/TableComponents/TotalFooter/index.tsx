@@ -5,22 +5,33 @@ import React from "react";
 /**
  * Displays totals of column values in table footer.
  *
- * @param   {any}                                param0         Component props.
+ * @param   {boolean}                            param0         Component props.
  * @param   {Array<{id: string; total: number}>} param0.totals  Array of column ids and totals.
  * @param   {Array<GridColDef>}                  param0.columns Array of columns.
  * @returns {JSXElement}
  */
-export const TableTotalFooter = ({
-  totals,
-  columns,
-}: {
+
+type FooterColumns = {
+  hide: boolean;
+  field: React.Key | null | undefined;
+  headerName:
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
+};
+interface ITableTotalFooter {
   totals: Array<{ id: string; total: number }>;
-  columns: Array<GridColDef>;
-}) => {
+  columns: FooterColumns[];
+}
+
+export const TableTotalFooter = ({ totals, columns }: ITableTotalFooter) => {
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
       <Grid container spacing={1}>
-        {columns.map((column: GridColDef) => {
+        {columns.map((column: FooterColumns) => {
           if (column.hide) {
             return;
           }
