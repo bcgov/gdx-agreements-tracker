@@ -1,12 +1,14 @@
+# ImageStream node s2i
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   annotations:
-    description: The S2i build image for the backend api
+    description: The S2i build image for the backend api.
   labels:
     role: api
   name: gdx-agreements-tracker-node-s2i
 ---
+# ImageStream api-build
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
@@ -16,6 +18,7 @@ metadata:
     role: api
   name: gdx-agreements-tracker-api-build
 ---
+# ImageStream api-run
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
@@ -25,6 +28,7 @@ metadata:
     role: api
   name: gdx-agreements-tracker-api-run
 ---
+# BuildConfig node s2i
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
@@ -35,10 +39,12 @@ metadata:
   name: gdx-agreements-tracker-node-s2i
 spec:
   completionDeadlineSeconds: 1800
-  failedBuildsHistoryLimit: 2
+  failedBuildsHistoryLimit: 1
   successfulBuildsHistoryLimit: 2
   strategy:
     type: Docker
+    dockerStrategy:
+        dockerfilePath: Dockerfile.api
   source:
     contextDir: openshift/templates/images/nodejs
     git:
@@ -56,6 +62,7 @@ spec:
   runPolicy: Parallel
 
 ---
+# BuildConfig api-build
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
@@ -66,7 +73,7 @@ metadata:
   name: gdx-agreements-tracker-api-build
 spec:
   completionDeadlineSeconds: 1800
-  failedBuildsHistoryLimit: 2
+  failedBuildsHistoryLimit: 1
   successfulBuildsHistoryLimit: 2
   strategy:
     sourceStrategy:
@@ -98,6 +105,7 @@ spec:
         name: gdx-agreements-tracker-node-s2i:dev
     type: ImageChange
 ---
+# BuildConfig api-run
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
@@ -107,7 +115,7 @@ metadata:
     role: api
   name: gdx-agreements-tracker-api-run
 spec:
-  failedBuildsHistoryLimit: 2
+  failedBuildsHistoryLimit: 1
   successfulBuildsHistoryLimit: 2
   strategy:
     dockerStrategy:

@@ -4,6 +4,10 @@
 
 - Frontend
   - Upgraded to mui-x version 6
+**May 5, 2023 (DESCW-1128)**
+- OpenShift
+  - Created Kustomized deployments of ImageStreams and BuildConfigs
+  - Updated node s2i for api, which now includes auto migrations and seeds (no longer require manual commands by devs)
 
 **May 5, 2023 (DESCW-1129)**
 

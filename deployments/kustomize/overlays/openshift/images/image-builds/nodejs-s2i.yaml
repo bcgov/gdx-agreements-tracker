@@ -1,36 +1,12 @@
+# ImageStream for Node
+# Need to Update to use artifactory.
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   annotations:
     description: Keeps track of NodeJS images that originate from Dockerhub
   name: nodejs
-
 ---
-
-apiVersion: build.openshift.io/v1
-kind: BuildConfig
-metadata:
-  name: nodejs
-spec:
-  failedBuildsHistoryLimit: 2
-  successfulBuildsHistoryLimit: 2
-  dockerStrategy:
-    forcePull: true
-  source:
-    contextDir: openshift/templates/nodejs/
-    git:
-      ref: development
-      uri: https://github.com/bcgov/gdx-agreements-tracker.git
-    type: Git
-  strategy:
-    type: Docker
-  output:
-    to:
-      kind: ImageStreamTag
-      name: nodejs:latest
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
   
     
   

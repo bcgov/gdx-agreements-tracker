@@ -1,3 +1,4 @@
+# ImageStream for postgres-run
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
@@ -10,6 +11,7 @@ spec:
   lookupPolicy:
     local: true
 ---
+# BuildConfig for postgres-run
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
@@ -20,7 +22,7 @@ metadata:
   name: gdx-agreements-tracker-postgres-run
 spec:
   completionDeadlineSeconds: 1800
-  failedBuildsHistoryLimit: 2
+  failedBuildsHistoryLimit: 1
   successfulBuildsHistoryLimit: 2
   strategy:
     dockerStrategy:
