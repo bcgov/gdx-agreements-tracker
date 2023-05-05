@@ -1,0 +1,158 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: The S2i build image for the backend api
+  labels:
+    role: api
+  name: gdx-agreements-tracker-node-s2i
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: Build Image for the gdx agreements tracker application backend.
+  labels:
+    role: api
+  name: gdx-agreements-tracker-api-build
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: Final Image for the gdx agreements application backend.
+  labels:
+    role: api
+  name: gdx-agreements-tracker-api-run
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: The build that generates artifacts (html, javascript, images, etc)
+  labels:
+    role: api
+  name: gdx-agreements-tracker-node-s2i
+spec:
+  completionDeadlineSeconds: 1800
+  failedBuildsHistoryLimit: 2
+  successfulBuildsHistoryLimit: 2
+  strategy:
+    type: Docker
+  source:
+    contextDir: openshift/templates/images/nodejs
+    git:
+      ref: development
+      uri: https://github.com/bcgov/gdx-agreements-tracker.git
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-node-s2i:dev
+  resources:
+    limits:
+      cpu: 1
+      memory: 2Gi
+  runPolicy: Parallel
+
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: The build that generates artifacts (html, javascript, images, etc)
+  labels:
+    role: api
+  name: gdx-agreements-tracker-api-build
+spec:
+  completionDeadlineSeconds: 1800
+  failedBuildsHistoryLimit: 2
+  successfulBuildsHistoryLimit: 2
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-node-s2i:dev
+      incremental: false
+    type: Source
+  source:
+    contextDir: backend
+    dockerfile: ""
+    git:
+      ref: development
+      uri: https://github.com/bcgov/gdx-agreements-tracker.git
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-api-build:dev
+  resources:
+    limits:
+      cpu: 1
+      memory: 2Gi
+  triggers:
+  - type: ConfigChange
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-node-s2i:dev
+    type: ImageChange
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: Compiles the React application for GDX agreements tracker.
+  labels:
+    role: api
+  name: gdx-agreements-tracker-api-run
+spec:
+  failedBuildsHistoryLimit: 2
+  successfulBuildsHistoryLimit: 2
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-node-s2i:dev
+      incremental: false
+    type: Docker
+  source:
+    dockerfile: |-
+      FROM scratch
+      COPY tmp /opt/app-root
+      USER root
+      RUN chmod -R 777 /opt/app-root/src/database/production_seeds /opt/app-root/.npm
+      USER 1001
+      CMD /usr/local/s2i/run
+    images:
+    - from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-api-build:dev
+      paths:
+      - destinationDir: tmp
+        sourcePath: /opt/app-root/.
+    type: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-api-run:dev
+  resources:
+    limits:
+      cpu: "1"
+      memory: 4Gi
+    requests:
+      cpu: "1"
+      memory: 2Gi
+  runPolicy: Serial
+  triggers:
+  - type: ConfigChange
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-node-s2i:dev
+    type: ImageChange
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-api-build:dev
+    type: ImageChange

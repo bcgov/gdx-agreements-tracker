@@ -1,7 +1,5 @@
 kind: Template
-apiVersion: v1
-metadata:
-  name: nodejs-s2i
+apiVersion: template.openshift.io/v1
 parameters:
   - name: NAME
     displayName: "Name"

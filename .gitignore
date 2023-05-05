@@ -56,3 +56,4 @@ backend/temp.postgres
 
 # backups of open documents
 backend/reports/~*
+deployments/kustomize/overlays/experimental
