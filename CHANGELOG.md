@@ -1,5 +1,9 @@
 ## Developer Changelog
-** May 4, 2023 (DESCW-1105)**
+**May 5, 2023 (DESCW-1129)**
+- Backend
+  - Updated packages dependencies
+
+**May 4, 2023 (DESCW-1105)**
 - Backend
   - restored docx reports for Individual Projects 
     - project status (most recent) Tab_17
