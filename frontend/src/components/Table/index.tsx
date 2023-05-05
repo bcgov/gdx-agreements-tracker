@@ -26,7 +26,6 @@ export const Table = ({
         rows={rows}
         columns={columns}
         loading={loading}
-        disableExtendRowFullWidth={true}
         sx={(theme) => ({
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: allowEdit ? theme.palette.primary.main : "#606060",
@@ -39,8 +38,8 @@ export const Table = ({
             color: theme.palette.primary.contrastText,
           },
         })}
-        onRowClick={onRowClick as GridEventListener<GridEvents.rowClick>}
-        components={TableComponents(totalColumns, rows, columns)}
+        onRowClick={onRowClick as GridEventListener<GridEvents>}
+        // components={TableComponents(totalColumns, rows, columns)}
         initialState={initialState}
       />
     </StyledBox>

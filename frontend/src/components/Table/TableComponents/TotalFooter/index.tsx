@@ -10,17 +10,21 @@ import React from "react";
  * @param   {Array<GridColDef>}                  param0.columns Array of columns.
  * @returns {JSXElement}
  */
+
+type FooterColumns = { hide: any; field: React.Key | null | undefined; headerName: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }
+interface ITableTotalFooter {
+  totals: Array<{ id: string; total: number }>;
+  columns: FooterColumns[]
+}
+
 export const TableTotalFooter = ({
   totals,
   columns,
-}: {
-  totals: Array<{ id: string; total: number }>;
-  columns: Array<GridColDef>;
-}) => {
+}: ITableTotalFooter) => {
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
       <Grid container spacing={1}>
-        {columns.map((column: GridColDef) => {
+        {columns.map((column: FooterColumns) => {
           if (column.hide) {
             return;
           }

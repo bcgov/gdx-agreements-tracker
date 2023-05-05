@@ -26,7 +26,7 @@ export const Contracts: FC = () => {
   const initialState: GridInitialState = {
     filter: {
       filterModel: {
-        items: [{ columnField: "status", operatorValue: "equals", value: "Active" }],
+        items: [{ field: "status", operator: "equals", value: "Active" }],
       },
     },
   };

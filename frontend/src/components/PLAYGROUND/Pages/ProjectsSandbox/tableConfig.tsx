@@ -1,4 +1,4 @@
-import { GridColumns, GridInitialState } from "@mui/x-data-grid";
+import { GridInitialState } from "@mui/x-data-grid";
 import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCell";
 
 export const TableConfig = () => {
@@ -6,7 +6,7 @@ export const TableConfig = () => {
 
   const { LinkCell, selectedRow } = useRenderTableCell();
 
-  const tableColumns: GridColumns = [
+  const tableColumns = [
     {
       field: "project_number",
       headerName: "Project Number",
@@ -25,7 +25,7 @@ export const TableConfig = () => {
   const initialState: GridInitialState = {
     filter: {
       filterModel: {
-        items: [{ columnField: "status", operatorValue: "equals", value: "Active" }],
+        items: [{ field: "status", operator: "equals", value: "Active" }],
       },
     },
   };

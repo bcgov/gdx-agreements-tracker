@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { TableConfig } from "../Pages/ProjectsSandbox/tableConfig";
+import { TableConfig } from "../Pages/ProjectsSandbox/TableConfig";
 import { useFormatTableData } from "./useFormatTable";
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,8 +16,7 @@ export const Table = ({ apiEndPoint }: { apiEndPoint: string }) => {
       ) : (
         <DataGrid
           columns={tableColumns}
-          rows={data.data.data}
-          disableSelectionOnClick
+          rows={data.data.data}          
           initialState={initialState}
         />
       )}
