@@ -8,5 +8,5 @@
 #
 
 npx knex migrate:latest
-
+echo 'Starting up node server';
 exec node src/server.js
