@@ -16,7 +16,7 @@ const getAll = async (request, reply) => {
 
   try {
     const result = await reply.markdown(
-      path.join(__dirname, "..", "..", "docs", "Glossary", "Glossary.md")
+      path.join(__dirname, "..", "..", "..", "docs", "Glossary", "Glossary.md")
     );
     return result;
   } catch (err) {
