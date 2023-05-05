@@ -149,10 +149,5 @@ spec:
   - imageChange:
       from:
         kind: ImageStreamTag
-        name: gdx-agreements-tracker-node-s2i:dev
-    type: ImageChange
-  - imageChange:
-      from:
-        kind: ImageStreamTag
         name: gdx-agreements-tracker-api-build:dev
     type: ImageChange
