@@ -17,7 +17,6 @@ export const ProjectRegistrationSection = () => {
   const query = useFormData({
     url: `/projects/${projectId}`,
     tableName: "projects",
-    lockedRow: projectId as string,
   });
   const { readFields, editFields } = formFields(query.data);
 

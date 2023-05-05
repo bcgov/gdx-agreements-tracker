@@ -9,10 +9,10 @@ import { useAxios } from "hooks/useAxios";
  * @example apiEndPoint = 'projects'
  */
 
-export const useFormatTableData = ({ apiEndPoint }: { apiEndPoint: string }) => {
+export const useFormatTableData = (apiEndPoint: string) => {
   const { axiosAll } = useAxios();
   const getTableData = async () => {
-    const tableData = axiosAll()
+    return axiosAll()
       .get(apiEndPoint)
       // todo: Define a good type. "Any" type temporarily permitted.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,7 +30,6 @@ export const useFormatTableData = ({ apiEndPoint }: { apiEndPoint: string }) => 
             return { columns: [], rows: [] };
         }
       });
-    return tableData;
   };
 
   const { data, isLoading } = useQuery(apiEndPoint, getTableData, {
