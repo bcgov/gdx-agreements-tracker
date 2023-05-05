@@ -91,7 +91,14 @@ module.exports = {
         checkSetters: false,
       },
     ],
-    "jsdoc/newline-after-description": "error",
+    "jsdoc/tag-lines": [
+      "error",
+      "never",
+      {
+        startLines: 1
+      }
+      
+    ],
     // Require a return type. Don't require a return type description.
     "jsdoc/require-returns": "error",
     "jsdoc/require-returns-type": "error",
