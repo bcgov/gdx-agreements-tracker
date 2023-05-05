@@ -7,7 +7,6 @@ import { FormikValues } from "formik";
 interface IGetFormData {
   url: string;
   tableName: string;
-  lockedRow: string;
 }
 
 export const useFormData = ({ url, tableName }: IGetFormData) => {

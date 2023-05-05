@@ -1,46 +1,71 @@
-import { LinearProgress } from "@mui/material";
-import { useFormControls } from "hooks";
-import FormModal from "../FormModal";
-import { Table } from "../Table";
-import { useFormatTableData } from "../Table/useFormatTable";
-import InputForm from "../InputForm";
-import { TableConfig } from "../Pages/ProjectsSandbox/TableConfig";
+// /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
+// property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
+// hooks to manage state and fetch data from the API endpoint. It also uses the `TableConfig` function
+// to get the columns, initial state, and selected row for the table. */
 
-/* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
-property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
-hooks to manage state and fetch data from the API endpoint. It also uses the `TableConfig` function
-to get the columns, initial state, and selected row for the table. */
-const TableWithModal = ({ apiEndPoint }: { apiEndPoint: string }) => {
-  const { handleClose, formType, open } = useFormControls();
+// interface ITableWithModal {
+//   tableData: { data: any, isLoading: boolean }
+//   formFields?: {
+//     initialValues: {}
+//     readFields: {}[];
+//     editFields: IEditField[];
+//   },
+//   tableConfig: {}
+// }
+// const TableWithModal = ({ tableData, formFields, tableConfig }: ITableWithModal) => {
 
-  const { data, isLoading } = useFormatTableData({
-    apiEndPoint: apiEndPoint,
-  });
+//   return tableData.isLoading ? (
+//     <LinearProgress />
+//   ) : (
+//     <>
+//       <Table rows={tableData.data.data.data} tableConfig={tableConfig} />
+//       <FormModal open={open} handleClose={handleClose}>
+//         <div>e</div>
+//       </FormModal>
+//     </>
+//   );
+// };
 
-  const { tableColumns, initialState } = TableConfig();
-  return isLoading ? (
-    <LinearProgress />
-  ) : (
-    <>
-      {/* <Table columns={tableColumns} rows={data.data.data} initialState={initialState} /> */}
-      {/* TODO add this button back in future iteration. */}
-      {/* <Button
-        onClick={() => {
-          handleOpen();
-          handleEditMode(true);
-          handleFormType("new");
-        }}
-        variant="contained"a
-      >
-        Add New
-      </Button> */}
-      <FormModal open={open} handleClose={handleClose}>
-        {"new" === formType && <InputForm formType={formType} />}
-        {/* {formType === "read" && <ReadForm fields={selectedRow} />} */}
-        {"edit" === formType && <InputForm formType={formType} />}
-      </FormModal>
-    </>
+// export default TableWithModal;
+import { SetStateAction, useState } from "react";
+import { Modal } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import { useCallback } from "react";
+
+export const TableWithModal = () => {
+  const [selectedRow, setSelectedRow] = useState(null);
+  const handleClose = () => setSelectedRow(null);
+
+
+  const handleCellClick = (params: any) => {
+    setSelectedRow(params.row.id);
+  };
+
+  const getRowId = (row: any) => row.id;
+
+  const getRowParams = useCallback(
+    (params) => ({
+      onClick: () => {
+        if (params.field === 'id') {
+          handleCellClick(params);
+        }
+      },
+    }),
+    [handleCellClick]
   );
-};
 
-export default TableWithModal;
+  return (
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={[]}
+        columns={[]}
+        getRowId={getRowId}
+        getRowParams={getRowParams}
+      />
+      {selectedRow && (
+        // <Modal handleClose={handleClose} selectedRow={selectedRow} />
+        <div>3</div>
+      )}
+    </div>
+  );
+}
