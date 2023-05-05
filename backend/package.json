@@ -35,7 +35,7 @@
   "dependencies": {
     "@fastify/auth": "^4.2.0",
     "@fastify/cors": "^8.2.0",
-    "axios": "^0.24.0",
+    "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "fastify": "^4.17.0",
@@ -43,7 +43,7 @@
     "fastify-plugin": "^4.5.0",
     "fluent-json-schema": "^4.1.0",
     "jsonwebtoken": "^9.0.0",
-    "jwks-client": "^1.4.0",
+    "jwks-client": "^1.4.3",
     "knex": "^2.4.2",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
