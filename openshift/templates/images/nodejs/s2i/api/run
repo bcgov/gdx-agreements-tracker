@@ -7,6 +7,10 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-npx knex migrate:latest
-
+echo "Running migration $(npx knex migrate:latest)" >&2
+echo "seed:run 01_capabilities.js $(npx knex seed:run --specific '01_capabilities.js')" >&2
+echo "seed:run 02_role_capabilities.js $(npx knex seed:run --specific '02_role_capabilities.js')" >&2
+echo "seed:run 08_picker_options.js $(npx knex seed:run --specific '08_picker_options.js')" >&2
+echo "seed:run 09_form_layouts.js $(npx knex seed:run --specific '09_form_layouts.js')" >&2
+echo 'Starting node server' >&2;
 exec node src/server.js

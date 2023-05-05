@@ -1,5 +1,5 @@
 # build env.
-FROM node:16.16.0-alpine3.16
+FROM node:18.14.0-alpine3.17
 WORKDIR /app
 COPY public/ public/
 COPY src/ src/
@@ -8,4 +8,4 @@ ADD tsconfig.json .
 ADD .eslintrc.js .
 ADD .prettierrc.js .
 RUN yarn
-RUN yarn build --prod
+RUN yarn build --openssl-legacy-provider --prod

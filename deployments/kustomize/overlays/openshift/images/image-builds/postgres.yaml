@@ -1,0 +1,48 @@
+# ImageStream for postgres-run
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: Keeps track of changes to the final runtime deploy image
+  labels:
+    role: postgres
+  name: gdx-agreements-tracker-postgres-run
+spec:
+  lookupPolicy:
+    local: true
+---
+# BuildConfig for postgres-run
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: PostgreSQL runtime container
+  labels:
+    role: postgres
+  name: gdx-agreements-tracker-postgres-run
+spec:
+  completionDeadlineSeconds: 1800
+  failedBuildsHistoryLimit: 1
+  successfulBuildsHistoryLimit: 2
+  strategy:
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+    type: Docker
+  source:
+    contextDir: /openshift/templates/images/postgres
+    git:
+      ref: development
+      uri: https://github.com/bcgov/gdx-agreements-tracker.git
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-postgres-run:dev
+  resources:
+    limits:
+      cpu: "1"
+      memory: 6Gi
+  runPolicy: Serial
+  
+  
+  

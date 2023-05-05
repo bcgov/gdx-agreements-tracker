@@ -1,0 +1,33 @@
+# ImageStream nginx-run
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    role: nginx
+  name: gdx-agreements-tracker-nginx-run
+---
+# BuildConfig nginx-run
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: Creates the Nginx runtime container.
+  labels:
+    role: nginx
+  name: gdx-agreements-tracker-nginx-run
+spec:
+  failedBuildsHistoryLimit: 1
+  successfulBuildsHistoryLimit: 2
+  strategy:
+    type: Docker
+  source:
+    contextDir: openshift/templates/images/nginx/docker
+    git:
+      ref: development
+      uri: https://github.com/bcgov/gdx-agreements-tracker.git
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-nginx-run:dev
+  runPolicy: Serial

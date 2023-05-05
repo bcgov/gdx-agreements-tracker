@@ -1,0 +1,117 @@
+# ImageStream app-build
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: This is the image stream for the app build, this will then get combined with nginx
+  labels:
+    role: app
+  name: gdx-agreements-tracker-app-build
+
+---
+# ImageStream app-run
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: This is the image stream for the app run
+  labels:
+    role: app
+  name: gdx-agreements-tracker-app-run
+
+---
+# BuildConfig app-build
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: Compiles the React application for GDX agreements tracker.
+  labels:
+    role: app
+  name: gdx-agreements-tracker-app-build
+spec:
+  failedBuildsHistoryLimit: 1
+  successfulBuildsHistoryLimit: 2
+  strategy:
+    type: Docker
+  source:
+    contextDir: frontend
+    dockerfile: ""
+    git:
+      ref: development
+      uri: https://github.com/bcgov/gdx-agreements-tracker.git
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-app-build:dev
+  resources:
+    limits:
+      cpu: "2"
+      memory: 8Gi
+    requests:
+      cpu: "2"
+      memory: 7Gi
+  runPolicy: Serial
+  triggers:
+  - type: ConfigChange
+
+---
+# BuildConfig app-build
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: Compiles the React application for GDX agreements tracker.
+  labels:
+    role: app
+  name: gdx-agreements-tracker-app-run
+spec:
+  failedBuildsHistoryLimit: 1
+  successfulBuildsHistoryLimit: 2
+  source:
+    dockerfile: |-
+      FROM gdx-agreements-tracker-nginx-run:dev
+      COPY * /tmp/app/dist/
+      USER root
+      RUN ln -sf /etc/nginx/publicServerEnvironmentSettings.js  /tmp/app/dist/publicServerEnvironmentSettings.js
+      USER 104
+      CMD  /usr/libexec/s2i/run
+    images:
+    - from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-app-build:dev
+      paths:
+      - destinationDir: tmp
+        sourcePath: /app/build/.
+    type: Dockerfile
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-nginx-run:dev
+    type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-app-run:dev
+  resources:
+    limits:
+      cpu: "1"
+      memory: 4Gi
+    requests:
+      cpu: "1"
+      memory: 2Gi
+  runPolicy: Serial
+  triggers:
+  - type: ConfigChange
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-nginx-run:dev
+    type: ImageChange
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-app-build:dev
+    type: ImageChange

@@ -1,5 +1,5 @@
 # Base alpine images with node.js
-FROM node:16.16.0-alpine3.16
+FROM node:18.14-alpine3.17
 
 ENV BUILDER_VERSION 1.0
 
@@ -18,6 +18,7 @@ LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
 
 # Copy extra files to the image.
 COPY ./s2i/root/ /
+COPY ./s2i/api/ /
 
 ENV \
     # The $HOME is not set by default, but some applications needs this variable

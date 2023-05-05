@@ -1,0 +1,12 @@
+# ImageStream for Node
+# Need to Update to use artifactory.
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: Keeps track of NodeJS images that originate from Dockerhub
+  name: nodejs
+---
+  
+    
+  
