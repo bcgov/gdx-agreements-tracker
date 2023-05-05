@@ -1,4 +1,8 @@
 ## Developer Changelog
+**May 5, 2023**
+- Frontend
+  - Upgraded to mui-x version 6
+
 **May 5, 2023 (DESCW-1129)**
 - Backend
   - Updated packages dependencies

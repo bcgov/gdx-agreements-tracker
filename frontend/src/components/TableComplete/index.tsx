@@ -142,7 +142,7 @@ export const TableComplete = ({
   /**
    * Handle row click event from DataGrid.
    *
-   * @param {any} row The row that was clicked.
+   * @param {GridRowParams} params The row that was clicked.
    */
   const handleRowClick = (params: GridRowParams) => {
     handleCurrentRowData(params);

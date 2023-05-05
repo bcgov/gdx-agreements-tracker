@@ -14,11 +14,7 @@ export const Table = ({ apiEndPoint }: { apiEndPoint: string }) => {
       {isLoading ? (
         <div>loading</div>
       ) : (
-        <DataGrid
-          columns={tableColumns}
-          rows={data.data.data}          
-          initialState={initialState}
-        />
+        <DataGrid columns={tableColumns} rows={data.data.data} initialState={initialState} />
       )}
     </>
   );
