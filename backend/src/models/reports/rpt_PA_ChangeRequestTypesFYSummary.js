@@ -16,9 +16,8 @@ const handleParams = (query, requestParams) => {
 
 module.exports = {
   changeRequestTypes: (requestParams) => {
-    const query = knex
-      .select(
-        knex.raw(`
+    const query = knex.select(
+      knex.raw(`
           project_number,
           project_name,
           fiscal_year,
@@ -85,7 +84,7 @@ module.exports = {
             cr_count.cr_count,
             coalesce(cr.initiated_by, 'None')
         ) AS q `) // end knex.raw()
-      ) // end knex.select()
+    ) // end knex.select()
       .groupByRaw(`
         project_number,
         project_name,
@@ -96,8 +95,7 @@ module.exports = {
         schedule_sum,
         scope_sum,
         none_sum
-      `)
-      .orderByRaw(`
+      `).orderByRaw(`
       project_number, fiscal_year
       `);
     handleParams(query, requestParams);
