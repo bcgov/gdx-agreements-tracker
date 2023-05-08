@@ -84,7 +84,7 @@ module.exports = {
             fy.id,
             cr_count.cr_count,
             coalesce(cr.initiated_by, 'None')
-        ) AS q -- end outer FROM clause`) // end knex.raw()
+        ) AS q `) // end knex.raw()
       ) // end knex.select()
       .groupByRaw(`
         project_number,
