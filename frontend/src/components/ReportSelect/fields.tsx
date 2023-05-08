@@ -354,7 +354,7 @@ export const reportDescription = {
     {
       value:
         "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
-      reportType: "multi_year_statistics_for_project_change_requests",
+      reportType: "rpt_PA_ChangeRequestTypesFYSummary",
     },
   ],
 };
