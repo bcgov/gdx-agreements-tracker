@@ -1,10 +1,11 @@
-#e# Developer Changelog
+## Developer Changelog
 **May 8, 2023**
+
 - Backend
-  - add multi-year change request summary report query
-  - includes controller, model, and route changes
+  - Add model, controller, and route for multi-year changerequest summary report.
 
 **May 5, 2023**
+
 - Frontend
   - Upgraded to mui-x version 6
 **May 5, 2023 (DESCW-1128)**
@@ -22,16 +23,6 @@ Upgrade node docker builds to 18.14
 **May 4, 2023 (DESCW-1105)**
 
 - Backend
-**May 4, 2023  (DESCW-1074)**
-| Backend |
-| -------- |
-- add model/controller/route for change request types FY summary report
-- add blank template
-
-
-**May 4, 2023 (DESCW-1105)**
-| Backend |
-| -------- |
   - restored docx reports for Individual Projects
     - project status (most recent) Tab_17
     - project budget Tab_14
@@ -52,8 +43,8 @@ fixed issue with duplicate clicks for dblocking mechanism
 | Backend |
 | -------- |
 
- - Added update migration update for db_lock table.
- - Added debug for github actions
+- Added update migration update for db_lock table.
+- Added debug for github actions
 
 **May 3, 2023 (DESCW-1098)**
 
