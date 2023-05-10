@@ -1,4 +1,17 @@
 ## Developer Changelog
+
+**May 10, 2023 (DESCW-1073)**
+
+- Backend
+  - enable pdf output
+  - adjust model somewhat
+  - structure model JSON to group rows by project_number
+- Frontend
+  - finish template
+  - make fiscal year a required parameter
+  - add try/catch block to alert users of cdogs timeout
+  - remove change request reports from report list (DESCW-1076)
+
 **May 8, 2023**
 
 - Backend
@@ -8,7 +21,7 @@
 
 - Frontend
   - Upgraded to mui-x version 6
-**May 5, 2023 (DESCW-1128)**
+    **May 5, 2023 (DESCW-1128)**
 - OpenShift
   - Created Kustomized deployments of ImageStreams and BuildConfigs
   - Updated node s2i for api, which now includes auto migrations and seeds (no longer require manual commands by devs)
@@ -17,8 +30,8 @@
 
 - Backend
   - Updated packages dependencies
-**May 4, 2023 (DESCW-1128)**
-Upgrade node docker builds to 18.14
+    **May 4, 2023 (DESCW-1128)**
+    Upgrade node docker builds to 18.14
 
 **May 4, 2023 (DESCW-1105)**
 
