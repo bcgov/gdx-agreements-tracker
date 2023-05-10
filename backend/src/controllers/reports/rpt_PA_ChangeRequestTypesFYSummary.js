@@ -7,12 +7,12 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
 
 controller.getReport = getReport;
 
 /**
- * Get a Change Request by fiscal year Summary Report for a specific fiscal year range.
+ * Get a Change Request by fiscal year Summary Report for a specific fiscal year.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
@@ -22,11 +22,13 @@ controller.rpt_PA_ChangeRequestTypesFYSummary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
-    const changeRequestTypes = await model.changeRequestTypes(request.query);
+    const crt = await model.changeRequestTypes(request.query);
+
+    // Chunk model info so template engine can parse it
+    const change_requests = groupByProperty(crt, "project_number");
+
     // Lay out final JSON body for api call to cdogs server
-    const result = {
-      changeRequestTypes,
-    };
+    const result = change_requests;
 
     const body = await getDocumentApiBody(result, "rpt_PA_ChangeRequestTypesFY-Summary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
