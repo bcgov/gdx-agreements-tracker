@@ -34,7 +34,7 @@ module.exports = {
           fy.fiscal_year AS fiscal_year,
           fy.id AS fiscal,
           cr_count.cr_count AS total_crs,
-          coalesce(cr.initiated_by, 'None') AS cr_initiated_by,
+          coalesce(cr.initiated_by, 'None') AS initiated_by,
           sum(
             CASE
               WHEN crtype.crtype_name = 'Budget' THEN 1

@@ -6,11 +6,8 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/rpt_PA_ChangeRequestTypesFYSummary`,
-    handler: controller.rpt_PA_ChangeRequestTypesFYSummary,
-    // uncomment this when the template is built.
-    /*onRequest: controller.rpt_PA_ChangeRequestTypesFYSummary,
+    onRequest: controller.rpt_PA_ChangeRequestTypesFYSummary,
     handler: controller.getReport,
-    */
   },
 ];
 const registerRoutes = (fastify, options, done) => {

@@ -24,11 +24,8 @@ import {
 export const ReportSelect = () => {
   const { axiosAll } = useAxios();
   // todo: These reports will download as a json file temporarily. Remove when templates are created.
-  const jsonReports = [
-    "project-dashboard",
-    "contract-summary",
-    "rpt_PA_ChangeRequestTypesFYSummary",
-  ];
+  const jsonReports = ["project-dashboard", "contract-summary"];
+
   // Handle state changes
   const [category, setCategory] = useState<string>();
   const [reportParamCategory, setReportParamCategory] = useState<
@@ -165,15 +162,20 @@ export const ReportSelect = () => {
           responseType: "blob",
         })
         .then((response) => {
-          const fileURL = window.URL.createObjectURL(response.data);
-          const alink = document.createElement("a");
-          alink.href = fileURL;
-          if (jsonReports.includes(reportUri)) {
-            alink.download = `${values.report_type}.json`;
-          } else {
-            alink.download = `${values.report_type}.pdf`;
+          // attn: Adam - Handle the error gracefully - to be addressed in a future ticket
+          try {
+            const fileURL = window.URL.createObjectURL(response?.data);
+            const alink = document.createElement("a");
+            alink.href = fileURL;
+            if (jsonReports.includes(reportUri)) {
+              alink.download = `${values.report_type}.json`;
+            } else {
+              alink.download = `${values.report_type}.pdf`;
+            }
+            alink.click();
+          } catch (err) {
+            alert(err);
           }
-          alink.click();
         });
     } catch (err) {
       // Handle the error gracefully - to be addressed in a future ticket
