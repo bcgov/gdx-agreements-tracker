@@ -22,4 +22,4 @@ echo "---> Installing application source..."
 cp -Rf /tmp/src/. ./
 
 echo "---> Installing distributable dependencies..."
-npm install --production
+npm install --omit=dev
