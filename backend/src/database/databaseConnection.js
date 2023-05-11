@@ -45,8 +45,7 @@ const databaseConnection = () => {
       host: connection?.host,
       port: connection?.port,
       database: connection?.database,
-      user: connection?.user
-      
+      user: connection?.user,
     });
     let connectOk = await checkConnection();
 
