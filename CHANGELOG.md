@@ -1,4 +1,10 @@
 ## Developer Changelog
+**May 11, 2023 (DEWCW-1130)**
+- bumped postgres version
+- Fixed s2i build to use omit=dev
+- Backend
+  - removed n-readlines from devDevelopment (Backend)
+  - removed sensitive information in logging
 
 **May 10, 2023 (DESCW-1073)**
 

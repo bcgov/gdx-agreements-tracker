@@ -40,9 +40,12 @@ const databaseConnection = () => {
    */
   const checkAll = async () => {
     const connection = knex.context.client.config.connection;
+
     log.info("Connecting to database... %o", {
-      connection,
-      password: "*** ***",
+      host: connection?.host,
+      port: connection?.port,
+      database: connection?.database,
+      user: connection?.user,
     });
     let connectOk = await checkConnection();
 
