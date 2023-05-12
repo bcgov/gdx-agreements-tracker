@@ -64,7 +64,7 @@ const findById = (id) => {
     .from(`${projectDeliverableTable} as prd`)
     .leftJoin(`${projectTable} as proj`, { "prd.project_id": "proj.id" })
     .leftJoin(`${fiscalYearTable} as fy`, { "prd.fiscal": `fy.id` })
-    .join(`${healthIndicatorTable} as ph`, "prd.health_id", "ph.id")
+    .leftJoin(`${healthIndicatorTable} as ph`, "prd.health_id", "ph.id")
     .where("prd.id", id)
     .first();
 };

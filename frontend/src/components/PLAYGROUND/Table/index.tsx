@@ -3,23 +3,32 @@ import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Table = ({ columns, rows, tableConfig }: any) => {
+export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
 
 
-  const { tableColumns, initialState, selectedRow } = tableConfig
-  console.log('tableColumns', tableColumns)
+  const { tableColumns, initialState } = tableConfig
   const StyledBox = styled(Box)({
     overflowX: "scroll",
     maxHeight: "80vh",
     width: "100%",
   });
+
+  const StyledDataGrid = styled(DataGrid)(() => ({
+      //Remove cell selection border
+    '& .MuiDataGrid-cell:focus': {
+      outline: 'none',
+    },
+  }));
+
+
   return (
     <StyledBox>
-      <DataGrid
-       autoHeight
+      <StyledDataGrid
+        autoHeight
         columns={tableColumns}
         rows={rows}
         initialState={initialState}
+        onRowDoubleClick={handleRowDoubleClick}
       />
     </StyledBox>
   );

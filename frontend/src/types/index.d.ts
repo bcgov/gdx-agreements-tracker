@@ -180,7 +180,7 @@ export interface IFormControls {
   handleCurrentRowData: Function;
   open: boolean;
   editMode: boolean;
-  currentRowData: unknown;
+  currentRowData: { id };
 }
 
 export interface IUseFormSubmitHandleSubmit {

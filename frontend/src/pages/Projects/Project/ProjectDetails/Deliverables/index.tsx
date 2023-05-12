@@ -1,5 +1,5 @@
 import { TableComplete } from "components/TableComplete";
-import React from "react";
+import React, { useEffect } from "react";
 
 
 
@@ -41,54 +41,32 @@ import React from "react";
 
 
 
-import {TableWithModal} from "components/PLAYGROUND/TableWithModal"
-import { formFields } from "./formFields"
-import { useFormData } from "hooks/useFormData";
-import { TableConfig } from "./TableConfig";
+import { TableWithModal } from "components/PLAYGROUND/TableWithModal"
+import { formConfig } from "./formConfig"
 import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
 import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCell";
+import { tableConfig } from "./tableConfig";
 import { useFormControls } from "hooks";
+import { useFormData } from "hooks/useFormData";
+import { IFormControls } from "types";
 
 
 
 export const DeliverablesSection = () => {
   const { projectId } = useParams();
 
-  const formData = useFormData({
-    url: `projects/deliverables/{id}`,
-    tableName: "projects",
-  });
-
   const tableData = useFormatTableData(`projects/${projectId}/deliverables`);
-
-  const {
-    handleEditMode,
-    handleOpen,
-    handleClose,
-    handleCurrentRowData,
-    handleFormType,
-    formType,
-    open,
-    editMode,
-    currentRowData,
-  } = useFormControls();
 
   const { ModalToggleCell, selectedRow } = useRenderTableCell();
 
-  const tableConfig = TableConfig()
+  const formControls: IFormControls = useFormControls();
 
-  tableConfig.tableColumns[0].renderCell = ModalToggleCell
-
-  // const apiEndPoint = {
-  //   getAll: `projects/${projectId}/deliverables`,
-  //   getOne: `projects/deliverables/{id}`,
-  //   updateOne: `projects/deliverables/{id}`,
-  //   addOne: `projects/deliverables`,
-  // };
-
-  // console.log('tableConfig', tableConfig)
-  console.log('tableData', tableData)
-
-  return <TableWithModal  />
+  const formData = useFormData({
+    url: `/projects/deliverables/${formControls.currentRowData?.id}`,
+    tableName: "project_deliverable",
+  });
+  console.log("rendered");
+  
+  return <TableWithModal tableConfig={tableConfig()} tableData={tableData} formControls={formControls} formConfig={formConfig(formData)} formData={formData} />
 }
