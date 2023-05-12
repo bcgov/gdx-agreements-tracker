@@ -7,11 +7,11 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig } = utils;
 controller.getReport = getReport;
 
 /**
- * Get a Net Recovery Summary Report by Quarter
+ * Get a Project rollup Report for a specific array of portfolio.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
@@ -22,34 +22,23 @@ controller.Tab_50_rpt_PF_NetRecoverySummaryByQuarter = async (request, reply) =>
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
-    console.log("start");
-    const netRecovery = model.Tab_50_rpt_PF_NetRecoverySummaryByQuarter(request.query);
-    console.log("end");
 
-    console.log("NET RECOVERY 123", netRecovery);
-    /*
     const result = {
-      net_recovery_summary: netRecovery,
       report_date: await getDate(),
     };
-    */
 
-    /*
     const body = await getDocumentApiBody(result, "Tab_50_rpt_PF_NetRecoverySummaryByQuarter.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Inject the pdf data into the request object
     request.data = pdf;
-    */
 
-    /*
     if (!result) {
       reply.code(404);
       return { message: `The ${what.single} with the specified id does not exist.` };
     } else {
       return result;
     }
-    */
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);

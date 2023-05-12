@@ -6,11 +6,8 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/projects/Tab_50_rpt_PF_NetRecoverySummaryByQuarter`,
-    /*
     onRequest: controller.Tab_50_rpt_PF_NetRecoverySummaryByQuarter,
     handler: controller.getReport,
-    */
-    handler: controller.Tab_50_rpt_PF_NetRecoverySummaryByQuarter,
   },
 ];
 const registerRoutes = (fastify, options, done) => {
