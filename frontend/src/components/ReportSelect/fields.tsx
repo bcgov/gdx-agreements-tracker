@@ -263,6 +263,18 @@ export const reportType = {
         },
       ],
     },
+    {
+      reportCategory: "divisional_project_reports",
+      value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
+      label: "Net Recovery Summary By Quarter",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
+    },
   ],
 };
 

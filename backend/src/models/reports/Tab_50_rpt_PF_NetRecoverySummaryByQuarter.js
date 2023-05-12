@@ -1,15 +1,36 @@
+// const dbConnection = require("@database/databaseConnection");
+// const { knex, dataBaseSchemas } = dbConnection();
+
+// const projectTable = `${dataBaseSchemas().data}.project`;
+
+// /**
+//  * Gets data for the Divisional Project Reports > net recovery summary by quarter (tab 50)
+//  *
+//  * @returns {any[]}
+//  */
+
+// const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
+//   return knex(`${projectTable} as p`).select('*');
+// };
+
+// const handleParams = (query, requestParams) => {
+//   if (requestParams.fiscal) {
+//     query.where("p.fiscal", requestParams.fiscal);
+//   }
+// };
+
+// module.exports = {
+//   Tab_50_rpt_PF_NetRecoverySummaryByQuarter,
+// };
+
 const dbConnection = require("@database/databaseConnection");
-const { knex } = dbConnection();
+const { knex, dataBaseSchemas } = dbConnection();
 
-/**
- * Gets data for the Divisional Project Reports - Project Dashboard report.
- *
- * @returns {any[]}
- */
-const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = () => {
-  const query = knex().raw();
+const table = `${dataBaseSchemas().config}.form_layouts`;
 
-  return query;
+// Get all.
+const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
+  return knex(table);
 };
 
 module.exports = {
