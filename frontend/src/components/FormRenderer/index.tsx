@@ -92,7 +92,6 @@ export const FormRenderer = ({
     });
   };
 
-
   /**
    * This function handles a change event by locking a database, refetching data, and updating the
    * form type to "edit".
@@ -101,7 +100,7 @@ export const FormRenderer = ({
     await handleDbLock(query, rowsToLock).then(async (lockData: ILockData) => {
       if (!lockData.data.locked) {
         handleFormType("edit");
-        return
+        return;
       }
       confirm(
         `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`

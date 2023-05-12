@@ -7,7 +7,7 @@ export const tableConfig = () => {
     {
       field: "deliverable_name",
       headerName: "Deliverable Name",
-      flex: defaultFlex
+      flex: defaultFlex,
     },
     { field: "description", headerName: "Description", flex: defaultFlex },
     { field: "start_date", headerName: "start_date", flex: defaultFlex },
@@ -30,8 +30,7 @@ export const tableConfig = () => {
     },
   };
 
-  const modalToggleColumn = "deliverable_name"
+  const modalToggleColumn = "deliverable_name";
 
   return { tableColumns, initialState, modalToggleColumn };
 };
-

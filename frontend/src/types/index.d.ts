@@ -409,3 +409,39 @@ export interface IContactRole {
   role_type: string;
   contacts: Array<IOption>;
 }
+
+export type TFormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  readFields: {
+    width: string;
+    title: string;
+    value: string | number | boolean;
+  }[];
+  editFields: IEditField[];
+  initialValues: {};
+  rowsToLock: number[];
+  queryKey: string;
+  postUrl: string;
+  updateUrl: string;
+};
+
+export interface ITableWithModalData {
+  data: {
+    data: {
+      data: {
+        [key: string]: unknown;
+      };
+    };
+  };
+  isLoading: boolean;
+}
+export interface ITableWithModal {
+  tableData: ITableWithModalData;
+  tableConfig: { modalToggleColumn: string };
+  formControls: IFormControls;
+  formConfig: TFormConfig;
+  formData: UseQueryResul<FormikValues>;
+}
+
+export interface IRowDoubleClickParams {
+  row: { [key: string]: string | number | boolean };
+}

@@ -12,24 +12,26 @@ import { useAxios } from "hooks/useAxios";
 export const useFormatTableData = (apiEndPoint: string) => {
   const { axiosAll } = useAxios();
   const getTableData = async () => {
-    return axiosAll()
-      .get(apiEndPoint)
-      // todo: Define a good type. "Any" type temporarily permitted.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then((tableData: any) => {
-        return tableData;
-      })
-      .catch((error) => {
-        switch (error.status) {
-          case 404:
-            console.error(error);
-            return { columns: [], rows: [] };
+    return (
+      axiosAll()
+        .get(apiEndPoint)
+        // todo: Define a good type. "Any" type temporarily permitted.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .then((tableData: any) => {
+          return tableData;
+        })
+        .catch((error) => {
+          switch (error.status) {
+            case 404:
+              console.error(error);
+              return { columns: [], rows: [] };
 
-          case 500:
-            console.error(error);
-            return { columns: [], rows: [] };
-        }
-      });
+            case 500:
+              console.error(error);
+              return { columns: [], rows: [] };
+          }
+        })
+    );
   };
 
   const { data, isLoading } = useQuery(apiEndPoint, getTableData, {
