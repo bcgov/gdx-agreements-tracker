@@ -1,4 +1,18 @@
 ## Developer Changelog
+
+**May 12, 2023 (DESCW-1102)**
+
+- Backend
+  - Updated model, validators for deliverables
+
+- Frontend
+  - Updated new Table component to be more reusable
+  - Add hook useFormatTableData for formatting table data
+  - Updated new Table with modal to be more reusable
+  - Removed unused code
+  - Updated deliverables section to use new tablewithmodal 
+  
+
 **May 11, 2023 (DEWCW-1130)**
 - bumped postgres version
 - Fixed s2i build to use omit=dev
