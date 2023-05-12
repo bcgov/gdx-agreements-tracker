@@ -33,7 +33,11 @@ export const useFormatTableData = (apiEndPoint: string) => {
   };
 
   const { data, isLoading } = useQuery(apiEndPoint, getTableData, {
-    refetchOnMount: "always",
+    refetchOnWindowFocus: false,
+    retryOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: Infinity,
   });
   return { data, isLoading };
 };

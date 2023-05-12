@@ -1,9 +1,9 @@
-import { GridColumns, GridInitialState } from "@mui/x-data-grid";
+import { GridColDef, GridInitialState } from "@mui/x-data-grid";
 import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCell";
 
-export const TableConfig = () => {
+export const tableConfig = () => {
   const defaultFlex = 3;
-  const tableColumns: GridColumns = [
+  const tableColumns: GridColDef[] = [
     {
       field: "deliverable_name",
       headerName: "Deliverable Name",
@@ -22,7 +22,7 @@ export const TableConfig = () => {
     { field: "is_expense", headerName: "is_expense", flex: defaultFlex },
   ];
 
-  const initialState: GridInitialState = {
+  const initialState = {
     filter: {
       filterModel: {
         items: [{ columnField: "status", operatorValue: "equals", value: "Active" }],
@@ -30,6 +30,8 @@ export const TableConfig = () => {
     },
   };
 
-  return { tableColumns, initialState };
+  const modalToggleColumn = "deliverable_name"
+
+  return { tableColumns, initialState, modalToggleColumn };
 };
 
