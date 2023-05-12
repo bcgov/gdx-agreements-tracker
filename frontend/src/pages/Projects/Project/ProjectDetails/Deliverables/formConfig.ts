@@ -3,7 +3,7 @@ import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
 import { IEditField } from "types";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse<any, any>, unknown>) => {
+export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const readFields = !query
     ? []
     : [

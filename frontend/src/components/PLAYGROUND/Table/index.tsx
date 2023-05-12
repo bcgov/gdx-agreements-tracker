@@ -4,9 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
-
-
-  const { tableColumns, initialState } = tableConfig
+  const { tableColumns, initialState } = tableConfig;
   const StyledBox = styled(Box)({
     overflowX: "scroll",
     maxHeight: "80vh",
@@ -14,12 +12,11 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
   });
 
   const StyledDataGrid = styled(DataGrid)(() => ({
-      //Remove cell selection border
-    '& .MuiDataGrid-cell:focus': {
-      outline: 'none',
+    //Remove cell selection border
+    "& .MuiDataGrid-cell:focus": {
+      outline: "none",
     },
   }));
-
 
   return (
     <StyledBox>
