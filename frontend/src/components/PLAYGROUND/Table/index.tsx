@@ -20,13 +20,15 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
 
   return (
     <StyledBox>
-      <StyledDataGrid
-        autoHeight
-        columns={tableColumns}
-        rows={rows}
-        initialState={initialState}
-        onRowDoubleClick={handleRowDoubleClick}
-      />
+      {rows && (
+        <StyledDataGrid
+          autoHeight
+          columns={tableColumns}
+          rows={rows}
+          initialState={initialState}
+          onRowDoubleClick={handleRowDoubleClick}
+        />
+      )}
     </StyledBox>
   );
 };
