@@ -57,12 +57,21 @@
 //   );
 // };
 
-import { ProjectsSandbox } from "components/PLAYGROUND/Pages/ProjectsSandbox";
+import { Table } from "components/PLAYGROUND/Table";
+import { useFormData } from "hooks/useFormData";
+import { tableConfig } from "./tableConfig";
+import { redirect } from "react-router-dom";
 
 export const Projects = () => {
-  return (
-    <>
-      <ProjectsSandbox />
-    </>
-  );
+
+  const rows = useFormData({
+    url: `projects`,
+    tableName: "projects",
+  });
+  console.log('rows', rows)
+  const handleRowDoubleClick = (row:any) => {
+    console.log('row', row)
+    // redirect('/projects/test')
+  }
+  return <Table rows={rows?.data?.data?.data} tableConfig={tableConfig()} handleRowDoubleClick={handleRowDoubleClick} />;
 };

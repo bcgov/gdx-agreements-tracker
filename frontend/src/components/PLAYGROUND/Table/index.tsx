@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
   const { tableColumns, initialState } = tableConfig;
+  console.log('tableConfig', tableConfig)
   const StyledBox = styled(Box)({
     overflowX: "scroll",
     maxHeight: "80vh",
@@ -20,13 +21,13 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
 
   return (
     <StyledBox>
-      <StyledDataGrid
+      {rows && <StyledDataGrid
         autoHeight
         columns={tableColumns}
         rows={rows}
         initialState={initialState}
         onRowDoubleClick={handleRowDoubleClick}
-      />
+      />}
     </StyledBox>
   );
 };
