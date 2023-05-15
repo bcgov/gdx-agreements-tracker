@@ -22,10 +22,22 @@ controller.Tab_50_rpt_PF_NetRecoverySummaryByQuarter = async (request, reply) =>
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
+    const report = await model.Tab_50_rpt_PF_NetRecoverySummaryByQuarter(request.query.fiscal);
 
     const result = {
       report_date: await getDate(),
+      report,
     };
+
+    console.log(`
+
+
+
+    OUTPUT
+
+
+    ${JSON.stringify(report, null, 3)}
+    `);
 
     const body = await getDocumentApiBody(result, "Tab_50_rpt_PF_NetRecoverySummaryByQuarter.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
