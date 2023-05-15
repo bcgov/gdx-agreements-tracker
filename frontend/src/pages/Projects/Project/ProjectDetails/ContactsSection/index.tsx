@@ -19,7 +19,6 @@ export const ContactsSection = () => {
   const query = useFormData({
     url: contactsUrl,
     tableName: "contact_project",
-    lockedRow: projectId as string,
   });
 
   const rowsToLock: Array<number> = !query

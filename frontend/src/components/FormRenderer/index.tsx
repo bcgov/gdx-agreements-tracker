@@ -99,9 +99,8 @@ export const FormRenderer = ({
   const handleOnChange = async () => {
     await handleDbLock(query, rowsToLock).then(async (lockData: ILockData) => {
       if (!lockData.data.locked) {
-        return await query.refetch().then(() => {
-          handleFormType("edit");
-        });
+        handleFormType("edit");
+        return;
       }
       confirm(
         `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`

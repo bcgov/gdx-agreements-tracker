@@ -8,6 +8,7 @@ const getAll = {
     S.array().items(
       S.object()
         .prop("id", Schema.Id)
+        .prop("deliverable_name", S.string())
         .prop("description", S.anyOf([S.string(), S.null()]))
         .prop("start_date", S.anyOf([S.string(), S.null()]))
         .prop("completion_date", S.anyOf([S.string(), S.null()]))

@@ -1,21 +1,32 @@
+import styled from "@emotion/styled";
+import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { TableConfig } from "../Pages/ProjectsSandbox/TableConfig";
-import { useFormatTableData } from "./useFormatTable";
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Table = ({ apiEndPoint }: { apiEndPoint: string }) => {
-  const { data, isLoading } = useFormatTableData({
-    apiEndPoint: apiEndPoint,
+export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
+  const { tableColumns, initialState } = tableConfig;
+  const StyledBox = styled(Box)({
+    overflowX: "scroll",
+    maxHeight: "80vh",
+    width: "100%",
   });
-  const { tableColumns, initialState } = TableConfig();
+
+  const StyledDataGrid = styled(DataGrid)(() => ({
+    //Remove cell selection border
+    "& .MuiDataGrid-cell:focus": {
+      outline: "none",
+    },
+  }));
 
   return (
-    <>
-      {isLoading ? (
-        <div>loading</div>
-      ) : (
-        <DataGrid columns={tableColumns} rows={data.data.data} initialState={initialState} />
-      )}
-    </>
+    <StyledBox>
+      <StyledDataGrid
+        autoHeight
+        columns={tableColumns}
+        rows={rows}
+        initialState={initialState}
+        onRowDoubleClick={handleRowDoubleClick}
+      />
+    </StyledBox>
   );
 };

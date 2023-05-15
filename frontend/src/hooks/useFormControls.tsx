@@ -33,7 +33,7 @@ export const useFormControls = () => {
   };
 
   const handleCurrentRowData = (rowData: { row: unknown }) => {
-    setCurrentRowData(rowData.row);
+    setCurrentRowData(rowData);
   };
 
   return {

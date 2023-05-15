@@ -39,7 +39,20 @@ export const useRenderTableCell = () => {
     );
   };
 
-  return { LinkCell, selectedRow };
+  const ModalToggleCell = (params: GridRenderCellParams) => {
+    return (
+      <Link
+        color="inherit"
+        onClick={() => {
+          handleSelectRow(params.row);
+        }}
+      >
+        {params.formattedValue}
+      </Link>
+    );
+  };
+
+  return { LinkCell, selectedRow, ModalToggleCell };
 };
 
 export { TableCheckMark } from "./TableCheckMark";

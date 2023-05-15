@@ -22,16 +22,16 @@ const findAllById = (projectId) => {
       "prd.percent_complete",
       {
         health_id: knex.raw(
-          "( SELECT json_build_object('red', ph.colour_red, 'green', ph.colour_green, 'blue', ph.colour_blue) )"
+          "(SELECT Json_build_object('red',coalesce(ph.colour_red,0), 'green', coalesce(ph.colour_green,0),'blue', coalesce(ph.colour_blue,0)))"
         ),
       },
       "prd.is_expense"
     )
     .leftJoin(`${fiscalYearTable} as fy`, { "prd.fiscal": `fy.id` })
     .leftJoin(`${projectTable} as proj`, { "prd.project_id": "proj.id" })
-    .join(`${healthIndicatorTable} as ph`, "prd.health_id", "ph.id")
-    .orderBy("prd.id")
-    .where({ "prd.project_id": projectId });
+    .leftJoin(`${healthIndicatorTable} as ph`, "prd.health_id", "ph.id")
+    .where({ "prd.project_id": projectId })
+    .orderBy("prd.id");
 };
 
 // Get specific one by id.
@@ -62,7 +62,7 @@ const findById = (id) => {
     .from(`${projectDeliverableTable} as prd`)
     .leftJoin(`${projectTable} as proj`, { "prd.project_id": "proj.id" })
     .leftJoin(`${fiscalYearTable} as fy`, { "prd.fiscal": `fy.id` })
-    .join(`${healthIndicatorTable} as ph`, "prd.health_id", "ph.id")
+    .leftJoin(`${healthIndicatorTable} as ph`, "prd.health_id", "ph.id")
     .where("prd.id", id)
     .first();
 };

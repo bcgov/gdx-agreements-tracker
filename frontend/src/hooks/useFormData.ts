@@ -1,24 +1,21 @@
 import React from "react";
 import { useAxios } from "hooks/useAxios";
-import { useQuery, UseQueryResult } from "react-query";
-import { useKeycloak } from "@react-keycloak/web";
-import { FormikValues } from "formik";
+import { useQuery } from "react-query";
 
 interface IGetFormData {
   url: string;
   tableName: string;
-  lockedRow: string;
 }
 
 export const useFormData = ({ url, tableName }: IGetFormData) => {
   const { axiosAll } = useAxios();
-  const getProject = async () => {
+  const getData = async () => {
     const results = await axiosAll().get(url);
     results.data.table = tableName;
     return results;
   };
 
-  const query = useQuery(url, getProject, {
+  const query = useQuery(url, getData, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,
