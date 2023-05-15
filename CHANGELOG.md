@@ -1,4 +1,7 @@
 ## Developer Changelog
+**May 15, 2023**
+- Frontend
+  - Upgraded to react-router v6.11
 
 **May 12, 2023 (DESCW-1102)**
 
