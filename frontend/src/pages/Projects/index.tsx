@@ -13,7 +13,13 @@ export const Projects = () => {
   });
 
   const handleRowDoubleClick = (row: GridRowParams) => {
-    navigate(`${row.id}`)
-  }
-  return <Table rows={rows?.data?.data?.data} tableConfig={tableConfig()} handleRowDoubleClick={handleRowDoubleClick} />;
+    navigate(`${row.id}`);
+  };
+  return (
+    <Table
+      rows={rows?.data?.data?.data}
+      tableConfig={tableConfig()}
+      handleRowDoubleClick={handleRowDoubleClick}
+    />
+  );
 };
