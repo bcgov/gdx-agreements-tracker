@@ -31,17 +31,6 @@ controller.Tab_50_rpt_PF_NetRecoverySummaryByQuarter = async (request, reply) =>
       report_totals,
     };
 
-    // keep for next ticket (template) so we can debug the model output
-    // console.log(`
-
-    // OUTPUT
-    // ${JSON.stringify(report, null, 3)}
-
-    // TOTALS:
-
-    // ${JSON.stringify(report_totals, null, 3)}
-    // `);
-
     const body = await getDocumentApiBody(result, "Tab_50_rpt_PF_NetRecoverySummaryByQuarter.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
