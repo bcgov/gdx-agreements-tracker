@@ -1,15 +1,26 @@
 ## Developer Changelog
+
 **May 15, 2023**
+
+- Backend
+  - add model for net recovery summary by quarterly reports
+  - add controller
+  - add totals model as well for same report
+
+**May 15, 2023**
+
 - Frontend
   - fixed issue with projects table not rendering
 
 **May 15, 2023**
+
 - Frontend
   - Upgraded to react-router v6.11
 
 **May 12, 2023 (DESCW-1102)**
 
 - Backend
+
   - Updated model, validators for deliverables
 
 - Frontend
@@ -17,10 +28,10 @@
   - Add hook useFormatTableData for formatting table data
   - Updated new Table with modal to be more reusable
   - Removed unused code
-  - Updated deliverables section to use new tablewithmodal 
-  
+  - Updated deliverables section to use new tablewithmodal
 
 **May 11, 2023 (DEWCW-1130)**
+
 - bumped postgres version
 - Fixed s2i build to use omit=dev
 - Backend
