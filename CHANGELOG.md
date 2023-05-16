@@ -1,5 +1,14 @@
 ## Developer Changelog
 
+**May 16, 2023**
+
+- Backend
+  - add fiscal year to totals model
+  - slightly refactor model/controller
+- Frontend
+  - fix typo in frontend component import
+  - finish template for net recovery summary by quarter
+
 **May 15, 2023**
 
 - Backend
