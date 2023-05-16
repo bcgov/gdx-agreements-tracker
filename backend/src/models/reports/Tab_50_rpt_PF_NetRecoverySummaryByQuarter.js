@@ -15,7 +15,8 @@ const handleParams = (query, requestParams) => {
 };
 
 const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
-  const query = knex.select("*").fromRaw(`
+  const query = knex.select("*").fromRaw(
+    `
     (
       WITH stob_base AS (
         SELECT p.id AS project_id,
@@ -88,8 +89,8 @@ const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
           LEFT JOIN data.project AS p ON pd.project_id = p.id
           LEFT JOIN data.fiscal_year AS fy ON pd.fiscal = fy.id
           LEFT JOIN data.portfolio AS po ON pb.recovery_area = po.id
-      )
-      SELECT stob_base.portfolio_name,
+      ) --end stob_base query
+      SELECT stob_base.portfolio_name AS portfolio_name,
         sum(stob_base.base_recoveries) AS total_recoveries,
         (
           sum(stob_base.q1_expenses) + sum(stob_base.q2_expenses) + sum(stob_base.q3_expenses) + sum(stob_base.q4_expenses)
@@ -107,17 +108,15 @@ const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
         sum(stob_base.q3_net) AS q3_net,
         sum(stob_base.q4_amount) AS q4_gross,
         sum(stob_base.q4_net) AS q4_net,
-        stob_base.fiscal
+        fiscal
       FROM stob_base
-      GROUP BY stob_base.fiscal_year,
-        stob_base.fiscal,
-        stob_base.portfolio_id,
-        stob_base.portfolio_name,
-        stob_base.portfolio_abbrev
+      GROUP BY fiscal,
+      portfolio_name
       ORDER BY portfolio_name,
-        stob_base.fiscal
+      fiscal
     ) as q
-  `);
+  `
+  );
 
   handleParams(query, requestParams);
 
