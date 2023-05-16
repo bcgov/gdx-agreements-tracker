@@ -215,9 +215,10 @@ const Tab_50_totals = (requestParams) => {
       sum(stob_base.q3_net) AS totals_q3_net,
       sum(stob_base.q4_amount) AS totals_q4_gross,
       sum(stob_base.q4_net) AS totals_q4_net,
-      stob_base.fiscal
+      stob_base.fiscal,
+      stob_base.fiscal_year
       FROM stob_base
-      GROUP BY stob_base.fiscal
+      GROUP BY stob_base.fiscal, stob_base.fiscal_year
     ) as q
   `);
 

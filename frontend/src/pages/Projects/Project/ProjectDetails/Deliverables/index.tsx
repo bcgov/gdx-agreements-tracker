@@ -6,7 +6,7 @@ import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCe
 import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
-import { tableConfig } from "./tableConfig";
+import { tableConfig } from "./TableConfig";
 
 export const DeliverablesSection = () => {
   const { projectId } = useParams();
