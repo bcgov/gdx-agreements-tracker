@@ -40,6 +40,7 @@ const getOne = {
       .prop("responsibility_centre", S.string())
       .prop("project_code", S.string())
       .prop("client_amount", S.number())
+      .prop("project_id", Schema.Id)
   ),
 };
 
