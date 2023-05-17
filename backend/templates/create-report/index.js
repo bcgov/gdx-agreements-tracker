@@ -111,7 +111,7 @@ class createReportFiles {
         return; // We are in a loop, move on to next file.
       }
 
-      saySuccess(`Success! ${templateTypes[i]} created!`);
+      saySuccess(`Success! ${templateFilePath} created!`);
     });
   }
 
