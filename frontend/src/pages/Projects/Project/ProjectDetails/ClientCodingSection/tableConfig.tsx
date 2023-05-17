@@ -6,17 +6,17 @@ export const tableConfig = () => {
   const tableColumns: GridColDef[] = [
     {
       field: "program_area",
-      headerName: "program_area",
+      headerName: "Program Area",
       flex: defaultFlex,
     },
-    { field: "service_line", headerName: "service_line", flex: defaultFlex },
-    { field: "client", headerName: "client", flex: defaultFlex },
-    { field: "contact", headerName: "contact", flex: defaultFlex },
-    { field: "expense_authority_name", headerName: "expense_authority_name", flex: defaultFlex },
-    { field: "stob", headerName: "stob", flex: defaultFlex },
-    { field: "responsibility_centre", headerName: "responsibility_centre", flex: defaultFlex },
-    { field: "project_code", headerName: "project_code", flex: defaultFlex },
-    { field: "client_amount", headerName: "client_amount", flex: defaultFlex },
+    { field: "service_line", headerName: "Service Line", flex: defaultFlex },
+    { field: "client", headerName: "Client", flex: defaultFlex },
+    { field: "contact", headerName: "Financial Contact", flex: defaultFlex },
+    { field: "expense_authority_name", headerName: "Expense Authority Name", flex: defaultFlex },
+    { field: "stob", headerName: "STOB", flex: defaultFlex },
+    { field: "responsibility_centre", headerName: "Responsibility Centre", flex: defaultFlex },
+    { field: "project_code", headerName: "Project Code", flex: defaultFlex },
+    { field: "client_amount", headerName: "Client Amount", flex: defaultFlex },
   ];
 
   const initialState = {
