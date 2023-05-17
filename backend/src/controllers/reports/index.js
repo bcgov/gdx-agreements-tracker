@@ -272,55 +272,6 @@ controller.getProjectLessonsLearnedReportOnRequest = async (request, reply) => {
 };
 
 /**
- * Get a Contract Summary Report for a specific contract.
- *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
- */
-controller.getContractSummaryReportOnRequest = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
-  try {
-    const contractId = request.params.id;
-    const reportDate = new Date();
-    // Get the data from the database.
-    const result = {
-      contract_summary: await model.getContractSummaryReport(contractId),
-      contract_amendment: await model.getContractAmendments(contractId),
-      contract_invoice: await model.getContractInvoices(contractId),
-      report_date: reportDate.toLocaleDateString("en-US", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-      }),
-    };
-    if (result.contract_invoice.length > 0) {
-      result.contract_invoice = groupByProperty(result.contract_invoice, "fiscal");
-      for (let fiscal in result.contract_invoice) {
-        const fiscalYear = result.contract_invoice[fiscal][0].fiscal;
-        result.contract_invoice[fiscal] = {
-          payment_summary: await model.getContractPaymentSummary(contractId, fiscalYear),
-          details: result.contract_invoice[fiscal],
-        };
-      }
-    }
-    // todo: Uncomment when template document is created.
-    // const body = await getDocumentApiBody(result, "PA_StatusDashboard_template.docx");
-    // const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
-    // request.data = pdf;
-    if (!result) {
-      reply.code(404);
-      return { message: `The ${what.single} with the specified id does not exist.` };
-    } else {
-      return result;
-    }
-  } catch (err) {
-    reply.code(500);
-    return { message: `There was a problem looking up this Active Projects Report.` };
-  }
-};
-
-/**
  * Separates an array of projects into groups by a property.
  *
  * @param   {any[]}   rows     Array of projects ordered by the property to be grouped on.
