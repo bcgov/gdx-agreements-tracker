@@ -9,6 +9,7 @@
   - add required input 'fiscal' for the report
   - Added db_lock to project client coding
   - Added db_lock to project budget section
+   - Added db_lock to project status section
   - updated report pointer for Contract summary
 
 - Backend
