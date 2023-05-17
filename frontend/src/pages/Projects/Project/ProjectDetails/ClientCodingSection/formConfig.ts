@@ -113,8 +113,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     project_code: "",
     client_amount: 0,
   };
-  
-console.log('query', query)
+
   const rowsToLock = [query?.data?.data?.data?.id];
   const queryKey = `/projects/client-coding/${query?.data?.data?.data?.id}`;
   const postUrl = `/projects/${query?.data?.data?.data?.project_id}/client-coding`;

@@ -436,7 +436,7 @@ export interface ITableWithModalData {
 }
 export interface ITableWithModal {
   tableData: ITableWithModalData;
-  tableConfig: unknown
+  tableConfig: unknown;
   formControls: IFormControls;
   formConfig: TFormConfig;
   formData: UseQueryResul<FormikValues>;
