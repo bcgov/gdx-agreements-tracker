@@ -50,6 +50,7 @@ const getOne = {
       .prop("stob", S.string())
       .prop("client_coding_id", Schema.Picker)
       .prop("contract_id", Schema.Picker)
+      .prop("project_id", Schema.Id)
   ),
 };
 
