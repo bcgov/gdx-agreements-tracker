@@ -27,6 +27,7 @@ const findAllById = (projectId) => {
       "rec.recovery_type_name",
       "prb.stob",
       "cc.program_area",
+      "cc.client",
       "cntr.co_number"
     )
     .leftJoin(`${fiscalYearTable} as fy`, { "prb.fiscal": `fy.id` })
