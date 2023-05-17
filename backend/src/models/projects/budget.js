@@ -43,6 +43,7 @@ const findById = (id) => {
   return knex
     .select(
       "prb.id",
+      "prd.project_id",
       knex.raw("prb.q1_amount::numeric::float8"),
       "prb.q1_recovered",
       knex.raw("prb.q2_amount::numeric::float8"),
