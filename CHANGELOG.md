@@ -1,5 +1,8 @@
 ## Developer Changelog
-
+**May 17, 2023 (DESCW-1148)**
+- Backend
+  - Added new backend script `npm run createReport` which creates all the required framework for reports.
+  - Created Tab_10 report as a test
 **May 16, 2023**
 
 - Backend
