@@ -10,10 +10,8 @@ export const tableConfig = () => {
     { field: "risk", headerName: "Risk", flex: defaultFlex },
     { field: "schedule_health", headerName: "Schedule Health", flex: defaultFlex },
     { field: "budget_health", headerName: "Budget Health", flex: defaultFlex },
-    { field: "team_health", headerName: "Team Health", flex: defaultFlex },    
+    { field: "team_health", headerName: "Team Health", flex: defaultFlex },
   ];
-
-
 
   const initialState = {
     filter: {

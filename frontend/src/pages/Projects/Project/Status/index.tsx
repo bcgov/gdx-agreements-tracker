@@ -79,7 +79,6 @@ export const Status = () => {
   const { projectId } = useParams();
 
   const tableData = useFormatTableData(`projects/${projectId}/status`);
-console.log('tableData', tableData)
   const formControls: IFormControls = useFormControls();
 
   const formData = useFormData({
@@ -97,4 +96,3 @@ console.log('tableData', tableData)
     />
   );
 };
-
