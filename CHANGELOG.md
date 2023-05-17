@@ -4,6 +4,9 @@
 
 - Frontend
   - Added db_lock to project client coding
+  - updated report pointer for Contract summary
+- Backend
+  - Re-factored Individual contract reports > Contract summary
 
 **May 17, 2023 (DESCW-1148)**
 - Backend
