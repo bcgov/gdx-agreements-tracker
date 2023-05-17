@@ -1,9 +1,8 @@
 import { LinearProgress, Modal } from "@mui/material";
-import {IRowDoubleClickParams, ITableWithModal } from "types";
+import { IRowDoubleClickParams, ITableWithModal } from "types";
 import FormModal from "../FormModal";
 import { Table } from "../Table";
 import { FormRenderer } from "components/FormRenderer";
-
 
 /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
 property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
