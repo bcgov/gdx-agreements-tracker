@@ -59,7 +59,7 @@ export const ProjectDetails = () => {
                 <DeliverablesSection />
               </GDXAccordion>
               <GDXAccordion sectionTitle="Client Coding">
-                <ClientCodingSection projectId={Number(projectId)} />
+                <ClientCodingSection />
               </GDXAccordion>
               <GDXAccordion sectionTitle="Budget">
                 <BudgetSection projectId={Number(projectId)} />
