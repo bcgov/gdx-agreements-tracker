@@ -67,9 +67,7 @@ class createReportFiles {
     this.reportName = reportName;
 
     if (this.checkFilesAlreadyExist()) {
-      sayError(
-        `Files for "${reportName}" report already exist, please try again with a new name.`
-      );
+      sayError(`Files for "${reportName}" report already exist, please try again with a new name.`);
       this.askTheQuestion();
     } else {
       // We are done asking questions, close the readline so that we don't wait for more input.
@@ -89,23 +87,15 @@ class createReportFiles {
   }
 
   generateBlankTemplates() {
-    const blankTemplates = [
-      `reports/docx/index.docx`,
-      `reports/xlsx/index.xlsx`
-    ];
+    const blankTemplates = [`reports/docx/index.docx`, `reports/xlsx/index.xlsx`];
     // Oldschool function declaration syntax, because we need to bind(), below.
     blankTemplates.forEach((templateFilePath, i) => {
       try {
         // Read the template file.
         let data = fs.readFileSync(`${__dirname}/template-files/${templateFilePath}`, "utf8");
 
-
         // Write the new file out.
-        fs.appendFileSync(
-          `${templateFilePath.replace(/index/,this.reportName)}`,
-          data,
-          "utf8"
-        );
+        fs.appendFileSync(`${templateFilePath.replace(/index/, this.reportName)}`, data, "utf8");
       } catch (err) {
         sayError("generateNewFiles error:" + err);
         return; // We are in a loop, move on to next file.
@@ -125,10 +115,7 @@ class createReportFiles {
         let data = fs.readFileSync(templateFilePath, "utf8");
 
         // Replace the token in the templates.
-        let variableReplacements = data.replace(
-          /\$reportName/gi,
-          (matched) => mapObj[matched]
-        );
+        let variableReplacements = data.replace(/\$reportName/gi, (matched) => mapObj[matched]);
 
         // Write the new file out.
         fs.appendFileSync(

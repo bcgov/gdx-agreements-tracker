@@ -27,7 +27,10 @@ controller.Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio = async (req
       report_date: await getDate(),
     };
 
-    const body = await getDocumentApiBody(result, "Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio.docx");
+    const body = await getDocumentApiBody(
+      result,
+      "Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio.docx"
+    );
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Inject the pdf data into the request object
@@ -42,7 +45,9 @@ controller.Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio = async (req
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);
-    return { message: `There was a problem looking up this Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio Report.` };
+    return {
+      message: `There was a problem looking up this Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio Report.`,
+    };
   }
 };
 

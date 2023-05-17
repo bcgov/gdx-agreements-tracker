@@ -42,7 +42,7 @@ controller.$reportName = async (request, reply) => {
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);
-    return { message: `There was a problem looking up this  $reportName Report.` };
+    return { message: `There was a problem looking up this $reportName Report.` };
   }
 };
 
