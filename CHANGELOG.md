@@ -3,16 +3,25 @@
 **May 17, 2023**
 
 - Frontend
+  - add report option for finance recover project summary forecast
+  - add description text for that option
+  - add required input 'fiscal' for the report
+
+**May 17, 2023**
+
+- Frontend
   - Added db_lock to project client coding
   - updated report pointer for Contract summary
 - Backend
   - Re-factored Individual contract reports > Contract summary
 
 **May 17, 2023 (DESCW-1148)**
+
 - Backend
+
   - Added new backend script `npm run createReport` which creates all the required framework for reports.
   - Created Tab_10 report as a test
-**May 16, 2023**
+    **May 16, 2023**
 
 - Backend
   - add fiscal year to totals model

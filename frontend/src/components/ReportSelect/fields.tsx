@@ -275,6 +275,18 @@ export const reportType = {
         },
       ],
     },
+    {
+      reportCategory: "divisional_project_reports",
+      value: "Tab_48_rpt_PF_FinanceRecoverySummary",
+      label: "Finance Recovery Project Summary Forecast",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
+    },
   ],
 };
 
@@ -357,6 +369,11 @@ export const reportDescription = {
       value:
         "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
       reportType: "rpt_PA_ChangeRequestTypesFYSummary",
+    },
+    {
+      value:
+        "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Financial details for each project (per portfolio), including recoveries, expenses, costs, and fees.",
+      reportType: "Tab_48_rpt_PF_FinanceRecoverySummary",
     },
   ],
 };
