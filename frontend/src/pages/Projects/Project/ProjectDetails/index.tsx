@@ -29,6 +29,6 @@ export const ProjectDetails = () => {
       <GDXAccordion sectionTitle="Budget">
         <BudgetSection />
       </GDXAccordion>
-    </>)
-
+    </>
+  );
 };

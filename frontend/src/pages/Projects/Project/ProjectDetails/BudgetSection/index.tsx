@@ -19,8 +19,6 @@ export const BudgetSection = () => {
     tableName: "project_budget",
   });
 
-  console.log('tableData', tableData)
-
   return (
     <TableWithModal
       tableConfig={tableConfig()}
@@ -31,4 +29,3 @@ export const BudgetSection = () => {
     />
   );
 };
-
