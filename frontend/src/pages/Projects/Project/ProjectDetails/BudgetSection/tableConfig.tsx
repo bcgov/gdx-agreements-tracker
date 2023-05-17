@@ -16,7 +16,14 @@ export const tableConfig = () => {
     { field: "q3_recovered", headerName: "STOB", flex: defaultFlex },
     { field: "q4_amount", headerName: "Responsibility Centre", flex: defaultFlex },
     { field: "q4_recovered", headerName: "Project Code", flex: defaultFlex },
-    { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
+    { field: "deliverable_name", headerName: "Deliverable Name", flex: defaultFlex },
+    { field: "notes", headerName: "Notes", flex: defaultFlex },
+    { field: "detail_amount", headerName: "Detail Amount", flex: defaultFlex },
+    { field: "recovery_area", headerName: "Recovery Area", flex: defaultFlex },
+    { field: "resource_type", headerName: "Resource Type", flex: defaultFlex },
+    { field: "stob", headerName: "STOB", flex: defaultFlex },
+    { field: "client", headerName: "Client Coding", flex: defaultFlex },
+    { field: "co_number", headerName: "Contract", flex: defaultFlex },
   ];
 
   const initialState = {

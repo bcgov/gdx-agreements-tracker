@@ -22,7 +22,8 @@ const getAll = {
         .prop("recovery_type_name", S.anyOf([S.string(), S.null()]))
         .prop("resource_type", S.string())
         .prop("stob", S.string())
-        .prop("client_coding_id", S.number())
+        .prop("program_area", S.string())
+        .prop("client", S.number())
         .prop("co_number", S.anyOf([S.string(), S.null()]))
     )
   ),
