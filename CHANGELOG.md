@@ -1,23 +1,18 @@
 ## Developer Changelog
 
-**May 17, 2023 [DESCW-1122](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1122)**
+**May 17, 2023 [DESCW-1122](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1122) (DESCW-1148)**
 
 - Frontend
+
   - add report option for finance recover project summary forecast
   - add description text for that option
   - add required input 'fiscal' for the report
-
-**May 17, 2023**
-
-- Frontend
   - Added db_lock to project client coding
+  - Added db_lock to project budget section
   - updated report pointer for Contract summary
+
 - Backend
   - Re-factored Individual contract reports > Contract summary
-
-**May 17, 2023 (DESCW-1148)**
-
-- Backend
   - Added new backend script `npm run createReport` which creates all the required framework for reports.
   - Created Tab_10 report as a test
 

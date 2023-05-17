@@ -22,7 +22,8 @@ const getAll = {
         .prop("recovery_type_name", S.anyOf([S.string(), S.null()]))
         .prop("resource_type", S.string())
         .prop("stob", S.string())
-        .prop("client_coding_id", S.number())
+        .prop("program_area", S.string())
+        .prop("client", S.number())
         .prop("co_number", S.anyOf([S.string(), S.null()]))
     )
   ),
@@ -50,6 +51,7 @@ const getOne = {
       .prop("stob", S.string())
       .prop("client_coding_id", Schema.Picker)
       .prop("contract_id", Schema.Picker)
+      .prop("project_id", Schema.Id)
   ),
 };
 

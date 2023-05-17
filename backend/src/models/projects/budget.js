@@ -27,6 +27,7 @@ const findAllById = (projectId) => {
       "rec.recovery_type_name",
       "prb.stob",
       "cc.program_area",
+      "cc.client",
       "cntr.co_number"
     )
     .leftJoin(`${fiscalYearTable} as fy`, { "prb.fiscal": `fy.id` })
@@ -43,6 +44,7 @@ const findById = (id) => {
   return knex
     .select(
       "prb.id",
+      "prd.project_id",
       knex.raw("prb.q1_amount::numeric::float8"),
       "prb.q1_recovered",
       knex.raw("prb.q2_amount::numeric::float8"),
