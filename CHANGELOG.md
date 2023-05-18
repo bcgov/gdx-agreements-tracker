@@ -5,6 +5,7 @@
 - Frontend
 
   - Added db_lock to project budget section.
+  - Added db_lock to project billing section.
 
 - Backend
 
