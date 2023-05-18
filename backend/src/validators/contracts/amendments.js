@@ -29,7 +29,8 @@ const getOne = {
 const addUpdateBody = S.object()
   .prop("amendment_number", Schema.Id)
   .prop("amendment_date", Schema.Date)
-  .prop("description", S.string());
+  .prop("description", S.string())
+  .prop("contract_id", Schema.Id);
 
 const updateOne = {
   params: Schema.IdParam,

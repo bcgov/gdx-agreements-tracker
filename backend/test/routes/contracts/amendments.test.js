@@ -35,7 +35,7 @@ testRoutes([
       payload: {
         contract_id: 1,
         amendment_number: 2,
-        amendment_date: "2011-11-11T11:11:11+00:00",
+        amendment_date: "2011-11-11",
       },
     },
     modelFunction: model.addOne,
