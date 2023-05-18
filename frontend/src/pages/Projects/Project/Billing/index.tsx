@@ -17,7 +17,6 @@ export const Billing = () => {
     url: `/jv/${formControls.currentRowData?.id}`,
     tableName: "jv",
   });
-  console.log('tableData', tableData)
   return (
     <TableWithModal
       tableConfig={tableConfig()}
