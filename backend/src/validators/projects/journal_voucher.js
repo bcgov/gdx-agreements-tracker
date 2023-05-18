@@ -27,7 +27,7 @@ const getOne = {
       .prop("fiscal_year_id", Schema.Picker)
       .prop("quarter", S.number())
       .prop("client_coding_id", Schema.Picker)
-      .prop("project_id", Schema.Id)      
+      .prop("project_id", Schema.Id)
   ),
 };
 
