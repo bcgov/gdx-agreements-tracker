@@ -1,56 +1,39 @@
-import React from "react";
+import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
+import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
-import { editFields, readFields } from "./fields";
-import { TableComplete } from "components/TableComplete";
+import { useFormControls } from "hooks";
+import { useFormData } from "hooks/useFormData";
+import { IFormControls } from "types";
+import { tableConfig } from "./tableConfig";
+import { formConfig } from "./formConfig";
 
 /**
- * @returns the jsx for the change request section of the project form
+ * This is a TypeScript React component that renders a table with modal for change requests related to
+ * a specific project.
+ * @returns The `ChangeRequest` component is being returned, which renders a `TableWithModal` component
+ * with `tableConfig`, `tableData`, `formControls`, `formConfig`, and `formData` as props. The
+ * `tableData` is obtained using the `useFormatTableData` hook with a specific URL path. The
+ * `formControls` is an object that contains properties and methods for handling
  */
 
 export const ChangeRequest = () => {
   const { projectId } = useParams();
-  const roles = {
-    get: "projects_read_all",
-    add: "projects_add_one",
-    update: "projects_update_one",
-    delete: "projects_delete_one",
-  };
 
-  const url = {
-    getAll: `projects/${projectId}/change_request`,
-    getOne: `projects/${projectId}/change_request/{id}`,
-    updateOne: `change_request/{id}`,
-    addOne: `/change_request`,
-    deleteOne: `change_request/{id}`,
-  };
+  const tableData = useFormatTableData(`projects/${projectId}/change_request`);
+  const formControls: IFormControls = useFormControls();
 
-  const columnWidths = {
-    summary: 3,
-    types: 2,
-  };
-
-  const createFormInitialValues = {
-    approval_date: null,
-    cr_contact: "",
-    fiscal_year: null,
-    initiated_by: null,
-    initiation_date: null,
-    link_id: Number(projectId),
-    summary: "",
-  };
+  const formData = useFormData({
+    url: `/projects/${projectId}/change_request/${formControls.currentRowData?.id}`,
+    tableName: "change_request",
+  });
 
   return (
-    <>
-      <TableComplete
-        itemName="Change Request"
-        tableName="lessons-learned"
-        columnWidths={columnWidths}
-        url={url}
-        createFormInitialValues={createFormInitialValues}
-        readFields={readFields}
-        editFields={editFields}
-        roles={roles}
-      />
-    </>
+    <TableWithModal
+      tableConfig={tableConfig()}
+      tableData={tableData}
+      formControls={formControls}
+      formConfig={formConfig}
+      formData={formData}
+    />
   );
 };
