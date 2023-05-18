@@ -29,8 +29,6 @@
 //     types: 2,
 //   };
 
-
-
 //   return (
 //     <>
 //       <TableComplete
@@ -46,7 +44,6 @@
 //     </>
 //   );
 // };
-
 
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
 import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
@@ -67,7 +64,6 @@ export const ChangeRequest = () => {
     url: `/projects/${projectId}/change_request/${formControls.currentRowData?.id}`,
     tableName: "change_request",
   });
-  console.log('formData', formData)
 
   return (
     <TableWithModal
@@ -79,4 +75,3 @@ export const ChangeRequest = () => {
     />
   );
 };
-
