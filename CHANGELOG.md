@@ -1,5 +1,15 @@
 ## Developer Changelog
 
+**May 18, 2023**
+
+- Frontend
+
+  - Added db_lock to project budget section.
+
+- Backend
+
+  - Updated Date validator to accept data without time.
+
 **May 17, 2023 [DESCW-1122](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1122) (DESCW-1148)**
 
 - Frontend
@@ -9,7 +19,7 @@
   - add required input 'fiscal' for the report
   - Added db_lock to project client coding
   - Added db_lock to project budget section
-   - Added db_lock to project status section
+  - Added db_lock to project status section
   - updated report pointer for Contract summary
 
 - Backend
