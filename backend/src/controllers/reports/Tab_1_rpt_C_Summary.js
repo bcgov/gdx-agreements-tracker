@@ -50,22 +50,19 @@ controller.Tab_1_rpt_C_Summary = async (request, reply) => {
     const contractId = request.query?.contract;
     // Get the data from the database.
     const result = {
-      contract_summary: await model.getContractSummaryReport(contractId),
+      contract: await model.getContractSummaryReport(contractId),
       contract_amendment: await model.getContractAmendments(contractId),
-      contract_invoice: await model.getContractInvoices(contractId),
+      invoice_processing: await model.getContractInvoices(contractId),
+      payment_summary: [],
       report_date: await getDate(),
     };
-    if (result.contract_invoice.length > 0) {
-      result.contract_invoice = groupByProperty(result.contract_invoice, "fiscal");
-      for (let fiscal in result.contract_invoice) {
-        const fiscalYear = result.contract_invoice[fiscal][0].fiscal;
-        result.contract_invoice[fiscal] = {
-          payment_summary: await model.getContractPaymentSummary(contractId, fiscalYear),
-          details: result.contract_invoice[fiscal],
-        };
+    if (result.invoice_processing.length > 0) {
+      let invoice_processing_by_fiscal = groupByProperty(result.invoice_processing, "fiscal");
+      for (let fiscal in invoice_processing_by_fiscal) {
+        const fiscalYear = invoice_processing_by_fiscal[fiscal][0].fiscal;
+        result.payment_summary.push(await model.getContractPaymentSummary(contractId, fiscalYear));
       }
     }
-
     const body = await getDocumentApiBody(result, "Tab_1_rpt_C_Summary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
     // Inject the pdf data into the request object

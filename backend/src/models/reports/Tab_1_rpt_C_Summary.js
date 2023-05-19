@@ -25,7 +25,8 @@ const getContractSummaryReport = (contractId) => {
       "contract.id": "internal_coding.contract_id",
     })
     .leftJoin("data.portfolio as portfolio", { "portfolio.id": "internal_coding.portfolio_id" })
-    .where("contract.id", contractId);
+    .where("contract.id", contractId)
+    .first();
 };
 
 /**
@@ -75,7 +76,8 @@ const getContractPaymentSummary = (contractId, fiscalYear) => {
     .leftJoin("data.fiscal_year as fiscal", { "fiscal.id": "invoice.fiscal" })
     .where({ "invoice.contract_id": contractId })
     .andWhere({ fiscal_year: fiscalYear })
-    .groupBy("fiscal_year");
+    .groupBy("fiscal_year")
+    .first();
 };
 
 /**
