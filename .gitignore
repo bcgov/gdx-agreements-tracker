@@ -55,5 +55,6 @@ backend/yarn.lock
 backend/temp.postgres
 
 # backups of open documents
-backend/reports/~*
+backend/reports/docx/~*
+backend/reports/xlsx/~*
 deployments/kustomize/overlays/experimental
