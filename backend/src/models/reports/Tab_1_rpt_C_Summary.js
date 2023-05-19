@@ -102,7 +102,7 @@ const getContractInvoices = (contractId) => {
     })
     .where("invoice.contract_id", contractId)
     .groupBy("invoice_number")
-    .orderBy("invoice_number")
+    .orderBy("invoice_number");
   return results;
 };
 

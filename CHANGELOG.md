@@ -1,4 +1,7 @@
 ## Developer Changelog
+**May 19, 2023**
+- Backend
+  - contract summary report [DESCW-1106](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1106)
 
 **May 18, 2023**
 

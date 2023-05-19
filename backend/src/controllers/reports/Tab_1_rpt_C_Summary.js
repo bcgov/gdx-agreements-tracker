@@ -57,13 +57,12 @@ controller.Tab_1_rpt_C_Summary = async (request, reply) => {
       report_date: await getDate(),
     };
     if (result.invoice_processing.length > 0) {
-      let invoice_processing_by_fiscal= groupByProperty(result.invoice_processing, "fiscal");
+      let invoice_processing_by_fiscal = groupByProperty(result.invoice_processing, "fiscal");
       for (let fiscal in invoice_processing_by_fiscal) {
-        const fiscalYear = invoice_processing_by_fiscal[fiscal][0].fiscal
-         result.payment_summary.push( await model.getContractPaymentSummary(contractId, fiscalYear) );
+        const fiscalYear = invoice_processing_by_fiscal[fiscal][0].fiscal;
+        result.payment_summary.push(await model.getContractPaymentSummary(contractId, fiscalYear));
       }
     }
-    console.log(result.payment_summary)
     const body = await getDocumentApiBody(result, "Tab_1_rpt_C_Summary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
     // Inject the pdf data into the request object
