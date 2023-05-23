@@ -1,10 +1,6 @@
 require("dotenv").config({ path: "../.env" });
 const allRoutes = require("@routes/index.js");
-const {
-  getBearerTokenFromRequest,
-  verifyToken,
-  verifyUserExists,
-} = require("../facilities/keycloak");
+const { getBearerTokenFromRequest, verifyToken } = require("../facilities/keycloak");
 const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");

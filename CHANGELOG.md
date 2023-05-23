@@ -1,4 +1,8 @@
 ## Developer Changelog
+**May 23, 2023**
+
+- Backend
+  - remove unnecessary fastify developer conditional to remove extra requests
 
 **May 23, 2023**
 
