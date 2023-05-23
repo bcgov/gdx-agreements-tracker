@@ -38,7 +38,8 @@ const findById = (lessonsLearnedId) => {
       "pl.lesson_sub_category",
       "pl.lesson",
       "pl.recommendations",
-      "pl.id"
+      "pl.id",
+      "pl.project_id"
     )
     .from(`${lessonsLearned} as pl`)
     .leftJoin(`${projectTable} as p`, { "pl.project_id": `p.id` })
