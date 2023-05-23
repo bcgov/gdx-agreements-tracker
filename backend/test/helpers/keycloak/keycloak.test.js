@@ -16,8 +16,7 @@ let request;
 // Mock user DB methods.
 jest.mock("@models/admin/users");
 
-  /* commented out temporarily until a way to handle a 401 redirect is built on the frontend.
-   * see:  https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1021
+/* commented out temporarily until a way to handle a 401 redirect is built on the frontend.  * see:  https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1021
 describe("Unauthorized routes.", () => {
   beforeEach(() => {
     app = serverConfig();
