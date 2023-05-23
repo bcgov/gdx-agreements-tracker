@@ -10,6 +10,7 @@ const getOne = {
       .prop("lesson", S.string())
       .prop("recommendations", S.string())
       .prop("id", S.number())
+      .prop("project_id", Schema.Id)
   ),
 };
 
