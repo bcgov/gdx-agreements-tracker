@@ -1,4 +1,11 @@
 ## Developer Changelog
+
+**May 23, 2023**
+
+- Frontend
+
+  - Added db_lock to project lessons learned section.
+
 **May 19, 2023**
 - Backend
   - contract summary report [DESCW-1106](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1106)
