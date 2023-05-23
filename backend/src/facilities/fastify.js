@@ -1,10 +1,6 @@
 require("dotenv").config({ path: "../.env" });
 const allRoutes = require("@routes/index.js");
-const {
-  getBearerTokenFromRequest,
-  verifyToken,
-  verifyUserExists,
-} = require("../facilities/keycloak");
+const { getBearerTokenFromRequest, verifyToken } = require("../facilities/keycloak");
 const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");
@@ -33,23 +29,21 @@ const fastifyInstance = (options) => {
   app
     .decorate("verifyJWT", (req, res, done) => {
       const token = getBearerTokenFromRequest(req);
-      //todo: This is a temporary measure to aid development and should be removed. https://apps.itsm.gov.bc.ca/jira/browse/DESCW-455
-      if ("development" === process.env.NODE_ENV) {
-        done();
-      }
       if (token) {
         verifyToken(token, jwksUri)
           .then((res) => {
-            req.log.debug(res);
-            return verifyUserExists(token);
-          })
-          .then((res) => {
-            req.log.debug(res);
             done();
           })
-          .catch((err) => done(err));
+          .catch((err) => {
+            req.log.error(err);
+            //TODO: The redirect 401 should be added here, and the done removed.  However the frontend doesn't handle this properly.
+            //res.redirect(401)
+            done();
+          });
       } else {
-        done(new Error("Error: Couldn't parse bearer token."));
+        const error = new Error("Error: Couldn't parse bearer token.");
+        req.log.error(error.message);
+        res.redirect(401);
       }
     })
     .register(fastifyAuth)
