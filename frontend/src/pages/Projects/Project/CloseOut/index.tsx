@@ -1,91 +1,25 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { EditForm } from "components/EditForm";
-import { ReadForm } from "components/ReadForm";
-import { Renderer } from "components/Renderer";
-import { useAxios } from "hooks/useAxios";
-import { useFormSubmit } from "hooks/useFormSubmit";
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
-import { editFields, readFields } from "./fields";
+import { FormRenderer } from "components/FormRenderer";
+import { useFormData } from "hooks/useFormData";
+import { useParams } from "react-router";
+import { formFields } from "./formFields";
 
 export const CloseOut = () => {
-  const { axiosAll } = useAxios();
-
   const { projectId } = useParams();
-  const [editMode, setEditMode] = useState(false);
-  const { handleUpdate, Notification } = useFormSubmit();
-
-  const getProject = async () => {
-    const project = await axiosAll().get(`projects/${projectId}/close-out`);
-    if (project?.data) {
-      return project.data;
-    }
-    return null;
-  };
-
-  // Queries
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const projectQuery: any = useQuery(`project close out - ${projectId}`, getProject, {
-    refetchOnWindowFocus: false,
-    retryOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: Infinity,
+  const query = useFormData({
+    url: `/projects/${projectId}/close-out`,
+    tableName: "projects",
   });
-
-  let content = <></>;
-  switch (editMode) {
-    case false:
-    default:
-      content = (
-        <>
-          <ReadForm fields={readFields(projectQuery)} />
-
-          <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-            <Button variant="contained" onClick={() => setEditMode(true)}>
-              Change Close Out
-            </Button>
-          </Box>
-        </>
-      );
-      break;
-    case true:
-      content = (
-        <EditForm
-          initialValues={projectQuery?.data.data}
-          onSubmit={async (values) => {
-            return handleUpdate({
-              changedValues: values,
-              currentRowData: projectQuery?.data.data,
-              apiUrl: `projects/${projectId}`,
-              handleEditMode: setEditMode,
-              queryKeys: [`project close out - ${projectId}`],
-              successMessage: `Changes saved successfully for project ${projectId}`,
-              errorMessage: `There was an issue saving your changes for project ${projectId}`,
-            });
-          }}
-          onCancel={() => {
-            setEditMode(false);
-          }}
-          editFields={editFields()}
-        />
-      );
-      break;
-  }
+  const { readFields, editFields } = formFields(query.data);
 
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item lg={8}>
-          <Typography variant="h5" component="h2">
-            Close Out
-          </Typography>
-          <Renderer isLoading={projectQuery.isLoading} component={content} />
-        </Grid>
-      </Grid>
-      <Notification />
-    </>
+    <FormRenderer
+      queryKey={`/projects/${projectId}/close-out`}
+      readFields={readFields}
+      editFields={editFields}
+      postUrl="/projects"
+      updateUrl={`/projects/${projectId}`}
+      query={query}
+      rowsToLock={[Number(projectId)]}
+    />
   );
 };
