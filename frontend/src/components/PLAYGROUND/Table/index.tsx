@@ -20,10 +20,10 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
       },
   };
 
-  const StyledDiv = styled("div")(() => ({ height: "80vh", width: "100%" }));
+  const BoxStyles = { height: "80vh", width: "100%" };
 
   return (
-    <StyledDiv>
+    <Box sx={BoxStyles}>
       {rows && (
         <DataGrid
           columns={tableColumns}
@@ -43,6 +43,6 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
           }}
         />
       )}
-    </StyledDiv>
+    </Box>
   );
 };
