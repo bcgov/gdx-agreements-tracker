@@ -43,72 +43,50 @@
  */
 --Query: qry_CurrentYearRecoveries -STOB_NoParam
 -- SQL:
-WITH stob_base AS (
-  SELECT p.id AS project_id,
-    p.project_number,
-    p.project_name,
-    p.recoverable,
-    po.id AS portfolio_id,
-    po.portfolio_name,
-    po.portfolio_abbrev,
-    p.total_project_budget,
-    p.recoverable_amount,
-    pb.stob,
-    pb.q1_recovered,
-    pb.q1_amount,
-    pb.q2_recovered,
-    pb.q2_amount,
-    pb.q3_recovered,
-    pb.q3_amount,
-    pb.q4_recovered,
-    pb.q4_amount,
-    fy.fiscal_year,
-    pd.fiscal
-  FROM data.project_budget AS pb
-    LEFT JOIN data.project_deliverable AS pd ON pb.project_deliverable_id = pd.id
-    LEFT JOIN data.project AS p ON pd.project_id = p.id
-    LEFT JOIN data.fiscal_year AS fy ON pd.fiscal = fy.id
-    LEFT JOIN data.portfolio AS po ON pb.recovery_area = po.id
-) -- end stob_base
-SELECT stob_base.project_id,
-  stob_base.project_number,
-  stob_base.project_name,
-  stob_base.recoverable,
-  stob_base.portfolio_id,
-  stob_base.portfolio_name,
-  stob_base.portfolio_abbrev,
-  stob_base.total_project_budget,
-  stob_base.recoverable_amount,
-  stob_base.stob,
-  SUM(q1_amount + q2_amount + q3_amount + q4_amount) AS current_fy_total_recoverable,
+SELECT p.id AS project_id,
+  p.project_number,
+  p.project_name,
+  p.recoverable,
+  po.id AS portfolio_id,
+  po.portfolio_name,
+  po.portfolio_abbrev,
+  p.total_project_budget,
+  p.recoverable_amount,
+  pb.stob,
+  SUM(
+    pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
+  ) AS current_fy_total_recoverable,
   SUM(
     CASE
-      WHEN q1_recovered THEN q1_amount
+      WHEN pb.q1_recovered THEN pb.q1_amount
       ELSE 0::money
     END + CASE
-      WHEN q2_recovered THEN q2_amount
+      WHEN pb.q2_recovered THEN pb.q2_amount
       ELSE 0::money
     END + CASE
-      WHEN q3_recovered THEN q3_amount
+      WHEN pb.q3_recovered THEN pb.q3_amount
       ELSE 0::money
     END + CASE
-      WHEN q4_recovered THEN q4_amount
+      WHEN pb.q4_recovered THEN pb.q4_amount
       ELSE 0::money
     END
   ) AS current_fy_recovered_to_date,
-  stob_base.fiscal_year,
-  stob_base.fiscal
-FROM stob_base
-GROUP BY stob_base.project_id,
-  stob_base.project_number,
-  stob_base.project_name,
-  stob_base.recoverable,
-  stob_base.portfolio_id,
-  stob_base.portfolio_name,
-  stob_base.portfolio_abbrev,
-  stob_base.total_project_budget,
-  stob_base.recoverable_amount,
-  stob_base.stob,
-  stob_base.fiscal_year,
-  stob_base.fiscal;
--- end qry_CurrentYearRecoveries-STOB_NoParam
+  fy.fiscal_year,
+  pd.fiscal
+FROM data.project_budget AS pb
+  LEFT JOIN data.project_deliverable AS pd ON pb.project_deliverable_id = pd.id
+  LEFT JOIN data.project AS p ON pd.project_id = p.id
+  LEFT JOIN data.fiscal_year AS fy ON pd.fiscal = fy.id
+  LEFT JOIN data.portfolio AS po ON pb.recovery_area = po.id
+GROUP BY p.id,
+  p.project_number,
+  p.project_name,
+  p.recoverable,
+  po.id,
+  po.portfolio_name,
+  po.portfolio_abbrev,
+  p.total_project_budget,
+  p.recoverable_amount,
+  pb.stob,
+  fy.fiscal_year,
+  pd.fiscal;
