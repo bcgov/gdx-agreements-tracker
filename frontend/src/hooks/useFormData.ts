@@ -15,13 +15,7 @@ export const useFormData = ({ url, tableName }: IGetFormData) => {
     return results;
   };
 
-  const query = useQuery(url, getData, {
-    refetchOnWindowFocus: false,
-    retryOnMount: false,
-    refetchOnReconnect: false,
-    retry: false,
-    staleTime: Infinity,
-  });
+  const query = useQuery([tableName, url], getData);
 
   return query;
 };

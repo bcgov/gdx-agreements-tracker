@@ -9,7 +9,13 @@ import { useAxios } from "hooks/useAxios";
  * @example apiEndPoint = 'projects'
  */
 
-export const useFormatTableData = (apiEndPoint: string) => {
+export const useFormatTableData = ({
+  apiEndPoint,
+  tableName,
+}: {
+  apiEndPoint: string;
+  tableName: string;
+}) => {
   const { axiosAll } = useAxios();
   const getTableData = async () => {
     return (
@@ -34,7 +40,7 @@ export const useFormatTableData = (apiEndPoint: string) => {
     );
   };
 
-  const { data, isLoading } = useQuery(apiEndPoint, getTableData, {
+  const { data, isLoading } = useQuery([tableName, "table"], getTableData, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,

@@ -6,22 +6,28 @@ import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCe
 import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
-import { tableConfig } from "./TableConfig";
+import { tableConfig } from "./tableConfig";
 
 export const DeliverablesSection = () => {
   const { projectId } = useParams();
 
-  const tableData = useFormatTableData(`projects/${projectId}/deliverables`);
+  const tableName = "project_deliverable";
+
+  const tableData = useFormatTableData({
+    apiEndPoint: `projects/${projectId}/deliverables`,
+    tableName,
+  });
 
   const formControls: IFormControls = useFormControls();
 
   const formData = useFormData({
     url: `/projects/deliverables/${formControls.currentRowData?.id}`,
-    tableName: "project_deliverable",
+    tableName,
   });
 
   return (
     <TableWithModal
+      tableName={tableName}
       tableConfig={tableConfig()}
       tableData={tableData}
       formControls={formControls}

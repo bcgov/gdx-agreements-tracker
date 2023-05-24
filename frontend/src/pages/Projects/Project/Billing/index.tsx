@@ -10,15 +10,22 @@ import { formConfig } from "./formConfig";
 export const Billing = () => {
   const { projectId } = useParams();
 
-  const tableData = useFormatTableData(`projects/${projectId}/jv`);
+  const tableName = "jv";
+
+  const tableData = useFormatTableData({
+    apiEndPoint: `projects/${projectId}/jv`,
+    tableName,
+  });
+
   const formControls: IFormControls = useFormControls();
 
   const formData = useFormData({
     url: `/jv/${formControls.currentRowData?.id}`,
-    tableName: "jv",
+    tableName,
   });
   return (
     <TableWithModal
+      tableName={tableName}
       tableConfig={tableConfig()}
       tableData={tableData}
       formControls={formControls}

@@ -20,16 +20,23 @@ import { formConfig } from "./formConfig";
 export const ChangeRequest = () => {
   const { projectId } = useParams();
 
-  const tableData = useFormatTableData(`projects/${projectId}/change_request`);
+  const tableName = "change_request";
+
+  const tableData = useFormatTableData({
+    apiEndPoint: `projects/${projectId}/change_request`,
+    tableName,
+  });
+
   const formControls: IFormControls = useFormControls();
 
   const formData = useFormData({
     url: `/projects/${projectId}/change_request/${formControls.currentRowData?.id}`,
-    tableName: "change_request",
+    tableName,
   });
 
   return (
     <TableWithModal
+      tableName={tableName}
       tableConfig={tableConfig()}
       tableData={tableData}
       formControls={formControls}
