@@ -1,60 +1,45 @@
-import { FormikValues } from "formik";
-import { UseQueryResult } from "react-query";
+import { AxiosResponse } from "axios";
 import { IEditField } from "types";
 
-/**
- * The view fields.
- *
- * @param   {UseQueryResult<FormikValues>} projectQuery The react query data for specific project.
- * @returns {Array}
- */
-export const readFields = (projectQuery: UseQueryResult<FormikValues>) => {
-  return [
+export const formFields = (query: AxiosResponse | undefined) => {
+  const readFields = [
     {
       width: "full",
       title: "Close out date",
-      value: projectQuery?.data?.data?.close_out_date,
+      value: query?.data?.data?.close_out_date,
     },
     {
       width: "full",
       title: "Completed by",
-      value: projectQuery?.data?.data?.completed_by_contact_id?.label,
+      value: query?.data?.data?.completed_by_contact_id?.label,
     },
     {
       width: "full",
       title: "Actual completion date of project",
-      value: projectQuery?.data?.data?.actual_completion_date,
+      value: query?.data?.data?.actual_completion_date,
     },
     {
       width: "full",
       title: "Post implementation hand-off to operation completed",
-      value: projectQuery?.data?.data?.hand_off_to_operations?.value,
+      value: query?.data?.data?.hand_off_to_operations?.value,
     },
     {
       width: "full",
       title: "Project documentation filled in accordance with records management",
-      value: projectQuery?.data?.data?.records_filed?.value,
+      value: query?.data?.data?.records_filed?.value,
     },
     {
       width: "full",
       title: "Contract evaluation completed if applicable",
-      value: projectQuery?.data?.data?.contract_ev_completed?.value,
+      value: query?.data?.data?.contract_ev_completed?.value,
     },
     {
       width: "full",
       title: "Contractor IDIR terminated / building passes returned",
-      value: projectQuery?.data?.data?.contractor_security_terminated?.value,
+      value: query?.data?.data?.contractor_security_terminated?.value,
     },
   ];
-};
-
-/**
- * The edit fields.
- *
- * @returns {Array}
- */
-export const editFields: () => IEditField[] = () => {
-  return [
+  const editFields: IEditField[] = [
     {
       fieldName: "close_out_date",
       fieldLabel: "Close out date",
@@ -103,4 +88,5 @@ export const editFields: () => IEditField[] = () => {
       tableName: "project",
     },
   ];
+  return { readFields, editFields };
 };
