@@ -60,7 +60,3 @@ backend/reports/xlsx/~*
 deployments/kustomize/overlays/experimental
 backend/reports/~*
 deployments/kustomize/overlays/experimental
-
-# SQL Queries
-.sql
-session.sql
