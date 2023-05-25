@@ -26,7 +26,7 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
     console.log(JSON.stringify(report, null, 3));
 
     const result = {
-      report_date: await getDate(),
+      date: await getDate(),
       report,
     };
 
