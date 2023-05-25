@@ -12,13 +12,15 @@ const handleParams = (query, requestParams) => {
   if (requestParams.fiscal) {
     query.where({
       "q.fiscal": requestParams.fiscal,
-    })
+    });
   }
 };
 
 const Tab_49_rpt_PF_NetRecoveries = (requestParams) => {
-  const query = knex().select("*").fromRaw(
-    `(WITH current_year_recoveries_stob_base AS (
+  const query = knex()
+    .select("*")
+    .fromRaw(
+      `(WITH current_year_recoveries_stob_base AS (
       SELECT p.id AS project_id,
         p.project_number,
         p.project_name,
@@ -193,8 +195,8 @@ const Tab_49_rpt_PF_NetRecoveries = (requestParams) => {
     ORDER BY current_year_recoveries_stob_no_param.portfolio_name,
       current_year_recoveries_stob_no_param.project_number
     ) as q`
-  );
-  
+    );
+
   handleParams(query, requestParams);
   return query;
 };
