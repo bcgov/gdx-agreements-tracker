@@ -1,31 +1,34 @@
-import { Card, Typography } from "@mui/material";
-import { ReadEditPage } from "components/ReadEditPage";
-import { readFields, editFields, initialValues } from "./fields";
-import { ICapability } from "types";
-import { useParams } from "react-router-dom";
+import { FormRenderer } from "components/FormRenderer";
+import { useFormData } from "hooks/useFormData";
+import { useParams } from "react-router";
+import { formFields } from "./formFields";
+
+/**
+ * This is a TypeScript React component that renders a form for registering a project and uses hooks to
+ * fetch and update data.
+ *
+ * @returns The `ContractDetails` component is being returned.
+ */
 
 export const ContractDetails = () => {
   const { contractId } = useParams();
+  const tableName = "contract";
+  const query = useFormData({
+    url: `/contracts/${contractId}`,
+    tableName: tableName,
+  });
+
+  const { readFields, editFields } = formFields(query.data);
 
   return (
-    <Card sx={{ padding: "5px" }}>
-      <Typography variant="h5" component="h2">
-        Contract Details
-      </Typography>
-      <ReadEditPage
-        id={contractId}
-        what={{ single: "contract", plural: "contracts" }}
-        readFields={readFields}
-        editFields={editFields}
-        createFormInitialValues={initialValues}
-        capability={
-          {
-            updateOne: "contracts_update_one",
-          } as ICapability
-        }
-        apiRoute={"contracts"}
-        redirectRoute={"/contracts"}
-      />
-    </Card>
+    <FormRenderer
+      tableName={tableName}
+      readFields={readFields}
+      editFields={editFields}
+      postUrl="/contracts"
+      updateUrl={`/contracts/${contractId}`}
+      query={query}
+      rowsToLock={[Number(contractId)]}
+    />
   );
 };
