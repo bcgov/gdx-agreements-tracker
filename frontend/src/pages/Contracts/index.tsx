@@ -13,7 +13,6 @@ export const Contracts = () => {
     apiEndPoint: `contracts`,
     tableName,
   });
-
   const handleRowDoubleClick = (row: GridRowParams) => {
     navigate(`${row.id}`);
   };
