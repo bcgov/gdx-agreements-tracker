@@ -16,7 +16,7 @@ export const useRenderTableCell = () => {
     if (selectedRow !== null) {
       navigate(`/projects/${selectedRow?.id}`);
     }
-  }, [selectedRow]);
+  }, [navigate, selectedRow]);
 
   const linkCell: ReactNode = (params: GridRenderEditCellParams) => {
     return (
@@ -31,5 +31,5 @@ export const useRenderTableCell = () => {
     );
   };
 
-  return [linkCell, selectedRow];
+  return [linkCell, navigate, selectedRow];
 };

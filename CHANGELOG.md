@@ -23,6 +23,7 @@
   - Fixed render bugs and styling for table component
   - Updated how react query for the frontend works with form and table data
 
+
 **May 23, 2023**
 
 - Backend

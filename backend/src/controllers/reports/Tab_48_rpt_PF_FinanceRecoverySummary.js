@@ -22,9 +22,17 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
+    const report = await model.Tab_48_rpt_PF_FinanceRecoverySummary(request.query);
+    const report_totals = await model.Tab_48_totals(request.query);
+    const report_grand_totals = await model.Tab_48_grand_totals(request.query);
+    const [{ fiscal_year }] = await model.getFiscalYear(request.query);
 
     const result = {
-      report_date: await getDate(),
+      date: await getDate(),
+      fiscal: fiscal_year,
+      report,
+      report_totals,
+      report_grand_totals,
     };
 
     const body = await getDocumentApiBody(result, "Tab_48_rpt_PF_FinanceRecoverySummary.docx");

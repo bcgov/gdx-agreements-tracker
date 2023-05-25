@@ -8,17 +8,16 @@ import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
 
 /**
- * This is a functional component called `FormRenderer` that takes in several props including
-   `tableName`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`. It uses the `useQuery`
-   hook from the `react-query` library to fetch data based on the `tableName` prop. It also uses several
-   custom hooks including `useFormSubmit`, `useFormControls`, and `useFormLock` to handle form
-   submission, form controls, and database locking respectively. 
- 
+ * This is a functional component called `FormRenderer` that takes in several props including `queryKey`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`.
+ * It uses the `useQuery` hook from the `react-query` library to fetch data based on the `queryKey` prop.
+ * It also uses several custom hooks including `useFormSubmit`, `useFormControls`, and `useFormLock`
+ * to handle form submission, form controls, and database locking respectively.
+ *
  * @param   {object}             props            The props passed to this rendering component
  * @param   {string[]}           props.tableName  The key used to find the react query cache for the that item
  * @param   {Function}           props.readFields The read fields for the read form
  * @param   {Function}           props.editFields The read fields for the read form
- * @param   {string | undefined} props.rowId      The Database Table Row ID used to tell the dblock which row to lock or unlock 
+ * @param   {string | undefined} props.rowId      The Database Table Row ID used to tell the dblock which row to lock or unlock
  * @param   {string}             props.postUrl    The URL used to send a post request to the database
  * @param   {string}             props.updateUrl  The URL used to send an update request to the database
  * @returns {JSX.Element}

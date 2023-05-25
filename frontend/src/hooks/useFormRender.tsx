@@ -2,8 +2,8 @@
  * This is a TypeScript React function that returns a renderForm function based on editMode and
  * currentUser values.
  *
- * @param                 editForm    - a JSX element that represents the form to be displayed in edit mode.
- * @param                 readForm    - JSX element representing the form in read-only mode. This means that the form
+ * @param   {JSX.Element} editForm    - a JSX element that represents the form to be displayed in edit mode.
+ * @param   {JSX.Element} readForm    - JSX element representing the form in read-only mode. This means that the form
  *                                    cannot be edited and is only meant for viewing purposes.
  * @param   {boolean}     editMode    - A boolean value that indicates whether the form is in edit mode or not.
  *                                    If it is true, then the editForm will be rendered, otherwise the readForm will be rendered.
