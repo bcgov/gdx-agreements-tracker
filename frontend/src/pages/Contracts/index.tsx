@@ -1,67 +1,30 @@
-import React, { FC } from "react";
-import { Box, Button, LinearProgress, Typography } from "@mui/material";
-import { useFormatTableData } from "../../hooks";
-import { Table } from "../../components";
-import { Outlet, Link } from "react-router-dom";
-import { GridInitialState } from "@mui/x-data-grid";
+import { Table } from "components/PLAYGROUND/Table";
+import { tableConfig } from "./tableConfig";
+import { useNavigate } from "react-router-dom";
+import { GridRowParams } from "@mui/x-data-grid";
+import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
+import { LinearProgress } from "@mui/material";
+export const Contracts = () => {
+  const navigate = useNavigate();
 
-/**
- * The page component for the contract section of the application
- *
- * @returns {JSX.Element} - Returns a Contracts component
- */
+  const tableName = "contract";
 
-export const Contracts: FC = () => {
-  const { data, isLoading } = useFormatTableData({
-    tableName: "contracts",
-    apiEndPoint: "contracts",
-    columnWidths: {
-      project_name: 3,
-      description: 3,
-      supplier_name: 2,
-      contract_name: 2,
-    },
+  const tableData = useFormatTableData({
+    apiEndPoint: `contracts`,
+    tableName,
   });
 
-  const initialState: GridInitialState = {
-    filter: {
-      filterModel: {
-        items: [{ field: "status", operator: "equals", value: "Active" }],
-      },
-    },
+  const handleRowDoubleClick = (row: GridRowParams) => {
+    navigate(`${row.id}`);
   };
 
-  // A case statement which allows us to do a conditional render.  You cannot put a switch in the JSX so a function that return a switch is needed.
-  const switchRender = () => {
-    switch (isLoading) {
-      case true:
-        return <LinearProgress />;
-      case false:
-        return (
-          <Table
-            columns={data?.columns}
-            rows={data?.rows}
-            initialState={initialState}
-            loading={isLoading}
-          />
-        );
-      default:
-        return <LinearProgress />;
-    }
-  };
-
-  return (
-    <>
-      <Typography variant="h5" component="h2">
-        Contracts
-      </Typography>
-      {switchRender()}
-      <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-        <Button component={Link} to={"/contracts/new"} variant="contained">
-          New Contract
-        </Button>
-      </Box>
-      <Outlet />
-    </>
+  return tableData.isLoading ? (
+    <LinearProgress />
+  ) : (
+    <Table
+      rows={tableData.data.data.data}
+      tableConfig={tableConfig()}
+      handleRowDoubleClick={handleRowDoubleClick}
+    />
   );
 };
