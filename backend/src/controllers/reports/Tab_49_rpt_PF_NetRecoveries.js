@@ -22,9 +22,11 @@ controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
+    const report = await model.Tab_49_rpt_PF_NetRecoveries(request.query);
 
     const result = {
       report_date: await getDate(),
+      report,
     };
 
     const body = await getDocumentApiBody(result, "Tab_49_rpt_PF_NetRecoveries.docx");

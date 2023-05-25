@@ -287,6 +287,18 @@ export const reportType = {
         },
       ],
     },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_49_rpt_PF_NetRecoveries",
+      label: "GDX Project Net Recoveries",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+      ],
+    },
   ],
 };
 
@@ -374,6 +386,11 @@ export const reportDescription = {
       value:
         "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Financial details for each project (per portfolio), including recoveries, expenses, costs, and fees.",
       reportType: "Tab_48_rpt_PF_FinanceRecoverySummary",
+    },
+    {
+      value:
+        "Run for a specific fiscal, grouped by recovery area and sorted by Project #. Shows total recoveries, expenses, net recoveries, recovered-to-date and remaining recoveries for each project.",
+      reportType: "Tab_49_rpt_PF_NetRecoveries",
     },
   ],
 };
