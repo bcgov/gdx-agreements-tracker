@@ -12,8 +12,7 @@ const handleParams = (query, requestParams) => {
   if (requestParams.fiscal) {
     query.where({
       "q.fiscal": requestParams.fiscal,
-      //"q.portfolio_id": requestParams.portfolio_id,
-    });
+    })
   }
 };
 

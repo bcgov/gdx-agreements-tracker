@@ -297,11 +297,6 @@ export const reportType = {
           type: requestTypes.route,
           isRequired: true,
         },
-        {
-          field: fieldTypes.portfolio,
-          type: requestTypes.query,
-          isRequired: false,
-        },
       ],
     },
   ],

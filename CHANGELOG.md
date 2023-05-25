@@ -1,5 +1,13 @@
 ## Developer Changelog
+**May 25, 2023**
 
+- Backend
+  - Added model for GDX Project Net Recoveries report
+  - Added controller for GDX Project Net Recoveries report
+
+- Frontend
+  - Added options for GDX Project Net Recoveries report
+  
 **May 24, 2023**
 
 - Frontend
