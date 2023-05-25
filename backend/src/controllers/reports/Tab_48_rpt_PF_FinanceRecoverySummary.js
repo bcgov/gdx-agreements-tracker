@@ -23,12 +23,18 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
     // Get the data from the database.
     const getDate = async () => new Date();
     const report = await model.Tab_48_rpt_PF_FinanceRecoverySummary(request.query);
-    console.log(JSON.stringify(report, null, 3));
+    const report_totals = await model.Tab_48_totals(request.query);
+    const report_grand_totals = await model.Tab_48_grand_totals(request.query);
+    const [{ fiscal_year }] = await model.getFiscalYear(request.query);
 
     const result = {
       date: await getDate(),
+      fiscal: fiscal_year,
       report,
+      report_totals,
+      report_grand_totals,
     };
+    console.log(JSON.stringify(result, null, 3));
 
     const body = await getDocumentApiBody(result, "Tab_48_rpt_PF_FinanceRecoverySummary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
