@@ -9,13 +9,13 @@ import { useSnackbar } from "hooks/useSnackbar";
 
 /**
  * This is a functional component called `FormRenderer` that takes in several props including
-   `queryKey`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`. It uses the `useQuery`
-   hook from the `react-query` library to fetch data based on the `queryKey` prop. It also uses several
+   `tableName`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`. It uses the `useQuery`
+   hook from the `react-query` library to fetch data based on the `tableName` prop. It also uses several
    custom hooks including `useFormSubmit`, `useFormControls`, and `useFormLock` to handle form
    submission, form controls, and database locking respectively. 
  
  * @param   {object}             props            The props passed to this rendering component
- * @param   {string[]}           props.queryKey   The key used to find the react query cache for the that item
+ * @param   {string[]}           props.tableName  The key used to find the react query cache for the that item
  * @param   {Function}           props.readFields The read fields for the read form
  * @param   {Function}           props.editFields The read fields for the read form
  * @param   {string | undefined} props.rowId      The Database Table Row ID used to tell the dblock which row to lock or unlock 
@@ -25,7 +25,7 @@ import { useSnackbar } from "hooks/useSnackbar";
  */
 
 export const FormRenderer = ({
-  queryKey,
+  tableName,
   readFields,
   editFields,
   postUrl,
@@ -78,7 +78,7 @@ export const FormRenderer = ({
         handleFormType("read");
       });
     }
-    queryClient.invalidateQueries(queryKey);
+    queryClient.invalidateQueries([tableName]);
   };
 
   /**

@@ -23,7 +23,7 @@ const getAll = {
         .prop("resource_type", S.string())
         .prop("stob", S.string())
         .prop("program_area", S.string())
-        .prop("client", S.number())
+        .prop("client", S.string())
         .prop("co_number", S.anyOf([S.string(), S.null()]))
     )
   ),

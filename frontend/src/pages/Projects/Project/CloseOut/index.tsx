@@ -5,15 +5,16 @@ import { formFields } from "./formFields";
 
 export const CloseOut = () => {
   const { projectId } = useParams();
+  const tableName = "projects";
   const query = useFormData({
     url: `/projects/${projectId}/close-out`,
-    tableName: "projects",
+    tableName: tableName,
   });
   const { readFields, editFields } = formFields(query.data);
 
   return (
     <FormRenderer
-      queryKey={`/projects/${projectId}/close-out`}
+      tableName={tableName}
       readFields={readFields}
       editFields={editFields}
       postUrl="/projects"

@@ -16,9 +16,10 @@ import formFields from "./formFields";
 export const ContactsSection = () => {
   const { projectId } = useParams();
   const contactsUrl = `/projects/${projectId}/contacts`;
+  const tableName = "contact_project";
   const query = useFormData({
     url: contactsUrl,
-    tableName: "contact_project",
+    tableName: tableName,
   });
 
   const rowsToLock: Array<number> = !query
@@ -35,7 +36,7 @@ export const ContactsSection = () => {
 
   return (
     <FormRenderer
-      queryKey={contactsUrl}
+      tableName={tableName}
       readFields={readFields}
       editFields={editFields}
       updateUrl={contactsUrl}

@@ -10,12 +10,18 @@ import { formConfig } from "./formConfig";
 export const Status = () => {
   const { projectId } = useParams();
 
-  const tableData = useFormatTableData(`projects/${projectId}/status`);
+  const tableName = "project_status";
+
+  const tableData = useFormatTableData({
+    apiEndPoint: `projects/${projectId}/status`,
+    tableName,
+  });
+
   const formControls: IFormControls = useFormControls();
 
   const formData = useFormData({
     url: `/projects/status/${formControls.currentRowData?.id}`,
-    tableName: "project_status",
+    tableName,
   });
 
   return (
@@ -25,6 +31,7 @@ export const Status = () => {
       formControls={formControls}
       formConfig={formConfig}
       formData={formData}
+      tableName={tableName}
     />
   );
 };

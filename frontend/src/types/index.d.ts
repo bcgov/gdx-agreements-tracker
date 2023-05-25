@@ -388,7 +388,7 @@ export interface IModal {
 }
 
 export interface IFormRenderer {
-  queryKey: string;
+  tableName: string;
   readFields: { width: string; title: string; value: IReturnValue }[];
   editFields: IEditField[];
   postUrl?: string;
@@ -419,7 +419,6 @@ export type TFormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   editFields: IEditField[];
   initialValues: {};
   rowsToLock: number[];
-  queryKey: string;
   postUrl: string;
   updateUrl: string;
 };
@@ -440,6 +439,7 @@ export interface ITableWithModal {
   formControls: IFormControls;
   formConfig: TFormConfig;
   formData: UseQueryResul<FormikValues>;
+  tableName: string;
 }
 
 export interface IRowDoubleClickParams {

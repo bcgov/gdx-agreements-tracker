@@ -12,15 +12,16 @@ import { formFields } from "./formFields";
 
 export const AgreementSection = () => {
   const { projectId } = useParams();
+  const tableName = "projects";
   const query = useFormData({
     url: `/projects/${projectId}`,
-    tableName: "projects",
+    tableName: tableName,
   });
   const { readFields, editFields } = formFields(query.data);
 
   return (
     <FormRenderer
-      queryKey={`/projects/${projectId}`}
+      tableName={tableName}
       readFields={readFields}
       editFields={editFields}
       postUrl="/projects"

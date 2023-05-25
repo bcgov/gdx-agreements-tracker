@@ -17,6 +17,7 @@ export const TableWithModal = ({
   formControls,
   formConfig,
   formData,
+  tableName,
 }: ITableWithModal) => {
   const { handleCurrentRowData, open, handleClose, handleOpen } = formControls;
 
@@ -25,7 +26,7 @@ export const TableWithModal = ({
     handleOpen();
   };
 
-  const { readFields, editFields, initialValues, rowsToLock, queryKey, postUrl, updateUrl } =
+  const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
     formConfig(formData);
 
   return tableData.isLoading ? (
@@ -39,7 +40,7 @@ export const TableWithModal = ({
       />
       <FormModal open={open} handleClose={handleClose}>
         <FormRenderer
-          queryKey={queryKey}
+          tableName={tableName}
           readFields={readFields}
           editFields={editFields}
           postUrl={postUrl}
