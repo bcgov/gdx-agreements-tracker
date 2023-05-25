@@ -1,5 +1,4 @@
 import { BudgetDisplay } from "components/BudgetDisplay";
-import React from "react";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { IChipNav } from "types";

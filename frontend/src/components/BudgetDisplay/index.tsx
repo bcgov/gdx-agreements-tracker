@@ -29,7 +29,7 @@ export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {
   });
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ marginTop: "5%" }}>
       {!data ? (
         <Loader />
       ) : (

@@ -5,6 +5,7 @@
 - Frontend
 
   - Added db_lock to contracts section
+  - Added db_lock to contract details section
 
 **May 24, 2023**
 
