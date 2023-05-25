@@ -4,10 +4,16 @@
 
 - Frontend
 
+  - Added db_lock to contracts section
+
+**May 24, 2023**
+
+- Frontend
+
   - Added db_lock to project close out section.
   - Fixed render bugs and styling for table component
   - Updated how react query for the frontend works with form and table data
-  
+
 **May 23, 2023**
 
 - Backend
