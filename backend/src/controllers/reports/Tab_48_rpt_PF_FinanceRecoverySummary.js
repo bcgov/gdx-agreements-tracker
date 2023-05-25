@@ -22,9 +22,12 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
+    const report = await model.Tab_48_rpt_PF_FinanceRecoverySummary(request.query);
+    console.log(JSON.stringify(report, null, 3));
 
     const result = {
       report_date: await getDate(),
+      report,
     };
 
     const body = await getDocumentApiBody(result, "Tab_48_rpt_PF_FinanceRecoverySummary.docx");
