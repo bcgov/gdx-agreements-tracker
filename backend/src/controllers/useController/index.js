@@ -34,11 +34,9 @@ const useController = (model, what, capabilityPrefix = null) => {
   /**
    * This simply adds the capability object to the request object, so that the hook in the fastify plugin can have access to this information.
    *
-   * @param {FastifyRequest} request    FastifyRequest is an instance of the standard http or http2 request objects.
-   * @param {object}         what       The type of object to be accessed.
-   * @param {string}         capability The capability it requires to have access.
-   * @param                  role       The role that is required to access the data
-   * @param                  reply      The fastify reply object
+   * @param {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+   * @param {string}         role    The role that is required to access the data
+   * @param {object}         reply   The fastify reply object
    */
   const userRequires = async (request, role, reply) => {
     const roles = await getRealmRoles(request);

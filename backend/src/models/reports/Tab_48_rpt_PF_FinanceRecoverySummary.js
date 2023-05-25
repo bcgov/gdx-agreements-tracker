@@ -2,12 +2,17 @@ const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
 /**
- * Gets data for the Divisional Project Reports - Project Dashboard report.
+ * Gets data for the Divisional Project Reports - finance recovery summary forecast by fiscal
  *
+ * @param           requestParams fiscal: the fiscal year for this report
  * @returns {any[]}
  */
-const handleParams = (query, {fiscal}) =>
-  fiscal && query.where("q.fiscal", fiscal);
+
+const handleParams = (query, requestParams) => {
+  if (requestParams.fiscal) {
+    query.where("q.fiscal", requestParams.fiscal);
+  }
+};
 
 const Tab_48_rpt_PF_FinanceRecoverySummary = (requestParams) => {
   const query = knex.select("*").fromRaw(`(

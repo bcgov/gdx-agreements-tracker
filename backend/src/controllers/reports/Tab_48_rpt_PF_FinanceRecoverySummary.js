@@ -34,7 +34,6 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
       report_totals,
       report_grand_totals,
     };
-    console.log(JSON.stringify(result, null, 3));
 
     const body = await getDocumentApiBody(result, "Tab_48_rpt_PF_FinanceRecoverySummary.docx");
     const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
