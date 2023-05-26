@@ -26,7 +26,6 @@ controller.getProjectStatusRollup = async (request, reply) => {
     let portfolioRollup = await model.getRollupByPortfolios(portfolios);
 
     const result = {
-      test: "TEST",
       report_date: await getDate(),
       rollup: { portfolios: groupByProperty(portfolioRollup, "portfolio_name") },
     };
