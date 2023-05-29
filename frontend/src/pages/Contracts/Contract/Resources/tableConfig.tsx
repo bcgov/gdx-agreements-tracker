@@ -5,15 +5,15 @@ export const tableConfig = () => {
   const defaultFlex = 3;
 
   const tableColumns: GridColDef[] = [
-    { field: "fiscal", headerName: "fiscal", flex: defaultFlex },
-    { field: "resource", headerName: "resource", flex: defaultFlex },
-    { field: "assignment_role", headerName: "assignment_role", flex: defaultFlex },
-    { field: "supplier_rate", headerName: "supplier_rate", flex: defaultFlex },
-    { field: "assignment_rate", headerName: "assignment_rate", flex: defaultFlex },
-    { field: "hours", headerName: "hours", flex: defaultFlex },
-    { field: "fees_for_resource", headerName: "fees_for_resource", flex: defaultFlex },
-    { field: "start_date", headerName: "start_date", flex: defaultFlex },
-    { field: "end_date", headerName: "end_date", flex: defaultFlex },
+    { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
+    { field: "resource", headerName: "Resource", flex: defaultFlex },
+    { field: "assignment_role", headerName: "Assignment Role", flex: defaultFlex },
+    { field: "supplier_rate", headerName: "Supplier Rate", flex: defaultFlex },
+    { field: "assignment_rate", headerName: "Assignment Rate", flex: defaultFlex },
+    { field: "hours", headerName: "Hours", flex: defaultFlex },
+    { field: "fees_for_resource", headerName: "Fees For Resource", flex: defaultFlex },
+    { field: "start_date", headerName: "Start Date", flex: defaultFlex },
+    { field: "end_date", headerName: "End Date", flex: defaultFlex },
   ];
 
   const initialState = {
