@@ -5,6 +5,9 @@
   - Updated controller to show totals & subtotals
 - Frontend
   - Add tab 48 template
+  - Added db_lock to contract invoice processing sections
+    - Invoice Resources
+    - Invocie Deliverables
 
 **May 25, 2023**
 
