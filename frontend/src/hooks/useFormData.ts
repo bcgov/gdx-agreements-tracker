@@ -11,7 +11,6 @@ export const useFormData = ({ url, tableName }: IGetFormData) => {
   const { axiosAll } = useAxios();
   const getData = async () => {
     const results = await axiosAll().get(url);
-    console.log('url', url)
     results.data.table = tableName;
     return results;
   };

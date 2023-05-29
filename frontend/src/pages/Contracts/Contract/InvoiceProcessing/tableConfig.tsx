@@ -1,7 +1,6 @@
 import { GridColDef, GridInitialState } from "@mui/x-data-grid";
 import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCell";
 
-
 export const tableConfig = () => {
   const defaultFlex = 3;
   const tableColumns: GridColDef[] = [

@@ -12,6 +12,7 @@ const findAllByInvoiceId = (invoiceId) => {
       "*",
       { amount: knex.raw("(i.unit_amount * i.rate)::numeric::float8") },
       { type: knex.raw("(CASE WHEN is_expense THEN 'Expense' ELSE 'Fixed Price' END)") },
+      "cd.deliverable_name",
       "i.id"
     )
     .from(`${table} as i`)
@@ -24,6 +25,7 @@ const findById = (id) => {
     .select(
       "i.id",
       "cd.is_expense",
+      "cd.contract_id",
       knex.raw("i.rate::numeric::float8 as rate"),
       {
         amount_remaining: knex.raw("(cd.deliverable_amount - amount_total.sum)::numeric::float8"),

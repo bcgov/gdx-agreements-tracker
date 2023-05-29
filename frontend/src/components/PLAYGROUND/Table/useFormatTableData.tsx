@@ -18,7 +18,6 @@ export const useFormatTableData = ({
 }) => {
   const { axiosAll } = useAxios();
   const getTableData = async () => {
-
     return (
       axiosAll()
         .get(apiEndPoint)
