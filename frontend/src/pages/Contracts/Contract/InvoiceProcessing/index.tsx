@@ -64,6 +64,8 @@ import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { formConfig } from "./formConfig";
+import { Grid } from "@mui/material";
+import { InvoiceResources } from "./InvoiceResources";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -76,6 +78,7 @@ import { formConfig } from "./formConfig";
  */
 
 export const InvoiceProcessing = () => {
+
   const { contractId } = useParams();
 
   const tableName = "invoice";
@@ -91,15 +94,25 @@ export const InvoiceProcessing = () => {
     url: `/invoices/${formControls.currentRowData?.id}`,
     tableName,
   });
-
   return (
-    <TableWithModal
-      tableName={tableName}
-      tableConfig={tableConfig()}
-      tableData={tableData}
-      formControls={formControls}
-      formConfig={formConfig}
-      formData={formData}
-    />
+    <>
+      <TableWithModal
+        tableName={tableName}
+        tableConfig={tableConfig()}
+        tableData={tableData}
+        formControls={formControls}
+        formConfig={formConfig}
+        formData={formData}
+      />
+      <Grid container spacing={2}>
+        <Grid item md={6} sm={12}>
+          <InvoiceResources invoiceId={formControls.currentRowData?.id}/>
+        </Grid>
+        {/* <Grid item md={6} sm={12}>
+          <InvoiceDeliverables invoiceId={invoiceId} contractId={Number(contractId)} />
+        </Grid> */}
+      </Grid>
+    </>
+
   );
 };
