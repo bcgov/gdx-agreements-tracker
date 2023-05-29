@@ -28,8 +28,8 @@ export const TableWithModal = ({
   };
 
   const handleRowClick = (params: GridRowParams) => {
-    handleCurrentRowData(params.row)
-  }
+    handleCurrentRowData(params.row);
+  };
 
   const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
     formConfig(formData);

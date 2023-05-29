@@ -14,9 +14,9 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick, handleRowClick 
       background: "#555",
     },
     ".MuiDataGrid-iconSeparator, .MuiDataGrid-sortIcon, .MuiDataGrid-columnHeader, .MuiDataGrid-menuIcon,.MuiDataGrid-filterIcon,.MuiDataGrid-menuIconButton":
-    {
-      color: "#fff",
-    },
+      {
+        color: "#fff",
+      },
   };
 
   const BoxStyles = { height: "80vh", width: "100%" };
