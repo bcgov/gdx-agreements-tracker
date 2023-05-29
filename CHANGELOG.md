@@ -1,4 +1,11 @@
 ## Developer Changelog
+**May 29, 2023**
+- Backend
+  - Updated model to show totals & subtotals
+  - Updated controller to show totals & subtotals
+- Frontend
+  - Add tab 48 template
+
 **May 25, 2023**
 
 - Backend
@@ -7,7 +14,7 @@
 
 - Frontend
   - Added options for GDX Project Net Recoveries report
-  
+
 **May 24, 2023**
 
 - Frontend
