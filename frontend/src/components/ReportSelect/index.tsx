@@ -247,6 +247,24 @@ export const ReportSelect = () => {
                       </Button>
                     </Box>
                   </Grid>
+                  <Grid item>
+                    <Box
+                      m={1}
+                      display="flex"
+                      justifyContent="flex-end"
+                      alignItems="flex-end"
+                      role={"submit_button"}
+                    >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={dirty ? false : true}
+                      >
+                        Export XLS
+                      </Button>
+                    </Box>
+                  </Grid>
                 </Grid>
               </FormControl>
             </Form>
