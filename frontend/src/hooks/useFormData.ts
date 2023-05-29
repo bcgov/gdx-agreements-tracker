@@ -15,7 +15,7 @@ export const useFormData = ({ url, tableName }: IGetFormData) => {
     return results;
   };
 
-  const query = useQuery([tableName, url], getData);
+  const query = useQuery([tableName, "form", url], getData);
 
   return query;
 };

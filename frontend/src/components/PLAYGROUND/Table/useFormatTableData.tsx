@@ -40,7 +40,7 @@ export const useFormatTableData = ({
     );
   };
 
-  const { data, isLoading } = useQuery([tableName, "table"], getTableData, {
+  const { data, isLoading } = useQuery([tableName, "table", apiEndPoint], getTableData, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,
