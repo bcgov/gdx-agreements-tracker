@@ -18,7 +18,6 @@ import { formConfig } from "./formConfig";
  */
 
 export const ContractResources = () => {
-
   const { contractId } = useParams();
 
   const tableName = "contract_resource";
@@ -27,7 +26,6 @@ export const ContractResources = () => {
     apiEndPoint: `/contracts/${contractId}/resources`,
     tableName,
   });
-console.log('tableData', tableData)
   const formControls: IFormControls = useFormControls();
 
   const formData = useFormData({
