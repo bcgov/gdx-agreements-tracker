@@ -11,7 +11,7 @@ const routes = [
   {
     method: "GET",
     url: `/invoices/deliverables/:id`,
-    // schema: validators.getOne,
+    schema: validators.getOne,
     handler: controller.getOne,
   },
   {
