@@ -4,10 +4,10 @@ import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCe
 export const tableConfig = () => {
   const defaultFlex = 3;
   const tableColumns: GridColDef[] = [
-    { field: "resource_assignment", headerName: "resource_assignment", flex: defaultFlex },
-    { field: "hours", headerName: "hours", flex: defaultFlex },
-    { field: "rate", headerName: "rate", flex: defaultFlex },
-    { field: "amount", headerName: "amount", flex: defaultFlex },
+    { field: "resource_assignment", headerName: "Resource Assignment", flex: defaultFlex },
+    { field: "hours", headerName: "Hours", flex: defaultFlex },
+    { field: "rate", headerName: "Rate", flex: defaultFlex },
+    { field: "amount", headerName: "Amount", flex: defaultFlex },
   ];
 
   const initialState = {

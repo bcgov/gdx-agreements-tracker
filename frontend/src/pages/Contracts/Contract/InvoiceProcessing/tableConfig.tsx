@@ -4,15 +4,15 @@ import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCe
 export const tableConfig = () => {
   const defaultFlex = 3;
   const tableColumns: GridColDef[] = [
-    { field: "received_date", headerName: "received_date", flex: defaultFlex },
-    { field: "invoice_date", headerName: "invoice_date", flex: defaultFlex },
-    { field: "due_date", headerName: "due_date", flex: defaultFlex },
-    { field: "billing_period", headerName: "billing_period", flex: defaultFlex },
-    { field: "fiscal", headerName: "fiscal", flex: defaultFlex },
-    { field: "invoice_total", headerName: "invoice_total", flex: defaultFlex },
-    { field: "invoice_number", headerName: "invoice_number", flex: defaultFlex },
-    { field: "is_gl", headerName: "is_gl", flex: defaultFlex },
-    { field: "notes", headerName: "notes", flex: defaultFlex },
+    { field: "received_date", headerName: "Received Date", flex: defaultFlex },
+    { field: "invoice_date", headerName: "Invoice Date", flex: defaultFlex },
+    { field: "due_date", headerName: "Due Date", flex: defaultFlex },
+    { field: "billing_period", headerName: "Billing Period", flex: defaultFlex },
+    { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
+    { field: "invoice_total", headerName: "Invoice Total", flex: defaultFlex },
+    { field: "invoice_number", headerName: "Invoice Number", flex: defaultFlex },
+    { field: "is_gl", headerName: "Is Gl", flex: defaultFlex },
+    { field: "notes", headerName: "Notes", flex: defaultFlex },
   ];
 
   const initialState = {
