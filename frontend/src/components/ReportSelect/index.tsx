@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import _ from 'lodash';
 import {
   Box,
   Radio,
@@ -28,20 +29,25 @@ export const ReportSelect = () => {
 
   // Handle state changes
   const [category, setCategory] = useState<string>();
+  const [isXlsReport, setXlsReport] = useState<boolean>(false);
+  const [xlsReportEnabled, setXlsReportEnabled] = useState<boolean>(false);
   const [reportParamCategory, setReportParamCategory] = useState<
-    { field: IEditField; type: number; isRequired: boolean }[] | null
+    { field: IEditField; type: number; isRequired: boolean, hasXls: boolean | null }[] | null
   >(null);
   const [currentReportType, setCurrentReportType] = useState<string | null>(null);
 
   const handleChangeCategory = (value: string) => {
     setCurrentReportType(null);
     setReportParamCategory(null);
+    setXlsReportEnabled(false);
     setCategory(value);
   };
 
   const handleChangeType = (value: string) => {
     const option = reportType.options.find((option) => option.value === value);
+    const hasXls = (option as IReportParamOptions)?.reportParamCategory[0].hasXls ?? false;
     setReportParamCategory((option as IReportParamOptions).reportParamCategory);
+    setXlsReportEnabled(hasXls);
     setCurrentReportType(value);
   };
 
@@ -259,7 +265,7 @@ export const ReportSelect = () => {
                         type="submit"
                         variant="contained"
                         color="primary"
-                        disabled={dirty ? false : true}
+                        disabled={!xlsReportEnabled}
                       >
                         Export XLS
                       </Button>

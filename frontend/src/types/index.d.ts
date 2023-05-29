@@ -50,7 +50,7 @@ export interface ITableData {
   };
 }
 
-//Declartion that adds custom types to material ui predefined interfaces
+//Declaration that adds custom types to material ui predefined interfaces
 declare module "@mui/material/styles" {
   interface Theme {
     customSettings: {
@@ -368,6 +368,7 @@ export interface IReportParamOptions {
     field: IEditField;
     type: number;
     isRequired: boolean;
+    hasXls: boolean;
   }[];
 }
 
@@ -438,7 +439,7 @@ export interface ITableWithModal {
   tableConfig: unknown;
   formControls: IFormControls;
   formConfig: TFormConfig;
-  formData: UseQueryResul<FormikValues>;
+  formData: UseQueryResult<FormikValues>;
   tableName: string;
 }
 

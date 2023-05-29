@@ -28,7 +28,7 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
     const report_totals = await model.Tab_48_totals(request.query);
     const report_grand_totals = await model.Tab_48_grand_totals(request.query);
 
-    // shape the dataset so it can be parsed by the templating engine properly
+    // shape the dataset so it can be parsed by the template rendering engine properly
     const reportByPortfolio = groupByProperty(report, "portfolio_name");
     const totalsByPortfolio = _.keyBy(report_totals, "portfolio_name");
     const reportsByPortfolioWithTotals = _.map(reportByPortfolio, (portfolio) => ({
