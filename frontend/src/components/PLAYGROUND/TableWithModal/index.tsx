@@ -1,8 +1,9 @@
-import { LinearProgress, Modal } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 import { IRowDoubleClickParams, ITableWithModal } from "types";
 import FormModal from "../FormModal";
 import { Table } from "../Table";
 import { FormRenderer } from "components/FormRenderer";
+import { GridRowParams } from "@mui/x-data-grid";
 
 /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
 property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
@@ -26,6 +27,10 @@ export const TableWithModal = ({
     handleOpen();
   };
 
+  const handleRowClick = (params: GridRowParams) => {
+    handleCurrentRowData(params.row)
+  }
+
   const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
     formConfig(formData);
 
@@ -34,9 +39,10 @@ export const TableWithModal = ({
   ) : (
     <>
       <Table
-        rows={tableData.data.data.data}
+        rows={tableData.data ? tableData.data.data.data : []}
         tableConfig={tableConfig}
         handleRowDoubleClick={handleRowDoubleClick}
+        handleRowClick={handleRowClick}
       />
       <FormModal open={open} handleClose={handleClose}>
         <FormRenderer

@@ -1,9 +1,8 @@
-import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import { DataGrid, GridToolbar, GridToolbarQuickFilter, gridClasses } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
+export const Table = ({ rows, tableConfig, handleRowDoubleClick, handleRowClick = null }: any) => {
   const { tableColumns, initialState } = tableConfig;
 
   const DataGridStyles = {
@@ -15,9 +14,9 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
       background: "#555",
     },
     ".MuiDataGrid-iconSeparator, .MuiDataGrid-sortIcon, .MuiDataGrid-columnHeader, .MuiDataGrid-menuIcon,.MuiDataGrid-filterIcon,.MuiDataGrid-menuIconButton":
-      {
-        color: "#fff",
-      },
+    {
+      color: "#fff",
+    },
   };
 
   const BoxStyles = { height: "80vh", width: "100%" };
@@ -29,6 +28,7 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick }: any) => {
           columns={tableColumns}
           rows={rows}
           initialState={initialState}
+          onRowClick={handleRowClick}
           onRowDoubleClick={handleRowDoubleClick}
           sx={DataGridStyles}
           slots={{ toolbar: GridToolbar }}
