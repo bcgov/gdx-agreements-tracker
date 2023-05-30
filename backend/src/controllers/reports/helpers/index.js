@@ -46,9 +46,8 @@ const getDocumentApiBody = async (
   const templateContent = await loadTemplate(path.resolve(__dirname, templatePath));
 
   console.log(`
-    path: ${path},
-    outputFormat: ${outputFormat},
-    templateContent: ${templateContent}
+    templatePath: ${templatePath},
+    outputFormat: ${outputFormat}
   `);
 
   return {
