@@ -1,5 +1,7 @@
 ## Developer Changelog
+
 **May 29, 2023**
+
 - Backend
   - Updated model to show totals & subtotals
   - Updated controller to show totals & subtotals
@@ -8,10 +10,12 @@
   - Added db_lock to contract invoice processing sections
     - Invoice Resources
     - Invocie Deliverables
+  - Added db_lock to contract resources section
 
 **May 25, 2023**
 
 - Backend
+
   - Added model for GDX Project Net Recoveries report
   - Added controller for GDX Project Net Recoveries report
 
@@ -32,7 +36,6 @@
   - Added db_lock to project close out section.
   - Fixed render bugs and styling for table component
   - Updated how react query for the frontend works with form and table data
-
 
 **May 23, 2023**
 
