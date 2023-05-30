@@ -32,7 +32,7 @@ export const ReportSelect = () => {
   const [isXlsReport, setXlsReport] = useState<boolean>(false);
   const [xlsReportEnabled, setXlsReportEnabled] = useState<boolean>(false);
   const [reportParamCategory, setReportParamCategory] = useState<
-    { field: IEditField; type: number; isRequired: boolean, hasXls: boolean | null }[] | null
+    { field: IEditField; type: number; isRequired: boolean, hasXls: boolean }[] | null
   >(null);
   const [currentReportType, setCurrentReportType] = useState<string | null>(null);
 
@@ -131,6 +131,7 @@ export const ReportSelect = () => {
           if (values[param.field.fieldName]) {
             const field = param.field.fieldName;
             const value = values[param.field.fieldName];
+
             // If the input is query type, add the value(s) to the querystring.
             if (param.type === requestTypes.query) {
               if (value instanceof Array) {
@@ -143,6 +144,9 @@ export const ReportSelect = () => {
                 querystringParams.append(field, values[field].value);
               } else {
                 querystringParams.append(field, value.toString());
+              }
+              if(isXlsReport){
+                querystringParams.append('fileType', 'xls');
               }
             } else {
               // If the request type is route, we will add that value to the route params.
@@ -175,8 +179,10 @@ export const ReportSelect = () => {
             alink.href = fileURL;
             if (jsonReports.includes(reportUri)) {
               alink.download = `${values.report_type}.json`;
-            } else {
+            } else if(!isXlsReport) {
               alink.download = `${values.report_type}.pdf`;
+            } else if(isXlsReport) {
+              alink.download = `${values.report_type}.xlsx`;
             }
             alink.click();
           } catch (err) {
@@ -266,6 +272,7 @@ export const ReportSelect = () => {
                         variant="contained"
                         color="primary"
                         disabled={!xlsReportEnabled}
+                        onClick={() => setXlsReport(true) }
                       >
                         Export XLS
                       </Button>
