@@ -35,9 +35,21 @@ const getDocumentApiBody = async (
   reportName = "report",
   convertTo = "pdf"
 ) => {
-  const templateContent = await loadTemplate(
-    path.resolve(__dirname, `../../../../reports/docx/${templateFileName}`)
-  );
+  // return early if wrong template type is sent.
+  if (!["docx", "xlsx"].includes(templateType)) {
+    return null;
+  }
+
+  // decide whether to export an XLSX or PDF
+  const templatePath = `../../../../reports/${templateType}/${templateFileName}`;
+  const outputFormat = templateType === "xlsx" ? "xlsx" : "pdf";
+  const templateContent = await loadTemplate(path.resolve(__dirname, templatePath));
+
+  console.log(`
+    path: ${path},
+    outputFormat: ${outputFormat},
+    templateContent: ${templateContent}
+  `);
 
   return {
     data: data,
@@ -45,7 +57,7 @@ const getDocumentApiBody = async (
       '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
     options: {
       cacheReport: true,
-      convertTo: convertTo,
+      convertTo: outputFormat,
       overwrite: true,
       reportName: reportName,
     },
@@ -84,9 +96,8 @@ const groupByProperty = (rows, prop) => {
     projects: [...value],
   });
   const rowsByProp = _.groupBy(rows, prop);
-  const propGroup = _.map(rowsByProp, sliceOneGroup);
 
-  return propGroup;
+  return _.map(rowsByProp, sliceOneGroup);
 };
 
 module.exports = {

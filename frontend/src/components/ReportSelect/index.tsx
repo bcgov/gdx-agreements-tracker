@@ -45,9 +45,10 @@ export const ReportSelect = () => {
 
   const handleChangeType = (value: string) => {
     const option = reportType.options.find((option) => option.value === value);
-    const hasXls = (option as IReportParamOptions)?.reportParamCategory[0].hasXls ?? false;
     setReportParamCategory((option as IReportParamOptions).reportParamCategory);
-    setXlsReportEnabled(hasXls);
+    setXlsReportEnabled(
+    _.get(option ,'reportParamCategory[0].hasXls', false)
+      );
     setCurrentReportType(value);
   };
 
@@ -124,6 +125,9 @@ export const ReportSelect = () => {
     let url = `report/projects/${reportUri}`;
     let routeParam;
     const querystringParams = new URLSearchParams();
+    if(isXlsReport){
+      querystringParams.append('fileType', 'xlsx');
+    }
     try {
       // Build querystring and route params from input values.
       if (reportParamCategory) {
@@ -144,9 +148,6 @@ export const ReportSelect = () => {
                 querystringParams.append(field, values[field].value);
               } else {
                 querystringParams.append(field, value.toString());
-              }
-              if(isXlsReport){
-                querystringParams.append('fileType', 'xls');
               }
             } else {
               // If the request type is route, we will add that value to the route params.
@@ -179,10 +180,10 @@ export const ReportSelect = () => {
             alink.href = fileURL;
             if (jsonReports.includes(reportUri)) {
               alink.download = `${values.report_type}.json`;
-            } else if(!isXlsReport) {
-              alink.download = `${values.report_type}.pdf`;
             } else if(isXlsReport) {
               alink.download = `${values.report_type}.xlsx`;
+            } else {
+              alink.download = `${values.report_type}.pdf`;
             }
             alink.click();
           } catch (err) {
