@@ -1,4 +1,11 @@
 ## Developer Changelog
+
+**May 31, 2023**
+
+- Frontend
+
+  - Added db_lock to contract deliverables section
+  
 **May 30, 2023**
 
 - Backend
@@ -7,6 +14,7 @@
   - Clean up model code for readability / reusability
 - Frontend
   - Added picker for portfolio option
+
 
 **May 29, 2023**
 

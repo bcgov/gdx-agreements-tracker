@@ -8,7 +8,7 @@ const fiscalTable = `${dataBaseSchemas().data}.fiscal_year`;
 // Get all.
 const findAll = (contractId) => {
   return knex
-    .select("cr.id", "cr.*")
+    .select("fy.fiscal_year", "cr.id", "cr.*")
     .from(`${table} as cr`)
     .join(`${fiscalTable} as fy`, { "cr.fiscal": "fy.id" })
     .where("cr.contract_id", contractId);
