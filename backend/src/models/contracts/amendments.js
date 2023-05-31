@@ -33,10 +33,7 @@ const findById = (contractId, amendmentId) => {
   return knex
     .select(
       "contract_amendment.id",
-      //"amendment_type.amendment_type_name AS Amendment Type",
-      knex.raw(
-        "( SELECT json_build_object('value', contract_amendment.contract_id, 'label', contract.co_number)) AS contract_id"
-      ),
+      "contract_amendment.contract_id",
       knex.raw(
         "( SELECT json_build_object('value', contract_amendment.amendment_number, 'label', amendment_type.amendment_type_name)) AS amendment_number"
       ),
