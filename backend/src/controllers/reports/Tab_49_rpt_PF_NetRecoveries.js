@@ -4,10 +4,11 @@ const model = require("@models/reports/Tab_49_rpt_PF_NetRecoveries");
 const utils = require("./helpers");
 const what = { single: "report", plural: "reports" };
 const controller = useController(model, what);
+const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
 controller.getReport = getReport;
 
 /**
@@ -22,11 +23,22 @@ controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
   try {
     // Get the data from the database.
     const getDate = async () => new Date();
+    const [{ fiscal_year }] = await model.getFiscalYear(request.query);
     const report = await model.Tab_49_rpt_PF_NetRecoveries(request.query);
+    const report_totals = await model.Tab_49_totals(request.query);
+
+    // shape the dataset so it can be parsed by the templating engine properly
+    const reportByPortfolio = groupByProperty(report, "portfolio_name");
+    const totalsByPortfolio = _.keyBy(report_totals, "portfolio_name");
+    const reportsByPortfolioWithTotals = _.map(reportByPortfolio, (portfolio) => ({
+      ...portfolio,
+      portfolio_totals: totalsByPortfolio[portfolio.portfolio_name],
+    }));
 
     const result = {
+      fiscal: fiscal_year,
       report_date: await getDate(),
-      report,
+      report:reportsByPortfolioWithTotals,
     };
 
     const body = await getDocumentApiBody(result, "Tab_49_rpt_PF_NetRecoveries.docx");
