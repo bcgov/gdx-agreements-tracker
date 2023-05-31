@@ -5,6 +5,7 @@ const _ = require("lodash");
 
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
+const templateFiletypes = ["docx", "xlsx"];
 
 /**
  * Reads a file and encodes it to the specified format
@@ -27,11 +28,16 @@ const loadTemplate = async (path, encoding = "base64") => {
   }
   return data;
 };
-//TODO: write an adapter function that takes an argument from the controller that says
-// if whether we want to export to pdf or xls, and whether we have a .docx or .xlsx template
-// that adaptor function will then call `getDocumentApiBody` with the appropriate arguments, and
-// we can leave getDocumentApiBody mostly alone
 
+/**
+ * Generates the API body for creating a document using the provided data and template.
+ * @param {Object} data - The data to be used in the document.
+ * @param {string} templateFileName - The name of the template file to use.
+ * @param {string} [templateType="docx"] - The type of the template file (default: "docx").
+ * @param {string} [reportName="report"] - The name of the report (default: "report").
+ * @param {string} [convertTo="pdf"] - The format to convert the document to (default: "pdf").
+ * @returns {Object|null} Returns an object containing the API body for creating a document or null if the input is invalid.
+ */
 const getDocumentApiBody = async (
   data,
   templateFileName,
@@ -39,39 +45,23 @@ const getDocumentApiBody = async (
   reportName = "report",
   convertTo = "pdf"
 ) => {
-  const REPORT_FILETYPES = ["docx", "xlsx", "pdf"];
-  const TEMPLATE_FILETYPES = ["docx", "xlsx"];
-  const OUTPUT_MAP = {
-    docx: "pdf",
-    xlsx: "xlsx",
-  };
-
-  // return early if wrong template type is sent.
-  if (!TEMPLATE_FILETYPES.includes(templateType)) {
+  if (!isValidInput({ templateType, templateFileName })) {
     return null;
   }
 
-  // decide whether to export an XLSX or PDF
-  const templatePath = `../../../../reports/${templateType}/${templateFileName}`;
-  const outputFormat = OUTPUT_MAP[templateType];
-  const templateContent = await loadTemplate(path.resolve(__dirname, templatePath));
-
-  console.log(`
-    templateFileName: ${templateFileName},
-    templatePath: ${templatePath},
-    templateType: ${templateType},
-    outputFormat: ${outputFormat},
-  `);
+  const templatePath = getTemplatePath({ templateType, templateFileName });
+  const resolvedTemplatePath = path.resolve(__dirname, templatePath);
+  const templateContent = await loadTemplate(resolvedTemplatePath);
 
   return {
-    data: data,
+    data,
     formatters:
       '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
     options: {
       cacheReport: true,
-      convertTo: outputFormat,
+      convertTo: getOutputFormat(templateType),
       overwrite: true,
-      reportName: reportName,
+      reportName,
     },
     template: {
       content: templateContent,
@@ -81,35 +71,50 @@ const getDocumentApiBody = async (
   };
 };
 
+// helper functions for getDocumentApi()
+const isValidInput = ({ templateType, templateFileName }) =>
+  templateFiletypes.includes(templateType) &&
+  templateFiletypes.includes(templateFileName.slice(-4));
+
+const getTemplatePath = ({ templateType, templateFileName }) =>
+  `../../../../reports/${templateType}/${templateFileName}`;
+
+// decide whether to export an XLSX or PDF
+const getOutputFormat = (templateType) =>
+  ({
+    docx: "pdf",
+    xlsx: "xlsx",
+  }[templateType]);
+
+// apply headers to the request, then return the data
 const getReport = async (request, reply) => {
+  applyRequestHeaders(reply);
+  return request.data;
+};
+
+const applyRequestHeaders = (reply) =>
   reply.type("application/pdf").headers({
     "Content-Disposition": 'attachment;filename="test.pdf"',
   });
 
-  return request.data;
-};
-
 /**
- * Separates an array of projects into groups by property.
- *
- * this moves each array of projects onto "projects" key, and the property onto a {property} key
- * the Carbone.io engine needs to see objects nested in arrays, or arrays nested in objects, or else it can't iterate through.
- * arrays inside of arrays, or objects inside of objects can't be iterated properly (at depth n+1)
- *
- * @param   {any[]}   rows Array of projects ordered by some property.
- * @param   {string}  prop string matches property name we want to group the rows by
- * @returns {any[][]}
+ * Groups an array of objects by a specified property.
+ * @param {Object[]} rows - The array of objects to group.
+ * @param {string} prop - The property to group by.
+ * @returns {Object[]} Returns an array of objects grouped by the specified property.
  */
 const groupByProperty = (rows, prop) => {
-  if (_.isEmpty(rows)) return rows;
+  if (_.isEmpty(rows)) {
+    return rows;
+  }
 
-  const sliceOneGroup = (value, key) => ({
+  const groupedRows = _.groupBy(rows, prop);
+  const result = _.map(groupedRows, (value, key) => ({
     [prop]: key,
     projects: [...value],
-  });
-  const rowsByProp = _.groupBy(rows, prop);
+  }));
 
-  return _.map(rowsByProp, sliceOneGroup);
+  return result;
 };
 
 module.exports = {
