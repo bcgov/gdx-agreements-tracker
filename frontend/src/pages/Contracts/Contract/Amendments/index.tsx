@@ -34,8 +34,6 @@ export const Amendments = () => {
     tableName,
   });
 
-  console.log('formData', formData)
-
   return (
     <>
       <TableWithModal
