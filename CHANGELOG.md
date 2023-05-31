@@ -6,6 +6,8 @@
 
   - Added db_lock to contract deliverables section
   - Added db_lock to contract gdx-internal-coding section
+  - Added db_lock to contract Amendments section
+
 **May 30, 2023**
 
 - Backend
