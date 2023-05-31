@@ -4,7 +4,6 @@ import { UseQueryResult } from "react-query";
 import { IEditField } from "types";
 
 export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
-  console.log('query', query)
   const readFields = !query
     ? []
     : [
