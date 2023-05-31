@@ -38,7 +38,7 @@ controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
     const result = {
       fiscal: fiscal_year,
       report_date: await getDate(),
-      report:reportsByPortfolioWithTotals,
+      report: reportsByPortfolioWithTotals,
     };
 
     const body = await getDocumentApiBody(result, "Tab_49_rpt_PF_NetRecoveries.docx");

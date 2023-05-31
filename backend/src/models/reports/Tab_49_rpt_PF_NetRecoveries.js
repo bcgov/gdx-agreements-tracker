@@ -1,14 +1,14 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
-const handleParams = ( query, requestParams ) => {
-  if ( requestParams.portfolio ) {
+const handleParams = (query, requestParams) => {
+  if (requestParams.portfolio) {
     const portfolio = requestParams.portfolio;
 
-    if ( requestParams.portfolio instanceof Array ) {
-      query.whereIn( "portfolio_id", portfolio );
+    if (requestParams.portfolio instanceof Array) {
+      query.whereIn("portfolio_id", portfolio);
     } else {
-      query.where( "portfolio_id", portfolio );
+      query.where("portfolio_id", portfolio);
     }
   }
 };
@@ -31,9 +31,8 @@ const getFiscalYear = (requestParams) => {
  * @returns {any[]}
  */
 
-const Tab_49_rpt_PF_NetRecoveries = ( requestParams ) => {
-
-  const query = knex( `data.project_budget as pb` )
+const Tab_49_rpt_PF_NetRecoveries = (requestParams) => {
+  const query = knex(`data.project_budget as pb`)
     .select({
       portfolio_id: "p.portfolio_id",
       portfolio_name: "po.portfolio_name",
@@ -139,49 +138,45 @@ const Tab_49_rpt_PF_NetRecoveries = ( requestParams ) => {
             ELSE 0::money
             END
         ) )`
-      )
+      ),
     })
 
-    .leftJoin( 'data.project_deliverable as pd', 'pb.project_deliverable_id', 'pd.id' )
-    .leftJoin( 'data.project as p', 'pd.project_id', 'p.id' )
-    .leftJoin( 'data.fiscal_year as f', 'pd.fiscal', 'f.id' )
-    .leftJoin( 'data.portfolio as po', 'p.portfolio_id', 'po.id' )
+    .leftJoin("data.project_deliverable as pd", "pb.project_deliverable_id", "pd.id")
+    .leftJoin("data.project as p", "pd.project_id", "p.id")
+    .leftJoin("data.fiscal_year as f", "pd.fiscal", "f.id")
+    .leftJoin("data.portfolio as po", "p.portfolio_id", "po.id")
 
-    .where( 'p.fiscal', requestParams.fiscal )
+    .where("p.fiscal", requestParams.fiscal)
 
     .groupBy(
-      'portfolio_id',
-      'p.fiscal',
-      'f.fiscal_year',
-      'portfolio_name',
-      'project_number',
-      'project_name',
+      "portfolio_id",
+      "p.fiscal",
+      "f.fiscal_year",
+      "portfolio_name",
+      "project_number",
+      "project_name"
     )
-    .orderBy(
-      'po.portfolio_name',
-      'p.project_name'
-    )
+    .orderBy("po.portfolio_name", "p.project_name");
 
-    
-  handleParams( query, requestParams );
+  handleParams(query, requestParams);
   return query;
 };
 
- const Tab_49_totals = ( requestParams ) => {
-  const query = knex( `data.project_budget as pb` )
-  .select({
-    portfolio_name: 'po.portfolio_name'
-  })
-  .sum({
-    totals_recoveries: knex.raw(
-      `(
+const Tab_49_totals = (requestParams) => {
+  const query = knex(`data.project_budget as pb`)
+    .select({
+      portfolio_name: "po.portfolio_name",
+    })
+    .sum({
+      totals_recoveries: knex.raw(
+        `(
         pb.q1_amount +
         pb.q2_amount +
         pb.q3_amount +
         pb.q4_amount )`
-    ),
-    totals_expenses: knex.raw(
-      `( 
+      ),
+      totals_expenses: knex.raw(
+        `( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
           ELSE 0::money
@@ -205,9 +200,9 @@ const Tab_49_rpt_PF_NetRecoveries = ( requestParams ) => {
           ELSE 0::money
           END
       )`
-    ),
-    totals_net: knex.raw(
-      `pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount - ( ( 
+      ),
+      totals_net: knex.raw(
+        `pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount - ( ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
           ELSE 0::money
@@ -231,9 +226,9 @@ const Tab_49_rpt_PF_NetRecoveries = ( requestParams ) => {
           ELSE 0::money
           END
       ) )`
-    ),
-    totals_to_date: knex.raw(
-      `(
+      ),
+      totals_to_date: knex.raw(
+        `(
         CASE
           WHEN pb.q1_recovered THEN pb.q1_amount
           ELSE 0::money
@@ -250,9 +245,9 @@ const Tab_49_rpt_PF_NetRecoveries = ( requestParams ) => {
           WHEN pb.q4_recovered THEN pb.q4_amount
           ELSE 0::money
         END )`
-    ),
-    totals_remaining: knex.raw(
-      `( pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount ) - (
+      ),
+      totals_remaining: knex.raw(
+        `( pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount ) - (
         CASE
           WHEN pb.q1_recovered THEN pb.q1_amount
           ELSE 0::money
@@ -269,25 +264,23 @@ const Tab_49_rpt_PF_NetRecoveries = ( requestParams ) => {
             WHEN pb.q4_recovered THEN pb.q4_amount
             ELSE 0::money
           END )`
-    ),
-  })
-  .leftJoin( 'data.project_deliverable as pd', 'pb.project_deliverable_id', 'pd.id' )
-  .leftJoin( 'data.project as p', 'pd.project_id', 'p.id' )
-  .leftJoin( 'data.fiscal_year as f', 'pd.fiscal', 'f.id' )
-  .leftJoin( 'data.portfolio as po', 'p.portfolio_id', 'po.id' )
+      ),
+    })
+    .leftJoin("data.project_deliverable as pd", "pb.project_deliverable_id", "pd.id")
+    .leftJoin("data.project as p", "pd.project_id", "p.id")
+    .leftJoin("data.fiscal_year as f", "pd.fiscal", "f.id")
+    .leftJoin("data.portfolio as po", "p.portfolio_id", "po.id")
 
-  .where( 'p.fiscal', requestParams.fiscal )
+    .where("p.fiscal", requestParams.fiscal)
 
-  .groupBy(
-    'portfolio_name'
-  )
+    .groupBy("portfolio_name");
 
-  handleParams( query, requestParams );
+  handleParams(query, requestParams);
   return query;
-}
+};
 
 module.exports = {
   getFiscalYear,
   Tab_49_rpt_PF_NetRecoveries,
-  Tab_49_totals
+  Tab_49_totals,
 };
