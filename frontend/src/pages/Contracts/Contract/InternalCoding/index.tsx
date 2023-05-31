@@ -1,40 +1,49 @@
-import { TableComplete } from "components/TableComplete";
-import React from "react";
+import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
+import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
-import { editFields, readFields, initialValues } from "./fields";
+import { useFormControls } from "hooks";
+import { useFormData } from "hooks/useFormData";
+import { IFormControls } from "types";
+import { tableConfig } from "./tableConfig";
+import { formConfig } from "./formConfig";
+
+/**
+ * This is a TypeScript React component that renders a table with modal for change requests related to
+ * a specific project.
+ *
+ * @returns The `ContractResources` component is being returned, which renders a `TableWithModal` component
+ *  with `tableConfig`, `tableData`, `formControls`, `formConfig`, and `formData` as props. The
+ *  `tableData` is obtained using the `useFormatTableData` hook with a specific URL path. The
+ *  `formControls` is an object that contains properties and methods for handling
+ */
 
 export const InternalCoding = () => {
   const { contractId } = useParams();
 
-  const roles = {
-    get: "contracts_read_all",
-    add: "contracts_add_one",
-    update: "contracts_update_one",
-    delete: "contracts_delete_one",
-  };
+  const tableName = "sid_internal_coding";
 
-  const url = {
-    getAll: `contracts/${contractId}/internal-coding`,
-    getOne: `contracts/internal-coding/{id}`,
-    updateOne: `contracts/internal-coding/{id}`,
-    addOne: `contracts/${contractId}/internal-coding`,
-  };
+  const tableData = useFormatTableData({
+    apiEndPoint: `/contracts/${contractId}/internal-coding`,
+    tableName,
+  });
 
-  const columnWidths = {
-    portfolio: 2,
-    qualified_receiver: 2,
-  };
+  const formControls: IFormControls = useFormControls();
+
+  const formData = useFormData({
+    url: `/contracts/internal-coding/${formControls.currentRowData?.id}`,
+    tableName,
+  });
 
   return (
-    <TableComplete
-      itemName={"Internal Coding"}
-      tableName={"internal coding"}
-      columnWidths={columnWidths}
-      url={url}
-      createFormInitialValues={initialValues}
-      readFields={readFields}
-      editFields={editFields}
-      roles={roles}
-    />
+    <>
+      <TableWithModal
+        tableName={tableName}
+        tableConfig={tableConfig()}
+        tableData={tableData}
+        formControls={formControls}
+        formConfig={formConfig}
+        formData={formData}
+      />
+    </>
   );
 };
