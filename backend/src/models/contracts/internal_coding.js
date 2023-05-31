@@ -13,9 +13,9 @@ const findAllById = (contractId) => {
       responsibility: "po.responsibility",
       service_line: "po.service_line",
       stob: "ic.stob",
-      "CAS Project #": "ic.cas_project_number",
+      "cas_project_number": "ic.cas_project_number",
       asset_tag: "ic.asset_tag",
-      "WIP #": "ic.wip_no",
+      "wip_number": "ic.wip_no",
       qualified_receiver: "ic.qualified_receiver",
     })
     .leftJoin(`${portfolioTable} as po`, "ic.portfolio_id", "po.id")
