@@ -27,6 +27,10 @@ const loadTemplate = async (path, encoding = "base64") => {
   }
   return data;
 };
+//TODO: write an adapter function that takes an argument from the controller that says
+// if whether we want to export to pdf or xls, and whether we have a .docx or .xlsx template
+// that adaptor function will then call `getDocumentApiBody` with the appropriate arguments, and
+// we can leave getDocumentApiBody mostly alone
 
 const getDocumentApiBody = async (
   data,
@@ -35,14 +39,17 @@ const getDocumentApiBody = async (
   reportName = "report",
   convertTo = "pdf"
 ) => {
+  const REPORT_FILETYPES = ["docx", "xlsx", "pdf"];
+  const TEMPLATE_FILETYPES = ["docx", "xlsx"];
+
   // return early if wrong template type is sent.
-  if (!["docx", "xlsx"].includes(templateType)) {
+  if (!TEMPLATE_FILETYPES.includes(templateType)) {
     return null;
   }
 
   // decide whether to export an XLSX or PDF
   const templatePath = `../../../../reports/${templateType}/${templateFileName}`;
-  const outputFormat = templateType === "xlsx" ? "xlsx" : "pdf";
+  const outputFormat = "pdf";
   const templateContent = await loadTemplate(path.resolve(__dirname, templatePath));
 
   console.log(`
