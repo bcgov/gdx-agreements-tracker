@@ -23,6 +23,7 @@ const getOne = {
       .prop("amendment_number", Schema.Picker)
       .prop("amendment_date", S.string())
       .prop("description", S.string())
+      .prop("contract_id", Schema.Id)
   ),
 };
 
