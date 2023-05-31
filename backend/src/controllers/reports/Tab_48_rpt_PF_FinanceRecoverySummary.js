@@ -20,9 +20,12 @@ controller.getReport = getReport;
  */
 controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
+
   // determine whether we want to make an XLSx or PDF output
-  const fileType = _.get(request.query.file_type, "pdf");
-  const templateType = fileType === "pdf" ? "docx" : "xlsx";
+  const {
+    query: { templateType },
+  } = request;
+
   const templateFileName = `Tab_48_rpt_PF_FinanceRecoverySummary.${templateType}`;
 
   try {
@@ -51,14 +54,13 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
       grand_totals: _.first(report_grand_totals),
     };
 
-    console.log(JSON.stringify(result, null, 2));
-
+    //console.log(JSON.stringify(result, null, 2));
     const body = await getDocumentApiBody(result, templateFileName, templateType);
 
-    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    const exportFile = await cdogs.api.post("/template/render", body, pdfConfig);
 
     // Inject the pdf data into the request object
-    request.data = pdf;
+    request.data = exportFile;
 
     if (!result) {
       reply.code(404);

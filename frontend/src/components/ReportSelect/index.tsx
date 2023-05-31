@@ -29,8 +29,9 @@ export const ReportSelect = () => {
 
   // Handle state changes
   const [category, setCategory] = useState<string>();
-  const [isXlsReport, setXlsReport] = useState<boolean>(false);
   const [xlsReportEnabled, setXlsReportEnabled] = useState<boolean>(false);
+  const [templateType, setTemplateType] = useState<string>('docx');
+  const [outputFormat, setOutputFormat] = useState<string>('pdf');
   const [reportParamCategory, setReportParamCategory] = useState<
     { field: IEditField; type: number; isRequired: boolean, hasXls: boolean }[] | null
   >(null);
@@ -46,9 +47,7 @@ export const ReportSelect = () => {
   const handleChangeType = (value: string) => {
     const option = reportType.options.find((option) => option.value === value);
     setReportParamCategory((option as IReportParamOptions).reportParamCategory);
-    setXlsReportEnabled(
-    _.get(option ,'reportParamCategory[0].hasXls', false)
-      );
+    setXlsReportEnabled(_.get(option, ['reportParamCategory', 0, 'hasXls'], false));
     setCurrentReportType(value);
   };
 
@@ -125,9 +124,8 @@ export const ReportSelect = () => {
     let url = `report/projects/${reportUri}`;
     let routeParam;
     const querystringParams = new URLSearchParams();
-    if(isXlsReport){
-      querystringParams.append('fileType', 'xlsx');
-    }
+    // tell controller what filetype the template is (either .docx or xlsx)
+    querystringParams.append('templateType', templateType);
     try {
       // Build querystring and route params from input values.
       if (reportParamCategory) {
@@ -180,10 +178,9 @@ export const ReportSelect = () => {
             alink.href = fileURL;
             if (jsonReports.includes(reportUri)) {
               alink.download = `${values.report_type}.json`;
-            } else if(isXlsReport) {
-              alink.download = `${values.report_type}.xlsx`;
             } else {
-              alink.download = `${values.report_type}.pdf`;
+              // template types include (so far) .xlsx and .docx
+              alink.download = `${values.report_type}.${outputFormat}`;
             }
             alink.click();
           } catch (err) {
@@ -255,6 +252,7 @@ export const ReportSelect = () => {
                         variant="contained"
                         color="primary"
                         disabled={dirty ? false : true}
+                        onClick={() =>  { setTemplateType('docx'); setOutputFormat('pdf')}}
                       >
                         Export PDF
                       </Button>
@@ -273,7 +271,7 @@ export const ReportSelect = () => {
                         variant="contained"
                         color="primary"
                         disabled={!xlsReportEnabled}
-                        onClick={() => setXlsReport(true) }
+                        onClick={() =>  { setTemplateType('xlsx'); setOutputFormat('xlsx')}}
                       >
                         Export XLS
                       </Button>

@@ -41,6 +41,10 @@ const getDocumentApiBody = async (
 ) => {
   const REPORT_FILETYPES = ["docx", "xlsx", "pdf"];
   const TEMPLATE_FILETYPES = ["docx", "xlsx"];
+  const OUTPUT_MAP = {
+    docx: "pdf",
+    xlsx: "xlsx",
+  };
 
   // return early if wrong template type is sent.
   if (!TEMPLATE_FILETYPES.includes(templateType)) {
@@ -49,12 +53,14 @@ const getDocumentApiBody = async (
 
   // decide whether to export an XLSX or PDF
   const templatePath = `../../../../reports/${templateType}/${templateFileName}`;
-  const outputFormat = "pdf";
+  const outputFormat = OUTPUT_MAP[templateType];
   const templateContent = await loadTemplate(path.resolve(__dirname, templatePath));
 
   console.log(`
+    templateFileName: ${templateFileName},
     templatePath: ${templatePath},
-    outputFormat: ${outputFormat}
+    templateType: ${templateType},
+    outputFormat: ${outputFormat},
   `);
 
   return {
