@@ -112,7 +112,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     qualified_receiver: "",
   };
 
-  const rowsToLock = [query?.data?.data?.data?.data?.data?.id];
+  const rowsToLock = [query?.data?.data?.data?.id];
   const postUrl = `/contracts/${query?.data?.data?.data?.id}/internal-coding`;
   const updateUrl = `/contracts/internal-coding/${query?.data?.data?.data?.id}`;
 
