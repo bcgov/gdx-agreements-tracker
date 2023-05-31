@@ -180,6 +180,96 @@ const Tab_49_rpt_PF_NetRecoveries = ( requestParams ) => {
         pb.q3_amount +
         pb.q4_amount )`
     ),
+    totals_expenses: knex.raw(
+      `( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
+          ELSE 0::money
+          END
+      ) +
+      ( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q2_amount
+          ELSE 0::money
+          END
+      ) +
+      ( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q3_amount
+          ELSE 0::money
+          END
+      ) +
+      ( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q4_amount
+          ELSE 0::money
+          END
+      )`
+    ),
+    totals_net: knex.raw(
+      `pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount - ( ( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
+          ELSE 0::money
+          END
+      ) +
+      ( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q2_amount
+          ELSE 0::money
+          END
+      ) +
+      ( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q3_amount
+          ELSE 0::money
+          END
+      ) +
+      ( 
+        CASE
+          WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q4_amount
+          ELSE 0::money
+          END
+      ) )`
+    ),
+    totals_to_date: knex.raw(
+      `(
+        CASE
+          WHEN pb.q1_recovered THEN pb.q1_amount
+          ELSE 0::money
+        END +
+        CASE
+          WHEN pb.q2_recovered THEN pb.q2_amount
+          ELSE 0::money
+        END +
+        CASE
+          WHEN pb.q3_recovered THEN pb.q3_amount
+          ELSE 0::money
+        END +
+        CASE
+          WHEN pb.q4_recovered THEN pb.q4_amount
+          ELSE 0::money
+        END )`
+    ),
+    totals_remaining: knex.raw(
+      `( pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount ) - (
+        CASE
+          WHEN pb.q1_recovered THEN pb.q1_amount
+          ELSE 0::money
+          END +
+          CASE
+            WHEN pb.q2_recovered THEN pb.q2_amount
+            ELSE 0::money
+          END +
+          CASE
+            WHEN pb.q3_recovered THEN pb.q3_amount
+            ELSE 0::money
+          END +
+          CASE
+            WHEN pb.q4_recovered THEN pb.q4_amount
+            ELSE 0::money
+          END )`
+    ),
   })
   .leftJoin( 'data.project_deliverable as pd', 'pb.project_deliverable_id', 'pd.id' )
   .leftJoin( 'data.project as p', 'pd.project_id', 'p.id' )
