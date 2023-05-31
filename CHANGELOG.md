@@ -1,4 +1,12 @@
 ## Developer Changelog
+**May 30, 2023**
+
+- Backend
+  - Updated GDX Project Net Recoveries model to use portfolio option
+  - Added subtotals by portfolio
+  - Clean up model code for readability / reusability
+- Frontend
+  - Added picker for portfolio option
 
 **May 29, 2023**
 
