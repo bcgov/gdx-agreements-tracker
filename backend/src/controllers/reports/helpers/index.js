@@ -35,11 +35,6 @@ const loadTemplate = async (path, encoding = "base64") => {
  * @param   {object}        data                  - The data to be used in the document.
  * @param   {string}        templateFileName      - The name of the template file to use.
  * @param   {string}        [templateType="docx"] - The type of the template file (default: "docx").
-<<<<<<< HEAD
-=======
- * @param   {string}        [reportName="report"] - The name of the report (default: "report").
- * @param   {string}        [convertTo="pdf"]     - The format to convert the document to (default: "pdf").
->>>>>>> ffdaaec (linting and changelog update)
  * @returns {object | null}                       Returns an object containing the API body for creating a document or null if the input is invalid.
  */
 const getDocumentApiBody = async (data, templateFileName, templateType = "docx") => {
@@ -117,7 +112,7 @@ const groupByProperty = (rows, prop) =>
  * @param   {object} params              - The parameters object containing the query parameters.
  * @param   {string} params.templateType - The template type query parameter. Defaults to "docx".
  * @param   {string} params.outputType   - The output type query parameter. Defaults to "pdf".
- * @param    {number}        params.fiscal
+ * @param   {number} params.fiscal       - The fiscal year parameter for reports. defaults to 0 in case it is not provided as an argument
  * @returns {object}                     - An object containing the validated templateType and outputType values.
  */
 const validateQuery = ({ fiscal = 0, templateType = "docx", outputType = "pdf" }) => {
