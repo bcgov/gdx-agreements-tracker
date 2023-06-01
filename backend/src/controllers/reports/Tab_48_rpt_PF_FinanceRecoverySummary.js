@@ -8,8 +8,15 @@ const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty, validateQuery, getCurrentDate } =
-  utils;
+const {
+  getReport,
+  getDocumentApiBody,
+  pdfConfig,
+  groupByProperty,
+  validateQuery,
+  getCurrentDate,
+  getReportHeadersFrom,
+} = utils;
 controller.getReport = getReport;
 
 /**
@@ -22,8 +29,12 @@ controller.getReport = getReport;
  */
 controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
+  // early exit if invalid query info provided
   try {
     const { templateType, fiscal } = validateQuery(request.query);
+
+    // based on the template type, pick which headers and the template filename
+    controller.getReport = getReportHeadersFrom(templateType);
     const templateFileName = `Tab_48_rpt_PF_FinanceRecoverySummary.${templateType}`;
 
     // get data from models

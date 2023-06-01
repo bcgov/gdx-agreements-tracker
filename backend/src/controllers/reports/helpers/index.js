@@ -73,6 +73,7 @@ const getTemplatePath = ({ templateType, templateFileName }) =>
   `../../../../reports/${templateType}/${templateFileName}`;
 
 // decide whether to export an XLSX or PDF
+// TODO: in future we might want to change this list of template types
 const getOutputFormat = (templateType) =>
   ({
     docx: "pdf",
@@ -80,15 +81,25 @@ const getOutputFormat = (templateType) =>
   }[templateType]);
 
 // apply headers to the request, then return the data
-const getReport = async (request, reply) => {
-  applyRequestHeaders(reply);
-  return request.data;
-};
+const getReportHeadersFrom = (templateType) =>
+  ({
+    docx: getReport,
+    xlsx: getXlsReport,
+  }[templateType]);
 
-const applyRequestHeaders = (reply) =>
+const getReport = async (request, reply) => {
   reply.type("application/pdf").headers({
     "Content-Disposition": 'attachment;filename="test.pdf"',
   });
+  return request.data;
+};
+
+const getXlsReport = async (request, reply) => {
+  reply.type("application/vnd.ms-excel").headers({
+    "Content-Disposition": 'attachment;filename="test.xlsx"',
+  });
+  return request.data;
+};
 
 /**
  * Groups an array of objects by a specified property.
@@ -116,11 +127,16 @@ const groupByProperty = (rows, prop) =>
  * @returns {object}                     - An object containing the validated templateType and outputType values.
  */
 const validateQuery = ({ fiscal = 0, templateType = "docx", outputType = "pdf" }) => {
-  return {
-    fiscal,
-    templateType,
-    outputType,
-  };
+  const templateFiletypes = ["docx", "xlsx"];
+  if (templateFiletypes.includes(templateType)) {
+    return {
+      fiscal,
+      templateType,
+      outputType,
+    };
+  } else {
+    throw new Error("Query parameter is invalid!");
+  }
 };
 
 // gets the current date in ISO "YYYY-MM-DD" format.
@@ -134,6 +150,7 @@ module.exports = {
   pdfConfig,
   validateQuery,
   getCurrentDate,
+  getReportHeadersFrom,
 };
 
 // todo
