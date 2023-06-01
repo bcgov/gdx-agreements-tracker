@@ -1,59 +1,13 @@
-import { Link } from "@mui/material";
-import { GridRenderCellParams, GridRenderEditCellParams } from "@mui/x-data-grid";
-import {
-  useState,
-  ReactNode,
-  useEffect,
-  SetStateAction,
-  ReactChild,
-  ReactFragment,
-  ReactPortal,
-} from "react";
-import { useNavigate } from "react-router-dom";
+import { Checkbox, Link } from "@mui/material";
+import { GridCell, GridRenderCellParams } from "@mui/x-data-grid";
 
-export const useRenderTableCell = () => {
-  const [selectedRow, setSelectedRow] = useState<null | { id: number }>(null);
-
-  const navigate = useNavigate();
-
-  const handleSelectRow = async (params: SetStateAction<{ id: number } | null>) => {
-    setSelectedRow(params);
-  };
-
-  useEffect(() => {
-    if (selectedRow !== null) {
-      navigate(`/projects/${selectedRow.id}`);
-    }
-  }, [selectedRow]);
-
-  const LinkCell = (params: GridRenderCellParams) => {
+export const useRenderTableCell = (params: GridRenderCellParams) => {
+  if (true === params.value || false === params.value) {
     return (
-      <Link
-        color="inherit"
-        onClick={() => {
-          handleSelectRow(params.row);
-        }}
-      >
-        {params.formattedValue}
-      </Link>
+      <GridCell {...params}>
+        <Checkbox disabled checked={params.value} />
+      </GridCell>
     );
-  };
-
-  const ModalToggleCell = (params: GridRenderCellParams) => {
-    return (
-      <Link
-        color="inherit"
-        onClick={() => {
-          handleSelectRow(params.row);
-        }}
-      >
-        {params.formattedValue}
-      </Link>
-    );
-  };
-
-  return { LinkCell, selectedRow, ModalToggleCell };
+  }
+  return <GridCell {...params} />;
 };
-
-export { TableCheckMark } from "./TableCheckMark";
-export { TableHealthChip } from "./TableHealthChip";

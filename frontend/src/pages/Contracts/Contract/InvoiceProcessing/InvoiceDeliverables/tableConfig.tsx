@@ -1,5 +1,5 @@
 import { GridColDef, GridInitialState } from "@mui/x-data-grid";
-import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCell";
+
 import { type } from "os";
 
 export const tableConfig = () => {
