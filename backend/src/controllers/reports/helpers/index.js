@@ -1,7 +1,6 @@
 // Utility imports
 const fs = require("fs");
 const path = require("path");
-const _ = require("lodash");
 
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
@@ -104,12 +103,20 @@ const applyRequestHeaders = (reply) =>
  * @returns {Object[]} Returns an array of objects grouped by the specified property.
  */
 const groupByProperty = (rows, prop) => {
-  if (_.isEmpty(rows)) {
+  if (rows.length === 0) {
     return rows;
   }
 
-  const groupedRows = _.groupBy(rows, prop);
-  const result = _.map(groupedRows, (value, key) => ({
+  const groupedRows = rows.reduce((result, row) => {
+    const key = row[prop];
+    if (!result[key]) {
+      result[key] = [];
+    }
+    result[key].push(row);
+    return result;
+  }, {});
+
+  const result = Object.entries(groupedRows).map(([key, value]) => ({
     [prop]: key,
     projects: [...value],
   }));
