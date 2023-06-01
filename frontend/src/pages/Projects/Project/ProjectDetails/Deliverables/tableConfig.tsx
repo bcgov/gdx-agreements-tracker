@@ -17,7 +17,7 @@ export const tableConfig = () => {
     { field: "comments", headerName: "comments", flex: defaultFlex },
     { field: "fiscal", headerName: "fiscal", flex: defaultFlex },
     { field: "deliverable_status", headerName: "deliverable_status", flex: defaultFlex },
-    { field: "health_id", headerName: "Health", flex: defaultFlex },
+    { field: "health_id", headerName: "health_id", flex: defaultFlex },
     { field: "is_expense", headerName: "is_expense", flex: defaultFlex },
   ];
 
