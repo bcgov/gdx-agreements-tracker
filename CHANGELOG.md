@@ -1,8 +1,9 @@
 ## Developer Changelog
 **June 01, 2023**
 
+- Removed fastify-markdown plugin (DESCW-1132)
 - Backend
-  - Replaced fastify markdown with html (DESCW-1132)
+  - Replaced glossary markdown with html (DESCW-1132)
 
 **May 31, 2023**
 

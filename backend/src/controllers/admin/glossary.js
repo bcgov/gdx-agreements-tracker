@@ -5,9 +5,8 @@ const path = require("path");
 const fs = require("fs");
 
 /**
- * Get all glossary terms. Uses fastify-markdown plugin to parse glossary markdown into HTML.
+ * Get all glossary terms.
  *
- * @see https://github.com/freezestudio/fastify-markdown
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
  * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
  * @returns {object}
