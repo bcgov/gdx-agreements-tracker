@@ -445,3 +445,7 @@ export interface ITableWithModal {
 export interface IRowDoubleClickParams {
   row: { [key: string]: string | number | boolean };
 }
+
+export interface Irgb {
+  rgb: { red: number; green: number; blue: number };
+}

@@ -1,14 +1,16 @@
-import { Chip, styled } from "@mui/material";
+import { Chip } from "@mui/material";
+import { Irgb } from "types";
 
-export const TableHealthChip = styled(Chip, {
-  shouldForwardProp: (prop) => prop !== "colors",
-})(({ colors }: { colors: { red: number; green: number; blue: number } }) => {
-  return {
-    backgroundColor: `rgb(${colors.red},${colors.green},${colors.blue})`,
+export const TableHealthChip = ({ rgb }: Irgb) => {
+  const { red, green, blue } = rgb;
+
+  const chipStyles = {
+    backgroundColor: `rgb(${red},${green},${blue})`,
     fontWeight: "bold",
     width: "25%",
     height: "35%",
-    border: "solid 3px #dbcad7",
     borderRadius: "4px",
   };
-});
+
+  return <Chip sx={chipStyles} />;
+};
