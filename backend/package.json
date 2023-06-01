@@ -40,7 +40,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "fastify": "^4.17.0",
-    "fastify-markdown": "^0.4.0",
     "fastify-plugin": "^4.5.0",
     "fluent-json-schema": "^4.1.0",
     "jsonwebtoken": "^9.0.0",

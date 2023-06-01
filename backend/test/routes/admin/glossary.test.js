@@ -8,11 +8,6 @@ const serverConfig = require("@facilities/fastify.js");
 
 jest.mock("@facilities/keycloak.js");
 
-// Mock markdown plugin so we can mock the reply.markdown() return value.
-jest.mock("fastify-markdown", () => async () => {
-  return;
-});
-
 // Mock log functions, otherwise tests fail.
 jest.mock("@facilities/logging.js", () => () => {
   return {
@@ -49,16 +44,5 @@ describe("Status 401: Access routes with no user (unauthorized)", () => {
     getRealmRoles.mockReturnValue([]);
     const response = await app.inject(request);
     expect(response.statusCode).toBe(401);
-  });
-});
-
-describe("Status 500: Plugin errors", () => {
-  it(`${request.method} - ${request.url}`, async () => {
-    getRealmRoles.mockReturnValue(["PMO-Manager-Edit-Capability"]);
-    app.decorateReply("markdown", () => {
-      throw new Error();
-    });
-    const response = await app.inject(request);
-    expect(response.statusCode).toBe(500);
   });
 });

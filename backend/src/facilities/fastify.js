@@ -5,7 +5,6 @@ const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");
 const fastifyAuth = require("@fastify/auth");
-const fastifyMarkdown = require("fastify-markdown");
 const fastifyPayload = require("../plugins/fastifyPayload");
 
 /**
@@ -48,7 +47,6 @@ const fastifyInstance = (options) => {
     })
     .register(fastifyAuth)
     .register(fastifyCors, {})
-    .register(fastifyMarkdown, { src: true })
     .register(fastifyPayload)
     .after(() => {
       app.addHook("preHandler", app.auth([app.verifyJWT]));
