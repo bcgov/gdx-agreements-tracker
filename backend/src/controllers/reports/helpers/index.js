@@ -5,7 +5,7 @@ const _ = require("lodash");
 
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
-const templateFiletypes = ["docx", "xlsx"];
+const validFiletypes = ["xls", "xlsx", "doc", "docx"];
 
 /**
  * Reads a file and encodes it to the specified format
@@ -39,7 +39,11 @@ const loadTemplate = async (path, encoding = "base64") => {
  */
 const getDocumentApiBody = async (data, templateFileName, templateType = "docx") => {
   if (!isValidInput({ templateType, templateFileName })) {
-    return null;
+    throw new Error(`
+      template type or template filename are invalid:
+      Template type: ${templateType}
+      Template filename: ${templateFileName}
+    `);
   }
 
   const templatePath = getTemplatePath({ templateType, templateFileName });
@@ -65,9 +69,13 @@ const getDocumentApiBody = async (data, templateFileName, templateType = "docx")
 };
 
 // helper functions for getDocumentApi()
-const isValidInput = ({ templateType, templateFileName }) =>
-  templateFiletypes.includes(templateType) &&
-  templateFiletypes.includes(templateFileName.slice(-4));
+const isValidInput = ({ templateType, templateFileName }) => {
+  // list valid filetypes (so far) that we can use as template files
+  const isValidFiletype = validFiletypes.some((filetype) => templateFileName.includes(filetype));
+  const isValidTemplateType = validFiletypes.some((filetype) => templateType === filetype);
+
+  return isValidFiletype && isValidTemplateType;
+};
 
 const getTemplatePath = ({ templateType, templateFileName }) =>
   `../../../../reports/${templateType}/${templateFileName}`;
@@ -127,8 +135,7 @@ const groupByProperty = (rows, prop) =>
  * @returns {object}                     - An object containing the validated templateType and outputType values.
  */
 const validateQuery = ({ fiscal = 0, templateType = "docx", outputType = "pdf" }) => {
-  const templateFiletypes = ["docx", "xlsx"];
-  if (templateFiletypes.includes(templateType)) {
+  if (validFiletypes.includes(templateType)) {
     return {
       fiscal,
       templateType,
@@ -152,7 +159,3 @@ module.exports = {
   getCurrentDate,
   getReportHeadersFrom,
 };
-
-// todo
-// * application/xls
-// * add a function in helpers to return a date string
