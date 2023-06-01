@@ -2,7 +2,7 @@ import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
 import { formConfig } from "./formConfig";
 import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
-import { useRenderTableCell } from "components/PLAYGROUND/hooks/useRenderTableCell";
+
 import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";

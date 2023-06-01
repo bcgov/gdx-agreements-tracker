@@ -1,5 +1,8 @@
 ## Developer Changelog
+
 **June 01, 2023**
+- Frontend
+  - Added checkmark renderer for table component
 
 - Removed fastify-markdown plugin (DESCW-1132)
 - Backend
