@@ -35,6 +35,11 @@ const loadTemplate = async (path, encoding = "base64") => {
  * @param   {object}        data                  - The data to be used in the document.
  * @param   {string}        templateFileName      - The name of the template file to use.
  * @param   {string}        [templateType="docx"] - The type of the template file (default: "docx").
+<<<<<<< HEAD
+=======
+ * @param   {string}        [reportName="report"] - The name of the report (default: "report").
+ * @param   {string}        [convertTo="pdf"]     - The format to convert the document to (default: "pdf").
+>>>>>>> ffdaaec (linting and changelog update)
  * @returns {object | null}                       Returns an object containing the API body for creating a document or null if the input is invalid.
  */
 const getDocumentApiBody = async (data, templateFileName, templateType = "docx") => {
