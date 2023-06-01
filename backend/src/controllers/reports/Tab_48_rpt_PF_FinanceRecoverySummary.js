@@ -14,9 +14,9 @@ controller.getReport = getReport;
 /**
  * Generates a finance recovery summary report for Tab 48.
  *
- * @param {Object} request - The request object containing query parameters.
- * @param {Object} reply - The reply object for sending the response.
- * @returns {Object} - The generated finance recovery summary report.
+ * @param   {object} request - The request object containing query parameters.
+ * @param   {object} reply   - The reply object for sending the response.
+ * @returns {object}         - The generated finance recovery summary report.
  * @throws {Error} - If there is an error generating the report.
  */
 controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
@@ -55,7 +55,7 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);
-    return { message: "There was a problem looking up this rollup Report." };
+    return { message: "There was a problem looking up this Report." };
   }
 };
 

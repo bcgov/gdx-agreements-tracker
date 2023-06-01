@@ -30,12 +30,13 @@ const loadTemplate = async (path, encoding = "base64") => {
 
 /**
  * Generates the API body for creating a document using the provided data and template.
- * @param {Object} data - The data to be used in the document.
- * @param {string} templateFileName - The name of the template file to use.
- * @param {string} [templateType="docx"] - The type of the template file (default: "docx").
- * @param {string} [reportName="report"] - The name of the report (default: "report").
- * @param {string} [convertTo="pdf"] - The format to convert the document to (default: "pdf").
- * @returns {Object|null} Returns an object containing the API body for creating a document or null if the input is invalid.
+ *
+ * @param   {object}        data                  - The data to be used in the document.
+ * @param   {string}        templateFileName      - The name of the template file to use.
+ * @param   {string}        [templateType="docx"] - The type of the template file (default: "docx").
+ * @param   {string}        [reportName="report"] - The name of the report (default: "report").
+ * @param   {string}        [convertTo="pdf"]     - The format to convert the document to (default: "pdf").
+ * @returns {object | null}                       Returns an object containing the API body for creating a document or null if the input is invalid.
  */
 const getDocumentApiBody = async (
   data,
@@ -98,12 +99,13 @@ const applyRequestHeaders = (reply) =>
 
 /**
  * Groups an array of objects by a specified property.
- * @param {Object[]} rows - The array of objects to group.
- * @param {string} prop - The property to group by.
- * @returns {Object[]} Returns an array of objects grouped by the specified property.
+ *
+ * @param   {object[]} rows - The array of objects to group.
+ * @param   {string}   prop - The property to group by.
+ * @returns {object[]}      Returns an array of objects grouped by the specified property.
  */
 const groupByProperty = (rows, prop) => {
-  if (rows.length === 0) {
+  if (0 === rows.length) {
     return rows;
   }
 

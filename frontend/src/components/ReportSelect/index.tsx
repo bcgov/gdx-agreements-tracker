@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import _ from 'lodash';
+import _ from "lodash";
 import {
   Box,
   Radio,
@@ -30,10 +30,10 @@ export const ReportSelect = () => {
   // Handle state changes
   const [category, setCategory] = useState<string>();
   const [xlsReportEnabled, setXlsReportEnabled] = useState<boolean>(false);
-  const [templateType, setTemplateType] = useState<string>('docx');
-  const [outputFormat, setOutputFormat] = useState<string>('pdf');
+  const [templateType, setTemplateType] = useState<string>("docx");
+  const [outputFormat, setOutputFormat] = useState<string>("pdf");
   const [reportParamCategory, setReportParamCategory] = useState<
-    { field: IEditField; type: number; isRequired: boolean, hasXls: boolean }[] | null
+    { field: IEditField; type: number; isRequired: boolean; hasXls: boolean }[] | null
   >(null);
   const [currentReportType, setCurrentReportType] = useState<string | null>(null);
 
@@ -47,7 +47,7 @@ export const ReportSelect = () => {
   const handleChangeType = (value: string) => {
     const option = reportType.options.find((option) => option.value === value);
     setReportParamCategory((option as IReportParamOptions).reportParamCategory);
-    setXlsReportEnabled(_.get(option, ['reportParamCategory', 0, 'hasXls'], false));
+    setXlsReportEnabled(_.get(option, ["reportParamCategory", 0, "hasXls"], false));
     setCurrentReportType(value);
   };
 
@@ -125,7 +125,7 @@ export const ReportSelect = () => {
     let routeParam;
     const querystringParams = new URLSearchParams();
     // tell controller what filetype the template is (either .docx or xlsx)
-    querystringParams.append('templateType', templateType);
+    querystringParams.append("templateType", templateType);
     try {
       // Build querystring and route params from input values.
       if (reportParamCategory) {
@@ -252,7 +252,10 @@ export const ReportSelect = () => {
                         variant="contained"
                         color="primary"
                         disabled={dirty ? false : true}
-                        onClick={() =>  { setTemplateType('docx'); setOutputFormat('pdf')}}
+                        onClick={() => {
+                          setTemplateType("docx");
+                          setOutputFormat("pdf");
+                        }}
                       >
                         Export PDF
                       </Button>
@@ -271,7 +274,10 @@ export const ReportSelect = () => {
                         variant="contained"
                         color="primary"
                         disabled={!xlsReportEnabled}
-                        onClick={() =>  { setTemplateType('xlsx'); setOutputFormat('xlsx')}}
+                        onClick={() => {
+                          setTemplateType("xlsx");
+                          setOutputFormat("xlsx");
+                        }}
                       >
                         Export XLS
                       </Button>
