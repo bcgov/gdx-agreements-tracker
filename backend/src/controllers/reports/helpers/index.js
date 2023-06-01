@@ -1,6 +1,7 @@
 // Utility imports
 const fs = require("fs");
 const path = require("path");
+const _ = require("lodash");
 
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
@@ -34,17 +35,9 @@ const loadTemplate = async (path, encoding = "base64") => {
  * @param   {object}        data                  - The data to be used in the document.
  * @param   {string}        templateFileName      - The name of the template file to use.
  * @param   {string}        [templateType="docx"] - The type of the template file (default: "docx").
- * @param   {string}        [reportName="report"] - The name of the report (default: "report").
- * @param   {string}        [convertTo="pdf"]     - The format to convert the document to (default: "pdf").
  * @returns {object | null}                       Returns an object containing the API body for creating a document or null if the input is invalid.
  */
-const getDocumentApiBody = async (
-  data,
-  templateFileName,
-  templateType = "docx",
-  reportName = "report",
-  convertTo = "pdf"
-) => {
+const getDocumentApiBody = async (data, templateFileName, templateType = "docx") => {
   if (!isValidInput({ templateType, templateFileName })) {
     return null;
   }
@@ -61,7 +54,7 @@ const getDocumentApiBody = async (
       cacheReport: true,
       convertTo: getOutputFormat(templateType),
       overwrite: true,
-      reportName,
+      reportName: templateFileName,
     },
     template: {
       content: templateContent,
@@ -104,27 +97,34 @@ const applyRequestHeaders = (reply) =>
  * @param   {string}   prop - The property to group by.
  * @returns {object[]}      Returns an array of objects grouped by the specified property.
  */
-const groupByProperty = (rows, prop) => {
-  if (0 === rows.length) {
-    return rows;
-  }
+const groupByProperty = (rows, prop) =>
+  _.isEmpty(rows)
+    ? rows
+    : _.map(_.groupBy(rows, prop), (value, key) => ({
+        [prop]: key,
+        projects: [...value],
+      }));
 
-  const groupedRows = rows.reduce((result, row) => {
-    const key = row[prop];
-    if (!result[key]) {
-      result[key] = [];
-    }
-    result[key].push(row);
-    return result;
-  }, {});
-
-  const result = Object.entries(groupedRows).map(([key, value]) => ({
-    [prop]: key,
-    projects: [...value],
-  }));
-
-  return result;
+/**
+ * Validates the query parameters and returns an object with the validated values.
+ * Work in progress - we can add new params and new defaults as the requirements change.
+ *
+ * @param   {object} params              - The parameters object containing the query parameters.
+ * @param   {string} params.templateType - The template type query parameter. Defaults to "docx".
+ * @param   {string} params.outputType   - The output type query parameter. Defaults to "pdf".
+ * @param    {number}        params.fiscal
+ * @returns {object}                     - An object containing the validated templateType and outputType values.
+ */
+const validateQuery = ({ fiscal = 0, templateType = "docx", outputType = "pdf" }) => {
+  return {
+    fiscal,
+    templateType,
+    outputType,
+  };
 };
+
+// gets the current date in ISO "YYYY-MM-DD" format.
+const getCurrentDate = async () => new Date().toISOString().split("T")[0];
 
 module.exports = {
   getDocumentApiBody,
@@ -132,4 +132,10 @@ module.exports = {
   groupByProperty,
   loadTemplate,
   pdfConfig,
+  validateQuery,
+  getCurrentDate,
 };
+
+// todo
+// * application/xls
+// * add a function in helpers to return a date string
