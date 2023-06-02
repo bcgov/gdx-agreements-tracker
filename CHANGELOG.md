@@ -1,6 +1,10 @@
 ## Developer Changelog
 **June 01, 2023**
 
+- Meta
+  - Added workflows to automatically update app and api version when changes are pushed to development branch (DESCW-1140)
+    - Automatically increments minor version by 1: eg. 1.0.0 -> 1.1.0
+
 - Backend
   - enabled .xlsx export
   - refactored some utility functions in helpers/index.js
