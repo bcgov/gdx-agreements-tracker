@@ -1,0 +1,36 @@
+name: Bump backend version on merge
+on:
+    push:
+        branches:
+            - development
+        paths:
+            - 'backend/docs/**'
+            - 'backend/reports/**'
+            - 'backend/src/**'
+            - 'backend/templates/**'
+            - 'backend/test/**'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.14
+
+      - name: Bump Backend Version
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        working-directory: ./backend
+        run: |
+            git config user.name "$GITHUB_ACTOR"
+            git remote set-url origin https://$GITHUB_TOKEN@github.com/bcgov/gdx-agreements-tracker
+            git pull
+            npm version minor
+            git add .
+            git commit -m "Bump api version"
+            git push

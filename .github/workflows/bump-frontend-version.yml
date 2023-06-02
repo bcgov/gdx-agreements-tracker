@@ -1,0 +1,32 @@
+name: Bump frontend version on merge
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - 'frontend/public/**'
+            - 'frontend/src/**'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.14
+
+      - name: Bump Frontend Version
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        working-directory: ./frontend
+        run: |
+            git config user.name "$GITHUB_ACTOR"
+            git remote set-url origin https://$GITHUB_TOKEN@github.com/bcgov/gdx-agreements-tracker
+            npm version minor
+            git add .
+            git commit -m "Bump app version"
+            git push
