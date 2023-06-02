@@ -8,57 +8,66 @@ const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const {
+  getReport,
+  getDocumentApiBody,
+  pdfConfig,
+  groupByProperty,
+  validateQuery,
+  getCurrentDate,
+  getReportHeadersFrom,
+} = utils;
 controller.getReport = getReport;
 
 /**
- * Get a Project rollup Report for a specific array of portfolio.
+ * Generates a finance recovery summary report for Tab 48.
  *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
+ * @param   {object} request - The request object containing query parameters.
+ * @param   {object} reply   - The reply object for sending the response.
+ * @returns {object}         - The generated finance recovery summary report.
+ * @throws {Error} - If there is an error generating the report.
  */
 controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
+  // early exit if invalid query info provided
   try {
-    // gets the data from the database
-    const getDate = async () => new Date();
-    const [{ fiscal_year }] = await model.getFiscalYear(request.query);
-    const report = await model.Tab_48_rpt_PF_FinanceRecoverySummary(request.query);
-    const report_totals = await model.Tab_48_totals(request.query);
-    const report_grand_totals = await model.Tab_48_grand_totals(request.query);
+    const { templateType, fiscal } = validateQuery(request.query);
 
-    // shape the dataset so it can be parsed by the templating engine properly
+    // based on the template type, pick which headers and the template filename
+    controller.getReport = getReportHeadersFrom(templateType);
+    const templateFileName = `Tab_48_rpt_PF_FinanceRecoverySummary.${templateType}`;
+
+    // get data from models
+    const [fiscalYear] = await model.getFiscalYear(fiscal);
+    const [report, report_totals, report_grand_totals] = await Promise.all([
+      model.Tab_48_rpt_PF_FinanceRecoverySummary(fiscal),
+      model.Tab_48_totals(fiscal),
+      model.Tab_48_grand_totals(fiscal),
+    ]);
+
+    // shape model data into format the carbone engine can parse
     const reportByPortfolio = groupByProperty(report, "portfolio_name");
-    const totalsByPortfolio = _.keyBy(report_totals, "portfolio_name");
-    const reportsByPortfolioWithTotals = _.map(reportByPortfolio, (portfolio) => ({
+    const reportsByPortfolioWithTotals = reportByPortfolio.map((portfolio) => ({
       ...portfolio,
-      portfolio_totals: totalsByPortfolio[portfolio.portfolio_name],
+      portfolio_totals: _.keyBy(report_totals, "portfolio_name")[portfolio.portfolio_name],
     }));
 
     const result = {
-      date: await getDate(),
-      fiscal: fiscal_year,
+      date: await getCurrentDate(),
+      fiscal: fiscalYear.fiscal_year,
       report: reportsByPortfolioWithTotals,
       grand_totals: _.first(report_grand_totals),
     };
 
-    const body = await getDocumentApiBody(result, "Tab_48_rpt_PF_FinanceRecoverySummary.docx");
-    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // send the body to cdogs and get back the result so it can be downloaded by the client
+    const body = await getDocumentApiBody(result, templateFileName, templateType);
+    request.data = await cdogs.api.post("/template/render", body, pdfConfig);
 
-    // Inject the pdf data into the request object
-    request.data = pdf;
-
-    if (!result) {
-      reply.code(404);
-      return { message: `The ${what.single} with the specified id does not exist.` };
-    } else {
-      return result;
-    }
+    return result;
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);
-    return { message: `There was a problem looking up this Project rollup Report.` };
+    return { message: "There was a problem looking up this Report." };
   }
 };
 

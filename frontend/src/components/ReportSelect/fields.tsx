@@ -284,6 +284,7 @@ export const reportType = {
           field: fieldTypes.fiscal,
           type: requestTypes.route,
           isRequired: true,
+          hasXls: true,
         },
       ],
     },

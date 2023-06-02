@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import _ from "lodash";
 import {
   Box,
   Radio,
@@ -28,20 +29,25 @@ export const ReportSelect = () => {
 
   // Handle state changes
   const [category, setCategory] = useState<string>();
+  const [xlsReportEnabled, setXlsReportEnabled] = useState<boolean>(false);
+  const [templateType, setTemplateType] = useState<string>("docx");
+  const [outputFormat, setOutputFormat] = useState<string>("pdf");
   const [reportParamCategory, setReportParamCategory] = useState<
-    { field: IEditField; type: number; isRequired: boolean }[] | null
+    { field: IEditField; type: number; isRequired: boolean; hasXls: boolean }[] | null
   >(null);
   const [currentReportType, setCurrentReportType] = useState<string | null>(null);
 
   const handleChangeCategory = (value: string) => {
     setCurrentReportType(null);
     setReportParamCategory(null);
+    setXlsReportEnabled(false);
     setCategory(value);
   };
 
   const handleChangeType = (value: string) => {
     const option = reportType.options.find((option) => option.value === value);
     setReportParamCategory((option as IReportParamOptions).reportParamCategory);
+    setXlsReportEnabled(_.get(option, ["reportParamCategory", 0, "hasXls"], false));
     setCurrentReportType(value);
   };
 
@@ -118,6 +124,8 @@ export const ReportSelect = () => {
     let url = `report/projects/${reportUri}`;
     let routeParam;
     const querystringParams = new URLSearchParams();
+    // tell controller what filetype the template is (either .docx or xlsx)
+    querystringParams.append("templateType", templateType);
     try {
       // Build querystring and route params from input values.
       if (reportParamCategory) {
@@ -125,6 +133,7 @@ export const ReportSelect = () => {
           if (values[param.field.fieldName]) {
             const field = param.field.fieldName;
             const value = values[param.field.fieldName];
+
             // If the input is query type, add the value(s) to the querystring.
             if (param.type === requestTypes.query) {
               if (value instanceof Array) {
@@ -170,7 +179,8 @@ export const ReportSelect = () => {
             if (jsonReports.includes(reportUri)) {
               alink.download = `${values.report_type}.json`;
             } else {
-              alink.download = `${values.report_type}.pdf`;
+              // template types include (so far) .xlsx and .docx
+              alink.download = `${values.report_type}.${outputFormat}`;
             }
             alink.click();
           } catch (err) {
@@ -242,8 +252,34 @@ export const ReportSelect = () => {
                         variant="contained"
                         color="primary"
                         disabled={dirty ? false : true}
+                        onClick={() => {
+                          setTemplateType("docx");
+                          setOutputFormat("pdf");
+                        }}
                       >
                         Export PDF
+                      </Button>
+                    </Box>
+                  </Grid>
+                  <Grid item>
+                    <Box
+                      m={1}
+                      display="flex"
+                      justifyContent="flex-end"
+                      alignItems="flex-end"
+                      role={"submit_button"}
+                    >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={!xlsReportEnabled}
+                        onClick={() => {
+                          setTemplateType("xlsx");
+                          setOutputFormat("xlsx");
+                        }}
+                      >
+                        Export XLS
                       </Button>
                     </Box>
                   </Grid>

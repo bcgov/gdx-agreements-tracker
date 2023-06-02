@@ -1,4 +1,17 @@
 ## Developer Changelog
+**June 01, 2023**
+
+- Backend
+  - enabled .xlsx export
+  - refactored some utility functions in helpers/index.js
+  - minor typo fixes
+  - formatting changes
+  - add some error checking for inputs and filetypes
+- Frontend
+  - enabled .xlsx export (adds button and disables it for reports with no xls template)
+  - added some checks to ensure proper options are passed to cdogs api
+  - minor typo fixes
+  - formatting changes
 
 **June 01, 2023**
 - Frontend

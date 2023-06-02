@@ -4,17 +4,17 @@ const { knex } = dbConnection();
 /**
  * Gets data for the Divisional Project Reports - finance recovery summary forecast by fiscal
  *
- * @param           requestParams fiscal: the fiscal year for this report
+ * @param           fiscal {number}: the fiscal year for this report
  * @returns {any[]}
  */
 
-const handleParams = (query, requestParams) => {
-  if (requestParams.fiscal) {
-    query.where("q.fiscal", requestParams.fiscal);
+const handleParams = (query, fiscal) => {
+  if (fiscal) {
+    query.where("q.fiscal", fiscal);
   }
 };
 
-const Tab_48_rpt_PF_FinanceRecoverySummary = (requestParams) => {
+const Tab_48_rpt_PF_FinanceRecoverySummary = (fiscal) => {
   const query = knex.select("*").fromRaw(`(
     WITH base_recoveries AS (
       SELECT pb.project_deliverable_id,
@@ -76,22 +76,22 @@ const Tab_48_rpt_PF_FinanceRecoverySummary = (requestParams) => {
       p.project_number) as q
   `);
 
-  handleParams(query, requestParams);
+  handleParams(query, fiscal);
 
   return query;
 };
 
 // get the fiscal year based on the id passed from frontend
-const getFiscalYear = (requestParams) => {
+const getFiscalYear = (fiscal) => {
   const query = knex.select(knex.raw(`fiscal_year from data.fiscal_year`));
 
-  if (requestParams.fiscal) {
-    query.where({ "fiscal_year.id": requestParams.fiscal });
+  if (fiscal) {
+    query.where({ "fiscal_year.id": fiscal });
   }
 
   return query;
 };
-const Tab_48_totals = (requestParams) => {
+const Tab_48_totals = (fiscal) => {
   const query = knex.select("*").fromRaw(`(
       SELECT br.portfolio_name,
             sum(br.recoveries) AS totals_recoveries,
@@ -127,12 +127,12 @@ const Tab_48_totals = (requestParams) => {
       ) as q
   `);
 
-  handleParams(query, requestParams);
+  handleParams(query, fiscal);
 
   return query;
 };
 
-const Tab_48_grand_totals = (requestParams) => {
+const Tab_48_grand_totals = (fiscal) => {
   const query = knex.select("*").fromRaw(`(
     SELECT fiscal,
       sum(totals_recoveries) AS total_recoveries_sum,
@@ -209,7 +209,7 @@ const Tab_48_grand_totals = (requestParams) => {
       GROUP BY subquery.fiscal
     ) as q`);
 
-  handleParams(query, requestParams);
+  handleParams(query, fiscal);
 
   return query;
 };
