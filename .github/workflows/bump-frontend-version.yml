@@ -6,7 +6,7 @@ on:
         paths:
             - 'frontend/public/**'
             - 'frontend/src/**'
-
+    workflow_dispatch:
 jobs:
   bump-version:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - name: Bump Frontend Version
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        working-directory: ./frontend
+        working-directory: ../frontend
         run: |
             git config user.name "$GITHUB_ACTOR"
             git remote set-url origin https://$GITHUB_TOKEN@github.com/bcgov/gdx-agreements-tracker

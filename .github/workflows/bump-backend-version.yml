@@ -9,7 +9,7 @@ on:
             - 'backend/src/**'
             - 'backend/templates/**'
             - 'backend/test/**'
-
+    workflow_dispatch:
 jobs:
   bump-version:
     runs-on: ubuntu-latest
