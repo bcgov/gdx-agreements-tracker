@@ -1,6 +1,7 @@
 ## Developer Changelog
 **June 02, 2023**
-
+- Meta
+  - Added ability to run version increment workflow manually (DESCW-1140)
 - Backend
   - Reset version to 0.1.0
 - Frontend
