@@ -1,4 +1,11 @@
 ## Developer Changelog
+**June 02, 2023**
+
+- Backend
+  - Reset version to 0.1.0
+- Frontend
+  - Reset version to 0.1.0
+
 **June 01, 2023**
 
 - Meta
