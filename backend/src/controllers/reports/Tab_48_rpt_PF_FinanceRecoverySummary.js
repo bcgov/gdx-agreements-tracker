@@ -9,12 +9,12 @@ const _ = require("lodash");
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
 const {
-  getDocumentApiBody,
-  pdfConfig,
-  groupByProperty,
-  validateQuery,
   getCurrentDate,
+  getDocumentApiBody,
   getReportAndSetRequestHeaders,
+  groupByProperty,
+  pdfConfig,
+  validateQuery,
 } = utils;
 
 // default request headers for the cdogs api will use 'pdf' mimetype and 'docx' template file type

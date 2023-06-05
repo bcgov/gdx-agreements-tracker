@@ -1,4 +1,8 @@
 ## Developer Changelog
+**June 05, 2023**
+-Backend
+  - update script to generate template controller that can export xlsx files
+
 **June 02, 2023**
 - Meta
   - Added ability to run version increment workflow manually (DESCW-1140)
