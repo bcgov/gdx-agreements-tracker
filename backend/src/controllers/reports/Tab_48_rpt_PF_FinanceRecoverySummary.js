@@ -9,15 +9,16 @@ const _ = require("lodash");
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
 const {
-  getReport,
-  getDocumentApiBody,
-  pdfConfig,
-  groupByProperty,
-  validateQuery,
   getCurrentDate,
-  getReportHeadersFrom,
+  getDocumentApiBody,
+  getReportAndSetRequestHeaders,
+  groupByProperty,
+  pdfConfig,
+  validateQuery,
 } = utils;
-controller.getReport = getReport;
+
+// default request headers for the cdogs api will use 'pdf' mimetype and 'docx' template file type
+controller.getReport = getReportAndSetRequestHeaders();
 
 /**
  * Generates a finance recovery summary report for Tab 48.
@@ -34,7 +35,7 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
     const { templateType, fiscal } = validateQuery(request.query);
 
     // based on the template type, pick which headers and the template filename
-    controller.getReport = getReportHeadersFrom(templateType);
+    controller.getReport = getReportAndSetRequestHeaders(templateType);
     const templateFileName = `Tab_48_rpt_PF_FinanceRecoverySummary.${templateType}`;
 
     // get data from models

@@ -7,42 +7,54 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
-controller.getReport = getReport;
+const {
+  getCurrentDate,
+  getDocumentApiBody,
+  getReportAndSetRequestHeaders,
+  // uncomment below if you need your results in sections, such as portfolio)
+  // groupByProperty,
+  pdfConfig,
+  validateQuery,
+} = utils;
+
+// default request headers for the cdogs api will use 'pdf' mimetype and 'docx' template file type
+controller.getReport = getReportAndSetRequestHeaders();
 
 /**
- * Get a Project rollup Report for a specific array of portfolio.
+ * Generates a $reportName report
  *
- * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
- * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
- * @returns {object}
+ * @param   {object} request - The request object containing query parameters.
+ * @param   {object} reply   - The reply object for sending the response.
+ * @returns {object}         - The generated $reportName report.
+ * @throws {Error} - If there is an error generating the report.
  */
 controller.$reportName = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
+  // early exit if invalid query info provided
   try {
-    // Get the data from the database.
-    const getDate = async () => new Date();
+    const { templateType } = validateQuery(request.query);
+
+    // based on the template type, pick which headers and the template filename
+    controller.getReport = getReportAndSetRequestHeaders(templateType);
+    const templateFileName = `$reportName.${templateType}`;
+
+    // get data from models
+
+    // shape model data into format the carbone engine can parse
 
     const result = {
-      report_date: await getDate(),
+      current_date: await getCurrentDate(),
     };
 
-    const body = await getDocumentApiBody(result, "$reportName.docx");
-    const pdf = await cdogs.api.post("/template/render", body, pdfConfig);
+    // send the body to cdogs and get back the result so it can be downloaded by the client
+    const body = await getDocumentApiBody(result, templateFileName, templateType);
+    request.data = await cdogs.api.post("/template/render", body, pdfConfig);
 
-    // Inject the pdf data into the request object
-    request.data = pdf;
-
-    if (!result) {
-      reply.code(404);
-      return { message: `The ${what.single} with the specified id does not exist.` };
-    } else {
-      return result;
-    }
+    return result;
   } catch (err) {
     console.error(`ERROR: ${err}`);
     reply.code(500);
-    return { message: `There was a problem looking up this $reportName Report.` };
+    return { message: "There was a problem looking up this $reportName Report." };
   }
 };
 

@@ -6,6 +6,14 @@ const _ = require("lodash");
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
 const validFiletypes = ["xls", "xlsx", "doc", "docx"];
+const templateMap = {
+  docx: "pdf",
+  xlsx: "xlsx",
+};
+const mimeTypeMap = {
+  docx: "application/pdf",
+  xlsx: "application/vnd.ms-excel",
+};
 
 /**
  * Reads a file and encodes it to the specified format
@@ -26,6 +34,7 @@ const loadTemplate = async (path, encoding = "base64") => {
       data: ${data},
     `);
   }
+
   return data;
 };
 
@@ -38,17 +47,17 @@ const loadTemplate = async (path, encoding = "base64") => {
  * @returns {object | null}                       Returns an object containing the API body for creating a document or null if the input is invalid.
  */
 const getDocumentApiBody = async (data, templateFileName, templateType = "docx") => {
+  // exit early if we are passed the wrong template information
   if (!isValidInput({ templateType, templateFileName })) {
-    throw new Error(`
-      template type or template filename are invalid:
-      Template type: ${templateType}
-      Template filename: ${templateFileName}
+    return new Error(`
+      template file type or template filename are invalid:
+      received template file type: .${templateType}
+      received filename: ${templateFileName}
     `);
   }
 
-  const templatePath = getTemplatePath({ templateType, templateFileName });
-  const resolvedTemplatePath = path.resolve(__dirname, templatePath);
-  const templateContent = await loadTemplate(resolvedTemplatePath);
+  const templateContent = await loadTemplate(getTemplatePath({ templateType, templateFileName }));
+  const outputFormat = templateMap[templateType];
 
   return {
     data,
@@ -56,7 +65,7 @@ const getDocumentApiBody = async (data, templateFileName, templateType = "docx")
       '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
     options: {
       cacheReport: true,
-      convertTo: getOutputFormat(templateType),
+      convertTo: outputFormat,
       overwrite: true,
       reportName: templateFileName,
     },
@@ -69,45 +78,74 @@ const getDocumentApiBody = async (data, templateFileName, templateType = "docx")
 };
 
 // helper functions for getDocumentApi()
+/**
+ * Checks if the input parameters for the template type and file name are valid.
+ *
+ * @param   {object}  input                  - The input object containing the template type and file name.
+ * @param   {string}  input.templateType     - The type of the template.
+ * @param   {string}  input.templateFileName - The name of the template file.
+ * @returns {boolean}                        - Indicates whether the input is valid or not.
+ */
 const isValidInput = ({ templateType, templateFileName }) => {
-  // list valid filetypes (so far) that we can use as template files
   const isValidFiletype = validFiletypes.some((filetype) => templateFileName.includes(filetype));
   const isValidTemplateType = validFiletypes.some((filetype) => templateType === filetype);
 
   return isValidFiletype && isValidTemplateType;
 };
 
+/**
+ * Returns the absolute path to a template file based on the provided template type and file name.
+ *
+ * @param   {object} options                  - The options object.
+ * @param   {string} options.templateType     - The type of the template.
+ * @param   {string} options.templateFileName - The name of the template file.
+ * @returns {string}                          - The absolute path to the template file.
+ */
 const getTemplatePath = ({ templateType, templateFileName }) =>
-  `../../../../reports/${templateType}/${templateFileName}`;
+  path.resolve(__dirname, `../../../../reports/${templateType}/${templateFileName}`);
 
-// decide whether to export an XLSX or PDF
-// TODO: in future we might want to change this list of template types
-const getOutputFormat = (templateType) =>
-  ({
-    docx: "pdf",
-    xlsx: "xlsx",
-  }[templateType]);
+/**
+ * Retrieves the header information based on the provided template type and sets the request headers for the report.
+ *
+ * @param   {string}   [templateType="docx"] - The type of the template.
+ * @param   {object}   request               - The request object.
+ * @param   {object}   reply                 - The reply object.
+ * @returns {Function}                       - An asynchronous function that sets the request headers and returns the request data.
+ */
+const getReportAndSetRequestHeaders = (templateType = "docx") => {
+  const { headers, mimeType } = getHeaderInfoFrom(templateType);
 
-// apply headers to the request, then return the data
-const getReportHeadersFrom = (templateType) =>
-  ({
-    docx: getReport,
-    xlsx: getXlsReport,
-  }[templateType]);
+  return async (request, reply) => {
+    reply.type(mimeType).headers(headers);
 
-const getReport = async (request, reply) => {
-  reply.type("application/pdf").headers({
-    "Content-Disposition": 'attachment;filename="test.pdf"',
-  });
-  return request.data;
+    return request.data;
+  };
 };
 
-const getXlsReport = async (request, reply) => {
-  reply.type("application/vnd.ms-excel").headers({
-    "Content-Disposition": 'attachment;filename="test.xlsx"',
-  });
-  return request.data;
+/**
+ * Retrieves the header information based on the provided template type.
+ *
+ * @param    {string} [templateType="docx"] - The type of the template.
+ * @returns  {object}                       - The header information object containing the filename and MIME type.
+ * @property {object} headers               - The header string containing the filename
+ * @property {string} mimeType              - The MIME type of the file.
+ */
+const getHeaderInfoFrom = (templateType = "docx") => {
+  const filename = `test.${templateType}`;
+  const mimeType = mimeTypeMap[templateType];
+
+  return {
+    headers: {
+      "Content-Disposition": `attachment;filename="${filename}`,
+    },
+    mimeType,
+  };
 };
+
+/* Retrieves the header information based on the provided template type and sets the request headers for the report.
+ * this handles reports which have not excel export option.
+ */
+const getReport = getReportAndSetRequestHeaders();
 
 /**
  * Groups an array of objects by a specified property.
@@ -157,5 +195,5 @@ module.exports = {
   pdfConfig,
   validateQuery,
   getCurrentDate,
-  getReportHeadersFrom,
+  getReportAndSetRequestHeaders,
 };
