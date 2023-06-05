@@ -1,12 +1,11 @@
 name: Bump frontend version on merge
 on:
-    push:
-        branches:
-            - main
-        paths:
-            - 'frontend/public/**'
-            - 'frontend/src/**'
-    workflow_dispatch:
+  push:
+      branches:
+          - development
+      paths:
+          - 'frontend/**'
+  workflow_dispatch:
 jobs:
   bump-version:
     runs-on: ubuntu-latest
@@ -24,9 +23,11 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         working-directory: ../frontend
         run: |
-            git config user.name "$GITHUB_ACTOR"
-            git remote set-url origin https://$GITHUB_TOKEN@github.com/bcgov/gdx-agreements-tracker
-            npm version minor
-            git add .
-            git commit -m "Bump app version"
-            git push
+          git config user.email "username@users.noreply.github.com"
+          git config user.name "$GITHUB_ACTOR"
+          git remote set-url origin https://$GITHUB_TOKEN@github.com/bcgov/gdx-agreements-tracker
+          git pull
+          npm version minor
+          git add .
+          git commit -m "Bump api version"
+          git push origin HEAD:development
