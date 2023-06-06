@@ -2,17 +2,18 @@ const pino = require("pino");
 const { parse } = require("path");
 
 // Set NODE_ENV environment variable to 'production' for OpenShift
-const isDevelopmentMode = "development" === process?.env?.NODE_ENV;
-
+// logging configuration reference: https://www.fastify.io/docs/latest/Reference/Logging/
 const coreLogInstance = pino(
-  isDevelopmentMode
+  "development" === process?.env?.NODE_ENV
     ? {
         level: "debug",
         transport: {
           target: "pino-pretty",
         },
       }
-    : true // for production mode, use basic logging without pretty transport
+    : {
+        level: "info",
+      }
 );
 
 const getLogInstance = (filename) => {
