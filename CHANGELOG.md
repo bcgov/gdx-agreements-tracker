@@ -1,4 +1,8 @@
 ## Developer Changelog
+**June 06, 2023**
+- Backend
+  - enable one-line logging for production mode
+
 **June 05, 2023**
 -Backend
   - update script to generate template controller that can export xlsx files
