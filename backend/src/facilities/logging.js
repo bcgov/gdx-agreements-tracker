@@ -13,6 +13,13 @@ const coreLogInstance = pino(
       }
     : {
         level: "info",
+        transport: {
+          target: "pino-pretty",
+          options: {
+            colorizeObjects: false,
+            singleLine: true,
+          },
+        },
       }
 );
 
