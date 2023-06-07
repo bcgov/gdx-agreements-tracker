@@ -1,6 +1,6 @@
 {
   "name": "gdx-agreements-tracker-api",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "GDX Agreements Tracker API",
   "main": "src/server.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "lint": "eslint templates/ test/ src/ --ext .jsx,.js,.ts,.tsx ",
     "lint:fix": "npm run lint -- --fix",
     "createAPI": "node templates/create-api/index.js",
-    "createReport" : "node templates/create-report/index.js"
+    "createReport": "node templates/create-report/index.js"
   },
   "keywords": [
     "api",
