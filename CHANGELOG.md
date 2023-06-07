@@ -1,4 +1,8 @@
 ## Developer Changelog
+**June 07, 2023**
+- Backend
+  - refin one-line logging for production mode
+
 **June 06, 2023**
 - Backend
   - enable one-line logging for production mode
