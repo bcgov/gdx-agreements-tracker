@@ -105,18 +105,20 @@ const getTemplatePath = ({ templateType, templateFileName }) =>
   path.resolve(__dirname, `../../../../reports/${templateType}/${templateFileName}`);
 
 /**
- * Retrieves the header information based on the provided template type and sets the request headers for the report.
+ * Returns a function that retrieves the header information based on the specified template type and sets the response headers accordingly.
  *
- * @param   {string}   [templateType="docx"] - The type of the template.
- * @param   {object}   request               - The request object.
- * @param   {object}   reply                 - The reply object.
- * @returns {Function}                       - An asynchronous function that sets the request headers and returns the request data.
+ * @param   {string}   templateType - The type of template (default: "docx").
+ * @returns {Function}              - An asynchronous function that sets the response type and headers and returns the request data.
  */
 const getReportAndSetRequestHeaders = (templateType = "docx") => {
   const { headers, mimeType } = getHeaderInfoFrom(templateType);
 
-  return async (request, reply) => {
+  const setResponseHeaders = (reply) => {
     reply.type(mimeType).headers(headers);
+  };
+
+  return async (request, reply) => {
+    setResponseHeaders(reply);
 
     return request.data;
   };

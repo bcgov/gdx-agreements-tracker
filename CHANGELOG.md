@@ -1,7 +1,16 @@
 ## Developer Changelog
+**June 07, 2023 [DESCW-1133](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1133)**
+- Backend
+  - upgrade openShift postgresql to v15.3-bullseye
+  - upgrade local postgresql to v15.3-alpine
+  - locally pull image and re-seed db
+  - refactor getReportAndSetRequestHeaders() for clarity
+- NOTE: developers will need to delete their postgresql volume and re-run seed/migrations
+  - docker `docker volume rm gdx-agreements-tracker_database` (or use the gui to delete your gdx database image) + re-seed + re-create gat-db database in pgAdmin.
+
 **June 07, 2023**
 - Backend
-  - refin one-line logging for production mode
+  - refine one-line logging for production mode
 
 **June 06, 2023**
 - Backend
