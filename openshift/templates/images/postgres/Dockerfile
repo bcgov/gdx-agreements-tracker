@@ -1,4 +1,4 @@
-FROM postgres:14.7-bullseye
+FROM postgres:15.3-bullseye
 
 ENV RUNUSER postgres
 
