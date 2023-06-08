@@ -51,7 +51,7 @@ export const TableWithModal = ({
         handleRowClick={handleRowClick}
         handleTableNewButton={handleTableNewButton}
       />
-      <FormModal open={formControls.open} handleClose={formControls.handleClose}>
+      <FormModal open={formControls.open}>
         <FormRenderer
           formControls={formControls}
           tableName={tableName}
