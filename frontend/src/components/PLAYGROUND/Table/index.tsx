@@ -1,9 +1,17 @@
-import { Box, Checkbox } from "@mui/material";
-import { DataGrid, GridCell, GridToolbar } from "@mui/x-data-grid";
+import { Box } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import { useRenderTableCell } from "../hooks/useRenderTableCell";
-// todo: Define a good type. "Any" type temporarily permitted.
+import { TableToolBar } from "./TableToolbar";
+
+export const Table = ({
+  rows,
+  tableConfig,
+  handleRowDoubleClick,
+  handleRowClick = null,
+  handleTableNewButton,
+}: // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const Table = ({ rows, tableConfig, handleRowDoubleClick, handleRowClick = null }: any) => {
+any) => {
   const { tableColumns, initialState } = tableConfig;
 
   const DataGridStyles = {
@@ -32,7 +40,7 @@ export const Table = ({ rows, tableConfig, handleRowDoubleClick, handleRowClick 
           onRowClick={handleRowClick}
           onRowDoubleClick={handleRowDoubleClick}
           sx={DataGridStyles}
-          slots={{ toolbar: GridToolbar, cell: useRenderTableCell }}
+          slots={{ toolbar: () => TableToolBar(handleTableNewButton), cell: useRenderTableCell }}
           slotProps={{
             toolbar: {
               showQuickFilter: true,

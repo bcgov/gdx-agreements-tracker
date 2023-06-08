@@ -1,9 +1,12 @@
 import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "react-query";
+import { useParams } from "react-router-dom";
 import { IEditField } from "types";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -158,7 +161,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     start_date: null,
     completion_date: null,
     deliverable_amount: null,
-    project_id: 1,
+    project_id: projectId,
     comments: null,
     fiscal: null,
     deliverable_status: null,
