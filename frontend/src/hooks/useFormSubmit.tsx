@@ -60,8 +60,6 @@ export const useFormSubmit = () => {
         } else {
           formattedValues[key] = formValues[key];
         }
-      } else {
-        formattedValues[key] = null;
       }
     }
     await axiosAll()

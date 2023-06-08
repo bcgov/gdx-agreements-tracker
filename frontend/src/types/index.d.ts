@@ -181,6 +181,7 @@ export interface IFormControls {
   open: boolean;
   editMode: boolean;
   currentRowData: { id };
+  handleFormType: Function;
 }
 
 export interface IUseFormSubmitHandleSubmit {
@@ -389,6 +390,9 @@ export interface IModal {
 }
 
 export interface IFormRenderer {
+  // todo: Define a good type. "Any" type temporarily permitted.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formControls?: any;
   tableName: string;
   readFields: { width: string; title: string; value: IReturnValue }[];
   editFields: IEditField[];
@@ -448,5 +452,5 @@ export interface IRowDoubleClickParams {
 }
 
 export interface Irgb {
-  rgb: { red: number; green: number; blue: number };
+  rgb: { red: number; green: number; blue: number; health_name: string };
 }
