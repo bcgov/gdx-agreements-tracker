@@ -4,11 +4,9 @@ import React from "react";
 const FormModal = ({
   children,
   open,
-  handleClose,
 }: {
   children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined;
   open: boolean;
-  handleClose: Function;
 }) => {
   const StyledModalBox = styled(Box)({
     position: "absolute",
@@ -35,16 +33,7 @@ const FormModal = ({
       >
         <StyledModalBox>
           {/* <ModalHeader onClose={handleClose} {...props} /> */}
-          <StyledContentBox>
-            {children}
-            <Button
-              onClick={() => {
-                handleClose();
-              }}
-            >
-              Close
-            </Button>
-          </StyledContentBox>
+          <StyledContentBox>{children}</StyledContentBox>
         </StyledModalBox>
       </Modal>
     </>

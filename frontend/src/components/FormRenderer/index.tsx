@@ -6,7 +6,6 @@ import { Box, Button, LinearProgress } from "@mui/material";
 import { IFormRenderer, ILockData } from "types";
 import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
-import { useMemo } from "react";
 
 /**
  * This is a functional component called `FormRenderer` that takes in several props including `queryKey`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`.
@@ -54,7 +53,7 @@ export const FormRenderer = ({
     snackbarOpen,
   } = useSnackbar();
 
-  const { formType, handleFormType, handleClose } = useFormControls();
+  const { formType, handleFormType, handleClose } = formControls ? formControls : useFormControls();
 
   const handleOnSubmit = async (values: unknown) => {
     try {
@@ -89,12 +88,12 @@ export const FormRenderer = ({
    * The function `handleOnCancel` changes the form type to "read".
    */
   const handleOnCancel = async () => {
-    if ("create" === formType) {
+    if ("edit" === formType) {
       await removeLock(query, rowsToLock).then(async () => {
         await query.refetch();
       });
     }
-    handleFormType("read");
+    handleClose();
   };
 
   /**
@@ -102,15 +101,13 @@ export const FormRenderer = ({
    * form type to "edit".
    */
   const handleOnChange = async () => {
-    if ("create" === formType) {
-      await handleDbLock(query, rowsToLock).then(async (lockData: ILockData) => {
-        if (lockData.data.locked) {
-          return confirm(
-            `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`
-          );
-        }
-      });
-    }
+    await handleDbLock(query, rowsToLock).then(async (lockData: ILockData) => {
+      if (lockData.data.locked) {
+        return confirm(
+          `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`
+        );
+      }
+    });
     handleFormType("edit");
   };
 
@@ -138,10 +135,18 @@ export const FormRenderer = ({
     return (
       <>
         <ReadForm fields={readFields} />
-        <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-          <Button variant="contained" onClick={handleOnChange}>
-            Change Section
-          </Button>
+
+        <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+          <Box>
+            <Button variant="contained" onClick={handleOnCancel} color="secondary">
+              Cancel
+            </Button>
+          </Box>
+          <Box ml={1}>
+            <Button variant="contained" onClick={handleOnChange}>
+              Change Section
+            </Button>
+          </Box>
         </Box>
         <NotificationSnackBar
           snackbarMessage={snackbarMessage}
