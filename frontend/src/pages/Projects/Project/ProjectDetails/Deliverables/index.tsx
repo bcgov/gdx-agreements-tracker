@@ -1,5 +1,5 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
 
@@ -31,7 +31,7 @@ export const DeliverablesSection = () => {
       tableConfig={tableConfig()}
       tableData={tableData}
       formControls={formControls}
-      formConfig={formConfig}
+      formConfig={FormConfig}
       formData={formData}
     />
   );
