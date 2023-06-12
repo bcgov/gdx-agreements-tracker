@@ -265,18 +265,6 @@ export const reportType = {
     },
     {
       reportCategory: "divisional_project_reports",
-      value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
-      label: "Net Recovery Summary By Quarter",
-      reportParamCategory: [
-        {
-          field: fieldTypes.fiscal,
-          type: requestTypes.route,
-          isRequired: true,
-        },
-      ],
-    },
-    {
-      reportCategory: "divisional_project_reports",
       value: "Tab_48_rpt_PF_FinanceRecoverySummary",
       label: "Finance Recovery Project Summary Forecast",
       reportParamCategory: [
@@ -301,6 +289,18 @@ export const reportType = {
         {
           field: fieldTypes.portfolio,
           type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_reports",
+      value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
+      label: "Net Recovery Summary By Quarter",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
         },
       ],
     },
@@ -396,6 +396,11 @@ export const reportDescription = {
       value:
         "Run for a specific fiscal, grouped by recovery area and sorted by Project #. Shows total recoveries, expenses, net recoveries, recovered-to-date and remaining recoveries for each project.",
       reportType: "Tab_49_rpt_PF_NetRecoveries",
+    },
+    {
+      value:
+        "Run for a specific fiscal, grouped by Portfolio. Shows both Net and Gross recoveries per portfolio, and includes quarterly recoveries as well as fiscal year totals for expenses.",
+      reportType: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
     },
   ],
 };
