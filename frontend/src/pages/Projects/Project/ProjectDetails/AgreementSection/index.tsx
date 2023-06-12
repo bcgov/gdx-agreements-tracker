@@ -2,6 +2,7 @@ import { FormRenderer } from "components/FormRenderer";
 import { useFormData } from "hooks/useFormData";
 import { useParams } from "react-router";
 import { formFields } from "./formFields";
+import { useFormControls } from "hooks";
 
 /**
  * This is a TypeScript React component that renders a form for registering a project and uses hooks to
@@ -21,6 +22,7 @@ export const AgreementSection = () => {
 
   return (
     <FormRenderer
+      formControls={useFormControls()}
       tableName={tableName}
       readFields={readFields}
       editFields={editFields}

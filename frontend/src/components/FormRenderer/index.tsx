@@ -1,6 +1,6 @@
 import { InputForm } from "components/PLAYGROUND/Forms";
 import { useQueryClient } from "react-query";
-import { useFormControls, useFormSubmit, useFormLock } from "hooks";
+import { useFormSubmit, useFormLock } from "hooks";
 import { ReadForm } from "components/ReadForm";
 import { Box, Button, LinearProgress } from "@mui/material";
 import { IFormRenderer, ILockData } from "types";
@@ -53,7 +53,7 @@ export const FormRenderer = ({
     snackbarOpen,
   } = useSnackbar();
 
-  const { formType, handleFormType, handleClose } = formControls ? formControls : useFormControls();
+  const { formType, handleFormType, handleClose } = formControls;
 
   const handleOnSubmit = async (values: unknown) => {
     try {
