@@ -33,18 +33,26 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   // early exit if invalid query info provided
   try {
     const { templateType, fiscal } = validateQuery(request.query);
+    const {
+      getFiscalYear,
+      Tab_48_rpt_PF_FinanceRecoverySummary,
+      Tab_48_totals,
+      Tab_48_grand_totals,
+    } = model;
 
     // based on the template type, pick which headers and the template filename
     controller.getReport = getReportAndSetRequestHeaders(templateType);
     const templateFileName = `Tab_48_rpt_PF_FinanceRecoverySummary.${templateType}`;
 
     // get data from models
-    const [fiscalYear] = await model.getFiscalYear(fiscal);
-    const [report, report_totals, report_grand_totals] = await Promise.all([
-      model.Tab_48_rpt_PF_FinanceRecoverySummary(fiscal),
-      model.Tab_48_totals(fiscal),
-      model.Tab_48_grand_totals(fiscal),
-    ]);
+    const [currentDate, [{ fiscal_year }], report, report_totals, [report_grand_totals]] =
+      await Promise.all([
+        getCurrentDate(),
+        getFiscalYear(fiscal),
+        Tab_48_rpt_PF_FinanceRecoverySummary(fiscal),
+        Tab_48_totals(fiscal),
+        Tab_48_grand_totals(fiscal),
+      ]);
 
     // shape model data into format the carbone engine can parse
     const reportByPortfolio = groupByProperty(report, "portfolio_name");
@@ -54,10 +62,10 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
     }));
 
     const result = {
-      date: await getCurrentDate(),
-      fiscal: fiscalYear.fiscal_year,
+      date: currentDate,
+      fiscal: fiscal_year,
       report: reportsByPortfolioWithTotals,
-      grand_totals: _.first(report_grand_totals),
+      grand_totals: report_grand_totals,
     };
 
     // send the body to cdogs and get back the result so it can be downloaded by the client

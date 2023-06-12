@@ -1,20 +1,24 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
+// get the fiscal year based on the id passed from frontend
+const getFiscalYear = (requestParams) => {
+  const query = knex.select(knex.raw(`fiscal_year from data.fiscal_year`));
+
+  if (requestParams.fiscal) {
+    query.where({ "fiscal_year.id": requestParams.fiscal });
+  }
+
+  return query;
+};
+
 /**
  * Gets data for the Divisional Project Reports - net recovery summary by quarter
  *
- * @param           requestParams fiscal: the fiscal year for this report
+ * @param           fiscal {number}: the fiscal year for this report
  * @returns {any[]}
  */
-
-const handleParams = (query, requestParams) => {
-  if (requestParams.fiscal) {
-    query.where("q.fiscal", requestParams.fiscal);
-  }
-};
-
-const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
+const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (fiscal) => {
   const query = knex.select("*").fromRaw(
     `
     (
@@ -91,6 +95,7 @@ const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
           LEFT JOIN data.portfolio AS po ON pb.recovery_area = po.id
       ) --end stob_base query
       SELECT stob_base.portfolio_name AS portfolio_name,
+        stob_base.portfolio_abbrev as portfolio_abbrev,
         sum(stob_base.base_recoveries) AS total_recoveries,
         (
           sum(stob_base.q1_expenses) + sum(stob_base.q2_expenses) + sum(stob_base.q3_expenses) + sum(stob_base.q4_expenses)
@@ -111,19 +116,18 @@ const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (requestParams) => {
         fiscal
       FROM stob_base
       GROUP BY fiscal,
+      portfolio_abbrev,
       portfolio_name
-      ORDER BY portfolio_name,
+      ORDER BY portfolio_abbrev,
       fiscal
     ) as q
   `
   );
 
-  handleParams(query, requestParams);
-
-  return query;
+  return query.where("q.fiscal", fiscal);
 };
 
-const Tab_50_totals = (requestParams) => {
+const Tab_50_totals = (fiscal) => {
   const query = knex.select("*").fromRaw(`
     (
       WITH stob_base AS (
@@ -222,12 +226,11 @@ const Tab_50_totals = (requestParams) => {
     ) as q
   `);
 
-  handleParams(query, requestParams);
-
-  return query;
+  return query.where("q.fiscal", fiscal);
 };
 
 module.exports = {
   Tab_50_rpt_PF_NetRecoverySummaryByQuarter,
   Tab_50_totals,
+  getFiscalYear,
 };
