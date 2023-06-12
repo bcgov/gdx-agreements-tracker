@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { formFields } from "./formFields";
 import { UseQueryResult } from "react-query";
 import { FormikValues } from "formik";
+import { useFormControls } from "hooks";
 
 /**
  * This is a TypeScript React component that renders a form for registering a project and uses hooks to
@@ -23,6 +24,7 @@ export const ProjectRegistrationSection = () => {
 
   return (
     <FormRenderer
+      formControls={useFormControls()}
       tableName={tableName}
       readFields={readFields}
       editFields={editFields}

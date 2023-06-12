@@ -4,6 +4,7 @@ import FormModal from "../FormModal";
 import { Table } from "../Table";
 import { FormRenderer } from "components/FormRenderer";
 import { GridRowParams } from "@mui/x-data-grid";
+import { useFormControls } from "hooks";
 
 /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
 property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
@@ -20,15 +21,20 @@ export const TableWithModal = ({
   formData,
   tableName,
 }: ITableWithModal) => {
-  const { handleCurrentRowData, open, handleClose, handleOpen } = formControls;
+  // const { handleCurrentRowData, open, handleClose, handleOpen, handleFormType } = formControls;
+  useFormControls();
+  const handleTableNewButton = () => {
+    formControls.handleFormType("new");
+    formControls.handleOpen();
+  };
 
   const handleRowDoubleClick = (params: IRowDoubleClickParams) => {
-    handleCurrentRowData(params.row);
-    handleOpen();
+    formControls.handleCurrentRowData(params.row);
+    formControls.handleOpen();
   };
 
   const handleRowClick = (params: GridRowParams) => {
-    handleCurrentRowData(params.row);
+    formControls.handleCurrentRowData(params.row);
   };
 
   const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
@@ -43,9 +49,11 @@ export const TableWithModal = ({
         tableConfig={tableConfig}
         handleRowDoubleClick={handleRowDoubleClick}
         handleRowClick={handleRowClick}
+        handleTableNewButton={handleTableNewButton}
       />
-      <FormModal open={open} handleClose={handleClose}>
+      <FormModal open={formControls.open}>
         <FormRenderer
+          formControls={formControls}
           tableName={tableName}
           readFields={readFields}
           editFields={editFields}
@@ -53,6 +61,7 @@ export const TableWithModal = ({
           updateUrl={updateUrl}
           query={formData}
           rowsToLock={rowsToLock}
+          initialValues={initialValues}
         />
       </FormModal>
     </>

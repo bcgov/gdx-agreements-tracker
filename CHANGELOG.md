@@ -1,4 +1,9 @@
 ## Developer Changelog
+**June 12, 2023**
+- Frontend
+  - Added new form functionality to Modal Table component
+
+
 **June 07, 2023 [DESCW-1133](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1133)**
 - Backend
   - upgrade openShift postgresql to v15.3-bullseye

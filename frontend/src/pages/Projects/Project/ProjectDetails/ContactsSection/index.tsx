@@ -5,6 +5,7 @@ import { useFormData } from "hooks/useFormData";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import formFields from "./formFields";
+import { useFormControls } from "hooks";
 
 /**
  * This is a TypeScript React component that renders a form for registering a project and uses hooks to
@@ -36,6 +37,7 @@ export const ContactsSection = () => {
 
   return (
     <FormRenderer
+      formControls={useFormControls()}
       tableName={tableName}
       readFields={readFields}
       editFields={editFields}

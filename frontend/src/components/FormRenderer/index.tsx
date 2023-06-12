@@ -1,6 +1,6 @@
 import { InputForm } from "components/PLAYGROUND/Forms";
 import { useQueryClient } from "react-query";
-import { useFormControls, useFormSubmit, useFormLock } from "hooks";
+import { useFormSubmit, useFormLock } from "hooks";
 import { ReadForm } from "components/ReadForm";
 import { Box, Button, LinearProgress } from "@mui/material";
 import { IFormRenderer, ILockData } from "types";
@@ -24,6 +24,7 @@ import { useSnackbar } from "hooks/useSnackbar";
  */
 
 export const FormRenderer = ({
+  formControls,
   tableName,
   readFields,
   editFields,
@@ -31,12 +32,18 @@ export const FormRenderer = ({
   updateUrl,
   query,
   rowsToLock,
-  initialValues = query?.data?.data?.data,
+  initialValues,
 }: IFormRenderer): JSX.Element => {
   const { handleUpdate, handlePost } = useFormSubmit();
-  const { handleFormType, formType } = useFormControls();
   const { handleDbLock, removeLock } = useFormLock();
   const queryClient = useQueryClient();
+
+  /**
+   * This function handles form submission for editing or posting data and updates the UI accordingly.
+   *
+   * @param {unknown} values - The values parameter is of type unknown and is likely an object containing
+   *                         form field values submitted by the user.
+   */
   const {
     handleSnackbar,
     handleSnackbarMessage,
@@ -46,37 +53,34 @@ export const FormRenderer = ({
     snackbarOpen,
   } = useSnackbar();
 
-  /**
-   * This function handles form submission for editing or posting data and updates the UI accordingly.
-   *
-   * @param {unknown} values - The values parameter is of type unknown and is likely an object containing
-   *                         form field values submitted by the user.
-   */
+  const { formType, handleFormType, handleClose } = formControls;
+
   const handleOnSubmit = async (values: unknown) => {
-    if ("edit" === formType || query?.data?.data?.dbRowLock.currentUser) {
-      await handleUpdate({
-        changedValues: values,
-        apiUrl: updateUrl,
-        currentRowData: query.data.data.data,
-      })
-        .then(async () => {
-          handleSnackbarMessage("success");
-          handleSnackbarType("success");
-          handleSnackbar();
+    try {
+      if ("edit" === formType || query?.data?.data?.dbRowLock.currentUser) {
+        await handleUpdate({
+          changedValues: values,
+          apiUrl: updateUrl,
+          currentRowData: query.data.data.data,
+        }).then(async () => {
           await removeLock(query, rowsToLock).then(() => {
             handleFormType("read");
           });
-        })
-        .catch(() => {
-          handleSnackbarMessage("fail");
-          handleSnackbarType("error");
-          handleSnackbar();
         });
-    } else {
-      await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
-        handleFormType("read");
-      });
+      } else {
+        await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
+          handleClose();
+        });
+      }
+    } catch (error) {
+      handleSnackbarMessage("fail");
+      handleSnackbarType("error");
+      handleSnackbar();
     }
+
+    handleSnackbarMessage("success");
+    handleSnackbarType("success");
+    handleSnackbar();
     queryClient.invalidateQueries([tableName]);
   };
 
@@ -84,11 +88,12 @@ export const FormRenderer = ({
    * The function `handleOnCancel` changes the form type to "read".
    */
   const handleOnCancel = async () => {
-    await removeLock(query, rowsToLock).then(async () => {
-      await query.refetch().then(() => {
-        handleFormType("read");
+    if ("edit" === formType) {
+      await removeLock(query, rowsToLock).then(async () => {
+        await query.refetch();
       });
-    });
+    }
+    handleClose();
   };
 
   /**
@@ -97,16 +102,26 @@ export const FormRenderer = ({
    */
   const handleOnChange = async () => {
     await handleDbLock(query, rowsToLock).then(async (lockData: ILockData) => {
-      if (!lockData.data.locked) {
-        handleFormType("edit");
-        return;
+      if (lockData.data.locked) {
+        return confirm(
+          `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`
+        );
       }
-      confirm(
-        `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`
-      );
     });
+    handleFormType("edit");
   };
+
   if ("edit" === formType) {
+    return (
+      <InputForm
+        handleOnSubmit={handleOnSubmit}
+        initialValues={query?.data?.data?.data}
+        handleOnCancel={handleOnCancel}
+        editFields={editFields}
+      />
+    );
+  }
+  if ("new" === formType) {
     return (
       <InputForm
         handleOnSubmit={handleOnSubmit}
@@ -116,24 +131,22 @@ export const FormRenderer = ({
       />
     );
   }
-  if ("create" === formType) {
-    return (
-      <InputForm
-        handleOnSubmit={handleOnSubmit}
-        initialValues={[]}
-        handleOnCancel={handleOnCancel}
-        editFields={editFields}
-      />
-    );
-  }
   if ("read" === formType) {
     return (
       <>
         <ReadForm fields={readFields} />
-        <Box m={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-          <Button variant="contained" onClick={handleOnChange}>
-            Change Section
-          </Button>
+
+        <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+          <Box>
+            <Button variant="contained" onClick={handleOnCancel} color="secondary">
+              Cancel
+            </Button>
+          </Box>
+          <Box ml={1}>
+            <Button variant="contained" onClick={handleOnChange}>
+              Change Section
+            </Button>
+          </Box>
         </Box>
         <NotificationSnackBar
           snackbarMessage={snackbarMessage}
