@@ -22,7 +22,7 @@ export const TableWithModal = ({
   tableName,
 }: ITableWithModal) => {
   // const { handleCurrentRowData, open, handleClose, handleOpen, handleFormType } = formControls;
-
+  useFormControls();
   const handleTableNewButton = () => {
     formControls.handleFormType("new");
     formControls.handleOpen();
