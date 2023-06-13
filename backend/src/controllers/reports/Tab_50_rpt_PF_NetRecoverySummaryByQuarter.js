@@ -30,11 +30,12 @@ controller.Tab_50_rpt_PF_NetRecoverySummaryByQuarter = async (request, reply) =>
   // early exit if invalid query info provided
   try {
     const { templateType, fiscal } = validateQuery(request.query);
+
     const { getFiscalYear, Tab_50_rpt_PF_NetRecoverySummaryByQuarter, Tab_50_totals } = model;
 
     // based on the template type, pick which headers and the template filename
     controller.getReport = getReportAndSetRequestHeaders(templateType);
-    const templateFileName = `Tab_50_rpt_PF_FinanceRecoverySummaryByQuarter.${templateType}`;
+    const templateFileName = `Tab_50_rpt_PF_NetRecoverySummaryByQuarter.${templateType}`;
 
     // get data from models
     const [date, [{ fiscal_year }], report, report_totals] = await Promise.all([
