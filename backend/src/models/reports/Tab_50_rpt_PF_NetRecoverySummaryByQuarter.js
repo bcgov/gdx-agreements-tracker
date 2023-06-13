@@ -138,7 +138,7 @@ const Tab_50_totals = (fiscal) => {
     sum((Q1_Amount + Q2_Amount + Q3_Amount + Q4_Amount) - (Q1_Expenses + Q2_Expenses + Q3_Expenses + Q4_Expenses)) as totals_net_recoveries,
     sum(Q1_Amount) as totals_q1_gross,
     sum(Q1_Amount - Q1_Expenses) as totals_q1_net,
-    sum(Q2_Amount) as totals_q1_gross,
+    sum(Q2_Amount) as totals_q2_gross,
     sum(Q2_Amount - Q2_Expenses) as totals_q2_net,
     sum(Q3_Amount) as totals_q3_gross,
     sum(Q3_Amount - Q3_Expenses) as totals_q3_net,
