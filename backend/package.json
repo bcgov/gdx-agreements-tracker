@@ -1,6 +1,6 @@
 {
   "name": "gdx-agreements-tracker-api",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "GDX Agreements Tracker API",
   "main": "src/server.js",
   "scripts": {

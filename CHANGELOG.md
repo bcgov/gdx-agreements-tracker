@@ -1,7 +1,22 @@
 ## Developer Changelog
+**June 14, 2023  - [DESCW-1212](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1212)**
+- Backend
+  - add validator for Tab 50 report
+  - re-factored tab48 controller
+  - re-factored tab50 controller
+  - replaced query in tab 50 model with the one provided in the ticket
+  - added description for tab 50 report
+  - created tab 50 excel template
+  - added fiscal year model to tab 50 model for consistency with tab48
+- Frontend
+  - fixed import error for .../Deliverables/index.tsx Line 2 (incorrect case on filename)
+  - added Tab 50 report
+  - re-ordered reports by tab number to place tab 50 below tab 48 report
+  - updated styling on tab 50 report template for both excel and pdf exports
+
 
 **June 13, 2023**
-- Backend 
+- Backend
   - Added Backend for handling new project
 - Frontend
   - Added functionality to handle new project creation in frontend interface for project section
