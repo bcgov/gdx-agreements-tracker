@@ -1,4 +1,11 @@
 ## Developer Changelog
+
+**June 13, 2023**
+- Backend 
+  - Added Backend for handling new project
+- Frontend
+  - Added functionality to handle new project creation in frontend interface for project section
+
 **June 12, 2023**
 - Frontend
   - Added new form functionality to Modal Table component

@@ -13,7 +13,7 @@ module.exports = {
     password: loadSecretFileOrUseEnv('/run/secrets/postgres_password', 'POSTGRES_PASSWORD'),
     database: process.env.POSTGRES_DATABASE
   },
-  searchPath: ['pmo', 'public'],
+  searchPath: ['pmo', 'public', 'data'],
   migrations: {
     tableName: 'migrations',
     directory: "./src/database/migrations"
