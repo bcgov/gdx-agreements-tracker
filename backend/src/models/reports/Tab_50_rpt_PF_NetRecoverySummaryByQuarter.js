@@ -7,10 +7,10 @@ const getFiscalYear = (fiscal) =>
   knex.select(knex.raw(`fiscal_year from data.fiscal_year`)).where({ "fiscal_year.id": fiscal });
 
 /**
- * Gets data for the Divisional Project Reports - net recovery summary by quarter
+ * Retrieves the data for various financial metrics based on the fiscal year.
  *
- * @param           fiscal {number}: the fiscal year for this report
- * @returns {any[]}
+ * @param   {number | string | Array} fiscal - The fiscal year(s) to retrieve totals for.
+ * @returns {Promise}                        - A promise that resolves to the query result containing the totals for recoveries, expenses, net recoveries, and quarterly gross and net amounts.
  */
 const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (fiscal) => {
   const query = knex.select("*").fromRaw(`
@@ -83,6 +83,12 @@ const Tab_50_rpt_PF_NetRecoverySummaryByQuarter = (fiscal) => {
   return query.whereIn("q.fiscal", _.castArray(fiscal));
 };
 
+/**
+ * Retrieves the totals for various financial metrics based on the fiscal year.
+ *
+ * @param   {number | string | Array} fiscal - The fiscal year(s) to retrieve totals for.
+ * @returns {Promise}                        - A promise that resolves to the query result containing the totals for recoveries, expenses, net recoveries, and quarterly gross and net amounts.
+ */
 const Tab_50_totals = (fiscal) => {
   const query = knex.select("*").fromRaw(`
     (WITH stob_base as (
