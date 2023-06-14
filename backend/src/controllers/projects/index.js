@@ -32,4 +32,21 @@ controller.getOneWithContracts = async (request, reply) => {
   return output;
 };
 
+/**
+ * Add an item based on request body info.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.addNewProject = async (request, reply) => {
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
+  try {
+    const result = await model.addNewProject();
+    return result || controller.noQuery(reply, `The ${what.single} could not be added.`);
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
 module.exports = controller;

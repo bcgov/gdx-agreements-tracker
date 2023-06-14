@@ -62,9 +62,11 @@ export const useFormSubmit = () => {
         }
       }
     }
-    await axiosAll()
+    return await axiosAll()
       .post(apiUrl, formattedValues)
-      .then(() => {})
+      .then((results) => {
+        return results.data.data;
+      })
       .catch((err: string) => {
         console.error("error:", err);
       });

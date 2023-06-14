@@ -21,6 +21,12 @@ const routes = [
     schema: validators.updateOne,
     handler: controller.updateOne,
   },
+  {
+    method: "POST",
+    url: `/${what}`,
+    // schema: validators.addOne,
+    handler: controller.addNewProject,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {
