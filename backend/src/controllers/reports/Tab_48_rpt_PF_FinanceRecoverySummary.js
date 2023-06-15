@@ -14,7 +14,7 @@ const {
   getReportAndSetRequestHeaders,
   groupByProperty,
   pdfConfig,
-  validateQuery,
+  validateQueryParameters,
 } = utils;
 
 // default request headers for the cdogs api will use 'pdf' mimetype and 'docx' template file type
@@ -32,7 +32,7 @@ controller.Tab_48_rpt_PF_FinanceRecoverySummary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   // early exit if invalid query info provided
   try {
-    const { templateType, fiscal } = validateQuery(request.query);
+    const { templateType, fiscal } = validateQueryParameters(request.query);
     const {
       getFiscalYear,
       Tab_48_rpt_PF_FinanceRecoverySummary,

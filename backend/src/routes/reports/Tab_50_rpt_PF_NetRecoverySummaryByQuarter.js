@@ -1,22 +1,18 @@
-const controller = require("@controllers/reports/Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js");
-const validators = require("@validators/report/tab50");
-const what = "report";
+const getControllerFrom = require("@controllers/reports/genericReportController");
+const { getAll } = require("@validators/report/tab50");
 
-const routes = [
-  {
-    method: "GET",
-    url: `/${what}/projects/Tab_50_rpt_PF_NetRecoverySummaryByQuarter`,
-    schema: validators.getAll,
-    onRequest: controller.Tab_50_rpt_PF_NetRecoverySummaryByQuarter,
-    handler: controller.getReport,
-  },
-];
-const registerRoutes = (fastify, options, done) => {
-  // Ensure all of the routes above get registered.
-  routes.forEach((route) => fastify.route(route));
-  done();
-};
+const name = `Tab_50_rpt_PF_NetRecoverySummaryByQuarter`;
+const controller = getControllerFrom(name);
 
 module.exports = {
-  registerRoutes,
+  registerRoutes: (fastify, options, done) => {
+    fastify.route({
+      method: "GET",
+      url: `/report/projects/${name}`,
+      schema: getAll,
+      onRequest: controller[name],
+      handler: controller.getReport,
+    });
+    done();
+  },
 };

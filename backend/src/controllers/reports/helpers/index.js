@@ -174,17 +174,17 @@ const groupByProperty = (rows, prop) =>
  * @param   {number} params.fiscal       - The fiscal year parameter for reports. defaults to 0 in case it is not provided as an argument
  * @returns {object}                     - An object containing the validated templateType and outputType values.
  */
-const validateQuery = ({ fiscal = 0, templateType = "docx", outputType = "pdf" }) => {
-  if (validFiletypes.includes(templateType)) {
-    return {
-      fiscal,
-      templateType,
-      outputType,
-    };
-  } else {
+const validateQueryParameters = ({ fiscal = 0, templateType = "docx", outputType = "pdf" }) => {
+  if (!validFiletypes.includes(templateType)) {
     throw new Error("Query parameter is invalid!");
   }
+  return { fiscal, templateType, outputType };
 };
+
+/* Get template filename (curried)
+ * Usage:  getTemplateFilenameFrom('Tab_50_rpt_PF_NetRecoverySummaryByQuarter')('docx');
+ */
+const getTemplateFilenameFrom = (name) => (type) => `${name}.${type}`;
 
 // gets the current date in ISO "YYYY-MM-DD" format.
 const getCurrentDate = async () => new Date().toISOString().split("T")[0];
@@ -195,7 +195,8 @@ module.exports = {
   groupByProperty,
   loadTemplate,
   pdfConfig,
-  validateQuery,
+  validateQueryParameters,
   getCurrentDate,
   getReportAndSetRequestHeaders,
+  getTemplateFilenameFrom,
 };
