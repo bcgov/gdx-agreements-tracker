@@ -181,11 +181,6 @@ const validateQueryParameters = ({ fiscal = 0, templateType = "docx", outputType
   return { fiscal, templateType, outputType };
 };
 
-/* Get template filename (curried)
- * Usage:  getTemplateFilenameFrom('Tab_50_rpt_PF_NetRecoverySummaryByQuarter')('docx');
- */
-const getTemplateFilenameFrom = (name) => (type) => `${name}.${type}`;
-
 // gets the current date in ISO "YYYY-MM-DD" format.
 const getCurrentDate = async () => new Date().toISOString().split("T")[0];
 
@@ -198,5 +193,4 @@ module.exports = {
   validateQueryParameters,
   getCurrentDate,
   getReportAndSetRequestHeaders,
-  getTemplateFilenameFrom,
 };
