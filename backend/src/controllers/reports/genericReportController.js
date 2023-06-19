@@ -16,7 +16,8 @@ const {
  */
 const getControllerFrom = (filename) => {
   const model = require(`@models/reports/${filename}`);
-  const controller = useController(model, { single: "report", plural: "reports" });
+  const what = { single: "report", plural: "reports" };
+  const controller = useController(model, what);
 
   return {
     ...controller,
@@ -29,12 +30,9 @@ const getControllerFrom = (filename) => {
         const result = await getDataFromModel({ fiscal, model });
         await sendToCdogs({ result, filename, templateType, request });
 
-        return result;
+        return result ?? controller.noQuery(reply, `There was a problem looking up this Report.`);
       } catch (err) {
-        console.error(`Error: ${err}`);
-        reply.code(500);
-
-        return { message: "There was a problem looking up this Report." };
+        return controller.failedQuery(reply, err, what);
       }
     },
   };
