@@ -18,7 +18,7 @@ const readline = require("readline").createInterface({
   output: process.stdout,
 });
 
-const templateTypes = ["controllers", "models", "routes"];
+const templateTypes = ["models", "routes"];
 
 /**
  * Create an array of the template file paths for the script to read and use to create new API files
