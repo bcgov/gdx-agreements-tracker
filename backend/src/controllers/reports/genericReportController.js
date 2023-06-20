@@ -9,6 +9,7 @@ const {
   getReportAndSetRequestHeaders,
   pdfConfig,
   validateQueryParameters,
+  getCurrentDate,
 } = require("./helpers");
 
 // Constants
@@ -29,7 +30,7 @@ const what = { single: "report", plural: "reports" };
  * EXAMPLE MODEL: backend/src/models/reports/Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js
  *
  * async({some named parameter(s)}) => {
- * const [{all teh data for the report }] = await Promise.all([
+ * const [{all the data for the report }] = await Promise.all([
  * {list of the knex query promises}
  * ]);
  *
@@ -56,11 +57,12 @@ const getControllerFrom = (filename) => {
     controller.userRequires(request, "PMO-Reports-Capability", reply);
 
     try {
-      const { templateType, fiscal, portfolio } = validateQueryParameters(request.query);
+      const { query } = request;
+      const { templateType } = validateQueryParameters(query);
       const modifiedGetReport = getReportAndSetRequestHeaders(templateType);
       controller.getReport = modifiedGetReport;
 
-      const result = await getDataFromModel({ fiscal, portfolio, model });
+      const result = await getDataFromModel(query, model);
       await sendToCdogs({ result, filename, templateType, request });
 
       if (result) {
@@ -83,33 +85,29 @@ const getControllerFrom = (filename) => {
 /**
  * Retrieves data from a model based on fiscal or portfolio information.
  *
- * @param   {object}               params           - The parameters for retrieving data.
- * @param   {string|null}          params.fiscal    - The fiscal information.
- * @param   {string|Array[string]} params.portfolio - The portfolio information.
- * @param   {object}               params.model     - The model to retrieve data from.
- * @returns {Promise}                               - A promise that resolves with the retrieved data.
+ * @param   {string|Array[string]|number} query - The parameters for retrieving data.
+ * @param   {object}                      model - The model to retrieve data from.
+ * @returns {Promise}                           - A promise that resolves with the retrieved data.
  */
-const getDataFromModel = async ({ fiscal = null, portfolio = null, model }) => {
-  // we can add different cases as we go along. for now, let's just think about reports by fiscal or portfolio
-  if (fiscal) {
-    return await model.getAllByFiscal(fiscal);
-  }
-  if (portfolio) {
-    return await model.getAllByPortfolio(portfolio); // handle the array | string inside the model
-  }
-  // simply add a method to the model if you want to getAllBy(x)
+const getDataFromModel = async (query, model) => {
+  const result = await model.getAll(query);
+  const date = await getCurrentDate();
+
+  return {
+    date,
+    ...result,
+  };
 };
 
-// eslint-disable-next-line jsdoc/check-line-alignment
 /**
- *  Sends the result data to Cdogs for rendering a template.
+ * Sends the result data to Cdogs for rendering a template.
  *
- *  @param   {object}  params              - The parameters for sending to Cdogs.
- *  @param   {any}     params.result       - The result data to be sent.
- *  @param   {string}  params.filename     - The name of the file.
- *  @param   {string}  params.templateType - The type of the template.
- *  @param   {object}  params.request      - The request object.
- *  @returns {Promise}                     - A promise that resolves when the data is sent to Cdogs.
+ * @param   {object}  params              - The parameters for sending to Cdogs.
+ * @param   {any}     params.result       - The result data to be sent.
+ * @param   {string}  params.filename     - The name of the file.
+ * @param   {string}  params.templateType - The type of the template.
+ * @param   {object}  params.request      - The request object.
+ * @returns {Promise}                     - A promise that resolves when the data is sent to Cdogs.
  */
 const sendToCdogs = async ({ result, filename, templateType, request }) => {
   const templateFileName = `${filename}.${templateType}`;

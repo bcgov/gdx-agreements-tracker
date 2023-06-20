@@ -2,9 +2,6 @@ const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 const { fiscalYearTable } = require("@models/useDbTables");
 
-// gets the current date in ISO "YYYY-MM-DD" format.
-const getCurrentDate = async () => new Date().toISOString().split("T")[0];
-
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
  *
@@ -164,16 +161,14 @@ const queries = {
 };
 
 module.exports = {
-  getAllByFiscal: async (fiscal) => {
-    const [date, [{ fiscal_year }], report, report_totals] = await Promise.all([
-      getCurrentDate(),
+  getAll: async ({ fiscal }) => {
+    const [[{ fiscal_year }], report, report_totals] = await Promise.all([
       queries.fiscalYear(fiscal),
       queries.report(fiscal),
       queries.totals(fiscal),
     ]);
 
     return {
-      date,
       fiscal: fiscal_year,
       report,
       report_totals,
