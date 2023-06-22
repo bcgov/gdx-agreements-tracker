@@ -16,13 +16,22 @@ const queries = {
 };
 
 module.exports = {
-  // destructure params for each report model
-  // example getAll: async ({ fiscal }) => { .... }
   getAll: async (params) => {
-    const [report] = await Promise.all([queries.report(params)]);
+    try {
+      // pull out whichever properties you need
+      const [report] = await Promise.all([queries.report(params)]);
 
-    return {
-      report,
-    };
+      return {
+        report,
+      };
+    } catch (error) {
+      // define the object
+      // of nulls to return
+      const nullReturn = {};
+      console.error(`Error text goes here:
+      ${error}
+      returning nulls: ${nullReturn}`);
+      return nullReturn;
+    }
   },
 };

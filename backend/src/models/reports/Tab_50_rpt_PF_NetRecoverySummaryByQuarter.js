@@ -162,16 +162,31 @@ const queries = {
 
 module.exports = {
   getAll: async ({ fiscal }) => {
-    const [[{ fiscal_year }], report, report_totals] = await Promise.all([
-      queries.fiscalYear(fiscal),
-      queries.report(fiscal),
-      queries.totals(fiscal),
-    ]);
+    try {
+      const [[{ fiscal_year }], report, report_totals] = await Promise.all([
+        queries.fiscalYear(fiscal),
+        queries.report(fiscal),
+        queries.totals(fiscal),
+      ]);
 
-    return {
-      fiscal: fiscal_year,
-      report,
-      report_totals,
-    };
+      return {
+        fiscal: fiscal_year,
+        report,
+        report_totals,
+      };
+    } catch (error) {
+      const nullReturn = {
+        fiscal: null,
+        report: null,
+        report_totals: null,
+      };
+      console.error(
+        `An error occurred:
+      value of fiscal is ${fiscal},
+        error: ${error}
+        returning nulls: ${JSON.stringify(nullReturn)}`
+      );
+      return nullReturn;
+    }
   },
 };
