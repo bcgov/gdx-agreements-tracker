@@ -1,9 +1,12 @@
 ## Developer Changelog
-**June 19, 2023  - [DESCW-1187](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1187)**
+**June 23, 2023  - [DESCW-1187](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1187)**
 - Backend
   - create generic controller
   - update report template script to use it
   - slight refactor of controller
+  - update documentation in generic controller
+  - add error-handling to generic controller
+  - add error-handling to tab_50 model
 
 **June 14, 2023  - [DESCW-1212](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1212)**
 - Backend
