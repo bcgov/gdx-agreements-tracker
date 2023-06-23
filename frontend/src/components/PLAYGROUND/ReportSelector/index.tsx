@@ -1,98 +1,163 @@
-import React, { useEffect } from 'react';
-import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import React, { useState } from 'react';
+import { FormControl, FormControlLabel, Radio, RadioGroup, Card, CardContent, Button, CardActions, Typography } from '@mui/material';
+import { Form, Formik, FormikProvider, useFormik } from 'formik';
+import { categoriesAndTypes, categoryOptions, parameterOptions } from './reportSelectorConfig';
+import Grid from '@mui/material/Unstable_Grid2';
+import { RenderParameters } from "./RenderParameters"
+import { useSearchParams } from 'react-router-dom';
 
-interface URLParams {
-    section1?: string;
-    section2?: string;
-    section3?: string;
-}
 
-const ReportSelector: React.FC = () => {
-    const navigate = useNavigate();
-    const { section1: section1Param, section2: section2Param, section3: section3Param } = useParams();
-    const location = useLocation();
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search)
-        const section1Value = params.get('section1') || '';
-        const section2Value = params.get('section2') || '';
-        const section3Value = params.get('section3') || '';
+const RadioSelect = () => {
+    const [category, setCategory] = useState('');
+    const [type, setType] = useState('');
+    const [typeDescription, setTypeDescription] = useState("")
+    const [fileType, setFileType] = useState("")
+    const initialValues = { date: null }
 
-        const initialValues: URLParams = {
-            section1: section1Value || section1Param,
-            section2: section2Value || section2Param,
-            section3: section3Value || section3Param,
-        };
+    const formik = useFormik({
+        onSubmit: async (values) => {
+            handleExport(values)
+        },
+        initialValues: initialValues,
+    });
+    const { resetForm, handleSubmit, setFieldValue, values } = formik
 
-        navigate(`?section1=${initialValues.section1}&section2=${initialValues.section2}&section3=${initialValues.section3}`);
-    }, []);
+    //TODO: This state is for a future ticket where we will incorparte the url for running reports
+    //
+    //example use case useState(searchParams.get('category'));
+    const [searchParams, setSearchParams] = useSearchParams()
 
-    const handleFormSubmit = (values: URLParams, { resetForm }: FormikHelpers<URLParams>) => {
-        const { section1, section2, section3 } = values;
 
-        navigate(`?section1=${section1}&section2=${section2}&section3=${section3}`);
+    const handleCategoryChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+        setCategory(event.target.value);
+        setType('');
+        setTypeDescription('')
+        resetForm()
     };
 
+
+    const handleTypeChange = (event: { target: { value: string }; }) => {
+        const selectedType = event.target.value;
+        setTypeDescription(parameterOptions[selectedType].description);
+        setType(event.target.value);
+        resetForm()
+    };
+    //TODO: This Function is for a future ticket where we will incorparte the url for running reports
+    //
+    // const handleParameterChange = (parameterName: any, value: any) => {
+    //     setSearchParams((prevState: any) => {
+    //         console.log('prevState', prevState)
+    //         return ({
+    //             ...prevState,
+    //             [parameterName]: value,
+    //         })
+    //     });
+    // };
+    const handleExport = (values: any) => {
+        // var search = new URLSearchParams(ids.map(s=>['id',s]))
+        setSearchParams(() => {
+            // for (const [key, value] of Object.entries(values)) {
+            //     if (typeof value === 'object') {
+
+            //     }
+            //     return `${key}: ${value}`
+            // }
+            // return {}
+            Object.keys(values).forEach(function (key) { values[key] = "redacted" });
+            return values;
+        })
+
+
+
+
+        const querystringParams = new URLSearchParams();
+        console.log('querystringParams', querystringParams)
+        console.log('values', values)
+    }
+
     return (
-        <Formik<URLParams>
-            initialValues={{}}
-            onSubmit={handleFormSubmit}
-        >
-            <Form>
-                <Field name="section1">
-                    {({ field }: any) => (
-                        <RadioGroup {...field}>
-                            <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
-                            <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
-                            <FormControlLabel value="option3" control={<Radio />} label="Option 3" />
-                        </RadioGroup>
-                    )}
-                </Field>
+        <>
+            <Grid container spacing={2}>
+                <Grid xs={12} sm={6} md={6} >
+                    <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                            <Typography color="text.secondary" gutterBottom>
+                                Category
+                            </Typography>
+                            <FormControl component="fieldset">
+                                <RadioGroup name="category" value={category} onChange={handleCategoryChange}>
+                                    {categoryOptions.map((category: string) => {
+                                        return <FormControlLabel value={category} control={<Radio />} label={category} />
+                                    })}
+                                </RadioGroup>
+                            </FormControl>
+                        </CardContent>
+                    </Card>
 
-                <Field name="section2">
-                    {({ field, form }: any) => (
-                        <RadioGroup {...field} disabled={!form.values.section1}>
-                            {form.values.section1 === 'option1' && (
-                                <>
-                                    <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
-                                    <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
-                                </>
-                            )}
-                            {form.values.section1 === 'option2' && (
-                                <>
-                                    <FormControlLabel value="option3" control={<Radio />} label="Option 3" />
-                                    <FormControlLabel value="option4" control={<Radio />} label="Option 4" />
-                                </>
-                            )}
-                        </RadioGroup>
+                </Grid>
+                <Grid xs={12} sm={6} md={6}>
+                    {category && (
+                        <Card sx={{ minWidth: 275 }}>
+                            <CardContent>
+                                <Typography color="text.secondary" gutterBottom>
+                                    Type
+                                </Typography>
+                                <FormControl component="fieldset">
+                                    <RadioGroup name="type" value={type} onChange={handleTypeChange}>
+                                        {categoriesAndTypes[category].map((option: any) => (
+                                            <FormControlLabel key={option} value={option} control={<Radio />} label={option} />
+                                        ))}
+                                    </RadioGroup>
+                                </FormControl>
+                            </CardContent>
+                        </Card>
                     )}
-                </Field>
+                </Grid>
+                <Grid xs={12} sm={12} md={12}>
 
-                <Field name="section3">
-                    {({ field, form }: any) => (
-                        <RadioGroup {...field} disabled={!form.values.section2}>
-                            {form.values.section2 === 'option1' && (
-                                <>
-                                    <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
-                                    <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
-                                </>
-                            )}
-                            {form.values.section2 === 'option2' && (
-                                <>
-                                    <FormControlLabel value="option3" control={<Radio />} label="Option 3" />
-                                    <FormControlLabel value="option4" control={<Radio />} label="Option 4" />
-                                </>
-                            )}
-                        </RadioGroup>
-                    )}
-                </Field>
+                    <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                            <Typography color="text.secondary" gutterBottom>
+                                Description
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {typeDescription}
+                            </Typography>
+                        </CardContent>
+                    </Card>
 
-                <button type="submit">Submit</button>
-            </Form>
-        </Formik>
+                </Grid>
+                <Grid xs={12} sm={12} md={12}>
+                    {type && (
+                        <Card sx={{ minWidth: 275 }}>
+                            <CardContent>
+                                <Typography color="text.secondary" gutterBottom>
+                                    Parameters
+                                </Typography>
+                                <FormikProvider value={formik}>
+                                    <form onSubmit={handleSubmit}>
+                                        {parameterOptions[type] &&
+                                            parameterOptions[type].parameters.map((parameterName: any) => {
+                                                { return RenderParameters(parameterName, values, setFieldValue) }
+                                            })}
+
+                                        <CardActions>
+                                            <Button variant="contained" type="submit">Export xls</Button>
+                                            <Button variant="contained" type="submit">Export pdf</Button>
+                                        </CardActions>
+                                    </form>
+                                </FormikProvider>
+
+                            </CardContent>
+
+                        </Card>
+                    )
+                    }
+                </Grid>
+            </Grid>
+        </ >
     );
 };
 
-export default ReportSelector;
+export default RadioSelect;
