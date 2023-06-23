@@ -6,7 +6,7 @@ import { Renderer } from "components/Renderer";
 import { FormikValues } from "formik";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import React, { useEffect, useState } from "react";
-import { useQuery, UseQueryResult } from "react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Navigate } from "react-router-dom";
 import { ICapability, IEditField, IInitialValues, IUser, IWhat } from "types";
 import { apiAxios } from "utils";

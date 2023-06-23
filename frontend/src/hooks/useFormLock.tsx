@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAxios } from "../hooks/useAxios";
 import { useKeycloak } from "@react-keycloak/web";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { IDBRowlock } from "types";
 
 export const useFormLock = () => {

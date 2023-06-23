@@ -2,7 +2,7 @@ import { FormRenderer } from "components/FormRenderer";
 import { useFormData } from "hooks/useFormData";
 import { useParams } from "react-router";
 import { formFields } from "./formFields";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { FormikValues } from "formik";
 import { useFormControls } from "hooks";
 

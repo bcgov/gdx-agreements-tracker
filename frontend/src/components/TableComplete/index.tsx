@@ -6,7 +6,7 @@ import { useFormControls } from "hooks/useFormControls";
 import { useFormatTableData } from "hooks";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import { GDXModal } from "components/GDXModal";
-import { useQuery, UseQueryResult } from "react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { FormikValues } from "formik";
 import { ReadForm } from "components/ReadForm";
 import { CreateForm } from "components/CreateForm";

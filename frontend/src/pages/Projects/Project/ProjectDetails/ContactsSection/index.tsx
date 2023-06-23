@@ -2,7 +2,7 @@ import { useKeycloak } from "@react-keycloak/web";
 import { FormRenderer } from "components/FormRenderer";
 import { useAxios } from "hooks/useAxios";
 import { useFormData } from "hooks/useFormData";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import formFields from "./formFields";
 import { useFormControls } from "hooks";

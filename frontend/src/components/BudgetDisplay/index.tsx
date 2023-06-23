@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import { GDXList } from "components/GDXList";
 import { Loader } from "components/Loader";
 import { useAxios } from "hooks/useAxios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { IBudget, IStandardRow } from "types";
 
 export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {

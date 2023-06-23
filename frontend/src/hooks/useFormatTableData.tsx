@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { ITableData } from "../types";
 import { Button, Checkbox, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";

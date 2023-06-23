@@ -2,8 +2,8 @@ import "./styles/App.scss";
 import React, { FC } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./routes";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // Create a client
 const queryClient = new QueryClient();
