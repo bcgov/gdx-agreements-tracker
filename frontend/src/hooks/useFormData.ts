@@ -1,6 +1,6 @@
 import React from "react";
 import { useAxios } from "hooks/useAxios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface IGetFormData {
   url: string;

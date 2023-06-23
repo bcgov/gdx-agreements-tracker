@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Typography } from "@mui/material";
 import { Renderer } from "components/Renderer";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "hooks/useAxios";
 
 export const Glossary: FC = () => {
@@ -18,7 +18,7 @@ export const Glossary: FC = () => {
   };
 
   // Queries
-  const { data, isLoading } = useQuery(`glossary`, getGlossary, {
+  const { data, isLoading } = useQuery([`glossary`], getGlossary, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,

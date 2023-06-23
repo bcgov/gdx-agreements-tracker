@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import { GDXList } from "components/GDXList";
 import { Loader } from "components/Loader";
 import { useAxios } from "hooks/useAxios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { IBudget, IStandardRow } from "types";
 
 export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {
@@ -19,7 +19,7 @@ export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {
   };
 
   // Queries
-  const { data } = useQuery(apiUrl, getBudgetData, {
+  const { data } = useQuery([apiUrl], getBudgetData, {
     // todo: When there is an edit and view form built, reassess these options.
     refetchOnWindowFocus: false,
     retryOnMount: false,

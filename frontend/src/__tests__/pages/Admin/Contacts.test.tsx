@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 import { MemoryRouter, Routes } from "react-router-dom";
 import adminRoutes from "../../../routes/subRoutes/adminRoutes";
 import { Contacts } from "../../../pages/Admin/Contacts";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Create a client
 const queryClient = new QueryClient();

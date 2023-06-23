@@ -3,10 +3,10 @@ import { mount } from "enzyme";
 import { TableComplete } from "components/TableComplete";
 import { IEditFields } from "types";
 import { FormikValues } from "formik";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const readFields = (ministriesQuery: UseQueryResult<FormikValues>) => {
   return [

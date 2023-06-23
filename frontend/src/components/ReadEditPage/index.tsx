@@ -6,7 +6,7 @@ import { Renderer } from "components/Renderer";
 import { FormikValues } from "formik";
 import { useFormSubmit } from "hooks/useFormSubmit";
 import React, { useEffect, useState } from "react";
-import { useQuery, UseQueryResult } from "react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { Navigate } from "react-router-dom";
 import { ICapability, IEditField, IInitialValues, IUser, IWhat } from "types";
 import { apiAxios } from "utils";
@@ -47,7 +47,7 @@ export const ReadEditPage = ({
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const query: UseQueryResult<{ data: any; user: IUser }> = useQuery(
-    `${apiRoute} - ${id}`,
+    [`${apiRoute} - ${id}`],
     getItem,
     {
       refetchOnWindowFocus: false,

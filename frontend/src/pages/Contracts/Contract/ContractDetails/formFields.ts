@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField, IOption } from "types";
 
 export const formFields = (query: AxiosResponse | undefined) => {

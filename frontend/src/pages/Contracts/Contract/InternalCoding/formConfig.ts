@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 
 export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {

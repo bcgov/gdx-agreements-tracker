@@ -1,5 +1,5 @@
 import { InputForm } from "components/PLAYGROUND/Forms";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFormSubmit, useFormLock } from "hooks";
 import { ReadForm } from "components/ReadForm";
 import { Box, Button, LinearProgress } from "@mui/material";

@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { ITableData } from "../types";
 import { Button, Checkbox, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -129,7 +129,7 @@ export const useFormatTableData = ({
   /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, isLoading } = useQuery<any>(apiEndPoint, getTableData, {
+  const { data, isLoading } = useQuery<any>([apiEndPoint], getTableData, {
     refetchOnMount: "always",
   });
   return { data, isLoading };

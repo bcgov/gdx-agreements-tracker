@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { IEditField } from "types";
 
