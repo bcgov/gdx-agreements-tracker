@@ -1,4 +1,11 @@
 ## Developer Changelog
+
+**June 23, 2023  - [DESCW-1043](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1043)**
+- Frontend
+  - update react-query by replacing it with @tanstack/react-query
+  - change first arg of useQuery() to an array per the changelog
+  - update all imports to @tanstack/...
+
 **June 23, 2023  - [DESCW-1187](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1187)**
 - Backend
   - create generic controller
