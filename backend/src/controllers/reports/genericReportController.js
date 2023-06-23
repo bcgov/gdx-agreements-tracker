@@ -28,17 +28,26 @@ const what = { single: "report", plural: "reports" };
  *
  * How to change the model: (export the data instead of the query - pseudocode)
  * EXAMPLE MODEL: backend/src/models/reports/Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js
+ * let PSEUDOCODE_EXAMPLE = async (query) => {
+ * try {
+ * const { <args> } = query; // this could be fiscal, portfolio, date, etc.
  *
- * async({some named parameter(s)}) => {
- * const [{all the data for the report }] = await Promise.all([
- * {list of the knex query promises}
+ * const [[{ fiscal_year }], report, report_totals] = await Promise.all([
+ * // these queries are defined in the model, and return the knex.js queries.
+ * queries.report(<some arg>),
+ * queries.totals(<some arg>),
  * ]);
  *
  * return {
- * <all the data for your report, organized into whatever structure you need>
- * < you can use `groupByProperty()` from from helpers to add structure for reports 'by fiscal' or 'by portfolio'>
- * }}
- *
+ * report,
+ * report_totals,
+ * };
+ * } catch (error) {
+ * console.error(`Model error!: query parameter received: ${JSON.stringify(query)}`);
+ * console.error(`*** ${error} **** : returning NULL!.`);
+ * return null;
+ * }
+ * };
  */
 
 /**
@@ -53,6 +62,15 @@ const getControllerFrom = (filename) => {
 
   const getReport = getReportAndSetRequestHeaders();
 
+  /**
+   * Handles the generation and delivery of a report.
+   *
+   * @async
+   * @param   {object}                 request - The request object containing information for generating the report.
+   * @param   {object}                 reply   - The reply object used to send the response.
+   * @returns {Promise<object | null>}         - A Promise that resolves to the generated report data or null if an error occurred.
+   * @throws {Error} - If an unexpected error occurs during the report generation process.
+   */
   const reportHandler = async (request, reply) => {
     controller.userRequires(request, "PMO-Reports-Capability", reply);
 
@@ -62,15 +80,17 @@ const getControllerFrom = (filename) => {
       const modifiedGetReport = getReportAndSetRequestHeaders(templateType);
       controller.getReport = modifiedGetReport;
 
-      const result = await getDataFromModel(query, model);
-      await sendToCdogs({ result, filename, templateType, request });
+      const result = (await getDataFromModel(query, model)) ?? null;
 
-      if (result) {
-        return result;
-      } else {
+      if (null === result) {
+        reply.code(404);
         return controller.noQuery(reply, `There was a problem looking up this Report.`);
+      } else {
+        await sendToCdogs({ result, filename, templateType, request });
+        return result;
       }
     } catch (err) {
+      reply.code(500);
       return controller.failedQuery(reply, err, what);
     }
   };
@@ -90,13 +110,18 @@ const getControllerFrom = (filename) => {
  * @returns {Promise}                           - A promise that resolves with the retrieved data.
  */
 const getDataFromModel = async (query, model) => {
+  /* The query we are passing to the model is a list of
+   * query parameters we forward to the route from the front end dropdown menus.
+   * most reports will either have query.fiscal (the fiscal year), query.date (date for the report period)
+   *  or query.portfolio (portfolio for financial reports that summarize expenses costs, and recoveries)
+   */
   const result = await model.getAll(query);
-  const date = await getCurrentDate();
-
-  return {
-    date,
-    ...result,
-  };
+  return result
+    ? {
+        date: await getCurrentDate(),
+        ...result,
+      }
+    : null;
 };
 
 /**
