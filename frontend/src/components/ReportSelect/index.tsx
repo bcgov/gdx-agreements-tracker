@@ -87,7 +87,7 @@ export const ReportSelect = () => {
 
   const renderParameters = (
     setFieldValue: Function | undefined,
-    handleChange: Function | React.ChangeEvent<HTMLInputElement> | undefined,
+    handleChange: Function,
     values: { [x: string]: string | number | boolean | IOption | IOption[] }
   ) => {
     {
@@ -160,6 +160,8 @@ export const ReportSelect = () => {
       if (routeParam) {
         url = `report/projects/${routeParam}/${reportUri}`;
       }
+
+      console.log('querystringParams', querystringParams)
       axiosAll()
         .get(url, {
           params: querystringParams,
