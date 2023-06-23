@@ -52,7 +52,7 @@ export const usePickerValues = (projectId: number | undefined, contractId: numbe
   };
 
   // Queries
-  const { data, isLoading } = useQuery(url, getTableData, {
+  const { data, isLoading } = useQuery([url], getTableData, {
     // todo: When there is an edit and view form built, reassess these options.
     refetchOnWindowFocus: false,
     retryOnMount: false,

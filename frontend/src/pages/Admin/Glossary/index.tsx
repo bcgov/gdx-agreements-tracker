@@ -18,7 +18,7 @@ export const Glossary: FC = () => {
   };
 
   // Queries
-  const { data, isLoading } = useQuery(`glossary`, getGlossary, {
+  const { data, isLoading } = useQuery([`glossary`], getGlossary, {
     refetchOnWindowFocus: false,
     retryOnMount: false,
     refetchOnReconnect: false,

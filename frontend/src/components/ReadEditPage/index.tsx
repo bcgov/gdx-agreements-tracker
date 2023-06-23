@@ -47,7 +47,7 @@ export const ReadEditPage = ({
   // todo Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const query: UseQueryResult<{ data: any; user: IUser }> = useQuery(
-    `${apiRoute} - ${id}`,
+    [`${apiRoute} - ${id}`],
     getItem,
     {
       refetchOnWindowFocus: false,

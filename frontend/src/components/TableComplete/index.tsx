@@ -129,7 +129,7 @@ export const TableComplete = ({
    */
   // Queries
   const reactQuery: UseQueryResult<FormikValues> = useQuery(
-    getApiUrl(url.getOne, currentRowData?.id),
+    [getApiUrl(url.getOne, currentRowData?.id)],
     getApiData,
     {
       refetchOnWindowFocus: false,

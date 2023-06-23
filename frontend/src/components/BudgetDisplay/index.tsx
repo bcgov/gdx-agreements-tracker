@@ -19,7 +19,7 @@ export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {
   };
 
   // Queries
-  const { data } = useQuery(apiUrl, getBudgetData, {
+  const { data } = useQuery([apiUrl], getBudgetData, {
     // todo: When there is an edit and view form built, reassess these options.
     refetchOnWindowFocus: false,
     retryOnMount: false,
