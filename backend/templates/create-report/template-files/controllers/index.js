@@ -14,7 +14,7 @@ const {
   // uncomment below if you need your results in sections, such as portfolio)
   // groupByProperty,
   pdfConfig,
-  validateQuery,
+  validateQueryParameters,
 } = utils;
 
 // default request headers for the cdogs api will use 'pdf' mimetype and 'docx' template file type
@@ -32,7 +32,7 @@ controller.$reportName = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   // early exit if invalid query info provided
   try {
-    const { templateType } = validateQuery(request.query);
+    const { templateType } = validateQueryParameters(request.query);
 
     // based on the template type, pick which headers and the template filename
     controller.getReport = getReportAndSetRequestHeaders(templateType);

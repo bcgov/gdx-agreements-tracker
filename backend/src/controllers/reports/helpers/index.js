@@ -168,22 +168,23 @@ const groupByProperty = (rows, prop) =>
  * Validates the query parameters and returns an object with the validated values.
  * Work in progress - we can add new params and new defaults as the requirements change.
  *
- * @param   {object} params              - The parameters object containing the query parameters.
- * @param   {string} params.templateType - The template type query parameter. Defaults to "docx".
- * @param   {string} params.outputType   - The output type query parameter. Defaults to "pdf".
- * @param   {number} params.fiscal       - The fiscal year parameter for reports. defaults to 0 in case it is not provided as an argument
- * @returns {object}                     - An object containing the validated templateType and outputType values.
+ * @param   {object}                 params              - The parameters object containing the query parameters.
+ * @param   {string}                 params.templateType - The template type query parameter. Defaults to "docx".
+ * @param   {string}                 params.outputType   - The output type query parameter. Defaults to "pdf".
+ * @param   {number}                 params.fiscal       - The fiscal year parameter for reports. defaults to 0 in case it is not provided as an argument
+ * @param   {string | Array(string)} params.portfolio    - The portfolio(s)parameter for reports. defaults to 0 in case it is not provided as an argument
+ * @returns {object}                                     - An object containing the validated templateType and outputType values.
  */
-const validateQuery = ({ fiscal = 0, templateType = "docx", outputType = "pdf" }) => {
-  if (validFiletypes.includes(templateType)) {
-    return {
-      fiscal,
-      templateType,
-      outputType,
-    };
-  } else {
+const validateQueryParameters = ({
+  fiscal = 0,
+  portfolio = null,
+  templateType = "docx",
+  outputType = "pdf",
+}) => {
+  if (!validFiletypes.includes(templateType)) {
     throw new Error("Query parameter is invalid!");
   }
+  return { fiscal, portfolio, templateType, outputType };
 };
 
 // gets the current date in ISO "YYYY-MM-DD" format.
@@ -195,7 +196,7 @@ module.exports = {
   groupByProperty,
   loadTemplate,
   pdfConfig,
-  validateQuery,
+  validateQueryParameters,
   getCurrentDate,
   getReportAndSetRequestHeaders,
 };

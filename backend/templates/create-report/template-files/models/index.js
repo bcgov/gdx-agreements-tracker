@@ -1,18 +1,37 @@
+// Libs
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
 /**
- * Gets data for the $reportName report
+ * Retrieves the data from the model
  *
- * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
- * @returns {any[]}
+ * @param   {number | string | Array} params- The parameters for the queries, e.g. fiscal, portfolios[], etc.
+ * @returns {Promise}                         - A promise that resolves to the query result containing properties like: totals for recoveries, expenses, net recoveries, and quarterly gross and net amounts.
  */
-
-const $reportName = (portfolios) => {
-  const query = knex.raw();
-  return query;
+const queries = {
+  report: (params) => {
+    const query = knex.select(knex.raw());
+    return query;
+  },
 };
 
 module.exports = {
-  $reportName,
+  getAll: async (params) => {
+    try {
+      // pull out whichever properties you need
+      const [report] = await Promise.all([queries.report(params)]);
+
+      return {
+        report,
+      };
+    } catch (error) {
+      // define the object
+      // of nulls to return
+      const nullReturn = {};
+      console.error(`Error text goes here:
+      ${error}
+      returning nulls: ${nullReturn}`);
+      return nullReturn;
+    }
+  },
 };
