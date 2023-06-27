@@ -5,8 +5,9 @@ interface IhandleExport {
 }
 
 const convertValueToString = (item: any) => {
+  console.log('item', item)
   if (!item) {
-    return null
+    return ""
   }
   if (Array.isArray(item)) {
     return item.map((item) => item.value).join(',');
@@ -22,10 +23,11 @@ export const handleExport = ({ values, setSearchParams, searchParams }: IhandleE
   Object.entries(values).forEach(([key, item]) => {
     updatedSearchParams[key] = convertValueToString(item);
   });
+  console.log('updatedSearchParams', updatedSearchParams)
   setSearchParams(updatedSearchParams);
+  console.log('searchParams', searchParams)
 
   const url = `report/projects/${updatedSearchParams.type}`;
-
   apiAxios()
     .get(url, {
       params: searchParams,
@@ -36,9 +38,18 @@ export const handleExport = ({ values, setSearchParams, searchParams }: IhandleE
       },
       responseType: "blob",
     })
-    .then((response: unknown) => {
-      console.log('response', response)
-    })
+    .then((response: any) => {
+      // attn: Adam - Handle the error gracefully - to be addressed in a future ticket
+      try {
+        const fileURL = window.URL.createObjectURL(response?.data);
+        const alink = document.createElement("a");
+        alink.href = fileURL;
+        alink.download = `${updatedSearchParams.type}${updatedSearchParams.exportType}`;
+        alink.click();
+      } catch (err) {
+        alert(err);
+      }
+    });
 
 
 }
