@@ -7,89 +7,135 @@ export const categoryOptions: any = [
 
 export const categoriesAndTypes: any = {
     'individual project reports': [
-        'project status (most recent)',
-        'project status summary',
-        'projects budget summary',
-        'Project Quarterly Review',
-        'Project Quarterly Billing Request',
+        {
+            value: 'Tab_17_rpt_P_Status_MostRecent',
+            label: 'project status (most recent)',
+            description: "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status and milestone status."
+        },
+        {
+            value: 'Tab_18_rpt_P_StatusSummary',
+            label: 'project status summary',
+            description: "placeholder"
+        },
+        {
+            value: 'Tab_14_rpt_P_BudgetSummary',
+            label: 'projects budget summary',
+            description: "placeholder"
+        },
+        {
+            value: 'Tab_16_rpt_P_QuarterlyReview',
+            label: 'Project Quarterly Review',
+
+            description: "placeholder"
+        },
+        {
+            value: 'Tab_15_rpt_P_QuarterlyBillingRequest',
+            label: 'Project Quarterly Billing Request',
+            description: "placeholder"
+        }
     ],
-    'individual contract reports': ['Contract Summary'],
+    'individual contract reports': [{
+        value: 'contract_summary',
+        label: 'Contract Summary',
+        description: "placeholder"
+    }],
+    
     'Divisional project reports': [
-        'project Status roll-up',
-        'project dashboard',
-        'active projects',
-        'Projects Lessons Learned',
-        'Ministry Project Usage',
-        'Projects Registered by Date /Period',
-        'Projects Registered by Fiscal',
-        'Change Request Types',
-        'Multi-Year statistics for Project change requests',
+        {
+            value: 'Tab_35_rpt_PA_StatusPortfolioRollup',
+            label: 'project Status roll-up',
+            description: "placeholder"
+        },
+        {
+            value: 'Tab_34_rpt_PA_StatusDashboard',
+            label: 'project dashboard',
+            description: "placeholder"
+        },
+        {
+            value: 'Tab_19_rpt_PA_ActiveProjectsbyPortfolio',
+            label: 'active projects',
+            description: "placeholder"
+        },
+        {
+            value: 'Tab_25_rpt_PA_LessonsLearnedbyCategory',
+            label: 'Projects Lessons Learned',
+            description: "placeholder"
+        },
+        {
+            value: 'rpt_PA_Ministry',
+            label: 'Ministry Project Usage',
+            description: "placeholder"
+        },
+        {
+            value: 'rpt_PA_Registered',
+            label: 'Projects Registered by Date / Period',
+            description: "placeholder"
+        },
+        {
+            value: 'rpt_PA_Fiscal_Registry',
+            label: 'Projects Registered by Fiscal',
+            description: "placeholder"
+        },
+        {
+            value: 'change_request_types',
+            label: 'Change Request Types',
+            description: "placeholder"
+        },
+        {
+            value: 'rpt_PA_ChangeRequestTypesFYSummary',
+            label: 'Multi-Year statistics for Project change requests',
+            description: "placeholder"
+        },
     ],
 };
 
 
+
 export const parameterOptions: any = {
-    'project status (most recent)': {
+
+    'Tab_17_rpt_P_Status_MostRecent': {
         parameters: ['project'],
-        description: "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status and milestone status."
     },
-    'project status summary': {
+    'Tab_18_rpt_P_StatusSummary': {
         parameters: ['project'],
-        description: "placeholder"
     },
-    'projects budget summary': {
+    'Tab_14_rpt_P_BudgetSummary': {
         parameters: ['project'],
-        description: "placeholder"
     },
-    'Project Quarterly Review': {
+    'Tab_16_rpt_P_QuarterlyReview': {
         parameters: ['project'],
-        description: "placeholder"
     },
-    'Project Quarterly Billing Request': {
+    'Tab_15_rpt_P_QuarterlyBillingRequest': {
         parameters: ['project', 'fiscal', 'quarter'],
-        description: "placeholder"
     },
     'Contract Summary': {
         parameters: ['contract'],
-        description: "placeholder"
     },
-    'project Status roll-up': {
+    'Tab_35_rpt_PA_StatusPortfolioRollup': {
         parameters: ['portfolio'],
-        description: "placeholder"
     },
-    'project dashboard': {
+    'Tab_34_rpt_PA_StatusDashboard': {
         parameters: ['portfolio'],
-        description: "placeholder"
     },
-    'active projects': {
+    'Tab_19_rpt_PA_ActiveProjectsbyPortfolio': {
         parameters: ['portfolio'],
-        description: "placeholder"
     },
-    'Projects Lessons Learned': {
+    'Tab_25_rpt_PA_LessonsLearnedbyCategory': {
         parameters: ['portfolio', 'fiscal', 'project'],
-        description: "placeholder"
     },
-    'Ministry Project Usage': {
+    'rpt_PA_Ministry': {
         parameters: ['portfolio', 'fiscal'],
-        description: "placeholder"
     },
-    'Projects Registered by Date /Period': {
+    'rpt_PA_Registered': {
         parameters: ['date', 'portfolio'],
-        description: "placeholder"
     },
-    'Projects Registered by Fiscal': {
+    'rpt_PA_Fiscal_Registry': {
         parameters: ['fiscal'],
-        description: "placeholder"
     },
-    'Change Request Types': {
+    'change_request_types': {
         parameters: ['fiscal'],
-        description: "placeholder"
     },
-    'Multi-Year statistics for Project change requests': {
+    'rpt_PA_ChangeRequestTypesFYSummary': {
         parameters: [],
-        description: "placeholder"
     },
-
-
-
 };
