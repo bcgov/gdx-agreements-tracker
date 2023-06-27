@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FormControl, FormControlLabel, Radio, RadioGroup, Card, CardContent, Button, CardActions, Typography } from '@mui/material';
 import { Field, FormikProvider, useFormik } from 'formik';
-import { categoriesAndTypes, categoryOptions, parameterOptions } from './reportSelectorConfig';
+import { categoriesAndTypes } from './reportSelectorConfig';
 import Grid from '@mui/material/Unstable_Grid2';
-import { RenderParameters } from "./RenderParameters"
+import { ReportParameters } from "./ReportParameters"
 import { useSearchParams } from 'react-router-dom';
-import {handleExport} from './handleExport';
+import { handleExport } from './handleExport';
+import { ReportTypes } from './ReportTypes';
 
 
 
@@ -16,7 +17,7 @@ const RadioSelect = () => {
 
     const formik = useFormik({
         onSubmit: async (values) => {
-            handleExport({ values, setSearchParams, searchParams })
+            // handleExport({ values, setSearchParams, searchParams })
         },
         initialValues: initialValues,
     });
@@ -29,16 +30,23 @@ const RadioSelect = () => {
         setTypeDescription('')
     };
 
-
     const handleTypeChange = (event: { target: { value: string }; }) => {
-        const targetObject = categoriesAndTypes[values.category].find((categoryObj: { value: string; }) => categoryObj.value === event.target.value);
-        setTypeDescription(targetObject.description);
         setFieldValue('type', event.target.value)
+        const selectedCategory = categoriesAndTypes.find((item: { value: any; }) => {
+            return item.value === values.category
+        });
+        const selectedType = selectedCategory.types.find((item: { value: any; }) => {
+            return item.value === event.target.value
+        });
+        setTypeDescription(selectedType.description);
     };
 
-    const handleExportType = (exportType: string) => {
-        setFieldValue(exportType, exportType)
+    const handleExportType = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, exportType: string) => {
+        // event.preventDefault()
+        setFieldValue('exportType', exportType)
+        handleExport({ values, setSearchParams, searchParams })        
     }
+
     return (
         <> <FormikProvider value={formik}>
             <form onSubmit={handleSubmit}>
@@ -51,8 +59,8 @@ const RadioSelect = () => {
                                 </Typography>
                                 <FormControl component="fieldset">
                                     <RadioGroup name="category" value={values.category} onChange={handleCategoryChange}>
-                                        {categoryOptions.map((category: string) => {
-                                            return <FormControlLabel value={category} control={<Radio />} label={category} />
+                                        {categoriesAndTypes.map((category: { value: string, label: string }) => {
+                                            return <FormControlLabel value={category.value} control={<Radio />} label={category.label} />
                                         })}
                                     </RadioGroup>
                                 </FormControl>
@@ -68,9 +76,7 @@ const RadioSelect = () => {
                                     </Typography>
                                     <FormControl component="fieldset">
                                         <RadioGroup name="type" value={values.type} onChange={handleTypeChange}>
-                                            {categoriesAndTypes[values.category].map((option: { label: string, value: unknown }) => (
-                                                <FormControlLabel key={option.label} value={option.value} control={<Radio />} label={option.label} />
-                                            ))}
+                                            <ReportTypes values={values} categoriesAndTypes={categoriesAndTypes} />
                                         </RadioGroup>
                                     </FormControl>
                                 </CardContent>
@@ -97,14 +103,10 @@ const RadioSelect = () => {
                                     <Typography color="text.secondary" gutterBottom>
                                         Parameters
                                     </Typography>
-
-                                    {parameterOptions[values.type] &&
-                                        parameterOptions[values.type].parameters.map((parameterName: any) => {
-                                            { return RenderParameters(parameterName, values, setFieldValue) }
-                                        })}
+                                    <ReportParameters values={values} setFieldValue={setFieldValue} categoriesAndTypes={categoriesAndTypes} />
                                     <CardActions>
-                                        <Button variant="contained" type="submit" onClick={() => { handleExportType("xlsx") }} >Export xls</Button>
-                                        <Button variant="contained" type="submit" onClick={() => { handleExportType("pdf") }}>Export pdf</Button>
+                                        <Button variant="contained" disabled={true} onClick={(event) => { handleExportType(event, "xlsx") }}>Export xls</Button>
+                                        <Button variant="contained" disabled={true} onClick={(event) => { handleExportType(event, "pdf") }}>Export pdf</Button>
                                     </CardActions>
                                 </CardContent>
                             </Card>
