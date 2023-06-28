@@ -1,5 +1,14 @@
 ## Developer Changelog
 
+**June 28, 2023 - [DESCW-1180](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1180)**
+- Backend
+  - Removed verifyUserExists and all references to it, as they refer to the unused user table
+  - Removed references to user table
+  - Removed user tests
+- Frontend
+  - Removed user picker options
+  - Removed references to 'pmo-sys-admin'
+
 **June 23, 2023  - [DESCW-1043](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1043)**
 - Frontend
   - update react-query by replacing it with @tanstack/react-query

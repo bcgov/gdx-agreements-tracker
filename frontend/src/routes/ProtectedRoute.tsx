@@ -28,11 +28,7 @@ export const AuthorizedRoute = () => {
     if (!keycloak?.tokenParsed?.client_roles) {
       return <Unauthorized />;
     } else {
-      return keycloak?.tokenParsed?.client_roles.includes("pmo-sys-admin") ? (
-        <Outlet />
-      ) : (
-        <Navigate to={`/unauthorized`} />
-      );
+      return <Outlet />;
     }
   } else {
     return <Navigate to={`/login?redirect=${location.pathname}`} />;

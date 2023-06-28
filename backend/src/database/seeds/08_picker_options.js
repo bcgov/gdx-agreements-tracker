@@ -26,7 +26,6 @@ exports.seed = function (knex) {
     subcontractor: "subcontractor",
     supplier: "supplier",
     resource: "resource",
-    users: "users",
     amendment_type: "amendment_type",
     contract_amendment: "contract_amendment",
     journal_voucher: "jv",
