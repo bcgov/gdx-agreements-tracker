@@ -23,7 +23,7 @@ controller.Tab_46_rpt_PA_EngagementExecutiveRollup = async (request, reply) => {
     // Get the data from the database.
 
     const result = {
-      report_date: getCurrentDate(),
+      report_date: await getCurrentDate(),
     };
 
     const body = await getDocumentApiBody(result, "Tab_46_rpt_PA_EngagementExecutiveRollup.docx");

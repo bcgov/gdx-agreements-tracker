@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -32,7 +32,7 @@ controller.Tab_34_rpt_PA_StatusDashboard = async (request, reply) => {
 
     // Lay out final JSON body for POST to CDOGS API
     const result = {
-      report_date: await (async () => new Date())(),
+      report_date: await getCurrentDate(),
       dashboard: dashboardProjectsGroupedByPortfolioName,
     };
 
