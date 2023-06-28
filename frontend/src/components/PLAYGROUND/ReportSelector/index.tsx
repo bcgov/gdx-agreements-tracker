@@ -14,15 +14,17 @@ const RadioSelect = () => {
     const [typeDescription, setTypeDescription] = useState("")
     const initialValues = { date: null, category: '', type: '', exportType: '' }
     const [searchParams, setSearchParams] = useSearchParams()
+    const [PDFExportButtonDisabled, setExportButtonDisabled] = useState(true)
+    const [XLSXExportButtonDisabled, setXLSXExportButtonDisabled] = useState(true)
 
     const formik = useFormik({
-        onSubmit: async (values) => {
-            // handleExport({ values, setSearchParams, searchParams })
+        onSubmit: (values) => {        
+            handleExport({ values })
         },
         initialValues: initialValues,
     });
 
-    const { setFieldValue, values, handleSubmit, resetForm } = formik
+    const { setFieldValue, values, handleSubmit, resetForm, submitForm } = formik
 
     const handleCategoryChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setFieldValue('category', event.target.value)
@@ -31,21 +33,29 @@ const RadioSelect = () => {
     };
 
     const handleTypeChange = (event: { target: { value: string }; }) => {
+        resetForm({
+            values: { ...initialValues, category: values.category, },
+        });
         setFieldValue('type', event.target.value)
         const selectedCategory = categoriesAndTypes.find((item: { value: any; }) => {
             return item.value === values.category
         });
-        const selectedType = selectedCategory.types.find((item: { value: any; }) => {
+
+        const selectedType = selectedCategory?.types.find((item: { value: any; }) => {
             return item.value === event.target.value
         });
+        setXLSXExportButtonDisabled(selectedType.exportXLSX)
+        setExportButtonDisabled(selectedType.exportPDF)
         setTypeDescription(selectedType.description);
     };
 
     const handleExportType = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, exportType: string) => {
-        // event.preventDefault()
+        event.preventDefault()
         setFieldValue('exportType', exportType)
-        handleExport({ values, setSearchParams, searchParams })        
+        //This triggers the formik on submit function defined above
+        formik.submitForm();
     }
+
 
     return (
         <> <FormikProvider value={formik}>
@@ -105,8 +115,8 @@ const RadioSelect = () => {
                                     </Typography>
                                     <ReportParameters values={values} setFieldValue={setFieldValue} categoriesAndTypes={categoriesAndTypes} />
                                     <CardActions>
-                                        <Button variant="contained" disabled={true} onClick={(event) => { handleExportType(event, "xlsx") }}>Export xls</Button>
-                                        <Button variant="contained" disabled={true} onClick={(event) => { handleExportType(event, "pdf") }}>Export pdf</Button>
+                                        <Button variant="contained" disabled={!XLSXExportButtonDisabled} onClick={(event) => { handleExportType(event, "xlsx") }}>Export xls</Button>
+                                        <Button variant="contained" disabled={!PDFExportButtonDisabled} onClick={(event) => { handleExportType(event, "pdf") }}>Export pdf</Button>
                                     </CardActions>
                                 </CardContent>
                             </Card>
