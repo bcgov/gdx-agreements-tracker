@@ -1,11 +1,10 @@
 import { apiAxios } from 'utils';
 
 interface IhandleExport {
-  values: { [key: string]: unknown }, setSearchParams: ((params: Record<string, string>) => void), searchParams: URLSearchParams
+  values: { [key: string]: unknown }
 }
 
 const convertValueToString = (item: any) => {
-  console.log('item', item)
   if (!item) {
     return ""
   }
@@ -18,19 +17,22 @@ const convertValueToString = (item: any) => {
   return String(item);
 };
 
-export const handleExport = ({ values, setSearchParams, searchParams }: IhandleExport) => {
-  const updatedSearchParams: any = {};
+export const handleExport = ({ values }: IhandleExport) => {
+
+  const updatedSearchParams: any = { templateType: values.exportType };
+
   Object.entries(values).forEach(([key, item]) => {
     updatedSearchParams[key] = convertValueToString(item);
   });
-  console.log('updatedSearchParams', updatedSearchParams)
-  setSearchParams(updatedSearchParams);
-  console.log('searchParams', searchParams)
+
+
+  const querystringParams = new URLSearchParams(updatedSearchParams);
 
   const url = `report/projects/${updatedSearchParams.type}`;
+
   apiAxios()
     .get(url, {
-      params: searchParams,
+      params: querystringParams,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -39,12 +41,11 @@ export const handleExport = ({ values, setSearchParams, searchParams }: IhandleE
       responseType: "blob",
     })
     .then((response: any) => {
-      // attn: Adam - Handle the error gracefully - to be addressed in a future ticket
       try {
         const fileURL = window.URL.createObjectURL(response?.data);
         const alink = document.createElement("a");
         alink.href = fileURL;
-        alink.download = `${updatedSearchParams.type}${updatedSearchParams.exportType}`;
+        alink.download = `${updatedSearchParams.type}.${updatedSearchParams.exportType}`;
         alink.click();
       } catch (err) {
         alert(err);

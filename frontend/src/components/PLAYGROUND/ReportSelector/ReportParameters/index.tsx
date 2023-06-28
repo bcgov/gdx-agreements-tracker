@@ -2,6 +2,7 @@ import { FormInput } from 'components/FormInput';
 import React from 'react'
 
 export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: any) => {
+
     const renderComponent = (parameterName: string) => {
         switch (parameterName) {
             case 'fiscal':
@@ -83,10 +84,13 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
                 )
         }
     }
+
+
     const selectedCategory = categoriesAndTypes.find((item: { value: any; }) => {
         return item.value === values.category
     });
-    const selectedType = selectedCategory.types.find((item: { value: any; }) => {
+
+    const selectedType = selectedCategory?.types.find((item: { value: any; }) => {
         return item.value === values.type
     });
 
