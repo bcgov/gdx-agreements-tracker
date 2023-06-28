@@ -1,9 +1,17 @@
 ## Developer Changelog
+
+**June 28, 2023**
+- Backend
+- Frontend
+  - refactored report select
+
 **June 28, 2023 - [DESCW-1223](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1223)**
+
 - Backend
   - update app.yaml to include dockerfile contents
 
 **June 28, 2023 - [DESCW-1180](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1180)**
+
 - Backend
   - Removed verifyUserExists and all references to it, as they refer to the unused user table
   - Removed references to user table
@@ -12,13 +20,15 @@
   - Removed user picker options
   - Removed references to 'pmo-sys-admin'
 
-**June 23, 2023  - [DESCW-1043](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1043)**
+**June 23, 2023 - [DESCW-1043](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1043)**
+
 - Frontend
   - update react-query by replacing it with @tanstack/react-query
   - change first arg of useQuery() to an array per the changelog
   - update all imports to @tanstack/...
 
-**June 23, 2023  - [DESCW-1187](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1187)**
+**June 23, 2023 - [DESCW-1187](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1187)**
+
 - Backend
   - create generic controller
   - update report template script to use it
@@ -27,7 +37,8 @@
   - add error-handling to generic controller
   - add error-handling to tab_50 model
 
-**June 14, 2023  - [DESCW-1212](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1212)**
+**June 14, 2023 - [DESCW-1212](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1212)**
+
 - Backend
   - add validator for Tab 50 report
   - re-factored tab48 controller
@@ -42,19 +53,20 @@
   - re-ordered reports by tab number to place tab 50 below tab 48 report
   - updated styling on tab 50 report template for both excel and pdf exports
 
-
 **June 13, 2023**
+
 - Backend
   - Added Backend for handling new project
 - Frontend
   - Added functionality to handle new project creation in frontend interface for project section
 
 **June 12, 2023**
+
 - Frontend
   - Added new form functionality to Modal Table component
 
-
 **June 07, 2023 [DESCW-1133](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1133)**
+
 - Backend
   - upgrade openShift postgresql to v15.3-bullseye
   - upgrade local postgresql to v15.3-alpine
@@ -64,18 +76,22 @@
   - docker `docker volume rm gdx-agreements-tracker_database` (or use the gui to delete your gdx database image) + re-seed + re-create gat-db database in pgAdmin.
 
 **June 07, 2023**
+
 - Backend
   - refine one-line logging for production mode
 
 **June 06, 2023**
+
 - Backend
   - enable one-line logging for production mode
 
 **June 05, 2023**
 -Backend
-  - update script to generate template controller that can export xlsx files
+
+- update script to generate template controller that can export xlsx files
 
 **June 02, 2023**
+
 - Meta
   - Added ability to run version increment workflow manually (DESCW-1140)
 - Backend
@@ -86,6 +102,7 @@
 **June 01, 2023**
 
 - Meta
+
   - Added workflows to automatically update app and api version when changes are pushed to development branch (DESCW-1140)
     - Automatically increments minor version by 1: eg. 1.0.0 -> 1.1.0
 
@@ -102,7 +119,9 @@
   - formatting changes
 
 **June 01, 2023**
+
 - Frontend
+
   - Added checkmark renderer for table component
   - Added health indicator renderer for table component
 
@@ -126,7 +145,6 @@
   - Clean up model code for readability / reusability
 - Frontend
   - Added picker for portfolio option
-
 
 **May 29, 2023**
 
