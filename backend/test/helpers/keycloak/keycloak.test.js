@@ -2,11 +2,7 @@
 // todo: Fix the commented out tests. Preserving unused vars until tests are fixed.
 /* eslint no-unused-vars: "off" */
 const serverConfig = require("@facilities/fastify");
-const {
-  getBearerTokenFromRequest,
-  verifyToken,
-  getUserInfo,
-} = require("@facilities/keycloak");
+const { getBearerTokenFromRequest, verifyToken } = require("@facilities/keycloak");
 let app;
 let exampleToken;
 let request;
