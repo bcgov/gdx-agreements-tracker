@@ -36,7 +36,15 @@ spec:
     type: Docker
   source:
     contextDir: frontend
-    dockerfile: ""
+    dockerfile: |-
+      FROM node:18.14.0-alpine3.17
+      WORKDIR /app
+      COPY public/ public/
+      COPY src/ src/
+      COPY package.json .
+      ADD tsconfig.json .
+      RUN yarn
+      RUN yarn build --openssl-legacy-provider --prod
     git:
       ref: development
       uri: https://github.com/bcgov/gdx-agreements-tracker.git

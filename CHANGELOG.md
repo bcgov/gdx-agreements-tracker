@@ -1,4 +1,7 @@
 ## Developer Changelog
+**June 28, 2023 - [DESCW-1223](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1223)**
+- Backend
+  - update app.yaml to include dockerfile contents
 
 **June 28, 2023 - [DESCW-1180](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1180)**
 - Backend
