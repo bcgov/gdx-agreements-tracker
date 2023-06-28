@@ -1,6 +1,5 @@
 const jwksClient = require("jwks-client");
 const jwt = require("jsonwebtoken");
-const userModel = require("@models/admin/users");
 
 /**
  * Parse the request header for the authorization token.
@@ -63,46 +62,6 @@ const verifyToken = (token, jwksUri = null) => {
 };
 
 /**
- * Verify if the user already has an entry in the database.
- * If not, create one.
- *
- * @param   {string}  token Token json string from keycloak.
- * @returns {Promise}
- */
-const verifyUserExists = (token) => {
-  return new Promise((resolve, reject) => {
-    const decodedToken = jwt.decode(token, { complete: true });
-    if (decodedToken?.payload && decodedToken?.payload?.email) {
-      const userPayload = decodedToken?.payload;
-      userModel
-        .findByEmail(userPayload.email)
-        .then((user) => {
-          if (0 === user.length) {
-            if (userPayload.client_roles?.includes("pmo-sys-admin")) {
-              // Set user role to admin if token client_roles has pmo-sys-admin.
-              userPayload.role_id = 2;
-            } else {
-              // Otherwise set user role to subscriber.
-              userPayload.role_id = 1;
-            }
-            userModel
-              .addOne(userPayload)
-              .then((result) => {
-                resolve(`New user added to database. ID ${result[0].id}`);
-              })
-              .catch((error) => reject(error));
-          } else {
-            resolve("User already exists in database.");
-          }
-        })
-        .catch((error) => reject(error));
-    } else {
-      reject("Could not parse user JWT payload.");
-    }
-  });
-};
-
-/**
  * Gets the User info based off the keycloak bearer token, and eventually the database information.
  *
  * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
@@ -134,7 +93,6 @@ const getRealmRoles = (request) => {
 module.exports = {
   getBearerTokenFromRequest,
   verifyToken,
-  verifyUserExists,
   getUserInfo,
   getRealmRoles,
 };

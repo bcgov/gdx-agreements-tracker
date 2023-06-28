@@ -1,10 +1,8 @@
 const serverConfig = require("../src/facilities/fastify");
 const authHelper = require("../src/facilities/keycloak");
-const userModel = require("../src/models/users.js");
 let app;
 
 jest.mock("../src/facilities/keycloak");
-jest.mock("../src/models/users");
 
 beforeEach(() => {
   app = serverConfig();
