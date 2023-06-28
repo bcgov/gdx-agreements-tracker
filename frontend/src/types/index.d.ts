@@ -253,7 +253,7 @@ export interface IFormInput {
   fieldName: string;
   fieldType: IEditFieldsFieldType;
   fieldLabel: string;
-  handleChange?: Function
+  handleChange?: Function;
   width: "half" | "full";
   tableName?: string;
   pickerName?: string;
@@ -454,3 +454,29 @@ export interface IRowDoubleClickParams {
 export interface Irgb {
   rgb: { red: number; green: number; blue: number; health_name: string };
 }
+
+export type ConvertToStringItem =
+  | {
+      value: string | null;
+    }
+  | null
+  | undefined
+  | string;
+
+export type UpdatedSearchParams = {
+  templateType: string;
+  [key: string]: string;
+};
+
+export type IReportCategoriesAndTypes = {
+  value: string;
+  label: string;
+  types: {
+    value: string;
+    label: string;
+    description: string;
+    parameters: string[];
+    exportPDF: boolean;
+    exportXLSX: boolean;
+  }[];
+}[];

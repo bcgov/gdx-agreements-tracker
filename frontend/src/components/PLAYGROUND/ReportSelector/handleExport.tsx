@@ -1,30 +1,25 @@
-import { apiAxios } from 'utils';
+import { ConvertToStringItem, UpdatedSearchParams } from "types";
+import { apiAxios } from "utils";
 
-interface IhandleExport {
-  values: { [key: string]: unknown }
-}
-
-const convertValueToString = (item: any) => {
+const convertValueToString = (item: ConvertToStringItem) => {
   if (!item) {
-    return ""
+    return "";
   }
   if (Array.isArray(item)) {
-    return item.map((item) => item.value).join(',');
+    return item.map((item) => item.value).join(",");
   }
-  if (typeof item === 'object') {
+  if ("object" === typeof item) {
     return JSON.stringify(item.value);
   }
   return String(item);
 };
 
-export const handleExport = ({ values }: IhandleExport) => {
-
-  const updatedSearchParams: any = { templateType: values.exportType };
+export const handleExport = (values: { [key: string]: string | null }) => {
+  const updatedSearchParams: UpdatedSearchParams = { templateType: values.exportType as string };
 
   Object.entries(values).forEach(([key, item]) => {
     updatedSearchParams[key] = convertValueToString(item);
   });
-
 
   const querystringParams = new URLSearchParams(updatedSearchParams);
 
@@ -40,7 +35,7 @@ export const handleExport = ({ values }: IhandleExport) => {
       },
       responseType: "blob",
     })
-    .then((response: any) => {
+    .then((response) => {
       try {
         const fileURL = window.URL.createObjectURL(response?.data);
         const alink = document.createElement("a");
@@ -51,7 +46,4 @@ export const handleExport = ({ values }: IhandleExport) => {
         alert(err);
       }
     });
-
-
-}
-
+};

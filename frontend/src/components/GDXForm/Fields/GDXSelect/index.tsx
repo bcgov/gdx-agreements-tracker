@@ -23,8 +23,8 @@ export const GDXSelect: FC<IPickerProps> = ({
         <Autocomplete
           id={fieldName}
           options={pickerData?.definition}
-          onChange={(event: any, choice: any) => {
-            onChange(choice)
+          onChange={(event, choice: unknown) => {
+            onChange(choice);
           }}
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (

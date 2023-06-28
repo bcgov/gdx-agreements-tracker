@@ -1,102 +1,96 @@
-import { FormInput } from 'components/FormInput';
-import React from 'react'
-
+import { FormInput } from "components/FormInput";
+import React from "react";
+// todo: Define a good type. "Any" type temporarily permitted.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: any) => {
+  const renderComponent = (parameterName: string) => {
+    switch (parameterName) {
+      case "fiscal":
+        return (
+          <FormInput
+            fieldName="fiscal"
+            fieldType={"select"}
+            fieldLabel="Fiscal"
+            width={"half"}
+            pickerName="fiscal_year_option"
+            fieldValue={values.fiscal}
+            setFieldValue={setFieldValue}
+          />
+        );
 
-    const renderComponent = (parameterName: string) => {
-        switch (parameterName) {
-            case 'fiscal':
-                return (
-                    <FormInput
-                        fieldName="fiscal"
-                        fieldType={'select'}
-                        fieldLabel="Fiscal"
-                        width={'half'}
-                        pickerName='fiscal_year_option'
-                        fieldValue={values.fiscal}
-                        setFieldValue={setFieldValue}
+      case "portfolio":
+        return (
+          <FormInput
+            fieldName="portfolio"
+            fieldType={"multiselect"}
+            fieldLabel="Portfolio"
+            width={"half"}
+            pickerName="portfolio_option"
+            fieldValue={values.portfolio}
+            setFieldValue={setFieldValue}
+          />
+        );
 
-                    />
-                );
+      case "contract":
+        return (
+          <FormInput
+            fieldName="contract"
+            fieldType={"select"}
+            fieldLabel="Contract"
+            width={"half"}
+            pickerName="contract_option"
+            fieldValue={values.contract}
+            setFieldValue={setFieldValue}
+          />
+        );
+      case "date":
+        return (
+          <FormInput
+            fieldName="date"
+            fieldType={"date"}
+            fieldLabel="Date"
+            width={"half"}
+            fieldValue={values.date}
+            setFieldValue={setFieldValue}
+          />
+        );
 
-            case 'portfolio':
-                return (
-                    <FormInput
-                        fieldName="portfolio"
-                        fieldType={'multiselect'}
-                        fieldLabel="Portfolio"
-                        width={'half'}
-                        pickerName='portfolio_option'
-                        fieldValue={values.portfolio}
-                        setFieldValue={setFieldValue}
-
-                    />
-                );
-
-            case 'contract':
-                return (
-                    <FormInput
-                        fieldName="contract"
-                        fieldType={'select'}
-                        fieldLabel="Contract"
-                        width={'half'}
-                        pickerName='contract_option'
-                        fieldValue={values.contract}
-                        setFieldValue={setFieldValue}
-                    />
-                );
-            case 'date':
-                return (
-                    <FormInput
-                        fieldName="date"
-                        fieldType={'date'}
-                        fieldLabel="Date"
-                        width={'half'}
-                        fieldValue={values.date}
-                        setFieldValue={setFieldValue}
-                    />
-                );
-
-            case 'quarter':
-                return (
-                    <FormInput
-                        fieldName="quarter"
-                        fieldType={'select'}
-                        fieldLabel="Quarter"
-                        width={'half'}
-                        tableName='generic'
-                        fieldValue={values.quarter}
-                        setFieldValue={setFieldValue}
-
-                    />
-                )
-            case 'project':
-                return (
-                    <FormInput
-                        fieldName="project"
-                        fieldType={'select'}
-                        fieldLabel="Project"
-                        width={'half'}
-                        pickerName='project_option'
-                        fieldValue={values.project}
-                        setFieldValue={setFieldValue}
-                    />
-                )
-        }
+      case "quarter":
+        return (
+          <FormInput
+            fieldName="quarter"
+            fieldType={"select"}
+            fieldLabel="Quarter"
+            width={"half"}
+            tableName="generic"
+            fieldValue={values.quarter}
+            setFieldValue={setFieldValue}
+          />
+        );
+      case "project":
+        return (
+          <FormInput
+            fieldName="project"
+            fieldType={"select"}
+            fieldLabel="Project"
+            width={"half"}
+            pickerName="project_option"
+            fieldValue={values.project}
+            setFieldValue={setFieldValue}
+          />
+        );
     }
+  };
 
+  const selectedCategory = categoriesAndTypes.find((item: { value: string }) => {
+    return item.value === values.category;
+  });
 
-    const selectedCategory = categoriesAndTypes.find((item: { value: any; }) => {
-        return item.value === values.category
-    });
+  const selectedType = selectedCategory?.types.find((item: { value: string }) => {
+    return item.value === values.type;
+  });
 
-    const selectedType = selectedCategory?.types.find((item: { value: any; }) => {
-        return item.value === values.type
-    });
-
-    return selectedType.parameters.map((parameterName: any) => {
-        return renderComponent(parameterName)
-    })
-
+  return selectedType.parameters.map((parameterName: string) => {
+    return renderComponent(parameterName);
+  });
 };
-

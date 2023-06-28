@@ -160,8 +160,6 @@ export const ReportSelect = () => {
       if (routeParam) {
         url = `report/projects/${routeParam}/${reportUri}`;
       }
-
-      console.log('querystringParams', querystringParams)
       axiosAll()
         .get(url, {
           params: querystringParams,

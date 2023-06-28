@@ -26,7 +26,7 @@ export const Reports: FC = () => {
           <Grid container spacing={2}>
             <Grid item>
               {/* <ReportSelect /> */}
-              <ReportSelector/>
+              <ReportSelector />
             </Grid>
           </Grid>
         </FormControl>

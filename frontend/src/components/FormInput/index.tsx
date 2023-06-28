@@ -1,8 +1,8 @@
 import React from "react";
 import { FormControlLabel, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Field } from "formik";
 import { usePickerValues } from "../../hooks";
 import { GDXCheckbox, GDXSelect, GDXMultiselect } from "../GDXForm";
@@ -18,7 +18,7 @@ export const FormInput = ({
   fieldName,
   fieldType,
   fieldLabel,
-  handleChange = () => { },
+  handleChange = () => {},
   width,
   pickerName,
   tableName,
@@ -73,12 +73,11 @@ export const FormInput = ({
               label={fieldLabel}
               value={fieldValue}
               fullWidth={true}
-              onChange={(newValue: any) => {
-                const formatDate = dayjs(newValue).format('YYYY-MM-DD')
-                handleChange(formatDate)
-                setFieldValue?.(fieldName, formatDate)
-              }
-              }
+              onChange={(newValue: string) => {
+                const formatDate = dayjs(newValue).format("YYYY-MM-DD");
+                handleChange(formatDate);
+                setFieldValue?.(fieldName, formatDate);
+              }}
               role={`${fieldName}_input`}
               renderInput={(params: Object) => <TextField {...params} fullWidth={true} />}
             />
@@ -92,8 +91,8 @@ export const FormInput = ({
             fullWidth={true}
             as={TextField}
             name={fieldName}
-            onChange={(newValue: any) => {
-              handleChange(newValue)
+            onChange={(newValue: string) => {
+              handleChange(newValue);
             }}
             label={fieldLabel}
             id={fieldName}
@@ -122,10 +121,9 @@ export const FormInput = ({
         <GridItem width={width}>
           <Field
             as={GDXSelect}
-            onChange={(newValue: any) => {
-              console.log('newValue', newValue)
-              handleChange(newValue)
-              setFieldValue?.(fieldName, newValue)
+            onChange={(newValue: string) => {
+              handleChange(newValue);
+              setFieldValue?.(fieldName, newValue);
             }}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption}
@@ -133,22 +131,21 @@ export const FormInput = ({
             setFieldValue={setFieldValue as Function}
             pickerData={GetPickerOptions()}
           />
-
         </GridItem>
       );
     case "multiselect":
       return (
         <GridItem width={width}>
           <GDXMultiselect
-            handleChange={(newValue: any) => {
-              handleChange(newValue)
+            handleChange={(newValue: string) => {
+              handleChange(newValue);
             }}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption[]}
             fieldLabel={fieldLabel}
-            onChange={(newValue: any) => {
-              handleChange(newValue)
-              setFieldValue?.(fieldName, newValue)
+            onChange={(newValue: string) => {
+              handleChange(newValue);
+              setFieldValue?.(fieldName, newValue);
             }}
             pickerData={GetPickerOptions()}
           />

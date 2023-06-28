@@ -25,7 +25,7 @@ export const GDXMultiselect: FC<IMultiPickerProps> = ({
           id={fieldName}
           options={pickerData?.definition}
           onChange={(event, option) => {
-            onChange(option)
+            onChange(option);
           }}
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
