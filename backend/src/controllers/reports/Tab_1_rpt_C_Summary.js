@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -46,7 +46,6 @@ controller.Tab_1_rpt_C_Summary = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
     const contractId = request.query?.contract;
     // Get the data from the database.
     const result = {
@@ -54,7 +53,7 @@ controller.Tab_1_rpt_C_Summary = async (request, reply) => {
       contract_amendment: await model.getContractAmendments(contractId),
       invoice_processing: await model.getContractInvoices(contractId),
       payment_summary: [],
-      report_date: await getDate(),
+      report_date: await getCurrentDate(),
     };
     if (result.invoice_processing.length > 0) {
       let invoice_processing_by_fiscal = groupByProperty(result.invoice_processing, "fiscal");

@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -21,12 +21,11 @@ controller.getProjectStatusRollup = async (request, reply) => {
   controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
     const portfolios = request.query.portfolio;
     let portfolioRollup = await model.getRollupByPortfolios(portfolios);
 
     const result = {
-      report_date: await getDate(),
+      report_date: await getCurrentDate(),
       rollup: { portfolios: groupByProperty(portfolioRollup, "portfolio_name") },
     };
 
