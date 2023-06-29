@@ -14,7 +14,7 @@ const convertValueToString = (item: ConvertToStringItem) => {
   return String(item);
 };
 
-export const handleExport = (values: { [key: string]: string | null }) => {
+export const handleReportExport = (values: { [key: string]: string | null }) => {
   const updatedSearchParams: UpdatedSearchParams = { templateType: values.exportType as string };
 
   Object.entries(values).forEach(([key, item]) => {

@@ -7,7 +7,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
     types: [
       {
         value: "Tab_17_rpt_P_Status_MostRecent",
-        label: "project status (most recent)",
+        label: "Project Status (Most Recent)",
         description:
           "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status and milestone status.",
         parameters: ["project"],
@@ -16,7 +16,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
       {
         value: "Tab_18_rpt_P_StatusSummary",
-        label: "project status summary",
+        label: "Project Status Summary",
         description:
           "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, all status reporting, deliverable status and milestone status and Closure Report.",
         parameters: ["project"],
@@ -25,7 +25,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
       {
         value: "Tab_14_rpt_P_BudgetSummary",
-        label: "projects budget summary",
+        label: "Projects Budget Summary",
         description:
           "Runs by Project #, shows deliverable amounts, their budgets, amounts recovered to date, balance remaining. Shows breakdown across fiscals, any change requests, any contracts associated with the project and amounts invoiced/remaining on the contracts.",
         parameters: ["project"],
@@ -43,9 +43,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
       {
         value: "Tab_15_rpt_P_QuarterlyBillingRequest",
-        label:
+        label: "Project Quarterly Billing Request",
+        description:
           "Runs on Project #, fiscal yr, quarter. Shows client billing information, summaries the breakdown charged per deliverable for the specific quarter/fiscal.",
-        description: "placeholder",
         parameters: ["project", "fiscal", "quarter"],
         exportPDF: true,
         exportXLSX: false,
@@ -73,7 +73,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
     types: [
       {
         value: "Tab_35_rpt_PA_StatusPortfolioRollup",
-        label: "project Status roll-up",
+        label: "Project Status Roll-Up",
         description:
           "Grouped on Portfolio, Shows Project #, Project Name, Project Manager, Start and End date for project, Status Date, Project Phase, Issues and decisions, Forecasts and Next steps and Project Health.",
         parameters: ["portfolio"],
@@ -82,7 +82,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
       {
         value: "Tab_34_rpt_PA_StatusDashboard",
-        label: "project dashboard",
+        label: "Project Dashboard",
         description:
           "Grouped on Portfolio, Shows Project #, Project Name, Project Manager, Start and End date for project, Status Date, Project Phase and Project Health Color Indicators.",
         parameters: ["portfolio"],
@@ -91,7 +91,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
       {
         value: "Tab_19_rpt_PA_ActiveProjectsbyPortfolio",
-        label: "active projects",
+        label: "Active Projects",
         description:
           "Project #, Project Name, Project Manager, Description, Project Type, Start and End Date, Planned Budget and Client Ministry.",
         parameters: ["portfolio"],

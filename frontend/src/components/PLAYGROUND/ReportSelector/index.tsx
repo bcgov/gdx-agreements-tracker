@@ -10,14 +10,12 @@ import {
   CardActions,
   Typography,
 } from "@mui/material";
-import { Field, FormikProvider, useFormik } from "formik";
+import { FormikProvider, useFormik } from "formik";
 import { categoriesAndTypes } from "./reportSelectorConfig";
 import Grid from "@mui/material/Unstable_Grid2";
 import { ReportParameters } from "./ReportParameters";
-import { useSearchParams } from "react-router-dom";
-import { handleExport } from "./handleExport";
 import { ReportTypes } from "./ReportTypes";
-
+import { handleReportExport } from "../../../utils/handleReportExport";
 const RadioSelect = () => {
   const [typeDescription, setTypeDescription] = useState<string | undefined>("");
   const initialValues = { date: null, category: "", type: "", exportType: "pdf" };
@@ -28,7 +26,7 @@ const RadioSelect = () => {
 
   const formik = useFormik({
     onSubmit: (values) => {
-      handleExport(values);
+      handleReportExport(values);
     },
     initialValues: initialValues,
   });
@@ -69,106 +67,103 @@ const RadioSelect = () => {
   };
 
   return (
-    <>
-      {" "}
-      <FormikProvider value={formik}>
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid xs={12} sm={6} md={6}>
+    <FormikProvider value={formik}>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid xs={12} sm={6} md={6}>
+            <Card sx={{ minWidth: 275 }}>
+              <CardContent>
+                <Typography color="text.secondary" gutterBottom>
+                  Category
+                </Typography>
+                <FormControl component="fieldset">
+                  <RadioGroup
+                    name="category"
+                    value={values.category}
+                    onChange={handleCategoryChange}
+                  >
+                    {categoriesAndTypes.map((category: { value: string; label: string }) => {
+                      return (
+                        <FormControlLabel
+                          value={category.value}
+                          control={<Radio />}
+                          label={category.label}
+                          key={category.label}
+                        />
+                      );
+                    })}
+                  </RadioGroup>
+                </FormControl>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid xs={12} sm={6} md={6}>
+            {values.category && (
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Typography color="text.secondary" gutterBottom>
-                    Category
+                    Type
                   </Typography>
                   <FormControl component="fieldset">
-                    <RadioGroup
-                      name="category"
-                      value={values.category}
-                      onChange={handleCategoryChange}
-                    >
-                      {categoriesAndTypes.map((category: { value: string; label: string }) => {
-                        return (
-                          <FormControlLabel
-                            value={category.value}
-                            control={<Radio />}
-                            label={category.label}
-                            key={category.label}
-                          />
-                        );
-                      })}
+                    <RadioGroup name="type" value={values.type} onChange={handleTypeChange}>
+                      <ReportTypes values={values} categoriesAndTypes={categoriesAndTypes} />
                     </RadioGroup>
                   </FormControl>
                 </CardContent>
               </Card>
-            </Grid>
-            <Grid xs={12} sm={6} md={6}>
-              {values.category && (
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
-                    <Typography color="text.secondary" gutterBottom>
-                      Type
-                    </Typography>
-                    <FormControl component="fieldset">
-                      <RadioGroup name="type" value={values.type} onChange={handleTypeChange}>
-                        <ReportTypes values={values} categoriesAndTypes={categoriesAndTypes} />
-                      </RadioGroup>
-                    </FormControl>
-                  </CardContent>
-                </Card>
-              )}
-            </Grid>
-            <Grid xs={12} sm={12} md={12}>
+            )}
+          </Grid>
+          <Grid xs={12} sm={12} md={12}>
+            <Card sx={{ minWidth: 275 }}>
+              <CardContent>
+                <Typography color="text.secondary" gutterBottom>
+                  Description
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {typeDescription}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid xs={12} sm={12} md={12}>
+            {values.type && (
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Typography color="text.secondary" gutterBottom>
-                    Description
+                    Parameters
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {typeDescription}
-                  </Typography>
+                  <ReportParameters
+                    values={values}
+                    setFieldValue={setFieldValue}
+                    categoriesAndTypes={categoriesAndTypes}
+                  />
+                  <CardActions>
+                    <Button
+                      variant="contained"
+                      disabled={!XLSXExportButtonDisabled}
+                      onClick={(event) => {
+                        handleExportType(event, "xlsx");
+                      }}
+                    >
+                      Export xls
+                    </Button>
+                    <Button
+                      variant="contained"
+                      disabled={!PDFExportButtonDisabled}
+                      onClick={(event) => {
+                        handleExportType(event, "pdf");
+                      }}
+                    >
+                      Export pdf
+                    </Button>
+                  </CardActions>
                 </CardContent>
               </Card>
-            </Grid>
-            <Grid xs={12} sm={12} md={12}>
-              {values.type && (
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
-                    <Typography color="text.secondary" gutterBottom>
-                      Parameters
-                    </Typography>
-                    <ReportParameters
-                      values={values}
-                      setFieldValue={setFieldValue}
-                      categoriesAndTypes={categoriesAndTypes}
-                    />
-                    <CardActions>
-                      <Button
-                        variant="contained"
-                        disabled={!XLSXExportButtonDisabled}
-                        onClick={(event) => {
-                          handleExportType(event, "xlsx");
-                        }}
-                      >
-                        Export xls
-                      </Button>
-                      <Button
-                        variant="contained"
-                        disabled={!PDFExportButtonDisabled}
-                        onClick={(event) => {
-                          handleExportType(event, "pdf");
-                        }}
-                      >
-                        Export pdf
-                      </Button>
-                    </CardActions>
-                  </CardContent>
-                </Card>
-              )}
-            </Grid>
+            )}
           </Grid>
-        </form>
-      </FormikProvider>
-    </>
+        </Grid>
+      </form>
+    </FormikProvider>
   );
 };
 

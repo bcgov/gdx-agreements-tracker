@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { Box, Grid, styled, FormControl, Typography } from "@mui/material";
-import { ReportSelect } from "../../components";
 import { Outlet } from "react-router-dom";
 import ReportSelector from "components/PLAYGROUND/ReportSelector";
 
@@ -25,7 +24,6 @@ export const Reports: FC = () => {
         <FormControl>
           <Grid container spacing={2}>
             <Grid item>
-              {/* <ReportSelect /> */}
               <ReportSelector />
             </Grid>
           </Grid>

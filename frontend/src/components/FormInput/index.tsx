@@ -50,22 +50,6 @@ export const FormInput = ({
     case "date":
       return (
         <GridItem width={width}>
-          {/* <LocalizationProvider dateAdapter={AdapterMoment}>
-            <Field
-              onChange={(newValue: { toDate: () => moment.MomentInput }) => {
-                const formatDate = moment(newValue.toDate()).format("YYYY-MM-DD");
-                setFieldValue?.(fieldName, formatDate) as Function;
-              }}
-              value={fieldValue}
-              as={DatePicker}
-              renderInput={(params: Object) => <TextField {...params} fullWidth={true} />}
-              label={fieldLabel}
-              fullWidth={true}
-              id={fieldName}
-              role={`${fieldName}_input`}
-            />
-          </LocalizationProvider> */}
-
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Field
               as={DatePicker}
