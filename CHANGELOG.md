@@ -1,6 +1,12 @@
 ## Developer Changelog
 
+**June 29, 2023**
+
+- Frontend
+  - upgraded to React version 18
+
 **June 28, 2023**
+
 - Backend
 - Frontend
   - refactored report select
