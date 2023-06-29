@@ -85,7 +85,7 @@ export interface IPickerProps {
   fieldValue: IOption;
   fieldName?: string;
   fieldLabel?: string;
-  setFieldValue: Function;
+  onChange: Function;
   pickerData: {
     associated_table: string;
     definition: IOption[];
@@ -249,11 +249,11 @@ export interface IInitialValues {
  */
 export interface IFormInput {
   setFieldValue?: Function;
-  fieldValue: string | number | boolean | IOption | IOption[];
+  fieldValue: string | number | boolean | IOption | IOption[] | date;
   fieldName: string;
   fieldType: IEditFieldsFieldType;
   fieldLabel: string;
-  handleChange?: Function | ChangeEvent<HTMLInputElement>;
+  handleChange?: Function;
   width: "half" | "full";
   tableName?: string;
   pickerName?: string;
@@ -454,3 +454,29 @@ export interface IRowDoubleClickParams {
 export interface Irgb {
   rgb: { red: number; green: number; blue: number; health_name: string };
 }
+
+export type ConvertToStringItem =
+  | {
+      value: string | null;
+    }
+  | null
+  | undefined
+  | string;
+
+export type UpdatedSearchParams = {
+  templateType: string;
+  [key: string]: string;
+};
+
+export type IReportCategoriesAndTypes = {
+  value: string;
+  label: string;
+  types: {
+    value: string;
+    label: string;
+    description: string;
+    parameters: string[];
+    exportPDF: boolean;
+    exportXLSX: boolean;
+  }[];
+}[];

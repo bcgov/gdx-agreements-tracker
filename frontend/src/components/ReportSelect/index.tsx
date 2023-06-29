@@ -87,7 +87,7 @@ export const ReportSelect = () => {
 
   const renderParameters = (
     setFieldValue: Function | undefined,
-    handleChange: Function | React.ChangeEvent<HTMLInputElement> | undefined,
+    handleChange: Function,
     values: { [x: string]: string | number | boolean | IOption | IOption[] }
   ) => {
     {

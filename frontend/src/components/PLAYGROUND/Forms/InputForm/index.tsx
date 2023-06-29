@@ -41,7 +41,6 @@ export const InputForm = ({
                       fieldName={fieldName}
                       fieldType={fieldType}
                       fieldLabel={fieldLabel}
-                      handleChange={handleChange}
                       width={width}
                       key={fieldName}
                       tableName={tableName}

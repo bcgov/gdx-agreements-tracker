@@ -1,6 +1,7 @@
 import React from "react";
 import { FormControlLabel, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Field } from "formik";
 import { usePickerValues } from "../../hooks";
@@ -9,6 +10,7 @@ import { GridItem } from "../GDXForm/FormLayout/GridItem";
 import { ReadField } from "components/ReadForm/ReadField";
 import { IOption, IFormInput } from "../../types";
 import moment from "moment";
+import dayjs from "dayjs";
 
 export const FormInput = ({
   setFieldValue,
@@ -16,7 +18,7 @@ export const FormInput = ({
   fieldName,
   fieldType,
   fieldLabel,
-  handleChange,
+  handleChange = () => {},
   width,
   pickerName,
   tableName,
@@ -48,19 +50,20 @@ export const FormInput = ({
     case "date":
       return (
         <GridItem width={width}>
-          <LocalizationProvider dateAdapter={AdapterMoment}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Field
-              onChange={(newValue: { toDate: () => moment.MomentInput }) => {
-                const formatDate = moment(newValue.toDate()).format("YYYY-MM-DD");
-                setFieldValue?.(fieldName, formatDate) as Function;
-              }}
-              value={fieldValue}
               as={DatePicker}
-              renderInput={(params: Object) => <TextField {...params} fullWidth={true} />}
-              label={fieldLabel}
-              fullWidth={true}
               id={fieldName}
+              label={fieldLabel}
+              value={fieldValue}
+              fullWidth={true}
+              onChange={(newValue: string) => {
+                const formatDate = dayjs(newValue).format("YYYY-MM-DD");
+                handleChange(formatDate);
+                setFieldValue?.(fieldName, formatDate);
+              }}
               role={`${fieldName}_input`}
+              renderInput={(params: Object) => <TextField {...params} fullWidth={true} />}
             />
           </LocalizationProvider>
         </GridItem>
@@ -72,7 +75,9 @@ export const FormInput = ({
             fullWidth={true}
             as={TextField}
             name={fieldName}
-            onChange={handleChange}
+            onChange={(newValue: string) => {
+              handleChange(newValue);
+            }}
             label={fieldLabel}
             id={fieldName}
             role={`${fieldName}_input`}
@@ -98,8 +103,12 @@ export const FormInput = ({
     case "select":
       return (
         <GridItem width={width}>
-          <GDXSelect
-            handleChange={handleChange as Function}
+          <Field
+            as={GDXSelect}
+            onChange={(newValue: string) => {
+              handleChange(newValue);
+              setFieldValue?.(fieldName, newValue);
+            }}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption}
             fieldLabel={fieldLabel}
@@ -112,11 +121,16 @@ export const FormInput = ({
       return (
         <GridItem width={width}>
           <GDXMultiselect
-            handleChange={handleChange as Function}
+            handleChange={(newValue: string) => {
+              handleChange(newValue);
+            }}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption[]}
             fieldLabel={fieldLabel}
-            setFieldValue={setFieldValue as Function}
+            onChange={(newValue: string) => {
+              handleChange(newValue);
+              setFieldValue?.(fieldName, newValue);
+            }}
             pickerData={GetPickerOptions()}
           />
         </GridItem>

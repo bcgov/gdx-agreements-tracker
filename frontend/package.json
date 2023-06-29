@@ -1,6 +1,6 @@
 {
   "name": "gdx-agreements-tracker-front-end",
-  "version": "0.11.0",
+  "version": "0.13.0",
   "license": "Apache-2.0",
   "engineStrict": true,
   "engines": {
@@ -14,13 +14,14 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.2.8",
     "@mui/x-data-grid": "^6.0.0",
-    "@mui/x-date-pickers": "^5.0.0-alpha.6",
+    "@mui/x-date-pickers": "^5.0.20",
     "@react-keycloak/web": "^3.4.0",
     "@tanstack/react-query": "^4.29.15",
     "@tanstack/react-query-devtools": "^4.29.15",
     "@types/react-table": "^7.7.9",
     "@types/react-test-renderer": "^18.0.0",
     "axios": "^0.24.0",
+    "dayjs": "^1.11.8",
     "formik": "^2.2.9",
     "jsdoc": "^3.6.11",
     "keycloak-js": "^15.0.2",
