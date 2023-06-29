@@ -16,6 +16,6 @@ export const PageFooter = () => (
     bgcolor="primary.main"
     color="primary.contrastText"
   >
-    <Typography noWrap>Footer</Typography>
+    <Typography noWrap>v{process.env.REACT_APP_VERSION}</Typography>
   </StyledFooter>
 );
