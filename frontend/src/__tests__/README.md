@@ -1,5 +1,6 @@
 # Code Tesing Readme
 
+## TODO: update once tests have been rebuilt for react-testing-library w/React v18
 
 ## Definitions
 
@@ -7,7 +8,7 @@
 This function allows for you to wrap multiple tests into what is called a test suite
 
 
-### **mount.debug():** 
+### **mount.debug():**
 Shows the compiled JSX(HTML). This helps to see what is rendered from your component and makes it easier to see what to test for.
 
 ### **shallow():**

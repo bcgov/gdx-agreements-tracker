@@ -1,4 +1,10 @@
 ## Developer Changelog
+**June 29, 2023**
+- Frontend
+  - upgrades react-testing-library to version 14
+  - removed enzyme (end-of-life)
+  - deprecated tests are sequestered to `frontend_tests_deprecated`
+  - imports on those tests were updated for ease of in-place testing
 
 **June 29, 2023**
 
