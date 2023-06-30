@@ -37,6 +37,7 @@ export const InputForm = ({
                   return (
                     <FormInput
                       setFieldValue={setFieldValue}
+                      handleChange={handleChange}
                       fieldValue={values?.[fieldName]}
                       fieldName={fieldName}
                       fieldType={fieldType}
