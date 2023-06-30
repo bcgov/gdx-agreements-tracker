@@ -1,10 +1,4 @@
 ## Developer Changelog
-**June 29, 2023**
-- Frontend
-  - upgrades react-testing-library to version 14
-  - removed enzyme (end-of-life)
-  - deprecated tests are sequestered to `frontend_tests_deprecated`
-  - imports on those tests were updated for ease of in-place testing
 
 **June 29, 2023 - [DESCW-1250](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1250)**
 - Meta
@@ -14,6 +8,10 @@
 - Frontend
   - Display npm package version on footer. This requires adding `REACT_APP_VERSION=$npm_package_version` to the frontend .env file.
   - Upgraded to React version 18
+  - upgrades react-testing-library to version 14
+  - removed enzyme (end-of-life)
+  - deprecated tests are sequestered to `frontend_tests_deprecated`
+  - imports on those tests were updated for ease of in-place testing
 
 **June 28, 2023**
 
