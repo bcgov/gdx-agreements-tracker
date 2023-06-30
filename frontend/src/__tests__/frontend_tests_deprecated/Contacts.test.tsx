@@ -1,10 +1,11 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import adminRoutes from "../../../routes/subRoutes/adminRoutes";
-import { MemoryRouter, Routes } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { shallow } from "enzyme";
-import { Suppliers } from "pages/Admin/Suppliers";
+import { render } from "@testing-library/react";
+import { MemoryRouter, Routes } from "react-router-dom";
+import adminRoutes from "../../routes/subRoutes/adminRoutes";
+import { Contacts } from "../../pages/Admin/Contacts";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 // Create a client
 const queryClient = new QueryClient();
 //Mock keycloak.
@@ -12,20 +13,20 @@ jest.mock("@react-keycloak/web", () => ({
   useKeycloak: () => ({ initialized: true, keycloak: { authenticated: true } }),
 }));
 
-describe("<Suppliers /> routing", () => {
-  it("renders Suppliers page when '/admin/suppliers/' is hit", async () => {
+describe("<Contacts /> routing", () => {
+  it("renders Contacts page when '/admin/contacts' is hit", () => {
     render(
       <QueryClientProvider client={queryClient}>
-        <MemoryRouter initialEntries={["/admin/suppliers/"]}>
+        <MemoryRouter initialEntries={["/admin/contacts"]}>
           <Routes key="main">{adminRoutes}</Routes>
         </MemoryRouter>
       </QueryClientProvider>
     );
     const wrapper = shallow(
       <QueryClientProvider client={queryClient}>
-        <Suppliers />
+        <Contacts />
       </QueryClientProvider>
     );
-    expect(wrapper.text().includes("Suppliers")).toBe(true);
+    expect(wrapper.text().includes("Contacts")).toBe(true);
   });
 });

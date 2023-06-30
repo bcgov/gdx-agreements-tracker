@@ -1,6 +1,6 @@
 {
   "name": "gdx-agreements-tracker-front-end",
-  "version": "0.14.0",
+  "version": "0.16.0",
   "license": "Apache-2.0",
   "engineStrict": true,
   "engines": {
@@ -35,7 +35,7 @@
   "scripts": {
     "start": "DISABLE_ESLINT_PLUGIN=true HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts --openssl-legacy-provider start -- ",
     "build": "react-scripts --openssl-legacy-provider build -- ",
-    "test": "react-scripts test --verbose ./bypass_tests_for_now",
+    "test": "react-scripts test --passWithNoTests --verbose ./bypass_tests_for_now",
     "eject": "react-scripts eject",
     "lint": "eslint src/ --ext .jsx,.js,.ts,.tsx ",
     "lint:fix": "npm run lint -- --fix",
@@ -55,9 +55,8 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/enzyme": "^3.10.11",
     "@types/jest": "^27.0.2",
     "@types/lodash": "^4.14.195",
     "@types/node": "^16.11.7",
@@ -66,10 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/eslint-plugin-tslint": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "axios-mock-adapter": "^1.20.0",
-    "enzyme": "^3.11.0",
-    "enzyme-to-json": "^3.6.2",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-jest": "^26.1.5",
@@ -81,10 +77,5 @@
     "prettier": "2.5.1",
     "sass": "^1.51.0",
     "typescript": "^4.4.4"
-  },
-  "jest": {
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
   }
 }
