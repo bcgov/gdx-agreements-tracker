@@ -4,6 +4,7 @@
 
 - Frontend
   - Added selectors for all divisional project financial reports.
+  - Fixed functionality which allows you to add new project deliverable
 
 **June 29, 2023 - [DESCW-1250](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1250)**
 
