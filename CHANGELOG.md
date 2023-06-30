@@ -1,15 +1,17 @@
 ## Developer Changelog
-**June 29, 2023**
+
+**June 29, 2023 - [DESCW-1250](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1250)**
+- Meta
+  - Removed backend version bump workflow
+  - Added frontend version bump to trigger off of both backend and frontend changes 
+
 - Frontend
+  - Display npm package version on footer. This requires adding `REACT_APP_VERSION=$npm_package_version` to the frontend .env file.
+  - Upgraded to React version 18
   - upgrades react-testing-library to version 14
   - removed enzyme (end-of-life)
   - deprecated tests are sequestered to `frontend_tests_deprecated`
   - imports on those tests were updated for ease of in-place testing
-
-**June 29, 2023**
-
-- Frontend
-  - upgraded to React version 18
 
 **June 28, 2023**
 

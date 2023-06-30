@@ -1,9 +1,10 @@
-name: Bump backend version on merge
+name: Bump version on merge
 on:
   pull_request:
       branches:
           - development
       paths:
+          - 'frontend/**'
           - 'backend/**'
 jobs:
   bump-version:
@@ -21,9 +22,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr checkout ${{ github.event.pull_request.number }}
-        
+          
       - name: Bump Version
-        working-directory: ./backend
+        working-directory: ./frontend
         run: npm version minor
       
       - name: Push Changes
@@ -33,5 +34,5 @@ jobs:
             git config user.email "username@users.noreply.github.com"
             git config user.name "$GITHUB_ACTOR"
             git add .
-            git commit -m "Bump api version"
+            git commit -m "Bump app version"
             git push
