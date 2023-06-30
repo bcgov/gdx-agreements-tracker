@@ -188,7 +188,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_20_rpt_PA_Billed",
         label: "Projects Billed",
-        description: "Project Name, Breakdown for each Quarter and Total Recoveries to date for fiscal.",
+        description:
+          "Project Name, Breakdown for each Quarter and Total Recoveries to date for fiscal.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -196,7 +197,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_21_rpt_PA_Billing-Historical",
         label: "Historical Recoveries",
-        description: "Grouped on fiscal, shows Project #, Project Name, Amount recovered each quarter and total recoveries.",
+        description:
+          "Grouped on fiscal, shows Project #, Project Name, Amount recovered each quarter and total recoveries.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -204,7 +206,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_22_rpt_PA_ChangeRequestTypesFY-Summary",
         label: "Change requests Types",
-        description: "Run for a specific fiscal and sorted by Project #. Shows total change requests for the project even if changes occurred in a previous fiscal.",
+        description:
+          "Run for a specific fiscal and sorted by Project #. Shows total change requests for the project even if changes occurred in a previous fiscal.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -212,7 +215,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_23_rpt_PA_Fiscal_Registry",
         label: "Projects Registered by Fiscal",
-        description: "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry.",
+        description:
+          "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -220,7 +224,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
         label: "Projects Lessons Learned",
-        description: "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
+        description:
+          "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -228,7 +233,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_27_rpt_PA_Ministry",
         label: "Ministry Project Usage",
-        description: "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor, Project Manager.",
+        description:
+          "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor, Project Manager.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -236,7 +242,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_28_rpt_PA_MultiYrStats",
         label: "Multi YearAnnual Project Stats",
-        description: "Annual stats report on projects in fiscal, total project budgets, total recovered, average duration, # of change requests, internal/external/social media # of unique clients.",
+        description:
+          "Annual stats report on projects in fiscal, total project budgets, total recovered, average duration, # of change requests, internal/external/social media # of unique clients.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -244,7 +251,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_29_rpt_PA_MultiYrStatsChangeRequest",
         label: "Muli-year statistics for Project Change requests",
-        description: "FY – Total Change Requests, Initiated by, Type of Change Request (Budget, Schedule, Scope).",
+        description:
+          "FY – Total Change Requests, Initiated by, Type of Change Request (Budget, Schedule, Scope).",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -252,7 +260,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_30_rpt_PA_MultiYrStats_DMS_Office",
         label: "Annual Stats for the DMS",
-        description: "Annual stats report on DMS office staff, salaries, division FTEs, DMS operating costs, target recoveries.",
+        description:
+          "Annual stats report on DMS office staff, salaries, division FTEs, DMS operating costs, target recoveries.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -260,7 +269,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_31_rpt_PA_ProjectswithContracts",
         label: "Contracts for Projects",
-        description: "Shows contract #s, Amendment #, Supplier, End Date of Contract, Contract Amount, Invoiced to Date, Balance Remaining.",
+        description:
+          "Shows contract #s, Amendment #, Supplier, End Date of Contract, Contract Amount, Invoiced to Date, Balance Remaining.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -268,7 +278,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_32_rpt_PA_Registered",
         label: "Projects Registered by Date/Period",
-        description: "Breakdown shows the distribution between the portfolios and shows, project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned budget.",
+        description:
+          "Breakdown shows the distribution between the portfolios and shows, project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned budget.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -276,7 +287,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_36_rpt_PF_BudgetbySTOB",
         label: "Budget by Stob",
-        description: "Project#, Project Name, Recoverable status, Project total budget, Current Year Non-Recoverable Amounts, Current Fiscal Recoveries, Current Year Recovered to Date, Current Year Contract Fees, Current Year Staff Fees, Current Year Staff Travel, Other Stobs.",
+        description:
+          "Project#, Project Name, Recoverable status, Project total budget, Current Year Non-Recoverable Amounts, Current Fiscal Recoveries, Current Year Recovered to Date, Current Year Contract Fees, Current Year Staff Fees, Current Year Staff Travel, Other Stobs.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -284,7 +296,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_37_rpt_PF_BudgetDistributionbyPortfolio",
         label: "Budget Distributions by Portfolio",
-        description: "Based on fiscal year. Total Budget, Recoverable Amt, Non-Recoverable Amt, Total Contracts, Breakdown for portfolios current fiscal.",
+        description:
+          "Based on fiscal year. Total Budget, Recoverable Amt, Non-Recoverable Amt, Total Contracts, Breakdown for portfolios current fiscal.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -292,7 +305,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_38_rpt_PF_JVsforFiscal-Quarter",
         label: "Project JVs Processed",
-        description: "Fiscal Year and Quarter, Project #, Project Name, JV Number, Date Billed, Amount.",
+        description:
+          "Fiscal Year and Quarter, Project #, Project Name, JV Number, Date Billed, Amount.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -300,7 +314,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_39_rpt_PF_PortfolioForecastAll",
         label: "Project Forecasting by Quarter",
-        description: "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
+        description:
+          "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -308,7 +323,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_40_rpt_PF_PortfolioAdminFees",
         label: "Project Recoveries Admin Fees for Fiscal",
-        description: "Grouped on Portfolio shows project #, Project Name, fiscal amounts for a specific fiscal",
+        description:
+          "Grouped on Portfolio shows project #, Project Name, fiscal amounts for a specific fiscal",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -316,7 +332,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_41_rpt_PF_PortfolioStaffRecoveries",
         label: "Projects Project Staff Recoveries Forecast by Area",
-        description: "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
+        description:
+          "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -324,7 +341,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_42_rpt_PF_PortfolioStobRecoveries",
         label: "Project Recovery Forecast by STOB",
-        description: "Project#, Project Name, Recoverable Amt Current Fiscal, STOB breakdown for each of the following showing Amt and Recovered to date figures: 6398, 8807, 8809, 5798, 6598, Other.",
+        description:
+          "Project#, Project Name, Recoverable Amt Current Fiscal, STOB breakdown for each of the following showing Amt and Recovered to date figures: 6398, 8807, 8809, 5798, 6598, Other.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -332,7 +350,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_43_rpt_PF_RecoveryForecast",
         label: "Project Recovery Forecast",
-        description: "Sorted by Project #, Shows project #, Project Name, Project Status, Recoverable Status and Amount for Each Quarter.",
+        description:
+          "Sorted by Project #, Shows project #, Project Name, Project Status, Recoverable Status and Amount for Each Quarter.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -340,7 +359,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_44_rpt_PF_RecoveryToDateDetails",
         label: "Project Recoveries to Date Details",
-        description: "Project Number, Project Name, Total Project Budget, Current Year Contracts, Current Year Recoveries to Date, Balance Remaining.",
+        description:
+          "Project Number, Project Name, Total Project Budget, Current Year Contracts, Current Year Recoveries to Date, Balance Remaining.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -348,7 +368,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_48_rpt_PF_FinanceRecoverySummary",
         label: "Finance Recovery Project Summary Forecast",
-        description: "Project name and number, total recoveries for fiscal, total expenses for each stob type.",
+        description:
+          "Project name and number, total recoveries for fiscal, total expenses for each stob type.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -356,7 +377,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_49_rpt_PF_NetRecoveries",
         label: "GDX Project Net Recoveries",
-        description: "Project name and number, total recoveries, total expenses, net recoveries, recovered to date, remaining recoveries.",
+        description:
+          "Project name and number, total recoveries, total expenses, net recoveries, recovered to date, remaining recoveries.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -364,7 +386,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_51_rpt_PF_ADIExport",
         label: "ADI Export",
-        description: "Project CAScoding for both recovery ministry and GDX in the format required for input- can be run by quarter or project for all projects √ for processing.",
+        description:
+          "Project CAScoding for both recovery ministry and GDX in the format required for input- can be run by quarter or project for all projects √ for processing.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -372,7 +395,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_53_rpt_PF_FinProjectForecast-NEW",
         label: "Finance Project Forecast",
-        description: "Project name and number, total recoveries for fiscal, total expenses for each stob type.",
+        description:
+          "Project name and number, total recoveries for fiscal, total expenses for each stob type.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
