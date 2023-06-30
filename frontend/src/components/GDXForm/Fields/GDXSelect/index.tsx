@@ -6,7 +6,7 @@ import { IPickerProps, IOption } from "../../../../types";
  * Renders an Autocomplete/Select component
  *
  * @param   {IPickerProps} props passed into component
- * @returns {GDXSelect}          a JSX select
+ * @returns {JSX.Element}        a JSX select
  */
 export const GDXSelect: FC<IPickerProps> = ({
   fieldName,

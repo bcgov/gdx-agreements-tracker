@@ -106,7 +106,6 @@ export const FormInput = ({
           <Field
             as={GDXSelect}
             onChange={(newValue: string) => {
-              handleChange(newValue);
               setFieldValue?.(fieldName, newValue);
             }}
             fieldName={fieldName}
@@ -128,7 +127,6 @@ export const FormInput = ({
             fieldValue={fieldValue as IOption[]}
             fieldLabel={fieldLabel}
             onChange={(newValue: string) => {
-              handleChange(newValue);
               setFieldValue?.(fieldName, newValue);
             }}
             pickerData={GetPickerOptions()}
