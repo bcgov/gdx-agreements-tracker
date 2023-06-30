@@ -277,6 +277,355 @@ export const reportType = {
       ],
     },
     {
+      reportCategory: "divisional_project_reports",
+      value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
+      label: "Net Recovery Summary By Quarter",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+          hasXls: true,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_20_rpt_PA_Billed",
+      label: "Projects Billed",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_21_rpt_PA_Billing-Historical",
+      label: "Historical Recoveries",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_22_rpt_PA_ChangeRequestTypesFY-Summary",
+      label: "Change requests Types",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_23_rpt_PA_Fiscal_Registry",
+      label: "Projects Registered by Fiscal",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
+      label: "Projects Lessons Learned",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_27_rpt_PA_Ministry",
+      label: "Ministry Project Usage",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_28_rpt_PA_MultiYrStats",
+      label: "Multi YearAnnual Project Stats",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_29_rpt_PA_MultiYrStatsChangeRequest",
+      label: "Muli-year statistics for Project Change requests",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_30_rpt_PA_MultiYrStats_DMS_Office",
+      label: "Annual Stats for the DMS",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_31_rpt_PA_ProjectswithContracts",
+      label: "Contracts for Projects",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_32_rpt_PA_Registered",
+      label: "Projects Registered by Date/Period",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_36_rpt_PF_BudgetbySTOB",
+      label: "Budget by Stob",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_37_rpt_PF_BudgetDistributionbyPortfolio",
+      label: "Budget Distributions by Portfolio",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_38_rpt_PF_JVsforFiscal-Quarter",
+      label: "Project JVs Processed",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_39_rpt_PF_PortfolioForecastAll",
+      label: "Project Forecasting by Quarter",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_40_rpt_PF_PortfolioAdminFees",
+      label: "Project Recoveries Admin Fees for Fiscal",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_41_rpt_PF_PortfolioStaffRecoveries",
+      label: "Projects Project Staff Recoveries Forecast by Area",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_42_rpt_PF_PortfolioStobRecoveries",
+      label: "Project Recovery Forecast by STOB",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_43_rpt_PF_RecoveryForecast",
+      label: "Project Recovery Forecast",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_44_rpt_PF_RecoveryToDateDetails",
+      label: "Project Recoveries to Date Details",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_48_rpt_PF_FinanceRecoverySummary",
+      label: "Finance Recovery Project Summary Forecast",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
       reportCategory: "divisional_project_financials",
       value: "Tab_49_rpt_PF_NetRecoveries",
       label: "GDX Project Net Recoveries",
@@ -293,15 +642,34 @@ export const reportType = {
       ],
     },
     {
-      reportCategory: "divisional_project_reports",
-      value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
-      label: "Net Recovery Summary By Quarter",
+      reportCategory: "divisional_project_financials",
+      value: "Tab_51_rpt_PF_ADIExport",
+      label: "ADI Export",
       reportParamCategory: [
         {
           field: fieldTypes.fiscal,
           type: requestTypes.route,
           isRequired: true,
-          hasXls: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
+        },
+      ],
+    },
+    {
+      reportCategory: "divisional_project_financials",
+      value: "Tab_53_rpt_PF_FinProjectForecast-NEW",
+      label: "Finance Project Forecast",
+      reportParamCategory: [
+        {
+          field: fieldTypes.fiscal,
+          type: requestTypes.route,
+          isRequired: true,
+        },
+        {
+          field: fieldTypes.portfolio,
+          type: requestTypes.query,
         },
       ],
     },

@@ -1,55 +1,61 @@
 ## Developer Changelog
 
+**June 30, 2023 - [DESCW-1145](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1145)**
+
+- Frontend
+  - Added selectors for all divisional project financial reports.
+
 **June 29, 2023 - [DESCW-1250](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1250)**
+
 - Meta
-  - Removed backend version bump workflow
-  - Added frontend version bump to trigger off of both backend and frontend changes 
+  - Removed backend version bump workflow.
+  - Added frontend version bump to trigger off of both backend and frontend changes.
 
 - Frontend
   - Display npm package version on footer. This requires adding `REACT_APP_VERSION=$npm_package_version` to the frontend .env file.
-  - Upgraded to React version 18
-  - upgrades react-testing-library to version 14
-  - removed enzyme (end-of-life)
-  - deprecated tests are sequestered to `frontend_tests_deprecated`
-  - imports on those tests were updated for ease of in-place testing
+  - Upgraded to React version 18.
+  - Upgrades react-testing-library to version 14.
+  - Removed enzyme (end-of-life).
+  - Deprecated tests are sequestered to `frontend_tests_deprecated`.
+  - Imports on those tests were updated for ease of in-place testing.
 
 **June 28, 2023**
 
 - Backend
 - Frontend
-  - refactored report select
+  - Refactored report select.
 
 **June 28, 2023 - [DESCW-1223](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1223)**
 
 - Backend
-  - update app.yaml to include dockerfile contents
+  - Update app.yaml to include dockerfile contents.
 
 **June 28, 2023 - [DESCW-1180](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1180)**
 
 - Backend
-  - Removed verifyUserExists and all references to it, as they refer to the unused user table
-  - Removed references to user table
-  - Removed user tests
+  - Removed verifyUserExists and all references to it, as they refer to the unused user table.
+  - Removed references to user table.
+  - Removed user tests.
 - Frontend
-  - Removed user picker options
-  - Removed references to 'pmo-sys-admin'
+  - Removed user picker options.
+  - Removed references to 'pmo-sys-admin'.
 
 **June 23, 2023 - [DESCW-1043](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1043)**
 
 - Frontend
-  - update react-query by replacing it with @tanstack/react-query
-  - change first arg of useQuery() to an array per the changelog
+  - update react-query by replacing it with @tanstack/react-query.
+  - change first arg of useQuery() to an array per the changelog.
   - update all imports to @tanstack/...
 
 **June 23, 2023 - [DESCW-1187](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1187)**
 
 - Backend
-  - create generic controller
-  - update report template script to use it
-  - slight refactor of controller
-  - update documentation in generic controller
-  - add error-handling to generic controller
-  - add error-handling to tab_50 model
+  - Create generic controller.
+  - Update report template script to use it.
+  - Slight refactor of controller.
+  - Update documentation in generic controller.
+  - Add error-handling to generic controller.
+  - Add error-handling to tab_50 model.
 
 **June 14, 2023 - [DESCW-1212](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1212)**
 
