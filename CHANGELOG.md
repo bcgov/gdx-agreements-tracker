@@ -1,4 +1,7 @@
 ## Developer Changelog
+**July 4, 2023 - [DESCW-1222](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1222)**
+- Backend
+  - use a consistent getCurrentDate() function for all report controllers
 
 **June 30, 2023 - [DESCW-1145](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1145)**
 

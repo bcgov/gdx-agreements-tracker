@@ -158,7 +158,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Financial details for each project (per portfolio), including recoveries, expenses, costs, and fees.",
         parameters: ["fiscal"],
-        exportPDF: false,
+        exportPDF: true,
         exportXLSX: true,
       },
       {
@@ -176,7 +176,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Run for a specific fiscal, grouped by Portfolio. Shows both Net and Gross recoveries per portfolio, and includes quarterly recoveries as well as fiscal year totals for expenses.",
         parameters: ["fiscal"],
-        exportPDF: false,
+        exportPDF: true,
         exportXLSX: true,
       },
     ],

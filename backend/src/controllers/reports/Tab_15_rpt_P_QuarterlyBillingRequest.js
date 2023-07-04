@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -21,7 +21,6 @@ controller.Tab_15_rpt_P_QuarterlyBillingRequest = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
     const projectId = Number(request.query.project);
     const fiscal = Number(request.query.fiscal);
     const quarter = Number(request.query.quarter);
@@ -31,7 +30,7 @@ controller.Tab_15_rpt_P_QuarterlyBillingRequest = async (request, reply) => {
       jv: await model.getJournalVoucher(projectId, fiscal, quarter),
       client: await model.getClientCoding(projectId),
       quarter: "Q" + quarter,
-      report_date: await getDate(),
+      report_date: await getCurrentDate(),
     };
 
     // Calculate grand total from each deliverable amount.

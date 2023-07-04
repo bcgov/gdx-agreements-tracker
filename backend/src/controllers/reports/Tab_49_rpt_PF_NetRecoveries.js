@@ -8,7 +8,7 @@ const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -22,7 +22,6 @@ controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
     const [{ fiscal_year }] = await model.getFiscalYear(request.query);
     const report = await model.Tab_49_rpt_PF_NetRecoveries(request.query);
     const report_totals = await model.Tab_49_totals(request.query);
@@ -37,7 +36,7 @@ controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
 
     const result = {
       fiscal: fiscal_year,
-      report_date: await getDate(),
+      report_date: await getCurrentDate(),
       report: reportsByPortfolioWithTotals,
     };
 

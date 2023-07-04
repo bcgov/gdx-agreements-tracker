@@ -8,7 +8,7 @@ const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -47,6 +47,7 @@ controller.Tab_19_rpt_PA_ActiveProjectsbyPortfolio = async (request, reply) => {
 
     // Lay out final JSON body for api call to cdogs server
     const result = {
+      report_date: await getCurrentDate(),
       active_projects: activeProjectsWithBudgetTotals,
       total: reportTotalRow,
     };

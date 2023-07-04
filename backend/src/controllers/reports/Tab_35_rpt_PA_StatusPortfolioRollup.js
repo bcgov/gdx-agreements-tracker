@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -21,12 +21,11 @@ controller.Tab_35_rpt_PA_StatusPortfolioRollup = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
 
     let portfolioRollup = await model.Tab_35_rpt_PA_StatusPortfolioRollup();
 
     const result = {
-      report_date: await getDate(),
+      report_date: await getCurrentDate(),
       rollup: { portfolios: portfolioRollup },
     };
 

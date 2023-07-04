@@ -7,7 +7,7 @@ const controller = useController(model, what);
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, getCurrentDate } = utils;
 controller.getReport = getReport;
 
 /**
@@ -21,10 +21,9 @@ controller.Tab_45_rpt_P_EngagementStatus = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
-    const getDate = async () => new Date();
 
     const result = {
-      report_date: await getDate(),
+      report_date: await getCurrentDate(),
     };
 
     const body = await getDocumentApiBody(result, "Tab_45_rpt_P_EngagementStatus.docx");
