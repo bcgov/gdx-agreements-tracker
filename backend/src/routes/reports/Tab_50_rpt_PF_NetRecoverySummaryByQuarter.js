@@ -1,16 +1,14 @@
 const getControllerFrom = require("@controllers/reports/genericReportController");
 const { getAll } = require("@validators/report/tab50");
-
-const name = `Tab_50_rpt_PF_NetRecoverySummaryByQuarter`;
-const controller = getControllerFrom(name);
+const controller = getControllerFrom();
 
 module.exports = {
   registerRoutes: (fastify, options, done) => {
     fastify.route({
       method: "GET",
-      url: `/report/projects/${name}`,
+      url: `/report/:type`,
       schema: getAll,
-      onRequest: controller[name],
+      onRequest: controller.reportHandler,
       handler: controller.getReport,
     });
     done();

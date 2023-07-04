@@ -23,7 +23,7 @@ export const handleReportExport = (values: { [key: string]: string | null }) => 
 
   const querystringParams = new URLSearchParams(updatedSearchParams);
 
-  const url = `report/projects/${updatedSearchParams.type}`;
+  const url = `report/${updatedSearchParams.type}`;
 
   apiAxios()
     .get(url, {
