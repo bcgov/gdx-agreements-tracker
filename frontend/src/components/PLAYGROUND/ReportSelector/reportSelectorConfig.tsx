@@ -161,15 +161,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportPDF: true,
         exportXLSX: true,
       },
-      {
-        value: "Tab_49_rpt_PF_NetRecoveries",
-        label: "GDX Project Net Recoveries",
-        description:
-          "Run for a specific fiscal, grouped by recovery area and sorted by Project #. Shows total recoveries, expenses, net recoveries, recovered-to-date and remaining recoveries for each project.",
-        parameters: ["fiscal"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
     ],
   },
   {
