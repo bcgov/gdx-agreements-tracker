@@ -18,7 +18,13 @@ import { ReportTypes } from "./ReportTypes";
 import { handleReportExport } from "../../../utils/handleReportExport";
 const RadioSelect = () => {
   const [typeDescription, setTypeDescription] = useState<string | undefined>("");
-  const initialValues = { date: null, category: "", type: "", exportType: "pdf" };
+  const initialValues = {
+    date: null,
+    category: "",
+    type: "",
+    exportType: "pdf",
+    templateType: "docx",
+  };
   const [PDFExportButtonDisabled, setExportButtonDisabled] = useState<boolean | undefined>(true);
   const [XLSXExportButtonDisabled, setXLSXExportButtonDisabled] = useState<boolean | undefined>(
     true
@@ -58,9 +64,11 @@ const RadioSelect = () => {
 
   const handleExportType = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    templateType: string,
     exportType: string
   ) => {
     event.preventDefault();
+    setFieldValue("templateType", templateType);
     setFieldValue("exportType", exportType);
     //This triggers the formik on submit function defined above
     formik.submitForm();
@@ -142,7 +150,7 @@ const RadioSelect = () => {
                       variant="contained"
                       disabled={!XLSXExportButtonDisabled}
                       onClick={(event) => {
-                        handleExportType(event, "xlsx");
+                        handleExportType(event, "xlsx", "xlsx");
                       }}
                     >
                       Export xls
@@ -151,7 +159,7 @@ const RadioSelect = () => {
                       variant="contained"
                       disabled={!PDFExportButtonDisabled}
                       onClick={(event) => {
-                        handleExportType(event, "pdf");
+                        handleExportType(event, "docx", "pdf");
                       }}
                     >
                       Export pdf
