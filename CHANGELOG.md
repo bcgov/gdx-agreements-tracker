@@ -1,4 +1,8 @@
 ## Developer Changelog
+**July 4, 2023 - [DESCW-1219](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1219)**
+- Frontend
+  - allow template type: "docx" to export
+
 **July 4, 2023 - [DESCW-1222](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1222)**
 - Backend
   - use a consistent getCurrentDate() function for all report controllers

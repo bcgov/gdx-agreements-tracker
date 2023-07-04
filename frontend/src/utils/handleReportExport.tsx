@@ -15,7 +15,7 @@ const convertValueToString = (item: ConvertToStringItem) => {
 };
 
 export const handleReportExport = (values: { [key: string]: string | null }) => {
-  const updatedSearchParams: UpdatedSearchParams = { templateType: values.exportType as string };
+  const updatedSearchParams: UpdatedSearchParams = { templateType: values.templateType as string };
 
   Object.entries(values).forEach(([key, item]) => {
     updatedSearchParams[key] = convertValueToString(item);
