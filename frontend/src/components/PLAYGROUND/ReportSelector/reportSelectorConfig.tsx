@@ -170,15 +170,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportPDF: true,
         exportXLSX: false,
       },
-      {
-        value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
-        label: "Net Recovery Summary By Quarter",
-        description:
-          "Run for a specific fiscal, grouped by Portfolio. Shows both Net and Gross recoveries per portfolio, and includes quarterly recoveries as well as fiscal year totals for expenses.",
-        parameters: ["fiscal"],
-        exportPDF: true,
-        exportXLSX: true,
-      },
     ],
   },
   {
@@ -382,6 +373,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: ["portfolio", "fiscal"],
         exportPDF: true,
         exportXLSX: false,
+      },
+      {
+        value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
+        label: "Net Recovery Summary By Quarter",
+        description:
+          "Run for a specific fiscal, grouped by Portfolio. Shows both Net and Gross recoveries per portfolio, and includes quarterly recoveries as well as fiscal year totals for expenses.",
+        parameters: ["fiscal"],
+        exportPDF: true,
+        exportXLSX: true,
       },
       {
         value: "Tab_51_rpt_PF_ADIExport",

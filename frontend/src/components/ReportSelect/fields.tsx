@@ -277,7 +277,7 @@ export const reportType = {
       ],
     },
     {
-      reportCategory: "divisional_project_reports",
+      reportCategory: "divisional_project_financials",
       value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
       label: "Net Recovery Summary By Quarter",
       reportParamCategory: [
