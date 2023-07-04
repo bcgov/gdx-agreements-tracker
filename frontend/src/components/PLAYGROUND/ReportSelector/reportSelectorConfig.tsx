@@ -204,15 +204,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: false,
       },
       {
-        value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
-        label: "Projects Lessons Learned",
-        description:
-          "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
         value: "Tab_27_rpt_PA_Ministry",
         label: "Ministry Project Usage",
         description:
