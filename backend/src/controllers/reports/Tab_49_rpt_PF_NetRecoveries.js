@@ -54,9 +54,6 @@ controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
       return result;
     }
   } catch (err) {
-    // console.error(`ERROR: ${err}`);
-    // reply.code(500);
-    // return { message: `There was a problem looking up this Project rollup Report.` };
     controller.failedQuery(reply, err.message, what);
   }
 };

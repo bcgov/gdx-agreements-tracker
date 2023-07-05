@@ -1,4 +1,9 @@
 ## Developer Changelog
+**July 6, 2023 - [DESCW-1315](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1315)**
+- Backend
+  - add basic validation to prevent db query without proper variables
+  - updated general controller error logic.
+
 **July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319)**
 - Frontend
   - Update frontend report url to /report/${report_name}
