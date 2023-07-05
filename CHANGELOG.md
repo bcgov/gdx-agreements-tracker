@@ -15,6 +15,7 @@
 - Frontend
   - fixed issue preventing client coding from saving
   - fixed issue preventing project budget from saving
+  - fixed issue preventing project status from saving
   - added optional required prop to input fields on all forms
 
 
