@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -162,7 +165,8 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "project_deliverable_id",
       fieldType: "select",
       pickerName: "project_deliverable_option",
-      projectId: query?.data?.data?.data?.project_id,
+      projectId: Number(projectId),
+      required: true,
     },
     {
       width: "half",
@@ -196,7 +200,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "client_coding_id",
       fieldType: "select",
       pickerName: "client_coding_option",
-      projectId: query?.data?.data?.data?.project_id,
+      projectId: Number(projectId),
     },
     {
       width: "half",
@@ -204,20 +208,28 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "contract_id",
       fieldType: "select",
       pickerName: "budget_contract_option",
-      projectId: query?.data?.data?.data?.project_id,
+      projectId: Number(projectId),
     },
   ];
 
   const initialValues = {
-    program_area: "",
-    service_line: "",
-    client: "",
-    contact_id: "",
-    expense_authority_name: "",
-    stob: "",
-    responsibility_centre: "",
-    project_code: "",
-    client_amount: 0,
+    q1_amount: null,
+    q1_recovered: null,
+    q2_amount: null,
+    q2_recovered: null,
+    q3_amount: null,
+    q3_recovered: null,
+    q4_amount: null,
+    q4_recovered: null,
+    fiscal: null,
+    project_deliverable_id: null,
+    notes: null,
+    detail_amount: null,
+    recovery_area: null,
+    resource_type: null,
+    stob: null,
+    client_coding_id: null,
+    contract_id: null,
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];

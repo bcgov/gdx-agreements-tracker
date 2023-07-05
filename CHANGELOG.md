@@ -3,6 +3,7 @@
 **July 5, 2023 - [DESCW-585](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-585)**
 - Frontend
   - fixed issue preventing client coding from saving
+  - fixed issue preventing project budget from saving
   - added optional required prop to input fields on all forms
 
 
