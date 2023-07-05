@@ -1,5 +1,5 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { FormConfig } from "./FormConfig";
+import { FormConfig } from "./formConfig";
 import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
 
