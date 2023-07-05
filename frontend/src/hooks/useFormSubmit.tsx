@@ -62,8 +62,6 @@ export const useFormSubmit = () => {
         }
       }
     }
-    console.log('apiUrl', apiUrl)
-    console.log('formattedValues', formattedValues)
     return await axiosAll()
       .post(apiUrl, formattedValues)
       .then((results) => {

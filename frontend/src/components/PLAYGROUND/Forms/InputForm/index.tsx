@@ -33,7 +33,7 @@ export const InputForm = ({
                   pickerName,
                   projectId,
                   contractId,
-                  required
+                  required,
                 }) => {
                   return (
                     <FormInput

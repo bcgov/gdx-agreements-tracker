@@ -14,7 +14,7 @@ export const GDXSelect: FC<IPickerProps> = ({
   fieldLabel,
   onChange,
   pickerData,
-  required
+  required,
 }: IPickerProps) => {
   return (
     <>
@@ -26,7 +26,7 @@ export const GDXSelect: FC<IPickerProps> = ({
           options={pickerData?.definition}
           onChange={(event, choice: unknown) => {
             onChange(choice);
-          }}       
+          }}
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField

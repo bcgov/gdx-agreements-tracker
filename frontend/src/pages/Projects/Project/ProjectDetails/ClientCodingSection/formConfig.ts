@@ -5,7 +5,6 @@ import { IEditField } from "types";
 import { useParams } from "react-router";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
-  
   const { projectId } = useParams();
 
   const readFields = !query
@@ -92,7 +91,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Responsibility Centre",
       fieldName: "responsibility_centre",
       fieldType: "singleText",
-    },  
+    },
     {
       width: "half",
       fieldLabel: "Client Amount",

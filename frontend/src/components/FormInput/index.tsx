@@ -18,13 +18,13 @@ export const FormInput = ({
   fieldName,
   fieldType,
   fieldLabel,
-  handleChange = () => { },
+  handleChange = () => {},
   width,
   pickerName,
   tableName,
   projectId,
   contractId,
-  required
+  required,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
