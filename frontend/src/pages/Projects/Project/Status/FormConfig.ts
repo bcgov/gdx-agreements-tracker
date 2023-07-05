@@ -68,7 +68,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Phase",
       width: "half",
       pickerName: "project_phase_option",
-      required: true
+      required: true,
     },
     {
       fieldName: "health_id",
@@ -76,7 +76,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Overall Project Health",
       width: "half",
       pickerName: "health_status_option",
-      required: true
+      required: true,
     },
     {
       fieldName: "reported_by_contact_id",
@@ -84,7 +84,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Reported By",
       width: "half",
       pickerName: "contact_option",
-      required: true
+      required: true,
     },
     {
       fieldName: "schedule_health_id",
@@ -98,7 +98,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "date",
       fieldLabel: "Start Date",
       width: "half",
-      required: true
+      required: true,
     },
     {
       fieldName: "budget_health_id",
@@ -112,7 +112,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "multiText",
       fieldLabel: "General and progress comments this period",
       width: "half",
-      required: true
+      required: true,
     },
     {
       fieldName: "team_health_id",
