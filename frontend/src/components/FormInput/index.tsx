@@ -24,6 +24,7 @@ export const FormInput = ({
   tableName,
   projectId,
   contractId,
+  required,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -52,6 +53,7 @@ export const FormInput = ({
         <GridItem width={width}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Field
+              required={required}
               as={DatePicker}
               id={fieldName}
               label={fieldLabel}
@@ -72,6 +74,7 @@ export const FormInput = ({
       return (
         <GridItem width={width}>
           <Field
+            required={required}
             fullWidth={true}
             as={TextField}
             name={fieldName}
@@ -88,6 +91,7 @@ export const FormInput = ({
       return (
         <GridItem width={width}>
           <Field
+            required={required}
             fullWidth={true}
             as={TextField}
             name={fieldName}
@@ -104,6 +108,7 @@ export const FormInput = ({
       return (
         <GridItem width={width}>
           <Field
+            required={required}
             as={GDXSelect}
             onChange={(newValue: string) => {
               setFieldValue?.(fieldName, newValue);
@@ -119,7 +124,9 @@ export const FormInput = ({
     case "multiselect":
       return (
         <GridItem width={width}>
-          <GDXMultiselect
+          <Field
+            as={GDXMultiselect}
+            required={required}
             handleChange={(newValue: string) => {
               handleChange(newValue);
             }}
@@ -137,6 +144,7 @@ export const FormInput = ({
       return (
         <GridItem width={width}>
           <Field
+            required={required}
             fullWidth={true}
             as={TextField}
             type={"number"}

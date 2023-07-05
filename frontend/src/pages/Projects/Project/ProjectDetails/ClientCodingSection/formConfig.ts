@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -74,6 +77,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "contact_id",
       fieldType: "select",
       pickerName: "contact_option",
+      required: true,
     },
     {
       width: "half",
@@ -90,12 +94,6 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
-      fieldLabel: "Project Code",
-      fieldName: "project_code",
-      fieldType: "singleText",
-    },
-    {
-      width: "half",
       fieldLabel: "Client Amount",
       fieldName: "client_amount",
       fieldType: "number",
@@ -106,16 +104,16 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     program_area: "",
     service_line: "",
     client: "",
-    contact_id: "",
+    contact_id: null,
     expense_authority_name: "",
     stob: "",
     responsibility_centre: "",
-    project_code: "",
+    project_code: projectId,
     client_amount: 0,
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
-  const postUrl = `/projects/${query?.data?.data?.data?.project_id}/client-coding`;
+  const postUrl = `/projects/${projectId}/client-coding`;
   const updateUrl = `/projects/client-coding/${query?.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };

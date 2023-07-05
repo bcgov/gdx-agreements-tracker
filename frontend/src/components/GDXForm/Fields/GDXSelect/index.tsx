@@ -14,6 +14,7 @@ export const GDXSelect: FC<IPickerProps> = ({
   fieldLabel,
   onChange,
   pickerData,
+  required,
 }: IPickerProps) => {
   return (
     <>
@@ -29,6 +30,7 @@ export const GDXSelect: FC<IPickerProps> = ({
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField
+              required={required}
               label={fieldLabel ? fieldLabel : pickerData?.title}
               name={fieldName}
               {...params}
