@@ -161,6 +161,7 @@ const queries = {
 };
 
 module.exports = {
+  required: ["fiscal"],
   getAll: async (query) => {
     try {
       const { fiscal } = query;
@@ -180,7 +181,6 @@ module.exports = {
         Model error!:
         query parameter received: ${JSON.stringify(query)}
         **** ${error} ****
-
         returning NULL!.
       `);
 

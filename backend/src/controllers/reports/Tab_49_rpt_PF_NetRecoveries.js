@@ -19,8 +19,9 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
-  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
+    await controller.userRequires(request, "PMO-Reports-Capability", reply);
+    controller.validate(request.query, reply, model.required);
     // Get the data from the database.
     const [{ fiscal_year }] = await model.getFiscalYear(request.query);
     const report = await model.Tab_49_rpt_PF_NetRecoveries(request.query);
@@ -53,9 +54,10 @@ controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
       return result;
     }
   } catch (err) {
-    console.error(`ERROR: ${err}`);
-    reply.code(500);
-    return { message: `There was a problem looking up this Project rollup Report.` };
+    // console.error(`ERROR: ${err}`);
+    // reply.code(500);
+    // return { message: `There was a problem looking up this Project rollup Report.` };
+    controller.failedQuery(reply, err.message, what);
   }
 };
 

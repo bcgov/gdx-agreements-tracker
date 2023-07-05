@@ -379,7 +379,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "GDX Project Net Recoveries",
         description:
           "Project name and number, total recoveries, total expenses, net recoveries, recovered to date, remaining recoveries.",
-        parameters: ["portfolio"],
+        parameters: ["portfolio", "fiscal"],
         exportPDF: true,
         exportXLSX: false,
       },

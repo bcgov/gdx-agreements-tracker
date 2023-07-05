@@ -1,6 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-
+const required = ["fiscal", "portfolio"];
 const handleParams = (query, requestParams) => {
   if (requestParams.portfolio) {
     const portfolio = requestParams.portfolio;
@@ -283,4 +283,5 @@ module.exports = {
   getFiscalYear,
   Tab_49_rpt_PF_NetRecoveries,
   Tab_49_totals,
+  required,
 };
