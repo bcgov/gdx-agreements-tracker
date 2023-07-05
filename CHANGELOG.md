@@ -1,4 +1,12 @@
 ## Developer Changelog
+**July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319)**
+- Frontend
+  - Update frontend report url to /report/${report_name}
+- Backend
+  - Create universal route for all controllers
+  - Update all reports to use new url /report/${report_name}
+  - Added general route validator.
+
 **July 4, 2023 - [DESCW-1219](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1219)**
 - Frontend
   - allow template type: "docx" to export
