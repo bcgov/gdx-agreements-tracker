@@ -6,7 +6,7 @@ import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
-import { FormConfig } from "./FormConfig";
+import { FormConfig } from "./formConfig";
 
 export const ClientCodingSection = () => {
   const { projectId } = useParams();
