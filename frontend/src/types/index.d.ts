@@ -94,6 +94,7 @@ export interface IPickerProps {
     name: string;
     title: string;
   };
+  required?: boolean;
 }
 
 // Picker options for multiselect inputs.
@@ -232,6 +233,7 @@ export interface IEditField {
   projectId?: number | undefined;
   contractId?: number | undefined;
   pickerName?: string;
+  required?: boolean
 }
 
 export interface IReadField {
@@ -259,6 +261,7 @@ export interface IFormInput {
   pickerName?: string;
   projectId?: number | undefined;
   contractId?: number | undefined;
+  required?:boolean
 }
 
 export interface IRadioGroup {

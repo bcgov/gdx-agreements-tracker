@@ -33,6 +33,7 @@ export const InputForm = ({
                   pickerName,
                   projectId,
                   contractId,
+                  required
                 }) => {
                   return (
                     <FormInput
@@ -48,6 +49,7 @@ export const InputForm = ({
                       pickerName={pickerName}
                       projectId={projectId}
                       contractId={contractId}
+                      required={required}
                     />
                   );
                 }
