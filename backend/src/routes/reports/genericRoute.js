@@ -1,5 +1,5 @@
 const getControllerFrom = require("@controllers/reports/genericReportController");
-const { getAll } = require("@validators/report/tab50");
+const { getReport } = require("@validators/report/index.js");
 const controller = getControllerFrom();
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
     fastify.route({
       method: "GET",
       url: `/report/:type`,
-      schema: getAll,
+      schema: getReport,
       onRequest: controller.reportHandler,
       handler: controller.getReport,
     });

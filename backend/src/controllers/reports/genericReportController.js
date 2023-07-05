@@ -53,7 +53,7 @@ const what = { single: "report", plural: "reports" };
 /**
  * Retrieves a controller from the route.
  *
- * @returns {object}          - The controller object.
+ * @returns {object} - The controller object.
  */
 const getControllerFrom = () => {
   const getReport = getReportAndSetRequestHeaders();
@@ -68,7 +68,7 @@ const getControllerFrom = () => {
    * @throws {Error} - If an unexpected error occurs during the report generation process.
    */
   const reportHandler = async (request, reply) => {
-    let filename = request.params?.type
+    let filename = request.params?.type;
     const model = require(`@models/reports/${filename}`);
     const controller = useController(model, what);
     controller.userRequires(request, "PMO-Reports-Capability", reply);
