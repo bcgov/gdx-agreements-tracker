@@ -1,5 +1,12 @@
 ## Developer Changelog
-**July 6, 2023 - [DESCW-1315](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1315)**
+
+**July 5, 2023 - [DESCW-585](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-585)**
+- Frontend
+  - fixed issue preventing client coding from saving
+  - added optional required prop to input fields on all forms
+
+
+**July 5, 2023 - [DESCW-1315](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1315)**
 - Backend
   - add basic validation to prevent db query without proper variables
   - updated general controller error logic.
