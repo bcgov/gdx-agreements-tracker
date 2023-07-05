@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -65,6 +68,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Phase",
       width: "half",
       pickerName: "project_phase_option",
+      required: true
     },
     {
       fieldName: "health_id",
@@ -72,6 +76,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Overall Project Health",
       width: "half",
       pickerName: "health_status_option",
+      required: true
     },
     {
       fieldName: "reported_by_contact_id",
@@ -79,6 +84,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Reported By",
       width: "half",
       pickerName: "contact_option",
+      required: true
     },
     {
       fieldName: "schedule_health_id",
@@ -92,6 +98,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "date",
       fieldLabel: "Start Date",
       width: "half",
+      required: true
     },
     {
       fieldName: "budget_health_id",
@@ -105,6 +112,7 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "multiText",
       fieldLabel: "General and progress comments this period",
       width: "half",
+      required: true
     },
     {
       fieldName: "team_health_id",
@@ -134,15 +142,17 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   const initialValues = {
-    program_area: "",
-    service_line: "",
-    client: "",
-    contact_id: "",
-    expense_authority_name: "",
-    stob: "",
-    responsibility_centre: "",
-    project_code: "",
-    client_amount: 0,
+    identified_risk: null,
+    forecast_and_next_steps: null,
+    issues_and_decisions: null,
+    general_progress_comments: null,
+    budget_health_id: null,
+    status_date: null,
+    schedule_health_id: null,
+    reported_by_contact_id: null,
+    health_id: null,
+    project_phase_id: null,
+    project_id: Number(projectId),
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
