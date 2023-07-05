@@ -13,9 +13,11 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const failedQuery = (reply, error, what) => {
-    reply.code(500);
-    log.error(error);
-    return { message: error, item: what.plural };
+    if (reply.statusCode <= 299) {
+      reply.code(500);
+    }
+    log.warn(error);
+    reply.send({ message: error, item: what.plural });
   };
 
   /**
@@ -27,8 +29,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    */
   const noQuery = (reply, message) => {
     reply.code(404);
-    log.warn(message);
-    return { message };
+    throw new Error(message);
   };
 
   /**
@@ -41,8 +42,28 @@ const useController = (model, what, capabilityPrefix = null) => {
   const userRequires = async (request, role, reply) => {
     const roles = await getRealmRoles(request);
     if (!roles.includes(role)) {
+      log.warn(`User doesn't have required role ${role}`);
+      log.info(roles);
       reply.code(401);
+      throw new Error("User doesn't have required role");
     }
+  };
+
+  /**
+   * This adds a simple validator, for now it is just checking if it is defined, and has a value.
+   *
+   * @param {object} query    FastifyRequest is an instance of the standard http or http2 request objects.
+   * @param {string} reply    The fastify reply object
+   * @param {Array}  requires The array of required fields
+   */
+  const validate = (query, reply, requires) => {
+    requires.forEach((value) => {
+      if (undefined === query[value] || 0 === query[value].length) {
+        const warningMessage = `One or more Parameters is undefined or not valid [${requires.toString()}]`;
+        reply.code(400);
+        throw new Error(warningMessage);
+      }
+    });
   };
 
   /**
@@ -165,6 +186,7 @@ const useController = (model, what, capabilityPrefix = null) => {
     failedQuery,
     noQuery,
     userRequires,
+    validate,
   };
 };
 

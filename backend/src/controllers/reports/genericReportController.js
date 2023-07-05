@@ -71,26 +71,21 @@ const getControllerFrom = () => {
     let filename = request.params?.type;
     const model = require(`@models/reports/${filename}`);
     const controller = useController(model, what);
-    controller.userRequires(request, "PMO-Reports-Capability", reply);
 
     try {
+      await controller.userRequires(request, "PMO-Reports-Capability", reply);
+      controller.validate(request.query, reply, model.required);
       const { query } = request;
       const { templateType } = validateQueryParameters(query);
       const modifiedGetReport = getReportAndSetRequestHeaders(templateType);
       controller.getReport = modifiedGetReport;
-
-      const result = (await getDataFromModel(query, model)) ?? null;
-
-      if (null === result) {
-        reply.code(404);
-        return controller.noQuery(reply, `There was a problem looking up this Report.`);
-      } else {
-        await sendToCdogs({ result, filename, templateType, request });
-        return result;
-      }
+      /** Gets the query. */
+      const result = (await getDataFromModel(query, model, reply)) ?? null;
+      /** Converts template and data to report, and attaches the pdf blob to result */
+      await sendToCdogs({ result, filename, templateType, request });
+      return result;
     } catch (err) {
-      reply.code(500);
-      return controller.failedQuery(reply, err, what);
+      controller.failedQuery(reply, err, what);
     }
   };
 
@@ -105,21 +100,21 @@ const getControllerFrom = () => {
  *
  * @param   {string|Array[string]|number} query - The parameters for retrieving data.
  * @param   {object}                      model - The model to retrieve data from.
+ * @param   {object}                      reply - The reply object used to send the response.
  * @returns {Promise}                           - A promise that resolves with the retrieved data.
  */
-const getDataFromModel = async (query, model) => {
+const getDataFromModel = async (query, model, reply) => {
   /* The query we are passing to the model is a list of
    * query parameters we forward to the route from the front end dropdown menus.
    * most reports will either have query.fiscal (the fiscal year), query.date (date for the report period)
    *  or query.portfolio (portfolio for financial reports that summarize expenses costs, and recoveries)
    */
   const result = await model.getAll(query);
-  return result
-    ? {
-        date: await getCurrentDate(),
-        ...result,
-      }
-    : null;
+  if (null === result) {
+    reply.code(404);
+    throw new Error(`There was a problem looking up this Report.`);
+  }
+  return { date: await getCurrentDate(), ...result };
 };
 
 /**
