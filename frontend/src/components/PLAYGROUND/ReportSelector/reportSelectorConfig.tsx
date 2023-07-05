@@ -161,24 +161,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportPDF: true,
         exportXLSX: true,
       },
-      {
-        value: "Tab_49_rpt_PF_NetRecoveries",
-        label: "GDX Project Net Recoveries",
-        description:
-          "Run for a specific fiscal, grouped by recovery area and sorted by Project #. Shows total recoveries, expenses, net recoveries, recovered-to-date and remaining recoveries for each project.",
-        parameters: ["fiscal"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
-        label: "Net Recovery Summary By Quarter",
-        description:
-          "Run for a specific fiscal, grouped by Portfolio. Shows both Net and Gross recoveries per portfolio, and includes quarterly recoveries as well as fiscal year totals for expenses.",
-        parameters: ["fiscal"],
-        exportPDF: true,
-        exportXLSX: true,
-      },
     ],
   },
   {
@@ -217,15 +199,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Registered by Fiscal",
         description:
           "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
-        label: "Projects Lessons Learned",
-        description:
-          "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
@@ -382,6 +355,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: ["portfolio", "fiscal"],
         exportPDF: true,
         exportXLSX: false,
+      },
+      {
+        value: "Tab_50_rpt_PF_NetRecoverySummaryByQuarter",
+        label: "Net Recovery Summary By Quarter",
+        description:
+          "Run for a specific fiscal, grouped by Portfolio. Shows both Net and Gross recoveries per portfolio, and includes quarterly recoveries as well as fiscal year totals for expenses.",
+        parameters: ["fiscal"],
+        exportPDF: true,
+        exportXLSX: true,
       },
       {
         value: "Tab_51_rpt_PF_ADIExport",

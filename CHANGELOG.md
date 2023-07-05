@@ -1,5 +1,16 @@
 ## Developer Changelog
 
+**July 5, 2023 - [DESCW-1219](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1219)**
+- Frontend
+  - adjust styling on header, table, and footers
+  - replace graphic in header
+  - replace footer contents with current_date where applicable
+  - switch to bc sans font
+  - use report_date from modified controller (uses getCurrentDate())
+- Backend
+  - add report_date to controller output
+
+
 **July 5, 2023 - [DESCW-585](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-585)**
 - Frontend
   - fixed issue preventing client coding from saving

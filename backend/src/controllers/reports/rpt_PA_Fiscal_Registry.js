@@ -8,7 +8,7 @@ const _ = require("lodash");
 
 // Template and data reading
 const cdogs = useCommonComponents("cdogs");
-const { getReport, getDocumentApiBody, pdfConfig, groupByProperty } = utils;
+const { getReport, getDocumentApiBody, pdfConfig, groupByProperty, getCurrentDate } = utils;
 
 controller.getReport = getReport;
 
@@ -40,6 +40,7 @@ controller.rpt_PA_Fiscal_Registry = async (request, reply) => {
     const result = {
       fiscalRegistry: fiscalRegistryBudgetTotals,
       total: reportTotalRow,
+      report_date: await getCurrentDate(),
     };
 
     const body = await getDocumentApiBody(result, "rpt_PA_Fiscal_Registry.docx");
