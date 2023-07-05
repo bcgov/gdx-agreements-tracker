@@ -41,17 +41,17 @@ const routes = [
   },
   {
     method: "GET",
-    url: `/${what}/projects/project-dashboard`,
+    url: `/${what}/project-dashboard`,
     handler: controller.getProjectDashboardReportOnRequest,
   },
   {
     method: "GET",
-    url: `/${what}/projects/active-projects`,
+    url: `/${what}/active-projects`,
     handler: controller.getActiveProjectsReportOnRequest,
   },
   {
     method: "GET",
-    url: `/${what}/projects/project-lessons-learned`,
+    url: `/${what}/project-lessons-learned`,
     handler: controller.getProjectLessonsLearnedReportOnRequest,
   },
 ];

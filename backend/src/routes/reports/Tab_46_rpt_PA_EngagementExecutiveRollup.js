@@ -1,11 +1,12 @@
 const controller = require("@controllers/reports/Tab_46_rpt_PA_EngagementExecutiveRollup.js");
-// const validators = require("@validators/report");
+const { getReport } = require("@validators/report/index.js");
 const what = "report";
 
 const routes = [
   {
     method: "GET",
-    url: `/${what}/projects/Tab_46_rpt_PA_EngagementExecutiveRollup`,
+    url: `/${what}/Tab_46_rpt_PA_EngagementExecutiveRollup`,
+    schema: getReport,
     onRequest: controller.Tab_46_rpt_PA_EngagementExecutiveRollup,
     handler: controller.getReport,
   },

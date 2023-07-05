@@ -1,11 +1,12 @@
 const controller = require("@controllers/reports/Tab_49_rpt_PF_NetRecoveries.js");
-// const validators = require("@validators/report");
+const { getReport } = require("@validators/report/index.js");
 const what = "report";
 
 const routes = [
   {
     method: "GET",
-    url: `/${what}/projects/Tab_49_rpt_PF_NetRecoveries`,
+    url: `/${what}/Tab_49_rpt_PF_NetRecoveries`,
+    schema: getReport,
     onRequest: controller.Tab_49_rpt_PF_NetRecoveries,
     handler: controller.getReport,
   },

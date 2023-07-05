@@ -1,11 +1,12 @@
 const controller = require("@controllers/reports/Tab_25_rpt_PA_LessonsLearnedbyCategory.js");
-// const validators = require("@validators/report");
+const { getReport } = require("@validators/report/index.js");
 const what = "report";
 
 const routes = [
   {
     method: "GET",
-    url: `/${what}/projects/Tab_25_rpt_PA_LessonsLearnedbyCategory`,
+    url: `/${what}/Tab_25_rpt_PA_LessonsLearnedbyCategory`,
+    schema: getReport,
     onRequest: controller.Tab_25_rpt_PA_LessonsLearnedbyCategory,
     handler: controller.getReport,
   },
