@@ -158,7 +158,7 @@ export const ReportSelect = () => {
       }
       // This will need to change as more report types are added
       if (routeParam) {
-        url = `report/projects/${routeParam}/${reportUri}`;
+        url = `report/${routeParam}/${reportUri}`;
       }
       axiosAll()
         .get(url, {

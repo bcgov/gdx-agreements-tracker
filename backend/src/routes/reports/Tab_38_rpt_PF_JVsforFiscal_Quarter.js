@@ -1,11 +1,12 @@
 const controller = require("@controllers/reports/Tab_38_rpt_PF_JVsforFiscal_Quarter.js");
-// const validators = require("@validators/report");
+const { getReport } = require("@validators/report/index.js");
 const what = "report";
 
 const routes = [
   {
     method: "GET",
-    url: `/${what}/projects/Tab_38_rpt_PF_JVsforFiscal_Quarter`,
+    url: `/${what}/Tab_38_rpt_PF_JVsforFiscal_Quarter`,
+    schema: getReport,
     onRequest: controller.Tab_38_rpt_PF_JVsforFiscal_Quarter,
     handler: controller.getReport,
   },

@@ -1,11 +1,12 @@
 const controller = require("@controllers/reports/rpt_PA_Fiscal_Registry.js");
-// const validators = require("@validators/report");
+const { getReport } = require("@validators/report/index.js");
 const what = "report";
 
 const routes = [
   {
     method: "GET",
-    url: `/${what}/projects/rpt_PA_Fiscal_Registry`,
+    url: `/${what}/rpt_PA_Fiscal_Registry`,
+    schema: getReport,
     onRequest: controller.rpt_PA_Fiscal_Registry,
     handler: controller.getReport,
   },
