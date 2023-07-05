@@ -88,25 +88,25 @@ const Tab_49_rpt_PF_NetRecoveries = (requestParams) => {
             END )`
       ),
       less_expenses: knex.raw(
-        `(
+        `( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
             ELSE 0::money
             END
         ) +
-        (
+        ( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q2_amount
             ELSE 0::money
             END
         ) +
-        (
+        ( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q3_amount
             ELSE 0::money
             END
         ) +
-        (
+        ( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q4_amount
             ELSE 0::money
@@ -114,25 +114,25 @@ const Tab_49_rpt_PF_NetRecoveries = (requestParams) => {
         )`
       ),
       net_recoveries: knex.raw(
-        `pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount - ( (
+        `pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount - ( ( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
             ELSE 0::money
             END
         ) +
-        (
+        ( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q2_amount
             ELSE 0::money
             END
         ) +
-        (
+        ( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q3_amount
             ELSE 0::money
             END
         ) +
-        (
+        ( 
           CASE
             WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q4_amount
             ELSE 0::money
@@ -145,6 +145,8 @@ const Tab_49_rpt_PF_NetRecoveries = (requestParams) => {
     .leftJoin("data.project as p", "pd.project_id", "p.id")
     .leftJoin("data.fiscal_year as f", "pd.fiscal", "f.id")
     .leftJoin("data.portfolio as po", "p.portfolio_id", "po.id")
+
+    .where("p.fiscal", requestParams.fiscal)
 
     .groupBy(
       "portfolio_id",
@@ -174,25 +176,25 @@ const Tab_49_totals = (requestParams) => {
         pb.q4_amount )`
       ),
       totals_expenses: knex.raw(
-        `(
+        `( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
           ELSE 0::money
           END
       ) +
-      (
+      ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q2_amount
           ELSE 0::money
           END
       ) +
-      (
+      ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q3_amount
           ELSE 0::money
           END
       ) +
-      (
+      ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q4_amount
           ELSE 0::money
@@ -200,25 +202,25 @@ const Tab_49_totals = (requestParams) => {
       )`
       ),
       totals_net: knex.raw(
-        `pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount - ( (
+        `pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount - ( ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q1_amount
           ELSE 0::money
           END
       ) +
-      (
+      ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q2_amount
           ELSE 0::money
           END
       ) +
-      (
+      ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q3_amount
           ELSE 0::money
           END
       ) +
-      (
+      ( 
         CASE
           WHEN left( pb.stob, 2 ) IN ( '57', '65', '63', '60' ) THEN pb.q4_amount
           ELSE 0::money
@@ -268,6 +270,8 @@ const Tab_49_totals = (requestParams) => {
     .leftJoin("data.project as p", "pd.project_id", "p.id")
     .leftJoin("data.fiscal_year as f", "pd.fiscal", "f.id")
     .leftJoin("data.portfolio as po", "p.portfolio_id", "po.id")
+
+    .where("p.fiscal", requestParams.fiscal)
 
     .groupBy("portfolio_name");
 
