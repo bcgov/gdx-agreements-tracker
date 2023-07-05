@@ -1,17 +1,48 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
+const fiscalYear = (fiscal) => {
+  const query = knex().raw();
+  return query;
+}
+
+const report = (fiscal) => {
+  const query = knex().raw();
+  return query;
+}
+
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
  *
  * @returns {any[]}
  */
-const Tab_47_rpt_PA_EngagementStatusSummary = () => {
-  const query = knex().raw();
+const getAll = () => {
+  async (query) => {
+    try {
+      const { fiscal } = query;
+      const [[{ fiscal_year }], report ] = await Promise.all([
+        fiscalYear(fiscal),
+        report(fiscal),
+      ]);
 
-  return query;
+      return {
+        fiscal: fiscal_year,
+        report,
+      };
+    } catch (error) {
+      console.error(`
+        Model error!:
+        query parameter received: ${JSON.stringify(query)}
+        **** ${error} ****
+        returning NULL!.
+      `);
+
+      return null;
+    }
+  },
 };
 
 module.exports = {
-  Tab_47_rpt_PA_EngagementStatusSummary,
+  required: ["fiscal"],
+  getAll
 };
