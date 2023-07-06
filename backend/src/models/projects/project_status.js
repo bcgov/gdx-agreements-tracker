@@ -89,7 +89,6 @@ const updateOne = (body, id) => {
 
 // Add one.
 const addOne = (newStatus) => {
-  console.log('newStatus', newStatus)
   return knex(projectStatusTable).insert(newStatus);
 };
 
