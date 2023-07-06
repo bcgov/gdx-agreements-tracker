@@ -1,17 +1,16 @@
-const dbConnection = require("@database/databaseConnection");
-const { knex } = dbConnection();
+//const dbConnection = require("@database/databaseConnection");
+//const { knex } = dbConnection();
 
-/**
- * Gets data for the Divisional Project Reports - Project Dashboard report.
- *
- * @returns {any[]}
- */
-const Tab_31_rpt_PA_ProjectswithContracts = () => {
-  const query = knex().raw();
-
+const getReport = (portfolio) => {
+  const query = "removeme"; //knex().raw();
   return query;
 };
 
 module.exports = {
-  Tab_31_rpt_PA_ProjectswithContracts,
+  required: ["portfolio"],
+  getAll: async (query) => {
+    const { portfolio } = query;
+    const [report] = await Promise.all([getReport(portfolio)]);
+    return { report };
+  },
 };

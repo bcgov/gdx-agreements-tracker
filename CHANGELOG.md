@@ -1,4 +1,8 @@
 ## Developer Changelog
+**July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319)**
+- Backend
+  - removed report routes
+  - update report models
 
 **July 5, 2023 - [DESCW-1219](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1219)**
 - Frontend

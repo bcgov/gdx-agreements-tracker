@@ -80,9 +80,17 @@ const getControllerFrom = () => {
       const modifiedGetReport = getReportAndSetRequestHeaders(templateType);
       controller.getReport = modifiedGetReport;
       /** Gets the query. */
-      const result = (await getDataFromModel(query, model, reply)) ?? null;
+      const result = await getDataFromModel(query, model, reply);
+      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+      // todo: Remove conditional logic, once all reports are completed
+      if ("removeme" !== result?.report) {
+        await sendToCdogs({ result, filename, templateType, request });
+      } else {
+        reply.code(418);
+        throw new Error("Report model not created");
+      }
       /** Converts template and data to report, and attaches the pdf blob to result */
-      await sendToCdogs({ result, filename, templateType, request });
+
       return result;
     } catch (err) {
       controller.failedQuery(reply, err, what);
