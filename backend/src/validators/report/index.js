@@ -11,8 +11,8 @@ const getReport = {
     .required(["templateType", "category", "exportType"]),
   headers: S.object().prop("Authorization", S.string().minLength(1500)).required(["Authorization"]),
   response: {
-    200: S.object(),
-    400: S.object().prop("code", S.string()).prop("error", S.string()).prop("message", S.string()),
+    "2xx": S.object(),
+    "4xx": S.object().prop("data", S.object().prop("message", S.string()).prop("item", S.string())),
   },
 };
 
