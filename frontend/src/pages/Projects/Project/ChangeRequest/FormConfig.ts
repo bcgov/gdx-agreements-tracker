@@ -2,8 +2,10 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
   const readFields = !query
     ? []
     : [
@@ -31,18 +33,21 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Fiscal Year",
       width: "half",
       pickerName: "fiscal_year_option",
+      required: true
     },
     {
       fieldName: "initiation_date",
       fieldType: "date",
       fieldLabel: "Initiation Date",
       width: "half",
+      required: true
     },
     {
       fieldName: "cr_contact",
       fieldType: "singleText",
       fieldLabel: "CR Contact",
       width: "half",
+      required: true
     },
     {
       fieldName: "initiated_by",
@@ -50,28 +55,32 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Initiated By",
       width: "half",
       tableName: "change_request",
+      required: true
     },
     {
       fieldName: "approval_date",
       fieldType: "date",
       fieldLabel: "Approval Date",
       width: "half",
+      required: true
     },
     {
       fieldName: "summary",
       fieldType: "multiText",
       fieldLabel: "Summary",
       width: "full",
+      required: true
     },
   ];
 
   const initialValues = {
-    fiscal_year: "",
-    initiation_date: "",
-    cr_contact: "",
-    initiated_by: "",
-    approval_date: "",
-    summary: "",
+    fiscal_year: null,
+    initiation_date: null,
+    cr_contact: null,
+    initiated_by: null,
+    approval_date: null,
+    summary: null,
+    link_id: projectId
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
