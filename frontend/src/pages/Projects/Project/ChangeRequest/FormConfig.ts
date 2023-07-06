@@ -33,21 +33,21 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Fiscal Year",
       width: "half",
       pickerName: "fiscal_year_option",
-      required: true
+      required: true,
     },
     {
       fieldName: "initiation_date",
       fieldType: "date",
       fieldLabel: "Initiation Date",
       width: "half",
-      required: true
+      required: true,
     },
     {
       fieldName: "cr_contact",
       fieldType: "singleText",
       fieldLabel: "CR Contact",
       width: "half",
-      required: true
+      required: true,
     },
     {
       fieldName: "initiated_by",
@@ -55,21 +55,21 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Initiated By",
       width: "half",
       tableName: "change_request",
-      required: true
+      required: true,
     },
     {
       fieldName: "approval_date",
       fieldType: "date",
       fieldLabel: "Approval Date",
       width: "half",
-      required: true
+      required: true,
     },
     {
       fieldName: "summary",
       fieldType: "multiText",
       fieldLabel: "Summary",
       width: "full",
-      required: true
+      required: true,
     },
   ];
 
@@ -80,7 +80,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     initiated_by: null,
     approval_date: null,
     summary: null,
-    link_id: projectId
+    link_id: projectId,
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
