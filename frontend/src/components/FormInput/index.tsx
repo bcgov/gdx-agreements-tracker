@@ -53,7 +53,6 @@ export const FormInput = ({
         <GridItem width={width}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Field
-              required={required}
               as={DatePicker}
               id={fieldName}
               label={fieldLabel}
@@ -65,7 +64,9 @@ export const FormInput = ({
                 setFieldValue?.(fieldName, formatDate);
               }}
               role={`${fieldName}_input`}
-              renderInput={(params: Object) => <TextField {...params} fullWidth={true} />}
+              renderInput={(params: Object) => (
+                <TextField {...params} fullWidth={true} required={required} />
+              )}
             />
           </LocalizationProvider>
         </GridItem>
