@@ -5,7 +5,7 @@ import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 
 export const LessonsLearned = () => {
   const { projectId } = useParams();
@@ -29,7 +29,7 @@ export const LessonsLearned = () => {
       tableConfig={tableConfig()}
       tableData={tableData}
       formControls={formControls}
-      formConfig={formConfig}
+      formConfig={FormConfig}
       formData={formData}
     />
   );
