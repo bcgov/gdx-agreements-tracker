@@ -5,7 +5,7 @@ import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 
 export const Billing = () => {
   const { projectId } = useParams();
@@ -23,13 +23,14 @@ export const Billing = () => {
     url: `/jv/${formControls.currentRowData?.id}`,
     tableName,
   });
+
   return (
     <TableWithModal
       tableName={tableName}
       tableConfig={tableConfig()}
       tableData={tableData}
       formControls={formControls}
-      formConfig={formConfig}
+      formConfig={FormConfig}
       formData={formData}
     />
   );

@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -45,18 +48,21 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Journal Voucher Number",
       fieldType: "singleText",
       width: "full",
+      required: true,
     },
     {
       fieldName: "billed_date",
       fieldLabel: "Billed Date",
       fieldType: "date",
       width: "full",
+      required: true,
     },
     {
       fieldName: "amount",
       fieldLabel: "Amount",
       fieldType: "singleText",
       width: "full",
+      required: true,
     },
     {
       fieldName: "fiscal_year_id",
@@ -64,12 +70,14 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "select",
       pickerName: "fiscal_year_option",
       width: "half",
+      required: true,
     },
     {
       fieldName: "quarter",
       fieldLabel: "Quarter",
       fieldType: "number",
       width: "half",
+      required: true,
     },
     {
       fieldName: "client_coding_id",
@@ -78,17 +86,18 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       pickerName: "client_coding_option",
       projectId: query?.data?.data?.data?.project_id,
       width: "half",
+      required: true,
     },
   ];
 
   const initialValues = {
-    jv_number: "",
+    jv_number: null,
     billed_date: null,
-    amount: 0,
+    amount: null,
     fiscal_year_id: null,
     client_coding_id: null,
-    quarter: 1,
-    project_id: query?.data?.data?.data?.project_id,
+    quarter: null,
+    project_id: projectId,
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
