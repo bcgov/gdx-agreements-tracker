@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router";
 
-export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -57,19 +60,17 @@ export const formConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
   ];
 
-  const project_id = query?.data?.data?.data?.project_id;
-
   const initialValues = {
     lesson_category_id: "",
     lesson_sub_category: "",
     lesson: "",
     recommendations: "",
-    project_id: project_id,
+    project_id: Number(projectId),
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
   const postUrl = `/lessons-learned`;
-  const updateUrl = `/projects/${project_id}/lessons-learned/${query?.data?.data?.data?.id}`;
+  const updateUrl = `/projects/${Number(projectId)}/lessons-learned/${query?.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };

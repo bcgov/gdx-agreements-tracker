@@ -54,7 +54,6 @@ export const FormRenderer = ({
   } = useSnackbar();
 
   const { formType, handleFormType, handleClose } = formControls;
-
   const handleOnSubmit = async (values: unknown) => {
     try {
       if ("edit" === formType || query?.data?.data?.dbRowLock.currentUser) {

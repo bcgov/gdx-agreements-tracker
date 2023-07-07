@@ -1,7 +1,7 @@
 ## Developer Changelog**July 7, 2023 - [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
 - Frontend
   - fixed issue preventing project billing from saving
-
+  - fixed issue preventing project lesson learned from saving
 
 **July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319) [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
 - Frontend
