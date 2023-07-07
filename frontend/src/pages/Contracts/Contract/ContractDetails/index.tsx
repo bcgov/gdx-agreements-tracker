@@ -2,6 +2,8 @@ import { FormRenderer } from "components/FormRenderer";
 import { useFormData } from "hooks/useFormData";
 import { useParams } from "react-router";
 import { formFields } from "./formFields";
+import { IFormControls } from "types";
+import { useFormControls } from "hooks";
 
 /**
  * This is a TypeScript React component that renders a form for registering a project and uses hooks to
@@ -19,9 +21,10 @@ export const ContractDetails = () => {
   });
 
   const { readFields, editFields } = formFields(query.data);
-
+  const formControls: IFormControls = useFormControls();
   return (
     <FormRenderer
+      formControls={formControls}
       tableName={tableName}
       readFields={readFields}
       editFields={editFields}
