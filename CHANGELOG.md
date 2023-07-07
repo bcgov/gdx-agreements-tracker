@@ -1,5 +1,7 @@
 ## Developer Changelog
-**July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319)**
+**July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319) [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
+- Frontend
+  - fixed issue preventing project change request from saving
 - Backend
   - removed report routes
   - update report models

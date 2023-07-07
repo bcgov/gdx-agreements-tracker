@@ -3,10 +3,10 @@ import { GridColDef, GridInitialState } from "@mui/x-data-grid";
 export const tableConfig = () => {
   const defaultFlex = 3;
   const tableColumns: GridColDef[] = [
-    { field: "init_date", headerName: "init_date", flex: defaultFlex },
-    { field: "summary", headerName: "summary", flex: defaultFlex },
-    { field: "types", headerName: "types", flex: defaultFlex },
-    { field: "version", headerName: "version", flex: defaultFlex },
+    { field: "init_date", headerName: "Initiation Date", flex: defaultFlex },
+    { field: "summary", headerName: "Summary", flex: defaultFlex },
+    { field: "types", headerName: "Types", flex: defaultFlex },
+    { field: "version", headerName: "Version", flex: defaultFlex },
   ];
 
   const initialState = {
