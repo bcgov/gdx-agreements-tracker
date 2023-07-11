@@ -173,8 +173,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Project Name, Breakdown for each Quarter and Total Recoveries to date for fiscal.",
         parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_21_rpt_PA_Billing-Historical",
