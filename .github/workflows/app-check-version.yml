@@ -7,7 +7,7 @@ on:
           - 'frontend/**'
           - 'backend/**'
 jobs:
-  bump-version:
+  check-package-version:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -16,4 +16,4 @@ jobs:
       - name: Check frontend package.json changed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr diff ${{ github.event.pull_request.number }} --name-only | grep frontend/package.json -c
+        run: gh pr diff ${{ github.event.pull_request.number }} --name-only | grep backend/package.json -c
