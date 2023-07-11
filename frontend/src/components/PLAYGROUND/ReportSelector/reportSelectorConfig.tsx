@@ -172,7 +172,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Billed",
         description:
           "Project Name, Breakdown for each Quarter and Total Recoveries to date for fiscal.",
-        parameters: ["portfolio"],
+        parameters: ["fiscal"],
         exportPDF: false,
         exportXLSX: true,
       },
