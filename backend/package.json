@@ -34,8 +34,8 @@
   "author": "Shawn Turple",
   "license": "Apache-2.0",
   "dependencies": {
-    "@fastify/auth": "^4.2.0",
-    "@fastify/cors": "^8.2.0",
+    "@fastify/auth": "^4.3.0",
+    "@fastify/cors": "^8.3.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

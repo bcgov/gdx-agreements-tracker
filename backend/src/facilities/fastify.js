@@ -1,6 +1,6 @@
 require("dotenv").config({ path: "../.env" });
 const allRoutes = require("@routes/index.js");
-const { getBearerTokenFromRequest, verifyToken } = require("../facilities/keycloak");
+const { getBearerTokenFromRequest, verifyToken, getRealmRoles } = require("@facilities/keycloak");
 const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");
@@ -8,10 +8,60 @@ const fastifyAuth = require("@fastify/auth");
 const fastifyPayload = require("../plugins/fastifyPayload");
 
 /**
+ * Verify jWT, to verify auth token, as part of the verifyAuthentication decorator.
+ *
+ * @param {FastifyRequest} request The fastify request is an instance of the standard http or http2 request objects.
+ * @param {FastifyReply}   reply   The fastify reply object.
+ */
+const verifyJWT = async (request, reply) => {
+  request.log.debug("preValidation: verifyJWT");
+  const token = await getBearerTokenFromRequest(request);
+  const message = "Couldn't parse or find bearer token.";
+  if (token) {
+    await verifyToken(token, jwksUri).catch((error) => {
+      request.log.warn(error);
+      reply.code(401).send({ message, error: error?.message });
+    });
+  } else {
+    request.log.warn(message);
+    reply.code(401).send({ message });
+  }
+};
+
+/**
+ * Verify Role to verify correct role, as part of the verifyAuthentication decorator.
+ *
+ * @param {FastifyRequest} request The fastify request is an instance of the standard http or http2 request objects.
+ * @param {FastifyReply}   reply   The fastify reply object.
+ */
+const verifyRole = async (request, reply) => {
+  request.log.debug("preValidation: verifyRole");
+  const roles = await getRealmRoles(request);
+  const routeRoleRequired = request.routeConfig?.role ?? "PMO-Manager-Edit-Capability";
+  if (!roles.includes(routeRoleRequired)) {
+    const message = `User doesn't have required role ${routeRoleRequired}`;
+    request.log.warn(message);
+    request.log.debug(roles);
+    reply.code(401).send({ message });
+  }
+};
+
+/**
+ * Callback for verifyAuthentication decorator for auth.
+ *
+ * @param {FastifyRequest} request The fastify request is an instance of the standard http or http2 request objects.
+ * @param {FastifyReply}   reply   The fastify reply object.
+ */
+const verifyAuthentication = async (request, reply) => {
+  await verifyJWT(request, reply);
+  await verifyRole(request, reply);
+};
+
+/**
  * Fastify server configuration.
  *
  * - Decorate the server object with an authentication handler
- * for verifying JWT tokens.
+ * for verifying JWT tokens and roles.
  * - Register the fastify auth plugin used in combination with verifyJWT.
  * - Register the fastifyCors plugin.
  * - Register the fastifyMarkdown plugin.
@@ -26,31 +76,12 @@ const fastifyPayload = require("../plugins/fastifyPayload");
 const fastifyInstance = (options) => {
   const app = fastify(options);
   app
-    .decorate("verifyJWT", (req, res, done) => {
-      const token = getBearerTokenFromRequest(req);
-      if (token) {
-        verifyToken(token, jwksUri)
-          .then((res) => {
-            done();
-          })
-          .catch((err) => {
-            req.log.error(err);
-            //TODO: The redirect 401 should be added here, and the done removed.  However the frontend doesn't handle this properly.
-            //res.redirect(401)
-            done();
-          });
-      } else {
-        const error = new Error("Error: Couldn't parse bearer token.");
-        req.log.error(error.message);
-        res.redirect(401);
-      }
-    })
+    .decorate("verifyAuthentication", verifyAuthentication)
     .register(fastifyAuth)
     .register(fastifyCors, {})
     .register(fastifyPayload)
     .after(() => {
-      app.addHook("preHandler", app.auth([app.verifyJWT]));
-
+      app.addHook("preValidation", app.auth([app.verifyAuthentication]));
       app.route({
         method: "GET",
         url: "/health",
@@ -60,7 +91,6 @@ const fastifyInstance = (options) => {
       });
     });
   Object.values(allRoutes).forEach((route) => app.register(route.registerRoutes));
-
   return app;
 };
 

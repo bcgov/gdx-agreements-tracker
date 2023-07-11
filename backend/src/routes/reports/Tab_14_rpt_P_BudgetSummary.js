@@ -7,8 +7,11 @@ const routes = [
     method: "GET",
     url: `/${what}/Tab_14_rpt_P_BudgetSummary`,
     schema: getReport,
-    onRequest: controller.Tab_14_rpt_P_BudgetSummary,
+    preHandler: controller.Tab_14_rpt_P_BudgetSummary,
     handler: controller.getReport,
+    config: {
+      role: "PMO-Reports-Capability",
+    },
   },
 ];
 const registerRoutes = (fastify, options, done) => {

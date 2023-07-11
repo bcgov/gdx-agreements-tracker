@@ -1,6 +1,6 @@
 const S = require("fluent-json-schema");
 const getReport = {
-  params: S.object().prop("type", S.string().required(["type"])),
+  params: S.object().prop("type", S.string()),
   query: S.object()
     .prop("templateType", S.string())
     .prop("date", S.string())
@@ -12,7 +12,10 @@ const getReport = {
   headers: S.object().prop("Authorization", S.string().minLength(1500)).required(["Authorization"]),
   response: {
     "2xx": S.object(),
-    "4xx": S.object().prop("data", S.object().prop("message", S.string()).prop("item", S.string())),
+    "4xx": S.object().prop(
+      "data",
+      S.object().prop("message", S.string()).prop("item", S.string()).prop("error", S.string())
+    ),
   },
 };
 

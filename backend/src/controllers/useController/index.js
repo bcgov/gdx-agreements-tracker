@@ -1,5 +1,4 @@
 const log = require("../../facilities/logging.js")(module.filename);
-const { getRealmRoles } = require("@facilities/keycloak");
 
 const useController = (model, what, capabilityPrefix = null) => {
   capabilityPrefix = capabilityPrefix ?? what.plural;
@@ -17,7 +16,7 @@ const useController = (model, what, capabilityPrefix = null) => {
       reply.code(500);
     }
     log.warn(error);
-    reply.send({ message: error, item: what.plural });
+    send(reply.statusCode, reply, error);
   };
 
   /**
@@ -40,13 +39,9 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @param {object}         reply   The fastify reply object
    */
   const userRequires = async (request, role, reply) => {
-    const roles = await getRealmRoles(request);
-    if (!roles.includes(role)) {
-      log.warn(`User doesn't have required role ${role}`);
-      log.info(roles);
-      reply.code(401);
-      throw new Error("User doesn't have required role");
-    }
+    request.log.warn(
+      `UserRequires is deprecated and should be removed from the controller ${request?.url} `
+    );
   };
 
   /**
@@ -60,10 +55,23 @@ const useController = (model, what, capabilityPrefix = null) => {
     requires.forEach((value) => {
       if (undefined === query[value] || 0 === query[value].length) {
         const warningMessage = `One or more Parameters is undefined or not valid [${requires.toString()}]`;
-        reply.code(400);
-        throw new Error(warningMessage);
+        send(400, reply, warningMessage);
       }
     });
+  };
+
+  /**
+   * Send function that verifies status code if it has change, not to send multiple requests.
+   *
+   * @param {number}       statusCode The status code.
+   * @param {FastifyReply} reply      FastifyReply is an instance of the standard http or http2 reply types.
+   * @param {string}       message    The message to display to indicate the issue.
+   */
+  const send = (statusCode, reply, message) => {
+    if (reply.statusCode <= 299) {
+      reply.code(statusCode);
+      reply.send({ message });
+    }
   };
 
   /**
@@ -74,7 +82,6 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const getAll = async (request, reply) => {
-    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const result = await model.findAll();
       return result ? result : [];
@@ -91,7 +98,6 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const getAllByParentId = async (request, reply) => {
-    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const targetId = Number(request.params.id);
       const result = await model.findAllById(targetId);
@@ -109,7 +115,6 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const getOne = async (request, reply) => {
-    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     const targetId = Number(request.params.id);
     try {
       const result = await model.findById(targetId);
@@ -129,7 +134,6 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const addOne = async (request, reply) => {
-    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const result = await model.addOne(request.body);
       return result || noQuery(reply, `The ${what.single} could not be added.`);
@@ -146,7 +150,6 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const updateOne = async (request, reply) => {
-    userRequires(request, "PMO-Manager-Edit-Capability", reply);
     try {
       const result = await model.updateOne(request.body, Number(request.params.id));
       return result || noQuery(reply, `The ${what.single} could not be updated.`);
@@ -163,8 +166,6 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @returns {object}
    */
   const deleteOne = async (request, reply) => {
-    userRequires(request, "PMO-Manager-Edit-Capability", reply);
-
     const id = Number(request.params.id);
     try {
       const result = await model.removeOne(id);
@@ -187,6 +188,7 @@ const useController = (model, what, capabilityPrefix = null) => {
     noQuery,
     userRequires,
     validate,
+    send,
   };
 };
 

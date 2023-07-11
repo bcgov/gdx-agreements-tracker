@@ -73,7 +73,6 @@ const getControllerFrom = () => {
     const controller = useController(model, what);
 
     try {
-      await controller.userRequires(request, "PMO-Reports-Capability", reply);
       controller.validate(request.query, reply, model.required);
       const { query } = request;
       const { templateType } = validateQueryParameters(query);
@@ -86,8 +85,7 @@ const getControllerFrom = () => {
       if ("removeme" !== result?.report) {
         await sendToCdogs({ result, filename, templateType, request });
       } else {
-        reply.code(418);
-        throw new Error("Report model not created");
+        controller.send(418, reply, "Report model not created");
       }
       /** Converts template and data to report, and attaches the pdf blob to result */
 
