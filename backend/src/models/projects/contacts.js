@@ -23,7 +23,6 @@ const findAllById = async (projectId) => {
     )
     .leftJoin(`${contactTable} as c`, { "cp.contact_id": "c.id" })
     .groupBy("cr.id");
-
 };
 
 // Update one.
