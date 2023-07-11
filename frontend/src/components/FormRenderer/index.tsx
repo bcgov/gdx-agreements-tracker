@@ -55,32 +55,33 @@ export const FormRenderer = ({
 
   const { formType, handleFormType, handleClose } = formControls;
   const handleOnSubmit = async (values: unknown) => {
-    try {
-      if ("edit" === formType || query?.data?.data?.dbRowLock.currentUser) {
-        await handleUpdate({
-          changedValues: values,
-          apiUrl: updateUrl,
-          currentRowData: query.data.data.data,
-        }).then(async () => {
-          await removeLock(query, rowsToLock).then(() => {
-            handleFormType("read");
-          });
-        });
-      } else {
-        await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
-          handleClose();
-        });
-      }
-    } catch (error) {
-      handleSnackbarMessage("fail");
-      handleSnackbarType("error");
-      handleSnackbar();
-    }
+    console.log('values', values)
+    // try {
+    //   if ("edit" === formType || query?.data?.data?.dbRowLock.currentUser) {
+    //     await handleUpdate({
+    //       changedValues: values,
+    //       apiUrl: updateUrl,
+    //       currentRowData: query.data.data.data,
+    //     }).then(async () => {
+    //       await removeLock(query, rowsToLock).then(() => {
+    //         handleFormType("read");
+    //       });
+    //     });
+    //   } else {
+    //     await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
+    //       handleClose();
+    //     });
+    //   }
+    // } catch (error) {
+    //   handleSnackbarMessage("fail");
+    //   handleSnackbarType("error");
+    //   handleSnackbar();
+    // }
 
-    handleSnackbarMessage("success");
-    handleSnackbarType("success");
-    handleSnackbar();
-    queryClient.invalidateQueries([tableName]);
+    // handleSnackbarMessage("success");
+    // handleSnackbarType("success");
+    // handleSnackbar();
+    // queryClient.invalidateQueries([tableName]);
   };
 
   /**
@@ -111,6 +112,13 @@ export const FormRenderer = ({
   };
 
   if ("edit" === formType) {
+    if (Array.isArray(query?.data?.data?.data)) {
+      let newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {}
+      query?.data?.data?.data.map((role: { role_id: number, role_type: string, contacts: { [key: string]: string | number }[] }) => {
+        newInitialValues[role.role_type] = role.contacts
+      })
+      query.data.data.data = newInitialValues
+    }
     return (
       <InputForm
         handleOnSubmit={handleOnSubmit}
