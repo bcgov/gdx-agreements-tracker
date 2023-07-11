@@ -18,7 +18,7 @@ export const FormInput = ({
   fieldName,
   fieldType,
   fieldLabel,
-  handleChange = () => { },
+  handleChange = () => {},
   width,
   pickerName,
   tableName,
@@ -88,7 +88,7 @@ export const FormInput = ({
           />
         </GridItem>
       );
-    case "multiText":  
+    case "multiText":
       return (
         <GridItem width={width}>
           <Field
@@ -115,13 +115,12 @@ export const FormInput = ({
             onChange={(newValue: string) => {
               setFieldValue?.(fieldName, newValue);
             }}
-            multiple={fieldType === "multiselect" ? true : false}
+            multiple={"multiselect" === fieldType ? true : false}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption}
             fieldLabel={fieldLabel}
             setFieldValue={setFieldValue as Function}
             pickerData={GetPickerOptions()}
-
           />
         </GridItem>
       );

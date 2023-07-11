@@ -23,15 +23,17 @@ export const ContactsSection = () => {
     tableName: tableName,
   });
 
-  const rowsToLock: Array<number> = !query
-    ? []
-    : query?.data?.data.data.flatMap((obj: { rows_to_lock: [] }) =>
-        obj.rows_to_lock
-          ? obj.rows_to_lock.filter(
-              (val: null | undefined) => val !== null && val !== undefined && val !== 0
-            )
-          : []
-      );
+  // const rowsToLock: Array<number> = !query
+  //   ? []
+  //   : query?.data?.data.data.flatMap((obj: { rows_to_lock: [] }) =>
+  //       obj.rows_to_lock
+  //         ? obj.rows_to_lock.filter(
+  //             (val: null | undefined) => val !== null && val !== undefined && val !== 0
+  //           )
+  //         : []
+  //     );
+
+  const rowsToLock = [0];
 
   const { readFields, editFields, initialValues } = formFields(query?.data?.data?.data);
 

@@ -15,7 +15,7 @@ export const GDXSelect: FC<IPickerProps> = ({
   onChange,
   pickerData,
   required,
-  multiple
+  multiple,
 }: IPickerProps) => {
   return (
     <>
