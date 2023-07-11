@@ -10,7 +10,8 @@ interface IGetFormData {
 export const useFormData = ({ url, tableName }: IGetFormData) => {
   const { axiosAll } = useAxios();
   const getData = async () => {
-    const results = (await axiosAll().get(url)) ?? { data: { table: "" } };
+    const results = (await axiosAll().get(url)) ?? {};
+    results.data.table = tableName;
     return results;
   };
 
