@@ -22,16 +22,18 @@ export const ContactsSection = () => {
     url: contactsUrl,
     tableName: tableName,
   });
+  //TODO add dblock back.  This is causing issue atm, but is not a showstopper removing this for now.
+  // const rowsToLock: Array<number> = !query
+  //   ? []
+  //   : query?.data?.data.data.flatMap((obj: { rows_to_lock: [] }) =>
+  //       obj.rows_to_lock
+  //         ? obj.rows_to_lock.filter(
+  //             (val: null | undefined) => val !== null && val !== undefined && val !== 0
+  //           )
+  //         : []
+  //     );
 
-  const rowsToLock: Array<number> = !query
-    ? []
-    : query?.data?.data.data.flatMap((obj: { rows_to_lock: [] }) =>
-        obj.rows_to_lock
-          ? obj.rows_to_lock.filter(
-              (val: null | undefined) => val !== null && val !== undefined && val !== 0
-            )
-          : []
-      );
+  const rowsToLock = [0];
 
   const { readFields, editFields, initialValues } = formFields(query?.data?.data?.data);
 

@@ -5,7 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { Field } from "formik";
 import { usePickerValues } from "../../hooks";
-import { GDXCheckbox, GDXSelect, GDXMultiselect } from "../GDXForm";
+import { GDXCheckbox, GDXSelect } from "../GDXForm";
 import { GridItem } from "../GDXForm/FormLayout/GridItem";
 import { ReadField } from "components/ReadForm/ReadField";
 import { IOption, IFormInput } from "../../types";
@@ -24,7 +24,7 @@ export const FormInput = ({
   tableName,
   projectId,
   contractId,
-  required,
+  required = false,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -106,6 +106,7 @@ export const FormInput = ({
         </GridItem>
       );
     case "select":
+    case "multiselect":
       return (
         <GridItem width={width}>
           <Field
@@ -114,29 +115,11 @@ export const FormInput = ({
             onChange={(newValue: string) => {
               setFieldValue?.(fieldName, newValue);
             }}
+            multiple={"multiselect" === fieldType ? true : false}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption}
             fieldLabel={fieldLabel}
             setFieldValue={setFieldValue as Function}
-            pickerData={GetPickerOptions()}
-          />
-        </GridItem>
-      );
-    case "multiselect":
-      return (
-        <GridItem width={width}>
-          <Field
-            as={GDXMultiselect}
-            required={required}
-            handleChange={(newValue: string) => {
-              handleChange(newValue);
-            }}
-            fieldName={fieldName}
-            fieldValue={fieldValue as IOption[]}
-            fieldLabel={fieldLabel}
-            onChange={(newValue: string) => {
-              setFieldValue?.(fieldName, newValue);
-            }}
             pickerData={GetPickerOptions()}
           />
         </GridItem>

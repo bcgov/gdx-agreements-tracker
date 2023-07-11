@@ -5,7 +5,7 @@ const table = `${dataBaseSchemas().data}.contact_project`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
 const contactRoleTable = `${dataBaseSchemas().data}.contact_role`;
 
-const findAllById = (projectId) => {
+const findAllById = async (projectId) => {
   return knex
     .columns({ role_id: "cr.id" }, "cr.role_type", {
       contacts: knex.raw(

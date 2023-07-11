@@ -95,11 +95,13 @@ export interface IPickerProps {
     title: string;
   };
   required?: boolean;
+  multiple?: boolean;
 }
 
 // Picker options for multiselect inputs.
 export interface IMultiPickerProps extends Omit<IPickerProps, "fieldValue"> {
   fieldValue: IOption[];
+  multiple: boolean;
 }
 
 //checkbox types

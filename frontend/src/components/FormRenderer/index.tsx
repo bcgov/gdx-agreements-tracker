@@ -111,6 +111,19 @@ export const FormRenderer = ({
   };
 
   if ("edit" === formType) {
+    if (Array.isArray(query?.data?.data?.data)) {
+      const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};
+      query?.data?.data?.data.map(
+        (role: {
+          role_id: number;
+          role_type: string;
+          contacts: { [key: string]: string | number }[];
+        }) => {
+          newInitialValues[role.role_id] = role.contacts;
+        }
+      );
+      query.data.data.data = newInitialValues;
+    }
     return (
       <InputForm
         handleOnSubmit={handleOnSubmit}

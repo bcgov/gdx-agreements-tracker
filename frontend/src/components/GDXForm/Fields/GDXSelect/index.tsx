@@ -15,6 +15,7 @@ export const GDXSelect: FC<IPickerProps> = ({
   onChange,
   pickerData,
   required,
+  multiple,
 }: IPickerProps) => {
   return (
     <>
@@ -27,6 +28,7 @@ export const GDXSelect: FC<IPickerProps> = ({
           onChange={(event, choice: unknown) => {
             onChange(choice);
           }}
+          multiple={multiple}
           value={fieldValue}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField

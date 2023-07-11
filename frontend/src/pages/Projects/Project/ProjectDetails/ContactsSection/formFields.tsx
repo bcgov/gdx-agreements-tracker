@@ -3,7 +3,7 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { IContactRole, IEditField } from "types";
 
 const formFields = (query: Array<FormikValues>) => {
-  const readFields = !query
+  const readFields = !Array.isArray(query)
     ? []
     : query?.map((row) => {
         return {
@@ -17,7 +17,7 @@ const formFields = (query: Array<FormikValues>) => {
 
   const roleSplitRegex = /(?=[A-Z][a-z])/;
 
-  const editFields: IEditField[] = !query
+  const editFields: IEditField[] = !Array.isArray(query)
     ? []
     : query.map((role) => ({
         fieldName: role.role_id,
@@ -29,7 +29,7 @@ const formFields = (query: Array<FormikValues>) => {
 
   const initialValues = () => {
     const row: FormikValues[string] = {};
-    !query
+    !Array.isArray(query)
       ? []
       : query.map((role) => {
           row[role.role_id] = role.contacts;
