@@ -24,33 +24,6 @@ const findAllById = async (projectId) => {
     .leftJoin(`${contactTable} as c`, { "cp.contact_id": "c.id" })
     .groupBy("cr.id");
 
-  // const result = await knex("contact_project")
-  //   .select(
-  //     "contact_project.contact_role",
-  //     "contact.first_name",
-  //     "contact.last_name",
-  //     "contact_project.contact_id",
-  //     "contact_role.role_type"
-  //   )
-  //   .join("contact", "contact_project.contact_id", "contact.id")
-  //   .join("contact_role", "contact_project.contact_role", "contact_role.id")
-  //   .where("contact_project.project_id", projectId)
-
-  // const formattedData = {};
-
-  // result.forEach((row) => {
-  //   const { first_name, last_name, contact_id, role_type } = row;
-
-  //   if (!formattedData[role_type]) {
-  //     formattedData[role_type] = [];
-  //   }
-
-  //   formattedData[role_type].push({
-  //     label: `${first_name} ${last_name}`,
-  //     value: contact_id,
-  //   });
-  // });
-  // return formattedData
 };
 
 // Update one.
