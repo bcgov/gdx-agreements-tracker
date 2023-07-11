@@ -1,3 +1,12 @@
+**July 10, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319) [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
+- Frontend
+  - small fix for axios call if 401 error.
+- Backend
+  - Fix tests, and refactor fastify.js
+  - updated report routes to use preHandler
+  - updated report routes to have PMO-Reports-Capability
+  - refactor role management
+
 ## Developer Changelog**July 7, 2023 - [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
 - Frontend
   - fixed issue preventing project billing from saving
