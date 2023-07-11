@@ -1,4 +1,4 @@
-const serverConfig = require("../src/facilities/fastify");
+const serverConfig = require("@facilities/fastify");
 let app;
 
 describe("Attempting to access any server route without a bearer token.", () => {

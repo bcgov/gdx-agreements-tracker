@@ -8,8 +8,11 @@ module.exports = {
       method: "GET",
       url: `/report/:type`,
       schema: getReport,
-      onRequest: controller.reportHandler,
+      preHandler: controller.reportHandler,
       handler: controller.getReport,
+      config: {
+        role: "PMO-Reports-Capability",
+      },
     });
     done();
   },
