@@ -1,5 +1,9 @@
 **July 11, 2023**
 
+- Frontend
+  - fixed issue preventing project contacts from saving
+  - made select fields more effeicent by combing single and multi choice select component
+
 - Backend
   - Fixed quarter seed from string to number
   - required to run locally `npx knex seed:run --specific=08_picker_options.js`
