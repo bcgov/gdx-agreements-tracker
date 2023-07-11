@@ -1,3 +1,10 @@
+**July 11, 2023**
+
+- Backend
+  - Fixed quarter seed from string to number
+  - required to run locally `npx knex seed:run --specific=08_picker_options.js`
+
+
 **July 10, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319) [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
 - Frontend
   - small fix for axios call if 401 error.
