@@ -1,6 +1,5 @@
-const dbConnection = require("@database/databaseConnection");
-const { knex } = dbConnection();
-const { fiscalYearTable } = require("@models/useDbTables");
+// libs
+const { knex } = require("@database/databaseConnection")();
 
 /**
  * Retrieves report totals based on fiscal year.
@@ -40,7 +39,7 @@ const baseQuery = knex("jv")
  */
 const reportQueries = {
   fiscalYear: (fiscal) =>
-    knex.select("fiscal_year").from(fiscalYearTable).where("fiscal_year.id", fiscal).first(),
+    knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
   report: (fiscal) =>
     knex
@@ -61,9 +60,7 @@ const reportQueries = {
 
 module.exports = {
   required: ["fiscal"],
-  getAll: async (query) => {
-    const { fiscal } = query;
-
+  getAll: async ({ fiscal }) => {
     const [{ fiscal_year }, report, report_totals] = await Promise.all([
       reportQueries.fiscalYear(fiscal),
       reportQueries.report(fiscal),
