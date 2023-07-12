@@ -102,7 +102,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
         label: "Projects Lessons Learned",
         description:
-          "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learnaed and Recommendations.",
+          "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
         parameters: ["portfolio", "fiscal", "project"],
         exportPDF: true,
         exportXLSX: false,
@@ -120,7 +120,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         value: "rpt_PA_Registered",
         label: "Projects Registered by Date / Period",
         description:
-          "Breakdown shows the distribution between the portfolios and shows, Project #, project name, description, Project Manager, Registaration Date, Start Date, End Date and Planned Budget.",
+          "Breakdown shows the distribution between the portfolios and shows, Project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned Budget.",
         parameters: ["date", "portfolio"],
         exportPDF: true,
         exportXLSX: false,
