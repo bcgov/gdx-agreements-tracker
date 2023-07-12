@@ -67,11 +67,6 @@ module.exports = {
       reportQueries.report_totals(fiscal),
     ]);
 
-    console.error(`
-      IN GETALL model return:
-     ${JSON.stringify({ fiscal_year, report, report_totals }, null, 2)}
-     `);
-
     return { fiscal_year, report, report_totals };
   },
 };

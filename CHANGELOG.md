@@ -1,3 +1,14 @@
+**July 12, 2023 - [DESCW-1247](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1247)**
+- Frontend
+  - build template and test against sample template for accuracy
+  - enable excel report for tab 20
+  - disable pdf report for tab 20  (template isn't written yet)
+- Backend
+  - build generic 'model template' for future tickets
+  - adapt and refactor given query for use with knex
+  - build model for tab 20 data: report, report_totals, fiscal_year
+  - fix some minor linter warnings
+
 **July 11, 2023**
 
 - Frontend

@@ -1,4 +1,3 @@
-/* eslint-disable no-warning-comments */
 // Libraries
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
@@ -81,6 +80,7 @@ const getControllerFrom = () => {
       controller.getReport = modifiedGetReport;
       /** Gets the query. */
       const result = await getDataFromModel(query, model, reply);
+      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
       // todo: Remove conditional logic, once all reports are completed
       if ("removeme" !== result?.report) {
         await sendToCdogs({ result, filename, templateType, request });

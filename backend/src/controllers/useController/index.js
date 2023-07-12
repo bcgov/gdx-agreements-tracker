@@ -6,10 +6,9 @@ const useController = (model, what, capabilityPrefix = null) => {
   /**
    * This is the callback for when a query fails, due to an improper syntax.
    *
-   * @param   {FastifyReply} reply FastifyReply is an instance of the standard http or http2 reply types.
-   * @param   {object}       error The error that gets generated from failed query.
-   * @param   {object}       what  The type of model being accessed
-   * @returns {object}
+   * @param {FastifyReply} reply FastifyReply is an instance of the standard http or http2 reply types.
+   * @param {object}       error The error that gets generated from failed query.
+   * @param {object}       what  The type of model being accessed
    */
   const failedQuery = (reply, error, what) => {
     if (reply.statusCode <= 299) {
@@ -22,9 +21,8 @@ const useController = (model, what, capabilityPrefix = null) => {
   /**
    * This is the callback for when the query was successful, but had no results.
    *
-   * @param   {FastifyReply} reply   FastifyReply is an instance of the standard http or http2 reply types.
-   * @param   {string}       message The no query message.
-   * @returns {object}
+   * @param {FastifyReply} reply   FastifyReply is an instance of the standard http or http2 reply types.
+   * @param {string}       message The no query message.
    */
   const noQuery = (reply, message) => {
     reply.code(404);
