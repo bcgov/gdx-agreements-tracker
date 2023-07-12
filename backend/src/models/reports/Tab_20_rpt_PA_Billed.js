@@ -15,43 +15,34 @@ const reportQueries = {
     knex.select("fiscal_year").from(fiscalYearTable).where("fiscal_year.id", fiscal).first(),
   report: (fiscal) =>
     knex
-      .select(`*`)
-      .fromRaw(
-        `
-    (WITH base AS (
-      SELECT jv.fiscal_year_id AS fy,
-        fiscal_year.fiscal_year,
-        P.project_number,
-        P.project_name,
-        sum(CASE WHEN jv.quarter = '1' THEN jv.amount ELSE 0::money END) AS "q1",
-        sum(CASE WHEN jv.quarter = '2' THEN jv.amount ELSE 0::money END) AS "q2",
-        sum(CASE WHEN jv.quarter = '3' THEN jv.amount ELSE 0::money END) AS "q3",
-        sum(CASE WHEN jv.quarter = '4' THEN jv.amount ELSE 0::money END) AS "q4",
-        sum(jv.amount) AS "qTotal"
-      FROM fiscal_year
-        INNER JOIN (
-          project P
-          RIGHT JOIN jv ON P.id = jv.project_id
-        ) ON fiscal_year.id = jv.fiscal_year_id
-      GROUP BY jv.fiscal_year_id,
-        fiscal_year.fiscal_year,
-        P.project_number,
-        P.project_name
-      ORDER BY P.project_number ASC,
-        fiscal_year DESC
-    )
-    SELECT fy,
-      project_number,
-      project_name,
-      q1,
-      q2,
-      q3,
-      q4,
-      "qTotal",
-      sum(base.qTotal)
-    FROM base) AS query`
-      )
-      .where("query.fy", fiscal),
+      .with("base", (qb) => {
+        qb.select({
+          fy: "jv.fiscal_year_id",
+          fiscal_year: "fiscal_year.fiscal_year",
+          project_number: "P.project_number",
+          project_name: "P.project_name",
+          q1: knex.raw(`sum(CASE WHEN jv.quarter = '1' THEN jv.amount ELSE 0::money END)`),
+          q2: knex.raw(`sum(CASE WHEN jv.quarter = '2' THEN jv.amount ELSE 0::money END)`),
+          q3: knex.raw(`sum(CASE WHEN jv.quarter = '3' THEN jv.amount ELSE 0::money END)`),
+          q4: knex.raw(`sum(CASE WHEN jv.quarter = '4' THEN jv.amount ELSE 0::money END)`),
+          q_total: knex.raw(`sum(jv.amount)`),
+        })
+          .from("jv")
+          .leftJoin("project AS P", "P.id", "jv.project_id")
+          .leftJoin("fiscal_year", "fiscal_year.id", "jv.fiscal_year_id")
+          .groupBy(
+            "jv.fiscal_year_id",
+            "fiscal_year.fiscal_year",
+            "P.project_number",
+            "P.project_name"
+          )
+          .orderBy("P.project_number", "asc")
+          .orderBy("fiscal_year", "desc");
+      })
+      .select("fy", "project_number", "project_name", "q1", "q2", "q3", "q4", "q_total")
+      .from("base")
+      .where("fy", fiscal),
+
   report_totals: async () => [],
 };
 
