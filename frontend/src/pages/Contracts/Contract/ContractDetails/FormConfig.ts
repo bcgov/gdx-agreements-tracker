@@ -3,51 +3,59 @@ import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField, IOption } from "types";
 
-export const formFields = (query: AxiosResponse | undefined) => {
+export const FormConfig = (query: AxiosResponse | undefined) => {
   const readFields = [
-    { width: "half", title: "Change Order Number", value: query?.data?.data?.co_number },
-    { width: "half", title: "Contract Number", value: query?.data?.data?.contract_number },
-    { width: "half", title: "Status", value: query?.data?.data?.status?.label },
-    { width: "half", title: "Amendment Number", value: query?.data?.data?.amendment_number },
-    { width: "half", title: "Fiscal", value: query?.data?.data?.fiscal?.label },
-    { width: "half", title: "Project Number", value: query?.data?.data?.project_id?.label },
-    { width: "half", title: "Contract Type", value: query?.data?.data?.contract_type?.label },
-    { width: "half", title: "Project Name", value: query?.data?.data?.project_name },
-    { width: "half", title: "Supplier", value: query?.data?.data?.supplier_id?.label },
+    { width: "half", title: "Change Order Number", value: query?.data?.data?.data?.co_number },
+    { width: "half", title: "Contract Number", value: query?.data?.data?.data?.contract_number },
+    { width: "half", title: "Status", value: query?.data?.data?.data?.status?.label },
+    { width: "half", title: "Amendment Number", value: query?.data?.data?.data?.amendment_number },
+    { width: "half", title: "Fiscal", value: query?.data?.data?.data?.fiscal?.label },
+    { width: "half", title: "Project Number", value: query?.data?.data?.data?.project_id?.label },
+    { width: "half", title: "Contract Type", value: query?.data?.data?.data?.contract_type?.label },
+    { width: "half", title: "Project Name", value: query?.data?.data?.data?.project_name },
+    { width: "half", title: "Supplier", value: query?.data?.data?.data?.supplier_id?.label },
     {
       width: "half",
       title: "Maximum Amount Payable",
-      value: query?.data?.data?.total_project_budget,
+      value: query?.data?.data?.data?.total_project_budget,
     },
     {
       width: "half",
       title: "Subcontractors",
-      value: query?.data?.data?.subcontractor_id
+      value: query?.data?.data?.data?.subcontractor_id
         .map((s: IOption) => {
           return s.label;
         })
         .join(", "),
     },
-    { width: "half", title: "Total Fees Payable", value: query?.data?.data?.total_fee_amount },
+    {
+      width: "half",
+      title: "Total Fees Payable",
+      value: query?.data?.data?.data?.total_fee_amount,
+    },
     {
       width: "half",
       title: "Total Expenses Payable",
-      value: query?.data?.data?.total_expense_amount,
+      value: query?.data?.data?.data?.total_expense_amount,
     },
-    { width: "half", title: "Requisition Number", value: query?.data?.data?.requisition_number },
-    { width: "half", title: "Assignment Start Date", value: query?.data?.data?.start_date },
+    {
+      width: "half",
+      title: "Requisition Number",
+      value: query?.data?.data?.data?.requisition_number,
+    },
+    { width: "half", title: "Assignment Start Date", value: query?.data?.data?.data?.start_date },
     {
       width: "half",
       title: "Procurement Method",
-      value: query?.data?.data?.procurement_method_id?.label,
+      value: query?.data?.data?.data?.procurement_method_id?.label,
     },
-    { width: "half", title: "Assignment End Date", value: query?.data?.data?.end_date },
+    { width: "half", title: "Assignment End Date", value: query?.data?.data?.data?.end_date },
     {
       width: "full",
       title: "Contact Assignment Description",
-      value: query?.data?.data?.description,
+      value: query?.data?.data?.data?.description,
     },
-    { width: "full", title: "Notes", value: query?.data?.data?.notes },
+    { width: "full", title: "Notes", value: query?.data?.data?.data?.notes },
   ];
 
   const editFields: IEditField[] = [

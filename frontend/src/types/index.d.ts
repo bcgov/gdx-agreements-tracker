@@ -399,13 +399,8 @@ export interface IFormRenderer {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formControls?: any;
   tableName: string;
-  readFields: { width: string; title: string; value: IReturnValue }[];
-  editFields: IEditField[];
-  postUrl?: string;
-  updateUrl: string;
-  query: AxiosResponse | undefined;
-  rowsToLock: number[];
-  initialValues?: FormikValues;
+  formConfig;
+  formDataApiEndpoint: string;
 }
 export interface IDBRowlock {
   data: { data: { table: string } };
@@ -444,12 +439,12 @@ export interface ITableWithModalData {
   isLoading: boolean;
 }
 export interface ITableWithModal {
-  tableData: ITableWithModalData;
+  tableDataApiEndPoint: string;
   tableConfig: unknown;
   formControls: IFormControls;
   formConfig: TFormConfig;
-  formData: UseQueryResult<FormikValues>;
   tableName: string;
+  formDataApiEndpoint: string;
 }
 
 export interface IRowDoubleClickParams {

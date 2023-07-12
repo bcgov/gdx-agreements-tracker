@@ -1,42 +1,42 @@
 import { AxiosResponse } from "axios";
 import { IEditField } from "types";
 
-export const formFields = (query: AxiosResponse | undefined) => {
+export const FormConfig = (query: AxiosResponse | undefined) => {
   const readFields = [
     {
       width: "full",
       title: "Close out date",
-      value: query?.data?.data?.close_out_date,
+      value: query?.data?.data?.data?.close_out_date,
     },
     {
       width: "full",
       title: "Completed by",
-      value: query?.data?.data?.completed_by_contact_id?.label,
+      value: query?.data?.data?.data?.completed_by_contact_id?.label,
     },
     {
       width: "full",
       title: "Actual completion date of project",
-      value: query?.data?.data?.actual_completion_date,
+      value: query?.data?.data?.data?.actual_completion_date,
     },
     {
       width: "full",
       title: "Post implementation hand-off to operation completed",
-      value: query?.data?.data?.hand_off_to_operations?.value,
+      value: query?.data?.data?.data?.hand_off_to_operations?.value,
     },
     {
       width: "full",
       title: "Project documentation filled in accordance with records management",
-      value: query?.data?.data?.records_filed?.value,
+      value: query?.data?.data?.data?.records_filed?.value,
     },
     {
       width: "full",
       title: "Contract evaluation completed if applicable",
-      value: query?.data?.data?.contract_ev_completed?.value,
+      value: query?.data?.data?.data?.contract_ev_completed?.value,
     },
     {
       width: "full",
       title: "Contractor IDIR terminated / building passes returned",
-      value: query?.data?.data?.contractor_security_terminated?.value,
+      value: query?.data?.data?.data?.contractor_security_terminated?.value,
     },
   ];
   const editFields: IEditField[] = [

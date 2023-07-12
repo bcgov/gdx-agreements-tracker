@@ -5,7 +5,7 @@ import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -20,29 +20,17 @@ import { formConfig } from "./formConfig";
 export const InternalCoding = () => {
   const { contractId } = useParams();
 
-  const tableName = "sid_internal_coding";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `/contracts/${contractId}/internal-coding`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/contracts/internal-coding/${formControls.currentRowData?.id}`,
-    tableName,
-  });
 
   return (
     <>
       <TableWithModal
-        tableName={tableName}
+        tableName={"sid_internal_coding"}
         tableConfig={tableConfig()}
-        tableData={tableData}
         formControls={formControls}
-        formConfig={formConfig}
-        formData={formData}
+        formConfig={FormConfig}
+        tableDataApiEndPoint={`/contracts/${contractId}/internal-coding`}
+        formDataApiEndpoint={`/contracts/internal-coding/${formControls.currentRowData?.id}`}
       />
     </>
   );

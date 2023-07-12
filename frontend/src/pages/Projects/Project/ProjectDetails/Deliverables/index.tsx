@@ -11,28 +11,16 @@ import { tableConfig } from "./tableConfig";
 export const DeliverablesSection = () => {
   const { projectId } = useParams();
 
-  const tableName = "project_deliverable";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `projects/${projectId}/deliverables`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/projects/deliverables/${formControls.currentRowData?.id}`,
-    tableName,
-  });
 
   return (
     <TableWithModal
-      tableName={tableName}
+      tableName={"project_deliverable"}
       tableConfig={tableConfig()}
-      tableData={tableData}
       formControls={formControls}
       formConfig={FormConfig}
-      formData={formData}
+      tableDataApiEndPoint={`projects/${projectId}/deliverables`}
+      formDataApiEndpoint={`/projects/deliverables/${formControls.currentRowData?.id}`}
     />
   );
 };

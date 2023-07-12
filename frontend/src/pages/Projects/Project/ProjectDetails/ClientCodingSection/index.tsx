@@ -11,28 +11,16 @@ import { FormConfig } from "./FormConfig";
 export const ClientCodingSection = () => {
   const { projectId } = useParams();
 
-  const tableName = "client_coding";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `projects/${projectId}/client-coding`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/projects/client-coding/${formControls.currentRowData?.id}`,
-    tableName,
-  });
 
   return (
     <TableWithModal
-      tableName={tableName}
+      tableName={"client_coding"}
       tableConfig={tableConfig()}
-      tableData={tableData}
       formControls={formControls}
       formConfig={FormConfig}
-      formData={formData}
+      tableDataApiEndPoint={`projects/${projectId}/client-coding`}
+      formDataApiEndpoint={`/projects/client-coding/${formControls.currentRowData?.id}`}
     />
   );
 };
