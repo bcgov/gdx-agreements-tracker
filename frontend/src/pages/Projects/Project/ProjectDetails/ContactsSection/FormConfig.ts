@@ -2,7 +2,7 @@ import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IContactRole, IEditField } from "types";
 
-const formFields = (query: Array<FormikValues>) => {
+const FormConfig = (query: Array<FormikValues>) => {
   const readFields = !Array.isArray(query)
     ? []
     : query?.map((row) => {
@@ -40,4 +40,4 @@ const formFields = (query: Array<FormikValues>) => {
   return { readFields, editFields, initialValues };
 };
 
-export default formFields;
+export default FormConfig;

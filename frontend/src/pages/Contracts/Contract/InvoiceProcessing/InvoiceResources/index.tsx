@@ -1,8 +1,6 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
-import { useFormData } from "hooks/useFormData";
 import { tableConfig } from "./tableConfig";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 
@@ -17,28 +15,16 @@ import { IFormControls } from "types";
  */
 
 export const InvoiceResources = ({ invoiceId }: { invoiceId: number }) => {
-  const tableName = `invoice_detail`;
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `invoices/${invoiceId}/resources`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/invoices/resources/${formControls.currentRowData?.id}`,
-    tableName,
-  });
 
   return (
     <TableWithModal
-      tableName={tableName}
+      tableName={"invoice_detail"}
       tableConfig={tableConfig()}
-      tableData={tableData}
       formControls={formControls}
-      formConfig={formConfig}
-      formData={formData}
+      formConfig={FormConfig}
+      tableDataApiEndPoint={`invoices/${invoiceId}/resources`}
+      formDataApiEndpoint={`/invoices/resources/${formControls.currentRowData?.id}`}
     />
   );
 };

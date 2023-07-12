@@ -1,7 +1,7 @@
 import { FormRenderer } from "components/FormRenderer";
 import { useFormData } from "hooks/useFormData";
 import { useParams } from "react-router";
-import { formFields } from "./formFields";
+import { FormConfig } from "./FormConfig";
 import { IFormControls } from "types";
 import { useFormControls } from "hooks";
 
@@ -14,24 +14,14 @@ import { useFormControls } from "hooks";
 
 export const ContractDetails = () => {
   const { contractId } = useParams();
-  const tableName = "contract";
-  const query = useFormData({
-    url: `/contracts/${contractId}`,
-    tableName: tableName,
-  });
 
-  const { readFields, editFields } = formFields(query.data);
   const formControls: IFormControls = useFormControls();
   return (
     <FormRenderer
       formControls={formControls}
-      tableName={tableName}
-      readFields={readFields}
-      editFields={editFields}
-      postUrl="/contracts"
-      updateUrl={`/contracts/${contractId}`}
-      query={query}
-      rowsToLock={[Number(contractId)]}
+      tableName={"contract"}
+      formConfig={FormConfig}
+      formDataApiEndpoint={`/contracts/${contractId}`}
     />
   );
 };

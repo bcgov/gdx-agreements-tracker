@@ -1,8 +1,6 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
 import { useFormControls } from "hooks";
-import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
@@ -20,28 +18,16 @@ import { FormConfig } from "./FormConfig";
 export const ChangeRequest = () => {
   const { projectId } = useParams();
 
-  const tableName = "change_request";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `projects/${projectId}/change_request`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/projects/${projectId}/change_request/${formControls.currentRowData?.id}`,
-    tableName,
-  });
 
   return (
     <TableWithModal
-      tableName={tableName}
+      tableName={"change_request"}
       tableConfig={tableConfig()}
-      tableData={tableData}
       formControls={formControls}
       formConfig={FormConfig}
-      formData={formData}
+      tableDataApiEndPoint={`projects/${projectId}/change_request`}
+      formDataApiEndpoint={`/projects/${projectId}/change_request/${formControls.currentRowData?.id}`}
     />
   );
 };

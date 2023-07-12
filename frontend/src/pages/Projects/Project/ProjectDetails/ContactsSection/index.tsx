@@ -4,8 +4,9 @@ import { useAxios } from "hooks/useAxios";
 import { useFormData } from "hooks/useFormData";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import formFields from "./formFields";
+import FormConfig from "./FormConfig";
 import { useFormControls } from "hooks";
+import { IFormControls } from "types";
 
 /**
  * This is a TypeScript React component that renders a form for registering a project and uses hooks to
@@ -16,12 +17,7 @@ import { useFormControls } from "hooks";
 
 export const ContactsSection = () => {
   const { projectId } = useParams();
-  const contactsUrl = `/projects/${projectId}/contacts`;
-  const tableName = "contact_project";
-  const query = useFormData({
-    url: contactsUrl,
-    tableName: tableName,
-  });
+
   //TODO add dblock back.  This is causing issue atm, but is not a showstopper removing this for now.
   // const rowsToLock: Array<number> = !query
   //   ? []
@@ -32,21 +28,14 @@ export const ContactsSection = () => {
   //           )
   //         : []
   //     );
-
-  const rowsToLock = [0];
-
-  const { readFields, editFields, initialValues } = formFields(query?.data?.data?.data);
+  const formControls: IFormControls = useFormControls();
 
   return (
     <FormRenderer
-      formControls={useFormControls()}
-      tableName={tableName}
-      readFields={readFields}
-      editFields={editFields}
-      updateUrl={contactsUrl}
-      query={query}
-      rowsToLock={rowsToLock}
-      initialValues={initialValues()}
+      formControls={formControls}
+      tableName={"contact_project"}
+      formConfig={FormConfig}
+      formDataApiEndpoint={`/projects/${projectId}/contacts`}
     />
   );
 };

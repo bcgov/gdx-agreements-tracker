@@ -1,11 +1,9 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
 import { useFormControls } from "hooks";
-import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -20,28 +18,17 @@ import { formConfig } from "./formConfig";
 export const ContractResources = () => {
   const { contractId } = useParams();
 
-  const tableName = "contract_resource";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `/contracts/${contractId}/resources`,
-    tableName,
-  });
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/contracts/resources/${formControls.currentRowData?.id}`,
-    tableName,
-  });
 
   return (
     <>
       <TableWithModal
-        tableName={tableName}
+        tableName={"contract_resource"}
         tableConfig={tableConfig()}
-        tableData={tableData}
         formControls={formControls}
-        formConfig={formConfig}
-        formData={formData}
+        formConfig={FormConfig}
+        tableDataApiEndPoint={`/contracts/${contractId}/resources`}
+        formDataApiEndpoint={`/contracts/resources/${formControls.currentRowData?.id}`}
       />
     </>
   );

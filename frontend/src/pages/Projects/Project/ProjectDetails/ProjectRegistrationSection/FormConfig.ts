@@ -1,51 +1,52 @@
 import { AxiosResponse } from "axios";
-import { FormikValues } from "formik";
-import { UseQueryResult } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 import { IEditField } from "types";
 
-export const formFields = (query: AxiosResponse | undefined) => {
+export const FormConfig = (query: AxiosResponse | undefined) => {
+  const { projectId } = useParams();
+
   const readFields = [
-    { width: "half", title: "Project Number", value: query?.data?.data.project_number },
-    { width: "half", title: "Project Name", value: query?.data?.data.project_name },
-    { width: "half", title: "Version", value: query?.data?.data.project_version },
+    { width: "half", title: "Project Number", value: query?.data?.data?.data?.project_number },
+    { width: "half", title: "Project Name", value: query?.data?.data?.data?.project_name },
+    { width: "half", title: "Version", value: query?.data?.data?.data?.project_version },
     {
       width: "half",
       title: "Client Ministry Name",
-      value: query?.data?.data.ministry?.label,
+      value: query?.data?.data?.data?.ministry?.label,
     },
-    { width: "half", title: "Initiation Date", value: query?.data?.data.initiation_date },
+    { width: "half", title: "Initiation Date", value: query?.data?.data?.data?.initiation_date },
     {
       width: "half",
       title: "Portfolio Name",
-      value: query?.data?.data.portfolio_id?.label,
+      value: query?.data?.data?.data?.portfolio_id?.label,
     },
     {
       width: "half",
       title: "Planned Start Date",
-      value: query?.data?.data.planned_start_date,
+      value: query?.data?.data?.data?.planned_start_date,
     },
-    { width: "half", title: "Fiscal", value: query?.data?.data.fiscal?.label },
-    { width: "half", title: "Planned End Date", value: query?.data?.data.planned_end_date },
-    { width: "half", title: "Planned Budget", value: query?.data?.data.planned_budget },
-    { width: "half", title: "Project Type", value: query?.data?.data.project_type?.label },
+    { width: "half", title: "Fiscal", value: query?.data?.data?.data?.fiscal?.label },
+    { width: "half", title: "Planned End Date", value: query?.data?.data?.data?.planned_end_date },
+    { width: "half", title: "Planned Budget", value: query?.data?.data?.data?.planned_budget },
+    { width: "half", title: "Project Type", value: query?.data?.data?.data?.project_type?.label },
     {
       width: "half",
       title: "Project Status",
-      value: query?.data?.data.project_status?.label,
+      value: query?.data?.data?.data?.project_status?.label,
     },
-    { width: "half", title: "Funding", value: query?.data?.data.funding?.label },
-    { width: "half", title: "Total Budget", value: query?.data?.data.total_project_budget },
-    { width: "half", title: "Recovery", value: query?.data?.data.recoverable?.label },
+    { width: "half", title: "Funding", value: query?.data?.data?.data?.funding?.label },
+    { width: "half", title: "Total Budget", value: query?.data?.data?.data?.total_project_budget },
+    { width: "half", title: "Recovery", value: query?.data?.data?.data?.recoverable?.label },
     {
       width: "half",
       title: "Recoverable Total",
-      value: query?.data?.data.recoverable_amount,
+      value: query?.data?.data?.data?.recoverable_amount,
     },
     {
       width: "half",
       title: "Contract #",
-      value: query?.data?.data.contracts
-        ? (query?.data?.data.contracts as Array<{ id: number; co_number: string }>)
+      value: query?.data?.data?.data?.contracts
+        ? (query?.data?.data?.data?.contracts as Array<{ id: number; co_number: string }>)
             .map((c) => {
               return c.co_number;
             })
@@ -159,5 +160,11 @@ export const formFields = (query: AxiosResponse | undefined) => {
     },
   ];
 
-  return { readFields, editFields };
+  const rowsToLock = [Number(projectId)];
+
+  const postUrl = "/projects";
+
+  const updateUrl = `/projects/${projectId}`;
+
+  return { readFields, editFields, rowsToLock, postUrl, updateUrl };
 };
