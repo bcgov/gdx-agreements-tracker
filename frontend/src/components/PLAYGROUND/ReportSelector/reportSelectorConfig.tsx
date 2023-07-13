@@ -182,8 +182,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Grouped on fiscal, shows Project #, Project Name, Amount recovered each quarter and total recoveries.",
         parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_22_rpt_PA_ChangeRequestTypesFY-Summary",
