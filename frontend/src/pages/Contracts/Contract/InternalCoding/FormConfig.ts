@@ -1,8 +1,11 @@
 import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { contractId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -113,7 +116,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
-  const postUrl = `/contracts/${query?.data?.data?.data?.id}/internal-coding`;
+  const postUrl = `/contracts/${contractId}/internal-coding`;
   const updateUrl = `/contracts/internal-coding/${query?.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
