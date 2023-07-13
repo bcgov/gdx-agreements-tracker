@@ -33,6 +33,7 @@ controller.getAllByInvoiceId = async (request, reply) => {
 controller.addOneWithInvoiceId = async (request, reply) => {
   controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const invoiceId = Number(request.params.id);
+  console.log('invoiceId', invoiceId)
   try {
     const result = await model.addOneWithInvoiceId(request.body, invoiceId);
     return result || controller.noQuery(reply, `The ${what.single} could not be added.`);
