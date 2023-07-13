@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { contractId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -36,6 +39,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "fiscal",
       fieldType: "select",
       pickerName: "fiscal_year_option",
+      required:true,
     },
     {
       width: "half",
@@ -43,6 +47,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "resource_id",
       fieldType: "select",
       pickerName: "resource_option",
+      required:true,
     },
     {
       width: "half",
@@ -50,18 +55,21 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "supplier_rate_id",
       fieldType: "select",
       pickerName: "supplier_rate_option",
+      required:true,
     },
     {
       width: "half",
       fieldLabel: "Assignment Role",
       fieldName: "assignment_role",
       fieldType: "readonly",
+      required:true,
     },
     {
       width: "half",
       fieldLabel: "Assignment Rate",
       fieldName: "assignment_rate",
       fieldType: "number",
+      required:true,
     },
     {
       width: "half",
@@ -97,7 +105,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
-  const postUrl = `/contracts/${query?.data?.data?.data?.id}/resources`;
+  const postUrl = `/contracts/${contractId}/resources`;
   const updateUrl = `/contracts/resources/${query?.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
