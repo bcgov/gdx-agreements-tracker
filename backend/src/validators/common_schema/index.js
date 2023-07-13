@@ -10,7 +10,8 @@ const MaxStringLength = 255;
 const Schema = {
   Money: S.oneOf([S.number().multipleOf(0.01), S.const("")]),
   Date: S.oneOf([S.string().format(S.FORMATS.DATE), S.const("")]),
-  RequiredDate: S.string().format(S.FORMATS.DATE_TIME).minLength(1),
+  RequiredDateTime: S.string().format(S.FORMATS.DATE_TIME).minLength(1),
+  RequiredDate: S.string().format(S.FORMATS.DATE).minLength(1),
   Email: S.oneOf([S.string().format(S.FORMATS.EMAIL), S.const("")]),
   RequiredEmail: S.string().format(S.FORMATS.EMAIL).minLength(1),
   Id: Id,

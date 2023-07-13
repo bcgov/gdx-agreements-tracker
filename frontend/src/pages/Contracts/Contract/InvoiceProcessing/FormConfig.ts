@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { contractId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -25,7 +28,13 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "singleText",
     },
     { width: "half", fieldLabel: "Invoice Date", fieldName: "invoice_date", fieldType: "date" },
-    { width: "half", fieldLabel: "Received Date", fieldName: "received_date", fieldType: "date" },
+    {
+      width: "half",
+      fieldLabel: "Received Date",
+      fieldName: "received_date",
+      fieldType: "date",
+      required: true,
+    },
     { width: "half", fieldLabel: "Due Date", fieldName: "due_date", fieldType: "date" },
     {
       width: "half",
@@ -40,24 +49,32 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Fiscal Year",
       width: "half",
       pickerName: "fiscal_year_option",
+      required: true,
     },
-    { width: "half", fieldLabel: "General Ledger", fieldName: "is_gl", fieldType: "checkbox" },
+    {
+      width: "half",
+      fieldLabel: "General Ledger",
+      fieldName: "is_gl",
+      fieldType: "checkbox",
+      required: true,
+    },
     { width: "full", fieldLabel: "Notes", fieldName: "notes", fieldType: "multiText" },
   ];
 
   const initialValues = {
     invoice_number: "",
-    invoice_date: "",
-    received_date: "",
-    due_date: "",
+    invoice_date: null,
+    received_date: null,
+    due_date: null,
     billing_period: "",
-    fiscal: "",
+    fiscal: null,
     is_gl: false,
     notes: "",
+    contract_id: Number(contractId),
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
-  const postUrl = `/invoices`;
+  const postUrl = `/contracts/${contractId}/invoices`;
   const updateUrl = `/invoices/${query?.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
