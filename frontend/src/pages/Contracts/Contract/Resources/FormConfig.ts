@@ -39,7 +39,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "fiscal",
       fieldType: "select",
       pickerName: "fiscal_year_option",
-      required:true,
+      required: true,
     },
     {
       width: "half",
@@ -47,7 +47,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "resource_id",
       fieldType: "select",
       pickerName: "resource_option",
-      required:true,
+      required: true,
     },
     {
       width: "half",
@@ -55,21 +55,21 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "supplier_rate_id",
       fieldType: "select",
       pickerName: "supplier_rate_option",
-      required:true,
+      required: true,
     },
     {
       width: "half",
       fieldLabel: "Assignment Role",
       fieldName: "assignment_role",
       fieldType: "readonly",
-      required:true,
+      required: true,
     },
     {
       width: "half",
       fieldLabel: "Assignment Rate",
       fieldName: "assignment_rate",
       fieldType: "number",
-      required:true,
+      required: true,
     },
     {
       width: "half",

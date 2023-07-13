@@ -63,7 +63,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "singleText",
       fieldLabel: "Deliverable",
       width: "half",
-      required: true
+      required: true,
     },
     {
       fieldName: "is_expense",
@@ -95,7 +95,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Deliverable Status",
       width: "half",
       tableName: "generic",
-      required: true
+      required: true,
     },
     {
       fieldName: "project_deliverable_id",
@@ -110,7 +110,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Fiscal Year",
       width: "half",
       pickerName: "fiscal_year_option",
-      required: true
+      required: true,
     },
     {
       fieldName: "comments",

@@ -23,7 +23,7 @@ export const InvoiceResources = ({ invoiceId }: { invoiceId: number }) => {
       tableConfig={tableConfig()}
       formControls={formControls}
       formConfig={(formData) => {
-        return FormConfig(formData,invoiceId );
+        return FormConfig(formData, invoiceId);
       }}
       tableDataApiEndPoint={`invoices/${invoiceId}/resources`}
       formDataApiEndpoint={`/invoices/resources/${formControls.currentRowData?.id}`}

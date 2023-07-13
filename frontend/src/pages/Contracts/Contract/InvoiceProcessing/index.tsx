@@ -33,8 +33,7 @@ export const InvoiceProcessing = () => {
         tableDataApiEndPoint={`/contracts/${contractId}/invoices`}
         formDataApiEndpoint={`/invoices/${formControls.currentRowData?.id}`}
       />
-      {
-        formControls.currentRowData &&
+      {formControls.currentRowData && (
         <Grid container spacing={2}>
           <Grid item md={6} sm={12}>
             <InvoiceResources invoiceId={formControls.currentRowData?.id} />
@@ -43,7 +42,7 @@ export const InvoiceProcessing = () => {
             <InvoiceDeliverables invoiceId={formControls.currentRowData?.id} />
           </Grid>
         </Grid>
-      }
+      )}
     </>
   );
 };
