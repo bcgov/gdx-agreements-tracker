@@ -48,7 +48,7 @@ const addUpdateBody = S.object()
   .prop("invoice_total", Schema.Money)
   .prop("is_gl", S.boolean())
   .prop("notes", S.string())
-  .prop("contract_id",Schema.Id)
+  .prop("contract_id", Schema.Id);
 
 const updateOne = {
   params: Schema.IdParam,
