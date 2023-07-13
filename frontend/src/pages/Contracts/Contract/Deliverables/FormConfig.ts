@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { contractId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -60,6 +63,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "singleText",
       fieldLabel: "Deliverable",
       width: "half",
+      required: true
     },
     {
       fieldName: "is_expense",
@@ -91,6 +95,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Deliverable Status",
       width: "half",
       tableName: "generic",
+      required: true
     },
     {
       fieldName: "project_deliverable_id",
@@ -105,6 +110,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Fiscal Year",
       width: "half",
       pickerName: "fiscal_year_option",
+      required: true
     },
     {
       fieldName: "comments",
@@ -120,16 +126,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const initialValues = {
     deliverable_name: "",
     is_expense: false,
-    completion_date: "",
-    deliverable_amount: 0,
+    completion_date: null,
+    deliverable_amount: null,
     deliverable_status: "",
-    project_deliverable_id: "",
+    project_deliverable_id: null,
     comments: "",
     fiscal: "",
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
-  const postUrl = `/contracts/${query?.data?.data?.data?.id}/deliverables`;
+  const postUrl = `/contracts/${contractId}/deliverables`;
   const updateUrl = `/contracts/deliverables/${query?.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
