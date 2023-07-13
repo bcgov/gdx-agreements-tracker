@@ -1,3 +1,11 @@
+**July 13, 2023 - [DESCW-1301](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1301)**
+- Frontend
+    - made form renderer more efficient
+    - Resolved bug with duplicate calls
+    - Updated all form configs to be more efficient and cohesive
+
+
+
 **July 12, 2023 - [DESCW-1247](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1247)**
 - Frontend
   - build template and test against sample template for accuracy
