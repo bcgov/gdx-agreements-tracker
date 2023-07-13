@@ -1,8 +1,8 @@
-//const dbConnection = require("@database/databaseConnection");
-//const { knex } = dbConnection();
+const dbConnection = require("@database/databaseConnection");
+const { knex } = dbConnection();
 
 const getReport = (portfolio) => {
-  const query = knex().raw(
+  const query = knex.raw(
     `set 
     search_path = data;
   WITH qry_Project_Recovery_Historical as (
