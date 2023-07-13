@@ -4,7 +4,7 @@ const { knex } = dbConnection();
 /**
  * Retrieves base historical recoveries to be combined in the final query.
  *
- * @returns {Knex.QueryBuilder}           Knex query builder for fetching report data.
+ * @returns {Knex.QueryBuilder} Knex query builder for fetching report data.
  */
 const baseQueries = {
   projectRecoveryHistorical: knex("historical_projects")
@@ -64,7 +64,7 @@ const baseQueries = {
 /**
  * Retrieves final historical recoveries for the report.
  *
- * @returns {Knex.QueryBuilder}           Knex query builder for fetching report data.
+ * @returns {Knex.QueryBuilder} Knex query builder for fetching report data.
  */
 const reportQueries = {
   report: () =>
@@ -103,7 +103,7 @@ const reportQueries = {
 
 module.exports = {
   required: ["portfolio"],
-  getAll: async ({}) => {
+  getAll: async () => {
     const [report] = await Promise.all([reportQueries.report()]);
 
     return { report };
