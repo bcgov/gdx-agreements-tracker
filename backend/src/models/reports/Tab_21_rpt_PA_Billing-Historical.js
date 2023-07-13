@@ -2,10 +2,9 @@ const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
 /**
- * Retrieves historical recoveries.
+ * Retrieves base historical recoveries to be combined in the final query.
  *
- * @param   {string}            portfolio - Portfolio value to filter the report.
- * @returns {Knex.QueryBuilder}           Knex query builder for fetching report totals.
+ * @returns {Knex.QueryBuilder}           Knex query builder for fetching report data.
  */
 const baseQueries = {
   projectRecoveryHistorical: knex("historical_projects")
@@ -62,6 +61,11 @@ const baseQueries = {
     ),
 };
 
+/**
+ * Retrieves final historical recoveries for the report.
+ *
+ * @returns {Knex.QueryBuilder}           Knex query builder for fetching report data.
+ */
 const reportQueries = {
   report: () =>
     knex
