@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { contractId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -51,8 +54,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
    */
   const initialValues = {
     description: "",
-    amendment_date: "",
-    contract_id: query?.data?.data?.data?.contract_id,
+    amendment_date: null,
+    contract_id: contractId,
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
