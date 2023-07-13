@@ -12,7 +12,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     {
       width: "half",
       title: "Client Ministry Name",
-      value: query?.data?.data?.data?.ministry?.label,
+      value: query?.data?.data?.data?.ministry_id?.label,
     },
     { width: "half", title: "Initiation Date", value: query?.data?.data?.data?.initiation_date },
     {
