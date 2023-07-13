@@ -3,8 +3,7 @@
     - made form renderer more efficient
     - Resolved bug with duplicate calls
     - Updated all form configs to be more efficient and cohesive
-
-
+    - Resolved all add new functionality bugs for contract and project sections
 
 **July 12, 2023 - [DESCW-1247](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1247)**
 - Frontend
