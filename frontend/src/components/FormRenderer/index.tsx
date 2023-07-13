@@ -83,7 +83,8 @@ export const FormRenderer = ({
     handleSnackbarMessage("success");
     handleSnackbarType("success");
     handleSnackbar();
-    queryClient.invalidateQueries([tableName]);
+    //TODO Make the invalidation of queries more efficient.
+    queryClient.invalidateQueries();
   };
 
   /**
