@@ -1,20 +1,21 @@
 import { AxiosResponse } from "axios";
-import { FormikValues } from "formik";
-import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
-export const formFields = (query: AxiosResponse | undefined) => {
+export const FormConfig = (query: AxiosResponse | undefined) => {
+  const { projectId } = useParams();
+
   const readFields = [
     {
       width: "half",
       title: "Agreement Type",
-      value: query?.data?.data?.agreement_type?.label,
+      value: query?.data?.data?.data?.agreement_type?.label,
     },
-    { width: "half", title: "Start Date", value: query?.data?.data?.agreement_start_date },
-    { width: "half", title: "Signed Date", value: query?.data?.data?.agreement_signed_date },
-    { width: "half", title: "End Date", value: query?.data?.data?.agreement_end_date },
-    { width: "full", title: "Description", value: query?.data?.data?.description },
-    { width: "full", title: "Notes", value: query?.data?.data?.notes },
+    { width: "half", title: "Start Date", value: query?.data?.data?.data?.agreement_start_date },
+    { width: "half", title: "Signed Date", value: query?.data?.data?.data?.agreement_signed_date },
+    { width: "half", title: "End Date", value: query?.data?.data?.data?.agreement_end_date },
+    { width: "full", title: "Description", value: query?.data?.data?.data?.description },
+    { width: "full", title: "Notes", value: query?.data?.data?.data?.notes },
   ];
 
   const editFields: IEditField[] = [
@@ -57,5 +58,10 @@ export const formFields = (query: AxiosResponse | undefined) => {
     },
   ];
 
-  return { readFields, editFields };
+  const postUrl = "/projects";
+  const updateUrl = `/projects/${projectId}`;
+
+  const rowsToLock = [Number(projectId)];
+
+  return { readFields, editFields, postUrl, updateUrl, rowsToLock };
 };

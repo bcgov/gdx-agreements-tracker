@@ -1,11 +1,9 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
 import { useFormControls } from "hooks";
-import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 import { Grid } from "@mui/material";
 import { InvoiceResources } from "./InvoiceResources";
 import { InvoiceDeliverables } from "./InvoiceDeliverables";
@@ -23,28 +21,17 @@ import { InvoiceDeliverables } from "./InvoiceDeliverables";
 export const InvoiceProcessing = () => {
   const { contractId } = useParams();
 
-  const tableName = "invoice";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `/contracts/${contractId}/invoices`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
 
-  const formData = useFormData({
-    url: `/invoices/${formControls.currentRowData?.id}`,
-    tableName,
-  });
   return (
     <>
       <TableWithModal
-        tableName={tableName}
+        tableName={"invoice"}
         tableConfig={tableConfig()}
-        tableData={tableData}
         formControls={formControls}
-        formConfig={formConfig}
-        formData={formData}
+        formConfig={FormConfig}
+        tableDataApiEndPoint={`/contracts/${contractId}/invoices`}
+        formDataApiEndpoint={`/invoices/${formControls.currentRowData?.id}`}
       />
       <Grid container spacing={2}>
         <Grid item md={6} sm={12}>

@@ -4,13 +4,13 @@ export const tableConfig = () => {
   const defaultFlex = 3;
 
   const tableColumns: GridColDef[] = [
-    { field: "portfolio", headerName: "portfolio", flex: defaultFlex },
-    { field: "responsibility", headerName: "responsibility", flex: defaultFlex },
-    { field: "service_line", headerName: "service_line", flex: defaultFlex },
+    { field: "portfolio", headerName: "Portfolio", flex: defaultFlex },
+    { field: "responsibility", headerName: "Responsibility", flex: defaultFlex },
+    { field: "service_line", headerName: "Service Line", flex: defaultFlex },
     { field: "cas_project_number", headerName: "CAS Project #", flex: defaultFlex },
-    { field: "asset_tag", headerName: "asset_tag", flex: defaultFlex },
+    { field: "asset_tag", headerName: "Asset Tag", flex: defaultFlex },
     { field: "wip_number", headerName: "WIP #", flex: defaultFlex },
-    { field: "qualified_receiver", headerName: "qualified_receiver", flex: defaultFlex },
+    { field: "qualified_receiver", headerName: "Qualified Receiver", flex: defaultFlex },
   ];
 
   const initialState = {

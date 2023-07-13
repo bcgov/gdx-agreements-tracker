@@ -1,8 +1,6 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
 import { useParams } from "react-router-dom";
 import { useFormControls } from "hooks";
-import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
@@ -10,28 +8,16 @@ import { FormConfig } from "./FormConfig";
 export const Billing = () => {
   const { projectId } = useParams();
 
-  const tableName = "jv";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `projects/${projectId}/jv`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/jv/${formControls.currentRowData?.id}`,
-    tableName,
-  });
 
   return (
     <TableWithModal
-      tableName={tableName}
+      tableName={"jv"}
       tableConfig={tableConfig()}
-      tableData={tableData}
       formControls={formControls}
       formConfig={FormConfig}
-      formData={formData}
+      tableDataApiEndPoint={`projects/${projectId}/jv`}
+      formDataApiEndpoint={`/jv/${formControls.currentRowData?.id}`}
     />
   );
 };

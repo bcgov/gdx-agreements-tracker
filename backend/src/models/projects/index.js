@@ -59,6 +59,7 @@ const findById = (id) => {
       { version: "p.project_version" },
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
       { portfolio: "p.portfolio_id" },
+      //TODO this needs to be changed to ministyr_id in the view
       { ministry: "p.ministry_id" },
       { registration_date: knex.raw(`TO_CHAR(p.initiation_date :: DATE, '${dateFormat}')`) },
       { end_date: knex.raw(`TO_CHAR(p.agreement_end_date :: DATE, '${dateFormat}')`) },

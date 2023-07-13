@@ -5,7 +5,7 @@ import { useFormControls } from "hooks";
 import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
-import { formConfig } from "./formConfig";
+import { FormConfig } from "./FormConfig";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -19,30 +19,16 @@ import { formConfig } from "./formConfig";
 
 export const Deliverables = () => {
   const { contractId } = useParams();
-
-  const tableName = "contract_deliverable";
-
-  const tableData = useFormatTableData({
-    apiEndPoint: `/contracts/${contractId}/deliverables`,
-    tableName,
-  });
-
   const formControls: IFormControls = useFormControls();
-
-  const formData = useFormData({
-    url: `/contracts/deliverables/${formControls.currentRowData?.id}`,
-    tableName,
-  });
-
   return (
     <>
       <TableWithModal
-        tableName={tableName}
+        tableName={"contract_deliverable"}
         tableConfig={tableConfig()}
-        tableData={tableData}
         formControls={formControls}
-        formConfig={formConfig}
-        formData={formData}
+        formConfig={FormConfig}
+        tableDataApiEndPoint={`/contracts/${contractId}/deliverables`}
+        formDataApiEndpoint={`/contracts/deliverables/${formControls.currentRowData?.id}`}
       />
     </>
   );

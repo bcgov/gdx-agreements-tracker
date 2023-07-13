@@ -1,11 +1,12 @@
 import { InputForm } from "components/PLAYGROUND/Forms";
-import { useQueryClient } from "@tanstack/react-query";
+import { UseQueryResult, useQueryClient } from "@tanstack/react-query";
 import { useFormSubmit, useFormLock } from "hooks";
 import { ReadForm } from "components/ReadForm";
 import { Box, Button, LinearProgress } from "@mui/material";
 import { IFormRenderer, ILockData } from "types";
 import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
+import { useFormData } from "hooks/useFormData";
 
 /**
  * This is a functional component called `FormRenderer` that takes in several props including `queryKey`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`.
@@ -26,18 +27,20 @@ import { useSnackbar } from "hooks/useSnackbar";
 export const FormRenderer = ({
   formControls,
   tableName,
-  readFields,
-  editFields,
-  postUrl,
-  updateUrl,
-  query,
-  rowsToLock,
-  initialValues,
+  formConfig,
+  formDataApiEndpoint,
 }: IFormRenderer): JSX.Element => {
   const { handleUpdate, handlePost } = useFormSubmit();
   const { handleDbLock, removeLock } = useFormLock();
   const queryClient = useQueryClient();
 
+  const formData = useFormData({
+    url: formDataApiEndpoint,
+    tableName,
+  });
+
+  const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
+    formConfig(formData);
   /**
    * This function handles form submission for editing or posting data and updates the UI accordingly.
    *
@@ -56,13 +59,13 @@ export const FormRenderer = ({
   const { formType, handleFormType, handleClose } = formControls;
   const handleOnSubmit = async (values: unknown) => {
     try {
-      if ("edit" === formType || query?.data?.data?.dbRowLock.currentUser) {
+      if ("edit" === formType || formData?.data?.data?.dbRowLock.currentUser) {
         await handleUpdate({
           changedValues: values,
           apiUrl: updateUrl,
-          currentRowData: query.data.data.data,
+          currentRowData: formData.data?.data.data,
         }).then(async () => {
-          await removeLock(query, rowsToLock).then(() => {
+          await removeLock(formData, rowsToLock).then(() => {
             handleFormType("read");
           });
         });
@@ -80,7 +83,8 @@ export const FormRenderer = ({
     handleSnackbarMessage("success");
     handleSnackbarType("success");
     handleSnackbar();
-    queryClient.invalidateQueries([tableName]);
+    //TODO Make the invalidation of queries more efficient.
+    queryClient.invalidateQueries();
   };
 
   /**
@@ -88,8 +92,8 @@ export const FormRenderer = ({
    */
   const handleOnCancel = async () => {
     if ("edit" === formType) {
-      await removeLock(query, rowsToLock).then(async () => {
-        await query.refetch();
+      await removeLock(formData, rowsToLock).then(async () => {
+        await formData.refetch();
       });
     }
     handleClose();
@@ -100,7 +104,7 @@ export const FormRenderer = ({
    * form type to "edit".
    */
   const handleOnChange = async () => {
-    await handleDbLock(query, rowsToLock).then(async (lockData: ILockData) => {
+    await handleDbLock(formData, rowsToLock).then(async (lockData: ILockData) => {
       if (lockData.data.locked) {
         return confirm(
           `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`
@@ -110,10 +114,13 @@ export const FormRenderer = ({
     handleFormType("edit");
   };
 
+  if (formData.isLoading) {
+    return <LinearProgress />;
+  }
   if ("edit" === formType) {
-    if (Array.isArray(query?.data?.data?.data)) {
+    if (Array.isArray(formData?.data?.data?.data) && formData?.data) {
       const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};
-      query?.data?.data?.data.map(
+      formData?.data?.data?.data.map(
         (role: {
           role_id: number;
           role_type: string;
@@ -122,12 +129,12 @@ export const FormRenderer = ({
           newInitialValues[role.role_id] = role.contacts;
         }
       );
-      query.data.data.data = newInitialValues;
+      formData.data.data.data = newInitialValues;
     }
     return (
       <InputForm
         handleOnSubmit={handleOnSubmit}
-        initialValues={query?.data?.data?.data}
+        initialValues={formData?.data?.data?.data}
         handleOnCancel={handleOnCancel}
         editFields={editFields}
       />

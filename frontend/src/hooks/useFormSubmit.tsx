@@ -30,8 +30,9 @@ export const useFormSubmit = () => {
         }
       }
     }
+
     axiosAll()
-      .put(apiUrl, changedValues)
+      .put(apiUrl, deltaChanges)
       .then((data) => {
         return data.status;
       })
