@@ -1,3 +1,10 @@
+**July 14, 2023 [DESCW-1224](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1224)**
+- Backend
+  - Added model for historical billing report
+  - Added xls template for historical billing report
+- Frontend
+  - Enabled export xls option for historical billing report
+
 **July 14, 2023 - [DESCW-871](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-871)**
 - Frontend
     - Updated admin contact section with new table component
