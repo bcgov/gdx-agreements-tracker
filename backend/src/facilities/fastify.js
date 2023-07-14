@@ -80,6 +80,15 @@ const fastifyInstance = (options) => {
     .register(fastifyAuth)
     .register(fastifyCors, {})
     .register(fastifyPayload)
+    .setSchemaErrorFormatter((errors) => {
+      return new Error(errors);
+    })
+    .setErrorHandler((error, request, reply) => {
+      if (error.validation) {
+        request.log.debug(error.validation);
+        reply.status(400).send(error.validation);
+      }
+    })
     .after(() => {
       app.addHook("preValidation", app.auth([app.verifyAuthentication]));
       app.route({

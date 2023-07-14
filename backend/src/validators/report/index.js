@@ -5,17 +5,14 @@ const getReport = {
     .prop("templateType", S.string())
     .prop("date", S.string())
     .prop("category", S.string())
-    .prop("type", S.string())
+    .prop("type", S.anyOf([S.string(), S.null()]))
     .prop("exportType", S.string())
-    .prop("fiscal", S.string())
+    .prop("fiscal", S.number())
+    .prop("portfolio", S.number())
     .required(["templateType", "category", "exportType"]),
   headers: S.object().prop("Authorization", S.string().minLength(1500)).required(["Authorization"]),
   response: {
     "2xx": S.object(),
-    "4xx": S.object().prop(
-      "data",
-      S.object().prop("message", S.string()).prop("item", S.string()).prop("error", S.string())
-    ),
   },
 };
 
