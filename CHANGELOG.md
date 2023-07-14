@@ -1,8 +1,12 @@
+**July 14, 2023 - [DESCW-871](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-871)**
+- Frontend
+    - Updated admin contact section with new table component
+
 **July 13, 2023 - [DESCW-1354](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1354)**
 - Backend
   - tests for routes using generic controller
   - adding logging and error handler for validation failures on routes.
-  
+      
 **July 13, 2023 - [DESCW-1301](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1301)**
 - Frontend
     - made form renderer more efficient
