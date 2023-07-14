@@ -1,11 +1,8 @@
 import { AxiosResponse } from "axios";
-import { FormikValues } from "formik";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
-import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
-  const { contactId } = useParams();
   const readFields = !query
     ? []
     : [
@@ -132,9 +129,9 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     notes: "",
   };
 
-  const rowsToLock = [Number(contactId)];
+  const rowsToLock = [Number(query.data?.data?.data?.id)];
   const postUrl = `/contacts`;
-  const updateUrl = `/contacts/${contactId}`;
+  const updateUrl = `/contacts/${query.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };

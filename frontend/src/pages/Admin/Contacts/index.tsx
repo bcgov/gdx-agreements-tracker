@@ -1,5 +1,4 @@
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useParams } from "react-router-dom";
 import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
@@ -16,8 +15,6 @@ import { FormConfig } from "./FormConfig";
  */
 
 export const Contacts = () => {
-  const { contactId } = useParams();
-
   const formControls: IFormControls = useFormControls();
 
   return (
@@ -27,7 +24,7 @@ export const Contacts = () => {
       formControls={formControls}
       formConfig={FormConfig}
       tableDataApiEndPoint={`/contacts`}
-      formDataApiEndpoint={`/contacts/${contactId}`}
+      formDataApiEndpoint={`/contacts/${formControls.currentRowData?.id}`}
     />
   );
 };
