@@ -4,7 +4,8 @@ const { knex } = dbConnection();
 /**
  * Retrieves base historical recoveries to be combined in the final query.
  *
- * @returns {Knex.QueryBuilder} Knex query builder for fetching report data.
+ * @param   {string}            fiscal - Fiscal year value to filter the report.
+ * @returns {Knex.QueryBuilder}        Knex query builder for fetching report data.
  */
 const baseQueries = {
   projectRecoveryHistorical: knex("historical_projects")
@@ -12,6 +13,7 @@ const baseQueries = {
       project_number: "historical_projects.project_number",
       project_name: "historical_projects.project_name",
       total_project_budget: "historical_projects.total_project_budget",
+      fiscal_id: "fiscal_year.id",
       budget_fiscal: "fiscal_year.fiscal_year",
       q1: "historical_project_billing.q1",
       q2: "historical_project_billing.q2",
@@ -31,6 +33,7 @@ const baseQueries = {
       "historical_projects.project_number",
       "historical_projects.project_name",
       "historical_projects.total_project_budget",
+      "fiscal_year.id",
       "fiscal_year.fiscal_year",
       "historical_project_billing.q1",
       "historical_project_billing.q2",
@@ -44,6 +47,7 @@ const baseQueries = {
       project_number: "project.project_number",
       project_name: "project.project_name",
       total_project_budget: "project.total_project_budget",
+      fiscal_id: "fiscal_year.id",
       fiscal_year: "fiscal_year.fiscal_year",
       q1: knex.raw(`sum(case when quarter = '1' then amount else null end)`),
       q2: knex.raw(`sum(case when quarter = '2' then amount else null end)`),
@@ -57,6 +61,7 @@ const baseQueries = {
       "project.id",
       "project.project_number",
       "project.total_project_budget",
+      "fiscal_year.id",
       "fiscal_year.fiscal_year"
     ),
 };
@@ -64,10 +69,11 @@ const baseQueries = {
 /**
  * Retrieves final historical recoveries for the report.
  *
- * @returns {Knex.QueryBuilder} Knex query builder for fetching report data.
+ * @param   {number | string | Array} fiscal - The fiscal year(s) to retrieve totals for.
+ * @returns {Knex.QueryBuilder}              Knex query builder for fetching report data.
  */
 const reportQueries = {
-  report: () =>
+  report: (fiscal) =>
     knex
       .select({
         budget_fiscal: "project_recovery_historical.budget_fiscal",
@@ -83,6 +89,7 @@ const reportQueries = {
         ),
       })
       .from(baseQueries.projectRecoveryHistorical.as("project_recovery_historical"))
+      .where("fiscal_id", fiscal)
       .unionAll([
         knex
           .select({
@@ -97,15 +104,31 @@ const reportQueries = {
             total_recovered: "total_recovered",
           })
           .from(baseQueries.projectRecovery.as("project_recovery"))
+          .where("fiscal_id", fiscal)
           .orderBy("project_number"),
       ]),
+
+  report_totals: (fiscal) =>
+    knex
+      .from(baseQueries.projectRecoveryHistorical.as("project_recovery_historical"))
+      .select({
+        q1_total: knex.sum("q1"),
+        q2_total: knex.sum("q2"),
+        q3_total: knex.sum("q3"),
+        q4_total: knex.sum("q4"),
+        grand_total: knex.sum("total_recovered"),
+      })
+      .where("fiscal_id", fiscal),
 };
 
 module.exports = {
-  required: ["portfolio"],
-  getAll: async () => {
-    const [report] = await Promise.all([reportQueries.report()]);
+  required: ["fiscal"],
+  getAll: async ({ fiscal }) => {
+    const [report, report_totals] = await Promise.all([
+      reportQueries.report(fiscal),
+      reportQueries.report_totals(fiscal),
+    ]);
 
-    return { report };
+    return { report, report_totals };
   },
 };

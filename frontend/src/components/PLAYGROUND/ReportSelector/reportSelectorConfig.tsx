@@ -181,7 +181,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Historical Recoveries",
         description:
           "Grouped on fiscal, shows Project #, Project Name, Amount recovered each quarter and total recoveries.",
-        parameters: ["portfolio"],
+        parameters: ["fiscal"],
         exportPDF: false,
         exportXLSX: true,
       },
