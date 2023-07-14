@@ -1,3 +1,8 @@
+**July 14, 2023 - [DESCW-871](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-871)**
+- Frontend
+    - Updated admin contact section with new table component
+     
+    
 **July 13, 2023 - [DESCW-1301](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1301)**
 - Frontend
     - made form renderer more efficient
