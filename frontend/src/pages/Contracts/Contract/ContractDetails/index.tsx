@@ -4,6 +4,8 @@ import { useParams } from "react-router";
 import { FormConfig } from "./FormConfig";
 import { IFormControls } from "types";
 import { useFormControls } from "hooks";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 /**
  * This is a TypeScript React component that renders a form for registering a project and uses hooks to
@@ -13,6 +15,12 @@ import { useFormControls } from "hooks";
  */
 
 export const ContractDetails = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Contract Details")
+  }, [])
+  
   const { contractId } = useParams();
 
   const formControls: IFormControls = useFormControls();

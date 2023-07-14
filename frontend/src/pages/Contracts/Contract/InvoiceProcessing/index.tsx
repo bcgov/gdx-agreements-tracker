@@ -7,6 +7,8 @@ import { FormConfig } from "./FormConfig";
 import { Grid } from "@mui/material";
 import { InvoiceResources } from "./InvoiceResources";
 import { InvoiceDeliverables } from "./InvoiceDeliverables";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -19,6 +21,12 @@ import { InvoiceDeliverables } from "./InvoiceDeliverables";
  */
 
 export const InvoiceProcessing = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Contract Invoice Processing")
+  }, [])
+  
   const { contractId } = useParams();
 
   const formControls: IFormControls = useFormControls();
