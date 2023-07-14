@@ -8,7 +8,7 @@ import { FormConfig } from "./FormConfig";
  * This is a TypeScript React component that renders a table with modal for change requests related to
  * a specific project.
  *
- * @returns The `ChangeRequest` component is being returned, which renders a `TableWithModal` component
+ * @returns The `Contacts` component is being returned, which renders a `TableWithModal` component
  *  with `tableConfig`, `tableData`, `formControls`, `FormConfig`, and `formData` as props. The
  *  `tableData` is obtained using the `useFormatTableData` hook with a specific URL path. The
  *  `formControls` is an object that contains properties and methods for handling

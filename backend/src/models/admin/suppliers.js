@@ -8,13 +8,13 @@ const findAll = () => {
   return knex(table)
     .columns(
       "id",
-      "supplier_number",
+      "supplier_name",
       { signing_authority: "signing_authority_name" },
       { financial_contact: "financial_contact_name" },
       "province"
     )
     .select()
-    .orderBy("supplier_number", "asc");
+    .orderBy("supplier_name", "asc");
 };
 
 // Get specific one by id.

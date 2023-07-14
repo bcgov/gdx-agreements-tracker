@@ -6,7 +6,7 @@ const getAll = {
     S.array().items(
       S.object()
         .prop("id", S.number())
-        .prop("supplier_number", S.number())
+        .prop("supplier_name", S.string())
         .prop("signing_authority", S.string())
         .prop("financial_contact", S.string())
         .prop("province", S.string())
