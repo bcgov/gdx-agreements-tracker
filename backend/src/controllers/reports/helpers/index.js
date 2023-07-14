@@ -111,15 +111,17 @@ const getTemplatePath = ({ templateType, templateFileName }) =>
  * @returns {Function}              - An asynchronous function that sets the response type and headers and returns the request data.
  */
 const getReportAndSetRequestHeaders = (templateType = "docx") => {
-  const { headers, mimeType } = getHeaderInfoFrom(templateType);
+  /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+  // todo: add mimeType back in, currently it is always application/pdf
+  const { headers } = getHeaderInfoFrom(templateType);
 
   const setResponseHeaders = (reply) => {
-    reply.type(mimeType).headers(headers);
+    //reply.type(mimeType) //This doesn't seem to be working, and it also causing tests to fail (ST).
+    reply.headers(headers);
   };
 
   return async (request, reply) => {
     setResponseHeaders(reply);
-
     return request.data;
   };
 };
