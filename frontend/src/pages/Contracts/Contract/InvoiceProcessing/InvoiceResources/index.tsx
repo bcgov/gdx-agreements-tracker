@@ -20,8 +20,8 @@ export const InvoiceResources = ({ invoiceId }: { invoiceId: number }) => {
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Contract Invoice Resources")
-  }, [])
+    updateTitle("Contract Invoice Resources");
+  }, []);
 
   const formControls: IFormControls = useFormControls();
 

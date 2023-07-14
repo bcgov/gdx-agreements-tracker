@@ -18,13 +18,12 @@ import { useEffect } from "react";
  */
 
 export const ContractResources = () => {
-
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Contract Resources")
-  }, [])
-  
+    updateTitle("Contract Resources");
+  }, []);
+
   const { contractId } = useParams();
 
   const formControls: IFormControls = useFormControls();

@@ -32,9 +32,9 @@ export const Projects = () => {
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Projects")
-  }, [])
-  
+    updateTitle("Projects");
+  }, []);
+
   return (
     <Table
       rows={rows?.data?.data?.data}

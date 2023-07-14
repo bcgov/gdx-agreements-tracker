@@ -9,17 +9,15 @@ import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
 
 export const Status = () => {
-
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Project Status")
-  }, [])
+    updateTitle("Project Status");
+  }, []);
 
   const { projectId } = useParams();
 
   const formControls: IFormControls = useFormControls();
- 
 
   return (
     <TableWithModal

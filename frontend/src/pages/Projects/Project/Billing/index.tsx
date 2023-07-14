@@ -8,13 +8,12 @@ import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
 
 export const Billing = () => {
-
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Project Billing")
-  }, [])
-  
+    updateTitle("Project Billing");
+  }, []);
+
   const { projectId } = useParams();
 
   const formControls: IFormControls = useFormControls();

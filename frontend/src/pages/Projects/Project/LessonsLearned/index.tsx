@@ -8,12 +8,11 @@ import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
 
 export const LessonsLearned = () => {
-
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Project Lessons Learned")
-  }, [])
+    updateTitle("Project Lessons Learned");
+  }, []);
 
   const { projectId } = useParams();
 
@@ -30,4 +29,3 @@ export const LessonsLearned = () => {
     />
   );
 };
-

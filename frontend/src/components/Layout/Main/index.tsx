@@ -13,7 +13,7 @@ const drawerWidth = bcgovTheme.customSettings.drawerWidth;
 export const Main = () => {
   const { drawerOpen, handleDrawerToggle } = useDrawer();
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <PageHeader
         drawerOpen={drawerOpen}
         handleDrawerToggle={handleDrawerToggle}
@@ -24,21 +24,25 @@ export const Main = () => {
       <Sidebar drawerOpen={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
 
       {/* Main Content */}
-      <Box component="main" sx={{
-        flexGrow: 1, p: 3,
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        boxSizing: "border-box",
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
-        mt: "6vh"
-      }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          boxSizing: "border-box",
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          mt: "6vh",
+        }}
+      >
         <Outlet />
       </Box>
 
       {/* Footer */}
       <PageFooter drawerWidth={drawerWidth} />
     </Box>
-  )
+  );
 };

@@ -21,9 +21,9 @@ export const Amendments = () => {
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Contract Amendments")
-  }, [])
-  
+    updateTitle("Contract Amendments");
+  }, []);
+
   const { contractId } = useParams();
 
   const formControls: IFormControls = useFormControls();

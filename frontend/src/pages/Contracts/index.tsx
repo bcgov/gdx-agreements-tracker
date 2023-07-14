@@ -7,13 +7,12 @@ import { LinearProgress } from "@mui/material";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
 export const Contracts = () => {
-
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Contracts")
-  }, [])
-  
+    updateTitle("Contracts");
+  }, []);
+
   const navigate = useNavigate();
 
   const tableName = "contract";

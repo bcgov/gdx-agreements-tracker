@@ -11,9 +11,9 @@ export const CloseOut = () => {
   const { updateTitle } = useTitle();
 
   useEffect(() => {
-    updateTitle("Project Close Out")
-  }, [])
-  
+    updateTitle("Project Close Out");
+  }, []);
+
   const { projectId } = useParams();
 
   const formControls: IFormControls = useFormControls();
