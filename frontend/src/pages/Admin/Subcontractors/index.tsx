@@ -1,35 +1,20 @@
-import { TableComplete } from "components/TableComplete";
-import React, { FC } from "react";
-import { readFields, editFields } from "./fields";
+import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
+import { useFormControls } from "hooks";
+import { IFormControls } from "types";
+import { tableConfig } from "./tableConfig";
+import { FormConfig } from "./FormConfig";
 
-export const Subcontractors: FC = () => {
-  const createFormInitialValues = {
-    subcontractor_name: "",
-  };
-
-  const roles = {
-    get: "admin_form_read_all",
-    add: "admin_form_add_one",
-    update: "admin_form_update_one",
-    delete: "admin_form_delete_one",
-  };
-
-  const url = {
-    getAll: `/subcontractors`,
-    getOne: `/subcontractors/{id}`,
-    updateOne: `/subcontractors/{id}`,
-    addOne: `/subcontractors`,
-  };
+export const Subcontractors = () => {
+  const formControls: IFormControls = useFormControls();
 
   return (
-    <TableComplete
-      itemName="Subcontractor"
-      tableName="subcontractors"
-      url={url}
-      createFormInitialValues={createFormInitialValues}
-      readFields={readFields}
-      editFields={editFields}
-      roles={roles}
+    <TableWithModal
+      tableName={"subcontractors"}
+      tableConfig={tableConfig()}
+      formControls={formControls}
+      formConfig={FormConfig}
+      tableDataApiEndPoint={`/subcontractors`}
+      formDataApiEndpoint={`/subcontractors/${formControls.currentRowData?.id}`}
     />
   );
 };
