@@ -4,7 +4,6 @@ import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
 
-
 export const Suppliers = () => {
   const formControls: IFormControls = useFormControls();
 
