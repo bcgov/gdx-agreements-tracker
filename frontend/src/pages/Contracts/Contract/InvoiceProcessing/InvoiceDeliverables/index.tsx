@@ -24,7 +24,9 @@ export const InvoiceDeliverables = ({ invoiceId }: { invoiceId: number }) => {
       tableName={"invoice_detail"}
       tableConfig={tableConfig()}
       formControls={formControls}
-      formConfig={FormConfig}
+      formConfig={(formData) => {
+        return FormConfig(formData, invoiceId);
+      }}
       tableDataApiEndPoint={`invoices/${invoiceId}/deliverables`}
       formDataApiEndpoint={`/invoices/deliverables/${formControls.currentRowData?.id}`}
     />

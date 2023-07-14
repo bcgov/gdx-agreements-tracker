@@ -30,7 +30,7 @@ const routes = [
   {
     method: "POST",
     url: `/${what}`,
-    schema: validators.addOne,
+    // schema: validators.addOne,
     handler: controller.addOne,
   },
 ];
