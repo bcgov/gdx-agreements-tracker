@@ -8,8 +8,7 @@ export const tableConfig = () => {
     { field: "contact_title", headerName: "Job Title", flex: defaultFlex },
     { field: "ministry_id", headerName: "Ministry", flex: defaultFlex },
     { field: "notes", headerName: "Notes", flex: defaultFlex },
-
-];
+  ];
 
   const initialState = {
     filter: {
