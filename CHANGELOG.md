@@ -1,3 +1,7 @@
+**July 14, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
+- Frontend
+  - Moved Finance Recovery Project Summary Forecast to the Divisional Project Financials category
+
 **July 14, 2023 [DESCW-1224](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1224)**
 - Backend
   - Added model for historical billing report
