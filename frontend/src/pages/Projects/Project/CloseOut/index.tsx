@@ -12,7 +12,7 @@ export const CloseOut = () => {
 
   useEffect(() => {
     updateTitle("Project Close Out");
-  }, []);
+  }, [updateTitle]);
 
   const { projectId } = useParams();
 

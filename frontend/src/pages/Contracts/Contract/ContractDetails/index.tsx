@@ -19,7 +19,7 @@ export const ContractDetails = () => {
 
   useEffect(() => {
     updateTitle("Contract Details");
-  }, []);
+  }, [updateTitle]);
 
   const { contractId } = useParams();
 

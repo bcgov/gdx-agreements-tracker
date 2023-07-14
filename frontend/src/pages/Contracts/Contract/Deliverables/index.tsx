@@ -24,7 +24,7 @@ export const Deliverables = () => {
 
   useEffect(() => {
     updateTitle("Contract Deliverables");
-  }, []);
+  }, [updateTitle]);
 
   const { contractId } = useParams();
   const formControls: IFormControls = useFormControls();

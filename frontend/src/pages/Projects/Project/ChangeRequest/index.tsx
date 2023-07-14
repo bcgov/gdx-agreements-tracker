@@ -22,7 +22,7 @@ export const ChangeRequest = () => {
 
   useEffect(() => {
     updateTitle("Project Change Request");
-  }, []);
+  }, [updateTitle]);
 
   const { projectId } = useParams();
 

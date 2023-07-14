@@ -12,7 +12,7 @@ export const Billing = () => {
 
   useEffect(() => {
     updateTitle("Project Billing");
-  }, []);
+  }, [updateTitle]);
 
   const { projectId } = useParams();
 

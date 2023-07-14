@@ -33,7 +33,7 @@ export const Projects = () => {
 
   useEffect(() => {
     updateTitle("Projects");
-  }, []);
+  }, [updateTitle]);
 
   return (
     <Table

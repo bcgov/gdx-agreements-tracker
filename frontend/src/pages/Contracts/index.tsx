@@ -11,7 +11,7 @@ export const Contracts = () => {
 
   useEffect(() => {
     updateTitle("Contracts");
-  }, []);
+  }, [updateTitle]);
 
   const navigate = useNavigate();
 

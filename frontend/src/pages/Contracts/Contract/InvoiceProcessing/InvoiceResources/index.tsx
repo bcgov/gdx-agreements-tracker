@@ -21,7 +21,7 @@ export const InvoiceResources = ({ invoiceId }: { invoiceId: number }) => {
 
   useEffect(() => {
     updateTitle("Contract Invoice Resources");
-  }, []);
+  }, [updateTitle]);
 
   const formControls: IFormControls = useFormControls();
 

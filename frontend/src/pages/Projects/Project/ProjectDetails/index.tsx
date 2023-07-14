@@ -15,7 +15,7 @@ export const ProjectDetails = () => {
 
   useEffect(() => {
     updateTitle("Project Details");
-  }, []);
+  }, [updateTitle]);
   return (
     <>
       <GDXAccordion sectionTitle="Project Registration">

@@ -22,7 +22,7 @@ export const Amendments = () => {
 
   useEffect(() => {
     updateTitle("Contract Amendments");
-  }, []);
+  }, [updateTitle]);
 
   const { contractId } = useParams();
 

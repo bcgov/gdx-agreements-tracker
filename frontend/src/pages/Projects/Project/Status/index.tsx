@@ -13,7 +13,7 @@ export const Status = () => {
 
   useEffect(() => {
     updateTitle("Project Status");
-  }, []);
+  }, [updateTitle]);
 
   const { projectId } = useParams();
 

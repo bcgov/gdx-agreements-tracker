@@ -24,7 +24,7 @@ export const InternalCoding = () => {
 
   useEffect(() => {
     updateTitle("Contract Internal Coding");
-  }, []);
+  }, [updateTitle]);
 
   const { contractId } = useParams();
 

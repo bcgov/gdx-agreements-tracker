@@ -12,7 +12,7 @@ export const LessonsLearned = () => {
 
   useEffect(() => {
     updateTitle("Project Lessons Learned");
-  }, []);
+  }, [updateTitle]);
 
   const { projectId } = useParams();
 

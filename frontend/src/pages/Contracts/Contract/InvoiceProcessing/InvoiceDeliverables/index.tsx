@@ -23,7 +23,7 @@ export const InvoiceDeliverables = ({ invoiceId }: { invoiceId: number }) => {
 
   useEffect(() => {
     updateTitle("Contract Invoice Deliverables");
-  }, []);
+  }, [updateTitle]);
 
   const formControls: IFormControls = useFormControls();
 

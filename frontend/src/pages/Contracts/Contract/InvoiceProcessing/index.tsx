@@ -25,7 +25,7 @@ export const InvoiceProcessing = () => {
 
   useEffect(() => {
     updateTitle("Contract Invoice Processing");
-  }, []);
+  }, [updateTitle]);
 
   const { contractId } = useParams();
 

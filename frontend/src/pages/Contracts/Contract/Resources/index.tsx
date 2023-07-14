@@ -22,7 +22,7 @@ export const ContractResources = () => {
 
   useEffect(() => {
     updateTitle("Contract Resources");
-  }, []);
+  }, [updateTitle]);
 
   const { contractId } = useParams();
 
