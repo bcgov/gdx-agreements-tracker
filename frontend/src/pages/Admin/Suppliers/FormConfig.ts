@@ -6,97 +6,97 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const readFields = !query
     ? []
     : [
-      {
-        value: query.data?.data?.data?.supplier_number,
-        title: "Supplier Number",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.site_number,
-        title: "Site Number",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.supplier_name,
-        title: "Supplier Name",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.signing_authority_name,
-        title: "Signing Authority Name",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.signing_authority_title,
-        title: "Signing Authority Title",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.address,
-        title: "Address",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.city,
-        title: "City",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.province,
-        title: "Province",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.country,
-        title: "Country",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.postal_code,
-        title: "Postal Code",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.phone,
-        title: "Phone",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.fax,
-        title: "Fax",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.email,
-        title: "Email",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.website,
-        title: "Website",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.financial_contact_name,
-        title: "Financial Contact Name",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.financial_contact_phone,
-        title: "Financial Contact Phone",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.financial_contact_email,
-        title: "Financial Contact Email",
-        width: "half",
-      },
-      {
-        value: query.data?.data?.data?.supplier_legal_name,
-        title: "Supplier Legal Name",
-        width: "half",
-      },
-    ];
+        {
+          value: query.data?.data?.data?.supplier_number,
+          title: "Supplier Number",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.site_number,
+          title: "Site Number",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.supplier_name,
+          title: "Supplier Name",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.signing_authority_name,
+          title: "Signing Authority Name",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.signing_authority_title,
+          title: "Signing Authority Title",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.address,
+          title: "Address",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.city,
+          title: "City",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.province,
+          title: "Province",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.country,
+          title: "Country",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.postal_code,
+          title: "Postal Code",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.phone,
+          title: "Phone",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.fax,
+          title: "Fax",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.email,
+          title: "Email",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.website,
+          title: "Website",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.financial_contact_name,
+          title: "Financial Contact Name",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.financial_contact_phone,
+          title: "Financial Contact Phone",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.financial_contact_email,
+          title: "Financial Contact Email",
+          width: "half",
+        },
+        {
+          value: query.data?.data?.data?.supplier_legal_name,
+          title: "Supplier Legal Name",
+          width: "half",
+        },
+      ];
 
   const editFields: IEditField[] = [
     {
@@ -208,7 +208,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
     },
   ];
-  
 
   const initialValues = {
     supplier_number: null,
