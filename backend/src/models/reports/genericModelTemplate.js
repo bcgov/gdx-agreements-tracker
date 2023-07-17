@@ -1,5 +1,8 @@
 /**
- * A GENERIC MODEL STARTER TEMPLATE FOR FUTURE REPORTs
+ * A GENERIC MODEL STARTER TEMPLATE FOR FUTURE REPORT
+ *
+ * This should generate a 'fiscal year' table in the backend console out-of-the box
+ * THIS HELPS WITH STEP 2 of building a report: getting the backend to generate a JSON object and blank .excel document
  * you can adapt this to help structure your model.
  * this is based on Tab_20_rpt_PA_Billed.js AND Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js:w
  *
@@ -7,23 +10,25 @@
 // libs
 const { knex } = require("@database/databaseConnection")();
 
-// Constants
-// eslint-disable-next-line no-unused-vars
-const PARAMETER = "someParameter";
-
 /**
  * Base query to re-use for report & report totals
  *
  * @param   {number | string | Array} parameter from the frontend, e.g.: Date, Portfolio(s), fiscal_year, or the like
  * @returns {Knex.QueryBuilder}                 Knex query builder for fetching report totals.
  */
-const baseQuery = knex("<tableName>")
+/*
+const baseQuery = knex("jv")
   .select({
-    someColumn: "<some value>",
+    fy: "fiscal_year_id",
+    fiscal_year: "fiscal_year.fiscal_year",
+    project_number: "P.project_number",
+    project_name: "P.project_name",
   })
-  .leftJoin("<some table and criteria>")
-  .groupBy("<some criteria>")
-  .orderBy("P.project_number", "asc");
+  .leftJoin("project AS P", "P.id", "jv.project_id")
+  .groupBy("fiscal_year_id", "fiscal_year.fiscal_year", "P.project_number", "P.project_name")
+  .orderBy("P.project_number", "asc")
+  .orderBy("fiscal_year", "desc");
+ */
 
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
@@ -36,23 +41,29 @@ const baseQuery = knex("<tableName>")
 const reportQueries = {
   fiscalYear: (PARAMETER) =>
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", PARAMETER).first(),
-
+  /*
   report: (PARAMETER) =>
     knex.select("something").from(baseQuery.as("base")).where("someColumn", PARAMETER),
 
   report_totals: (PARAMETER) =>
     knex.from(baseQuery.as("base")).sum("someColumn").where("someColumn", PARAMETER),
+    */
 };
 
 module.exports = {
-  required: ["PARAMETER"], // e.g. fiscal, date, or portfolio
-  getAll: async ({ PARAMETER }) => {
-    const [{ fiscal_year }, report, report_totals] = await Promise.all([
-      reportQueries.fiscalYear(PARAMETER),
+  required: ["fiscal"], // e.g. fiscal, date, or portfolio
+  getAll: async ({ fiscal }) => {
+    const [{ fiscal_year } /*, report, report_totals*/] = await Promise.all([
+      reportQueries.fiscalYear(fiscal),
+      /*
       reportQueries.report(PARAMETER),
       reportQueries.report_totals(PARAMETER),
+      */
     ]);
 
-    return { fiscal_year, report, report_totals };
+    const reportData = { fiscal_year /*report, report_totals */ };
+    console.table(reportData);
+
+    return reportData;
   },
 };
