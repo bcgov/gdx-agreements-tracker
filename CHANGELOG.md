@@ -1,3 +1,9 @@
+**July 17, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
+- Backend
+  - adds generic excel template for reports
+  - updates generic report model to be easier to use out-of-the-box
+  - these changes should simplify development of new reports by automating some boring stuff
+
 **July 14, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
 - Frontend
   - Moved Finance Recovery Project Summary Forecast to the Divisional Project Financials category
@@ -18,7 +24,7 @@
 - Backend
   - tests for routes using generic controller
   - adding logging and error handler for validation failures on routes.
-      
+
 **July 13, 2023 - [DESCW-1301](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1301)**
 - Frontend
     - made form renderer more efficient
