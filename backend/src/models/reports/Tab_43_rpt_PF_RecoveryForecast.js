@@ -124,9 +124,7 @@ const reportQueries = {
 
 module.exports = {
   required: ["fiscal"], // e.g. fiscal, date, or portfolio
-  getAll: async ({ fiscal }) => {
-    const PARAMETER = fiscal;
-
+  getAll: async ({ fiscal: PARAMETER }) => {
     const [{ fiscal_year }, report, totals] = await Promise.all([
       reportQueries.fiscalYear(PARAMETER),
       reportQueries.report(PARAMETER),
@@ -134,7 +132,6 @@ module.exports = {
     ]);
 
     const reportData = { fiscal_year, report, totals };
-    console.warn(JSON.stringify(reportData, null, 2));
 
     return reportData;
   },
