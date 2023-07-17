@@ -62,7 +62,11 @@ module.exports = {
     ]);
 
     const reportData = { fiscal_year /*report, report_totals */ };
+<<<<<<< HEAD
     //console.table(reportData);
+=======
+    console.table(reportData);
+>>>>>>> 94bf4d9 (descw-1253 step2 - get basic model and report output)
 
     return reportData;
   },
