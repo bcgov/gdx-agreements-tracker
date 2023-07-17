@@ -62,7 +62,7 @@ module.exports = {
     ]);
 
     const reportData = { fiscal_year /*report, report_totals */ };
-    console.table(reportData);
+    //console.table(reportData);
 
     return reportData;
   },
