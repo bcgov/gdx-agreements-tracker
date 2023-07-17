@@ -30,16 +30,16 @@ const reportQueries = {
       .select()
       .fromRaw(
         `
-     (
+        (
 
 
 
-      PASTE RAW QUERY HERE
+        PASTE RAW QUERY HERE
 
 
 
 
-     ) as base`
+        ) as base`
       )
       .where("fiscal", PARAMETER),
 
@@ -48,16 +48,16 @@ const reportQueries = {
       .select()
       .fromRaw(
         `
-     (
+        (
 
 
 
-      PASTE RAW QUERY HERE
+        PASTE RAW QUERY HERE
 
 
 
 
-     ) as base`
+        ) as base`
       )
       .where("fiscal", PARAMETER),
 };
@@ -66,7 +66,7 @@ module.exports = {
   required: ["fiscal"], // e.g. fiscal, date, or portfolio
   getAll: async ({ fiscal: PARAMETER }) => {
     // replace fiscal  above with whatever parameter you take here
-    const [{ fiscal_year } /*, report, report_totals*/] = await Promise.all([
+    const [{ fiscal_year } /*report, report_totals*/] = await Promise.all([
       reportQueries.fiscalYear(PARAMETER),
       /*
       reportQueries.report(PARAMETER),
