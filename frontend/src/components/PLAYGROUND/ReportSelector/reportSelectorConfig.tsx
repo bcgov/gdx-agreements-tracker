@@ -316,9 +316,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Recovery Forecast",
         description:
           "Sorted by Project #, Shows project #, Project Name, Project Status, Recoverable Status and Amount for Each Quarter.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_44_rpt_PF_RecoveryToDateDetails",

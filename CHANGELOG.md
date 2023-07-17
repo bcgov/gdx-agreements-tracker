@@ -1,3 +1,11 @@
+**July 17, 2023 [DESCW-1253](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1253)**
+- Frontend
+  - enable recover forecast report with fiscal parameter
+  - populate tab 43 excel template with carbone language matching model properties
+- Backend
+  - add model for tab 43 report
+  - update generic model template for greater convenience (using raw queries)
+
 **July 17, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
 - Backend
   - adds generic excel template for reports
