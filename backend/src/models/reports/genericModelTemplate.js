@@ -53,8 +53,10 @@ const reportQueries = {
 module.exports = {
   required: ["fiscal"], // e.g. fiscal, date, or portfolio
   getAll: async ({ fiscal }) => {
+    const PARAMETER = fiscal;
+
     const [{ fiscal_year } /*, report, report_totals*/] = await Promise.all([
-      reportQueries.fiscalYear(fiscal),
+      reportQueries.fiscalYear(PARAMETER),
       /*
       reportQueries.report(PARAMETER),
       reportQueries.report_totals(PARAMETER),
