@@ -36,51 +36,51 @@
 
 ## models with templates
 
-- [ ]  rpt_PA_Registered.js
-- [ ]  rpt_PA_Ministry.js
-- [ ]  rpt_PA_Fiscal_Registry.js
-- [ ]  rpt_PA_ChangeRequestTypesFYSummary.js
-- [ ]  Tab_53_rpt_PF_FinProjectForecast-NEW.js
-- [ ]  Tab_51_rpt_PF_ADIExport.js
-- [ ]  Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js
-- [ ]  Tab_4_rpt_CA_Capital_GDX.js
-- [ ]  Tab_49_rpt_PF_NetRecoveries.js
-- [ ]  Tab_48_rpt_PF_FinanceRecoverySummary.js
-- [ ]  Tab_47_rpt_PA_EngagementStatusSummary.js
-- [ ]  Tab_46_rpt_PA_EngagementExecutiveRollup.js
-- [ ]  Tab_45_rpt_P_EngagementStatus.js
-- [ ]  Tab_44_rpt_PF_RecoveryToDateDetails.js
-- [ ]  Tab_43_rpt_PF_RecoveryForecast.js
-- [ ]  Tab_42_rpt_PF_PortfolioStobRecoveries.js
-- [ ]  Tab_41_rpt_PF_PortfolioStaffRecoveries.js
-- [ ]  Tab_40_rpt_PF_PortfolioAdminFees.js
-- [ ]  Tab_39_rpt_PF_PortfolioForecastAll.js
-- [ ]  Tab_38_rpt_PF_JVsforFiscal-Quarter.js
-- [ ]  Tab_37_rpt_PF_BudgetDistributionbyPortfolio.js
-- [ ]  Tab_36_rpt_PF_BudgetbySTOB.js
-- [ ]  Tab_35_rpt_PA_StatusPortfolioRollup.js
-- [ ]  Tab_34_rpt_PA_StatusDashboard.js
-- [ ]  Tab_33_rpt_PA_Risk.js
-- [ ]  Tab_32_rpt_PA_Registered.js
-- [ ]  Tab_31_rpt_PA_ProjectswithContracts.js
-- [ ]  Tab_30_rpt_PA_MultiYrStats_DMS_Office.js
-- [ ]  Tab_29_rpt_PA_MultiYrStatsChangeRequest.js
-- [ ]  Tab_28_rpt_PA_MultiYrStats.js
-- [ ]  Tab_27_rpt_PA_Ministry.js
-- [ ]  Tab_26_rpt_PA_Milestone.js
-- [ ]  Tab_25_rpt_PA_LessonsLearnedbyCategory.js
-- [ ]  Tab_24_rpt_PA_Gantt.js
-- [ ]  Tab_23_rpt_PA_Fiscal_Registry.js
-- [ ]  Tab_22_rpt_PA_ChangeRequestTypesFY-Summary.js
-- [ ]  Tab_21_rpt_PA_Billing-Historical.js
-- [ ]  Tab_20_rpt_PA_Billed.js
-- [ ]  Tab_1_rpt_C_Summary.js
-- [ ]  Tab_19_rpt_PA_ActiveProjectsbyPortfolio.js
-- [ ]  Tab_18_rpt_P_StatusSummary.js
-- [ ]  Tab_17_rpt_P_Status_MostRecent.js
-- [ ]  Tab_16_rpt_P_QuarterlyReview.js
-- [ ]  Tab_15_rpt_P_QuarterlyBillingRequest.js
-- [ ]  Tab_14_rpt_P_BudgetSummary.js
-- [ ]  Tab_13_rpt_CF_PortfolioSummary.js
-- [ ]  Tab_12_rpt_CF_InvoicePaymentsbyPortfolio.js
-- [ ]  Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio.js
+- [x]  rpt_PA_Registered
+- [x]  rpt_PA_Ministry
+- [x]  rpt_PA_Fiscal_Registry
+- [x]  rpt_PA_ChangeRequestTypesFYSummary
+- [x]  Tab_53_rpt_PF_FinProjectForecast-NEW
+- [x]  Tab_51_rpt_PF_ADIExport
+- [x]  Tab_50_rpt_PF_NetRecoverySummaryByQuarter
+- [x]  Tab_4_rpt_CA_Capital_GDX
+- [x]  Tab_49_rpt_PF_NetRecoveries
+- [x]  Tab_48_rpt_PF_FinanceRecoverySummary
+- [x]  Tab_47_rpt_PA_EngagementStatusSummary
+- [x]  Tab_46_rpt_PA_EngagementExecutiveRollup
+- [x]  Tab_45_rpt_P_EngagementStatus
+- [x]  Tab_44_rpt_PF_RecoveryToDateDetails
+- [ ]  Tab_43_rpt_PF_RecoveryForecast
+- [ ]  Tab_42_rpt_PF_PortfolioStobRecoveries
+- [ ]  Tab_41_rpt_PF_PortfolioStaffRecoveries
+- [ ]  Tab_40_rpt_PF_PortfolioAdminFees
+- [ ]  Tab_39_rpt_PF_PortfolioForecastAll
+- [ ]  Tab_38_rpt_PF_JVsforFiscal-Quarter
+- [ ]  Tab_37_rpt_PF_BudgetDistributionbyPortfolio
+- [ ]  Tab_36_rpt_PF_BudgetbySTOB
+- [ ]  Tab_35_rpt_PA_StatusPortfolioRollup
+- [ ]  Tab_34_rpt_PA_StatusDashboard
+- [ ]  Tab_33_rpt_PA_Risk
+- [ ]  Tab_32_rpt_PA_Registered
+- [ ]  Tab_31_rpt_PA_ProjectswithContracts
+- [ ]  Tab_30_rpt_PA_MultiYrStats_DMS_Office
+- [ ]  Tab_29_rpt_PA_MultiYrStatsChangeRequest
+- [ ]  Tab_28_rpt_PA_MultiYrStats
+- [ ]  Tab_27_rpt_PA_Ministry
+- [ ]  Tab_26_rpt_PA_Milestone
+- [ ]  Tab_25_rpt_PA_LessonsLearnedbyCategory
+- [ ]  Tab_24_rpt_PA_Gantt
+- [ ]  Tab_23_rpt_PA_Fiscal_Registry
+- [ ]  Tab_22_rpt_PA_ChangeRequestTypesFY-Summary
+- [ ]  Tab_21_rpt_PA_Billing-Historical
+- [ ]  Tab_20_rpt_PA_Billed
+- [ ]  Tab_1_rpt_C_Summary
+- [ ]  Tab_19_rpt_PA_ActiveProjectsbyPortfolio
+- [ ]  Tab_18_rpt_P_StatusSummary
+- [ ]  Tab_17_rpt_P_Status_MostRecent
+- [ ]  Tab_16_rpt_P_QuarterlyReview
+- [ ]  Tab_15_rpt_P_QuarterlyBillingRequest
+- [ ]  Tab_14_rpt_P_BudgetSummary
+- [ ]  Tab_13_rpt_CF_PortfolioSummary
+- [ ]  Tab_12_rpt_CF_InvoicePaymentsbyPortfolio
+- [ ]  Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio
