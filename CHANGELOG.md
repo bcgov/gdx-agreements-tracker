@@ -2,6 +2,7 @@
 
 - Frontend
   - Updated admin subcontrator section with new table component
+  - Updated admin ministries section with new table component
 
 **July 17, 2023 [DESCW-1253](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1253)**
 - Frontend
