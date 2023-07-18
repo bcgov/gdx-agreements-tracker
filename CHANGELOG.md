@@ -1,9 +1,29 @@
+
 **July 14, 2023 [DESCW-869](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-869)**
 
 - Frontend
   - Added enhancements to header and footer of the main page layout.
     - Title of the page will now show in the page header
     - The page footer is now sticky
+
+**July 17, 2023 [DESCW-1253](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1253)**
+- Frontend
+  - enable recover forecast report with fiscal parameter
+  - populate tab 43 excel template with carbone language matching model properties
+- Backend
+  - add model for tab 43 report
+  - update generic model template for greater convenience (using raw queries)
+
+**July 17, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
+- Backend
+  - adds generic excel template for reports
+  - updates generic report model to be easier to use out-of-the-box
+  - these changes should simplify development of new reports by automating some boring stuff
+
+**July 14, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
+- Frontend
+  - Moved Finance Recovery Project Summary Forecast to the Divisional Project Financials category
+
 
 **July 14, 2023 [DESCW-1224](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1224)**
 

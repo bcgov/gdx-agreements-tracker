@@ -152,15 +152,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportPDF: true,
         exportXLSX: false,
       },
-      {
-        value: "Tab_48_rpt_PF_FinanceRecoverySummary",
-        label: "Finance Recovery Project Summary Forecast",
-        description:
-          "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Financial details for each project (per portfolio), including recoveries, expenses, costs, and fees.",
-        parameters: ["fiscal"],
-        exportPDF: true,
-        exportXLSX: true,
-      },
     ],
   },
   {
@@ -325,9 +316,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Recovery Forecast",
         description:
           "Sorted by Project #, Shows project #, Project Name, Project Status, Recoverable Status and Amount for Each Quarter.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_44_rpt_PF_RecoveryToDateDetails",
@@ -342,10 +333,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         value: "Tab_48_rpt_PF_FinanceRecoverySummary",
         label: "Finance Recovery Project Summary Forecast",
         description:
-          "Project name and number, total recoveries for fiscal, total expenses for each stob type.",
-        parameters: ["portfolio"],
+          "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Financial details for each project (per portfolio), including recoveries, expenses, costs, and fees.",
+        parameters: ["fiscal"],
         exportPDF: true,
-        exportXLSX: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_49_rpt_PF_NetRecoveries",
