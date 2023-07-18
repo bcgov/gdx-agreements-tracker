@@ -6,56 +6,43 @@ import { Sidebar } from "../../Sidebar";
 import { useDrawer } from "../../../hooks/useDrawer";
 import { PageHeader } from "../PageHeader";
 import { Outlet } from "react-router-dom";
+import { AppBar, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 
 const drawerWidth = bcgovTheme.customSettings.drawerWidth;
 
 export const Main = () => {
   const { drawerOpen, handleDrawerToggle } = useDrawer();
   return (
-    <>
-      {/* left hand side */}
+    <Box sx={{ display: "flex" }}>
+      <PageHeader
+        drawerOpen={drawerOpen}
+        handleDrawerToggle={handleDrawerToggle}
+        headerTitle={""}
+      />
+
+      {/* Side Menu */}
       <Sidebar drawerOpen={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
-      {/* right hand side */}
+
+      {/* Main Content */}
       <Box
+        component="main"
         sx={{
-          flexFlow: "column",
+          flexGrow: 1,
+          p: 3,
+          flex: 1,
           display: "flex",
-          height: "100vh",
-          width: "100%",
+          flexDirection: "column",
+          boxSizing: "border-box",
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          mt: "6vh",
         }}
       >
-        <PageHeader
-          drawerOpen={drawerOpen}
-          handleDrawerToggle={handleDrawerToggle}
-          headerTitle={""}
-        />
-
-        <Box
-          sx={{
-            // flexGrow: 1,
-            p: 0,
-            // width: { sm: `calc(100% - ${drawerWidth}px)` }
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            boxSizing: "border-box",
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-            ml: { sm: `${drawerWidth}px` },
-          }}
-        >
-          <Box
-            component="main"
-            sx={
-              {
-                // overflowX: "scroll",
-              }
-            }
-          >
-            <Outlet />
-          </Box>
-          <PageFooter />
-        </Box>
+        <Outlet />
       </Box>
-    </>
+
+      {/* Footer */}
+      <PageFooter drawerWidth={drawerWidth} />
+    </Box>
   );
 };

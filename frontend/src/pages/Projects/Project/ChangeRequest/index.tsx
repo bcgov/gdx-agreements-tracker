@@ -4,6 +4,8 @@ import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -16,6 +18,12 @@ import { FormConfig } from "./FormConfig";
  */
 
 export const ChangeRequest = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Project Change Request");
+  }, [updateTitle]);
+
   const { projectId } = useParams();
 
   const formControls: IFormControls = useFormControls();

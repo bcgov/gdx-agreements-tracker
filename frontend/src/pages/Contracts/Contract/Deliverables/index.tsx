@@ -6,6 +6,8 @@ import { useFormData } from "hooks/useFormData";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -18,6 +20,12 @@ import { FormConfig } from "./FormConfig";
  */
 
 export const Deliverables = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Contract Deliverables");
+  }, [updateTitle]);
+
   const { contractId } = useParams();
   const formControls: IFormControls = useFormControls();
   return (

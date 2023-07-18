@@ -4,8 +4,16 @@ import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 export const Billing = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Project Billing");
+  }, [updateTitle]);
+
   const { projectId } = useParams();
 
   const formControls: IFormControls = useFormControls();

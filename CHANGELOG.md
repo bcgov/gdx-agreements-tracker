@@ -1,3 +1,11 @@
+
+**July 14, 2023 [DESCW-869](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-869)**
+
+- Frontend
+  - Added enhancements to header and footer of the main page layout.
+    - Title of the page will now show in the page header
+    - The page footer is now sticky
+
 **July 17, 2023 [DESCW-1253](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1253)**
 - Frontend
   - enable recover forecast report with fiscal parameter
@@ -16,7 +24,9 @@
 - Frontend
   - Moved Finance Recovery Project Summary Forecast to the Divisional Project Financials category
 
+
 **July 14, 2023 [DESCW-1224](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1224)**
+
 - Backend
   - Added model for historical billing report
   - Added xls template for historical billing report
@@ -24,27 +34,31 @@
   - Enabled export xls option for historical billing report
 
 **July 14, 2023 - [DESCW-871](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-871)**
+
 - Frontend
-    - Updated admin contact section with new table component
-    - Updated admin supplier section with new table component
+  - Updated admin contact section with new table component
+  - Updated admin supplier section with new table component
 
 **July 13, 2023 - [DESCW-1354](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1354)**
+
 - Backend
   - tests for routes using generic controller
   - adding logging and error handler for validation failures on routes.
 
 **July 13, 2023 - [DESCW-1301](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1301)**
+
 - Frontend
-    - made form renderer more efficient
-    - Resolved bug with duplicate calls
-    - Updated all form configs to be more efficient and cohesive
-    - Resolved all add new functionality bugs for contract and project sections
+  - made form renderer more efficient
+  - Resolved bug with duplicate calls
+  - Updated all form configs to be more efficient and cohesive
+  - Resolved all add new functionality bugs for contract and project sections
 
 **July 12, 2023 - [DESCW-1247](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1247)**
+
 - Frontend
   - build template and test against sample template for accuracy
   - enable excel report for tab 20
-  - disable pdf report for tab 20  (template isn't written yet)
+  - disable pdf report for tab 20 (template isn't written yet)
 - Backend
   - build generic 'model template' for future tickets
   - adapt and refactor given query for use with knex
@@ -54,6 +68,7 @@
 **July 11, 2023**
 
 - Frontend
+
   - fixed issue preventing project contacts from saving
   - made select fields more effeicent by combing single and multi choice select component
 
@@ -61,8 +76,8 @@
   - Fixed quarter seed from string to number
   - required to run locally `npx knex seed:run --specific=08_picker_options.js`
 
-
 **July 10, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319) [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
+
 - Frontend
   - small fix for axios call if 401 error.
 - Backend
@@ -72,12 +87,14 @@
   - refactor role management
 
 ## Developer Changelog**July 7, 2023 - [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
+
 - Frontend
   - fixed issue preventing project billing from saving
   - fixed issue preventing project lesson learned from saving
   - fixed issue preventing contracts not rendering
 
 **July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319) [DESCW-1297](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1297)**
+
 - Frontend
   - fixed issue preventing project change request from saving
 - Backend
@@ -85,6 +102,7 @@
   - update report models
 
 **July 5, 2023 - [DESCW-1219](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1219)**
+
 - Frontend
   - adjust styling on header, table, and footers
   - replace graphic in header
@@ -94,21 +112,22 @@
 - Backend
   - add report_date to controller output
 
-
 **July 5, 2023 - [DESCW-585](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-585)**
+
 - Frontend
   - fixed issue preventing client coding from saving
   - fixed issue preventing project budget from saving
   - fixed issue preventing project status from saving
   - added optional required prop to input fields on all forms
 
-
 **July 5, 2023 - [DESCW-1315](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1315)**
+
 - Backend
   - add basic validation to prevent db query without proper variables
   - updated general controller error logic.
 
 **July 5, 2023 - [DESCW-1319](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1319)**
+
 - Frontend
   - Update frontend report url to /report/${report_name}
 - Backend
@@ -117,10 +136,12 @@
   - Added general route validator.
 
 **July 4, 2023 - [DESCW-1219](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1219)**
+
 - Frontend
   - allow template type: "docx" to export
 
 **July 4, 2023 - [DESCW-1222](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1222)**
+
 - Backend
   - use a consistent getCurrentDate() function for all report controllers
 
@@ -133,6 +154,7 @@
 **June 29, 2023 - [DESCW-1250](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1250)**
 
 - Meta
+
   - Removed backend version bump workflow.
   - Added frontend version bump to trigger off of both backend and frontend changes.
 

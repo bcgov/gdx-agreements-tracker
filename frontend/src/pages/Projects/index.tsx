@@ -4,6 +4,8 @@ import { tableConfig } from "./tableConfig";
 import { useNavigate } from "react-router-dom";
 import { GridRowParams } from "@mui/x-data-grid";
 import { useFormSubmit } from "hooks";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 export const Projects = () => {
   const { handlePost } = useFormSubmit();
@@ -26,6 +28,12 @@ export const Projects = () => {
       navigate(`/${apiUrl}/${response.id}`);
     });
   };
+
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Projects");
+  }, [updateTitle]);
 
   return (
     <Table

@@ -3,6 +3,8 @@ import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
 import { useFormControls } from "hooks";
 import { IFormControls } from "types";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -15,6 +17,12 @@ import { IFormControls } from "types";
  */
 
 export const InvoiceResources = ({ invoiceId }: { invoiceId: number }) => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Contract Invoice Resources");
+  }, [updateTitle]);
+
   const formControls: IFormControls = useFormControls();
 
   return (
