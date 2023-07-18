@@ -8,7 +8,7 @@ export const PageFooter = ({ drawerWidth }: { drawerWidth: number }) => {
     marginTop: "auto",
     top: "auto",
     bottom: 0,
-    backgroundColor: "primary.main",
+    backgroundColor: "#FFF",
     color: "primary.contrastText",
     height: "35px",
   };

@@ -20,7 +20,7 @@ any) => {
       outline: "none",
     },
     ".MuiDataGrid-columnHeader": {
-      background: "#555",
+      background: "#2d2a2a",
     },
     ".MuiDataGrid-iconSeparator, .MuiDataGrid-sortIcon, .MuiDataGrid-columnHeader, .MuiDataGrid-menuIcon,.MuiDataGrid-filterIcon,.MuiDataGrid-menuIconButton":
       {
@@ -35,6 +35,9 @@ any) => {
       {rows && (
         <DataGrid
           columns={tableColumns}
+          getRowClassName={(params) =>
+            params.indexRelativeToCurrentPage % 2 === 0 ? 'Mui-even' : 'Mui-odd'
+          }
           rows={rows}
           initialState={initialState}
           onRowClick={handleRowClick}

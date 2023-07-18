@@ -23,7 +23,7 @@ const bcgovTheme = createTheme({
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          background: "#38598a",
+          background: "linear-gradient(45deg, #0a1d41,#0a1d41,#0a1d41,#000d27)",
         },
       },
     },
