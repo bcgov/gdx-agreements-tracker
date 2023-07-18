@@ -6,9 +6,7 @@ export const tableConfig = () => {
     { field: "subcontractor_name", headerName: "Subcontractor Name", flex: defaultFlex },
   ];
 
-  const initialState = {
-    
-  };
+  const initialState = {};
 
   return { tableColumns, initialState };
 };
