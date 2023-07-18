@@ -4,12 +4,11 @@ import packageJson from "../../../../package.json";
 
 export const PageFooter = ({ drawerWidth }: { drawerWidth: number }) => {
   const footerStyles = {
-    borderTop: bcgovTheme.customSettings.BCGovAccentLine,
     marginTop: "auto",
     top: "auto",
     bottom: 0,
-    backgroundColor: "primary.main",
-    color: "primary.contrastText",
+    backgroundColor: "#fff",
+    color: "#000",
     height: "35px",
   };
 

@@ -6,7 +6,6 @@ import { Sidebar } from "../../Sidebar";
 import { useDrawer } from "../../../hooks/useDrawer";
 import { PageHeader } from "../PageHeader";
 import { Outlet } from "react-router-dom";
-import { AppBar, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 
 const drawerWidth = bcgovTheme.customSettings.drawerWidth;
 
