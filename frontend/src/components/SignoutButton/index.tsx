@@ -40,6 +40,7 @@ export const SignoutButton = () => {
   return (
     <StyledFormControl>
       <Select
+        sx={{ height: "40px" }}
         data-testid="signout-select"
         displayEmpty
         value={selected}

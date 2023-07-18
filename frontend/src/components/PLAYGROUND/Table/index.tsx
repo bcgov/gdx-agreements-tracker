@@ -20,7 +20,7 @@ any) => {
       outline: "none",
     },
     ".MuiDataGrid-columnHeader": {
-      background: "#555",
+      background: "#2d2a2a",
     },
     ".MuiDataGrid-iconSeparator, .MuiDataGrid-sortIcon, .MuiDataGrid-columnHeader, .MuiDataGrid-menuIcon,.MuiDataGrid-filterIcon,.MuiDataGrid-menuIconButton":
       {

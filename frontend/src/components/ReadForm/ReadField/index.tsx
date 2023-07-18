@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Checkbox, Paper } from "@mui/material";
+import { Checkbox, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
 import { IReturnValue } from "types";
 import { GridItem } from "../../GDXForm/FormLayout/GridItem";
@@ -17,31 +17,38 @@ export const ReadField = ({
     switch (typeof value) {
       case "boolean":
         return (
-          <>
-            <h3>{title}</h3>
+          <div>
+            <Typography variant="subtitle1" color="textSecondary">
+              {title}:
+            </Typography>
             <Checkbox disabled checked={value} />
-          </>
+          </div>
         );
       default:
         return (
-          <>
-            <h3>{title}</h3>
-            <p>{Array.isArray(value) ? value.join(" | ") : value}</p>
-          </>
+          <div>
+            <TextField
+              disabled
+              label={title}
+              defaultValue={value}
+              fullWidth
+              sx={{
+                "& .MuiInputLabel-root ": {
+                  WebkitTextFillColor: "#3b26afc4",
+                },
+                "& .MuiInputBase-input.Mui-disabled": {
+                  WebkitTextFillColor: "#333",
+                  background: "#f0f2f9c2",
+                },
+              }}
+              id="filled-size-small"
+              variant="filled"
+              size="small"
+            />
+          </div>
         );
     }
   };
 
-  const StyledPaper = styled(Paper)({
-    height: "auto",
-    flex: 1,
-    display: "flex",
-    overflow: "auto",
-  });
-
-  return (
-    <GridItem width={width}>
-      <StyledPaper>{renderer()}</StyledPaper>
-    </GridItem>
-  );
+  return <GridItem width={width}>{renderer()}</GridItem>;
 };
