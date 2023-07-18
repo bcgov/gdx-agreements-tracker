@@ -35,9 +35,6 @@ any) => {
       {rows && (
         <DataGrid
           columns={tableColumns}
-          getRowClassName={(params) =>
-            params.indexRelativeToCurrentPage % 2 === 0 ? 'Mui-even' : 'Mui-odd'
-          }
           rows={rows}
           initialState={initialState}
           onRowClick={handleRowClick}

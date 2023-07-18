@@ -13,7 +13,6 @@ export const ReadField = ({
   title: string;
   value: IReturnValue;
 }) => {
-
   const renderer = () => {
     switch (typeof value) {
       case "boolean":
@@ -35,11 +34,11 @@ export const ReadField = ({
               fullWidth
               sx={{
                 "& .MuiInputLabel-root ": {
-                  WebkitTextFillColor: "#3b26afc4"
+                  WebkitTextFillColor: "#3b26afc4",
                 },
                 "& .MuiInputBase-input.Mui-disabled": {
                   WebkitTextFillColor: "#333",
-                  background: "#f0f2f9c2"
+                  background: "#f0f2f9c2",
                 },
               }}
               id="filled-size-small"
@@ -51,10 +50,5 @@ export const ReadField = ({
     }
   };
 
-
-  return (
-    <GridItem width={width}>
-      {renderer()}
-    </GridItem>
-  );
+  return <GridItem width={width}>{renderer()}</GridItem>;
 };
