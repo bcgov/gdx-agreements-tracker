@@ -84,3 +84,14 @@
 - [x]  Tab_13_rpt_CF_PortfolioSummary
 - [x]  Tab_12_rpt_CF_InvoicePaymentsbyPortfolio
 - [x]  Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio
+
+
+### 7-step report build
+1. Make a basic excel template with style and carbone entries to match the sample report
+2. get the frontend selector configured to print an excel report with fiscal/portfolio/date
+3. get the query from the ticket into PgAdmin and make it work with the parameter from (2)
+4. wrap that query in knex() on backend model so JSON output matching pgadmin output
+5. build totals query and other queries in pgadmin
+6. wrap the other queries in knex() on backend so JSON output matches sample report numbers
+7. get JSON data to populate in excel template
+8. finish styling on the template, and correct any carbone templating errors
