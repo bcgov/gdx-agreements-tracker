@@ -15,7 +15,7 @@ export const GDXAccordion = ({
   sectionTitle: string;
 }) => {
   const StyledAccordionSummary = styled(AccordionSummary)({
-    backgroundColor: "#ECECEC",
+    backgroundColor: "#f3f3f3",
   });
 
   const StyledTypography = styled(Typography)({
