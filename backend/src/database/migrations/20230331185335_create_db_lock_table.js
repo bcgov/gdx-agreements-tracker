@@ -3,7 +3,7 @@ exports.up = function (knex) {
     table.increments().primary(); //id column
     table.string("locked_table");
     table.string("locked_by");
-    table.integer("locked_row_id").unsigned();
+    table.specificType("locked_row_ids", "INT[]");
     table.date("locked_date");
   });
 };

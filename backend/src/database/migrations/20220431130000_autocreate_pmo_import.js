@@ -620,7 +620,6 @@ exports.up = function (knex) {
       })
       .createTable("resource", function (table) {
         table.increments();
-        table.specificType("resource_id", "int").notNullable();
         table.specificType("supplier_id", "int");
         table.specificType("subcontractor_id", "int");
         table.specificType("resource_last_name", "varchar(255)");

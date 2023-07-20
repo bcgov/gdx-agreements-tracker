@@ -19,9 +19,6 @@ export const Reports: FC = () => {
 
   return (
     <>
-      <Typography variant="h5" component="h2">
-        Reports
-      </Typography>
       <Typography>
         Select the required <b>Category</b> followed by the <b>Type</b> of report, then fill in the
         required <b>Details</b> for the report. A description of the selected report will be shown
