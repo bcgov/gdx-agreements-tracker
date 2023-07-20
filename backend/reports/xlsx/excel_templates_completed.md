@@ -18,7 +18,7 @@
 - [ ]  Tab_31_rpt_PA_ProjectswithContracts
 - [ ]  Tab_34_rpt_PA_StatusDashboard
 - [ ]  Tab_35_rpt_PA_StatusPortfolioRollup
-- [ ]  Tab_38_rpt_PF_JVsforFiscal-Quarter
+- [x]  Tab_38_rpt_PF_JVsforFiscal-Quarter
 - [ ]  Tab_42_rpt_PF_PortfolioStobRecoveries
 - [x]  Tab_43_rpt_PF_RecoveryForecast
 - [ ]  Tab_45_rpt_P_EngagementStatus
@@ -55,7 +55,7 @@
 - [x]  Tab_41_rpt_PF_PortfolioStaffRecoveries
 - [x]  Tab_40_rpt_PF_PortfolioAdminFees
 - [x]  Tab_39_rpt_PF_PortfolioForecastAll
-- [x]  Tab_38_rpt_PF_JVsforFiscal-Quarter
+- [ ]  Tab_38_rpt_PF_JVsforFiscal-Quarter
 - [x]  Tab_37_rpt_PF_BudgetDistributionbyPortfolio
 - [x]  Tab_36_rpt_PF_BudgetbySTOB
 - [x]  Tab_35_rpt_PA_StatusPortfolioRollup
