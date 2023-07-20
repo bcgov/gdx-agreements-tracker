@@ -1,3 +1,9 @@
+**July 20, 2023 [DESCW-1368](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1368)**
+- Frontend
+  - Fixed routing for new backend fixews to authenitication.
+  - Added auto redirect for auth
+
+
 **July 19, 2023 [DESCW-1364](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1364)**
 - Backend
   - added blank excel templates for each model
