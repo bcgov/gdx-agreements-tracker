@@ -107,7 +107,7 @@ const tableLookupValues = (projectId, contractId) => {
       value: "id",
       label: `supplier_name`,
       queryAdditions: `WHERE supplier_name IS NOT NULL`,
-    },   
+    },
     {
       id: "contramend",
       name: "amendment_type_option",
