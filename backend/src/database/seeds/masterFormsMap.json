@@ -3449,50 +3449,43 @@
   {
     "associated_table": "resource",
     "definition": {
-      "resource_id": {
-        "type": "number",
-        "title": "Resource Id",
-        "order": 0,
-        "label": "resource_id",
-        "notNull": true
-      },
       "supplier_id": {
         "type": "number",
         "title": "Supplier Id",
-        "order": 1,
+        "order": 0,
         "label": "supplier_id"
       },
       "subcontractor_id": {
         "type": "number",
         "title": "Subcontractor Id",
-        "order": 2,
+        "order": 1,
         "label": "subcontractor_id"
       },
       "resource_last_name": {
         "type": "text",
         "maxLength": 255,
         "title": "Resource Last Name",
-        "order": 3,
+        "order": 2,
         "label": "resource_last_name"
       },
       "resource_first_name": {
         "type": "text",
         "maxLength": 255,
         "title": "Resource First Name",
-        "order": 4,
+        "order": 3,
         "label": "resource_first_name"
       },
       "created_date": {
         "type": "date",
         "title": "Created Date",
-        "order": 5,
+        "order": 4,
         "label": "created_date"
       },
       "user_id": {
         "type": "text",
         "maxLength": 255,
         "title": "User Id",
-        "order": 6,
+        "order": 5,
         "label": "user_id"
       }
     },
