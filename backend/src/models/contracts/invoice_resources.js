@@ -19,7 +19,7 @@ const findAllByInvoiceId = (invoiceId) => {
     )
     .from(`${table} as i`)
     .join(`${contractResourceTable} as cr`, { "i.contract_resource_id": "cr.id" })
-    .leftJoin(`${resourceTable} as r`, { "cr.resource_id": "r.resource_id" })
+    .leftJoin(`${resourceTable} as r`, { "cr.resource_id": "r.id" })
     .where("i.invoice_id", invoiceId);
 };
 
@@ -42,7 +42,7 @@ const findById = (id) => {
     )
     .from(`${table} as i`)
     .join(`${contractResourceTable} as cr`, { "i.contract_resource_id": "cr.id" })
-    .join(`${resourceTable} as r`, { "cr.resource_id": "r.resource_id" })
+    .join(`${resourceTable} as r`, { "cr.resource_id": "r.id" })
     .join(`${fiscalTable} as fy`, { "cr.fiscal": "fy.id" })
     .leftJoin(
       knex(table)

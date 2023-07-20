@@ -1,7 +1,22 @@
 **July 20, 2023 [DESCW-1368](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1368)**
+- **Note**
+    - Delete your local gat_db database
+    - Create a new gat_db
+    - Pull latest version of sql to postgres converter
+        - connect to the VPN
+        - run npm run make seeds
+        - Copy .dat file from sql converter repo to your local agreements tracker production seeds folder
+    - run migrations and seeds
+    
 - Frontend
   - Fixed routing for new backend fixews to authenitication.
   - Added auto redirect for auth
+  - Removed some old user table code
+- Backend
+    - Cleaned up old migrations and seeds
+    - Updated masterFormMap to latest versions
+    - Updated productions seeds to latest versions
+    -
 
 
 **July 19, 2023 [DESCW-1364](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1364)**

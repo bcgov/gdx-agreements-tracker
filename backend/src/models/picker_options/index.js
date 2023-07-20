@@ -109,16 +109,6 @@ const tableLookupValues = (projectId, contractId) => {
       queryAdditions: `WHERE supplier_name IS NOT NULL`,
     },
     {
-      id: "roles",
-      name: "user_roles_option",
-      title: "Roles",
-      description: "",
-      table: "public.roles",
-      value: "id",
-      label: `display_name`,
-      queryAdditions: `WHERE display_name IS NOT NULL`,
-    },
-    {
       id: "contramend",
       name: "amendment_type_option",
       title: "Ammendment Type",
@@ -174,7 +164,7 @@ const tableLookupValues = (projectId, contractId) => {
       title: "Resource",
       description: "",
       table: "data.resource",
-      value: "resource_id",
+      value: "id",
       label: `concat(resource_last_name, ', ', resource_first_name)`,
       queryAdditions: `WHERE resource_last_name IS NOT NULL`,
     },
@@ -327,12 +317,12 @@ const getClientCodingQueryAdditions = (id) => {
  */
 const getContractResourceQueryAdditions = (id) => {
   let query = `
-    LEFT JOIN data.resource AS r on contract_resource.resource_id = r.resource_id
+    LEFT JOIN data.resource AS r on contract_resource.resource_id = r.id
     ORDER BY label ASC
     `;
   if (Number(id) > 0) {
     query = `
-      LEFT JOIN data.resource AS r on contract_resource.resource_id = r.resource_id
+      LEFT JOIN data.resource AS r on contract_resource.resource_id = r.id
       WHERE contract_resource.contract_id = ${Number(id)}
       GROUP BY label, value
       ORDER BY label ASC

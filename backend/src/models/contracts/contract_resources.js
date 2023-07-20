@@ -21,7 +21,7 @@ const findAll = (contractId) => {
       "fy.fiscal_year as fiscal"
     )
     .from(`${table} as cr`)
-    .join(`${resourceTable} as r`, { "cr.resource_id": "r.resource_id" })
+    .join(`${resourceTable} as r`, { "cr.resource_id": "r.id" })
     .join(`${supplierRateTable} as sr`, { "cr.supplier_rate_id": "sr.id" })
     .join(`${resourceTypeTable} as rt`, { "sr.resource_type_id": "rt.id" })
     .join(`${fiscalTable} as fy`, { "cr.fiscal": "fy.id" })
@@ -37,12 +37,12 @@ const findById = (id) => {
       knex.raw("cr.assignment_rate::numeric::float8"),
       knex.raw("( SELECT json_build_object('value', fy.id, 'label', fy.fiscal_year)) as fiscal"),
       knex.raw(
-        "( SELECT json_build_object('value', r.resource_id, 'label', r.resource_last_name || ', ' || r.resource_first_name)) as resource_id"
+        "( SELECT json_build_object('value', r.id, 'label', r.resource_last_name || ', ' || r.resource_first_name)) as resource_id"
       ),
       knex.raw("( SELECT json_build_object('value', sr.id, 'label', sr.rate)) as supplier_rate_id")
     )
     .from(`${table} as cr`)
-    .join(`${resourceTable} as r`, { "cr.resource_id": "r.resource_id" })
+    .join(`${resourceTable} as r`, { "cr.resource_id": "r.id" })
     .join(`${supplierRateTable} as sr`, { "cr.supplier_rate_id": "sr.id" })
     .join(`${resourceTypeTable} as rt`, { "sr.resource_type_id": "rt.id" })
     .join(`${fiscalTable} as fy`, { "cr.fiscal": "fy.id" })

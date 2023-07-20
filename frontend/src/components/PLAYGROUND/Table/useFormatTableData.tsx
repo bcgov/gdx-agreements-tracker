@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "hooks/useAxios";
-// import { TableHealthChip } from "components/TableComplete/TableHealthChip";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
