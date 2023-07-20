@@ -1,10 +1,17 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Typography } from "@mui/material";
 import { Renderer } from "components/Renderer";
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "hooks/useAxios";
+import useTitle from "hooks/useTitle";
 
 export const Glossary: FC = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Glossary");
+  }, [updateTitle]);
+
   const { axiosAll } = useAxios();
 
   /**

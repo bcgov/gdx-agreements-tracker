@@ -13,17 +13,13 @@ import { Glossary } from "pages/Admin/Glossary";
  * Routes for Admin pages.
  */
 const routes = [
-  <Route key="admin" path="/admin" element={<ProtectedRoute component={Admin} />}>
-    <Route key="contacts" path="contacts" element={<ProtectedRoute component={Contacts} />} />
-    <Route key="suppliers" path="suppliers" element={<ProtectedRoute component={Suppliers} />} />
-    <Route
-      key="subcontractors"
-      path="subcontractors"
-      element={<ProtectedRoute component={Subcontractors} />}
-    />
-    <Route key="resources" path="resources" element={<ProtectedRoute component={Resources} />} />
-    <Route key="ministries" path="ministries" element={<ProtectedRoute component={Ministries} />} />
-    <Route key="glossary" path="glossary" element={<ProtectedRoute component={Glossary} />} />
+  <Route key="admin" path="/admin" element={<ProtectedRoute component={<Admin />} />}>
+    <Route key="contacts" path="contacts" element={<Contacts />} />
+    <Route key="suppliers" path="suppliers" element={<Suppliers />} />
+    <Route key="subcontractors" path="subcontractors" element={<Subcontractors />} />
+    <Route key="resources" path="resources" element={<Resources />} />
+    <Route key="ministries" path="ministries" element={<Ministries />} />
+    <Route key="glossary" path="glossary" element={<Glossary />} />
   </Route>,
 ];
 

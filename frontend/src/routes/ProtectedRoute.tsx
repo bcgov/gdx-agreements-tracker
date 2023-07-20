@@ -1,38 +1,21 @@
-import React, { FC } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
-import { Loader } from "../components/Loader";
-import Unauthorized from "pages/Unauthorized";
-
+import { FC, useEffect } from "react";
 interface Props {
   component: FC;
 }
-const ProtectedRoute: FC<Props> = ({ component: Component }) => {
-  const { initialized, keycloak } = useKeycloak();
-  const location = useLocation();
+export const ProtectedRoute = ({ component }: { component: JSX.Element }) => {
+  const { keycloak, initialized } = useKeycloak();
 
-  if (initialized) {
-    return keycloak?.authenticated ? (
-      <Component />
-    ) : (
-      <Navigate to={`/login?redirect=${location.pathname}`} />
-    );
-  } else {
-    return <Loader />;
-  }
-};
-
-export const AuthorizedRoute = () => {
-  const { keycloak } = useKeycloak();
-  if (keycloak.authenticated) {
-    if (!keycloak?.tokenParsed?.client_roles) {
-      return <Unauthorized />;
-    } else {
-      return <Outlet />;
+  useEffect(() => {
+    if (initialized && !keycloak.authenticated) {
+      keycloak.login();
     }
-  } else {
-    return <Navigate to={`/login?redirect=${location.pathname}`} />;
-  }
-};
+  }, [initialized, keycloak]);
 
+  if (!initialized) {
+    return <div>Loading...</div>;
+  }
+
+  return component;
+};
 export default ProtectedRoute;
