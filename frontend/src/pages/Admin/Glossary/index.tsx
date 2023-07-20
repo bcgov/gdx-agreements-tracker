@@ -35,9 +35,6 @@ export const Glossary: FC = () => {
 
   return (
     <>
-      <Typography variant="h5" component="h2">
-        Glossary
-      </Typography>
       <Renderer isLoading={isLoading} component={<div dangerouslySetInnerHTML={data}></div>} />
     </>
   );
