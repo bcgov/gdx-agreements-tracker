@@ -3,8 +3,16 @@ import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
+import useTitle from "hooks/useTitle";
+import { useEffect } from "react";
 
 export const Suppliers = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Suppliers");
+  }, [updateTitle]);
+
   const formControls: IFormControls = useFormControls();
 
   return (

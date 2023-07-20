@@ -7,9 +7,14 @@ import { CloseOut } from "pages/Projects/Project/CloseOut";
 import { Billing } from "pages/Projects/Project/Billing";
 import { LessonsLearned } from "pages/Projects/Project/LessonsLearned";
 import { Status } from "pages/Projects/Project/Status";
+import ProtectedRoute from "routes/ProtectedRoute";
 const projectRoutes = [
-  <Route key="project" path="projects" element={<Projects />} />,
-  <Route key="projectprojectId" path="projects/:projectId" element={<Project />}>
+  <Route key="project" path="projects" element={<ProtectedRoute component={<Projects />} />} />,
+  <Route
+    key="projectprojectId"
+    path="projects/:projectId"
+    element={<ProtectedRoute component={<Project />} />}
+  >
     ,
     <Route index key="projectdetails" element={<ProjectDetails />} />,
     <Route key="projectStatus" path="status" element={<Status />} />,

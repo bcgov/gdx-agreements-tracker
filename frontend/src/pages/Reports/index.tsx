@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Box, Grid, styled, FormControl, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import ReportSelector from "components/PLAYGROUND/ReportSelector";
+import useTitle from "hooks/useTitle";
 
 const StyledBox = styled(Box)({
   overflowX: "scroll",
@@ -10,6 +11,12 @@ const StyledBox = styled(Box)({
 });
 
 export const Reports: FC = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Reports");
+  }, [updateTitle]);
+
   return (
     <>
       <Typography variant="h5" component="h2">

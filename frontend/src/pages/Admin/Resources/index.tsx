@@ -1,8 +1,15 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { editFields, readFields } from "./fields";
 import { TableComplete } from "components/TableComplete";
+import useTitle from "hooks/useTitle";
 
 export const Resources: FC = () => {
+  const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Resources");
+  }, [updateTitle]);
+
   const createFormInitialValues = {
     resource_last_name: "",
     resource_first_name: "",
