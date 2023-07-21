@@ -1,9 +1,9 @@
 import { useKeycloak } from "@react-keycloak/web";
-import { FC, useEffect } from "react";
+import { FC, ReactChild, useEffect } from "react";
 interface Props {
   component: FC;
 }
-export const ProtectedRoute = ({ component }: { component: JSX.Element }) => {
+export const ProtectedRoute = ({ children }: any) => {
   const { keycloak, initialized } = useKeycloak();
 
   useEffect(() => {
@@ -16,6 +16,7 @@ export const ProtectedRoute = ({ component }: { component: JSX.Element }) => {
     return <div>Loading...</div>;
   }
 
-  return component;
+  return children;
 };
 export default ProtectedRoute;
+
