@@ -113,7 +113,7 @@ This step is required to run the app as the npm start command requires the app t
 1. Stop the frontend process if it is running.
 2. Stop the backend process if it is running.
 3. If the database container is not running, start it:
-```
+```bash
 docker-compose up db
 ```
 #### 2. Reset the pmo database
