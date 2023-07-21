@@ -9,7 +9,7 @@ import { LessonsLearned } from "pages/Projects/Project/LessonsLearned";
 import { Status } from "pages/Projects/Project/Status";
 import ProtectedRoute from "routes/ProtectedRoute";
 const projectRoutes = [
-  <Route key="projects" path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>}></Route>,
+  <Route key="projects" path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>}/>,
   <Route key="projectId" path="projects/:projectId" element={<ProtectedRoute><Project /></ProtectedRoute>}>,
     <Route index key="projectdetails" element={<ProjectDetails />} />
     <Route key="projectStatus" path="status" element={<Status />} />

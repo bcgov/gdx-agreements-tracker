@@ -10,7 +10,7 @@ import { ContractResources } from "pages/Contracts/Contract/Resources";
 import { InternalCoding } from "pages/Contracts/Contract/InternalCoding";
 
 const contractRoutes = [
-  <Route key="contracts" path="/contracts" element={<ProtectedRoute><Contracts /></ProtectedRoute>}></Route>,
+  <Route key="contracts" path="/contracts" element={<ProtectedRoute><Contracts /></ProtectedRoute>} />,
   <Route key="contractId" path="contracts/:contractId" element={<ProtectedRoute><Contract /></ProtectedRoute>}>,
     <Route index key="contractdetails" element={<ContractDetails />} />
     <Route key="resources" path="resources" element={<ContractResources />} />
