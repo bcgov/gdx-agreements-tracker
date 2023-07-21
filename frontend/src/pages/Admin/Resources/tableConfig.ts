@@ -10,8 +10,7 @@ export const tableConfig = () => {
   ];
 
   const initialState = {
-    filter: {
-    },
+    filter: {},
   };
 
   return { tableColumns, initialState };

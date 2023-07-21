@@ -96,7 +96,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           value: query?.data?.data?.data?.contract_id.label,
         },
       ];
-console.log('projectId', projectId)
   const editFields: IEditField[] = [
     {
       width: "half",
@@ -195,7 +194,7 @@ console.log('projectId', projectId)
       fieldName: "stob",
       fieldType: "singleText",
     },
-     //!issue
+    //!issue
     {
       width: "half",
       fieldLabel: "Client Coding",

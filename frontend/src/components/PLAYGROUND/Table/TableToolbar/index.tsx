@@ -14,7 +14,12 @@ export const TableToolBar = (handleTableNewButton: () => void) => {
         Add New
       </Button>
       <Box sx={{ flex: "0%" }}></Box>
-      <Paper elevation={3}> <GridToolbarQuickFilter sx={{ width:"500px", padding:"10px", border:"solid 1px #c5c5c5"}}/></Paper>
+      <Paper elevation={3}>
+        {" "}
+        <GridToolbarQuickFilter
+          sx={{ width: "500px", padding: "10px", border: "solid 1px #c5c5c5" }}
+        />
+      </Paper>
     </GridToolbarContainer>
   );
 };

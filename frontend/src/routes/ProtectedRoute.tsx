@@ -1,9 +1,7 @@
 import { useKeycloak } from "@react-keycloak/web";
-import { FC, ReactChild, useEffect } from "react";
-interface Props {
-  component: FC;
-}
-export const ProtectedRoute = ({ children }: any) => {
+import { FC, ReactChild, ReactNode, useEffect } from "react";
+
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { keycloak, initialized } = useKeycloak();
 
   useEffect(() => {
@@ -16,7 +14,7 @@ export const ProtectedRoute = ({ children }: any) => {
     return <div>Loading...</div>;
   }
 
-  return children;
+  return <>{children}</>; // Wrapping children with empty fragment to avoid wrapper div warnings
 };
-export default ProtectedRoute;
 
+export default ProtectedRoute;
