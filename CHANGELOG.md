@@ -1,3 +1,12 @@
+**July 21, 2023 [DESCW-1252](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1252)**
+- Frontend
+  - enables quarter & fiscal year parameters for project jvs per fiscal/quarter rpt
+  - adds tab 38 template
+- Backend
+  - removes fancy stuff from generic model template
+  - build model for tab 38
+  - sneaky edit on readme - Kyle plans to update the seeding/migration docs later
+
 **July 20, 2023 [DESCW-1368](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1368)**
 - **Note**
     - Delete your local gat_db database
@@ -7,7 +16,7 @@
         - run npm run make seeds
         - Copy .dat file from sql converter repo to your local agreements tracker production seeds folder
     - run migrations and seeds
-    
+
 - Frontend
   - Fixed routing for new backend fixews to authenitication.
   - Added auto redirect for auth

@@ -86,7 +86,7 @@
 - [x]  Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio
 
 
-### 7-step report build
+### 8-step report build
 1. Make a basic excel template with style and carbone entries to match the sample report
 2. get the frontend selector configured to print an excel report with fiscal/portfolio/date
 3. get the query from the ticket into PgAdmin and make it work with the parameter from (2)
