@@ -96,7 +96,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           value: query?.data?.data?.data?.contract_id.label,
         },
       ];
-
   const editFields: IEditField[] = [
     {
       width: "half",
@@ -159,6 +158,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "notes",
       fieldType: "multiText",
     },
+    //!issue
     {
       width: "half",
       fieldLabel: "Project Deliverables",
@@ -194,6 +194,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "stob",
       fieldType: "singleText",
     },
+    //!issue
     {
       width: "half",
       fieldLabel: "Client Coding",

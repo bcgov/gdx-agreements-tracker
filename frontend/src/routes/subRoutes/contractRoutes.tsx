@@ -13,14 +13,23 @@ const contractRoutes = [
   <Route
     key="contracts"
     path="/contracts"
-    element={<ProtectedRoute component={<Contracts />} />}
+    element={
+      <ProtectedRoute>
+        <Contracts />
+      </ProtectedRoute>
+    }
   />,
   <Route
-    key="id"
-    path="/contracts/:contractId"
-    element={<ProtectedRoute component={<Contract />} />}
+    key="contractId"
+    path="contracts/:contractId"
+    element={
+      <ProtectedRoute>
+        <Contract />
+      </ProtectedRoute>
+    }
   >
-    <Route index key="contractdetails" element={<ContractDetails />} />,
+    ,
+    <Route index key="contractdetails" element={<ContractDetails />} />
     <Route key="resources" path="resources" element={<ContractResources />} />
     <Route key="deliverables" path="deliverables" element={<Deliverables />} />
     <Route key="invoice-processing" path="invoice-processing" element={<InvoiceProcessing />} />

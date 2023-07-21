@@ -1,6 +1,8 @@
 **July 21, 2023 [DESCW-1235](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1235)**
 - Frontend
   - update bcsans to 2.0.0
+  - Add fixes for react router private routes
+  - UPdated table components for admin resources section
 
 **July 21, 2023 [DESCW-1252](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1252)**
 - Frontend

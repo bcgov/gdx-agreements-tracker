@@ -12,8 +12,7 @@ const AppRouter: FC = () => {
   return (
     <Routes>
       <Route element={<Main />}>
-        <Route index element={<ProtectedRoute component={<Home />} />} />
-        <Route path="home" element={<Home />} />
+        <Route index element={<Home />} />
         {projectRoutes}
         {contractRoutes}
         {adminRoutes}
