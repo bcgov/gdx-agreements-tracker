@@ -7,7 +7,7 @@ import { useDrawer } from "../../../hooks/useDrawer";
 import { PageHeader } from "../PageHeader";
 import { Outlet } from "react-router-dom";
 
-const drawerWidth = bcgovTheme.customSettings.drawerWidth;
+const drawerWidth = bcgovTheme?.customSettings?.drawerWidth;
 
 export const Main = () => {
   const { drawerOpen, handleDrawerToggle } = useDrawer();
@@ -41,7 +41,7 @@ export const Main = () => {
       </Box>
 
       {/* Footer */}
-      <PageFooter drawerWidth={drawerWidth} />
+      <PageFooter />
     </Box>
   );
 };

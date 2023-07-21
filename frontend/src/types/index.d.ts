@@ -1,5 +1,4 @@
 import { GridRowsProp, GridColDef, GridInitialState } from "@mui/x-data-grid";
-import { ChangeEvent } from "react";
 
 // Data Structures
 export interface IUser {
@@ -23,7 +22,7 @@ export interface IPageHeader extends IUseDrawer {
   headerTitle: string;
 }
 
-export interface ISidebar extends IUseDrawer {}
+export type ISidebar = IUseDrawer;
 
 export interface ITable {
   rows: GridRowsProp;
@@ -48,21 +47,6 @@ export interface ITableData {
     data: Array<Object>;
     user: Array<Object>;
   };
-}
-
-//Declaration that adds custom types to material ui predefined interfaces
-declare module "@mui/material/styles" {
-  interface Theme {
-    customSettings: {
-      BCGovAccentLine: string;
-      topBarHeight: string;
-      drawerWidth: number;
-    };
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    customSettings?: Theme["customSettings"];
-  }
 }
 
 // Project layout types
@@ -344,7 +328,7 @@ export interface IWhat {
   single: string;
   plural: string;
 }
-export interface IGDXList {
+export interface IList {
   data: Array<{ [key: string]: number | string }>;
   title: string;
 }

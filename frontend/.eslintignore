@@ -1,3 +1,4 @@
 # Paths that eslint should ignore.
+src/bcgovTheme.ts
 build
 

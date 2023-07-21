@@ -1,8 +1,8 @@
-import { Table } from "components/PLAYGROUND/Table";
+import { Table } from "components/Table";
 import { tableConfig } from "./tableConfig";
 import { useNavigate } from "react-router-dom";
 import { GridRowParams } from "@mui/x-data-grid";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
+import { useFormatTableData } from "components/Table/useFormatTableData";
 import { LinearProgress } from "@mui/material";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";

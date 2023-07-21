@@ -1,5 +1,5 @@
 import { Box, List, styled, Typography } from "@mui/material";
-import React from "react";
+
 import bcgovTheme from "../../../bcgovTheme";
 import { sidebarMenuLinks } from "./sidebarMenuLinks";
 import { SidebarMenuItem } from "./SidebarMenuItem";
@@ -12,7 +12,7 @@ const StyledSidebarImageFooter = styled("img")({
 
 const StyledSidebarHorizontalRule = styled("hr")({
   width: "100%",
-  borderTop: bcgovTheme.customSettings.BCGovAccentLine,
+  borderTop: bcgovTheme?.customSettings?.BCGovAccentLine,
 });
 
 const StyledSidebarBox = styled(Box)({

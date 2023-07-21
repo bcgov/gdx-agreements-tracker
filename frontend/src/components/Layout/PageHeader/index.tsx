@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
-import { styled } from "@mui/system";
 import { IPageHeader } from "../../../types";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SignoutButton } from "../../SignoutButton";

@@ -1,6 +1,5 @@
 import { FormikValues } from "formik";
-import { UseQueryResult } from "@tanstack/react-query";
-import { IContactRole, IEditField } from "types";
+import { IEditField } from "types";
 
 const FormConfig = (query: Array<FormikValues>) => {
   const readFields = !Array.isArray(query)

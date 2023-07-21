@@ -1,6 +1,5 @@
-import React from "react";
 import { Grid } from "@mui/material";
-import { GDXList } from "components/GDXList";
+import { List } from "components/List";
 import { Loader } from "components/Loader";
 import { useAxios } from "hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
@@ -54,7 +53,7 @@ export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {
               Total: budget.remaining_fees + budget.remaining_expenses,
             },
           ];
-          return <GDXList key={index} data={rows} title={`Fiscal ${budget.fiscal_year}`} />;
+          return <List key={index} data={rows} title={`Fiscal ${budget.fiscal_year}`} />;
         })
       )}
     </Grid>

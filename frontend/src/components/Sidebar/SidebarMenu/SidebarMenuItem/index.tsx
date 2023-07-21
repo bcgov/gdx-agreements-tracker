@@ -1,9 +1,9 @@
-import React from "react";
 import PropTypes from "prop-types";
 import SidebarMenuItemComponent from "./SidebarMenuItemComponent";
 import { Collapse, Divider, ListItemText, List, styled } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
 
 export const SidebarMenuItemPropTypes = {
   name: PropTypes.string.isRequired,
@@ -21,7 +21,9 @@ export type SidebarMenuItemProps = SidebarMenuItemPropsWithoutItems & {
   color?: string;
 };
 
-export const SidebarMenuItem: React.FC<SidebarMenuItemProps> = (props) => {
+export const SidebarMenuItem: React.FC<SidebarMenuItemProps> = (
+  props: React.PropsWithChildren<SidebarMenuItemProps>
+) => {
   const StyledListItemText = styled(ListItemText)({
     color: props.color,
   });
@@ -32,7 +34,7 @@ export const SidebarMenuItem: React.FC<SidebarMenuItemProps> = (props) => {
 
   const { name, url, items = [] } = props;
   const isExpandable = items && items.length > 0;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(!open);

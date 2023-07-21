@@ -5,7 +5,7 @@ import { IUseDrawer } from "../../types";
 /** The sidebar is the navigation menu located on the left side of the App */
 import { SidebarMenu } from "./SidebarMenu";
 
-const drawerWidth = bcgovTheme.customSettings.drawerWidth;
+const drawerWidth = bcgovTheme?.customSettings?.drawerWidth;
 
 export const Sidebar = ({ drawerOpen, handleDrawerToggle }: IUseDrawer) => {
   return (

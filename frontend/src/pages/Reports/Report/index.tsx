@@ -1,5 +1,3 @@
-import React from "react";
-
 /**
  * This reusable component renders the projects component
  *

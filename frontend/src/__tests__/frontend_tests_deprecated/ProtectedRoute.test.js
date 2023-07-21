@@ -1,4 +1,3 @@
-import React from "react";
 import { shallow } from "enzyme";
 import ProtectedRoute from "../routes/ProtectedRoute";
 import { Home } from "../pages/Home";

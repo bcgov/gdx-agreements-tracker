@@ -1,5 +1,4 @@
-import { FormRenderer } from "components/FormRenderer";
-import { useFormData } from "hooks/useFormData";
+import { FormRenderer } from "components/Forms/FormRenderer";
 import { useParams } from "react-router";
 import { FormConfig } from "./FormConfig";
 import { IFormControls } from "types";

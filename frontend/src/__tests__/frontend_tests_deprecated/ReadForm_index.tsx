@@ -1,4 +1,4 @@
-import { ReadForm } from "../../components/ReadForm";
+import { ReadForm } from "../../components/Forms/ReadForm";
 import { shallow } from "enzyme";
 
 const fields = [

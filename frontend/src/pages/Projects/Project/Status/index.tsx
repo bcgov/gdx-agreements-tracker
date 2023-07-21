@@ -1,5 +1,4 @@
-import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
+import { TableWithModal } from "components/TableWithModal";
 import { useParams } from "react-router-dom";
 import { useFormControls } from "hooks";
 import { IFormControls } from "types";

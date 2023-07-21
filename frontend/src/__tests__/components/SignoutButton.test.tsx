@@ -1,4 +1,3 @@
-import React from "react";
 import { getByRole, render, screen, waitFor } from "@testing-library/react";
 import { SignoutButton } from "../../components/SignoutButton";
 import UserEvent from "@testing-library/user-event";

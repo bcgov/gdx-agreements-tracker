@@ -1,5 +1,4 @@
-import React, { FC, useEffect } from "react";
-import { Typography } from "@mui/material";
+import { FC, useEffect } from "react";
 import { Renderer } from "components/Renderer";
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "hooks/useAxios";

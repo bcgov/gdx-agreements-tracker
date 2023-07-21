@@ -1,4 +1,3 @@
-import React from "react";
 import { PageFooter } from "../../../components/Layout/PageFooter";
 import { render } from "@testing-library/react";
 

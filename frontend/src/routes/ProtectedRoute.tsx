@@ -1,5 +1,5 @@
 import { useKeycloak } from "@react-keycloak/web";
-import { FC, ReactChild, ReactNode, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { keycloak, initialized } = useKeycloak();

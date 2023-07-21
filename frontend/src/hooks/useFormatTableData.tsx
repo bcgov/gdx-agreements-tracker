@@ -1,11 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { ITableData } from "../types";
-import { Button, Checkbox, IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import React from "react";
+import { Checkbox } from "@mui/material";
 import { useAxios } from "./useAxios";
-import { TableHealthChip } from "components/TableComplete/TableHealthChip";
+import { TableHealthChip } from "components/Table/TableHealthChip";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
@@ -17,38 +14,10 @@ import { TableHealthChip } from "components/TableComplete/TableHealthChip";
 // Export this function for unit testing.
 export const formatTableColumns = (
   tableData: ITableData,
-  tableName?: string,
-  handleClick?: Function,
   columnWidths?: { [key: string]: number }
 ) => {
   return new Promise((resolve) => {
-    const formattedColumns: Array<Object> = [
-      {
-        field: "edit",
-        headerName: "",
-        maxWidth: 60,
-        renderCell: (cellValues: { id: number }) => {
-          return (
-            <IconButton
-              onClick={
-                // If the handleClick function does not exist, render a Button else render the link component
-                !handleClick
-                  ? undefined
-                  : () => {
-                      handleClick(cellValues);
-                    }
-              }
-              // If the handleClick function does not exist, render a Button else render the link component
-              component={!handleClick ? Link : Button}
-              // If the handlClick function does not exist, apply to property else apply undefined
-              to={!handleClick ? `/${tableName}/${cellValues.id}` : undefined}
-            >
-              <RemoveRedEyeIcon />
-            </IconButton>
-          );
-        },
-      },
-    ];
+    const formattedColumns: Array<Object> = [];
     Object.entries(tableData.data.data[0]).forEach((value, index) => {
       let columnFlex = 1;
       if (columnWidths && columnWidths[value[0]]) {
@@ -64,14 +33,16 @@ export const formatTableColumns = (
           .replace(/(?:^|\s)\S/g, (a: string) => a.toUpperCase()),
         flex: columnFlex,
         id: index,
-        renderCell: (params: { value: { red: number; green: number; blue: number } }) => {
+        renderCell: (params: {
+          value: { red: number; green: number; blue: number; health_name: string };
+        }) => {
           if (
             params.value &&
             params.value.red !== undefined &&
             params.value.green !== undefined &&
             params.value.blue !== undefined
           ) {
-            return <TableHealthChip variant="outlined" colors={params.value} />;
+            return <TableHealthChip rgb={params.value} />;
           }
           if ("boolean" === typeof params.value) {
             return <Checkbox disabled checked={params.value} />;
@@ -107,7 +78,7 @@ export const useFormatTableData = ({
             return { columns: [], rows: [], user: tableData.data?.user };
 
           default:
-            return formatTableColumns(tableData, tableName, handleClick, columnWidths);
+            return formatTableColumns(tableData, columnWidths);
         }
       })
       .catch((error) => {

@@ -1,4 +1,4 @@
-import { Table } from "components/PLAYGROUND/Table";
+import { Table } from "components/Table";
 import { useFormData } from "hooks/useFormData";
 import { tableConfig } from "./tableConfig";
 import { useNavigate } from "react-router-dom";

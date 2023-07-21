@@ -2,7 +2,7 @@ import { BudgetDisplay } from "components/BudgetDisplay";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { IChipNav } from "types";
-import { ChipNav } from "../../../components/GDXForm/ChipNav";
+import { ChipNav } from "../../../components/ChipNav";
 
 /**
  * This reusable component renders the contracts component
