@@ -1,3 +1,7 @@
+**July 21, 2023**
+- Meta
+  - Added instructions to README for updating migrations and seeds.
+
 **July 21, 2023 [DESCW-1235](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1235)**
 - Frontend
   - update bcsans to 2.0.0
