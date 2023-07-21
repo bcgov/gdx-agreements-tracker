@@ -69,9 +69,8 @@ module.exports = {
 
     // No declaring anything and not using it; did you finish cleaning up?
     //TODO uncomment once finished conversion to using new reusable form renderer.  This is needed to reduce the number of files change in the PR
-    //  "no-unused-vars": ["error", { args: "none" }],
-    "no-unused-vars": 0,
-
+    "no-unused-vars": ["error", { args: "none" }],
+    
     // Must use const or let.
     "no-var": "error",
 
@@ -158,7 +157,7 @@ module.exports = {
         // Use of "any" type disallowed. Use the following if you really need "any": // eslint-disable-next-line @typescript-eslint/no-explicit-any
         "@typescript-eslint/no-explicit-any": "error",
         //TODO change to 2 once finished conversion to using new reusable form renderer.  This is needed to reduce the number of files change in the PR
-        "no-unused-vars": 0,
+        "no-unused-vars": 2,
         "@typescript-eslint/no-unused-vars": 0,
       },
     },

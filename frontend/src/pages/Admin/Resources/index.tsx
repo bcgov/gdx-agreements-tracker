@@ -1,4 +1,4 @@
-import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
+import { TableWithModal } from "components/TableWithModal";
 import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";

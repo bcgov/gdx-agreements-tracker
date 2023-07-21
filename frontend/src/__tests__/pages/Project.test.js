@@ -1,5 +1,3 @@
-import React from "react";
-
 import { render, fireEvent, screen } from "@testing-library/react";
 import projectRoutes from "../../routes/subRoutes/projectRoutes";
 import { MemoryRouter, Routes, Router } from "react-router-dom";

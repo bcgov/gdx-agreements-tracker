@@ -1,8 +1,7 @@
 import { Typography, AppBar } from "@mui/material";
-import bcgovTheme from "../../../bcgovTheme";
 import packageJson from "../../../../package.json";
 
-export const PageFooter = ({ drawerWidth }: { drawerWidth: number }) => {
+export const PageFooter = () => {
   const footerStyles = {
     marginTop: "auto",
     top: "auto",

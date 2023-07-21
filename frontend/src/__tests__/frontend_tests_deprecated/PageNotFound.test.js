@@ -1,4 +1,3 @@
-import React from "react";
 import PageNotFound from "../../pages/PageNotFound";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { shallow } from "enzyme";

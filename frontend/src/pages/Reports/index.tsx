@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { Box, Grid, styled, FormControl, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import ReportSelector from "components/PLAYGROUND/ReportSelector";
+import ReportSelector from "components/ReportSelector";
 import useTitle from "hooks/useTitle";
 
 const StyledBox = styled(Box)({

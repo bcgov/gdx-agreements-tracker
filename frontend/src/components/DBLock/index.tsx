@@ -1,6 +1,6 @@
 import { Grid, Skeleton } from "@mui/material";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
-import { FormEditButton } from "components/FormEditButton";
+import { FormEditButton } from "components/Forms/FormEditButton";
 import { useParams } from "react-router";
 
 interface IDBLockProps {

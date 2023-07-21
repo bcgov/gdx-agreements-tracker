@@ -1,6 +1,6 @@
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
-import { GDXAccordion } from "../../../../components/GDXAccordion";
+import { Accordion } from "../../../../components/Accordion";
 import { AgreementSection } from "./AgreementSection";
 import { BudgetSection } from "./BudgetSection";
 import { ClientCodingSection } from "./ClientCodingSection";
@@ -9,7 +9,7 @@ import { DeliverablesSection } from "./Deliverables";
 import { ProjectRegistrationSection } from "./ProjectRegistrationSection";
 
 /* This code exports a functional component called `ProjectDetails` that renders a series of
-`GDXAccordion` components, each containing a different section of information related to a project. */
+`Accordion` components, each containing a different section of information related to a project. */
 export const ProjectDetails = () => {
   const { updateTitle } = useTitle();
 
@@ -18,24 +18,24 @@ export const ProjectDetails = () => {
   }, [updateTitle]);
   return (
     <>
-      <GDXAccordion sectionTitle="Project Registration">
+      <Accordion sectionTitle="Project Registration">
         <ProjectRegistrationSection />
-      </GDXAccordion>
-      <GDXAccordion sectionTitle="Agreement">
+      </Accordion>
+      <Accordion sectionTitle="Agreement">
         <AgreementSection />
-      </GDXAccordion>
-      <GDXAccordion sectionTitle="Contacts">
+      </Accordion>
+      <Accordion sectionTitle="Contacts">
         <ContactsSection />
-      </GDXAccordion>
-      <GDXAccordion sectionTitle="Deliverables">
+      </Accordion>
+      <Accordion sectionTitle="Deliverables">
         <DeliverablesSection />
-      </GDXAccordion>
-      <GDXAccordion sectionTitle="Client Coding">
+      </Accordion>
+      <Accordion sectionTitle="Client Coding">
         <ClientCodingSection />
-      </GDXAccordion>
-      <GDXAccordion sectionTitle="Budget">
+      </Accordion>
+      <Accordion sectionTitle="Budget">
         <BudgetSection />
-      </GDXAccordion>
+      </Accordion>
     </>
   );
 };

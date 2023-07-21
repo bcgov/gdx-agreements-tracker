@@ -1,6 +1,4 @@
-import { GridColDef, GridInitialState } from "@mui/x-data-grid";
-
-import { type } from "os";
+import { GridColDef } from "@mui/x-data-grid";
 
 export const tableConfig = () => {
   const defaultFlex = 3;

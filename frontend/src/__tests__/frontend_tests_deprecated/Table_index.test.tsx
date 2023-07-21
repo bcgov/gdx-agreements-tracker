@@ -1,4 +1,3 @@
-import React from "react";
 import { mount } from "enzyme";
 import { Table } from "components";
 import { GridColDef } from "@mui/x-data-grid";

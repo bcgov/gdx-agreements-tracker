@@ -7,7 +7,6 @@ import projectRoutes from "./subRoutes/projectRoutes";
 import contractRoutes from "./subRoutes/contractRoutes";
 import adminRoutes from "./subRoutes/adminRoutes";
 import reportRoutes from "./subRoutes/reportRoutes";
-import ProtectedRoute from "./ProtectedRoute";
 const AppRouter: FC = () => {
   return (
     <Routes>

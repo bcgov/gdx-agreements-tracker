@@ -1,6 +1,4 @@
-import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
-import { useFormatTableData } from "components/PLAYGROUND/Table/useFormatTableData";
-import { useFormData } from "hooks/useFormData";
+import { TableWithModal } from "components/TableWithModal";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
 import { useFormControls } from "hooks";
