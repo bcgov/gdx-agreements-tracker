@@ -33,7 +33,7 @@ export const TableWithModal = ({
     apiEndPoint: tableDataApiEndPoint,
     tableName,
   });
-  
+
   const handleRowDoubleClick = (params: IRowDoubleClickParams) => {
     formControls.handleCurrentRowData(params.row);
     formControls.handleOpen();

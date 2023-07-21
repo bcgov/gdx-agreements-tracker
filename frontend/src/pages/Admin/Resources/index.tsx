@@ -1,4 +1,3 @@
-
 import { TableWithModal } from "components/PLAYGROUND/TableWithModal";
 import { useFormControls } from "hooks";
 import { IFormControls } from "types";
@@ -18,7 +17,6 @@ import { useEffect } from "react";
  */
 
 export const Resources = () => {
-
   const { updateTitle } = useTitle();
 
   useEffect(() => {

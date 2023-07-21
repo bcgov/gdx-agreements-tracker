@@ -5,14 +5,18 @@ import { IEditField } from "types";
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const readFields = !query
     ? []
-    :  [
-      { width: "half", title: "Supplier", value: query.data?.data?.data?.supplier_id.label },
-      { width: "half", title: "Subcontractor", value: query.data?.data?.data?.subcontractor_id.label },
-      { width: "half", title: "First Name", value: query.data?.data?.data?.resource_first_name },
-      { width: "half", title: "Last Name", value: query.data?.data?.data?.resource_last_name },
-    ];
+    : [
+        { width: "half", title: "Supplier", value: query.data?.data?.data?.supplier_id.label },
+        {
+          width: "half",
+          title: "Subcontractor",
+          value: query.data?.data?.data?.subcontractor_id.label,
+        },
+        { width: "half", title: "First Name", value: query.data?.data?.data?.resource_first_name },
+        { width: "half", title: "Last Name", value: query.data?.data?.data?.resource_last_name },
+      ];
 
-  const editFields: IEditField[] =[
+  const editFields: IEditField[] = [
     {
       fieldName: "supplier_id",
       fieldType: "select",
@@ -40,7 +44,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
     },
   ];
-  
 
   const initialValues = {
     resource_last_name: "",
