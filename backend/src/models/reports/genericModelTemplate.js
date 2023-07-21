@@ -10,6 +10,7 @@
  * to wrap it further in knex() methods.
  *
  */
+
 // libs
 const { knex } = require("@database/databaseConnection")();
 
@@ -21,27 +22,21 @@ const { knex } = require("@database/databaseConnection")();
  * @param   {number | string | Array} Parameter- The fiscal, Date, or Portfolio(s) to grab data for
  * @returns {Promise}                            - A promise that resolves to the query result
  */
-const reportQueries = {
-  fiscalYear: (PARAMETER) =>
-    knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", PARAMETER).first(),
+const queries = {
+  fiscal: ({ fiscal }) =>
+    knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
-  report: (PARAMETER) =>
+  report: ({ PARAMETER }) =>
     knex
       .select()
       .fromRaw(
         `
         (
-
-
-
-        PASTE RAW QUERY HERE
-
-
-
-
         ) as base`
       )
-      .where("fiscal", PARAMETER),
+      .where({
+        PARAMETER: PARAMETER,
+      }),
 
   totals: (PARAMETER) =>
     knex
@@ -49,39 +44,24 @@ const reportQueries = {
       .fromRaw(
         `
         (
-
-
-
-        PASTE RAW QUERY HERE
-
-
-
-
         ) as base`
       )
-      .where("fiscal", PARAMETER),
+      .where({
+        PARAMETER: PARAMETER,
+      })
+      .sum({
+        total: "<total column name>",
+      }),
 };
 
 module.exports = {
-  required: ["fiscal"], // e.g. fiscal, date, or portfolio
-  getAll: async ({ fiscal: PARAMETER }) => {
-    // replace fiscal  above with whatever parameter you take here
-    const [{ fiscal_year } /*report, report_totals*/] = await Promise.all([
-      reportQueries.fiscalYear(PARAMETER),
-      /*
-      reportQueries.report(PARAMETER),
-      reportQueries.totals(PARAMETER),
-      */
-    ]);
+  required: ["fiscal", "<some other parameter>"], // e.g. fiscal, date, or portfolio
 
-    const reportData = { fiscal_year /*report, totals*/ };
-
-    /**
-     * console.warn doesn't produce a linter error
-     * delete after your template is populating.
-     */
-    console.warn(JSON.stringify(reportData, null, 2));
-
-    return reportData;
-  },
+  // wait for all the promises to return in parallel, then send them to the controller
+  // if 2nd parameter needed, replace the second parameter with quarter, portfolio, date etc.
+  getAll: async ({ fiscal, PARAMETER }) => ({
+    fiscal_year: await queries?.fiscal({ fiscal }),
+    report: await queries?.report({ fiscal, PARAMETER }),
+    totals: await queries?.totals({ fiscal, PARAMETER }),
+  }),
 };

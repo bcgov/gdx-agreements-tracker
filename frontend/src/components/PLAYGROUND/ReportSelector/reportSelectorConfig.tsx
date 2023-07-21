@@ -271,9 +271,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project JVs Processed",
         description:
           "Fiscal Year and Quarter, Project #, Project Name, JV Number, Date Billed, Amount.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: ["fiscal", "quarter"],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_39_rpt_PF_PortfolioForecastAll",
