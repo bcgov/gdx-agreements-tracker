@@ -60,7 +60,7 @@ module.exports = {
   // wait for all the promises to return in parallel, then send them to the controller
   // if 2nd parameter needed, replace the second parameter with quarter, portfolio, date etc.
   getAll: async ({ fiscal, PARAMETER }) => ({
-    fiscal: await queries?.fiscal({ fiscal }),
+    fiscal_year: await queries?.fiscal({ fiscal }),
     report: await queries?.report({ fiscal, PARAMETER }),
     totals: await queries?.totals({ fiscal, PARAMETER }),
   }),
