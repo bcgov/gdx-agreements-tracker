@@ -25,7 +25,7 @@ const reportQueries = {
               p.project_number,
               p.project_name,
               jv.jv_number,
-              to_char(jv.billed_date, 'DD-Mon-YY'),
+              to_char(jv.billed_date, 'DD-Mon-YY') as date,
               jv.amount
             FROM
               fiscal_year fy
@@ -55,7 +55,7 @@ const reportQueries = {
               p.project_number,
               p.project_name,
               jv.jv_number,
-              to_char(jv.billed_date, 'DD-Mon-YY'),
+              to_char(jv.billed_date, 'DD-Mon-YY') as date,
               jv.amount
             FROM
               fiscal_year fy
@@ -72,7 +72,7 @@ const reportQueries = {
         fiscal: fiscal,
         quarter: quarter,
       })
-      .sum("amount"),
+      .sum({ amount: "amount" }),
 };
 
 module.exports = {

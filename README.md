@@ -16,7 +16,7 @@ The following prerequisites are required for this application to function correc
 *   PostgreSQL
 *   NPM (latest stable version)
 *   Colima or Docker desktop
- 
+
 ## Installation
 
 1.  Clone the repo to your local development system:
@@ -25,15 +25,15 @@ The following prerequisites are required for this application to function correc
     ```
 ---
 
-2. Install dependencies for the backend. 
+2. Install dependencies for the backend.
     * Open a new terminal in the directory of the repo you just cloned locally and run the following commands: 
         ```
         cd /backend
         npm i
-        ``` 
+        ```
 ---
 
-3. Now install dependencies for the frontend. 
+3. Now install dependencies for the frontend.
     * Open a new terminal in the directory of the repo you just cloned locally and run the following commands: 
         ```
         cd /frontend
@@ -44,14 +44,14 @@ The following prerequisites are required for this application to function correc
 4. Run the seeders and migrations for the local development database.
     * To bring your local database up to the latest version run:
     ```
-    docker compose exec backend npx knex migrate:latest
-    docker compose exec backend npx knex seed:run
+    npx knex migrate:latest
+    npx knex seed:run
     ```
 ---
 
 5. Update the .env file in the backend directory ([backend .env](/backend/.env)) with the following:
     * If you don't what JWKSURI should be, contact your site administrator
-    
+
    ```
     NODE_ENV=development
     JWKSURI=https://example.com/auth/realms/aaoozhcp/protocol/openid-connect/certs
@@ -86,7 +86,7 @@ This step is required to run the app as the npm start command requires the app t
     mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "localhost"
 
 
-1. Start the Database container in docker 
+1. Start the Database container in docker
     *   Open a terminal in the root of the project directory and run:
          ```
          docker compose start db
