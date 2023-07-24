@@ -21,8 +21,8 @@ const RadioSelect = () => {
   const [typeDescription, setTypeDescription] = useState<string | undefined>("");
   const initialValues = {
     date: null,
-    category: "",
-    type: "",
+    category: null,
+    type: null,
     exportType: "pdf",
     templateType: "docx",
   };
@@ -38,7 +38,16 @@ const RadioSelect = () => {
     initialValues: initialValues,
   });
 
-  const { setFieldValue, values, handleSubmit, resetForm } = formik;
+  const resetAllParameters = () => {
+    setFieldValue("fiscal", null);
+    setFieldValue("portfolio", []);
+    setFieldValue("contract", null);
+    setFieldValue("date", null);
+    setFieldValue("quarter", null);
+    setFieldValue("project", null);
+  };
+
+  const { setFieldValue, values, handleSubmit } = formik;
 
   const handleCategoryChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setFieldValue("category", event.target.value);
@@ -47,9 +56,7 @@ const RadioSelect = () => {
   };
 
   const handleTypeChange = (event: { target: { value: string } }) => {
-    resetForm({
-      values: { ...initialValues, category: values.category },
-    });
+    resetAllParameters();
     setFieldValue("type", event.target.value);
     const selectedCategory = categoriesAndTypes.find((item: { value: string }) => {
       return item.value === values.category;

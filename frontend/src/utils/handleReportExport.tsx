@@ -2,9 +2,6 @@ import { ConvertToStringItem, UpdatedSearchParams } from "types";
 import { apiAxios } from "utils";
 
 const convertValueToString = (item: ConvertToStringItem) => {
-  if (!item) {
-    return "";
-  }
   if (Array.isArray(item)) {
     return item.map((item) => item.value).join(",");
   }
@@ -18,6 +15,7 @@ export const handleReportExport = (values: { [key: string]: string | null }) => 
   const updatedSearchParams: UpdatedSearchParams = { templateType: values.templateType as string };
 
   Object.entries(values).forEach(([key, item]) => {
+    if (!item || 0 === item.length) return;
     updatedSearchParams[key] = convertValueToString(item);
   });
 

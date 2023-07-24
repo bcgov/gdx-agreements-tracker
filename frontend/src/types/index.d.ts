@@ -443,8 +443,6 @@ export type ConvertToStringItem =
   | {
       value: string | null;
     }
-  | null
-  | undefined
   | string;
 
 export type UpdatedSearchParams = {
