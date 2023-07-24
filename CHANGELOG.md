@@ -11,8 +11,6 @@
   - Added fix that removed parameters if you change type.
   - Added react router protected route to report routes
 
-
-
 **July 21, 2023**
 - Meta
   - Added instructions to README for updating migrations and seeds.
