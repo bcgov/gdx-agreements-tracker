@@ -188,9 +188,16 @@ const validateQueryParameters = ({
   }
   return { fiscal, portfolio, templateType, outputType };
 };
-
-// gets the current date in ISO "YYYY-MM-DD" format.
-const getCurrentDate = async () => new Date().toISOString().split("T")[0];
+/**
+ * Get the current date in the Vancouver timezone
+ * the date is in ISO "YYYY-MM-DD" format
+ *
+ * @returns {string} - current Vancouver date in ISO format
+ */
+const getCurrentDate = async () =>
+  new Date(new Date().toLocaleString("en-US", { timeZone: "America/Vancouver" }))
+    .toISOString()
+    .split("T")[0];
 
 module.exports = {
   getDocumentApiBody,
