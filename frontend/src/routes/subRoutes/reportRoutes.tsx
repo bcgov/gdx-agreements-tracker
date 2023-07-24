@@ -1,5 +1,16 @@
 import { Route } from "react-router-dom";
 import { Reports } from "../../pages";
-const reportRoutes = [<Route key="report" path="reports" element={<Reports />} />];
+import ProtectedRoute from "routes/ProtectedRoute";
+const reportRoutes = [
+  <Route
+    key="report"
+    path="reports"
+    element={
+      <ProtectedRoute>
+        <Reports />
+      </ProtectedRoute>
+    }
+  />,
+];
 
 export default reportRoutes;
