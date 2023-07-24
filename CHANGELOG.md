@@ -1,3 +1,7 @@
+**July 24, 2023 [DESCW-`1331`](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1331)**
+- Frontend
+  - Addedfix that removed parameters if you change type.
+
 **July 21, 2023**
 - Meta
   - Added instructions to README for updating migrations and seeds.
