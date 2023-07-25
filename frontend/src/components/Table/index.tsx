@@ -29,12 +29,13 @@ any) => {
       },
   };
 
-  const BoxStyles = { height: "80vh", width: "100%" };
+  const BoxStyles = { width: "100%" };
 
   return (
     <Box sx={BoxStyles}>
       {rows && (
         <DataGrid
+          autoHeight
           columns={tableColumns}
           rows={rows}
           initialState={initialState}
