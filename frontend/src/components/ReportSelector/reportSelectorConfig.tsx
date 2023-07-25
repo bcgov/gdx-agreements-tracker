@@ -376,4 +376,19 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
     ],
   },
+  {
+    value: "divisional_contract_financials",
+    label: "Divisional Contract Financials",
+    types: [
+      {
+        value: "Tab_12_rpt_CF_InvoicePaymentsbyPortfolio",
+        label: "Invoice Payments by Portfolio",
+        description:
+          "Grouped on Portfolio, Shows contract #, Start/End Date, Project Association, Contract Status, Fee Amt, Expense Amt, Invoices processed by month, total value remaining.",
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+    ],
+  },
 ];
