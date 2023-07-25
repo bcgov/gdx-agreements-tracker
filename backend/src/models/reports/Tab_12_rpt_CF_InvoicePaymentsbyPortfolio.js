@@ -221,10 +221,12 @@ const reportQueries = {
 module.exports = {
   required: ["fiscal"],
   getAll: async ({ fiscal }) => {
-    const { fiscal_year } = await reportQueries.fiscalYear(fiscal);
-    const report = await reportQueries.report(fiscal);
-    const totals = await reportQueries.totals(fiscal);
-    const grandTotals = await reportQueries.grandTotals(fiscal);
+    const [{ fiscal_year }, report, totals, grandTotals] = await Promise.all([
+      reportQueries.fiscalYear(fiscal),
+      reportQueries.report(fiscal),
+      reportQueries.totals(fiscal),
+      reportQueries.grandTotals(fiscal),
+    ])
 
     // Restructure data to allow for grouping by portfolios
     const reportByPortfolio = groupByProperty(report, "portfolio_name");
@@ -233,7 +235,6 @@ module.exports = {
       ...portfolio,
       portfolio_totals: totalsByPortfolio[portfolio.portfolio_name],
     }));
-
 
     return { fiscal_year, reportsByPortfolioWithTotals, grandTotals };
   },
