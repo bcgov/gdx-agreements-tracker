@@ -1,49 +1,77 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
-
-// const baseQueries = {
-//   t_sub: knex("contract_deliverable")
-//     .select({
-//       contract_id: "contract_id",
-//       fiscal: "fiscal",
-//       total_fee_amount: knex.raw(
-//         `Sum(
-//           CASE
-//             WHEN is_expense = false THEN deliverable_amount
-//             ELSE Cast(0 AS MONEY)
-//           END
-//         )`
-//       ),
-//       total_expense_amount: knex.raw(
-//         `Sum(
-//           CASE
-//             WHEN is_expense = true THEN deliverable_amount
-//             ELSE Cast(0 AS MONEY)
-//           END
-//         )`
-//       ),
-//     })
-//     .groupBy("contract_id", "fiscal")
-//     .union(
-//       knex
-//         .select({
-//           contract_id: "contract_id",
-//           fiscal: "fiscal",
-//           total_fee_amount: knex.sum("total_fee_amount"),
-//           total_expense_amount: knex.sum("total_expense_amount"),
-//         })
-//         .groupBy("contract_id", "fiscal")
-//     ),
-
-//   q1: knex("contract")
-//     .select({
-//       contract_id: "contract.id",
-//       co_number: "contract.co_number",
-//     })
-//     .innerJoin("fiscal_year", "contract.fiscal", "fiscal_year.id"),
-// };
-
+const baseQueries = {
+  q1: knex.raw(
+    `SELECT
+      c.id contract_id,
+      c.co_number,
+      COALESCE( t.fiscal, c.fiscal )
+      fiscal,
+      COALESCE( fy.fiscal_year, fy_d.fiscal_year ) fiscal_year,
+      sic.portfolio_id,
+      po.portfolio_name,
+      po.portfolio_abbrev,
+      c.start_date,
+      p.project_number,
+      c.end_date,
+      c.status,
+      COALESCE( t.total_fee_amount, c.total_fee_amount )         total_fee_amount,
+      COALESCE( t.total_expense_amount, c.total_expense_amount ) total_expense_amount
+    FROM contract c
+    INNER JOIN fiscal_year fy_d
+    ON c.fiscal = fy_d.id
+    LEFT JOIN
+      (
+        SELECT
+          contract_id,
+          fiscal,
+          Sum( total_fee_amount )   total_fee_amount,
+          Sum(total_expense_amount) total_expense_amount
+        FROM(
+          SELECT
+            contract_id,
+            fiscal,
+            Sum(hours * assignment_rate) total_fee_amount,
+            NULL total_expense_amount
+          FROM
+            contract_resource
+          GROUP BY
+            contract_id,
+            fiscal
+          UNION
+          SELECT   contract_id,
+                    fiscal,
+                    Sum(
+                    CASE
+                            WHEN is_expense = false THEN deliverable_amount
+                            ELSE Cast(0 AS MONEY)
+                    END ),
+                    Sum(
+                    CASE
+                            WHEN is_expense = true THEN deliverable_amount
+                            ELSE Cast(0 AS MONEY)
+                    END )
+                                FROM     contract_deliverable
+                                GROUP BY contract_id,
+                                          fiscal) t_sub
+              GROUP BY contract_id,
+                        fiscal ) t
+ON         c.id = t.contract_id
+LEFT JOIN  fiscal_year fy
+ON         t.fiscal = fy.id
+LEFT JOIN  project p
+ON         c.project_id = p.id
+LEFT JOIN  lateral
+    (
+           select portfolio_id
+           FROM   sid_internal_coding
+           WHERE  contract_id = c.id limit 1)sic
+ON         true
+LEFT JOIN  portfolio po
+ON         po.id = sic.portfolio_id`
+  )
+}
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
  *
@@ -239,20 +267,48 @@ const reportQueries = {
                 total_fee_amount,
                 total_expense_amount
       ORDER BY  portfolio_name nulls first,
-                q1.start_date ASC
-       ) AS base`
-    ).where("fiscal", PARAMETER)
+                q1.start_date ASC) as base`
+    ).where("base.fiscal", PARAMETER),
+
+    final: (PARAMETER) => knex.select('*').from(baseQueries.q1)
 };
 
+/*const advancedQueries = {
+  totals: (PARAMETER) =>
+    knex({base: reportQueries.report})
+      .select("*"
+        {
+        total_fee_amount: knex.sum("total_fee_amount"),
+        total_expense_amount: knex.sum("total_expense_amount"),
+        total_of_amount: knex.sum("total_of_amount"),
+        total_remaining: knex.sum("total_remaining"),
+        apr: knex.sum("apr"),
+        may: knex.sum("may"),
+        jun: knex.sum("jun"),
+        jul: knex.sum("jul"),
+        aug: knex.sum("aug"),
+        sep: knex.sum("sep"),
+        oct: knex.sum("oct"),
+        nov: knex.sum("nov"),
+        dec: knex.sum("dec"),
+        jan: knex.sum("jan"),
+        feb: knex.sum("feb"),
+        mar: knex.sum("mar"),
+        remaining: knex.sum("remaining"),
+        descoped: knex.sum("descoped"),
+      } )
+      
+}*/
+
 module.exports = {
-  
   required: ["fiscal"],
   getAll: async ({ fiscal: PARAMETER }) => {
-    const [{fiscal_year}, report] = await Promise.all([
+    const [{fiscal_year}, report, totals] = await Promise.all([
       reportQueries.fiscalYear(PARAMETER),
-      reportQueries.report(PARAMETER),
+      baseQueries.q1,
+      //reportQueries.totals(PARAMETER),
     ]);
-    console.log(JSON.stringify(report, null, 2));
-    return { fiscal_year, report };
+    console.log(baseQueries.q1.toSQL());
+    return { fiscal_year, report, totals };
   },
 };
