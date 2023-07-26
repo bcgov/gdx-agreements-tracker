@@ -7,11 +7,13 @@ import projectRoutes from "./subRoutes/projectRoutes";
 import contractRoutes from "./subRoutes/contractRoutes";
 import adminRoutes from "./subRoutes/adminRoutes";
 import reportRoutes from "./subRoutes/reportRoutes";
+import Signout from "pages/Signout";
 const AppRouter: FC = () => {
   return (
     <Routes>
       <Route element={<Main />}>
         <Route index element={<Home />} />
+        <Route path="/Signout" element={<Signout />} />        
         {projectRoutes}
         {contractRoutes}
         {adminRoutes}
