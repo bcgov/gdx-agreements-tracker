@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useKeycloak } from "@react-keycloak/web";
 import { AccountCircle } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 /**
  * A component that combines sign out functionality and html in one place.
@@ -18,13 +19,14 @@ import { AccountCircle } from "@mui/icons-material";
  */
 export const SignoutButton = () => {
   const [selected, setSelected] = useState<string>("");
-
+  const navigate = useNavigate();
   //Destructure the keycloak functionality
   const { keycloak } = useKeycloak();
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
     if ("Signout" === event.target.value) {
+      navigate("/");
       keycloak.logout();
     }
   };
