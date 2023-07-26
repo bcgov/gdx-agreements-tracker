@@ -1,3 +1,7 @@
+**July 25, 2023**
+- Frontend
+  - Fix theme types errors
+
 **July 24, 2023 [DESCW-1330](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1330)**
 - Backend
   - update getCurrentDate() to return local Date
