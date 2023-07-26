@@ -13,7 +13,7 @@ const AppRouter: FC = () => {
     <Routes>
       <Route element={<Main />}>
         <Route index element={<Home />} />
-        <Route path="/Signout" element={<Signout />} />        
+        <Route path="/Signout" element={<Signout />} />
         {projectRoutes}
         {contractRoutes}
         {adminRoutes}

@@ -19,9 +19,7 @@ export const Signout = () => {
 
   return (
     <StyledDiv>
-      <Typography variant="h6" >
-        200
-      </Typography>
+      <Typography variant="h6">200</Typography>
       <StyledLine />
       <Typography variant="h6">
         You have been logged out successfully, you may now close this window.

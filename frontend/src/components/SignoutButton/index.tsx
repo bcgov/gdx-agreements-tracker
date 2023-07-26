@@ -39,29 +39,29 @@ export const SignoutButton = () => {
     borderRadius: "10px",
   });
 
-
-
-  return <StyledFormControl>
-    {keycloak.authenticated && <Select
-      sx={{ height: "40px" }}
-      data-testid="signout-select"
-      displayEmpty
-      value={selected}
-      onChange={handleChange}
-      renderValue={() => {
-        return (
-          <Stack direction="row" alignItems="center" gap={1}>
-            <AccountCircle />
-            <Typography variant="body1">{keycloak?.idTokenParsed?.name}</Typography>
-          </Stack>
-        );
-      }}
-      inputProps={{ "aria-label": "Without label" }}
-    >
-      <MenuItem value={"Signout"}>Signout</MenuItem>
-      <MenuItem value={"Settings"}>Settings</MenuItem>
-    </Select>}
-  </StyledFormControl>
-
-
+  return (
+    <StyledFormControl>
+      {keycloak.authenticated && (
+        <Select
+          sx={{ height: "40px" }}
+          data-testid="signout-select"
+          displayEmpty
+          value={selected}
+          onChange={handleChange}
+          renderValue={() => {
+            return (
+              <Stack direction="row" alignItems="center" gap={1}>
+                <AccountCircle />
+                <Typography variant="body1">{keycloak?.idTokenParsed?.name}</Typography>
+              </Stack>
+            );
+          }}
+          inputProps={{ "aria-label": "Without label" }}
+        >
+          <MenuItem value={"Signout"}>Signout</MenuItem>
+          <MenuItem value={"Settings"}>Settings</MenuItem>
+        </Select>
+      )}
+    </StyledFormControl>
+  );
 };
