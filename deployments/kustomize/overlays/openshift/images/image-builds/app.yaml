@@ -43,8 +43,13 @@ spec:
       COPY src/ src/
       COPY package.json .
       ADD tsconfig.json .
+      ADD .eslintrc.js .
+      ADD .eslintignore .
+      ADD .prettierrc.js .
       RUN yarn
       RUN yarn build --openssl-legacy-provider --prod
+
+      
     git:
       ref: development
       uri: https://github.com/bcgov/gdx-agreements-tracker.git

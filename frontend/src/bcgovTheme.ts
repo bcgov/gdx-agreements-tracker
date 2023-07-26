@@ -1,31 +1,34 @@
 import { Theme, createTheme } from "@mui/material/styles";
-
+import "@bcgov/bc-sans/css/BCSans.css";
 /**
  * Create a theme that uses BC Gov colours.
  *
  * @see https://mui.com/customization/theming/
  */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
-declare module "@mui/material/styles" {
+
+declare module '@mui/material/styles' {
   interface Theme {
     customSettings: {
       BCGovAccentLine: string;
-      drawerWidth: number;
+      drawerWidth:number
     };
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
     customSettings?: {
       BCGovAccentLine?: string;
-      drawerWidth: number;
+      drawerWidth:number
     };
   }
 }
-/* eslint-enable-next-line no-unused-vars */
+
 const primary = "#036";
 
 const bcgovTheme: Theme = createTheme({
+  typography: {
+    fontFamily: 'BCSans',
+  },
   palette: {
     primary: {
       main: primary,
@@ -52,3 +55,4 @@ const bcgovTheme: Theme = createTheme({
 });
 
 export default bcgovTheme;
+
