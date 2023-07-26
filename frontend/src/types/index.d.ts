@@ -462,3 +462,24 @@ export type IReportCategoriesAndTypes = {
     exportXLSX: boolean;
   }[];
 }[];
+
+export interface IThemeCustomSettings {
+  BCGovAccentLine: string;
+  drawerWidth: number;
+}
+
+// src/@types/material-ui.d.ts
+
+import { ThemeOptions } from "@mui/material/styles";
+import { IThemeCustomSettings } from "types";
+declare module "@mui/material/styles" {
+  interface CustomThemeOptions extends ThemeOptions {
+    customSettings: IThemeCustomSettings;
+  }
+}
+
+declare module '@mui/material/styles' {
+  interface Theme {
+    customSettings: CustomSettings;
+  }
+}

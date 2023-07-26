@@ -1,25 +1,4 @@
-import { Theme, createTheme } from "@mui/material/styles";
-
-//Have to ignore as this is MUI https://mui.com/material-ui/customization/theming/#system-CustomStyles.js
-
-declare module "@mui/material/styles" {
-  interface Theme {
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    customSettings?: {
-      BCGovAccentLine: string;
-      drawerWidth: number;
-    };
-  }
-  // allow configuration using `createTheme`
-
-  interface ThemeOptions {
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    customSettings?: {
-      BCGovAccentLine: string;
-      drawerWidth: number;
-    };
-  }
-}
+import { CustomThemeOptions, Theme, createTheme } from "@mui/material/styles";
 
 /**
  * Create a theme that uses BC Gov colours.
@@ -29,7 +8,7 @@ declare module "@mui/material/styles" {
 
 const primary = "#036";
 
-const bcgovTheme: Theme = createTheme({
+const bcgovTheme = createTheme({
   palette: {
     primary: {
       main: primary,
@@ -53,6 +32,6 @@ const bcgovTheme: Theme = createTheme({
     BCGovAccentLine: "2px solid #fcba19",
     drawerWidth: 240,
   },
-});
+} as CustomThemeOptions);
 
 export default bcgovTheme;
