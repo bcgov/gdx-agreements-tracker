@@ -8,11 +8,8 @@
 
 **July 24, 2023 [DESCW-`1331`](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1331)**
 - Frontend
-  - Addedfix that removed parameters if you change type.
-
-**July 24, 2023 [DESCW-1330](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1330)**
-- Backend
-  - update getCurrentDate() to return local Date
+  - Added fix that removed parameters if you change type.
+  - Added react router protected route to report routes
 
 **July 21, 2023**
 - Meta
