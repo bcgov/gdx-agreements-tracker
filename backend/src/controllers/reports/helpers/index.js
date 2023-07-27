@@ -158,20 +158,20 @@ const getReport = getReportAndSetRequestHeaders();
  * @returns {Array}        An array of objects, each containing a group name and its corresponding projects.
  */
 const groupByProperty = (list = [], group = "portfolio_name") => {
-  // Step 1: Reduce the 'list' to group items based on the 'group' property
   const groupedItems = list.reduce((acc, item) => {
     const groupValue = item[group];
-    // Step 2: Use the spread operator to create a new array for each group or use an empty array if it doesn't exist yet
+
+    // Create a new object for the accumulator with the current item added to the appropriate group
     return {
       ...acc,
-      [groupValue]: [...(acc[groupValue] || []), item],
+      [groupValue]: [...(acc[groupValue] ??= []), item],
     };
   }, {});
 
-  // Step 3: Convert the grouped object into an array of objects with group names and projects
-  const result = Object.entries(groupedItems).map(([key, value]) => ({
+  // Convert the grouped object into an array of objects with group names and projects
+  const result = Object.entries(groupedItems).map(([key, projects]) => ({
     [group]: key,
-    projects: value,
+    projects,
   }));
 
   return result;
