@@ -1,9 +1,8 @@
 // libs
 const { knex } = require("@database/databaseConnection")();
-const _ = require("lodash");
 
 // utils
-//const { groupByProperty } = require("../../controllers/helpers");
+const { groupByProperty } = require("../../controllers/reports/helpers");
 
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
@@ -366,35 +365,7 @@ module.exports = {
         totals, // the result of the 'totals' query
       ] = fetchedQueryResults;
 
-      /*const listByPortfolio = (list = [], group = "portfolio_name") => {
-        return _.map(_.groupBy(list, group), (portfolioGroup, key) => ({
-          [group]: key,
-          portfolios: portfolioGroup,
-        }));
-      }
-      */
-
-      const groupProjectsBy = (list = [], group = "portfolio_name") => {
-        // Group items in the 'list' based on the 'group' property
-        const grouped = list.reduce((acc, item) => {
-          const key = item[group];
-          acc[key] = acc[key] || [];
-          acc[key].push(item);
-          return acc;
-        }, {});
-
-        // Convert the grouped object into an array of objects
-        const result = Object.entries(grouped).map(([key, value]) => {
-          return {
-            [group]: key,
-            projects: value,
-          };
-        });
-
-        return result;
-      };
-
-      const reportsByPortfolio = groupProjectsBy(report, "portfolio_name");
+      const reportsByPortfolio = groupByProperty(report, "portfolio_name");
 
       // create a result object with the fetched data for each section of the report
       // can shape the result as required, e.g. using map or groupByProperty to add sections

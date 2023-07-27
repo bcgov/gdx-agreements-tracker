@@ -1,7 +1,6 @@
 // Utility imports
 const fs = require("fs");
 const path = require("path");
-const _ = require("lodash");
 
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
@@ -152,19 +151,31 @@ const getHeaderInfoFrom = (templateType = "docx") => {
 const getReport = getReportAndSetRequestHeaders();
 
 /**
- * Groups an array of objects by a specified property.
+ * Groups the items in the provided list based on the specified property.
  *
- * @param   {object[]} rows - The array of objects to group.
- * @param   {string}   prop - The property to group by.
- * @returns {object[]}      Returns an array of objects grouped by the specified property.
+ * @param   {Array}  list  - The array of items to be grouped.
+ * @param   {string} group - The property name used for grouping the items (defaults to "portfolio_name").
+ * @returns {Array}        An array of objects, each containing a group name and its corresponding projects.
  */
-const groupByProperty = (rows, prop) =>
-  _.isEmpty(rows)
-    ? rows
-    : _.map(_.groupBy(rows, prop), (value, key) => ({
-        [prop]: key,
-        projects: [...value],
-      }));
+const groupByProperty = (list = [], group = "portfolio_name") => {
+  // Step 1: Reduce the 'list' to group items based on the 'group' property
+  const groupedItems = list.reduce((acc, item) => {
+    const groupValue = item[group];
+    // Step 2: Use the spread operator to create a new array for each group or use an empty array if it doesn't exist yet
+    return {
+      ...acc,
+      [groupValue]: [...(acc[groupValue] || []), item],
+    };
+  }, {});
+
+  // Step 3: Convert the grouped object into an array of objects with group names and projects
+  const result = Object.entries(groupedItems).map(([key, value]) => ({
+    [group]: key,
+    projects: value,
+  }));
+
+  return result;
+};
 
 /**
  * Validates the query parameters and returns an object with the validated values.
