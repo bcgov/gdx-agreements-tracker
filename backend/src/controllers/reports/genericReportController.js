@@ -115,7 +115,31 @@ const getDataFromModel = async (query, model, reply) => {
    * most reports will either have query.fiscal (the fiscal year), query.date (date for the report period)
    *  or query.portfolio (portfolio for financial reports that summarize expenses costs, and recoveries)
    */
+
+  const DEBUG = true;
+  const time = async () => Date.now();
+  const before = await time();
   const result = await model.getAll(query);
+
+  // if DEBUG === true, show some debugging
+  // todo: remove this debugging once we have MVP ~ around Mid-September, 2023
+  if (DEBUG) {
+    const after = await time();
+    console.warn(`
+
+
+      TIMING:
+      --------------------------------------------------------------
+
+      QUERY: ${JSON.stringify(query, null, 2)}
+
+      RESULT: ${JSON.stringify(result, null, 2)}
+
+      TIME TAKEN: ${after - before} MS
+      --------------------------------------------------------------
+  `);
+  }
+
   if (null === result) {
     reply.code(404);
     throw new Error(`There was a problem looking up this Report.`);
