@@ -1,3 +1,21 @@
+**July 31, 2023 [DESCW-1365](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1365)**
+- Backend
+  - update generic model template
+  - update generic controller template
+      - add (temporary) debugging for incoming model data
+  - refactor groupByProperty util
+      - add comments to make it easier to read
+      - add default parameters to the function signature
+      - fix strange timeout caused by failing _.isEmpty() or _.groupBy
+  - delete tab 48 route and controller (using generic)
+  - refactored Tab_48 model
+      - replace all queries ( using Gary's Queries)
+      - use knex to reference report query for subtotal and totals queries
+      - add error handling to the model
+  - fixed error with fiscal_year model for tab38, and added error handling
+  - build model for tab 38
+  - sneaky edit on readme - Kyle plans to update the seeding/migration docs later
+
 **July 25, 2023**
 - Frontend
   - Fix theme types errors
