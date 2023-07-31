@@ -152,24 +152,33 @@ const getHeaderInfoFrom = (templateType = "docx") => {
 const getReport = getReportAndSetRequestHeaders();
 
 /**
- * This function groups a list of objects by a specified property and returns an array of objects, each containing the group key and an array of objects belonging to that group.
+ * Groups items in a list by a specified property.
  *
- * @param   {Array}  list  - The list of objects to be grouped. Default value is an empty array.
- * @param   {string} group - The property name to group the list by. Default value is "portfolio_name".
- * @returns {Array}        An array of objects, each containing the group key and an array of objects belonging to that group.
+ * @param   {Array}  list  - The list of items to be grouped.
+ * @param   {string} group - The property name to group the items by. Default is "portfolio_name".
+ * @returns {Array}        An array of objects, where each object represents a group and its associated items.
+ *                         Each object has two properties: the specified 'group' property (key) and the array of items (value).
  */
 const groupByProperty = (list = [], group = "portfolio_name") => {
-  // Use the lodash library to group the list by the specified property
+  // Using lodash's chain function "_" to create a chainable sequence.
+  // The input 'list' is wrapped in the chain and will be operated upon.
   const result = _(list)
-    .groupBy(list, group)
-    // Map over the grouped object and create a new object for each group
+    // Group the items in the list by the specified 'group' property.
+    .groupBy(group)
+    // After grouping, 'map' is used to convert the grouped items into a new format.
     .map((projects, key) => ({
-      [group]: key, // Set the group key
-      projects, // Set the array of objects belonging to this group
+      // The 'key' represents the value of the property used for grouping (e.g., portfolio_name).
+      // Create an object with the 'group' property as the key (e.g., { portfolio_name: 'some_group_value' }).
+      [group]: key,
+      // The 'projects' represent an array containing all the items belonging to this group.
+      // Add the 'projects' array as the value in the new object.
+      projects,
     }))
-    .value(); // Get the final result as an array
+    // 'value' is used to extract the final result from the lodash chain.
+    .value();
 
-  return result; // Return the final result
+  // Return the resulting array of grouped objects.
+  return result;
 };
 
 /**
