@@ -1,6 +1,7 @@
 // Utility imports
 const fs = require("fs");
 const path = require("path");
+const _ = require("lodash");
 
 // Constants
 const pdfConfig = { responseType: "arraybuffer" };
@@ -151,30 +152,24 @@ const getHeaderInfoFrom = (templateType = "docx") => {
 const getReport = getReportAndSetRequestHeaders();
 
 /**
- * Groups the items in the provided list based on the specified property.
+ * This function groups a list of objects by a specified property and returns an array of objects, each containing the group key and an array of objects belonging to that group.
  *
- * @param   {Array}  list  - The array of items to be grouped.
- * @param   {string} group - The property name used for grouping the items (defaults to "portfolio_name").
- * @returns {Array}        An array of objects, each containing a group name and its corresponding projects.
+ * @param   {Array}  list  - The list of objects to be grouped. Default value is an empty array.
+ * @param   {string} group - The property name to group the list by. Default value is "portfolio_name".
+ * @returns {Array}        An array of objects, each containing the group key and an array of objects belonging to that group.
  */
 const groupByProperty = (list = [], group = "portfolio_name") => {
-  const groupedItems = list.reduce((acc, item) => {
-    const groupValue = item[group];
+  // Use the lodash library to group the list by the specified property
+  const result = _(list)
+    .groupBy(list, group)
+    // Map over the grouped object and create a new object for each group
+    .map((projects, key) => ({
+      [group]: key, // Set the group key
+      projects, // Set the array of objects belonging to this group
+    }))
+    .value(); // Get the final result as an array
 
-    // Create a new object for the accumulator with the current item added to the appropriate group
-    return {
-      ...acc,
-      [groupValue]: [...(acc[groupValue] ??= []), item],
-    };
-  }, {});
-
-  // Convert the grouped object into an array of objects with group names and projects
-  const result = Object.entries(groupedItems).map(([key, projects]) => ({
-    [group]: key,
-    projects,
-  }));
-
-  return result;
+  return result; // Return the final result
 };
 
 /**

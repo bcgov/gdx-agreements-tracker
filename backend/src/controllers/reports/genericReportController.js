@@ -2,6 +2,7 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
 const cdogs = useCommonComponents("cdogs");
+//const _ = require("lodash");
 
 // Utilities
 const {
@@ -116,24 +117,28 @@ const getDataFromModel = async (query, model, reply) => {
    *  or query.portfolio (portfolio for financial reports that summarize expenses costs, and recoveries)
    */
 
-  const DEBUG = true;
   const time = async () => Date.now();
   const before = await time();
   const result = await model.getAll(query);
 
-  // if DEBUG === true, show some debugging
   // todo: remove this debugging once we have MVP ~ around Mid-September, 2023
+  // if DEBUG === true, show some debugging
+  const DEBUG = true;
   if (DEBUG) {
     const after = await time();
+    const resultStr = JSON.stringify(result, null, 4);
+
     console.warn(`
-
-
-      TIMING:
+      DEBUG INFO FOR THIS REPORT:
       --------------------------------------------------------------
+      QUERY PARAMETERS:
+    `);
+    // eslint-disable-next-line no-console
+    console.table(query);
+    console.warn(`
+      MODEL OUTPUT:
 
-      QUERY: ${JSON.stringify(query, null, 2)}
-
-      RESULT: ${JSON.stringify(result, null, 2)}
+      RESULT: ${resultStr}
 
       TIME TAKEN: ${after - before} MS
       --------------------------------------------------------------

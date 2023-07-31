@@ -9,10 +9,10 @@ const { knex } = require("@database/databaseConnection")();
  * @returns {Promise}                            - A promise that resolves to the query result
  */
 const queries = {
-  fiscal: ({ fiscal }) =>
+  fiscal: (fiscal) =>
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
-  report: ({ fiscal, quarter }) =>
+  report: (fiscal, quarter) =>
     knex
       .select()
       .fromRaw(
@@ -42,7 +42,7 @@ const queries = {
         quarter: quarter,
       }),
 
-  totals: ({ fiscal, quarter }) =>
+  totals: (fiscal, quarter) =>
     knex
       .select()
       .fromRaw(
@@ -77,10 +77,41 @@ const queries = {
 module.exports = {
   required: ["fiscal", "quarter"],
 
-  // wait for all the promises to return in parallel, then send them to the controller
-  getAll: async ({ fiscal, quarter }) => ({
-    fiscal: await queries?.fiscal({ fiscal }),
-    report: await queries?.report({ fiscal, quarter }),
-    totals: await queries?.totals({ fiscal, quarter }),
-  }),
+  getAll: async ({ fiscal, quarter }) => {
+    try {
+      // Use Promise.all to execute all three queries in parallel, providing the 'fiscal' parameter.
+      const fetchedQueryResults = await Promise.all([
+        queries?.fiscal(fiscal),
+        queries?.report(fiscal, quarter),
+        queries?.totals(fiscal, quarter),
+      ]);
+
+      // Extract the results from the fetched Query Results into individual variables
+      const [
+        { fiscal_year }, // the result of the 'fiscal' query
+        report, // the result of the 'report' query
+        totals, // the result of the 'totals' query
+      ] = fetchedQueryResults;
+
+      // create a result object with the fetched data for each section of the report
+      // can shape the result as required, e.g. using map or groupByProperty to add sections
+      const shapedResult = {
+        fiscal: fiscal_year,
+        report,
+        totals,
+      };
+
+      // finally, return the shaped result
+      return shapedResult;
+    } catch (error) {
+      console.error(`
+        Model error!:
+        query parameter received: ${JSON.stringify(fiscal, quarter)}
+        **** ${error} ****
+        returning NULL!.
+      `);
+
+      return null;
+    }
+  },
 };

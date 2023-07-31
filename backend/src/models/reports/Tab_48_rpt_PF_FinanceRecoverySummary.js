@@ -1,5 +1,6 @@
 // libs
 const { knex } = require("@database/databaseConnection")();
+const _ = require("lodash");
 
 // utils
 const { groupByProperty } = require("../../controllers/reports/helpers");
@@ -13,10 +14,10 @@ const { groupByProperty } = require("../../controllers/reports/helpers");
  * @returns {Promise}                            - A promise that resolves to the query result
  */
 const queries = {
-  fiscal: ({ fiscal }) =>
+  fiscal: (fiscal) =>
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
-  report: ({ fiscal }) => {
+  report: (fiscal) => {
     const query = knex
       .fromRaw(
         `(
@@ -129,7 +130,7 @@ const queries = {
             portfolio_name,
             project_number,
             project_name,
-            SUM(Current_FY_Total_Recoverable) AS Sum_Current_FY_Total_Recoverable,
+            SUM(Current_FY_Total_Recoverable) AS totals_recoveries,
             SUM("6309") AS "consulting_fees",
             SUM("6310") AS "consulting_expenses",
             SUM("6001") AS "operational_contracts_fees",
@@ -138,7 +139,7 @@ const queries = {
             SUM("8807") AS "salary_costs",
             SUM("8809") AS "operating_costs",
             SUM("6531") AS "project_related_business_expenses",
-            SUM(Other) AS Other,
+            SUM(Other) AS other_stobs,
             Fiscal
           FROM
             sum_stob
@@ -154,208 +155,56 @@ const queries = {
         ) AS base_query`
       )
       .where({ fiscal: fiscal });
+
     return query;
   },
+  // totals for each portfolio.
+  totals: (fiscal) =>
+    knex(queries.report(fiscal).as("report"))
+      .select({
+        portfolio_name: "portfolio_name",
+      })
+      .sum({
+        totals_recoveries: "totals_recoveries",
+        consulting_fees: "consulting_fees",
+        consulting_expenses: "consulting_expenses",
+        operational_contracts_fees: "operational_contracts_fees",
+        operational_contracts_expenses: "operational_contracts_expenses",
+        i_expenses: "i_expenses",
+        salary_costs: "salary_costs",
+        operating_costs: "operating_costs",
+        project_related_business_expenses: "project_related_business_expenses",
+        other_stobs: "other_stobs",
+      })
+      .groupBy("portfolio_name"),
+  // grand totals
+  grand_totals: (fiscal) =>
+    knex(queries.report(fiscal).as("report"))
+      .sum({
+        totals_recoveries_sum: "totals_recoveries",
+        consulting_fees_sum: "consulting_fees",
+        consulting_expenses_sum: "consulting_expenses",
+        operational_contracts_fees_sum: "operational_contracts_fees",
+        operational_contracts_expenses_sum: "operational_contracts_expenses",
+        i_expenses_sum: "i_expenses",
+        salary_costs_sum: "salary_costs",
+        operating_costs_sum: "operating_costs",
+        project_related_business_expenses_sum: "project_related_business_expenses",
+        other_stobs_sum: "other_stobs",
+      })
+      .first(),
 };
 
-//   totals: ({ fiscal }) =>
-//     knex
-//       .select()
-//       .fromRaw(
-//         `
-//         (
-//         SELECT po.id,
-//               po.portfolio_name,
-//               pb.stob,
-//               (pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount) AS recoveries,
-//               pd.fiscal
-//           FROM data.project_budget AS pb
-//           LEFT JOIN data.project_deliverable pd
-//             ON pb.project_deliverable_id = pd.id
-//           LEFT JOIN data.project AS p
-//             ON pd.project_id = p.id
-//           LEFT JOIN data.fiscal_year AS fy
-//             ON pd.fiscal = fy.id
-//           LEFT JOIN data.portfolio AS po
-//             ON pb.recovery_area = po.id
-//           ) AS br
-//         GROUP BY br.portfolio_name,
-//                   br.fiscal
-//                   SELECT po.portfolio_name,
-//                   sum(pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount) AS totals_recoveries,
-//                   sum(CASE WHEN pb.stob = '6309' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS consulting_fees,
-//                   sum(CASE WHEN pb.stob = '6310' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS consulting_expenses,
-//                   sum(CASE WHEN pb.stob = '6001' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS operational_contracts_fees,
-//                   sum(CASE WHEN pb.stob = '6002' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS operational_contracts_expenses,
-//                   sum(CASE WHEN pb.stob = '5718' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS i_expenses,
-//                   sum(CASE WHEN pb.stob = '8807' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS salary_costs,
-//                   sum(CASE WHEN pb.stob = '8809' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS operating_costs,
-//                   sum(CASE WHEN pb.stob = '6531' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS project_related_business_expenses,
-//                   sum(CASE WHEN pb.stob NOT IN ('6531', '8809', '8807', '5718', '6002', '6001', '6310', '6309') THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount END) AS other_stobs,
-//                   pd.fiscal
-//              FROM data.project_budget AS pb
-//              LEFT JOIN data.project_deliverable pd
-//                ON pb.project_deliverable_id = pd.id
-//              LEFT JOIN data.project AS p
-//                ON pd.project_id = p.id
-//              LEFT JOIN data.fiscal_year AS fy
-//                ON pd.fiscal = fy.id
-//              LEFT JOIN data.portfolio AS po
-//                ON pb.recovery_area = po.id
-//             GROUP BY po.portfolio_name,
-//                      pd.fiscal
-//             ORDER BY po.portfolio_name;ORDER BY br.portfolio_name
-//         ) as base`
-//       )
-//       .where({
-//         fiscal: fiscal,
-//       }),
-//   grandTotals: ({ fiscal }) =>
-//     knex
-//       .select()
-//       .fromRaw(
-//         `(
-//           SELECT fiscal,
-//             SUM(totals_recoveries) AS total_recoveries_sum,
-//             SUM(consulting_fees) AS consulting_fees_sum,
-//             SUM(consulting_expenses) AS consulting_expenses_sum,
-//             SUM(operational_contracts_fees) AS operational_contracts_fees_sum,
-//             SUM(operational_contracts_expenses) AS operational_contracts_expenses_sum,
-//             SUM(i_expenses) AS i_expenses_sum,
-//             SUM(salary_costs) AS salary_costs_sum,
-//             SUM(operating_costs) AS operating_costs_sum,
-//             SUM(project_related_business_expenses) AS project_related_business_expenses_sum,
-//             SUM(other_stobs) AS other_stobs_sum
-//           FROM (
-//               SELECT po.portfolio_name,
-//                 pb.stob,
-//                 SUM(
-//                   pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                 ) AS recoveries,
-//                 pd.fiscal,
-//                 SUM(
-//                   pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                 ) AS totals_recoveries,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '6309' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS consulting_fees,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '6310' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS consulting_expenses,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '6001' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS operational_contracts_fees,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '6002' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS operational_contracts_expenses,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '5718' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS i_expenses,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '8807' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS salary_costs,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '8809' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS operating_costs,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob = '6531' THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS project_related_business_expenses,
-//                 SUM(
-//                   CASE
-//                     WHEN pb.stob NOT IN (
-//                       '6531',
-//                       '8809',
-//                       '8807',
-//                       '5718',
-//                       '6002',
-//                       '6001',
-//                       '6310',
-//                       '6309'
-//                     ) THEN pb.q1_amount + pb.q2_amount + pb.q3_amount + pb.q4_amount
-//                   END
-//                 ) AS other_stobs
-//               FROM data.project_budget AS pb
-//                 LEFT JOIN data.project_deliverable pd ON pb.project_deliverable_id = pd.id
-//                 LEFT JOIN data.project AS p ON pd.project_id = p.id
-//                 LEFT JOIN data.fiscal_year AS fy ON pd.fiscal = fy.id
-//                 LEFT JOIN data.portfolio AS po ON pb.recovery_area = po.id
-//               GROUP BY po.portfolio_name,
-//                 pb.stob,
-//                 pd.fiscal
-//             ) AS subquery
-//           GROUP BY fiscal
-//           ) as base
-//     `
-//       )
-//       .where({
-//         fiscal: fiscal,
-//       }),
-// };
-
-// module.exports = {
-// required: ["fiscal"],
-// getAll: async ({ fiscal }) => {
-// Use Promise.all to execute all three queries in parallel, providing the 'fiscal' parameter.
-// const { fiscal_year } = await getFiscalYearFrom({ fiscal });
-// const reportResult = await getReportFrom({ fiscal });
-
-// const allResults = await Promise.all([
-//   getFiscalYearFrom(fiscal),
-//   //getReportFrom(fiscal),
-//   //queries?.totals({ fiscal }),
-//   //queries?.grandTotals({ fiscal }),
-// ]);
-
-// Extract the results from the 'allResults' array into individual variables.
-// const [{ fiscal_year }, reportResult = [], totalsResult = [], grandTotalsResult = []] =
-//   allResults;
-
-// shape model data into format the carbone engine can parse
-// const reportByPortfolio = groupByProperty(reportResult, "portfolio_name");
-// const reportsByPortfolioWithTotals = reportByPortfolio.map((portfolio) => ({
-//   ...portfolio,
-//   portfolio_totals: _.keyBy(totalsResult, "portfolio_name")[portfolio.portfolio_name],
-// }));
-
-// Create a result object with the fetched data for each aspect of the fiscal period.
-// const result = {
-//   fiscal: fiscal_year,
-//   // report: reportsByPortfolioWithTotals ?? [],
-//   //grand_totals: grandTotalsResult ?? [],
-// };
-
-//   return {
-//     fiscal: fiscal_year,
-//     report: reportResult,
-//   };
-// },
-// };
-//
 module.exports = {
   required: ["fiscal"],
   getAll: async ({ fiscal }) => {
     try {
       // Use Promise.all to execute all three queries in parallel, providing the 'fiscal' parameter.
       const fetchedQueryResults = await Promise.all([
-        queries?.fiscal({ fiscal }),
-        queries?.report({ fiscal }),
-        //queries?.totals({ fiscal }),
+        queries?.fiscal(fiscal),
+        queries?.report(fiscal),
+        queries?.totals(fiscal),
+        queries?.grand_totals(fiscal),
       ]);
 
       // Extract the results from the fetched Query Results into individual variables
@@ -363,16 +212,25 @@ module.exports = {
         { fiscal_year }, // the result of the 'fiscal' query
         report, // the result of the 'report' query
         totals, // the result of the 'totals' query
+        grand_totals,
       ] = fetchedQueryResults;
 
-      const reportsByPortfolio = groupByProperty(report, "portfolio_name");
+      const reportByPortfolio = groupByProperty(report, "portfolio_name");
+      const totalsByPortfolio = _.keyBy(totals, "portfolio_name");
+      const reportsByPortfolioWithTotals = reportByPortfolio.map((portfolio) => {
+        const { portfolio_name } = portfolio;
+        return {
+          ...portfolio,
+          portfolio_totals: totalsByPortfolio[portfolio_name],
+        };
+      });
 
       // create a result object with the fetched data for each section of the report
       // can shape the result as required, e.g. using map or groupByProperty to add sections
       const shapedResult = {
         fiscal: fiscal_year,
-        report: reportsByPortfolio,
-        totals,
+        report: reportsByPortfolioWithTotals,
+        grand_totals: grand_totals,
         // add more here, such as 'grand_totals'
       };
 
