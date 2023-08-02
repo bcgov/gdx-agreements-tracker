@@ -22,6 +22,7 @@
 - [ ]  Tab_42_rpt_PF_PortfolioStobRecoveries
 - [x]  Tab_43_rpt_PF_RecoveryForecast
 - [ ]  Tab_45_rpt_P_EngagementStatus
+- [ ]  Tab_44_rpt_PF_RecoveryToDateDetails
 - [ ]  Tab_46_rpt_PA_EngagementExecutiveRollup
 - [ ]  Tab_47_rpt_PA_EngagementStatusSummary
 - [x]  Tab_48_rpt_PF_FinanceRecoverySummary
@@ -87,11 +88,11 @@
 
 
 ### 8-step report build
-1. Make a basic excel template with style and carbone entries to match the sample report
-2. get the frontend selector configured to print an excel report with fiscal/portfolio/date
-3. get the query from the ticket into PgAdmin and make it work with the parameter from (2)
-4. wrap that query in knex() on backend model so JSON output matching pgadmin output
-5. build totals query and other queries in pgadmin
-6. wrap the other queries in knex() on backend so JSON output matches sample report numbers
-7. get JSON data to populate in excel template
+1. build a report template in Excel that matches the columns of the query and the style of the sample report
+3. get the query from the ticket into PgAdmin and make it work with the fiscal / portfolio / quarter parameter expected
+2. configure the front end menu selector for this report to select the parameters needed
+4. build a backend model that produces JSON output that matches the columns in the PgAdmin query
+5. build the totals and other queries in pgadmin so their columns match the sample report's totals/other sections
+6. build a backend model for those total and other queries that produce JSON output matching the columns in PgAdmin
+7. get JSON data to populate in excel template for all of the model output, including totals/other
 8. finish styling on the template, and correct any carbone templating errors
