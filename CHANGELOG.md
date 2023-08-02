@@ -1,3 +1,10 @@
+**August 2, 2023 [DESCW-1317](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1317)**
+- Backend
+  - delete controller for tab 13 report
+  - Add model for tab 13 report
+- Frontend
+  - Add picker options for tab 13 report
+
 **August 2, 2023 [DESCW-1366](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1366)**
 - Backend
   - delete controller
