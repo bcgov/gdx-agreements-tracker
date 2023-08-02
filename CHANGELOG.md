@@ -1,3 +1,12 @@
+**August 2, 2023 [DESCW-1366](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1366)**
+- Backend
+  - delete controller
+  - delete route
+  - refactor model to return promise data to generic controller
+  - add some error handling to the model
+  - get model to require specific portfolio & fiscal year in order to work
+  - refactor model for easy(easier) reading
+
 **July 31, 2023 [DESCW-1365](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1365)**
 - Backend
   - update generic model template

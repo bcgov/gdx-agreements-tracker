@@ -20,13 +20,6 @@ const what = { single: "report", plural: "reports" };
  *
  * USING THIS CONTROLLER:
  *
- * How to change the route: (pseudocode)
- * EXAMPLE ROUTE: backend/src/routes/reports/Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js
- *
- * const getControllerFrom = require("@controllers/reports/genericReportController");
- * const name = `{whatever your report name is}`;
- * const controller = getControllerFrom(name);
- *
  * How to change the model: (export the data instead of the query - pseudocode)
  * EXAMPLE MODEL: backend/src/models/reports/Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js
  * let PSEUDOCODE_EXAMPLE = async (query) => {
