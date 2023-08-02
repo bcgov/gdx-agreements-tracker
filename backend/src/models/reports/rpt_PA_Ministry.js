@@ -91,6 +91,7 @@ const queries = {
 module.exports = {
   required: ["fiscal", "portfolio"],
   getAll: async ({ fiscal, portfolio }) => {
+    // Use Promise.all to run multiple queries in parallel
     const [{ fiscal_year }, report, projectsAndBudgetsPerMinistry, reportTotals] =
       await Promise.all([
         queries.fiscalYear({ fiscal }),
@@ -99,42 +100,34 @@ module.exports = {
         queries.reportTotals({ fiscal, portfolio }),
       ]);
 
+    // Group the report by ministry name
     const projectSummaryByMinistry = groupByProperty(report, "ministry_name");
-    const projectsPerMinistryKeyedByMinistryName = _.keyBy(
-      projectsAndBudgetsPerMinistry,
-      "ministry_name"
-    );
+
+    // Key the projects and budgets per ministry by ministry name
+    const projectSummaryByMinistryKeyed = _.keyBy(projectsAndBudgetsPerMinistry, "ministry_name");
+
+    // Extract the total number of projects and total budget from report totals
     const { total_projects, total_budget } = _.first(reportTotals);
 
-    const projectSummaryByMinistryWithBudgetsAndNumberOfProjects = _.map(
-      projectSummaryByMinistry,
-      (ministry) => ({
-        ...ministry,
-        total_per_ministry:
-          null === ministry.ministry_id
-            ? projectsPerMinistryKeyedByMinistryName[" "].total_per_ministry
-            : projectsPerMinistryKeyedByMinistryName[ministry.ministry_name].total_per_ministry,
-        number_of_projects:
-          projectsPerMinistryKeyedByMinistryName[ministry.ministry_name].number_of_projects,
-      })
-    );
+    // Map over the project summary by ministry and add the total per ministry and number of projects
+    const projectSummaryWithBudgetsAndProjects = _.map(projectSummaryByMinistry, (ministry) => ({
+      ...ministry,
+      total_per_ministry:
+        null === ministry.ministry_id
+          ? projectSummaryByMinistryKeyed[" "].total_per_ministry
+          : projectSummaryByMinistryKeyed[ministry.ministry_name].total_per_ministry,
+      number_of_projects: projectSummaryByMinistryKeyed[ministry.ministry_name].number_of_projects,
+    }));
 
     // Lay out final JSON body for api call to cdogs server
     const shapedResult = {
       fiscal_year,
-      ministries: projectSummaryByMinistryWithBudgetsAndNumberOfProjects,
+      ministries: projectSummaryWithBudgetsAndProjects,
       total_projects,
       total_budget,
     };
-    // Log the result object in a readable format to the console.
-    // todo: remove this once we hit MVP by mid-September.
-    console.warn(JSON.stringify(shapedResult, null, 2));
 
     // finally, return the result
     return shapedResult;
   },
-  fiscalYear: queries.fiscalYear,
-  report: queries.report,
-  projectsAndBudgetsPerMinistry: queries.projectsAndBudgetsPerMinistry,
-  reportTotals: queries.reportTotals,
 };
