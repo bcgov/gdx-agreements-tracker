@@ -8,8 +8,6 @@ const { groupByProperty } = require("../../controllers/reports/helpers/index");
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
  *
- * Uses baseQuery twice, for DRYness
- *
  * @param   {number | string | Array} Parameter- The fiscal, Date, or Portfolio(s) to grab data for
  * @returns {Promise}                            - A promise that resolves to the query result
  */
@@ -39,8 +37,7 @@ const queries = {
       )
       .from("v_projects_by_ministry")
       .where("fiscal_year_id", fiscal)
-      .whereIn("portfolio_id", portfolios)
-      .debug();
+      .whereIn("portfolio_id", portfolios);
 
     const fullQuery = knex.with("base", subquery).select("*").from("base");
 
@@ -50,7 +47,7 @@ const queries = {
    * gets the projects per ministry
    */
   projectsAndBudgetsPerMinistry: ({ portfolio, fiscal }) => {
-    const portfolios = Array.isArray(portfolio) ? portfolio : [portfolio];
+    const portfolios = _.castArray(portfolio);
 
     return knex
       .select(
@@ -75,11 +72,9 @@ const queries = {
 
     const query = knex
       .select(
-        knex.raw(`
-      sum(total_project_budget) as total_budget,
-      count(project_number) as total_projects
-      FROM data.v_projects_by_ministry
-    `)
+        knex.raw(
+          "sum(total_project_budget) as total_budget, count(project_number) as total_projects FROM data.v_projects_by_ministry"
+        )
       )
       .where("fiscal_year_id", fiscal)
       .whereIn("portfolio_id", portfolios);
