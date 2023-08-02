@@ -155,13 +155,16 @@ const reportQueries = {
         total_fee_amount: "q2.total_fee_amount",
         total_expense_amount: knex.sum("amount"),
         maximum_amount: knex.raw(`q2.Total_Fee_Amount + q2.Total_Expense_Amount`),
-        invoiced_to_date: knex.raw(`CASE WHEN SUM(Amount) IS NULL THEN CAST(0 AS money) ELSE SUM(Amount) END`),
+        invoiced_to_date: knex.raw(
+          `CASE WHEN SUM(Amount) IS NULL THEN CAST(0 AS money) ELSE SUM(Amount) END`
+        ),
         remaining: knex.raw(
           `CASE
           WHEN c.Status IN ('Complete', 'Cancelled') THEN CAST(0 AS money)
           ELSE (
             q2.Total_Fee_Amount + q2.Total_Expense_Amount - COALESCE(SUM(q1.Amount), CAST(0 as money)))
-          END`),
+          END`
+        ),
         descoped: knex.raw(`(q2.Total_Fee_Amount + q2.Total_Expense_Amount) - 
           (CASE
             WHEN SUM(Amount) IS Null THEN CAST(0 as money)
@@ -171,13 +174,13 @@ const reportQueries = {
       .rightJoin(baseQueries.q2, function () {
         this.on("q1.fiscal", "q2.fiscal").andOn("q1.contract_id", "q2.contract_id");
       })
-      .innerJoin('contract as c', 'q2.contract_id', 'c.id')
-      .innerJoin('supplier as s', 'c.supplier_id', 's.id')
-      .innerJoin('sid_internal_coding as sic', 'c.id', 'sic.contract_id')
-      .innerJoin('portfolio as po', 'sic.portfolio_id', 'po.id')
-      .innerJoin('project as p', 'c.project_id', 'p.id')
+      .innerJoin("contract as c", "q2.contract_id", "c.id")
+      .innerJoin("supplier as s", "c.supplier_id", "s.id")
+      .innerJoin("sid_internal_coding as sic", "c.id", "sic.contract_id")
+      .innerJoin("portfolio as po", "sic.portfolio_id", "po.id")
+      .innerJoin("project as p", "c.project_id", "p.id")
       .groupByRaw(
-       `c.id, 
+        `c.id, 
         c.CO_Number, 
         p.Project_Number, 
         c.CO_version, 
@@ -195,11 +198,8 @@ const reportQueries = {
         q2.total_expense_amount,
         q2.total_fee_amount + q2.total_expense_amount`
       )
-      .orderBy([
-        { column: "portfolio_name" },
-        { column: "c.end_date" },
-      ])
-      .where("q1.fiscal", fiscal).andWhere("po.portfolio_name", "Citizen Engagement"),
+      .orderBy([{ column: "portfolio_name" }, { column: "c.end_date" }])
+      .where("q1.fiscal", fiscal),
 
   // Subtotals for each portfolio.
   totals: (fiscal) =>

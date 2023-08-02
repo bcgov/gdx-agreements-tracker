@@ -392,8 +392,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_13_rpt_CF_PortfolioSummary",
         label: "Contract Portfolio Summary",
-        description:
-          "ipsum lorem",
+        description: "ipsum lorem",
         parameters: ["fiscal"],
         exportPDF: false,
         exportXLSX: true,
