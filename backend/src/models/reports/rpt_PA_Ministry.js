@@ -1,149 +1,140 @@
-const dbConnection = require("@database/databaseConnection");
-const { knex } = dbConnection();
+// libs
+const { knex } = require("@database/databaseConnection")();
+const _ = require("lodash");
+
+// Utils
+const { groupByProperty } = require("../../controllers/reports/helpers/index");
 
 /**
- * Gets data for the Divisional project Reports - project Summary by ministry
+ * Retrieves the data for various financial metrics based on the fiscal year.
  *
- * @param   {number[]} portfolios Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
- * @param   {string}   fiscalYear Optional list of portfolio_ids to limit report to. If empty, returns data for all portfolios.
- * @returns {any[]}
+ * Uses baseQuery twice, for DRYness
+ *
+ * @param   {number | string | Array} Parameter- The fiscal, Date, or Portfolio(s) to grab data for
+ * @returns {Promise}                            - A promise that resolves to the query result
  */
+const queries = {
+  fiscalYear: ({ fiscal }) =>
+    knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
-const rpt_PA_Ministry = (requestParams) => {
-  const query = knex.select(
-    knex.raw(`
+  report: ({ fiscal, portfolio }) => {
+    // turn the portfolio into an array if it isn't already an array
+    const portfolios = _.castArray(portfolio);
+
+    const subquery = knex
+      .select(
+        knex.raw(`COALESCE(ministry_name, ' ') as ministry_name`),
+        "portfolio_abbrev",
+        "project_number",
+        "project_name",
+        "project_type",
+        "description",
+        "planned_start_date",
+        "planned_end_date",
+        "total_project_budget",
+        "client_sponsor_name",
+        "project_manager",
+        "portfolio_id",
+        "ministry_id"
+      )
+      .from("v_projects_by_ministry")
+      .where("fiscal_year_id", fiscal)
+      .whereIn("portfolio_id", portfolios)
+      .debug();
+
+    const fullQuery = knex.with("base", subquery).select("*").from("base");
+
+    return fullQuery;
+  },
+  /*
+   * gets the projects per ministry
+   */
+  projectsAndBudgetsPerMinistry: ({ portfolio, fiscal }) => {
+    const portfolios = Array.isArray(portfolio) ? portfolio : [portfolio];
+
+    return knex
+      .select(
+        knex.raw(`
         COALESCE(ministry_name, ' ') as ministry_name,
-        portfolio_abbrev,
-        project_number,
-        project_name,
-        project_type,
-        description,
-        planned_start_date,
-        planned_end_date,
-        total_project_budget,
-        client_sponsor_name,
-        project_manager,
-        portfolio_id,
-        ministry_id
-      FROM data.v_projects_by_ministry
-  `)
-  );
+        SUM(total_project_budget) as total_per_ministry,
+        COUNT(*)::int as number_of_projects
+      `)
+      )
+      .from("data.v_projects_by_ministry")
+      .groupBy("ministry_id", "ministry_name", "fiscal_year", "fiscal_year_id")
+      .orderBy("ministry_name", "asc")
+      .where("fiscal_year_id", fiscal)
+      .whereIn("portfolio_id", portfolios);
+  },
 
-  // filter by the portfolio list passed in from the frontend(if valid)
-  if (requestParams.portfolio) {
-    const portfolio = requestParams.portfolio;
+  /*
+   * gets the grand total of project budgets for all ministries in this fiscal year
+   */
+  reportTotals: ({ fiscal, portfolio }) => {
+    const portfolios = _.castArray(portfolio);
 
-    if (requestParams.portfolio instanceof Array) {
-      query.whereIn("portfolio_id", portfolio);
-    } else {
-      query.where("portfolio_id", portfolio);
-    }
-  }
-
-  if (requestParams.fiscal) {
-    query.where({ fiscal_year_id: requestParams.fiscal });
-  }
-
-  if (requestParams.projectType) {
-    query.where({ project_type: requestParams.projectType });
-  } else {
-    query.where({ project_type: "External" });
-  }
-
-  return query;
-};
-
-// get the fiscal year based on the id passed from frontend
-const getFiscalYear = (requestParams) => {
-  const query = knex.select(knex.raw(`fiscal_year from data.fiscal_year`));
-
-  if (requestParams.fiscal) {
-    query.where({ "fiscal_year.id": requestParams.fiscal });
-  }
-
-  return query;
-};
-
-/*
- * gets the projects per ministry
- */
-const projectsAndBudgetsPerMinistry = (requestParams) => {
-  const query = knex.select(
-    knex.raw(`
-        COALESCE(ministry_name, ' ') as ministry_name,
-        sum(total_project_budget) as total_per_ministry,
-        count(*)::int as number_of_projects
-      FROM data.v_projects_by_ministry
-    `)
-  );
-
-  // Order and Group by ministry name
-  query.groupByRaw("ministry_id, ministry_name, fiscal_year, fiscal_year_id");
-  query.orderByRaw("ministry_name NULLS FIRST");
-
-  // filter by the portfolio list passed in from the frontend(if valid)
-  if (requestParams.portfolio) {
-    const portfolio = requestParams.portfolio;
-
-    if (requestParams.portfolio instanceof Array) {
-      query.whereIn("portfolio_id", portfolio);
-    } else {
-      query.where("portfolio_id", portfolio);
-    }
-  }
-
-  if (requestParams.fiscal) {
-    query.where({ fiscal_year_id: requestParams.fiscal });
-  }
-
-  if (requestParams.projectType) {
-    query.where({ project_type: requestParams.projectType });
-  } else {
-    query.where({ project_type: "External" });
-  }
-
-  return query;
-};
-
-/*
- * gets the grand total of project budgets for all ministries in this fiscal year
- */
-const reportTotals = (requestParams) => {
-  const query = knex.select(
-    knex.raw(`
+    const query = knex
+      .select(
+        knex.raw(`
       sum(total_project_budget) as total_budget,
       count(project_number) as total_projects
       FROM data.v_projects_by_ministry
     `)
-  );
+      )
+      .where("fiscal_year_id", fiscal)
+      .whereIn("portfolio_id", portfolios);
 
-  if (requestParams.fiscal) {
-    query.where({ fiscal_year_id: requestParams.fiscal });
-  }
-
-  if (requestParams.projectType) {
-    query.where({ project_type: requestParams.projectType });
-  } else {
-    query.where({ project_type: "External" });
-  }
-
-  // filter by the portfolio list passed in from the frontend(if valid)
-  if (requestParams.portfolio) {
-    const portfolio = requestParams.portfolio;
-
-    if (requestParams.portfolio instanceof Array) {
-      query.whereIn("portfolio_id", portfolio);
-    } else {
-      query.where("portfolio_id", portfolio);
-    }
-  }
-
-  return query;
+    return query;
+  },
 };
 
 module.exports = {
-  rpt_PA_Ministry,
-  getFiscalYear,
-  projectsAndBudgetsPerMinistry,
-  reportTotals,
+  required: ["fiscal", "portfolio"],
+  getAll: async ({ fiscal, portfolio }) => {
+    const [{ fiscal_year }, report, projectsAndBudgetsPerMinistry, reportTotals] =
+      await Promise.all([
+        queries.fiscalYear({ fiscal }),
+        queries.report({ fiscal, portfolio }),
+        queries.projectsAndBudgetsPerMinistry({ fiscal, portfolio }),
+        queries.reportTotals({ fiscal, portfolio }),
+      ]);
+
+    const projectSummaryByMinistry = groupByProperty(report, "ministry_name");
+    const projectsPerMinistryKeyedByMinistryName = _.keyBy(
+      projectsAndBudgetsPerMinistry,
+      "ministry_name"
+    );
+    const { total_projects, total_budget } = _.first(reportTotals).total_projects;
+
+    const projectSummaryByMinistryWithBudgetsAndNumberOfProjects = _.map(
+      projectSummaryByMinistry,
+      (ministry) => ({
+        ...ministry,
+        total_per_ministry:
+          null === ministry.ministry_id
+            ? projectsPerMinistryKeyedByMinistryName[" "].total_per_ministry
+            : projectsPerMinistryKeyedByMinistryName[ministry.ministry_name].total_per_ministry,
+        number_of_projects:
+          projectsPerMinistryKeyedByMinistryName[ministry.ministry_name].number_of_projects,
+      })
+    );
+
+    // Lay out final JSON body for api call to cdogs server
+    const shapedResult = {
+      fiscal_year,
+      ministries: projectSummaryByMinistryWithBudgetsAndNumberOfProjects,
+      total_projects,
+      total_budget,
+    };
+    // Log the result object in a readable format to the console.
+    // todo: remove this once we hit MVP by mid-September.
+    console.warn(JSON.stringify(shapedResult, null, 2));
+
+    // finally, return the result
+    return shapedResult;
+  },
+  fiscalYear: queries.fiscalYear,
+  report: queries.report,
+  projectsAndBudgetsPerMinistry: queries.projectsAndBudgetsPerMinistry,
+  reportTotals: queries.reportTotals,
 };

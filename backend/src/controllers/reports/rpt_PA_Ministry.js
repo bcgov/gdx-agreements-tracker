@@ -22,10 +22,12 @@ controller.rpt_PA_Ministry = async (request, reply) => {
   controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
-    const projectSummary = await model.rpt_PA_Ministry(request.query);
+    const newModel = await model.getAll(request.query);
+    const projectSummary = await model.report(request.query);
     const projectSummaryByMinistry = groupByProperty(projectSummary, "ministry_name");
-    const projectSummaryFiscal = await model.getFiscalYear(request.query);
-    const fiscalYear = _.first(projectSummaryFiscal)?.["fiscal_year"];
+
+    const { fiscal_year } = await model.fiscalYear(request.query);
+
     const projectsPerMinistry = await model.projectsAndBudgetsPerMinistry(request.query);
     const projectsPerMinistryKeyedByMinistryName = _.keyBy(projectsPerMinistry, "ministry_name");
     const reportTotals = await model.reportTotals(request.query);
@@ -47,7 +49,7 @@ controller.rpt_PA_Ministry = async (request, reply) => {
 
     // Lay out final JSON body for api call to cdogs server
     const result = {
-      fiscal_year: fiscalYear,
+      fiscal_year,
       ministries: projectSummaryByMinistryWithBudgetsAndNumberOfProjects,
       total_projects: reportTotalCount,
       total_budget: reportTotalBudget,
