@@ -104,7 +104,7 @@ module.exports = {
       projectsAndBudgetsPerMinistry,
       "ministry_name"
     );
-    const { total_projects, total_budget } = _.first(reportTotals).total_projects;
+    const { total_projects, total_budget } = _.first(reportTotals);
 
     const projectSummaryByMinistryWithBudgetsAndNumberOfProjects = _.map(
       projectSummaryByMinistry,
