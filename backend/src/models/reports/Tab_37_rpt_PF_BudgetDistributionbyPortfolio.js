@@ -1,7 +1,5 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-const { groupByProperty } = require("../../controllers/reports/helpers");
-const _ = require("lodash");
 
 /**
  * Retrieves the base queries for invoice payments without filtering by fiscal year.
@@ -11,114 +9,142 @@ const _ = require("lodash");
 const baseQueries = {
   q1: knex.raw(
     `(
-      select 
-        c.id contract_id, 
-        c.co_number, 
-        i.fiscal, 
-        fy.fiscal_year, 
-        i.invoice_date, 
-        i.billing_period, 
-        i.invoice_number, 
-        sum(id.rate * id.unit_amount) amount, 
-        c.Status, 
-        s.supplier_name 
-      from 
+      SELECT 
+        Project_ID, 
+        Fiscal, 
+        Sum(Total_Fee_Amount) AS Fees, 
+        Sum(Total_Expense_Amount) AS Expenses, 
+        Sum(
+          Total_Fee_Amount + Total_Expense_Amount
+        ) AS Total_Contract 
+      FROM 
         Contract c 
-        left join invoice i on c.id = i.contract_id 
-        left join fiscal_Year fy on i.fiscal = fy.id 
-        left join invoice_Detail id on i.id = id.invoice_id 
-        left join supplier s on c.supplier_id = s.id 
-      group by 
-        c.id, 
-        c.co_number, 
-        i.fiscal, 
-        fy.fiscal_year, 
-        i.invoice_date, 
-        i.billing_period, 
-        i.invoice_number, 
-        c.status, 
-        s.supplier_name
-    ) AS q1`
+      GROUP BY
+        Project_ID, 
+        Fiscal 
+      HAVING 
+        (Project_ID IS NOT Null)
+      ) AS q1`
   ),
 
-  q2: knex.raw(
-    `(
+  q2: (fiscal) =>
+    knex.raw(
+      `(
       select 
-        c.ID Contract_ID, 
-        c.CO_Number, 
-        coalesce(t.Fiscal, c.Fiscal) Fiscal, 
-        coalesce(
-          fy.Fiscal_Year, fy_d.Fiscal_Year
-        ) Fiscal_Year, 
-        sic.Portfolio_ID, 
-        po.Portfolio_Name, 
-        po.Portfolio_Abbrev, 
-        c.Start_Date, 
-        p.Project_Number, 
-        c.End_Date, 
-        c.Status, 
-        coalesce(
-          t.Total_Fee_Amount, c.Total_Fee_Amount
-        ) Total_Fee_Amount, 
-        coalesce(
-          t.Total_Expense_Amount, c.Total_Expense_Amount
-        ) Total_Expense_Amount 
-      from 
-        Contract c 
-        inner join Fiscal_Year fy_d on c.Fiscal = fy_d.ID 
-        left join (
-          select 
-            Contract_ID, 
-            Fiscal, 
-            sum(Total_Fee_Amount) Total_Fee_Amount, 
-            sum(Total_Expense_Amount) Total_Expense_Amount 
-          from 
-            (
-              select 
-                Contract_ID, 
-                Fiscal, 
-                sum(Hours * Assignment_Rate) Total_Fee_Amount, 
-                null Total_Expense_Amount 
-              from 
-                Contract_Resource 
-              group by 
-                Contract_ID, 
-                Fiscal 
-              union 
-              select 
-                Contract_ID, 
-                Fiscal, 
-                sum(
-                  case when Is_Expense = False then Deliverable_Amount else cast(0 as money) end
-                ), 
-                sum(
-                  case when Is_Expense = True then Deliverable_Amount else cast(0 as money) end
-                ) 
-              from 
-                Contract_Deliverable 
-              group by 
-                Contract_ID, 
-                Fiscal
-            ) t_sub 
-          group by 
-            Contract_ID, 
-            Fiscal
-        ) t on c.ID = t.Contract_ID 
-        left join Fiscal_Year fy on t.Fiscal = fy.ID 
-        left join Project p on c.Project_ID = p.ID 
-        left join lateral (
-          select 
-            Portfolio_ID 
-          from 
-            SID_Internal_Coding 
-          where 
-            Contract_ID = c.ID 
-          limit 
-            1
-        ) sic on true 
-        left join Portfolio po on po.ID = sic.Portfolio_ID
+    p.ID AS Project_ID, 
+    p.Project_Number, 
+    p.Project_Name, 
+    po.Portfolio_Name, 
+    po.Portfolio_Abbrev, 
+    p.Total_Project_Budget, 
+    p.Recoverable_Amount, 
+    Sum(
+      Q1_Amount + Q2_Amount + Q3_Amount + Q4_Amount
+    ) AS Current_FY_Total_Recoverable, 
+    Sum(
+      case when Q1_Recovered then Q1_Amount else cast(0 as money) end
+    )+ Sum(
+      case when Q2_Recovered then Q2_Amount else cast(0 as money) end
+    )+ Sum(
+      case when Q3_Recovered then Q3_Amount else cast(0 as money) end
+    )+ Sum(
+      case when Q4_Recovered then Q4_Amount else cast(0 as money) end
+    ) as Current_FY_Recovered_To_Date, 
+    q1.Fees, 
+    q1.Expenses, 
+    q1.Total_Contract, 
+    pd.Fiscal, 
+    fy.Fiscal_Year 
+  from 
+    Project p 
+    right join (
+      (
+        (
+          Fiscal_Year fy 
+          right join Project_Deliverable pd on fy.ID = pd.Fiscal
+        ) 
+        left join ${baseQueries.q1} on (pd.Fiscal = q1.Fiscal) 
+        and (pd.Project_ID = q1.Project_ID)
+      ) 
+      right join (
+        Portfolio po 
+        right join Project_Budget pb ON po.ID = pb.Recovery_Area
+      ) on pd.ID = pb.Project_Deliverable_ID
+    ) ON p.ID = pd.Project_ID 
+  group by 
+    p.ID, 
+    p.Project_Number, 
+    p.Project_Name, 
+    po.Portfolio_Name, 
+    po.Portfolio_Abbrev, 
+    p.Total_Project_Budget, 
+    p.Recoverable_Amount, 
+    q1.Fees, 
+    q1.Expenses, 
+    q1.Total_Contract, 
+    pd.Fiscal, 
+    fy.Fiscal_Year 
+  having 
+    pd.fiscal = ${fiscal}
     )  AS q2`
-  ),
+    ),
+  q3: (fiscal) =>
+    knex.raw(
+      `(
+      select 
+    q2.Project_Number, 
+    q2.Project_Name, 
+    p.Recoverable, 
+    q2.Total_Project_Budget, 
+    q2.Recoverable_Amount, 
+    q2.Total_Contract, 
+    q2.Fiscal_Year, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'OSS' then q2.Current_FY_Total_Recoverable else null end
+    ) AS OSS, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'DES' then q2.Current_FY_Total_Recoverable else null end
+    ) AS DES, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'DMS' then q2.Current_FY_Total_Recoverable else null end
+    ) AS DMS, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'DP' then q2.Current_FY_Total_Recoverable else null end
+    ) AS DP, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'ANA' then q2.Current_FY_Total_Recoverable else null end
+    ) AS ANA, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'SD' then q2.Current_FY_Total_Recoverable else null end
+    ) AS SD, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'CE' then q2.Current_FY_Total_Recoverable else null end
+    ) AS CE, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'EDS' then q2.Current_FY_Total_Recoverable else null end
+    ) AS EDS, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'BCS' then q2.Current_FY_Total_Recoverable else null end
+    ) AS BCS, 
+    Sum(
+      case when q2.Portfolio_Abbrev = 'DIV' then q2.Current_FY_Total_Recoverable else null end
+    ) AS DIV, 
+    Sum(
+      q2.Current_FY_Total_Recoverable
+    ) as Current_FY_Recoverable_Total 
+  from 
+    ${baseQueries.q2(fiscal)} 
+    inner join Project p on q2.Project_ID = p.ID 
+  group by 
+    q2.Project_Number, 
+    q2.Project_Name, 
+    p.Recoverable, 
+    q2.Total_Project_Budget, 
+    q2.Recoverable_Amount, 
+    q2.Total_Contract, 
+    q2.Fiscal_Year
+    ) AS q3`
+    ),
 };
 
 /**
@@ -179,7 +205,7 @@ const reportQueries = {
 module.exports = {
   required: ["fiscal"],
   getAll: async ({ fiscal }) => {
-    const [{ fiscal_year }, report, totals, grandTotals] = await Promise.all([
+    const [{ fiscal_year }, report, grandTotals] = await Promise.all([
       reportQueries.fiscalYear(fiscal),
       reportQueries.report(fiscal),
       reportQueries.grandTotals(fiscal),
