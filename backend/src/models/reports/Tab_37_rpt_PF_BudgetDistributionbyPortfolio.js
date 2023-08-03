@@ -85,8 +85,9 @@ const baseQueries = {
     pd.Fiscal, 
     fy.Fiscal_Year 
   having 
-    pd.fiscal = ${fiscal}
-    )  AS q2`
+    pd.fiscal = ?
+    )  AS q2`,
+    fiscal
     ),
   q3: (fiscal) =>
     knex.raw(
