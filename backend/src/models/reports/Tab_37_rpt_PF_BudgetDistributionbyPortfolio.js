@@ -87,7 +87,7 @@ const baseQueries = {
   having 
     pd.fiscal = ?
     )  AS q2`,
-    fiscal
+      fiscal
     ),
   q3: (fiscal) =>
     knex.raw(
