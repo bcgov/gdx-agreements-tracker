@@ -262,9 +262,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Budget Distributions by Portfolio",
         description:
           "Based on fiscal year. Total Budget, Recoverable Amt, Non-Recoverable Amt, Total Contracts, Breakdown for portfolios current fiscal.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_38_rpt_PF_JVsforFiscal-Quarter",
