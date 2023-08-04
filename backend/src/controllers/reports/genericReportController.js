@@ -2,9 +2,10 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
 const cdogs = useCommonComponents("cdogs");
+require("dotenv").config({ path: ".env" });
 
 // constants
-const DEBUG = true;
+const env = process.env.NODE_ENV || "production";
 
 // Utilities
 const {
@@ -96,10 +97,13 @@ const getDataFromModel = async (query, model, reply) => {
   const after = performance.now();
 
   // todo: remove this debugging once we have MVP ~ around Mid-September, 2023
-  if (DEBUG) {
+  if ("development" === env) {
     console.warn(`
       DEBUG INFO FOR THIS REPORT:
       --------------------------------------------------------------
+      ENVIRONMENT:
+      ${JSON.stringify(env)}
+
       QUERY PARAMETERS:
       ${JSON.stringify(query, null, 2)}
 
