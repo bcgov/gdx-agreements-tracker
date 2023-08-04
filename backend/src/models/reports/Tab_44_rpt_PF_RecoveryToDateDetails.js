@@ -101,6 +101,7 @@ const reportQueries = {
   ),
 
   report: (fiscal) => knex.from(reportQueries.main).where({ fiscal_year: fiscal }),
+
   totals: (fiscal) =>
     knex(reportQueries.report(fiscal).as("report")).sum({
       total_project_budget: "total_project_budget",
@@ -111,27 +112,32 @@ const reportQueries = {
     }),
 };
 
+// Export an object containing the required fields and the getAll function
 module.exports = {
   required: ["fiscal"],
   getAll: async ({ fiscal }) => {
     try {
       // Use Promise.all to execute all three queries in parallel, providing the 'fiscal' parameter.
-      const [{ fiscal_year }, report, totals] = await Promise.all([
-        reportQueries.fiscal(fiscal),
-        reportQueries.report(fiscal),
-        reportQueries.totals(fiscal),
+      const [fiscalData, report, totals] = await Promise.all([
+        reportQueries.fiscal(fiscal), // Fetch fiscal data
+        reportQueries.report(fiscal), // Fetch report data
+        reportQueries.totals("asdf"), // Fetch totals data
       ]);
 
-      return {
-        fiscal_year,
+      // Create a response object with the required data
+      const response = {
+        fiscal_year: [fiscalData.fiscal_year],
         report,
         totals,
       };
+
+      return response;
     } catch (error) {
-      console.error(`
-        **** MODEL ERROR ****
-        ${error}
-      `);
+      // If an error occurs, log it for debugging
+      console.error("**** MODEL ERROR ****");
+      console.error(error);
+      // Throw the error back to the controller
+      throw error;
     }
   },
 };
