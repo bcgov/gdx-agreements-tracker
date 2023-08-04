@@ -2,7 +2,9 @@
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
 const cdogs = useCommonComponents("cdogs");
-//const _ = require("lodash");
+
+// constants
+const DEBUG = true;
 
 // Utilities
 const {
@@ -17,31 +19,10 @@ const {
 const what = { single: "report", plural: "reports" };
 
 /**
- *
  * USING THIS CONTROLLER:
  *
- * How to change the model: (export the data instead of the query - pseudocode)
- * EXAMPLE MODEL: backend/src/models/reports/Tab_50_rpt_PF_NetRecoverySummaryByQuarter.js
- * let PSEUDOCODE_EXAMPLE = async (query) => {
- * try {
- * const { <args> } = query; // this could be fiscal, portfolio, date, etc.
- *
- * const [[{ fiscal_year }], report, report_totals] = await Promise.all([
- * // these queries are defined in the model, and return the knex.js queries.
- * queries.report(<some arg>),
- * queries.totals(<some arg>),
- * ]);
- *
- * return {
- * report,
- * report_totals,
- * };
- * } catch (error) {
- * console.error(`Model error!: query parameter received: ${JSON.stringify(query)}`);
- * console.error(`*** ${error} **** : returning NULL!.`);
- * return null;
- * }
- * };
+ * Look at the boilerplate example here: backend/src/models/reports/model_Boilerplate.js
+ * or a actual report like backend/src/models/reports/Tab_44_rpt_PF_RecoveryToDateDetails.js
  */
 
 /**
@@ -72,16 +53,15 @@ const getControllerFrom = () => {
       const { templateType } = validateQueryParameters(query);
       const modifiedGetReport = getReportAndSetRequestHeaders(templateType);
       controller.getReport = modifiedGetReport;
-      /** Gets the query. */
       const result = await getDataFromModel(query, model, reply);
-      /* eslint "no-warning-comments": [1, { "terms": ["todo", "fixme"] }] */
+
       // todo: Remove conditional logic, once all reports are completed
       if ("removeme" !== result?.report) {
+        // Converts template and data to report, and attaches the pdf blob to result
         await sendToCdogs({ result, filename, templateType, request });
       } else {
         controller.send(418, reply, "Report model not created");
       }
-      /** Converts template and data to report, and attaches the pdf blob to result */
 
       return result;
     } catch (err) {
@@ -110,38 +90,32 @@ const getDataFromModel = async (query, model, reply) => {
    *  or query.portfolio (portfolio for financial reports that summarize expenses costs, and recoveries)
    */
 
-  const time = async () => Date.now();
-  const before = await time();
+  const before = performance.now();
   const result = await model.getAll(query);
 
   // todo: remove this debugging once we have MVP ~ around Mid-September, 2023
-  // if DEBUG === true, show some debugging
-  const DEBUG = true;
   if (DEBUG) {
-    const after = await time();
-    const resultStr = JSON.stringify(result, null, 4);
+    const after = performance.now();
 
     console.warn(`
       DEBUG INFO FOR THIS REPORT:
       --------------------------------------------------------------
       QUERY PARAMETERS:
-    `);
-    // eslint-disable-next-line no-console
-    console.table(query);
-    console.warn(`
-      MODEL OUTPUT:
+      ${JSON.stringify(query, null, 2)}
 
-      RESULT: ${resultStr}
+      MODEL DATA:
+      ${JSON.stringify(result, null, 2)}
 
-      TIME TAKEN: ${after - before} MS
+      MODEL DATA RETRIEVED IN: ${(after - before).toFixed(2)} MS
       --------------------------------------------------------------
-  `);
+    `);
   }
 
   if (null === result) {
     reply.code(404);
     throw new Error(`There was a problem looking up this Report.`);
   }
+
   return { date: await getCurrentDate(), ...result };
 };
 

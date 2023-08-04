@@ -1,3 +1,11 @@
+**August 4, 2023 [DESCW-1264](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1264)**
+- Backend
+  - Add model for tab 44 report
+  - update documentation and clean up (rename) generic model boilerplate
+  - clean up generic controller doc block and debugging code
+- Frontend
+  - Tweak picker options for tab 44 report
+
 **August 3, 2023 [DESCW-1265](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1265)**
 - Backend
   - Add model for tab 37 report
