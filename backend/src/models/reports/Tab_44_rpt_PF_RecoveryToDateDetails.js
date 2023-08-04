@@ -121,7 +121,7 @@ module.exports = {
       const [fiscalData, report, totals] = await Promise.all([
         reportQueries.fiscal(fiscal), // Fetch fiscal data
         reportQueries.report(fiscal), // Fetch report data
-        reportQueries.totals("asdf"), // Fetch totals data
+        reportQueries.totals(fiscal), // Fetch totals data
       ]);
 
       // Create a response object with the required data
