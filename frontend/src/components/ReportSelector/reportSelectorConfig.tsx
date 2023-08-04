@@ -325,9 +325,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Recoveries to Date Details",
         description:
           "Project Number, Project Name, Total Project Budget, Current Year Contracts, Current Year Recoveries to Date, Balance Remaining.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_48_rpt_PF_FinanceRecoverySummary",
