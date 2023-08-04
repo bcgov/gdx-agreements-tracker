@@ -90,13 +90,13 @@ const getDataFromModel = async (query, model, reply) => {
    *  or query.portfolio (portfolio for financial reports that summarize expenses costs, and recoveries)
    */
 
+  // grab the model data with before/after timestamps
   const before = performance.now();
   const result = await model.getAll(query);
+  const after = performance.now();
 
   // todo: remove this debugging once we have MVP ~ around Mid-September, 2023
   if (DEBUG) {
-    const after = performance.now();
-
     console.warn(`
       DEBUG INFO FOR THIS REPORT:
       --------------------------------------------------------------
