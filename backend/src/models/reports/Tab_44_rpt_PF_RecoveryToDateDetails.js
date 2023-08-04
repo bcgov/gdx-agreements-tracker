@@ -1,8 +1,6 @@
 // libs
 const { knex } = require("@database/databaseConnection")();
 
-// fist CTE
-
 const baseQueries = {
   q1: `(
   SELECT c.project_id,
