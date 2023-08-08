@@ -429,7 +429,7 @@ export interface ITableWithModal {
   formConfig: TFormConfig;
   tableName: string;
   formDataApiEndpoint: string;
-  handleRowDoubleClick?:Function
+  handleRowDoubleClick?: Function;
 }
 
 export interface IRowDoubleClickParams {

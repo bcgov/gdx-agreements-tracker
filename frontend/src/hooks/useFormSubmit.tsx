@@ -38,10 +38,7 @@ export const useFormSubmit = () => {
       });
   };
 
-  const handlePost = async ({
-    formValues,
-    apiUrl,
-  }: IUseFormSubmitHandlePost) => {
+  const handlePost = async ({ formValues, apiUrl }: IUseFormSubmitHandlePost) => {
     const formattedValues: {
       [key: string]: boolean | string | null;
     } = {};
@@ -74,7 +71,7 @@ export const useFormSubmit = () => {
   }) => {
     await axiosAll()
       .delete(apiUrl)
-      .then(() => { })
+      .then(() => {})
       .catch((err: string) => {
         console.error("error:", err);
       });

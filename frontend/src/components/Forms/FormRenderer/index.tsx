@@ -7,6 +7,7 @@ import { IFormRenderer, ILockData } from "types";
 import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
 import { useFormData } from "hooks/useFormData";
+import { useNavigate } from "react-router";
 
 /**
  * This is a functional component called `FormRenderer` that takes in several props including `queryKey`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`.
@@ -30,6 +31,7 @@ export const FormRenderer = ({
   formConfig,
   formDataApiEndpoint,
 }: IFormRenderer): JSX.Element => {
+  const navigate = useNavigate();
   const { handleUpdate, handlePost } = useFormSubmit();
   const { handleDbLock, removeLock } = useFormLock();
   const queryClient = useQueryClient();
@@ -41,7 +43,6 @@ export const FormRenderer = ({
 
   const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
     formConfig(formData);
-    console.log('postUrl', postUrl)
   /**
    * This function handles form submission for editing or posting data and updates the UI accordingly.
    *
@@ -59,7 +60,6 @@ export const FormRenderer = ({
 
   const { formType, handleFormType, handleClose } = formControls;
   const handleOnSubmit = async (values: unknown) => {
-    console.log('values', values)
     try {
       if ("edit" === formType || formData?.data?.data?.dbRowLock?.currentUser) {
         await handleUpdate({
@@ -72,12 +72,14 @@ export const FormRenderer = ({
           });
         });
       } else {
-        await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
-          handleClose();
+        await handlePost({ formValues: values, apiUrl: postUrl as string }).then((newItem) => {
+          if ("contract" === tableName) {
+            navigate(`/contracts/${newItem}`);
+          }
         });
       }
     } catch (error) {
-      console.log('error', error)
+      console.error("error", error);
       handleSnackbarMessage("fail");
       handleSnackbarType("error");
       handleSnackbar();

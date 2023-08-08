@@ -37,7 +37,6 @@ export const TableWithModal = ({
     tableName,
   });
 
-
   const handleRowClick = (params: GridRowParams) => {
     formControls.handleCurrentRowData(params.row);
   };

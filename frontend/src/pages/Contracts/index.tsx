@@ -4,7 +4,7 @@ import { GridRowParams } from "@mui/x-data-grid";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
 import { TableWithModal } from "components/TableWithModal";
-import { FormConfig } from "./Contract/ContractDetails/FormConfig"
+import { FormConfig } from "./Contract/ContractDetails/FormConfig";
 import { IFormControls } from "types";
 import { useFormControls } from "hooks";
 

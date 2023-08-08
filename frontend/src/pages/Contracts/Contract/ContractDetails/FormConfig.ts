@@ -2,7 +2,6 @@ import { AxiosResponse } from "axios";
 import { IEditField, IOption } from "types";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
-  console.log("query", query?.data?.data);
   const readFields =
     !query || Array.isArray(query?.data?.data?.data)
       ? []
