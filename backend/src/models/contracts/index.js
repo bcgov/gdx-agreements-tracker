@@ -139,7 +139,6 @@ const addOrUpdate = (body, id) => {
       return await Promise.all(operations);
     })
     .then((result) => {
-      console.log("result", result);
       return result;
     });
 };
