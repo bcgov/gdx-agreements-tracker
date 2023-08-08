@@ -7,6 +7,8 @@ interface IFormButtons {
 }
 
 export const FormButtons = ({ dirty, handleOnCancel }: IFormButtons) => {
+  console.log("rendering?");
+  
   return (
     <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
       <Box>

@@ -20,6 +20,10 @@ export const TableWithModal = ({
   tableName,
   tableDataApiEndPoint,
   formDataApiEndpoint,
+  handleRowDoubleClick = (params: IRowDoubleClickParams) => {
+    formControls.handleCurrentRowData(params.row);
+    formControls.handleOpen();
+  },
 }: ITableWithModal) => {
   // const { handleCurrentRowData, open, handleClose, handleOpen, handleFormType } = formControls;
   useFormControls();
@@ -33,10 +37,6 @@ export const TableWithModal = ({
     tableName,
   });
 
-  const handleRowDoubleClick = (params: IRowDoubleClickParams) => {
-    formControls.handleCurrentRowData(params.row);
-    formControls.handleOpen();
-  };
 
   const handleRowClick = (params: GridRowParams) => {
     formControls.handleCurrentRowData(params.row);

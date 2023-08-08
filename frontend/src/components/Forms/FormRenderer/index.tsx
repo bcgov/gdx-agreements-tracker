@@ -41,6 +41,7 @@ export const FormRenderer = ({
 
   const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
     formConfig(formData);
+    console.log('postUrl', postUrl)
   /**
    * This function handles form submission for editing or posting data and updates the UI accordingly.
    *
@@ -58,8 +59,9 @@ export const FormRenderer = ({
 
   const { formType, handleFormType, handleClose } = formControls;
   const handleOnSubmit = async (values: unknown) => {
+    console.log('values', values)
     try {
-      if ("edit" === formType || formData?.data?.data?.dbRowLock.currentUser) {
+      if ("edit" === formType || formData?.data?.data?.dbRowLock?.currentUser) {
         await handleUpdate({
           changedValues: values,
           apiUrl: updateUrl,
@@ -75,6 +77,7 @@ export const FormRenderer = ({
         });
       }
     } catch (error) {
+      console.log('error', error)
       handleSnackbarMessage("fail");
       handleSnackbarType("error");
       handleSnackbar();
@@ -117,6 +120,7 @@ export const FormRenderer = ({
   if (formData.isLoading) {
     return <LinearProgress />;
   }
+
   if ("edit" === formType) {
     if (Array.isArray(formData?.data?.data?.data) && formData?.data) {
       const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};
