@@ -235,9 +235,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Contracts for Projects",
         description:
           "Shows contract #s, Amendment #, Supplier, End Date of Contract, Contract Amount, Invoiced to Date, Balance Remaining.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_32_rpt_PA_Registered",
