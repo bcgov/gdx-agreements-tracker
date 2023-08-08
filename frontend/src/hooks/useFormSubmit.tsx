@@ -13,10 +13,6 @@ export const useFormSubmit = () => {
     changedValues,
     currentRowData,
     apiUrl,
-    handleEditMode,
-    queryKeys,
-    successMessage,
-    errorMessage,
   }: IUseFormSubmitHandleSubmit) => {
     const deltaChanges: {
       [key: string]: boolean;
@@ -42,15 +38,7 @@ export const useFormSubmit = () => {
       });
   };
 
-  const handlePost = async ({
-    formValues,
-    apiUrl,
-    handleEditMode,
-    queryKeys,
-    successMessage,
-    errorMessage,
-    handleClose,
-  }: IUseFormSubmitHandlePost) => {
+  const handlePost = async ({ formValues, apiUrl }: IUseFormSubmitHandlePost) => {
     const formattedValues: {
       [key: string]: boolean | string | null;
     } = {};
@@ -75,9 +63,6 @@ export const useFormSubmit = () => {
 
   const handleDelete = async ({
     apiUrl,
-    queryKeys,
-    successMessage,
-    errorMessage,
   }: {
     apiUrl: string;
     queryKeys: string[];

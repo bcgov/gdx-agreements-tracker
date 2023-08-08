@@ -1,3 +1,7 @@
+**August 8, 2023 [DESCW-1388](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1388)**
+- Frontend
+  - Added create new function for contract section
+
 **August 4, 2023 [DESCW-1264](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1264)**
 - Backend
   - Add model for tab 44 report

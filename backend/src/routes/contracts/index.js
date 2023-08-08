@@ -29,7 +29,8 @@ const routes = [
   },
   {
     method: "POST",
-    url: `/${what}`,
+    //TODO resolve the trailing slash for creating new contract route
+    url: `/${what}/`,
     // schema: validators.addOne,
     handler: controller.addOne,
   },

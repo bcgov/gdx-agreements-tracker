@@ -7,6 +7,7 @@ import { IFormRenderer, ILockData } from "types";
 import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
 import { useFormData } from "hooks/useFormData";
+import { useNavigate } from "react-router";
 
 /**
  * This is a functional component called `FormRenderer` that takes in several props including `queryKey`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`.
@@ -30,6 +31,7 @@ export const FormRenderer = ({
   formConfig,
   formDataApiEndpoint,
 }: IFormRenderer): JSX.Element => {
+  const navigate = useNavigate();
   const { handleUpdate, handlePost } = useFormSubmit();
   const { handleDbLock, removeLock } = useFormLock();
   const queryClient = useQueryClient();
@@ -59,7 +61,7 @@ export const FormRenderer = ({
   const { formType, handleFormType, handleClose } = formControls;
   const handleOnSubmit = async (values: unknown) => {
     try {
-      if ("edit" === formType || formData?.data?.data?.dbRowLock.currentUser) {
+      if ("edit" === formType || formData?.data?.data?.dbRowLock?.currentUser) {
         await handleUpdate({
           changedValues: values,
           apiUrl: updateUrl,
@@ -70,11 +72,14 @@ export const FormRenderer = ({
           });
         });
       } else {
-        await handlePost({ formValues: values, apiUrl: postUrl as string }).then(() => {
-          handleClose();
+        await handlePost({ formValues: values, apiUrl: postUrl as string }).then((newItem) => {
+          if ("contract" === tableName) {
+            navigate(`/contracts/${newItem}`);
+          }
         });
       }
     } catch (error) {
+      console.error("error", error);
       handleSnackbarMessage("fail");
       handleSnackbarType("error");
       handleSnackbar();
@@ -117,6 +122,7 @@ export const FormRenderer = ({
   if (formData.isLoading) {
     return <LinearProgress />;
   }
+
   if ("edit" === formType) {
     if (Array.isArray(formData?.data?.data?.data) && formData?.data) {
       const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};

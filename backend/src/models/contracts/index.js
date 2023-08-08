@@ -103,7 +103,7 @@ const addOrUpdate = (body, id) => {
       // Update any other contract fields normally.
       if (Object.keys(body).length > 0) {
         if (null === id) {
-          id = await knex(contractsTable)
+          return await knex(contractsTable)
             .insert(body)
             .returning("id")
             .then((newId) => {
