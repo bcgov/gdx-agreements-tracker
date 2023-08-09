@@ -1,30 +1,10 @@
 // libs
 const { knex } = require("@database/databaseConnection")();
+const _ = require("lodash");
+// utils
+const { groupByProperty } = require("../../controllers/reports/helpers");
 
-// REPORT SERVICE CLASSS - maybe this can help us dry out future models, with some tweaks
-class ReportService {
-  constructor(...required) {
-    const [fiscal] = required;
-    this.required = fiscal;
-  }
-
-  async getReport(required) {
-    const { fiscal_year } = await queries.fiscal(required);
-    const report = await queries.report(required);
-
-    return {
-      fiscal_year,
-      report,
-    };
-  }
-
-  async getAll() {
-    const { fiscal_year, report } = await this.getReport(this.required);
-    return { fiscal_year, report };
-  }
-}
-
-// Query model stuff - this can't be replicated
+// Query model - this object organizes the promises that resolve to each part of the query results for the report
 const queries = {
   fiscal: (fiscal) =>
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
@@ -76,17 +56,17 @@ const queries = {
         ) AS descoped,
         fiscal
       FROM (
-          SELECT DISTINCT p.id AS project_id,
-            p.fiscal,
-            p.project_number,
-            p.project_version,
-            p.project_name,
-            p.total_project_budget,
-            p.recoverable_amount
-          FROM contract c
-            INNER JOIN project p ON c.project_id = p.id
-          WHERE p.project_status like 'Complete'
-            OR p.project_status = 'Active'
+        SELECT DISTINCT p.id AS project_id,
+          p.fiscal,
+          p.project_number,
+          p.project_version,
+          p.project_name,
+          p.total_project_budget,
+          p.recoverable_amount
+        FROM contract c
+          INNER JOIN project p ON c.project_id = p.id
+        WHERE p.project_status like 'Complete'
+          OR p.project_status = 'Active'
         ) n1
         INNER JOIN (
           SELECT p.id project_id,
@@ -198,10 +178,105 @@ const queries = {
     ) AS base`
   ),
 
+  // get the report data for the given fiscal year
   report: (fiscal) => knex.from(queries.main).where({ fiscal }),
+
+  // fold this into the report data at every project number
+  subtotals: (fiscal) =>
+    knex(queries.report(fiscal).as("report"))
+      .select({
+        project_number: "project_number",
+        project_name: "project_name",
+      })
+      .sum({
+        subtotal_total_contract_amount: "total_contract_amount",
+        subtotal_invoiced_to_date: "invoiced_to_date",
+        subtotal_balance_remaining: "balance_remaining",
+        subtotal_descoped: "descoped",
+      })
+      .groupBy("project_number", "project_name"),
+
+  // fold this in to the very end of the results
+  totals: (fiscal) =>
+    knex(queries.report(fiscal).as("report"))
+      .sum({
+        total_contract_amount: "total_contract_amount",
+        invoiced_to_date: "invoiced_to_date",
+        balance_remaining: "balance_remaining",
+        descoped: "descoped",
+      })
+      .first(),
 };
+
+/**
+ * Represents a report.
+ *
+ * @class
+ * @param {...any} required - The required parameters for the report.
+ */
+class Report {
+  constructor(...required) {
+    const [fiscal] = required;
+    this.required = fiscal;
+  }
+
+  /**
+   * Gets all reports for the required parameters specified in the constructor.
+   *
+   * @async
+   * @returns {Promise<object>} An object containing the fiscal year and report data.
+   */
+  async getAll() {
+    const required = this.required;
+    const { fiscal_year } = await queries.fiscal(required);
+    const report = await queries.report(required);
+
+    // Get subtotals and merge them into the report
+    const reportWithSubtotals = await this.getReportWithSubtotals(report, required);
+
+    // get totals and merge them into the report
+    const totals = await queries.totals(required);
+
+    // send the report
+    return {
+      fiscal_year,
+      report: reportWithSubtotals,
+      totals: totals,
+    };
+  }
+
+  /**
+   * Gets a report with subtotals.
+   *
+   * @async
+   * @param   {Array}          report   - The report data.
+   * @param   {any}            required - The required parameters for the subtotals query.
+   * @returns {Promise<Array>}          An array of report objects with subtotals added.
+   */
+  async getReportWithSubtotals(report, required) {
+    // Get the subtotals data from the database
+    const subtotals = await queries.subtotals(required);
+
+    // Group the report data by project number
+    const reportsByProjectNumber = groupByProperty(report, "project_number");
+
+    // Create an object with the subtotals data keyed by project number
+    const subtotalsByProjectNumber = _.keyBy(subtotals, "project_number");
+
+    // Add the subtotals data to the report data
+    const reportsByProjectNumberWithSubtotals = reportsByProjectNumber.map((report) => {
+      return {
+        ...report,
+        ...subtotalsByProjectNumber[report.project_number],
+      };
+    });
+
+    // Return the report data with subtotals added
+    return reportsByProjectNumberWithSubtotals;
+  }
+}
 
 module.exports = {
   required: ["fiscal"],
-  getAll: async ({ fiscal }) => await new ReportService(fiscal).getAll(),
+  getAll: async ({ fiscal }) => await new Report(fiscal).getAll(),
 };
