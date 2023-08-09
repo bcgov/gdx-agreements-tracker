@@ -4,6 +4,7 @@ import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import { tableConfig } from "./tableConfig";
 import { FormConfig } from "./FormConfig";
+import BudgetBreakdown from "./BudgetBreakdown";
 
 export const BudgetSection = () => {
   const { projectId } = useParams();
@@ -11,13 +12,16 @@ export const BudgetSection = () => {
   const formControls: IFormControls = useFormControls();
 
   return (
-    <TableWithModal
-      tableName={"project_budget"}
-      tableConfig={tableConfig()}
-      formControls={formControls}
-      formConfig={FormConfig}
-      tableDataApiEndPoint={`projects/${projectId}/budget`}
-      formDataApiEndpoint={`/projects/budget/${formControls.currentRowData?.id}`}
-    />
+    <>
+      <TableWithModal
+        tableName={"project_budget"}
+        tableConfig={tableConfig()}
+        formControls={formControls}
+        formConfig={FormConfig}
+        tableDataApiEndPoint={`projects/${projectId}/budget`}
+        formDataApiEndpoint={`/projects/budget/${formControls.currentRowData?.id}`}
+      />
+      <BudgetBreakdown />
+    </>
   );
 };

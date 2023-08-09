@@ -84,9 +84,28 @@ const addOne = {
   response: getAddResponse(),
 };
 
+const fiscalbreakdown = {
+  params: S.object().prop("projectId", Schema.Id),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("balance_remaining", S.string())
+        .prop("fiscal_year", S.string())
+        .prop("id", S.string())
+        .prop("q1_amount", S.string())
+        .prop("q2_amount", S.string())
+        .prop("q3_amount", S.string())
+        .prop("q4_amount", S.string())
+        .prop("recovered_amount", S.string())
+        .prop("total_detail_amount", S.string())
+    )
+  ),
+};
+
 module.exports = {
   getAll,
   getOne,
   updateOne,
   addOne,
+  fiscalbreakdown,
 };
