@@ -1,3 +1,7 @@
+**August 9, 2023 [DESCW-861](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-861)**
+- Frontend
+  - Added fiscal budget breakdown for project section
+
 **August 8, 2023 [DESCW-1388](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1388)**
 - Frontend
   - Added create new function for contract section

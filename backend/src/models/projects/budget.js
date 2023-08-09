@@ -95,9 +95,32 @@ const addOne = (newBudget) => {
   return knex(projectBudgetTable).insert(newBudget);
 };
 
+const findProjectBudgetByFiscal = (projectId) => {
+  return knex
+    .select(
+      "fy.fiscal_year",
+      knex.raw("row_number() OVER () as id"),
+      knex.raw("SUM(q1_amount + q2_amount + q3_amount + q4_amount) AS recovered_amount"),
+      knex.raw(
+        "SUM(detail_amount) - SUM(q1_amount + q2_amount + q3_amount + q4_amount) AS balance_remaining"
+      )
+    )
+    .sum("q1_amount as q1_amount")
+    .sum("q2_amount as q2_amount")
+    .sum("q3_amount as q3_amount")
+    .sum("q4_amount as q4_amount")
+    .sum("detail_amount as total_detail_amount")
+    .from(`${projectBudgetTable} as pb`)
+    .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
+    .join(`${fiscalYearTable} as fy`, "pd.fiscal", "fy.id")
+    .where("pd.project_id", 399)
+    .groupBy("fy.fiscal_year");
+};
+
 module.exports = {
   findAllById,
   findById,
   updateOne,
   addOne,
+  findProjectBudgetByFiscal,
 };
