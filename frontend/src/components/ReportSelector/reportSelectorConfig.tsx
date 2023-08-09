@@ -253,9 +253,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Budget by Stob",
         description:
           "Project#, Project Name, Recoverable status, Project total budget, Current Year Non-Recoverable Amounts, Current Fiscal Recoveries, Current Year Recovered to Date, Current Year Contract Fees, Current Year Staff Fees, Current Year Staff Travel, Other Stobs.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_37_rpt_PF_BudgetDistributionbyPortfolio",
