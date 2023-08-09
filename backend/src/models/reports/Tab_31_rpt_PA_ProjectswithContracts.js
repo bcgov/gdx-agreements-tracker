@@ -227,22 +227,30 @@ class Report {
    * @returns {Promise<object>} An object containing the fiscal year and report data.
    */
   async getAll() {
-    const required = this.required;
-    const { fiscal_year } = await queries.fiscal(required);
-    const report = await queries.report(required);
+    try {
+      const required = this.required;
+      const { fiscal_year } = await queries.fiscal(required);
+      const report = await queries.report(required);
 
-    // Get subtotals and merge them into the report
-    const reportWithSubtotals = await this.getReportWithSubtotals(report, required);
+      // Get subtotals and merge them into the report
+      const reportWithSubtotals = await this.getReportWithSubtotals(report, required);
 
-    // get totals and merge them into the report
-    const totals = await queries.totals(required);
+      // get totals and merge them into the report
+      const totals = await queries.totals(required);
 
-    // send the report
-    return {
-      fiscal_year,
-      report: reportWithSubtotals,
-      totals: totals,
-    };
+      // send the report
+      return {
+        fiscal_year,
+        report: reportWithSubtotals,
+        totals: totals,
+      };
+    } catch (error) {
+      // If an error occurs, log it for debugging
+      console.error("**** MODEL ERROR ****");
+      console.error(error);
+      // Throw the error back to the controller
+      throw error;
+    }
   }
 
   /**
