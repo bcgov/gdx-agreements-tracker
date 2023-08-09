@@ -230,20 +230,33 @@ class Report {
     try {
       const required = this.required;
       const { fiscal_year } = await queries.fiscal(required);
+      const result = {
+        fiscal_year,
+        report: null,
+        totals: null,
+      };
+
+      // get basic report data
       const report = await queries.report(required);
 
-      // Get subtotals and merge them into the report
-      const reportWithSubtotals = await this.getReportWithSubtotals(report, required);
+      // handle case where there are sections
+      if (queries?.subtotals) {
+        // Get subtotals and merge them into the report
+        const reportWithSubtotals = await this.getReportWithSubtotals(report, required);
+        result.report = reportWithSubtotals;
+      } else {
+        result.report = report;
+      }
 
-      // get totals and merge them into the report
-      const totals = await queries.totals(required);
+      // handle case where there are (grand) totals
+      if (queries?.totals) {
+        // get totals and merge them into the report
+        const totals = await queries.totals(required);
+        result.totals = totals;
+      }
 
       // send the report
-      return {
-        fiscal_year,
-        report: reportWithSubtotals,
-        totals: totals,
-      };
+      return result;
     } catch (error) {
       // If an error occurs, log it for debugging
       console.error("**** MODEL ERROR ****");
