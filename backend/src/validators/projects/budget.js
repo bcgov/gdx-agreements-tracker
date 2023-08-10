@@ -84,20 +84,20 @@ const addOne = {
   response: getAddResponse(),
 };
 
-const fiscalbreakdown = {
+const fiscalBreakdown = {
   params: S.object().prop("projectId", Schema.Id),
   response: getResponse(
     S.array().items(
       S.object()
-        .prop("balance_remaining", S.string())
         .prop("fiscal_year", S.string())
-        .prop("id", S.string())
+        .prop("total_detail_amount", S.string())
+        .prop("recovered_amount", S.string())
+        .prop("balance_remaining", S.string())
         .prop("q1_amount", S.string())
         .prop("q2_amount", S.string())
         .prop("q3_amount", S.string())
         .prop("q4_amount", S.string())
-        .prop("recovered_amount", S.string())
-        .prop("total_detail_amount", S.string())
+        .prop("id", S.string())
     )
   ),
 };
@@ -108,9 +108,23 @@ const portfolioBreakdown = {
     S.array().items(
       S.object()
         .prop("portfolio_name", S.string())
+        .prop("recovery_amount", S.string())
         .prop("recovered_to_date", S.string())
         .prop("balance_remaining", S.string())
+        .prop("id", S.string())
+    )
+  ),
+};
+
+const deliverablesBreakdown = {
+  params: S.object().prop("projectId", Schema.Id),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("deliverable_name", S.string())
         .prop("recovery_amount", S.string())
+        .prop("recovered_to_date", S.string())
+        .prop("balance_remaining", S.string())
         .prop("id", S.string())
     )
   ),
@@ -121,6 +135,7 @@ module.exports = {
   getOne,
   updateOne,
   addOne,
-  fiscalbreakdown,
+  fiscalBreakdown,
   portfolioBreakdown,
+  deliverablesBreakdown,
 };

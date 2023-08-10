@@ -7,10 +7,16 @@ const ReadOnlyTable = ({
   apiEndPoint,
   tableName,
   title,
+  mdSize = 6,
+  lgSize = 6,
+  xlSize = 6,
 }: {
   apiEndPoint: string;
   tableName: string;
   title: string;
+  mdSize?: number;
+  lgSize?: number;
+  xlSize?: number;
 }) => {
   const DataGridStyles = {
     //Remove cell selection border
@@ -24,6 +30,7 @@ const ReadOnlyTable = ({
       {
         color: "#fff",
       },
+    height: "400px",
   };
 
   const tableData = useFormatTableData({
@@ -34,8 +41,8 @@ const ReadOnlyTable = ({
   return tableData.isLoading ? (
     <Loader />
   ) : (
-    <Grid item xs={12} sm={12} md={6} lg={6} xl={12}>
-      <Card>
+    <Grid item xs={12} sm={12} md={mdSize} lg={lgSize} xl={xlSize}>
+      <Card sx={{ height: "400px" }}>
         <CardHeader title={title} sx={{ backgroundColor: "#ededed" }} />
         <DataGrid
           columnVisibilityModel={{

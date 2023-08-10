@@ -9,6 +9,7 @@
 **August 10, 2023 [DESCW-861](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-861)**
 - Frontend, Backend
   - Added portfolio budget breakdown for project section
+  - Added deliverables breakdown for project section
 
 **August 9, 2023 [DESCW-1265](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1265)**
 - Frontend

@@ -1,5 +1,6 @@
 const controller = require("@controllers/projects/budget");
 const validators = require("@validators/projects/budget");
+
 const what = "budget";
 
 const routes = [
@@ -18,7 +19,7 @@ const routes = [
   {
     method: "GET",
     url: `/projects/:id/${what}/fiscalbreakdown`,
-    schema: validators.fiscalbreakdown,
+    schema: validators.fiscalBreakdown,
     handler: controller.fiscalBreakdown,
   },
   {
@@ -26,6 +27,12 @@ const routes = [
     url: `/projects/:id/${what}/portfoliobreakdown`,
     schema: validators.portfoliobreakdown,
     handler: controller.portfolioBreakdown,
+  },
+  {
+    method: "GET",
+    url: `/projects/:id/${what}/deliverablesbreakdown`,
+    schema: validators.deliverablesBreakdown,
+    handler: controller.deliverablesBreakdown,
   },
   {
     method: "PUT",
@@ -40,11 +47,10 @@ const routes = [
     handler: controller.addOne,
   },
 ];
+
 const registerRoutes = (fastify, options, done) => {
   // Ensure all of the routes above get registered.
-  routes.forEach((route) => {
-    fastify.route(route);
-  });
+  routes.forEach((route) => fastify.route(route));
   done();
 };
 
