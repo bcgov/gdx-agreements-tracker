@@ -171,37 +171,36 @@ const queries = {
         fiscal
       FROM ${baseQueries.q1} AS n1
         INNER JOIN ${baseQueries.q2} AS n2
-      ON n1.project_id = n2.project_id) AS base`
+      ON n1.project_id = n2.project_id
+      GROUP BY project_number,
+        project_name,
+        n1.total_project_budget,
+        n2.fiscal_year,
+        n2.co_number,
+        n2.co_version,
+        n2.supplier_name,
+        n2.subcontractor_name,
+        n2.end_date,
+        n2.total_contract_amount,
+        n2.invoiced_to_date,
+        n2.status,
+        n2.balance_remaining,
+        fiscal
+      ORDER BY project_number,
+        n2.fiscal_year,
+        n2.co_number
+      ) AS base
+        `
   ),
 
   // get the report data for the given fiscal year
-  report: (fiscal) =>
-    knex
-      .from(queries.main)
-      .groupBy(
-        "project_number",
-        "project_name",
-        "total_project_budget",
-        "fiscal_year",
-        "co_number",
-        "co_version",
-        "supplier_subcontractor",
-        "end_date",
-        "total_contract_amount",
-        "invoiced_to_date",
-        "balance_remaining",
-        "descoped",
-        "fiscal"
-      )
-      .orderByRaw(`project_number, fiscal_year, co_number`)
-      .where({ fiscal }),
+  report: (fiscal) => knex.from(queries.main).where({ fiscal }),
 
   // fold this into the report data at every project number
   subtotals: (fiscal) =>
     knex(queries.report(fiscal).as("report"))
       .select({
         project_number: "project_number",
-        project_name: "project_name",
       })
       .sum({
         subtotal_total_contract_amount: "total_contract_amount",
