@@ -1,5 +1,6 @@
 const controller = require("@controllers/projects/budget");
 const validators = require("@validators/projects/budget");
+
 const what = "budget";
 
 const routes = [
@@ -46,11 +47,10 @@ const routes = [
     handler: controller.addOne,
   },
 ];
+
 const registerRoutes = (fastify, options, done) => {
   // Ensure all of the routes above get registered.
-  routes.forEach((route) => {
-    fastify.route(route);
-  });
+  routes.forEach((route) => fastify.route(route));
   done();
 };
 
