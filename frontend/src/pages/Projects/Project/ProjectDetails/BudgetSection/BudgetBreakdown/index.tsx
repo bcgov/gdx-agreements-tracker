@@ -6,7 +6,7 @@ const BudgetBreakdown = () => {
   const { projectId } = useParams();
 
   return (
-    <Grid container spacing={10} sx={{pt:"2rem"}}>
+    <Grid container spacing={10} sx={{ pt: "2rem" }}>
       <ReadOnlyTable
         apiEndPoint={`/projects/${projectId}/budget/portfoliobreakdown`}
         tableName="budget"
