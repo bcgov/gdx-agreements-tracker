@@ -102,10 +102,25 @@ const fiscalbreakdown = {
   ),
 };
 
+const portfolioBreakdown = {
+  params: S.object().prop("projectId", Schema.Id),
+  response: getResponse(
+    S.array().items(
+      S.object()
+        .prop("portfolio_name", S.string())
+        .prop("recovered_to_date", S.string())
+        .prop("balance_remaining", S.string())
+        .prop("recovery_amount", S.string())
+        .prop("id", S.string())
+    )
+  ),
+};
+
 module.exports = {
   getAll,
   getOne,
   updateOne,
   addOne,
   fiscalbreakdown,
+  portfolioBreakdown,
 };
