@@ -22,6 +22,12 @@ const routes = [
     handler: controller.fiscalBreakdown,
   },
   {
+    method: "GET",
+    url: `/projects/:id/${what}/portfoliobreakdown`,
+    schema: validators.portfoliobreakdown,
+    handler: controller.portfolioBreakdown,
+  },
+  {
     method: "PUT",
     url: `/projects/${what}/:id`,
     schema: validators.updateOne,
