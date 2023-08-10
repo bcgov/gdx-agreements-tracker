@@ -9,7 +9,7 @@ const ReadOnlyTable = ({
   title,
   mdSize = 6,
   lgSize = 6,
-  xlSize = 6
+  xlSize = 6,
 }: {
   apiEndPoint: string;
   tableName: string;
@@ -27,10 +27,10 @@ const ReadOnlyTable = ({
       background: "#444",
     },
     ".MuiDataGrid-iconSeparator, .MuiDataGrid-sortIcon, .MuiDataGrid-columnHeader, .MuiDataGrid-menuIcon,.MuiDataGrid-filterIcon,.MuiDataGrid-menuIconButton":
-    {
-      color: "#fff",
-    },
-    height: "400px"
+      {
+        color: "#fff",
+      },
+    height: "400px",
   };
 
   const tableData = useFormatTableData({
@@ -41,7 +41,7 @@ const ReadOnlyTable = ({
   return tableData.isLoading ? (
     <Loader />
   ) : (
-    <Grid item xs={12} sm={12} md={mdSize} lg={lgSize} xl={xlSize} >
+    <Grid item xs={12} sm={12} md={mdSize} lg={lgSize} xl={xlSize}>
       <Card sx={{ height: "400px" }}>
         <CardHeader title={title} sx={{ backgroundColor: "#ededed" }} />
         <DataGrid
