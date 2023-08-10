@@ -1,12 +1,6 @@
-const dbConnection = require("@database/databaseConnection");
-const { knex, dataBaseSchemas } = dbConnection();
-const projectBudgetTable = `${dataBaseSchemas().data}.project_budget`;
-const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
-const projectDeliverableTable = `${dataBaseSchemas().data}.project_deliverable`;
-const contractsTable = `${dataBaseSchemas().data}.contract`;
-const recoveriesTable = `${dataBaseSchemas().data}.recovery_type`;
-const portfolioTable = `${dataBaseSchemas().data}.portfolio`;
-const clientCodingTable = `${dataBaseSchemas().data}.client_coding`;
+const controller = require("@controllers/projects/budget");
+const validators = require("@validators/projects/budget");
+const what = "budget";
 
 const routes = [
   {
@@ -24,13 +18,13 @@ const routes = [
   {
     method: "GET",
     url: `/projects/:id/${what}/fiscalbreakdown`,
-    schema: validators.fiscalbreakdown,
+    schema: validators.fiscalBreakdown,
     handler: controller.fiscalBreakdown,
   },
   {
     method: "GET",
     url: `/projects/:id/${what}/portfoliobreakdown`,
-    schema: validators.portfolioBreakdown,
+    schema: validators.portfoliobreakdown,
     handler: controller.portfolioBreakdown,
   },
   {
@@ -61,11 +55,5 @@ const registerRoutes = (fastify, options, done) => {
 };
 
 module.exports = {
-  findAllById,
-  findById,
-  updateOne,
-  addOne,
-  findProjectBudgetByFiscal,
-  findPortfolioBreakdown,
-  findDeliverablesBreakdown,
+  registerRoutes
 };

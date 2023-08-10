@@ -84,7 +84,7 @@ const addOne = {
   response: getAddResponse(),
 };
 
-const fiscalbreakdown = {
+const fiscalBreakdown = {
   params: S.object().prop("projectId", Schema.Id),
   response: getResponse(
     S.array().items(
@@ -135,7 +135,7 @@ module.exports = {
   getOne,
   updateOne,
   addOne,
-  fiscalbreakdown,
+  fiscalBreakdown,
   portfolioBreakdown,
   deliverablesBreakdown,
 };
