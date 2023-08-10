@@ -117,10 +117,31 @@ const findProjectBudgetByFiscal = (projectId) => {
     .groupBy("fy.fiscal_year");
 };
 
+const findPortfolioBreakdown = (projectId) => {
+  return knex
+    .select(
+      "port.portfolio_name",
+      knex.raw(
+        "SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END ) AS recovered_to_date"
+      ),
+      knex.raw(
+        "SUM(detail_amount) - SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END) AS balance_remaining"
+      )
+    )
+    .sum("pb.detail_amount as recovery_amount")
+    .from(`${projectBudgetTable} as pb`)
+    .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
+    .join(`${fiscalYearTable} as fy`, "pd.fiscal", "fy.id")
+    .leftJoin(`${portfolioTable} as port`, { "pb.recovery_area": "port.id" })
+    .where("pd.project_id", projectId)
+    .groupBy("port.portfolio_name");
+};
+
 module.exports = {
   findAllById,
   findById,
   updateOne,
   addOne,
   findProjectBudgetByFiscal,
+  findPortfolioBreakdown,
 };
