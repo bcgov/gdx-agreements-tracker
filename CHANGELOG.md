@@ -1,3 +1,11 @@
+**August 10, 2023 [DESCW-1256](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1256)**
+- Frontend
+  - Tweaked picker options for tab 36 report
+- Backend
+  - Added model for tab 31 report
+  - Added .xlsx template for tab 31 report
+  - Experimented with Class for reports and error handling
+
 **August 10, 2023 [DESCW-1262](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1262)**
 - Frontend
   - Tweaked picker options for tab 28 report
