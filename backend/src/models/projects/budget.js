@@ -121,6 +121,7 @@ const findPortfolioBreakdown = (projectId) => {
   return knex
     .select(
       "port.portfolio_name",
+      knex.raw("row_number() OVER () as id"),
       knex.raw(
         "SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END ) AS recovered_to_date"
       ),
