@@ -55,5 +55,5 @@ const registerRoutes = (fastify, options, done) => {
 };
 
 module.exports = {
-  registerRoutes
+  registerRoutes,
 };
