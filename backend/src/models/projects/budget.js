@@ -97,14 +97,14 @@ const addOne = (newBudget) => {
 
 const findProjectBudgetByFiscal = (projectId) => {
   return knex
-    .select(
-      "fy.fiscal_year",
-      knex.raw("row_number() OVER () as id"),
-      knex.raw("SUM(q1_amount + q2_amount + q3_amount + q4_amount) AS recovered_amount"),
-      knex.raw(
-        "SUM(detail_amount) - SUM(q1_amount + q2_amount + q3_amount + q4_amount) AS balance_remaining"
-      )
-    )
+    .select({
+      fiscal_year: "fy.fiscal_year",
+      id: knex.raw("row_number() OVER ()"),
+      recovered_amount: knex.raw("SUM(q1_amount + q2_amount + q3_amount + q4_amount)"),
+      balance_remaining: knex.raw(
+        "SUM(detail_amount) - SUM(q1_amount + q2_amount + q3_amount + q4_amount)"
+      ),
+    })
     .sum("q1_amount as q1_amount")
     .sum("q2_amount as q2_amount")
     .sum("q3_amount as q3_amount")
@@ -119,23 +119,41 @@ const findProjectBudgetByFiscal = (projectId) => {
 
 const findPortfolioBreakdown = (projectId) => {
   return knex
-    .select(
-      "port.portfolio_name",
-      knex.raw("SUM(pb.detail_amount) as recovery_amount"),
-      knex.raw("row_number() OVER () as id"),
-      knex.raw(
-        "SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END ) AS recovered_to_date"
+    .select({
+      portfolio_name: "port.portfolio_name",
+      recovery_amount: knex.raw("SUM(pb.detail_amount)"),
+      id: knex.raw("row_number() OVER ()"),
+      recovered_to_date: knex.raw(
+        "SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END )"
       ),
-      knex.raw(
-        "SUM(detail_amount) - SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END) AS balance_remaining"
-      )
-    )
+      balance_remaining: knex.raw(
+        "SUM(detail_amount) - SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END)"
+      ),
+    })
     .from(`${projectBudgetTable} as pb`)
     .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
-    .join(`${fiscalYearTable} as fy`, "pd.fiscal", "fy.id")
     .leftJoin(`${portfolioTable} as port`, { "pb.recovery_area": "port.id" })
     .where("pd.project_id", projectId)
     .groupBy("port.portfolio_name");
+};
+
+const findDeliverablesBreakdown = (projectId) => {
+  return knex
+    .select({
+      deliverable_name: "pd.deliverable_name",
+      recovery_amount: knex.raw("SUM(pb.detail_amount)"),
+      id: knex.raw("row_number() OVER ()"),
+      recovered_to_date: knex.raw(
+        "SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END )"
+      ),
+      balance_remaining: knex.raw(
+        "SUM(detail_amount) - SUM( CASE WHEN q1_recovered THEN q1_amount WHEN q2_recovered THEN q2_amount WHEN q3_recovered THEN q3_amount WHEN q4_recovered THEN q4_amount ELSE 0::money END)"
+      ),
+    })
+    .from(`${projectBudgetTable} as pb`)
+    .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
+    .where("pd.project_id", projectId)
+    .groupBy("pd.deliverable_name");
 };
 
 module.exports = {
@@ -145,4 +163,5 @@ module.exports = {
   addOne,
   findProjectBudgetByFiscal,
   findPortfolioBreakdown,
+  findDeliverablesBreakdown,
 };
