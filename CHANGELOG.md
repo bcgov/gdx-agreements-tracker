@@ -1,3 +1,11 @@
+**August 10, 2023 [DESCW-1262](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1262)**
+- Frontend
+  - Tweaked picker options for tab 28 report
+- Backend
+  - Added model for tab 28 report
+  - Added .xlsx template for tab 28 report
+  - Fixed a comment typo for tab 36 report
+
 **August 10, 2023 [DESCW-861](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-861)**
 - Frontend, Backend
   - Added portfolio budget breakdown for project section
