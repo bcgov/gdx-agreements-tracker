@@ -2,7 +2,7 @@ const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 
 /**
- * Retrieves the final queries for invoice payments, filtered by fiscal year
+ * Retrieves the final queries for Budget by STOB, filtered by fiscal year
  *
  * @param   {number | string | Array} fiscal- The fiscal year to grab data for
  * @returns {Promise}                         - A promise that resolves to the query result
