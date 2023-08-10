@@ -8,6 +8,11 @@ const BudgetBreakdown = () => {
   return (
     <Grid container spacing={10}>
       <ReadOnlyTable
+        apiEndPoint={`/projects/${projectId}/budget/portfoliobreakdown`}
+        tableName="budget"
+        title="Portfolio Breakdown"
+      />
+      <ReadOnlyTable
         apiEndPoint={`/projects/${projectId}/budget/fiscalbreakdown`}
         tableName="budget"
         title="Fiscal Breakdown"
