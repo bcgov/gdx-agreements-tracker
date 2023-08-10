@@ -1,3 +1,10 @@
+**August 9, 2023 [DESCW-1265](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1265)**
+- Frontend
+  - Tweaked picker options for tab 36 report
+- Backend
+  - Added model for tab 36 report
+  - Added .xlsx template for tab 36 report
+
 **August 9, 2023 [DESCW-861](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-861)**
 - Frontend
   - Added fiscal budget breakdown for project section
