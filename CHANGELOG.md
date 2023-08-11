@@ -1,4 +1,5 @@
 **August 14, 2023 [DESCW-1278](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1278)**
+
 - Frontend
   - Tweaked picker options for tab 9 report
 - Backend
@@ -6,18 +7,25 @@
   - Added .xlsx template for tab 9 report
 
 **August 11, 2023 [DESCW-857](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-857)**
+
+- Frontend, Backend
+  - Added project budget total to project deliverables section
+
+**August 11, 2023 [DESCW-857](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-857)**
+
 - Frontend, Backend
   - Added project budget total to project deliverables section
 
 **August 10, 2023 [DESCW-1263](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1263)**
+
 - Frontend
   - Tweaked picker options for tab 39 report
 - Backend
   - Added model for tab 39 report
   - Added .xlsx template for tab 39 report
 
-
 **August 10, 2023 [DESCW-1256](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1256)**
+
 - Frontend
   - Tweaked picker options for tab 36 report
 - Backend
@@ -26,6 +34,7 @@
   - Experimented with Class for reports and error handling
 
 **August 10, 2023 [DESCW-1262](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1262)**
+
 - Frontend
   - Tweaked picker options for tab 28 report
 - Backend
@@ -34,11 +43,13 @@
   - Fixed a comment typo for tab 36 report
 
 **August 10, 2023 [DESCW-861](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-861)**
+
 - Frontend, Backend
   - Added portfolio budget breakdown for project section
   - Added deliverables breakdown for project section
 
 **August 9, 2023 [DESCW-1265](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1265)**
+
 - Frontend
   - Tweaked picker options for tab 36 report
 - Backend
@@ -46,14 +57,17 @@
   - Added .xlsx template for tab 36 report
 
 **August 9, 2023 [DESCW-861](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-861)**
+
 - Frontend
   - Added fiscal budget breakdown for project section
 
 **August 8, 2023 [DESCW-1388](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1388)**
+
 - Frontend
   - Added create new function for contract section
 
 **August 4, 2023 [DESCW-1264](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1264)**
+
 - Backend
   - Add model for tab 44 report
   - update documentation and clean up (rename) generic model boilerplate
@@ -62,12 +76,14 @@
   - Tweak picker options for tab 44 report
 
 **August 3, 2023 [DESCW-1265](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1265)**
+
 - Backend
   - Add model for tab 37 report
 - Frontend
   - Tweak picker options for tab 37 report
 
 **August 2, 2023 [DESCW-1317](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1317)**
+
 - Backend
   - delete controller for tab 13 report
   - Add model for tab 13 report
@@ -75,6 +91,7 @@
   - Add picker options for tab 13 report
 
 **August 2, 2023 [DESCW-1366](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1366)**
+
 - Backend
   - delete controller
   - delete route
@@ -84,41 +101,47 @@
   - refactor model for easy(easier) reading
 
 **July 31, 2023 [DESCW-1365](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1365)**
+
 - Backend
   - update generic model template
   - update generic controller template
-      - add (temporary) debugging for incoming model data
+    - add (temporary) debugging for incoming model data
   - refactor groupByProperty util
-      - add comments to make it easier to read
-      - add default parameters to the function signature
-      - fix strange timeout caused by failing _.isEmpty() or _.groupBy
+    - add comments to make it easier to read
+    - add default parameters to the function signature
+    - fix strange timeout caused by failing _.isEmpty() or _.groupBy
   - delete tab 48 route and controller (using generic)
   - refactored Tab_48 model
-      - replace all queries ( using Gary's Queries)
-      - use knex to reference report query for subtotal and totals queries
-      - add error handling to the model
+    - replace all queries ( using Gary's Queries)
+    - use knex to reference report query for subtotal and totals queries
+    - add error handling to the model
   - fixed error with fiscal_year model for tab38, and added error handling
   - build model for tab 38
   - sneaky edit on readme - Kyle plans to update the seeding/migration docs later
 
 **July 25, 2023**
+
 - Frontend
   - Fix theme types errors
 
 **July 24, 2023 [DESCW-1330](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1330)**
+
 - Backend
   - update getCurrentDate() to return local Date
 
 **July 24, 2023 [DESCW-`1331`](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1331)**
+
 - Frontend
   - Added fix that removed parameters if you change type.
   - Added react router protected route to report routes
 
 **July 21, 2023**
+
 - Meta
   - Added instructions to README for updating migrations and seeds.
 
 **July 21, 2023 [DESCW-1235](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1235)**
+
 - Frontend
   - update bcsans to 2.0.0
   - Add fixes for react router private routes
@@ -126,6 +149,7 @@
   - Removed all old code and add playground code to main components directory
 
 **July 21, 2023 [DESCW-1252](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1252)**
+
 - Frontend
   - enables quarter & fiscal year parameters for project jvs per fiscal/quarter rpt
   - adds tab 38 template
@@ -135,27 +159,29 @@
   - sneaky edit on readme - Kyle plans to update the seeding/migration docs later
 
 **July 20, 2023 [DESCW-1368](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1368)**
+
 - **Note**
-    - Delete your local gat_db database
-    - Create a new gat_db
-    - Pull latest version of sql to postgres converter
-        - connect to the VPN
-        - run npm run make seeds
-        - Copy .dat file from sql converter repo to your local agreements tracker production seeds folder
-    - run migrations and seeds
+
+  - Delete your local gat_db database
+  - Create a new gat_db
+  - Pull latest version of sql to postgres converter
+    - connect to the VPN
+    - run npm run make seeds
+    - Copy .dat file from sql converter repo to your local agreements tracker production seeds folder
+  - run migrations and seeds
 
 - Frontend
   - Fixed routing for new backend fixews to authenitication.
   - Added auto redirect for auth
   - Removed some old user table code
 - Backend
-    - Cleaned up old migrations and seeds
-    - Updated masterFormMap to latest versions
-    - Updated productions seeds to latest versions
-    -
-
+  - Cleaned up old migrations and seeds
+  - Updated masterFormMap to latest versions
+  - Updated productions seeds to latest versions
+  -
 
 **July 19, 2023 [DESCW-1364](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1364)**
+
 - Backend
   - added blank excel templates for each model
   - added tracking document to show blank vs complete templates for each model
@@ -163,11 +189,13 @@
   - improved formatting on blank excel template
 
 **July 18, 2023 [DESCW-1310](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1310)**
+
 - Frontend
   - Updated admin subcontrator section with new table component
   - Updated admin ministries section with new table component
 
 **July 17, 2023 [DESCW-1253](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1253)**
+
 - Frontend
   - enable recover forecast report with fiscal parameter
   - populate tab 43 excel template with carbone language matching model properties
@@ -176,6 +204,7 @@
   - update generic model template for greater convenience (using raw queries)
 
 **July 17, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
+
 - Backend
   - adds generic excel template for reports
   - updates generic report model to be easier to use out-of-the-box
@@ -188,11 +217,10 @@
     - Title of the page will now show in the page header
     - The page footer is now sticky
 
-
 **July 14, 2023 [DESCW-1255](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1255)**
+
 - Frontend
   - Moved Finance Recovery Project Summary Forecast to the Divisional Project Financials category
-
 
 **July 14, 2023 [DESCW-1224](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1224)**
 
