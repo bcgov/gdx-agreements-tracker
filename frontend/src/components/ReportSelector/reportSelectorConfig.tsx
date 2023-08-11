@@ -281,8 +281,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
         parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_40_rpt_PF_PortfolioAdminFees",
