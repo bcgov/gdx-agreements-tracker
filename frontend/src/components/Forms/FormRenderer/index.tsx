@@ -66,6 +66,7 @@ export const FormRenderer = ({
           changedValues: values,
           apiUrl: updateUrl,
           currentRowData: formData.data?.data.data,
+          tableName,
         }).then(async () => {
           await removeLock(formData, rowsToLock).then(() => {
             handleFormType("read");
