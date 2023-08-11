@@ -36,4 +36,15 @@ controller.deliverablesBreakdown = async (request, reply) => {
   }
 };
 
+controller.recoverablesBreakdown = async (request, reply) => {
+  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
+  try {
+    const targetId = Number(request.params.id);
+    const result = await model.findProjectRecoverableBreakdown(targetId);
+    return result ? result : [];
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
 module.exports = controller;

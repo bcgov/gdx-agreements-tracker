@@ -156,6 +156,28 @@ const findDeliverablesBreakdown = (projectId) => {
     .groupBy("pd.deliverable_name");
 };
 
+const findProjectRecoverableBreakdown = (projectId) => {
+  return knex
+    .select({
+      id: knex.raw("row_number() OVER ()"),
+      total_project_budget: knex.raw("SUM(detail_amount)"),
+      total_recovered_amount: knex.raw(`
+      SUM(
+        CASE
+          WHEN q1_recovered THEN q1_amount
+          WHEN q2_recovered THEN q2_amount
+          WHEN q3_recovered THEN q3_amount
+          WHEN q4_recovered THEN q4_amount
+          ELSE 0::money
+        END
+      )
+    `),
+    })
+    .from(`${projectBudgetTable} as pb`)
+    .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
+    .where("pd.project_id", projectId);
+};
+
 module.exports = {
   findAllById,
   findById,
@@ -164,4 +186,5 @@ module.exports = {
   findProjectBudgetByFiscal,
   findPortfolioBreakdown,
   findDeliverablesBreakdown,
+  findProjectRecoverableBreakdown,
 };

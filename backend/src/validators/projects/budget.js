@@ -130,6 +130,15 @@ const deliverablesBreakdown = {
   ),
 };
 
+const recoverablesBreakdown = {
+  params: S.object().prop("projectId", Schema.Id),
+  response: getResponse(
+    S.array().items(
+      S.object().prop("total_project_budget", S.string()).prop("total_recovered_amount", S.string())
+    )
+  ),
+};
+
 module.exports = {
   getAll,
   getOne,
@@ -138,4 +147,5 @@ module.exports = {
   fiscalBreakdown,
   portfolioBreakdown,
   deliverablesBreakdown,
+  recoverablesBreakdown,
 };
