@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { FormConfig } from "./FormConfig";
 import { useFormControls } from "hooks";
 import { IFormControls } from "types";
+import { TotalsDisplay } from "components/TotalsDisplay";
 
 /**
  * This is a TypeScript React component that renders a form for registering a project and uses hooks to
@@ -17,11 +18,17 @@ export const AgreementSection = () => {
   const formControls: IFormControls = useFormControls();
 
   return (
-    <FormRenderer
-      formControls={formControls}
-      tableName={"projects"}
-      formConfig={FormConfig}
-      formDataApiEndpoint={`/projects/${projectId}`}
-    />
+    <>
+      <FormRenderer
+        formControls={formControls}
+        tableName={"projects"}
+        formConfig={FormConfig}
+        formDataApiEndpoint={`/projects/${projectId}`}
+      />
+      <TotalsDisplay
+        apiEndPoint={`/projects/${projectId}/budget/recoverablesbreakdown`}
+        tableName="budget"
+      />
+    </>
   );
 };

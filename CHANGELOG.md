@@ -1,3 +1,7 @@
+**August 11, 2023 [DESCW-857](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-857)**
+- Frontend, Backend
+  - Added project budget total to project deliverables section
+  
 **August 10, 2023 [DESCW-1256](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1256)**
 - Frontend
   - Tweaked picker options for tab 36 report
