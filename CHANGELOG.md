@@ -5,6 +5,10 @@
   - Added model for tab 9 report
   - Added .xlsx template for tab 9 report
 
+**August 11, 2023 [DESCW-857](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-857)**
+- Frontend, Backend
+  - Added project budget total to project deliverables section
+
 **August 10, 2023 [DESCW-1263](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1263)**
 - Frontend
   - Tweaked picker options for tab 39 report
@@ -12,9 +16,6 @@
   - Added model for tab 39 report
   - Added .xlsx template for tab 39 report
 
-**August 11, 2023 [DESCW-857](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-857)**
-- Frontend, Backend
-  - Added project budget total to project deliverables section
 
 **August 10, 2023 [DESCW-1256](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1256)**
 - Frontend
