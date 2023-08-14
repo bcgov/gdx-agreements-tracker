@@ -381,6 +381,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
     label: "Divisional Contract Financials",
     types: [
       {
+        value: "Tab_9_rpt_MultiYrStats",
+        label: "Multi Year Annual Contract Stats",
+        description:
+          "Annual stats report on all Contracts showing number of contracts, total contracted amount, average duration, # of amendments, # with amendments, # of resources.",
+        parameters: [],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_12_rpt_CF_InvoicePaymentsbyPortfolio",
         label: "Invoice Payments by Portfolio",
         description:
