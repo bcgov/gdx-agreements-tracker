@@ -385,7 +385,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Annual Contract Multi Yr Stats",
         description:
           "Annual stats report on all Contracts showing number of contracts, total contracted amount, average duration, # of amendments, # with amendments, # of resources.",
-        parameters: ["portfolio"],
+        parameters: [],
         exportPDF: false,
         exportXLSX: true,
       },

@@ -2,7 +2,9 @@
 const { knex } = require("@database/databaseConnection")();
 
 /**
- * Retrieves the data for various financial metrics based on the fiscal year.
+ *
+ * Retrieves Annual stats report on all Contracts showing number of contracts,
+ * total contracted amount, average duration, # of amendments, # with amendments, # of resources.",
  *
  * @returns {Promise<*>}
  */
