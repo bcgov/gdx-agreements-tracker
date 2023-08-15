@@ -1,3 +1,8 @@
+**August 15, 2023 [DESCW-1426](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1426)**
+
+- Frontend
+  - Fixed issue with project contact rendering and saving changes
+
 **August 14, 2023 [DESCW-1278](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1278)**
 
 - Frontend
