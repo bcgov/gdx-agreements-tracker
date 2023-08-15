@@ -39,7 +39,15 @@ const FormConfig = (query: FormikValues) => {
     return row;
   };
 
-  const rowsToLock: Array<number> = [0];
+  const rowsToLock: Array<number> = !query.isLoading
+    ? []
+    : query?.data?.data?.data?.flatMap((obj: { rows_to_lock: [] }) =>
+        obj.rows_to_lock
+          ? obj.rows_to_lock.filter(
+              (val: null | undefined) => val !== null && val !== undefined && val !== 0
+            )
+          : []
+      );
 
   const updateUrl = `/projects/${projectId}/contacts`;
 

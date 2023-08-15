@@ -28,7 +28,7 @@ export const ReadField = ({
             <TextField
               disabled
               label={title}
-              defaultValue={value}
+              value={value}
               fullWidth
               sx={{
                 "& .MuiInputLabel-root ": {

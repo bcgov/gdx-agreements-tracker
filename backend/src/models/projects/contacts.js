@@ -7,14 +7,19 @@ const contactRoleTable = `${dataBaseSchemas().data}.contact_role`;
 
 const findAllById = async (projectId) => {
   return knex
-    .columns({ role_id: "cr.id" }, "cr.role_type", {
-      contacts: knex.raw(
-        `CASE json_agg(cp.id)::text
+    .columns(
+      { role_id: "cr.id" },
+      "cr.role_type",
+      {
+        contacts: knex.raw(
+          `CASE json_agg(cp.id)::text
           WHEN '[null]' THEN '[]'
           ELSE json_agg(json_strip_nulls(json_build_object('value', c.id, 'label', c.last_name || ', ' || c.first_name)))
         END`
-      ),
-    })
+        ),
+      },
+      { rows_to_lock: knex.raw(`array_agg(cp.id)`) }
+    )
     .select()
     .from(`${contactRoleTable} as cr`)
     .leftJoin(
