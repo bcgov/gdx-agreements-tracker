@@ -11,7 +11,6 @@ export const ReadForm = ({
   return (
     <FormLayout>
       {fields.map(({ width, title, value }) => {
-        console.log('value', value)
         return <ReadField width={width} title={title} value={value} key={title}></ReadField>;
       })}
     </FormLayout>

@@ -2,7 +2,7 @@ import { InputForm } from "components/Forms";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFormSubmit, useFormLock } from "hooks";
 import { ReadForm } from "components/Forms/ReadForm";
-import { Box, Button, LinearProgress, Skeleton } from "@mui/material";
+import { Box, Button, LinearProgress } from "@mui/material";
 import { IFormRenderer, ILockData } from "types";
 import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
@@ -97,12 +97,11 @@ export const FormRenderer = ({
    * The function `handleOnCancel` changes the form type to "read".
    */
   const handleOnCancel = async () => {
-
     if ("edit" === formType) {
       await removeLock(formData, rowsToLock).then(async () => {
         handleClose();
         formData.refetch();
-        return <div>e</div>
+        return <div>e</div>;
       });
     }
   };
@@ -162,7 +161,6 @@ export const FormRenderer = ({
   if ("read" === formType) {
     return (
       <>
-
         <ReadForm fields={readFields} />
 
         <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
@@ -185,7 +183,6 @@ export const FormRenderer = ({
         />
       </>
     );
-
   }
   return <LinearProgress />;
 };
