@@ -183,6 +183,7 @@ export interface IUseFormSubmitHandleSubmit {
   queryKeys?: string[];
   successMessage?: string;
   errorMessage?: string;
+  tableName?: string;
 }
 
 export interface IUseFormSubmitHandlePost {

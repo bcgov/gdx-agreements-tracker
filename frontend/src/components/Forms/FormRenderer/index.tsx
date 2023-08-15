@@ -66,6 +66,7 @@ export const FormRenderer = ({
           changedValues: values,
           apiUrl: updateUrl,
           currentRowData: formData.data?.data.data,
+          tableName,
         }).then(async () => {
           await removeLock(formData, rowsToLock).then(() => {
             handleFormType("read");
@@ -98,10 +99,11 @@ export const FormRenderer = ({
   const handleOnCancel = async () => {
     if ("edit" === formType) {
       await removeLock(formData, rowsToLock).then(async () => {
-        await formData.refetch();
+        handleClose();
+        formData.refetch();
+        return <div>e</div>;
       });
     }
-    handleClose();
   };
 
   /**

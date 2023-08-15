@@ -1,10 +1,13 @@
 import { FormikValues } from "formik";
+import { useParams } from "react-router-dom";
 import { IEditField } from "types";
 
-const FormConfig = (query: Array<FormikValues>) => {
-  const readFields = !Array.isArray(query)
+const FormConfig = (query: FormikValues) => {
+  const { projectId } = useParams();
+
+  const readFields = !Array.isArray(query.data?.data?.data)
     ? []
-    : query?.map((row) => {
+    : query.data?.data?.data?.map((row: { role_type: string; contacts: { label: string }[] }) => {
         return {
           width: "half",
           title: row.role_type,
@@ -16,9 +19,9 @@ const FormConfig = (query: Array<FormikValues>) => {
 
   const roleSplitRegex = /(?=[A-Z][a-z])/;
 
-  const editFields: IEditField[] = !Array.isArray(query)
+  const editFields: IEditField[] = !Array.isArray(query.data?.data?.data)
     ? []
-    : query.map((role) => ({
+    : query?.data?.data?.data?.map((role: { role_id: string; role_type: string }) => ({
         fieldName: role.role_id,
         fieldLabel: role.role_type.split(roleSplitRegex).join(" "),
         fieldType: "multiselect",
@@ -36,7 +39,19 @@ const FormConfig = (query: Array<FormikValues>) => {
     return row;
   };
 
-  return { readFields, editFields, initialValues };
+  const rowsToLock: Array<number> = !query.isLoading
+    ? []
+    : query?.data?.data?.data?.flatMap((obj: { rows_to_lock: [] }) =>
+        obj.rows_to_lock
+          ? obj.rows_to_lock.filter(
+              (val: null | undefined) => val !== null && val !== undefined && val !== 0
+            )
+          : []
+      );
+
+  const updateUrl = `/projects/${projectId}/contacts`;
+
+  return { readFields, editFields, initialValues, rowsToLock, updateUrl };
 };
 
 export default FormConfig;

@@ -13,16 +13,22 @@ export const useFormSubmit = () => {
     changedValues,
     currentRowData,
     apiUrl,
+    tableName,
   }: IUseFormSubmitHandleSubmit) => {
-    const deltaChanges: {
+    let deltaChanges: {
       [key: string]: boolean;
     } = {};
-    for (const key in changedValues) {
-      if (changedValues[key] !== currentRowData[key]) {
-        if (null !== changedValues[key] && changedValues[key].value) {
-          deltaChanges[key] = changedValues[key].value;
-        } else {
-          deltaChanges[key] = changedValues[key];
+
+    if ("contact_project" === tableName) {
+      deltaChanges = changedValues;
+    } else {
+      for (const key in changedValues) {
+        if (changedValues[key] !== currentRowData[key]) {
+          if (null !== changedValues[key] && changedValues[key].value) {
+            deltaChanges[key] = changedValues[key].value;
+          } else {
+            deltaChanges[key] = changedValues[key];
+          }
         }
       }
     }
