@@ -1,3 +1,8 @@
+**August 16, 2023**
+
+- Frontend
+  - Fixed cancel functionality for forms
+  
 **August 15, 2023 [DESCW-1426](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1426)**
 
 - Frontend
