@@ -2,6 +2,7 @@ const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 const { groupByProperty } = require("../../controllers/reports/helpers");
 const _ = require("lodash");
+const { whereInArray } = require("./helpers");
 
 /**
  * Retrieves the Project Forecasting by Quarter, filtered by portfolio
@@ -72,16 +73,7 @@ const reportQueries = {
         "q1.fiscal_year",
         "q1.portfolio_abbrev"
       )
-      // If a portfolio filter has been selected, return only queries matching those portfolios. Otherwise, return them all.
-      .modify((queryBuilder) => {
-        if (portfolio) {
-          queryBuilder.whereIn(
-            "q1.portfolio_id",
-            // If portfolio is not an array, transform it into one so we can use the .whereIn() function.
-            portfolio instanceof Array ? portfolio[0].split(",") : [portfolio]
-          );
-        }
-      })
+      .modify(whereInArray, "q1.portfolio_id", portfolio)
       .andWhere("q1.fiscal", fiscal)
       .orderBy("portfolio_name", "project_number"),
 

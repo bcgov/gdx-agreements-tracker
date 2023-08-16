@@ -1,5 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
+const { whereInArray } = require("./helpers");
 
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
@@ -50,15 +51,7 @@ const reportQueries = {
     )
     .select()
     .from("q")
-    .modify((queryBuilder) => {
-      if (portfolio) {
-        queryBuilder.whereIn(
-          "q.portfolio_id",
-          // If portfolio is not an array, transform it into one so we can use the .whereIn() function.
-          portfolio instanceof Array ? portfolio[0].split(",") : [portfolio]
-        );
-      }
-    })
+    .modify(whereInArray, "q.portfolio_id", portfolio)
     .andWhere("q.r", 1)
     .andWhere("q.phase_name", "<>", "'Archive'")
 };
