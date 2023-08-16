@@ -6,8 +6,9 @@ const _ = require("lodash");
 /**
  * Retrieves the Project Forecasting by Quarter, filtered by portfolio
  *
- * @param   {number | string | Array} portfolio- The portfolio(s) to grab data for
- * @returns {Promise}                            - A promise that resolves to the query result
+ * @param   {number}                  fiscal    - The fiscal year to grab data for
+ * @param   {number | Array} portfolio - The portfolio(s) to grab data for
+ * @returns {Promise}                           - A promise that resolves to the query result
  */
 
 //const portfolio = [portfolio];
@@ -23,7 +24,7 @@ const reportQueries = {
   },
 
   // The report query, which builds off of base queries.
-  report: (portfolio) =>
+  report: (fiscal, portfolio) =>
     knex
       .with(
         "q1",
@@ -38,7 +39,8 @@ const reportQueries = {
             pb.q3_amount, 
             pb.q4_amount, 
             po.portfolio_abbrev, 
-            fy.fiscal_year 
+            fy.fiscal_year,
+            fy.id AS fiscal
           FROM 
             project_budget pb 
           LEFT JOIN project_deliverable pd ON pb.project_deliverable_id = pd.id 
@@ -66,23 +68,26 @@ const reportQueries = {
         "q1.portfolio_name",
         "q1.project_number",
         "q1.project_name",
+        "q1.fiscal",
         "q1.fiscal_year",
         "q1.portfolio_abbrev"
       )
-      .havingRaw(
-        `(
-          q1.fiscal_year LIKE '%' || '20' || '%'
-        ) 
-        AND (
-          q1.portfolio_abbrev = CASE WHEN 'All' = 'All' THEN portfolio_abbrev ELSE 'All' END
-        )`
-      )
-      .whereIn("q1.portfolio_id", portfolio instanceof Array ? portfolio : [portfolio])
+      // If a portfolio filter has been selected, return only queries matching those portfolios. Otherwise, return them all.
+      .modify((queryBuilder) => {
+        if (portfolio) {
+          queryBuilder.whereIn(
+            "q1.portfolio_id",
+            // If portfolio is not an array, transform it into one so we can use the .whereIn() function.
+            portfolio instanceof Array ? portfolio[0].split(",") : [portfolio]
+          );
+        }
+      })
+      .andWhere("q1.fiscal", fiscal)
       .orderBy("portfolio_name", "project_number"),
 
   // Subtotals for each portfolio.
-  totals: (portfolio) =>
-    knex(reportQueries.report(portfolio).as("report"))
+  totals: (fiscal, portfolio) =>
+    knex(reportQueries.report(fiscal, portfolio).as("report"))
       .select({
         portfolio_name: "portfolio_name",
       })
@@ -90,17 +95,17 @@ const reportQueries = {
       .groupBy("portfolio_name"),
 
   // Grand totals for the report columns.
-  grandTotals: (portfolio) =>
-    knex(reportQueries.report(portfolio).as("report")).sum(reportQueries.columns),
+  grandTotals: (fiscal, portfolio) =>
+    knex(reportQueries.report(fiscal, portfolio).as("report")).sum(reportQueries.columns),
 };
 
 module.exports = {
-  required: ["portfolio"],
-  getAll: async ({ portfolio }) => {
+  required: ["fiscal"],
+  getAll: async ({ fiscal, portfolio }) => {
     const [report, totals, grand_totals] = await Promise.all([
-      reportQueries.report(portfolio),
-      reportQueries.totals(portfolio),
-      reportQueries.grandTotals(portfolio),
+      reportQueries.report(fiscal, portfolio),
+      reportQueries.totals(fiscal, portfolio),
+      reportQueries.grandTotals(fiscal, portfolio),
     ]);
 
     // Restructure data to allow for grouping by portfolios

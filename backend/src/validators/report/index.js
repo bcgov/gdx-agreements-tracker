@@ -8,7 +8,7 @@ const getReport = {
     .prop("type", S.anyOf([S.string(), S.null()]))
     .prop("exportType", S.string())
     .prop("fiscal", S.number())
-    .prop("portfolio", S.number())
+    .prop("portfolio", S.anyOf([S.number(), S.array()]))
     .required(["templateType", "category", "exportType"]),
   headers: S.object().prop("Authorization", S.string().minLength(1500)).required(["Authorization"]),
   response: {
