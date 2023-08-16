@@ -1,6 +1,7 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 const { whereInArray } = require("./helpers");
+const _ = require("lodash");
 
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
