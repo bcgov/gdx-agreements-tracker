@@ -1,8 +1,8 @@
 // libs
 const { knex } = require("@database/databaseConnection")();
-const _ = require("lodash");
+
 // utils
-const { groupByProperty } = require("../../controllers/reports/helpers");
+const { getReportWithSubtotals } = require("../../controllers/reports/helpers");
 
 // Query model - this object organizes the promises that resolve to each part of the query results for the report
 const queries = {
@@ -234,13 +234,15 @@ class Report {
    * @returns {Promise<object>} An object containing the fiscal year and report data.
    */
   async getAll() {
-    const { required, getReportWithSubtotals } = this;
+    const { required } = this;
     const { fiscal_year } = await queries.fiscal(required);
     const report = await queries.report(required).catch((error) => {
       console.error(error);
     });
-    const reportMayIncludeSubtotals = queries?.subtotals
-      ? await getReportWithSubtotals(report, required)
+    // Get the subtotals data from the database
+    const subtotals = await queries.subtotals(required);
+    const reportMayIncludeSubtotals = subtotals
+      ? await getReportWithSubtotals(report, subtotals, "project_number")
       : report;
     const totals = queries?.totals ? await queries.totals(required) : null;
 
@@ -249,37 +251,6 @@ class Report {
       report: reportMayIncludeSubtotals,
       totals,
     };
-  }
-
-  /**
-   * Gets a report with subtotals.
-   *
-   * @async
-   * @param   {Array}          report   - The report data.
-   * @param   {any}            required - The required parameters for the subtotals query.
-   * @returns {Promise<Array>}          An array of report Promise objects with subtotals added.
-   */
-  async getReportWithSubtotals(report, required) {
-    // Get the subtotals data from the database
-    const subtotals = await queries.subtotals(required);
-
-    // Group the report data by project number
-    const reportsByProjectNumber = groupByProperty(report, "project_number");
-
-    // Create an object with the subtotals data keyed by project number
-    const subtotalsByProjectNumber = _.keyBy(subtotals, "project_number");
-
-    // Add the subtotals data to the report data
-    const reportsByProjectNumberWithSubtotals = reportsByProjectNumber.map((report) => {
-      return {
-        project_name: _.get(report.projects, "0").project_name,
-        ...report,
-        subtotals: subtotalsByProjectNumber[report.project_number],
-      };
-    });
-
-    // Return the report data with subtotals added
-    return reportsByProjectNumberWithSubtotals;
   }
 }
 

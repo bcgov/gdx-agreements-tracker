@@ -381,6 +381,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
     label: "Divisional Contract Financials",
     types: [
       {
+        value: "Tab_2_rpt_CA_ActiveContractorList",
+        label: "Active Contractor Resource List",
+        description:
+          "Provides a list of all contractors with an active contract in place sorted by Portfolio",
+        parameters: [],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_9_rpt_CA_MultiYrStats",
         label: "Annual Contract Multi Yr Stats",
         description:

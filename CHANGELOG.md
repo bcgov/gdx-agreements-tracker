@@ -1,8 +1,21 @@
 **August 16, 2023**
 
+- Backend
+  - Tab 2 model
+  - add `getReportWithSubtotals` utility function to helper
+  - refactor SELECT clause of query to use DISTINCT to weed out identical rows
+  - tweak tab 31 model to extract the subtotal folding method from the model
+- Frontend
+  - Tab 2 template
+  - create new menu selector option for tab 2 report
+  - add description from LAN priority list spreadsheet
+  - adjust formatting on tab31 template
+
+**August 16, 2023**
+
 - Frontend
   - Fixed cancel functionality for forms
-  
+
 **August 15, 2023 [DESCW-1426](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1426)**
 
 - Frontend

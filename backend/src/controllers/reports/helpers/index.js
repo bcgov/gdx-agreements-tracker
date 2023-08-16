@@ -56,8 +56,10 @@ const getDocumentApiBody = async (data, templateFileName, templateType = "docx")
     `);
   }
 
-  const templateContent = await loadTemplate(getTemplatePath({ templateType, templateFileName }));
-  const outputFormat = templateMap[templateType];
+  // grab template file contents and encode it
+  const templateContent = await loadTemplate(
+    path.resolve(__dirname, `../../../../reports/${templateType}/${templateFileName}`)
+  );
 
   return {
     data,
@@ -65,7 +67,7 @@ const getDocumentApiBody = async (data, templateFileName, templateType = "docx")
       '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
     options: {
       cacheReport: true,
-      convertTo: outputFormat,
+      convertTo: templateMap[templateType],
       overwrite: true,
       reportName: templateFileName,
     },
@@ -92,17 +94,6 @@ const isValidInput = ({ templateType, templateFileName }) => {
 
   return isValidFiletype && isValidTemplateType;
 };
-
-/**
- * Returns the absolute path to a template file based on the provided template type and file name.
- *
- * @param   {object} options                  - The options object.
- * @param   {string} options.templateType     - The type of the template.
- * @param   {string} options.templateFileName - The name of the template file.
- * @returns {string}                          - The absolute path to the template file.
- */
-const getTemplatePath = ({ templateType, templateFileName }) =>
-  path.resolve(__dirname, `../../../../reports/${templateType}/${templateFileName}`);
 
 /**
  * Returns a function that retrieves the header information based on the specified template type and sets the response headers accordingly.
@@ -203,6 +194,7 @@ const validateQueryParameters = ({
   }
   return { fiscal, portfolio, templateType, outputType };
 };
+
 /**
  * Get the current date in the Vancouver timezone
  * the date is in ISO "YYYY-MM-DD" format
@@ -214,13 +206,60 @@ const getCurrentDate = async () =>
     .toISOString()
     .split("T")[0];
 
+/**
+ * Gets a report with subtotals.
+ *
+ * @param   {Array}          report            - The report data.
+ * @param   {Array}          subtotals         - The report subtotal data.
+ * @param   {string}         propertyToGroupBy - The property to group the report data by.
+ * @returns {Promise<Array>}                   An array of report Promise objects with subtotals added.
+ */
+const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
+  // Group the report data by the specified property
+  const groupedReport = groupByProperty(report, propertyToGroupBy);
+
+  // Use reduce to fold in subtotals for each group
+  return _.reduce(
+    groupedReport,
+    (acc, report) =>
+      getNewReportGroup({
+        acc,
+        report,
+        subtotals,
+        propertyToGroupBy,
+      }),
+    // initial value - empty array to hold each new report group with subtotals as they accumulate
+    []
+  );
+};
+
+// helper utilities for getting a Report grouped by a property, with subtotals for each group
+const getNewReportGroup = ({ acc, report, subtotals, propertyToGroupBy }) =>
+  // adds a new report group object with the project name and subtotals
+  [
+    ...acc,
+    {
+      project_name: getProjectName(report),
+      ...report,
+      subtotals: getReportGroupSubtotals(report, subtotals, propertyToGroupBy),
+    },
+  ];
+const getProjectName = (report) =>
+  // Get the project name from the first project in the report's projects array
+  report?.projects?.[0]?.project_name || "";
+const getReportGroupSubtotals = (report, subtotals, propertyToGroupBy) =>
+  // Get the subtotals for the report group
+  _.keyBy(subtotals, propertyToGroupBy)[report[propertyToGroupBy]];
+
+// Exports
 module.exports = {
+  getCurrentDate,
   getDocumentApiBody,
   getReport,
+  getReportAndSetRequestHeaders,
+  getReportWithSubtotals,
   groupByProperty,
   loadTemplate,
   pdfConfig,
   validateQueryParameters,
-  getCurrentDate,
-  getReportAndSetRequestHeaders,
 };
