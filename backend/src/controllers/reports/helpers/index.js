@@ -56,8 +56,10 @@ const getDocumentApiBody = async (data, templateFileName, templateType = "docx")
     `);
   }
 
-  const templateContent = await loadTemplate(getTemplatePath({ templateType, templateFileName }));
-  const outputFormat = templateMap[templateType];
+  // grab template file contents and encode it
+  const templateContent = await loadTemplate(
+    path.resolve(__dirname, `../../../../reports/${templateType}/${templateFileName}`)
+  );
 
   return {
     data,
@@ -65,7 +67,7 @@ const getDocumentApiBody = async (data, templateFileName, templateType = "docx")
       '{"formatMoney":"_function_formatMoney|function(data) { return data.toFixed(2); }"}',
     options: {
       cacheReport: true,
-      convertTo: outputFormat,
+      convertTo: templateMap[templateType],
       overwrite: true,
       reportName: templateFileName,
     },
@@ -92,17 +94,6 @@ const isValidInput = ({ templateType, templateFileName }) => {
 
   return isValidFiletype && isValidTemplateType;
 };
-
-/**
- * Returns the absolute path to a template file based on the provided template type and file name.
- *
- * @param   {object} options                  - The options object.
- * @param   {string} options.templateType     - The type of the template.
- * @param   {string} options.templateFileName - The name of the template file.
- * @returns {string}                          - The absolute path to the template file.
- */
-const getTemplatePath = ({ templateType, templateFileName }) =>
-  path.resolve(__dirname, `../../../../reports/${templateType}/${templateFileName}`);
 
 /**
  * Returns a function that retrieves the header information based on the specified template type and sets the response headers accordingly.
@@ -214,13 +205,48 @@ const getCurrentDate = async () =>
     .toISOString()
     .split("T")[0];
 
+/**
+ * Gets a report with subtotals.
+ * Can be used to 'fold in' subtotals for financial reports or other reports that have subtotals.
+ * This also handles grouping the report by a specified property: 'propertyToGroupBy'.
+ *
+ * @param   {Array}         report            - The report data.
+ * @param   {Array}         subtotals         - The report subtotal data.
+ * @param   {string}        propertyToGroupBy - The property to group the report data by.
+ * @returns {Object<Array>}                   An array of report objects with subtotals added.
+ */
+const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
+  const groupedReport = groupByProperty(report, propertyToGroupBy);
+  const keyedSubtotals = _.keyBy(subtotals, propertyToGroupBy);
+
+  return _.reduce(
+    groupedReport,
+    (reportWithSubtotals, report) => {
+      const projectName = _.chain(report.projects).head().get("project_name", "").value();
+      const reportSubtotals = keyedSubtotals[report[propertyToGroupBy]];
+
+      return [
+        ...reportWithSubtotals,
+        {
+          project_name: projectName,
+          ...report,
+          subtotals: reportSubtotals,
+        },
+      ];
+    },
+    // initial value - empty array to hold the report with subtotals as it accumulates a new report with each reduce iteration
+    []
+  );
+};
+
 module.exports = {
+  getCurrentDate,
   getDocumentApiBody,
   getReport,
+  getReportAndSetRequestHeaders,
+  getReportWithSubtotals,
   groupByProperty,
   loadTemplate,
   pdfConfig,
   validateQueryParameters,
-  getCurrentDate,
-  getReportAndSetRequestHeaders,
 };
