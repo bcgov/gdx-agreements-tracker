@@ -217,35 +217,43 @@ const getCurrentDate = async () =>
 const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
   // Group the report data by the specified property
   const groupedReport = groupByProperty(report, propertyToGroupBy);
-
-  // Key the subtotals data by the specified property
   const keyedSubtotals = _.keyBy(subtotals, propertyToGroupBy);
 
-  // Use reduce to accumulate an array of report objects with subtotals added
+  // Use reduce to fold in subtotals for each group
   return _.reduce(
     groupedReport,
-    (reportWithSubtotals, report) => {
-      // Get the project name from the first project in the report's projects array
-      const projectName = _.chain(report.projects).head().get("project_name", "").value();
-
-      // Get the subtotals for this report from the keyed subtotals data
-      const reportSubtotals = keyedSubtotals[report[propertyToGroupBy]];
-
-      // Add a new report object to the accumulator with the project name and subtotals added
-      return [
-        ...reportWithSubtotals,
-        {
-          project_name: projectName,
-          ...report,
-          subtotals: reportSubtotals,
-        },
-      ];
-    },
+    (acc, report) =>
+      getNewReportGroup({
+        acc,
+        report,
+        reportSubtotals: getReportGroupSubtotals(report, keyedSubtotals, propertyToGroupBy),
+      }),
     // initial value - empty array to hold each new report group with subtotals as they accumulate
     []
   );
 };
 
+// helper utilities for getting a Report grouped by a property, with subtotals for each group
+const getReportGroupSubtotals = (report, keyedSubtotals, propertyToGroupBy) =>
+  // Get the subtotals for the report group
+  keyedSubtotals[report[propertyToGroupBy]];
+
+const getNewReportGroup = ({ acc, report, reportSubtotals }) =>
+  // adds a new report group object with the project name and subtotals
+  [
+    ...acc,
+    {
+      project_name: getProjectName(report),
+      ...report,
+      subtotals: reportSubtotals,
+    },
+  ];
+
+const getProjectName = (report) =>
+  // Get the project name from the first project in the report's projects array
+  report?.projects?.[0]?.project_name || "";
+
+// Exports
 module.exports = {
   getCurrentDate,
   getDocumentApiBody,
