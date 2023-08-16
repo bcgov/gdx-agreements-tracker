@@ -1,6 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-const _ = require("lodash");
+const { whereInArray } = require("./helpers");
 
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
@@ -45,9 +45,7 @@ module.exports = (portfolios) => {
   query.orderBy([{ column: "portfolio_name" }, { column: "project_number", order: "desc" }]);
 
   // filter by the portfolio list passed in from the frontend(if valid)
-  if (undefined !== portfolios) {
-    query.whereIn("q.portfolio_id", _.castArray(portfolios));
-  }
+  query.modify(whereInArray, "q.portfolio_id", portfolios);
 
   return query;
 };

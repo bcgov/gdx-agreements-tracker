@@ -280,7 +280,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Forecasting by Quarter",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
-        parameters: ["portfolio"],
+        parameters: ["fiscal", "portfolio"],
         exportPDF: false,
         exportXLSX: true,
       },

@@ -1,5 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
+const { whereInArray } = require("./helpers");
 
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
@@ -37,15 +38,7 @@ const rpt_PA_Registered = (requestParams) => {
     .orderBy("data.project.fiscal", "desc")
     .orderBy("data.project.project_number", "desc");
 
-  // This param. is optional so we need a condition to check for the param. before we add a where clause.
-  if (requestParams.portfolio) {
-    //Check if the portfolio param has multiple values. If It does add a "knex.whereIn" passing the portfolios (in the format of an Array).
-    if (Array.isArray(requestParams.portfolio)) {
-      query.whereIn("data.project.portfolio_id", requestParams.portfolio);
-    } else {
-      query.where({ " data.project.portfolio_id": requestParams.portfolio });
-    }
-  }
+  query.modify(whereInArray, "data.project.portfolio_id", requestParams.portfolio);
 
   //The frontend enforces that you enter a date, this is a second layer of validation.  This is a unique knex query where knex will check if the initiation date is greater than or equal to the param date passed in.
   if (requestParams.date) {

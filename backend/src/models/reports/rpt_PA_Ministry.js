@@ -1,6 +1,7 @@
 // libs
 const { knex } = require("@database/databaseConnection")();
 const _ = require("lodash");
+const { whereInArray } = require("./helpers");
 
 // Utils
 const { groupByProperty } = require("../../controllers/reports/helpers/index");
@@ -16,9 +17,6 @@ const queries = {
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
   report: ({ fiscal, portfolio }) => {
-    // turn the portfolio into an array if it isn't already an array
-    const portfolios = _.castArray(portfolio);
-
     const subquery = knex
       .select(
         knex.raw(`COALESCE(ministry_name, ' ') as ministry_name`),
@@ -37,7 +35,7 @@ const queries = {
       )
       .from("v_projects_by_ministry")
       .where("fiscal_year_id", fiscal)
-      .whereIn("portfolio_id", portfolios);
+      .modify(whereInArray, "portfolio_id", portfolio);
 
     const fullQuery = knex.with("base", subquery).select("*").from("base");
 
@@ -47,8 +45,6 @@ const queries = {
    * gets the projects per ministry
    */
   projectsAndBudgetsPerMinistry: ({ portfolio, fiscal }) => {
-    const portfolios = _.castArray(portfolio);
-
     return knex
       .select(
         knex.raw(`
@@ -61,15 +57,13 @@ const queries = {
       .groupBy("ministry_id", "ministry_name", "fiscal_year", "fiscal_year_id")
       .orderBy("ministry_name", "asc")
       .where("fiscal_year_id", fiscal)
-      .whereIn("portfolio_id", portfolios);
+      .modify(whereInArray, "portfolio_id", portfolio);
   },
 
   /*
    * gets the grand total of project budgets for all ministries in this fiscal year
    */
   reportTotals: ({ fiscal, portfolio }) => {
-    const portfolios = _.castArray(portfolio);
-
     const query = knex
       .select(
         knex.raw(
@@ -77,14 +71,14 @@ const queries = {
         )
       )
       .where("fiscal_year_id", fiscal)
-      .whereIn("portfolio_id", portfolios);
+      .modify(whereInArray, "portfolio_id", portfolio);
 
     return query;
   },
 };
 
 module.exports = {
-  required: ["fiscal", "portfolio"],
+  required: ["fiscal"],
   getAll: async ({ fiscal, portfolio }) => {
     // Use Promise.all to run multiple queries in parallel
     const [{ fiscal_year }, report, projectsAndBudgetsPerMinistry, reportTotals] =
