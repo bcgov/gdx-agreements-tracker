@@ -217,7 +217,6 @@ const getCurrentDate = async () =>
 const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
   // Group the report data by the specified property
   const groupedReport = groupByProperty(report, propertyToGroupBy);
-  const keyedSubtotals = _.keyBy(subtotals, propertyToGroupBy);
 
   // Use reduce to fold in subtotals for each group
   return _.reduce(
@@ -226,7 +225,8 @@ const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
       getNewReportGroup({
         acc,
         report,
-        reportSubtotals: getReportGroupSubtotals(report, keyedSubtotals, propertyToGroupBy),
+        subtotals,
+        propertyToGroupBy,
       }),
     // initial value - empty array to hold each new report group with subtotals as they accumulate
     []
@@ -234,24 +234,22 @@ const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
 };
 
 // helper utilities for getting a Report grouped by a property, with subtotals for each group
-const getReportGroupSubtotals = (report, keyedSubtotals, propertyToGroupBy) =>
-  // Get the subtotals for the report group
-  keyedSubtotals[report[propertyToGroupBy]];
-
-const getNewReportGroup = ({ acc, report, reportSubtotals }) =>
+const getNewReportGroup = ({ acc, report, subtotals, propertyToGroupBy }) =>
   // adds a new report group object with the project name and subtotals
   [
     ...acc,
     {
       project_name: getProjectName(report),
       ...report,
-      subtotals: reportSubtotals,
+      subtotals: getReportGroupSubtotals(report, subtotals, propertyToGroupBy),
     },
   ];
-
 const getProjectName = (report) =>
   // Get the project name from the first project in the report's projects array
   report?.projects?.[0]?.project_name || "";
+const getReportGroupSubtotals = (report, subtotals, propertyToGroupBy) =>
+  // Get the subtotals for the report group
+  _.keyBy(subtotals, propertyToGroupBy)[report[propertyToGroupBy]];
 
 // Exports
 module.exports = {

@@ -1,12 +1,8 @@
-/**
- * A GENERIC MODEL STARTER TEMPLATE FOR FUTURE REPORT
- *
- * for a working example, look at: backend/src/models/reports/Tab_44_rpt_PF_RecoveryToDateDetails.js
- *
- */
-
 // libs
 const { knex } = require("@database/databaseConnection")();
+
+// utils
+const { groupByProperty } = require("../../controllers/reports/helpers");
 
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
@@ -66,7 +62,7 @@ const queries = {
           ) a`
         )
       )
-      .select({
+      .distinct({
         portfolio_name: "po.portfolio_name",
         resource_first_name: "r.resource_first_name",
         resource_last_name: "r.resource_last_name",
@@ -110,9 +106,15 @@ const queries = {
   },
 };
 
-const getAll = async () => ({
-  report: await queries.report(),
-});
+const getAll = async () => {
+  const queryResults = await queries.report();
+
+  const reportByPortfolio = groupByProperty(queryResults, "portfolio_name");
+
+  return {
+    report: reportByPortfolio,
+  };
+};
 
 // return the model data
 module.exports = { required: [], getAll: getAll };

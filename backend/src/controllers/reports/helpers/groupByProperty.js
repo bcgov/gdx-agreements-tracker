@@ -1,3 +1,4 @@
+// TODO: figure out if this is used anywhere and if so, move it to a more appropriate location
 /**
  * Separates an array of projects into groups by a property.
  *
