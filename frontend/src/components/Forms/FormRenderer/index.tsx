@@ -98,12 +98,10 @@ export const FormRenderer = ({
    */
   const handleOnCancel = async () => {
     if ("edit" === formType) {
-      await removeLock(formData, rowsToLock).then(async () => {
-        handleClose();
-        formData.refetch();
-        return <div>e</div>;
-      });
+      await removeLock(formData, rowsToLock);
     }
+    handleClose();
+    formData.refetch();
   };
 
   /**
@@ -164,11 +162,14 @@ export const FormRenderer = ({
         <ReadForm fields={readFields} />
 
         <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-          <Box>
-            <Button variant="contained" onClick={handleOnCancel} color="secondary">
-              Cancel
-            </Button>
-          </Box>
+          {"edit" === formType ||
+            ("new" === formType && (
+              <Box>
+                <Button variant="contained" onClick={handleOnCancel} color="secondary">
+                  Cancel
+                </Button>
+              </Box>
+            ))}
           <Box ml={1}>
             <Button variant="contained" onClick={handleOnChange}>
               Change Section
