@@ -194,6 +194,7 @@ const validateQueryParameters = ({
   }
   return { fiscal, portfolio, templateType, outputType };
 };
+
 /**
  * Get the current date in the Vancouver timezone
  * the date is in ISO "YYYY-MM-DD" format
@@ -207,24 +208,30 @@ const getCurrentDate = async () =>
 
 /**
  * Gets a report with subtotals.
- * Can be used to 'fold in' subtotals for financial reports or other reports that have subtotals.
- * This also handles grouping the report by a specified property: 'propertyToGroupBy'.
  *
- * @param   {Array}         report            - The report data.
- * @param   {Array}         subtotals         - The report subtotal data.
- * @param   {string}        propertyToGroupBy - The property to group the report data by.
- * @returns {Object<Array>}                   An array of report objects with subtotals added.
+ * @param   {Array}          report            - The report data.
+ * @param   {Array}          subtotals         - The report subtotal data.
+ * @param   {string}         propertyToGroupBy - The property to group the report data by.
+ * @returns {Promise<Array>}                   An array of report Promise objects with subtotals added.
  */
 const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
+  // Group the report data by the specified property
   const groupedReport = groupByProperty(report, propertyToGroupBy);
+
+  // Key the subtotals data by the specified property
   const keyedSubtotals = _.keyBy(subtotals, propertyToGroupBy);
 
+  // Use reduce to accumulate an array of report objects with subtotals added
   return _.reduce(
     groupedReport,
     (reportWithSubtotals, report) => {
+      // Get the project name from the first project in the report's projects array
       const projectName = _.chain(report.projects).head().get("project_name", "").value();
+
+      // Get the subtotals for this report from the keyed subtotals data
       const reportSubtotals = keyedSubtotals[report[propertyToGroupBy]];
 
+      // Add a new report object to the accumulator with the project name and subtotals added
       return [
         ...reportWithSubtotals,
         {
@@ -234,7 +241,7 @@ const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
         },
       ];
     },
-    // initial value - empty array to hold the report with subtotals as it accumulates a new report with each reduce iteration
+    // initial value - empty array to hold each new report group with subtotals as they accumulate
     []
   );
 };
