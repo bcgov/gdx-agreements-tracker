@@ -7,9 +7,9 @@ const { whereInArray } = require("./helpers");
 /**
  * Retrieves the Project Forecasting by Quarter, filtered by portfolio
  *
- * @param   {number}                  fiscal    - The fiscal year to grab data for
+ * @param   {number}         fiscal    - The fiscal year to grab data for
  * @param   {number | Array} portfolio - The portfolio(s) to grab data for
- * @returns {Promise}                           - A promise that resolves to the query result
+ * @returns {Promise}                  - A promise that resolves to the query result
  */
 
 //const portfolio = [portfolio];

@@ -1,6 +1,13 @@
 **August 16, 2023**
 
 - Backend
+  - Fixed a bug that was not allowing multiselect report parameters to include more or less than exactly one selection.
+  - Added a helper function .whereInArray() for reports for easily filtering on multiselect parameters.
+    - See `/backend/src/models/reports/helpers/index.js` for usage.
+
+**August 16, 2023**
+
+- Backend
   - Tab 2 model
   - add `getReportWithSubtotals` utility function to helper
   - refactor SELECT clause of query to use DISTINCT to weed out identical rows

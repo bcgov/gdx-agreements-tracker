@@ -1,6 +1,5 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-const _ = require("lodash");
 const { whereInArray } = require("./helpers");
 
 /**
@@ -46,7 +45,7 @@ module.exports = (portfolios) => {
   query.orderBy([{ column: "portfolio_name" }, { column: "project_number", order: "desc" }]);
 
   // filter by the portfolio list passed in from the frontend(if valid)
-  query.modify(whereInArray, "q.portfolio_id", portfolios)
+  query.modify(whereInArray, "q.portfolio_id", portfolios);
 
   return query;
 };

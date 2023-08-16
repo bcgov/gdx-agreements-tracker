@@ -1,7 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
 const { whereInArray } = require("./helpers");
-const _ = require("lodash");
 
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
@@ -10,10 +9,11 @@ const _ = require("lodash");
  */
 const reportQueries = {
   report: (portfolio) =>
-    knex.with(
-      "q",
-      knex.raw(
-        `SELECT
+    knex
+      .with(
+        "q",
+        knex.raw(
+          `SELECT
           p.id AS project_id,
           po.portfolio_name,
           p.project_number,
@@ -48,21 +48,20 @@ const reportQueries = {
         WHERE
           fy.is_current <> false
           OR p.project_status = 'Active'`
+        )
       )
-    )
-    .select()
-    .from("q")
-    .modify(whereInArray, "q.portfolio_id", portfolio)
-    .andWhere("q.r", 1)
-    .andWhere("q.phase_name", "<>", "'Archive'")
+      .select()
+      .from("q")
+      .modify(whereInArray, "q.portfolio_id", portfolio)
+      .andWhere("q.r", 1)
+      .andWhere("q.phase_name", "<>", "'Archive'"),
 };
 
 module.exports = {
   required: [],
   getAll: async ({ portfolio }) => {
-    const [report] = await Promise.all([reportQueries.report(portfolio)
-    ]);
-    
-  return {report};
-  }
+    const [report] = await Promise.all([reportQueries.report(portfolio)]);
+
+    return { report };
+  },
 };
