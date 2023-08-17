@@ -1,5 +1,5 @@
 const { knex } = require("@database/databaseConnection")();
-const log = require("../../facilities/logging")(__filename);
+const log = require("../../facilities/logging")(module.filename);
 
 /**
  *
@@ -109,7 +109,7 @@ const getReport = () => {
       end_date: knex.sum("q2.end_date"),
       admin: knex.sum("q2.admin"),
     })
-    .from("q3")
+    .from("q2")
     .groupBy("q2.fiscal_year", "q2.amendment_count")
     .orderBy("fiscal_year", "asc")
     .catch((error) => {
