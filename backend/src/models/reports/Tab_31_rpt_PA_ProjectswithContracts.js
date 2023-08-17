@@ -2,7 +2,7 @@
 const { knex } = require("@database/databaseConnection")();
 
 // utils
-const { getReportWithSubtotals } = require("../../controllers/reports/helpers");
+const { getReportWithSubtotals } = require("./helpers");
 
 // Query model - this object organizes the promises that resolve to each part of the query results for the report
 const queries = {

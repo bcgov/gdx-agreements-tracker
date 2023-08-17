@@ -206,58 +206,12 @@ const getCurrentDate = async () =>
     .toISOString()
     .split("T")[0];
 
-/**
- * Gets a report with subtotals.
- *
- * @param   {Array}          report            - The report data.
- * @param   {Array}          subtotals         - The report subtotal data.
- * @param   {string}         propertyToGroupBy - The property to group the report data by.
- * @returns {Promise<Array>}                   An array of report Promise objects with subtotals added.
- */
-const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
-  // Group the report data by the specified property
-  const groupedReport = groupByProperty(report, propertyToGroupBy);
-
-  // Use reduce to fold in subtotals for each group
-  return _.reduce(
-    groupedReport,
-    (acc, report) =>
-      getNewReportGroup({
-        acc,
-        report,
-        subtotals,
-        propertyToGroupBy,
-      }),
-    // initial value - empty array to hold each new report group with subtotals as they accumulate
-    []
-  );
-};
-
-// helper utilities for getting a Report grouped by a property, with subtotals for each group
-const getNewReportGroup = ({ acc, report, subtotals, propertyToGroupBy }) =>
-  // adds a new report group object with the project name and subtotals
-  [
-    ...acc,
-    {
-      project_name: getProjectName(report),
-      ...report,
-      subtotals: getReportGroupSubtotals(report, subtotals, propertyToGroupBy),
-    },
-  ];
-const getProjectName = (report) =>
-  // Get the project name from the first project in the report's projects array
-  report?.projects?.[0]?.project_name || "";
-const getReportGroupSubtotals = (report, subtotals, propertyToGroupBy) =>
-  // Get the subtotals for the report group
-  _.keyBy(subtotals, propertyToGroupBy)[report[propertyToGroupBy]];
-
 // Exports
 module.exports = {
   getCurrentDate,
   getDocumentApiBody,
   getReport,
   getReportAndSetRequestHeaders,
-  getReportWithSubtotals,
   groupByProperty,
   loadTemplate,
   pdfConfig,
