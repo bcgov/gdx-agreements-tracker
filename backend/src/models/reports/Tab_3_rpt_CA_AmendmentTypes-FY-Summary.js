@@ -102,6 +102,7 @@ const getReport = () => {
       resources: knex.sum("q2.resources"),
       budget: knex.sum("q2.budget"),
       timelines: knex.sum("q2.timelines"),
+      scope: knex.sum("q2.scope"),
       hours: knex.sum("q2.hours"),
       expenses: knex.sum("q2.expenses"),
       end_date: knex.sum("q2.end_date"),
