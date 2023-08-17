@@ -118,15 +118,5 @@ const getReport = () => {
   return query;
 };
 
-const getAll = async () => {
-  const queryResults = await getReport();
-  return {
-    report: queryResults,
-  };
-};
-
 // return the model data
-module.exports = {
-  required: [],
-  getAll: getAll,
-};
+module.exports = { required: [], getAll: async () => ({ report: await getReport() }) };

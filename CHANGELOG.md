@@ -1,8 +1,11 @@
 **August 17, 2023**
+
 - Backend
-  - move `getReportWithSubtotals` to models folder
   - set up tab 3 model
+  - clean up tab 3 model a bit
   - refactor some utility functions
+    - move `getReportWithSubtotals` to models folder
+    - tweak tab 31 model imports to use getReportWithSubtotals from its new home
 - Frontend
   - tweak selector for report parameter
   - build menu select option for tab3 report (incl. description from spreadsheet)
