@@ -5,6 +5,7 @@ import { Table } from "../Table";
 import { FormRenderer } from "components/Forms/FormRenderer";
 import { GridRowParams } from "@mui/x-data-grid";
 import { useFormControls, useFormatTableData } from "hooks";
+import FormDialog from "components/Forms/FormDialog";
 
 /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
 property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
@@ -52,14 +53,22 @@ export const TableWithModal = ({
         handleRowClick={handleRowClick}
         handleTableNewButton={handleTableNewButton}
       />
-      <FormModal open={formControls.open}>
+      {/* <FormModal open={formControls.open}>
         <FormRenderer
           formControls={formControls}
           tableName={tableName}
           formConfig={formConfig}
           formDataApiEndpoint={formDataApiEndpoint}
         />
-      </FormModal>
+      </FormModal> */}
+      <FormDialog open={formControls.open} handleClose={formControls.handleClose} currentRowData={formControls.currentRowData}>
+        <FormRenderer
+          formControls={formControls}
+          tableName={tableName}
+          formConfig={formConfig}
+          formDataApiEndpoint={formDataApiEndpoint}
+        />
+      </FormDialog>
     </>
   );
 };
