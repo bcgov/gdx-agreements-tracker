@@ -1,4 +1,5 @@
 // Libraries
+const log = require("../../facilities/logging")(module.filename);
 const useCommonComponents = require("../useCommonComponents/index");
 const useController = require("../useController/index");
 const cdogs = useCommonComponents("cdogs");
@@ -98,7 +99,7 @@ const getDataFromModel = async (query, model, reply) => {
 
   // todo: remove this debugging once we have MVP ~ around Mid-September, 2023
   if ("development" === env) {
-    console.warn(`
+    log.warn(`
       DEBUG INFO FOR THIS REPORT:
       --------------------------------------------------------------
       ENVIRONMENT:

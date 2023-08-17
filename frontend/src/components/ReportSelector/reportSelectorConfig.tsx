@@ -390,6 +390,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_3_rpt_CA_AmendmentTypes-FY-Summary",
+        label: "Contract Amendment Stats by Type",
+        description:
+          "FY, Total CO’s, Total Amendments, Breakdown of amendments by Type (Resources, budget, Timelines, Scope, Hours, Expenses, Admin",
+        parameters: [],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_9_rpt_CA_MultiYrStats",
         label: "Annual Contract Multi Yr Stats",
         description:
