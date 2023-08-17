@@ -1,5 +1,6 @@
-// libs
 const { knex } = require("@database/databaseConnection")();
+const log = require("../../facilities/logging")(__filename);
+
 /**
  *
  * Retrieves Summary stats report for contracts detailing the types of amendments for a specific year and number of CO’s.
@@ -108,11 +109,11 @@ const getReport = () => {
       end_date: knex.sum("q2.end_date"),
       admin: knex.sum("q2.admin"),
     })
-    .from("q2")
+    .from("q3")
     .groupBy("q2.fiscal_year", "q2.amendment_count")
     .orderBy("fiscal_year", "asc")
     .catch((error) => {
-      console.error(error);
+      log.error(error);
     });
 
   return query;

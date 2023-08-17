@@ -47,10 +47,10 @@ const whereInArray = (queryBuilder, column, parameter) => {
 /**
  * Gets a report with subtotals.
  *
- * @param   {Array}          report            - The report data.
- * @param   {Array}          subtotals         - The report subtotal data.
- * @param   {string}         propertyToGroupBy - The property to group the report data by.
- * @returns {Promise<Array>}                   An array of report Promise objects with subtotals added.
+ * @param   {Array}    report            - The report data.
+ * @param   {Array}    subtotals         - The report subtotal data.
+ * @param   {string}   propertyToGroupBy - The property to group the report data by.
+ * @returns {Array<*>}                   An array of report Promise objects with subtotals added.
  */
 const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
   // Group the report data by the specified property
@@ -70,23 +70,44 @@ const getReportWithSubtotals = async (report, subtotals, propertyToGroupBy) => {
     []
   );
 };
+/**
+ * Adds a new report group object with the project name and subtotals.
+ *
+ * @param   {object}        options                   - The options object.
+ * @param   {Array}         options.acc               - The accumulator array.
+ * @param   {object}        options.report            - The report object.
+ * @param   {object}        options.subtotals         - The subtotals object.
+ * @param   {string}        options.propertyToGroupBy - The property to group by.
+ * @returns {Array<object>}                           The new report group array.
+ */
+const getNewReportGroup = ({ acc, report, subtotals, propertyToGroupBy }) => [
+  ...acc,
+  {
+    project_name: getProjectName(report),
+    ...report,
+    subtotals: getReportGroupSubtotals(report, subtotals, propertyToGroupBy),
+  },
+];
 
-// helper utilities for getting a Report grouped by a property, with subtotals for each group
-const getNewReportGroup = ({ acc, report, subtotals, propertyToGroupBy }) =>
-  // adds a new report group object with the project name and subtotals
-  [
-    ...acc,
-    {
-      project_name: getProjectName(report),
-      ...report,
-      subtotals: getReportGroupSubtotals(report, subtotals, propertyToGroupBy),
-    },
-  ];
-const getProjectName = (report) =>
-  // Get the project name from the first project in the report's projects array
-  report?.projects?.[0]?.project_name || "";
+/**
+ *
+ * Get the project name from the first project in the report's projects array
+ *
+ * @param   {object} report The report object.
+ * @returns {string}        The project name from the first project in the report's projects array.
+ */
+const getProjectName = (report) => report?.projects?.[0]?.project_name || "";
+
+/**
+ *
+ * Get the subtotals for the report group.
+ *
+ * @param   {Array<*>} report            The report data.
+ * @param   {Array<*>} subtotals         The report subtotal data.
+ * @param   {string}   propertyToGroupBy The property to group the report data by.
+ * @returns {Array<*>}                   The subtotals for the report group.
+ */
 const getReportGroupSubtotals = (report, subtotals, propertyToGroupBy) =>
-  // Get the subtotals for the report group
   _.keyBy(subtotals, propertyToGroupBy)[report[propertyToGroupBy]];
 
 module.exports = {
