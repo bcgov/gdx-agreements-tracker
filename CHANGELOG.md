@@ -1,12 +1,16 @@
-** August 17, 2023**
+** August 18, 2023**
 
 - Backend
   - build tab 5 model
+  - remove .docx templates completed markdown file (unneeded)
+  - delete sql scratch file for tab 5 rpt
 
 - Frontend
-  - update styling of generic report template for ease-of-use
+  - make generic report template cleaner and simpler
   - tweak selector for report parameter to fiscal
-  - build menu select option for Tab 5 report (incl. description from spreadsheet)
+  - build menu select option for Tab 5 report
+    - description from priority order spreadsheet
+
 **August 17, 2023**
 
 - Backend
