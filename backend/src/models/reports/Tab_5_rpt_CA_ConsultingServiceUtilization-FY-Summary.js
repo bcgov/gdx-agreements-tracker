@@ -1,17 +1,24 @@
+// import knex database connection and utilities
 const { knex } = require("@database/databaseConnection")();
 const log = require("../../facilities/logging")(module.filename);
+const _ = require("lodash");
 
 /**
- * Retrieves Summary stats report for types of contract resources we have engaged on CO’s. Information based on data from 14-15 forward. Shows distribution over the various Portfolios.
+ *
+ * Retrieves invoiced amount towards each type of contract resource
+ * (Application Design-Development, Application Management, Architecture,
+ * Business Analysis and Process Consultation etc.)
+ * Based on the Competencies in the SRI
  *
  * @param   {number}               fiscal - The fiscal year to grab data for
  * @returns {Promise<{report: *}>}
  */
-const reportQueries = {
-  // The fiscal year to grab data for.
+const queries = {
+  // returns the fiscal year.
   fiscal_year: (fiscal) =>
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
+  // returns the report data.
   report: (fiscal) =>
     knex
       .with(
@@ -114,29 +121,39 @@ const reportQueries = {
       .groupBy("resource_type")
       .orderBy("resource_type"),
 
-  // totals for the report columns.
-  totals: (fiscal) =>
-    knex(reportQueries.report(fiscal).as("report")).sum(reportQueries.columns).first(),
-  // The columns on which to calculate totals.
-  columns: {
-    total: "total",
-  },
+  // returns the report total.
+  report_total: (fiscal) =>
+    knex(queries.report(fiscal).as("report")).sum({ report_total: "total" }).first(),
 };
 
-// return the model data
-module.exports = {
-  required: ["fiscal"],
-  getAll: async ({ fiscal }) => {
-    try {
-      const [{ fiscal_year }, report, report_totals] = await Promise.all([
-        reportQueries.fiscal_year(fiscal),
-        reportQueries.report(fiscal),
-        reportQueries.totals(fiscal),
-      ]);
-
-      return { fiscal_year, report, report_totals };
-    } catch (error) {
+/**
+ * Retrieve and process data from queries to create a structured result object.
+ *
+ * @param   {object} options        - Options object containing fiscal year.
+ * @param   {string} options.fiscal - The fiscal year to retrieve data for.
+ * @returns {object}                - An object containing fiscal year, report, and report total.
+ */
+const getAll = async ({ fiscal }) =>
+  // Retrieve data from queries and process it into a structured object
+  await Promise.all(
+    // Map each query promise (simultaneously) to its execution with the 'fiscal' parameter.
+    _.map(queries, (queryPromise) => queryPromise(fiscal))
+  )
+    .then(
+      // Destructure the results array to extract individual components
+      ([{ fiscal_year }, report, { report_total }]) =>
+        // Combine the extracted components into an object
+        ({
+          fiscal_year,
+          report,
+          report_total,
+        }) // implicit return
+    )
+    // Catch, then throw the error to be caught by the controller.
+    .catch((error) => {
       log.error(error);
-    }
-  },
-};
+      throw error;
+    });
+
+// Export the functions to be used in controller.
+module.exports = { required: ["fiscal"], getAll };

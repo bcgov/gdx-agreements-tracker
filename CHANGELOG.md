@@ -4,6 +4,7 @@
   - build tab 5 model
   - remove .docx templates completed markdown file (unneeded)
   - delete sql scratch file for tab 5 rpt
+  - optimize operations on the queries object for future report
 
 - Frontend
   - make generic report template cleaner and simpler
