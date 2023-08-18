@@ -12,11 +12,6 @@ const reportQueries = {
   fiscal_year: (fiscal) =>
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
-  // The columns on which to calculate totals.
-  columns: {
-    total: "total",
-  },
-
   report: (fiscal) =>
     knex
       .with(
@@ -122,6 +117,10 @@ const reportQueries = {
   // totals for the report columns.
   totals: (fiscal) =>
     knex(reportQueries.report(fiscal).as("report")).sum(reportQueries.columns).first(),
+  // The columns on which to calculate totals.
+  columns: {
+    total: "total",
+  },
 };
 
 // return the model data
@@ -134,6 +133,7 @@ module.exports = {
         reportQueries.report(fiscal),
         reportQueries.totals(fiscal),
       ]);
+
       return { fiscal_year, report, report_totals };
     } catch (error) {
       log.error(error);
