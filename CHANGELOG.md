@@ -1,3 +1,12 @@
+** August 17, 2023**
+
+- Backend
+  - build tab 5 model
+
+- Frontend
+  - update styling of generic report template for ease-of-use
+  - tweak selector for report parameter to fiscal
+  - build menu select option for Tab 5 report (incl. description from spreadsheet)
 **August 17, 2023**
 
 - Backend
