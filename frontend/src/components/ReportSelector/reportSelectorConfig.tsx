@@ -399,6 +399,14 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_5_rpt_CA_ConsultingServiceUtilization-FY-Summary",
+        label: "Contractor Utilization summary by Portfolio",
+        description: `Report based on invoiced amount towards each type of resource (Application Design-Development, Application Management, Architecture, Business Analysis and Process Consultation etc. Based on the Competencies in the SRI).`,
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_9_rpt_CA_MultiYrStats",
         label: "Annual Contract Multi Yr Stats",
         description:
