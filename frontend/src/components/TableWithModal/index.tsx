@@ -1,10 +1,10 @@
 import { LinearProgress } from "@mui/material";
 import { IRowDoubleClickParams, ITableWithModal } from "types";
-import FormModal from "../Forms/FormModal";
 import { Table } from "../Table";
 import { FormRenderer } from "components/Forms/FormRenderer";
 import { GridRowParams } from "@mui/x-data-grid";
-import { useFormControls, useFormatTableData } from "hooks";
+import { useFormSubmit, useFormatTableData } from "hooks";
+import FormDialog from "components/Forms/FormDialog";
 
 /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
 property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
@@ -25,8 +25,8 @@ export const TableWithModal = ({
     formControls.handleOpen();
   },
 }: ITableWithModal) => {
-  // const { handleCurrentRowData, open, handleClose, handleOpen, handleFormType } = formControls;
-  useFormControls();
+  const { handleDelete } = useFormSubmit();
+
   const handleTableNewButton = () => {
     formControls.handleFormType("new");
     formControls.handleOpen();
@@ -52,14 +52,19 @@ export const TableWithModal = ({
         handleRowClick={handleRowClick}
         handleTableNewButton={handleTableNewButton}
       />
-      <FormModal open={formControls.open}>
+      <FormDialog
+        open={formControls.open}
+        handleClose={formControls.handleClose}
+        deleteUrl={formConfig(formControls.currentRowData?.id).deleteUrl as string}
+        handleDelete={handleDelete}
+      >
         <FormRenderer
           formControls={formControls}
           tableName={tableName}
           formConfig={formConfig}
           formDataApiEndpoint={formDataApiEndpoint}
         />
-      </FormModal>
+      </FormDialog>
     </>
   );
 };

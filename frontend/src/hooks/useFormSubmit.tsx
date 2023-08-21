@@ -67,17 +67,12 @@ export const useFormSubmit = () => {
       });
   };
 
-  const handleDelete = async ({
-    apiUrl,
-  }: {
-    apiUrl: string;
-    queryKeys: string[];
-    successMessage: string;
-    errorMessage: string;
-  }) => {
-    await axiosAll()
+  const handleDelete = async ({ apiUrl }: { apiUrl: string }) => {
+    return axiosAll()
       .delete(apiUrl)
-      .then(() => {})
+      .then((response) => {
+        Promise.resolve(response);
+      })
       .catch((err: string) => {
         console.error("error:", err);
       });

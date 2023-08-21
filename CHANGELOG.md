@@ -1,3 +1,12 @@
+**August 21, 2023**
+
+- Backend
+- Frontend
+  - Added delete functionality to project budget
+  - Added new dialog modal for forms
+  - Removed old for modal
+
+
 ** August 18, 2023**
 
 - Backend

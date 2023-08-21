@@ -178,6 +178,10 @@ const findProjectRecoverableBreakdown = (projectId) => {
     .where("pd.project_id", projectId);
 };
 
+const removeOne = (projectId) => {
+  return knex(`${projectBudgetTable} as prb`).where("prb.id", projectId).del();
+};
+
 module.exports = {
   findAllById,
   findById,
@@ -187,4 +191,5 @@ module.exports = {
   findPortfolioBreakdown,
   findDeliverablesBreakdown,
   findProjectRecoverableBreakdown,
+  removeOne,
 };

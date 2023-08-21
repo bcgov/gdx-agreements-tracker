@@ -231,10 +231,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     client_coding_id: null,
     contract_id: null,
   };
-
   const rowsToLock = [query?.data?.data?.data?.id];
   const postUrl = `/projects/budget`;
   const updateUrl = `/projects/budget/${query?.data?.data?.data?.id}`;
+  const deleteUrl = `/projects/budget/${query}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
+  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };
 };
