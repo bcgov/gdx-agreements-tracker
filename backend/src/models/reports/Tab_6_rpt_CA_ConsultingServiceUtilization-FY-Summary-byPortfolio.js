@@ -247,18 +247,20 @@ const queries = {
 
   // returns the report total.
   totals: (fiscal) =>
-    knex(queries.report(fiscal).as("report")).sum({
-      bcf: "bcf",
-      oss: "oss",
-      des: "des",
-      dp: "dp",
-      ana: "ana",
-      dms: "dms",
-      sd: "sd",
-      ce: "ce",
-      gc: "gc",
-      total: "total",
-    }),
+    knex(queries.report(fiscal).as("report"))
+      .sum({
+        bcf: "bcf",
+        oss: "oss",
+        des: "des",
+        dp: "dp",
+        ana: "ana",
+        dms: "dms",
+        sd: "sd",
+        ce: "ce",
+        gc: "gc",
+        total: "total",
+      })
+      .first(),
 };
 
 /**
