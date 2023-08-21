@@ -1,5 +1,5 @@
 const controller = require("@controllers/contracts/contract_deliverables");
-// const validators = require("../validators/contract_deliverables");//TODO Coming in next PR
+const validators = require("@validators/contracts/contract_deliverables"); //TODO Coming in next PR
 const what = "deliverables";
 
 const routes = [
@@ -26,6 +26,12 @@ const routes = [
     url: `/contracts/:id/${what}`,
     //schema: validators.addOne, //TODO Coming in next PR
     handler: controller.addOneWithContractId,
+  },
+  {
+    method: "DELETE",
+    url: `/contracts/${what}/:id`,
+    schema: validators.deleteOne,
+    handler: controller.deleteOne,
   },
 ];
 

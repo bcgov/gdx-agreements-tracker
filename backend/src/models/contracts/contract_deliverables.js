@@ -46,9 +46,14 @@ const addOne = (newDeliverable, contractId) => {
   return knex(table).insert(newDeliverable);
 };
 
+const removeOne = (deliverableId) => {
+  return knex(`${table} as cd`).where("cd.id", deliverableId).del();
+};
+
 module.exports = {
   findAll,
   findById,
   updateOne,
   addOne,
+  removeOne,
 };
