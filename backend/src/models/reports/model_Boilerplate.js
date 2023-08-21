@@ -5,7 +5,7 @@
  *
  */
 
-// libs
+// Libs
 const { knex } = require("@database/databaseConnection")();
 
 /* optional: break up the queries into base query and main query */
@@ -54,6 +54,7 @@ const queries = {
 };
 
 module.exports = {
+  // constant to hold the argument passed to getAll()
   required: ["fiscal"], //  fiscal, date, portfolio, etc.
 
   // add other parameters if needed, like quarter, portfolio, date etc.
