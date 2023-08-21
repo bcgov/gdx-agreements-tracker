@@ -45,9 +45,14 @@ const addOne = (newInvoice, contractId) => {
   return knex(table).insert(newInvoice);
 };
 
+const removeOne = (invoiceId) => {
+  return knex(`${table} as inv`).where("inv.id", invoiceId).del();
+};
+
 module.exports = {
   findAllByContractId,
   findById,
   updateOne,
   addOne,
+  removeOne,
 };

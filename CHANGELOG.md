@@ -3,11 +3,12 @@
 - Backend
 - Frontend
   - Added delete functionality to project budget
+  - Added delete functionality to contract invoice processing
   - Added new dialog modal for forms
   - Removed old for modal
 
 
-** August 18, 2023**
+**August 18, 2023**
 
 - Backend
   - build tab 5 model
