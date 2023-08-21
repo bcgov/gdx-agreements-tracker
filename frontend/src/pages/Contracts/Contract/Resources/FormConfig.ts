@@ -106,6 +106,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const rowsToLock = [query?.data?.data?.data?.id];
   const postUrl = `/contracts/${contractId}/resources`;
   const updateUrl = `/contracts/resources/${query?.data?.data?.data?.id}`;
+  const deleteUrl = `/contracts/resources/${query}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
+  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };
 };
