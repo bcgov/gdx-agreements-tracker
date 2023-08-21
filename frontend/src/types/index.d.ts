@@ -401,6 +401,7 @@ export interface IContactRole {
 }
 
 export type TFormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  deleteUrl?: string;
   readFields: {
     width: string;
     title: string;
