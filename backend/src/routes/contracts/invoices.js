@@ -27,6 +27,12 @@ const routes = [
     schema: validators.addOne,
     handler: controller.addOneWithContractId,
   },
+  {
+    method: "DELETE",
+    url: `/${what}/:id`,
+    // schema: validators.addOne,
+    handler: controller.deleteOne,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {
