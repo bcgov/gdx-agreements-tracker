@@ -272,17 +272,62 @@ const queries = {
  */
 const getAll = async ({ fiscal }) => {
   try {
-    const [{ fiscal_year }, report, totals] = await Promise.all([
+    const fetchedData = await fetchData(fiscal);
+    const structuredResult = createStructuredResult(fetchedData);
+
+    return structuredResult;
+  } catch (error) {
+    handleDataError(error);
+  }
+};
+
+/**
+ * Fetch data from queries for a given fiscal year.
+ *
+ * @param   {string} fiscal - The fiscal year to retrieve data for.
+ * @returns {Array}         - An array containing fetched fiscal year data.
+ */
+const fetchData = async (fiscal) => {
+  try {
+    const [fiscalData, reportData, totalsData] = await Promise.all([
       queries.fiscal(fiscal),
       queries.report(fiscal),
       queries.totals(fiscal),
     ]);
 
-    return { fiscal_year, report, totals };
+    return [fiscalData, reportData, totalsData];
   } catch (error) {
-    log.error(error);
-    throw error;
+    handleDataError(error);
   }
+};
+
+/**
+ * Create a structured result object from fetched data.
+ *
+ * @param   {Array}  data     - An array containing fetched fiscal year data.
+ * @param   {Array}  data."0" - The fiscal year data.
+ * @param   {Array}  data."1" - The report data.
+ * @param   {Array}  data."2" - The report total data.
+ * @returns {object}          - A structured result object.
+ */
+const createStructuredResult = ([fiscalData, reportData, totalsData]) => {
+  const structuredResult = {
+    fiscal_year: fiscalData.fiscal_year,
+    report: reportData,
+    totals: totalsData,
+  };
+
+  return structuredResult;
+};
+
+/**
+ * Handle errors that occur during data retrieval and processing.
+ *
+ * @param {Error} error - The error that occurred.
+ */
+const handleDataError = (error) => {
+  log.error(error);
+  throw error;
 };
 
 // Export the functions to be used in controller.
