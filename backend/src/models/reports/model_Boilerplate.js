@@ -7,20 +7,7 @@
 
 // Libs
 const { knex } = require("@database/databaseConnection")();
-
-/* optional: break up the queries into base query and main query */
-// const baseQueries = {
-//   q1: knex.raw(
-//     `(
-
-//     ) as q1`
-//   ),
-//   q2: knex.raw(
-//     `(
-
-//     ) as q2`
-//   ),
-// };
+const log = require("../../facilities/logging")(module.filename);
 
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
@@ -32,14 +19,20 @@ const queries = {
   fiscal: (fiscal) =>
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
-  // can reference sub-queries here if you want to break up the query into parts for easy reading
-  main: knex.raw(
-    `(
-
-    ) as base`
-  ),
-
-  report: (fiscal) => knex.from(queries.main).where({ fiscal_year: fiscal }),
+  report: (fiscal) =>
+    knex
+      .with(
+        // can chain together multiple with statements
+        "q1",
+        knex.raw(`
+    --example query
+    `)
+      )
+      .select({
+        // example columns
+      })
+      .from("q1")
+      .where({ fiscal_year: fiscal }),
 
   totals: (fiscal) =>
     knex(queries.report(fiscal).as("report")).sum({
@@ -53,30 +46,30 @@ const queries = {
     }),
 };
 
-module.exports = {
-  // constant to hold the argument passed to getAll()
-  required: ["fiscal"], //  fiscal, date, portfolio, etc.
+/**
+ * Retrieve and process data from queries to create a structured result object.
+ *
+ * @param   {object} options        - Options object containing fiscal year.
+ * @param   {string} options.fiscal - The fiscal year to retrieve data for.
+ * @returns {object}                - An object containing fiscal year, report, and report total.
+ */
+// add other parameters if needed, like quarter, portfolio, date etc.
+const getAll = async ({ fiscal }) => {
+  try {
+    // Await all promises in parallel
+    const [{ fiscal_year }, report, totals] = await Promise.all([
+      queries.fiscal(fiscal),
+      queries.report(fiscal),
+      queries.totals(fiscal),
+    ]);
 
-  // add other parameters if needed, like quarter, portfolio, date etc.
-  getAll: async ({ fiscal }) => {
-    try {
-      // Await all promises in parallel
-      const [{ fiscal_year }, report, totals] = await Promise.all([
-        queries.fiscal(fiscal),
-        queries.report(fiscal),
-        queries.totals(fiscal),
-      ]);
-
-      return {
-        fiscal_year,
-        report,
-        totals,
-      };
-    } catch (error) {
-      console.error(`
-        **** MODEL ERROR ****
-        ${error}
-      `);
-    }
-  },
+    return { fiscal_year, report, totals };
+  } catch (error) {
+    log.error(error);
+    throw error;
+  }
 };
+
+// Export the functions to be used in controller.
+//  required can be fiscal, date, portfolio, etc.
+module.exports = { required: ["fiscal"], getAll };
