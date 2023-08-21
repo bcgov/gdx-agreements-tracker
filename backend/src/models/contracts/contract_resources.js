@@ -72,5 +72,5 @@ module.exports = {
   findById,
   updateOne,
   addOne,
-  removeOne
+  removeOne,
 };

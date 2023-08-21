@@ -1,4 +1,10 @@
-const { Schema, getResponse, getUpdateResponse, getAddResponse, getDeleteResponse } = require("../common_schema");
+const {
+  Schema,
+  getResponse,
+  getUpdateResponse,
+  getAddResponse,
+  getDeleteResponse,
+} = require("../common_schema");
 const S = require("fluent-json-schema");
 
 const getAll = {
