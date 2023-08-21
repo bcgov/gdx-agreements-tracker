@@ -5,6 +5,7 @@
   - Added delete functionality to project budget
   - Added delete functionality to contract invoice processing
   - Added delete functionality to contract resources
+  - Added delete functionality to contract deliverables
   - Added new dialog modal for forms
   - Removed old for modal
 
