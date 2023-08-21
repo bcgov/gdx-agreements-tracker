@@ -63,9 +63,14 @@ const addOne = (newResource, contractId) => {
   return knex(table).insert(newResource);
 };
 
+const removeOne = (projectId) => {
+  return knex(`${table} as cr`).where("cr.id", projectId).del();
+};
+
 module.exports = {
   findAll,
   findById,
   updateOne,
   addOne,
+  removeOne,
 };

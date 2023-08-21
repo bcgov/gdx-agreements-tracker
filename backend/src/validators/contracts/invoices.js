@@ -1,4 +1,10 @@
-const { Schema, getResponse, getUpdateResponse, getAddResponse } = require("../common_schema");
+const {
+  Schema,
+  getResponse,
+  getUpdateResponse,
+  getAddResponse,
+  getDeleteResponse,
+} = require("../common_schema");
 const S = require("fluent-json-schema");
 
 const getAll = {
@@ -61,9 +67,15 @@ const addOne = {
   response: getAddResponse(),
 };
 
+const deleteOne = {
+  params: Schema.IdParam,
+  response: getDeleteResponse(),
+};
+
 module.exports = {
   getAll,
   getOne,
   updateOne,
   addOne,
+  deleteOne,
 };
