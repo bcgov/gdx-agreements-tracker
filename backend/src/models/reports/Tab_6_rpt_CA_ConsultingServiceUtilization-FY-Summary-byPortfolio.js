@@ -106,121 +106,121 @@ const queries = {
       .with(
         "q2",
         knex.raw(`
-        SELECT q1.fiscal_year,
-          q1.fiscal,
-          q1.resource_type,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'BCF' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+          SELECT q1.fiscal_year,
+            q1.fiscal,
+            q1.resource_type,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'BCF' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS bcf,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'OSS' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS bcf,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'OSS' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS oss,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'DES' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS oss,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'DES' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS des,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'DP' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS des,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'DP' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS dp,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'ANA' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS dp,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'ANA' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS ana,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'DMS' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS ana,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'DMS' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS dms,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'SD' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS dms,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'SD' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS sd,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'CE' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS sd,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'CE' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS ce,
-          sum(
-            CASE
-              WHEN q1.portfolio_abbrev = 'GC' THEN coalesce(
-                hourly_fees,
-                cast(0 AS MONEY) + coalesce(
-                  allocated_deliverable_total,
-                  cast(0 AS MONEY)
+                ELSE NULL
+              END
+            ) AS ce,
+            sum(
+              CASE
+                WHEN q1.portfolio_abbrev = 'GC' THEN coalesce(
+                  hourly_fees,
+                  cast(0 AS MONEY) + coalesce(
+                    allocated_deliverable_total,
+                    cast(0 AS MONEY)
+                  )
                 )
-              )
-              ELSE NULL
-            END
-          ) AS gc
-        FROM q1
-        GROUP BY q1.fiscal_year,
-          q1.fiscal,
-          q1.resource_type`)
+                ELSE NULL
+              END
+            ) AS gc
+          FROM q1
+          GROUP BY q1.fiscal_year,
+            q1.fiscal,
+            q1.resource_type`)
       )
       .select({
         resource_type: "resource_type",
@@ -235,9 +235,10 @@ const queries = {
         gc: "q2.gc", // Governance and Coordination
         total: knex.raw(`
           cast(
-            coalesce(q2.bcf::numeric, 0) + coalesce(q2.oss::numeric, 0) + coalesce(q2.des::numeric, 0) + coalesce(q2.dp::numeric, 0) + coalesce(q2.ana::numeric, 0) + coalesce(q2.dms::numeric, 0) + coalesce(q2.sd::numeric, 0) + coalesce(q2.ce::numeric, 0) + coalesce(q2.gc::numeric, 0) AS MONEY
-          )
-        `),
+            coalesce(q2.bcf::numeric, 0) + coalesce(q2.oss::numeric, 0) + coalesce(q2.des::numeric, 0)
+            + coalesce(q2.dp::numeric, 0) + coalesce(q2.ana::numeric, 0) + coalesce(q2.dms::numeric, 0)
+            + coalesce(q2.sd::numeric, 0) + coalesce(q2.ce::numeric, 0) + coalesce(q2.gc::numeric, 0) AS MONEY
+          )`),
         fiscal_year: "q2.fiscal_year",
         fiscal: "q2.fiscal",
       })
@@ -272,10 +273,7 @@ const queries = {
  */
 const getAll = async ({ fiscal }) => {
   try {
-    const fetchedData = await fetchData(fiscal);
-    const structuredResult = createStructuredResult(fetchedData);
-
-    return structuredResult;
+    return createStructuredResult(await fetchData(fiscal));
   } catch (error) {
     handleDataError(error);
   }
@@ -304,11 +302,11 @@ const fetchData = async (fiscal) => {
 /**
  * Create a structured result object from fetched data.
  *
- * @param   {Array}  data     - An array containing fetched fiscal year data.
- * @param   {Array}  data."0" - The fiscal year data.
- * @param   {Array}  data."1" - The report data.
- * @param   {Array}  data."2" - The report total data.
- * @returns {object}          - A structured result object.
+ * @param   {Array}         data     - An array containing fetched fiscal year data.
+ * @param   {Array<object>} data."0" - The fiscal year data.
+ * @param   {Array<object>} data."1" - The report data.
+ * @param   {Array<object>} data."2" - The report total data.
+ * @returns {object}                 - A structured result object.
  */
 const createStructuredResult = ([fiscalData, reportData, totalsData]) => {
   const structuredResult = {
