@@ -4,7 +4,7 @@ import FormModal from "../Forms/FormModal";
 import { Table } from "../Table";
 import { FormRenderer } from "components/Forms/FormRenderer";
 import { GridRowParams } from "@mui/x-data-grid";
-import { useFormControls, useFormatTableData } from "hooks";
+import { useFormControls, useFormSubmit, useFormatTableData } from "hooks";
 import FormDialog from "components/Forms/FormDialog";
 
 /* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
@@ -26,8 +26,9 @@ export const TableWithModal = ({
     formControls.handleOpen();
   },
 }: ITableWithModal) => {
-  // const { handleCurrentRowData, open, handleClose, handleOpen, handleFormType } = formControls;
-  useFormControls();
+
+  const { handleDelete } = useFormSubmit();
+
   const handleTableNewButton = () => {
     formControls.handleFormType("new");
     formControls.handleOpen();
@@ -53,15 +54,7 @@ export const TableWithModal = ({
         handleRowClick={handleRowClick}
         handleTableNewButton={handleTableNewButton}
       />
-      {/* <FormModal open={formControls.open}>
-        <FormRenderer
-          formControls={formControls}
-          tableName={tableName}
-          formConfig={formConfig}
-          formDataApiEndpoint={formDataApiEndpoint}
-        />
-      </FormModal> */}
-      <FormDialog open={formControls.open} handleClose={formControls.handleClose} currentRowData={formControls.currentRowData}>
+      <FormDialog open={formControls.open} handleClose={formControls.handleClose} formConfig={formConfig(formControls.currentRowData?.id)} handleDelete={handleDelete}>
         <FormRenderer
           formControls={formControls}
           tableName={tableName}

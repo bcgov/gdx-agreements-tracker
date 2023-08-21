@@ -52,6 +52,12 @@ const routes = [
     schema: validators.addOne,
     handler: controller.addOne,
   },
+  {
+    method: "DELETE",
+    url: `/projects/${what}/:id`,
+    // schema: validators.addOne,
+    handler: controller.deleteOne,
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {
