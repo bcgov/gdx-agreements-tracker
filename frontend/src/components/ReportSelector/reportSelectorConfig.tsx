@@ -399,6 +399,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_4_rpt_CA_Capital_GDX",
+        label: "Capital GDX",
+        description:
+          "Run for a specific fiscal shows and grouped by WIP Number.  Contract Description, Supplier, Resource, StartDate, EndDate, Status, Max. Contract Amount, Invoiced to Date",
+        parameters: ["fiscal"],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_5_rpt_CA_ConsultingServiceUtilization-FY-Summary",
         label: "Contractor Utilization summary by resource type",
         description: `Report based on invoiced amount towards each type of resource (Application Design-Development, Application Management, Architecture, Business Analysis and Process Consultation etc. Based on the Competencies in the SRI).`,
@@ -435,7 +444,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_13_rpt_CF_PortfolioSummary",
         label: "Contract Portfolio Summary",
-        description: "ipsum lorem",
+        description:
+          "Grouped on Portfolio, shows contract #, Amendment #, Contract Type, Supplier, Status, start Date, End date, Fees Amt, Expense Amt, Maximum Amount, Invoiced to Date, Amount Remaining.",
         parameters: ["fiscal"],
         exportPDF: false,
         exportXLSX: true,
