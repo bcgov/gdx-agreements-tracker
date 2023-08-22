@@ -209,7 +209,7 @@ export type IEditFieldsFieldType =
 
 export type IWidth = "half" | "full";
 
-export type IReturnValue = string | number | boolean | string[] | IOption | null | undefined;
+export type IReturnValue = string | number | boolean | string[] | IOption;
 
 export interface IEditField {
   fieldName: string;
