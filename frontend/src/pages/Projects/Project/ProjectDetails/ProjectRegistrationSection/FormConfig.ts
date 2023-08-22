@@ -44,14 +44,15 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       width: "half",
-      title: "Contract #",
+      title: "Contracts",
       value: query?.data?.data?.data?.contracts
-        ? (query?.data?.data?.data?.contracts as Array<{ id: number; co_number: string }>)
-            .map((c) => {
-              return c.co_number;
-            })
-            .join(", ")
+        ? (query?.data?.data?.data?.contracts as Array<{ id: number; co_number: string }>).map(
+            (c) => {
+              return { link: `/contracts/${c.id}`, label: c.co_number };
+            }
+          )
         : "",
+      type: "link",
     },
   ];
   const editFields: IEditField[] = [
