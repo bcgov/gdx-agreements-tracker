@@ -21,7 +21,6 @@ const DataGridStyles = {
 /**
  * Renders a component that displays project deliverables totals and totals by fiscal year.
  *
- * @component
  * @returns {JSX.Element} JSX element representing the component.
  */
 

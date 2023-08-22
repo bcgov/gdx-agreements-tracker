@@ -271,62 +271,23 @@ const queries = {
  * @param   {string} options.fiscal - The fiscal year to retrieve data for.
  * @returns {object}                - An object containing fiscal year, report, and report total.
  */
+// add other parameters if needed, like quarter, portfolio, date etc.
 const getAll = async ({ fiscal }) => {
   try {
-    return createStructuredResult(await fetchData(fiscal));
-  } catch (error) {
-    handleDataError(error);
-  }
-};
-
-/**
- * Fetch data from queries for a given fiscal year.
- *
- * @param   {string} fiscal - The fiscal year to retrieve data for.
- * @returns {Array}         - An array containing fetched fiscal year data.
- */
-const fetchData = async (fiscal) => {
-  try {
-    const [fiscalData, reportData, totalsData] = await Promise.all([
+    // Await all promises in parallel
+    const [{ fiscal_year }, report, totals] = await Promise.all([
       queries.fiscal(fiscal),
       queries.report(fiscal),
       queries.totals(fiscal),
     ]);
 
-    return [fiscalData, reportData, totalsData];
+    return { fiscal_year, report, totals };
   } catch (error) {
-    handleDataError(error);
+    log.error(error);
+    throw error;
   }
 };
 
-/**
- * Create a structured result object from fetched data.
- *
- * @param   {Array}         data     - An array containing fetched fiscal year data.
- * @param   {Array<object>} data."0" - The fiscal year data.
- * @param   {Array<object>} data."1" - The report data.
- * @param   {Array<object>} data."2" - The report total data.
- * @returns {object}                 - A structured result object.
- */
-const createStructuredResult = ([fiscalData, reportData, totalsData]) => {
-  const structuredResult = {
-    fiscal_year: fiscalData.fiscal_year,
-    report: reportData,
-    totals: totalsData,
-  };
-
-  return structuredResult;
-};
-
-/**
- * Handle errors that occur during data retrieval and processing.
- *
- * @param {Error} error - The error that occurred.
- */
-const handleDataError = (error) => {
-  log.error(error);
-  throw error;
-};
-
 // Export the functions to be used in controller.
+//  required can be fiscal, date, portfolio, etc.
 module.exports = { required: ["fiscal"], getAll };

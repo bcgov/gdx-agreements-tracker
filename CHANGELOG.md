@@ -1,3 +1,14 @@
+**August 22, 2023 [DESCW-1283](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1283)**
+
+- Backend
+  - refactor model boilerplate somewhat
+  - set up tab 6 model
+- Frontend
+  - tweak selector for report parameter
+  - build menu select option for tab6 report (incl. description from spreadsheet)
+  - fix tab 5 menu option title
+  - resolve some minor frontend linter warnings
+
 **August 21, 2023**
 
 - Backend
@@ -6,7 +17,6 @@
   - Added delete functionality to contract invoice processing
   - Added new dialog modal for forms
   - Removed old for modal
-
 
 **August 18, 2023**
 
