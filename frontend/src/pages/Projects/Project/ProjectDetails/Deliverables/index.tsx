@@ -11,7 +11,6 @@ import DeliverablesTotals from "./DeliverablesTotals";
  * A component representing the Deliverables section of a project, displaying a table with modal
  * for project deliverables and a section for deliverables totals.
  *
- * @component
  * @returns {JSX.Element} JSX element representing the component.
  */
 
