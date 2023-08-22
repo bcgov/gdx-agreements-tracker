@@ -7,7 +7,7 @@ export const Login: FC = () => {
 
   useEffect(() => {
     keycloak.login();
-  }, []);
+  }, [keycloak]);
 
   return (
     <Box sx={{ width: "100%" }}>
