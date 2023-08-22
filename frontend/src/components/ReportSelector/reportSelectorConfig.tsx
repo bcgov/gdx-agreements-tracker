@@ -444,7 +444,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_13_rpt_CF_PortfolioSummary",
         label: "Contract Portfolio Summary",
-        description: "Grouped on Portfolio, shows contract #, Amendment #, Contract Type, Supplier, Status, start Date, End date, Fees Amt, Expense Amt, Maximum Amount, Invoiced to Date, Amount Remaining.",
+        description:
+          "Grouped on Portfolio, shows contract #, Amendment #, Contract Type, Supplier, Status, start Date, End date, Fees Amt, Expense Amt, Maximum Amount, Invoiced to Date, Amount Remaining.",
         parameters: ["fiscal"],
         exportPDF: false,
         exportXLSX: true,
