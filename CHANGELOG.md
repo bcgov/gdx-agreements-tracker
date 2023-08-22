@@ -11,6 +11,21 @@
 - Frontend
   - Added option for adding links to read form
   - Added contract link to project registration section
+**August 22, 2023 [DESCW-1269](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1269)**
+
+- Frontend
+  - fix frontend template for DOCX so it looks like XLS template
+  - rebuild tab 22 (change request types) DOCX template
+  - build tab 22 XLS template
+  - move tab 22 menu selector JSON
+  - order menu items sequentially for divisional project reports
+  - move tab 22 from wrong section and rename it
+
+- Backend
+  - set up tab 22 model
+  - DELETE old change request types model
+  - DELETE old change request types controller
+  - DELETE temporary tab 22 query
 
 **August 22, 2023 [DESCW-1283](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1283)**
 
