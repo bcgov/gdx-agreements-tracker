@@ -1,6 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-
+// todo: delete this file if it is not needed
 /**
  * Gets data for the Divisional Project Reports - Project Dashboard report.
  *
