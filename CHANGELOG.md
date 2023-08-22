@@ -30,6 +30,12 @@
   - DELETE old change request types route
   - DELETE temporary tab 22 query
 
+**August 22, 2023 [DESCW-856](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-856)**
+
+- Frontend
+  - Added option for adding links to read form
+  - Added contract link to project registration section
+
 **August 22, 2023 [DESCW-1283](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1283)**
 
 - Backend
