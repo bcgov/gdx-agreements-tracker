@@ -25,6 +25,7 @@
   - set up tab 22 model
   - DELETE old change request types model
   - DELETE old change request types controller
+  - DELETE old change request types route
   - DELETE temporary tab 22 query
 
 **August 22, 2023 [DESCW-1283](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1283)**
