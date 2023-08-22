@@ -1,7 +1,7 @@
 **August 22, 2023 [DESCW-1283](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1283)**
 
 - Backend
-  - refactor model boilerplate somewhat
+  - refactor model boilerplate
   - set up tab 6 model
 - Frontend
   - tweak selector for report parameter
