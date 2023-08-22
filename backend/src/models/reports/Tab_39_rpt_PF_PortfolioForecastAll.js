@@ -12,8 +12,6 @@ const { whereInArray } = require("./helpers");
  * @returns {Promise}                  - A promise that resolves to the query result
  */
 
-//const portfolio = [portfolio];
-
 const reportQueries = {
   // The columns on which to calculate totals.
   columns: {
