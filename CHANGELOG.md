@@ -1,3 +1,15 @@
+**August 23, 2023 [DESCW-1270](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1270)**
+
+- Frontend
+  - delete Login.tsx
+  - build tab 29 XLS template
+  - move tab 29 menu selector JSON
+  - order menu items sequentially for divisional project reports
+  - move tab 29 from wrong section and rename it
+
+- Backend
+  - set up tab 29 model
+
 **August 23, 2023 [DESCW-1269](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1269)**
 
 - Frontend
