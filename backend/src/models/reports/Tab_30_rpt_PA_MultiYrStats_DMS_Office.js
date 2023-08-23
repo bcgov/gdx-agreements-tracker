@@ -12,102 +12,83 @@ const getReport = () =>
     .with(
       "q1",
       knex.raw(`
-          SELECT fy.id AS fiscal_year_id,
-            fy.fiscal_year,
-            p.id AS project_id,
-            p.project_number,
-            p.project_name,
-            coalesce(cr.initiated_by, 'None') AS initiated_by,
-            coalesce(crt.crtype_name, 'None') AS cr_type,
-            count(*) AS count_by_type
-          FROM (
-              change_request_crtype crcrt
-              RIGHT JOIN (
-                (
-                  change_request cr
-                  INNER JOIN fiscal_year fy ON cr.fiscal_year = fy.id
-                )
-                INNER JOIN project p ON cr.link_id = p.id
-              ) ON crcrt.change_request_id = cr.id
+        SELECT fy.fiscal_year,
+          ho.pmo_staff AS dms_staff,
+          ho.division_fte,
+          ho.salaries_and_benefits,
+          ho.operating_costs,
+          ho.target_recoveries,
+          coalesce(
+            ho.recoveries,
+            sum(
+              (
+                CASE
+                  WHEN q1_recovered THEN q1_amount
+                  ELSE cast(0 AS MONEY)
+                END
+              ) +(
+                CASE
+                  WHEN q2_recovered THEN q2_amount
+                  ELSE cast(0 AS MONEY)
+                END
+              ) +(
+                CASE
+                  WHEN q3_recovered THEN q3_amount
+                  ELSE cast(0 AS MONEY)
+                END
+              ) +(
+                CASE
+                  WHEN q4_recovered THEN q4_amount
+                  ELSE cast(0 AS MONEY)
+                END
+              )
             )
-            LEFT JOIN crtype crt ON crcrt.crtype_id = crt.id
-          GROUP BY fy.id,
-            fy.fiscal_year,
-            p.id,
-            p.project_number,
-            p.project_name,
-            cr.initiated_by,
-            crt.crtype_name`)
-    )
-    .with(
-      "q2",
-      knex.raw(`
-          SELECT q1.fiscal_year_id,
-            q1.fiscal_year,
-            q1.project_number,
-            q1.project_id,
-            q1.project_name,
-            q1.initiated_by,
-            sum(
-              CASE
-                WHEN q1.cr_type = 'Budget' THEN q1.count_by_type
-                ELSE NULL
-              END
-            ) AS budget,
-            sum(
-              CASE
-                WHEN q1.cr_type = 'Schedule' THEN q1.count_by_type
-                ELSE NULL
-              END
-            ) AS schedule,
-            sum(
-              CASE
-                WHEN q1.cr_type = 'Scope' THEN q1.count_by_type
-                ELSE NULL
-              END
-            ) AS SCOPE,
-            sum(
-              CASE
-                WHEN q1.cr_type = 'None' THEN q1.count_by_type
-                ELSE NULL
-              END
-            ) AS NONE
-          FROM q1
-          GROUP BY q1.fiscal_year_id,
-            q1.fiscal_year,
-            q1.project_number,
-            q1.project_id,
-            q1.project_name,
-            q1.initiated_by`)
-    )
-    .with(
-      "q3",
-      knex.raw(`
-          SELECT cr.fiscal_year AS fiscal_year_id,
-            cr.link_id AS project_id,
-            coalesce(cr.initiated_by, 'None') AS initiated_by,
-            count(*) AS cr_count
-          FROM change_request cr
-          GROUP BY cr.fiscal_year,
-            cr.link_id,
-            coalesce(cr.initiated_by, 'None')`)
+          ) AS recoveries
+        FROM fiscal_year fy
+          INNER JOIN (
+            (
+              historical_office_data ho
+              LEFT JOIN project_deliverable pd ON ho.fiscal_year = pd.fiscal
+            )
+            LEFT JOIN (
+              project_budget pb
+              LEFT JOIN portfolio po ON pb.recovery_area = po.id
+            ) ON pd.id = pb.project_deliverable_id
+          ) ON fy.id = ho.fiscal_year
+        WHERE coalesce(portfolio_abbrev, 'PMO') = 'DMS'
+          AND coalesce(stob, '8807') IN ('8809', '8807')
+        GROUP BY fy.fiscal_year,
+          ho.pmo_staff,
+          ho.division_fte,
+          ho.salaries_and_benefits,
+          ho.operating_costs,
+          ho.target_recoveries,
+          recoveries,
+          target_recoveries,
+          ho.unique_clients,
+          ho.recoveries`)
     )
     .select({
-      fiscal_year: "q2.fiscal_year",
-      cr_count: knex.raw("sum(q3.cr_count)"),
-      initiated_by: "q2.initiated_by",
-      budget: knex.raw("sum(q2.budget)"),
-      schedule: knex.raw("sum(q2.schedule)"),
-      scope: knex.raw("sum(q2.scope)"),
-      none: knex.raw("sum(q2.none)"),
+      fiscal_year: "fiscal_year",
+      dms_staff: "dms_staff",
+      division_fte: "division_fte",
+      salaries_and_benefits: "salaries_and_benefits",
+      operating_costs: "operating_costs",
+      target_recoveries: "target_recoveries",
+      recoveries: "recoveries",
+      target_over_under: knex.raw(`
+        round(
+          (
+            recoveries::numeric / target_recoveries::numeric - 1
+          ) * 100,
+          2
+        ) || CASE
+          WHEN recoveries IS NULL THEN ''
+          ELSE '%'
+        END`),
     })
-    .from("q3")
-    .innerJoin("q2", function () {
-      this.on("q3.initiated_by", "=", "q2.initiated_by")
-        .andOn("q3.project_id", "=", "q2.project_id")
-        .andOn("q3.fiscal_year_id", "=", "q2.fiscal_year_id");
-    })
-    .groupBy("q2.fiscal_year", "q2.initiated_by");
+    .from("q1")
+    .orderBy("fiscal_year");
 
 /**
  * Retrieve and process data from queries to create a structured result object.

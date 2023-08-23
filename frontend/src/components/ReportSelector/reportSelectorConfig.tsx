@@ -208,9 +208,9 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Annual Stats for the DMS",
         description:
           "Annual stats report on DMS office staff, salaries, division FTEs, DMS operating costs, target recoveries.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: [],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_31_rpt_PA_ProjectswithContracts",
