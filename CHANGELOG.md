@@ -1,3 +1,7 @@
+**August 22, 2023**
+- Frontend
+  - revert changes to typescript `<any>` type on the useQuery hook that caused a TS compiler error
+
 **August 22, 2023 [DESCW-1281](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1281)**
 
 - Frontend
