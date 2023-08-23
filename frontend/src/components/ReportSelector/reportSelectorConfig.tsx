@@ -99,6 +99,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: false,
       },
       {
+        value: "Tab_28_rpt_PA_MultiYrStats",
+        label: "Multi YearAnnual Project Stats",
+        description:
+          "Annual stats report on projects in fiscal, total project budgets, total recovered, average duration, # of change requests, internal/external/social media # of unique clients.",
+        parameters: ["portfolio"],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_29_rpt_PA_MultiYrStatsChangeRequest",
         label: "Multi-Year statistics for Project change requests",
         description:
