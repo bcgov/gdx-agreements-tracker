@@ -99,6 +99,24 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: false,
       },
       {
+        value: "Tab_28_rpt_PA_MultiYrStats",
+        label: "Multi YearAnnual Project Stats",
+        description:
+          "Annual stats report on projects in fiscal, total project budgets, total recovered, average duration, # of change requests, internal/external/social media # of unique clients.",
+        parameters: ["portfolio"],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
+        value: "Tab_29_rpt_PA_MultiYrStatsChangeRequest",
+        label: "Multi-Year statistics for Project change requests",
+        description:
+          "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
+        parameters: [],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_34_rpt_PA_StatusDashboard",
         label: "Project Dashboard",
         description:
@@ -124,15 +142,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: ["portfolio", "fiscal"],
         exportPDF: true,
         exportXLSX: false,
-      },
-      {
-        value: "Tab_29_rpt_PA_MultiYrStatsChangeRequest",
-        label: "Multi-Year statistics for Project change requests",
-        description:
-          "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
-        parameters: [],
-        exportPDF: false,
-        exportXLSX: true,
       },
       {
         value: "rpt_PA_Registered",
@@ -190,24 +199,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Ministry Project Usage",
         description:
           "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor, Project Manager.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "Tab_28_rpt_PA_MultiYrStats",
-        label: "Multi YearAnnual Project Stats",
-        description:
-          "Annual stats report on projects in fiscal, total project budgets, total recovered, average duration, # of change requests, internal/external/social media # of unique clients.",
-        parameters: ["portfolio"],
-        exportPDF: false,
-        exportXLSX: true,
-      },
-      {
-        value: "Tab_29_rpt_PA_MultiYrStatsChangeRequest",
-        label: "Muli-year statistics for Project Change requests",
-        description:
-          "FY – Total Change Requests, Initiated by, Type of Change Request (Budget, Schedule, Scope).",
         parameters: ["portfolio"],
         exportPDF: true,
         exportXLSX: false,
