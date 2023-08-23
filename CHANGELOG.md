@@ -1,4 +1,4 @@
-**August 22, 2023 [DESCW-1269](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1269)**
+**August 23, 2023 [DESCW-1269](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1269)**
 
 - Frontend
   - fix frontend template for DOCX so it looks like XLS template
@@ -17,6 +17,7 @@
   - DELETE temporary tab 22 query
 
 **August 22, 2023**
+
 - Frontend
   - revert changes to typescript `<any>` type on the useQuery hook that caused a TS compiler error
 
@@ -33,7 +34,6 @@
 - Frontend
   - Added option for adding links to read form
   - Added contract link to project registration section
-
 
 **August 22, 2023 [DESCW-856](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-856)**
 
