@@ -18,7 +18,6 @@ import DescriptionIcon from "@mui/icons-material/Description";
 /**
  * Represents a read-only field component.
  *
- * @component
  * @param   {object}       props        - The properties object.
  * @param   {string}       props.width  - The width of the field.
  * @param   {string}       props.title  - The title of the field.

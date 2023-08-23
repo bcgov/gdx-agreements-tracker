@@ -72,11 +72,29 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
     label: "Divisional Project Reports",
     types: [
       {
-        value: "Tab_35_rpt_PA_StatusPortfolioRollup",
-        label: "Project Status Roll-Up",
+        value: "Tab_19_rpt_PA_ActiveProjectsbyPortfolio",
+        label: "Active Projects",
         description:
-          "Grouped on Portfolio, Shows Project #, Project Name, Project Manager, Start and End date for project, Status Date, Project Phase, Issues and decisions, Forecasts and Next steps and Project Health.",
+          "Project #, Project Name, Project Manager, Description, Project Type, Start and End Date, Planned Budget and Client Ministry.",
         parameters: ["portfolio"],
+        exportPDF: true,
+        exportXLSX: false,
+      },
+      {
+        value: "Tab_22_rpt_PA_ChangeRequestTypesFY-Summary",
+        label: "Change requests Types",
+        description:
+          "Run for a specific fiscal and sorted by Project #. Shows total change requests for the project even if changes occurred in a previous fiscal.",
+        parameters: ["fiscal"],
+        exportPDF: true,
+        exportXLSX: true,
+      },
+      {
+        value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
+        label: "Projects Lessons Learned",
+        description:
+          "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
+        parameters: ["portfolio", "fiscal", "project"],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -90,20 +108,11 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: false,
       },
       {
-        value: "Tab_19_rpt_PA_ActiveProjectsbyPortfolio",
-        label: "Active Projects",
+        value: "Tab_35_rpt_PA_StatusPortfolioRollup",
+        label: "Project Status Roll-Up",
         description:
-          "Project #, Project Name, Project Manager, Description, Project Type, Start and End Date, Planned Budget and Client Ministry.",
+          "Grouped on Portfolio, Shows Project #, Project Name, Project Manager, Start and End date for project, Status Date, Project Phase, Issues and decisions, Forecasts and Next steps and Project Health.",
         parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "Tab_25_rpt_PA_LessonsLearnedbyCategory",
-        label: "Projects Lessons Learned",
-        description:
-          "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
-        parameters: ["portfolio", "fiscal", "project"],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -115,6 +124,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: ["portfolio", "fiscal"],
         exportPDF: true,
         exportXLSX: false,
+      },
+      {
+        value: "Tab_29_rpt_PA_MultiYrStatsChangeRequest",
+        label: "Multi-Year statistics for Project change requests",
+        description:
+          "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
+        parameters: [],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "rpt_PA_Registered",
@@ -131,24 +149,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry",
         parameters: ["fiscal"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "change_request_types",
-        label: "Change Request Types",
-        description:
-          "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows total change requests for the project even if changes occurred in a previous fiscal",
-        parameters: ["fiscal"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "rpt_PA_ChangeRequestTypesFYSummary",
-        label: "Multi-Year statistics for Project change requests",
-        description:
-          "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
-        parameters: [],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -175,15 +175,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: ["fiscal"],
         exportPDF: false,
         exportXLSX: true,
-      },
-      {
-        value: "Tab_22_rpt_PA_ChangeRequestTypesFY-Summary",
-        label: "Change requests Types",
-        description:
-          "Run for a specific fiscal and sorted by Project #. Shows total change requests for the project even if changes occurred in a previous fiscal.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
       },
       {
         value: "Tab_23_rpt_PA_Fiscal_Registry",
