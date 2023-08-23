@@ -1,3 +1,12 @@
+**August 23, 2023 [DESCW-1271](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1271)**
+
+- Frontend
+  - build tab 30 XLS template
+  - configure tab 30 menu selector
+
+- Backend
+  - set up tab 30 model
+
 **August 23, 2023 [DESCW-1270](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1270)**
 
 - Frontend
