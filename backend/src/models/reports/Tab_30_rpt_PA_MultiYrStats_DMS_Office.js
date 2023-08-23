@@ -2,8 +2,7 @@ const { knex } = require("@database/databaseConnection")();
 const log = require("../../facilities/logging")(module.filename);
 
 /**
- * Retrieves annual information on Change Requests on projects for a fiscal.
- * Information based on data from 14-15 forward.
+ * Retrieves Annual stats report on DMS office staff, salaries, division FTEs, DMS operating costs, target recoveries.
  *
  * @returns {Promise} - A promise that resolves to the query result
  */
