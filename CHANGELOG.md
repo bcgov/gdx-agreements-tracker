@@ -1,3 +1,8 @@
+**August 24, 2023 [DESCW-46](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-46)**
+
+- Openshift
+  - Enabled pgaudit through yaml config file for auditing SQL queries
+
 **August 23, 2023 [DESCW-1271](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1271)**
 
 - Frontend
@@ -6,6 +11,7 @@
 
 - Backend
   - set up tab 30 model
+
 
 **August 23, 2023 [DESCW-1270](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1270)**
 
