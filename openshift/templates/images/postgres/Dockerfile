@@ -4,9 +4,6 @@ RUN set -ex; \
     apt-get update; \
     apt-get -y install postgresql-15-pgaudit;
 
-# This will only work if the database volume is not already created, otherwise it is a manual addition
-RUN echo "shared_preload_libraries = 'pgaudit'" >> /var/lib/postgresql/data/postgresql.conf ; 
-
 ENV RUNUSER postgres
 
 RUN set -ex; \
