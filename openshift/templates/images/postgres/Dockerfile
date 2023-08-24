@@ -23,3 +23,4 @@ RUN set -ex; \
 
 VOLUME /var/lib/postgresql
 VOLUME /var/run
+CMD ["postgres", "-c", "config_file=/tmp/postgresql.conf"]
