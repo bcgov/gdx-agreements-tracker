@@ -68,7 +68,9 @@ services:
       - gat-node
       - gat-db
   db:
-    image: "postgres:15.3-alpine"
+    build: 
+      dockerfile: Dockerfile
+      context: openshift/templates/images/postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: *POSTGRES_PASSWORD
