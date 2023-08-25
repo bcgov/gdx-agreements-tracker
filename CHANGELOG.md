@@ -1,3 +1,10 @@
+
+**August 25, 2023 [DESCW-46](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-46)**
+
+- Openshift
+  - Added migration for enabling pgaudit
+  - Updated openshift config to allow use of custom postgresql.conf 
+
 **August 24, 2023 [DESCW-46](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-46)**
 
 - Openshift
