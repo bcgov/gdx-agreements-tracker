@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   FormControlLabel,
@@ -160,6 +160,7 @@ const RadioSelect = () => {
                       onClick={(event) => {
                         handleExportType(event, "xlsx", "xlsx");
                       }}
+                      type="submit"
                     >
                       Export xls
                     </Button>
@@ -169,6 +170,7 @@ const RadioSelect = () => {
                       onClick={(event) => {
                         handleExportType(event, "docx", "pdf");
                       }}
+                      type="submit"
                     >
                       Export pdf
                     </Button>

@@ -444,14 +444,16 @@ export interface Irgb {
 
 export type ConvertToStringItem =
   | {
-      value: string | null;
-    }
+    value: string | null;
+  }
   | string;
 
 export type UpdatedSearchParams = {
   templateType: string;
   [key: string]: string;
 };
+
+export type IReportCategoriesAndTypesParameters = { label: string, required: boolean };
 
 export type IReportCategoriesAndTypes = {
   value: string;
@@ -460,7 +462,7 @@ export type IReportCategoriesAndTypes = {
     value: string;
     label: string;
     description: string;
-    parameters: string[];
+    parameters: IReportCategoriesAndTypesParameters[];
     exportPDF: boolean;
     exportXLSX: boolean;
   }[];
