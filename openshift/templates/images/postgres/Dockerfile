@@ -1,5 +1,9 @@
 FROM postgres:15.3-bullseye
 
+RUN set -ex; \
+    apt-get update; \
+    apt-get -y install postgresql-15-pgaudit;
+
 ENV RUNUSER postgres
 
 RUN set -ex; \
@@ -16,5 +20,4 @@ RUN set -ex; \
 
 VOLUME /var/lib/postgresql
 VOLUME /var/run
-
-
+CMD ["postgres", "-c", "config_file=/tmp/postgresql.conf"]
