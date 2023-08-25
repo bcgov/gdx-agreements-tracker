@@ -6,6 +6,9 @@ RUN set -ex; \
 
 ENV RUNUSER postgres
 
+
+COPY postgresql.conf /home
+
 RUN set -ex; \
     chmod -R 555 /docker-entrypoint* ; \
     chmod 664 /etc/passwd /etc/group /etc/shadow ; \
@@ -20,4 +23,4 @@ RUN set -ex; \
 
 VOLUME /var/lib/postgresql
 VOLUME /var/run
-CMD ["postgres", "-c", "config_file=/tmp/postgresql.conf"]
+CMD ["postgres", "-c", "config_file=/home/postgresql.conf"]
