@@ -47,6 +47,13 @@ const whereInArray = (queryBuilder, column, parameter) => {
 /**
  * Gets a report with subtotals.
  *
+ * EXAMPLE:
+ * const reportByPortfolioWithTotals = await getReportWithSubtotals(
+   report,
+   totals,
+   "portfolio_name"
+   );
+ *
  * @param   {Array}    report            - The report data.
  * @param   {Array}    subtotals         - The report subtotal data.
  * @param   {string}   propertyToGroupBy - The property to group the report data by.
