@@ -1,9 +1,18 @@
+**August 23, 2023 [DESCW-1272](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1272)**
+
+- Frontend
+  - build tab 40 XLS template
+  - configure tab 40 menu selector
+
+- Backend
+  - set up tab 40 model
+  - update docblock comment on 'getReportWithSubtotals' utility function with example
 
 **August 25, 2023 [DESCW-46](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-46)**
 
 - Openshift
   - Added migration for enabling pgaudit
-  - Updated openshift config to allow use of custom postgresql.conf 
+  - Updated openshift config to allow use of custom postgresql.conf
 
 **August 24, 2023 [DESCW-46](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-46)**
 
@@ -18,7 +27,6 @@
 
 - Backend
   - set up tab 30 model
-
 
 **August 23, 2023 [DESCW-1270](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1270)**
 
