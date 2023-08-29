@@ -292,12 +292,24 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Staff Recoveries Forecast by Area",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
+<<<<<<< HEAD
         parameters: [
           { label: "portfolio", required: false },
           { label: "fiscal", required: false },
         ],
         exportPDF: false,
         exportXLSX: true,
+=======
+<<<<<<< HEAD
+        parameters: [{ label: "portfolio", required: false }],
+        exportPDF: true,
+        exportXLSX: false,
+=======
+        parameters: ["portfolio"],
+        exportPDF: false,
+        exportXLSX: true,
+>>>>>>> 3dfa17aa (DESCW-1273_project-staff-recoveries-forecast-tab-41 implements tab 41 of the project financials report.)
+>>>>>>> 2bbf954b (DESCW-1273_project-staff-recoveries-forecast-tab-41 implements tab 41 of the project financials report.)
       },
       {
         value: "Tab_42_rpt_PF_PortfolioStobRecoveries",
