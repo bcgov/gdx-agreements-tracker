@@ -277,12 +277,12 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
       {
         value: "Tab_41_rpt_PF_PortfolioStaffRecoveries",
-        label: "Projects Project Staff Recoveries Forecast by Area",
+        label: "Projects Staff Recoveries Forecast by Area",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
         parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_42_rpt_PF_PortfolioStobRecoveries",
