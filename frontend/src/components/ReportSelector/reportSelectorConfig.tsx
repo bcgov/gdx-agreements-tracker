@@ -195,15 +195,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: false,
       },
       {
-        value: "Tab_27_rpt_PA_Ministry",
-        label: "Ministry Project Usage",
-        description:
-          "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor, Project Manager.",
-        parameters: ["portfolio"],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
         value: "Tab_30_rpt_PA_MultiYrStats_DMS_Office",
         label: "Annual Stats for the DMS",
         description:
