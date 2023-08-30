@@ -453,6 +453,8 @@ export type UpdatedSearchParams = {
   [key: string]: string;
 };
 
+export type IReportCategoriesAndTypesParameters = { label: string; required: boolean };
+
 export type IReportCategoriesAndTypes = {
   value: string;
   label: string;
@@ -460,7 +462,7 @@ export type IReportCategoriesAndTypes = {
     value: string;
     label: string;
     description: string;
-    parameters: string[];
+    parameters: IReportCategoriesAndTypesParameters[];
     exportPDF: boolean;
     exportXLSX: boolean;
   }[];

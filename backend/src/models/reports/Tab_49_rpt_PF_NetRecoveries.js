@@ -1,6 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-const required = ["fiscal", "portfolio"];
+const required = ["fiscal"];
 const handleParams = (query, requestParams) => {
   if (requestParams.portfolio) {
     const portfolio = requestParams.portfolio;

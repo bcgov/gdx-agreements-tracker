@@ -1,10 +1,13 @@
 import { FormInput } from "components/Forms/FormInput";
+import { IReportCategoriesAndTypesParameters } from "types";
 
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: any) => {
-  const renderComponent = (parameterName: string) => {
-    switch (parameterName) {
+  const renderComponent = (parameter: IReportCategoriesAndTypesParameters) => {
+    const { label, required } = parameter;
+
+    switch (label) {
       case "fiscal":
         return (
           <FormInput
@@ -15,6 +18,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             pickerName="fiscal_year_option"
             fieldValue={values.fiscal}
             setFieldValue={setFieldValue}
+            required={required}
           />
         );
 
@@ -28,6 +32,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             pickerName="portfolio_option"
             fieldValue={values.portfolio}
             setFieldValue={setFieldValue}
+            required={required}
           />
         );
 
@@ -41,6 +46,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             pickerName="contract_option"
             fieldValue={values.contract}
             setFieldValue={setFieldValue}
+            required={required}
           />
         );
       case "date":
@@ -52,6 +58,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             width={"half"}
             fieldValue={values.date}
             setFieldValue={setFieldValue}
+            required={required}
           />
         );
 
@@ -65,6 +72,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             tableName="generic"
             fieldValue={values.quarter}
             setFieldValue={setFieldValue}
+            required={required}
           />
         );
       case "project":
@@ -77,6 +85,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             pickerName="project_option"
             fieldValue={values.project}
             setFieldValue={setFieldValue}
+            required={required}
           />
         );
     }
@@ -90,7 +99,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
     return item.value === values.type;
   });
 
-  return selectedType.parameters.map((parameterName: string) => {
-    return renderComponent(parameterName);
+  return selectedType.parameters.map((parameter: IReportCategoriesAndTypesParameters) => {
+    return renderComponent(parameter);
   });
 };
