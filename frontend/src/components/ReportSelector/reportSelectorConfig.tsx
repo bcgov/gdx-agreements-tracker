@@ -292,7 +292,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Grouped on Portfolio shows project #, Project Name, fiscal amounts for a specific fiscal",
 
-        parameters: [{ label: "fiscal", required: false }],
+        parameters: [{ label: "fiscal", required: true }],
         exportPDF: true,
         exportXLSX: false,
       },

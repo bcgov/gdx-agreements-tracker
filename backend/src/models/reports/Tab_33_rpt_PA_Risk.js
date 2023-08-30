@@ -7,7 +7,7 @@ const getReport = (portfolio) => {
 };
 
 module.exports = {
-  required: ["portfolio"],
+  required: [],
   getAll: async (query) => {
     const { portfolio } = query;
     const [report] = await Promise.all([getReport(portfolio)]);
