@@ -75,11 +75,9 @@ const RadioSelect = () => {
     templateType: string,
     exportType: string
   ) => {
-    event.preventDefault();
     setFieldValue("templateType", templateType);
     setFieldValue("exportType", exportType);
     //This triggers the formik on submit function defined above
-    formik.submitForm();
   };
 
   return (
@@ -160,6 +158,7 @@ const RadioSelect = () => {
                       onClick={(event) => {
                         handleExportType(event, "xlsx", "xlsx");
                       }}
+                      type="submit"
                     >
                       Export xls
                     </Button>
@@ -169,6 +168,7 @@ const RadioSelect = () => {
                       onClick={(event) => {
                         handleExportType(event, "docx", "pdf");
                       }}
+                      type="submit"
                     >
                       Export pdf
                     </Button>
