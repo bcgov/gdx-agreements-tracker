@@ -291,7 +291,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Recoveries Admin Fees for Fiscal",
         description:
           "Grouped on Portfolio shows project #, Project Name, fiscal amounts for a specific fiscal",
-        parameters: [{ label: "portfolio", required: false }],
+
+        parameters: [{ label: "fiscal", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },

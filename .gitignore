@@ -58,3 +58,4 @@ backend/temp.postgres
 backend/reports/docx/~*
 backend/reports/xlsx/~*
 deployments/kustomize/overlays/experimental
+logs
