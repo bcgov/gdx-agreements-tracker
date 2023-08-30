@@ -108,4 +108,5 @@ const getAll = async ({ portfolio }) => {
   };
 };
 
+// Exports
 module.exports = { required: [], getAll };
