@@ -75,7 +75,6 @@ const RadioSelect = () => {
     templateType: string,
     exportType: string
   ) => {
-    event.preventDefault();
     setFieldValue("templateType", templateType);
     setFieldValue("exportType", exportType);
     //This triggers the formik on submit function defined above

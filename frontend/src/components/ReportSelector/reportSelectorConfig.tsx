@@ -76,7 +76,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Active Projects",
         description:
           "Project #, Project Name, Project Manager, Description, Project Type, Start and End Date, Planned Budget and Client Ministry.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -94,7 +94,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Lessons Learned",
         description:
           "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
-        parameters: [{ label: "portfolio", required: true }, { label: "fiscal", required: true }, { label: "project", required: true }],
+        parameters: [{ label: "portfolio", required: false }, { label: "fiscal", required: true }, { label: "project", required: true }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -103,7 +103,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Multi YearAnnual Project Stats",
         description:
           "Annual stats report on projects in fiscal, total project budgets, total recovered, average duration, # of change requests, internal/external/social media # of unique clients.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: false,
         exportXLSX: true,
       },
@@ -121,7 +121,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Dashboard",
         description:
           "Grouped on Portfolio, Shows Project #, Project Name, Project Manager, Start and End date for project, Status Date, Project Phase and Project Health Color Indicators.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -130,7 +130,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Status Roll-Up",
         description:
           "Grouped on Portfolio, Shows Project #, Project Name, Project Manager, Start and End date for project, Status Date, Project Phase, Issues and decisions, Forecasts and Next steps and Project Health.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -139,7 +139,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Ministry Project Usage",
         description:
           "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor and Project Manager.",
-        parameters: [{ label: "portfolio", required: true }, { label: "fiscal", required: true }],
+        parameters: [{ label: "portfolio", required: false }, { label: "fiscal", required: true }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -148,7 +148,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Registered by Date / Period",
         description:
           "Breakdown shows the distribution between the portfolios and shows, Project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned Budget.",
-        parameters: [{ label: "date", required: true }, { label: "portfolio", required: true }],
+        parameters: [{ label: "date", required: true }, { label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -190,7 +190,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Registered by Fiscal",
         description:
           "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -199,7 +199,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Ministry Project Usage",
         description:
           "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor, Project Manager.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -226,7 +226,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Registered by Date/Period",
         description:
           "Breakdown shows the distribution between the portfolios and shows, project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned budget.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -262,7 +262,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Forecasting by Quarter",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
-        parameters: [{ label: "fiscal", required: true }, { label: "portfolio", required: true }],
+        parameters: [{ label: "fiscal", required: true }, { label: "portfolio", required: false }],
         exportPDF: false,
         exportXLSX: true,
       },
@@ -271,7 +271,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Recoveries Admin Fees for Fiscal",
         description:
           "Grouped on Portfolio shows project #, Project Name, fiscal amounts for a specific fiscal",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -280,7 +280,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Project Staff Recoveries Forecast by Area",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -289,7 +289,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Recovery Forecast by STOB",
         description:
           "Project#, Project Name, Recoverable Amt Current Fiscal, STOB breakdown for each of the following showing Amt and Recovered to date figures: 6398, 8807, 8809, 5798, 6598, Other.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -325,7 +325,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "GDX Project Net Recoveries",
         description:
           "Project name and number, total recoveries, total expenses, net recoveries, recovered to date, remaining recoveries.",
-        parameters: [{ label: "portfolio", required: true }, { label: "fiscal", required: true }],
+        parameters: [{ label: "portfolio", required: false }, { label: "fiscal", required: true }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -343,7 +343,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "ADI Export",
         description:
           "Project CAScoding for both recovery ministry and GDX in the format required for input- can be run by quarter or project for all projects √ for processing.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -352,7 +352,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Finance Project Forecast",
         description:
           "Project name and number, total recoveries for fiscal, total expenses for each stob type.",
-        parameters: [{ label: "portfolio", required: true }],
+        parameters: [{ label: "portfolio", required: false }],
         exportPDF: true,
         exportXLSX: false,
       },
