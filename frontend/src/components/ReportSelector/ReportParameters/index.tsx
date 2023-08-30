@@ -5,7 +5,7 @@ import { IReportCategoriesAndTypesParameters } from "types";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: any) => {
   const renderComponent = (parameter: IReportCategoriesAndTypesParameters) => {
-    const { label, required } = parameter
+    const { label, required } = parameter;
 
     switch (label) {
       case "fiscal":

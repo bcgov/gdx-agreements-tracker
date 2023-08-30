@@ -444,8 +444,8 @@ export interface Irgb {
 
 export type ConvertToStringItem =
   | {
-    value: string | null;
-  }
+      value: string | null;
+    }
   | string;
 
 export type UpdatedSearchParams = {
@@ -453,7 +453,7 @@ export type UpdatedSearchParams = {
   [key: string]: string;
 };
 
-export type IReportCategoriesAndTypesParameters = { label: string, required: boolean };
+export type IReportCategoriesAndTypesParameters = { label: string; required: boolean };
 
 export type IReportCategoriesAndTypes = {
   value: string;

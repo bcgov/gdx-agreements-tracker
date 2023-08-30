@@ -46,7 +46,11 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Quarterly Billing Request",
         description:
           "Runs on Project #, fiscal yr, quarter. Shows client billing information, summaries the breakdown charged per deliverable for the specific quarter/fiscal.",
-        parameters: [{ label: "project", required: true }, { label: "fiscal", required: true }, { label: "quarter", required: true }],
+        parameters: [
+          { label: "project", required: true },
+          { label: "fiscal", required: true },
+          { label: "quarter", required: true },
+        ],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -94,7 +98,11 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Lessons Learned",
         description:
           "Grouped by Portfolio, sorted by Lesson Category. Project #, Name, Lesson Category, Sub Category, Lesson Learned and Recommendations.",
-        parameters: [{ label: "portfolio", required: false }, { label: "fiscal", required: true }, { label: "project", required: true }],
+        parameters: [
+          { label: "portfolio", required: false },
+          { label: "fiscal", required: true },
+          { label: "project", required: true },
+        ],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -139,7 +147,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Ministry Project Usage",
         description:
           "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor and Project Manager.",
-        parameters: [{ label: "portfolio", required: false }, { label: "fiscal", required: true }],
+        parameters: [
+          { label: "portfolio", required: false },
+          { label: "fiscal", required: true },
+        ],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -148,7 +159,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Registered by Date / Period",
         description:
           "Breakdown shows the distribution between the portfolios and shows, Project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned Budget.",
-        parameters: [{ label: "date", required: true }, { label: "portfolio", required: false }],
+        parameters: [
+          { label: "date", required: true },
+          { label: "portfolio", required: false },
+        ],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -253,7 +267,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project JVs Processed",
         description:
           "Fiscal Year and Quarter, Project #, Project Name, JV Number, Date Billed, Amount.",
-        parameters: [{ label: "fiscal", required: true }, { label: "quarter", required: true }],
+        parameters: [
+          { label: "fiscal", required: true },
+          { label: "quarter", required: true },
+        ],
         exportPDF: false,
         exportXLSX: true,
       },
@@ -262,7 +279,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Forecasting by Quarter",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
-        parameters: [{ label: "fiscal", required: true }, { label: "portfolio", required: false }],
+        parameters: [
+          { label: "fiscal", required: true },
+          { label: "portfolio", required: false },
+        ],
         exportPDF: false,
         exportXLSX: true,
       },
@@ -325,7 +345,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "GDX Project Net Recoveries",
         description:
           "Project name and number, total recoveries, total expenses, net recoveries, recovered to date, remaining recoveries.",
-        parameters: [{ label: "portfolio", required: false }, { label: "fiscal", required: true }],
+        parameters: [
+          { label: "portfolio", required: false },
+          { label: "fiscal", required: true },
+        ],
         exportPDF: true,
         exportXLSX: false,
       },

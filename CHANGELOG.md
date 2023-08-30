@@ -1,3 +1,8 @@
+**August 30-, 2023 [DESCW-1220](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1220)**
+- Frontend
+  - Added frontend parameter validation for reports.
+    - Validation only prevents 
+
 **August 24, 2023 [DESCW-46](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-46)**
 
 - Openshift
