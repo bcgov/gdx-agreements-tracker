@@ -78,7 +78,6 @@ const RadioSelect = () => {
     setFieldValue("templateType", templateType);
     setFieldValue("exportType", exportType);
     //This triggers the formik on submit function defined above
-    formik.submitForm();
   };
 
   return (
