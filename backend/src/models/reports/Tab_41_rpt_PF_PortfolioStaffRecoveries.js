@@ -84,19 +84,19 @@ const queries = {
       .first(),
 };
 
-const getAll = async ({ portfolio }) => {
-  // todo: use lodash chain here
-  // Await all promises in parallel
-  const [report, totals, grand_totals] = await Promise.all(
-    _.map(queries, (query) => query(portfolio).catch((err) => log.error(err)))
-  );
-
-  return {
-    // Group the report by portfolio, and add subtotals for each portfolio
-    report: await getReportWithSubtotals(report, totals, "portfolio_name"),
-    grand_totals,
-  };
-};
-
 // Exports
-module.exports = { required: [], getAll };
+module.exports = {
+  required: [],
+  getAll: async ({ portfolio }) => {
+    // Await all promises in parallel
+    const [report, totals, grand_totals] = await Promise.all(
+      _.map(queries, (query) => query(portfolio).catch((err) => log.error(err)))
+    );
+
+    return {
+      // Group the report by portfolio, and add subtotals for each portfolio
+      report: await getReportWithSubtotals(report, totals, "portfolio_name"),
+      grand_totals,
+    };
+  },
+};
