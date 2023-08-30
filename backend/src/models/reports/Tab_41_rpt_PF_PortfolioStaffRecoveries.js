@@ -1,6 +1,9 @@
+// libs
 const { knex } = require("@database/databaseConnection")();
 const log = require("../../facilities/logging")(module.filename);
 const _ = require("lodash");
+
+// utilities
 const { getReportWithSubtotals, whereInArray } = require("./helpers");
 
 /**
@@ -10,7 +13,7 @@ const { getReportWithSubtotals, whereInArray } = require("./helpers");
  * @returns {Promise}                  - A promise that resolves to the query result
  */
 const queries = {
-  report: (portfolios) =>
+  report: (portfolio) =>
     knex
       .select({
         portfolio_name: "po.portfolio_name",
@@ -39,6 +42,7 @@ const queries = {
       )
       .whereRaw(`left(pb.stob, 2) = '88'`)
       .groupBy(
+        "po.id",
         "po.portfolio_name",
         "p.project_number",
         "p.project_name",
@@ -52,10 +56,10 @@ const queries = {
       .orderBy("portfolio_name", "asc")
       .orderBy("project_number", "asc")
       .orderBy("fiscal_year", "desc")
-      .modify(whereInArray, "portfolio_id", portfolios),
+      .modify(whereInArray, "po.id", portfolio),
 
-  totals: (fiscal) =>
-    knex(queries.report(fiscal).as("report"))
+  totals: (portfolio) =>
+    knex(queries.report(portfolio).as("report"))
       .select({
         portfolio_name: "portfolio_name",
       })
@@ -68,8 +72,8 @@ const queries = {
       })
       .groupBy("portfolio_name"),
 
-  grandTotals: (fiscal) =>
-    knex(queries.report(fiscal).as("report"))
+  grandTotals: (portfolio) =>
+    knex(queries.report(portfolio).as("report"))
       .sum({
         q1: "report.q1",
         q2: "report.q2",
@@ -94,4 +98,5 @@ const getAll = async ({ portfolio }) => {
   };
 };
 
-module.exports = { required: ["portfolio"], getAll };
+// Exports
+module.exports = { required: [], getAll };
