@@ -4,10 +4,10 @@ const _ = require("lodash");
 const { getReportWithSubtotals, whereInArray } = require("./helpers");
 
 /**
- * Retrieves the data for various financial metrics based on the fiscal year.
+ * Retrieves the data for various financial metrics based on the portfolio IDs past from the front end.
  *
- * @param   {number | string | Array} portfolios - The fiscal, Date, or Portfolio(s) to grab data for
- * @returns {Promise}                            - A promise that resolves to the query result
+ * @param   {Array<number>} portfolios - The Portfolio to grab data for
+ * @returns {Promise}                  - A promise that resolves to the query result
  */
 const queries = {
   report: (portfolios) =>
@@ -80,27 +80,18 @@ const queries = {
       .first(),
 };
 
-module.exports = {
-  required: ["fiscal"],
+const getAll = async ({ portfolio }) => {
+  // todo: use lodash chain here
+  // Await all promises in parallel
+  const [report, totals, grand_totals] = await Promise.all(
+    _.map(queries, (query) => query(portfolio).catch((err) => log.error(err)))
+  );
 
-  /**
-   * Retrieve and process data from queries to create a structured result object.
-   *
-   * @param   {object} options        - Options object containing fiscal year.
-   * @param   {string} options.fiscal - The fiscal year to retrieve data for.
-   * @returns {object}                - An object containing fiscal year, report, and report total.
-   */
-  getAll: async ({ fiscal }) => {
-    // Await all promises in parallel
-    const [{ fiscal_year }, report, totals, grand_totals] = await Promise.all(
-      _.map(queries, (query) => query(fiscal).catch((err) => log.error(err)))
-    );
-
-    return {
-      fiscal_year,
-      // Group the report by portfolio, and add subtotals for each portfolio
-      report: await getReportWithSubtotals(report, totals, "portfolio_name"),
-      grand_totals,
-    };
-  },
+  return {
+    // Group the report by portfolio, and add subtotals for each portfolio
+    report: await getReportWithSubtotals(report, totals, "portfolio_name"),
+    grand_totals,
+  };
 };
+
+module.exports = { required: ["portfolio"], getAll };
