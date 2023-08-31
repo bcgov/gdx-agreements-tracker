@@ -292,8 +292,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Projects Staff Recoveries Forecast by Area",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
-
-        parameters: [{ label: "portfolio", required: false }],
+        parameters: [
+          { label: "portfolio", required: false },
+          { label: "fiscal", required: false },
+        ],
         exportPDF: false,
         exportXLSX: true,
       },
