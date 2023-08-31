@@ -209,15 +209,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: false,
       },
       {
-        value: "Tab_27_rpt_PA_Ministry",
-        label: "Ministry Project Usage",
-        description:
-          "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor, Project Manager.",
-        parameters: [{ label: "portfolio", required: false }],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
         value: "Tab_30_rpt_PA_MultiYrStats_DMS_Office",
         label: "Annual Stats for the DMS",
         description:
@@ -298,12 +289,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       },
       {
         value: "Tab_41_rpt_PF_PortfolioStaffRecoveries",
-        label: "Projects Project Staff Recoveries Forecast by Area",
+        label: "Projects Staff Recoveries Forecast by Area",
         description:
           "Grouped on Portfolio shows project #, Project Name, Quarter and fiscal amounts.",
-        parameters: [{ label: "portfolio", required: false }],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: [
+          { label: "portfolio", required: false },
+          { label: "fiscal", required: false },
+        ],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_42_rpt_PF_PortfolioStobRecoveries",

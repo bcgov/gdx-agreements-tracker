@@ -1,4 +1,14 @@
+**August 31-, 2023 [DESCW-1273](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1273)**
+
+- Frontend
+  - build tab 41 XLS template
+  - configure tab 41 menu selector
+
+- Backend
+  - set up tab 41 model
+
 **August 30-, 2023 [DESCW-1220](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1220)**
+
 - Frontend
   - Added frontend parameter validation for reports.
     - Validation only prevents form from submitting, not API.
