@@ -10,7 +10,10 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
     switch (label) {
       case "fiscal":
         return (
+          // each form input has a unique value added to the key to force a re-render when the value changes
+          // this is necessary because the form input component is a controlled component
           <FormInput
+            key={`${label}-${values.fiscal}`}
             fieldName="fiscal"
             fieldType={"select"}
             fieldLabel="Fiscal"
@@ -25,6 +28,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "portfolio":
         return (
           <FormInput
+            key={`${label}-${values.portfolio}`}
             fieldName="portfolio"
             fieldType={"multiselect"}
             fieldLabel="Portfolio"
@@ -39,6 +43,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "contract":
         return (
           <FormInput
+            key={`${label}-${values.contract}`}
             fieldName="contract"
             fieldType={"select"}
             fieldLabel="Contract"
@@ -52,6 +57,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "date":
         return (
           <FormInput
+            key={`${label}-${values.date}`}
             fieldName="date"
             fieldType={"date"}
             fieldLabel="Date"
@@ -65,6 +71,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "quarter":
         return (
           <FormInput
+            key={`${label}-${values.quarter}`}
             fieldName="quarter"
             fieldType={"select"}
             fieldLabel="Quarter"
@@ -78,6 +85,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "project":
         return (
           <FormInput
+            key={`${label}-${values.project}`}
             fieldName="project"
             fieldType={"select"}
             fieldLabel="Project"
