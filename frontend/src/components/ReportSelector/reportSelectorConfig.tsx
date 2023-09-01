@@ -125,6 +125,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_32_rpt_PA_Registered",
+        label: "Projects Registered by Date / Period",
+        description:
+          "Breakdown shows the distribution between the portfolios and shows, Project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned Budget.",
+        parameters: [{ label: "date", required: true }],
+        exportPDF: true,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_34_rpt_PA_StatusDashboard",
         label: "Project Dashboard",
         description:
@@ -150,18 +159,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: [
           { label: "portfolio", required: false },
           { label: "fiscal", required: true },
-        ],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "rpt_PA_Registered",
-        label: "Projects Registered by Date / Period",
-        description:
-          "Breakdown shows the distribution between the portfolios and shows, Project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned Budget.",
-        parameters: [
-          { label: "date", required: true },
-          { label: "portfolio", required: false },
         ],
         exportPDF: true,
         exportXLSX: false,
@@ -225,15 +222,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: [{ label: "fiscal", required: true }],
         exportPDF: false,
         exportXLSX: true,
-      },
-      {
-        value: "Tab_32_rpt_PA_Registered",
-        label: "Projects Registered by Date/Period",
-        description:
-          "Breakdown shows the distribution between the portfolios and shows, project #, project name, description, Project Manager, Registration Date, Start Date, End Date and Planned budget.",
-        parameters: [{ label: "portfolio", required: false }],
-        exportPDF: true,
-        exportXLSX: false,
       },
       {
         value: "Tab_36_rpt_PF_BudgetbySTOB",
