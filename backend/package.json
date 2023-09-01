@@ -38,6 +38,7 @@
     "@fastify/cors": "^8.3.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.9",
     "dotenv": "^16.0.3",
     "fastify": "^4.17.0",
     "fastify-plugin": "^4.5.0",

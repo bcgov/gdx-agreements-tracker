@@ -2,6 +2,9 @@
 const { knex } = require("@database/databaseConnection")();
 const log = require("../../facilities/logging")(module.filename);
 
+// utilities
+const { formatDate } = require("./helpers");
+
 const reportQuery = (date) => {
   const query = knex
     .select({
@@ -13,6 +16,7 @@ const reportQuery = (date) => {
         FROM contact
         WHERE id = p.project_manager
       )`),
+      description: "p.description",
       initiation_date: knex.raw("to_char(p.initiation_date, 'dd-Mon-yy')"),
       start_date: knex.raw("to_char(p.planned_start_date, 'dd-Mon-yy')"),
       end_date: knex.raw("to_char(p.planned_end_date, 'dd-Mon-yy')"),
@@ -27,6 +31,7 @@ const reportQuery = (date) => {
       "p.project_number",
       "p.project_name",
       "p.project_manager",
+      "p.description",
       "p.initiation_date",
       "p.planned_start_date",
       "p.planned_end_date",
@@ -40,7 +45,6 @@ const reportQuery = (date) => {
     query.where("p.initiation_date", ">=", date);
   }
 
-  console.log(query.toString());
   return query;
 };
 
@@ -48,6 +52,7 @@ const getAll = async ({ date }) => {
   try {
     return {
       report: await reportQuery(date),
+      afterDate: formatDate(date),
     };
   } catch (error) {
     handleGetAllError(error);

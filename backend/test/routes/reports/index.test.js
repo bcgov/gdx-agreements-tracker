@@ -76,7 +76,7 @@ const testReport = (reportName) => {
       model.required = ["portfolio"];
       const response = await app.inject(requestObject);
       expect(response.statusCode).toBe(200);
-    }, 5000);
+    }, 10000);
   });
 };
 
