@@ -4,7 +4,12 @@ const log = require("../../facilities/logging")(module.filename);
 const _ = require("lodash");
 
 // utilities
-const { formatDate, getReportWithSubtotals, groupByProperty } = require("./helpers");
+const {
+  formatDate,
+  getReportGroupSubtotals,
+  getReportWithSubtotals,
+  groupByProperty,
+} = require("./helpers");
 
 /**
  * Retrieves the data for the Projects Registered Report.
@@ -89,8 +94,6 @@ const getAll = async ({ date }) => {
       ...portfolio,
       portfolio_totals: totalsGroupedByPortfolio[portfolio.portfolio_name],
     }));
-
-    log.warn(`REPORT DATA ${JSON.stringify(reportWithSubtotals, null, 2)}`);
 
     return { report: reportWithSubtotals, grand_totals: grand_totals, afterDate };
   } catch (error) {
