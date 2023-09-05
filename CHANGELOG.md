@@ -1,6 +1,7 @@
 **September 5, 2023 [DESCW-1267](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1267)**
 
 - Frontend
+  - make utility function to format dates to standard format (using dayjs library)
   - build tab 32 XLS template
   - configure tab 32 menu selector
   - rename and re-arrange menu items into proper category and order
@@ -10,6 +11,7 @@
 - Backend
   - erase old model, route, controller
   - build model from gary's query
+  - delete temp sql query file
 
 **August 31, 2023 [DESCW-1273](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1273)**
 
