@@ -1,3 +1,27 @@
+**September 5, 2023 [DESCW-1268](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1268)**
+
+- Frontend
+- [x] configure front end menu option for the report
+  - [x] use `Tab_` prefix on report name
+  - [x] use description from ReportPriorityBuild document from GDX LAN
+- [x] rename .docx template file so the report will export properly
+- [x] rename model with correct filename, including `Tab_` prefix
+
+- Backend
+- [x] take query and modify it so it takes the parameter(s) and outputs the expected rows
+- [x] delete old route, and controller
+- [x] replace model logic based on model boilerplate file
+  - [x] salvage any of the logic or constants from the old model that can be re-used
+  - [x] replace the main query with the new query, and wrap with knexjs querybuilder
+  - [x] add any subtotal or grand totals query logic needed
+  - [x] verify console output JSON matches query output from PgAdmin
+- [x] confirm the .docx template works with this NEW model and all columns match
+- [x] build .xlsx template based on columns from model and .xlsx generic template
+- [x] confirm the .xlsx template works with this model and produces expected output
+- [x] fix cosmetic and layout issues with template
+- [x] clean up temp files
+- [x] clean up model code
+
 **September 5, 2023 [DESCW-1267](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1267)**
 
 - Frontend
