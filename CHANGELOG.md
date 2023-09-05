@@ -2,7 +2,6 @@
 
 - Frontend
   - fix 'no key for repeated components' bug on frontend menu selector for reports
-  - make utility function to format dates to standard format (using dayjs library)
   - build tab 32 XLS template
   - configure tab 32 menu selector
   - rename and re-arrange menu items into proper category and order
@@ -11,7 +10,7 @@
 
 - Backend
   - fix report timeout bug ( 5000ms -> 10000ms)
-
+  - make utility function to format dates to standard format (using dayjs library)
   - erase old model, route, controller
   - build model from gary's query
   - delete temp sql query file
