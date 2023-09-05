@@ -1,5 +1,6 @@
 // libs
 const _ = require("lodash");
+const dayjs = require("dayjs");
 
 /**
  * Groups items in a list by a specified property.
@@ -117,8 +118,18 @@ const getProjectName = (report) => report?.projects?.[0]?.project_name || "";
 const getReportGroupSubtotals = (report, subtotals, propertyToGroupBy) =>
   _.keyBy(subtotals, propertyToGroupBy)[report[propertyToGroupBy]];
 
+/**
+ * Format a date to the format "dd-Mon-yy"
+ * e.g. 2021-01-01 -> 01-Jan-21
+ *
+ * @param   {string} date - date to be formatted
+ * @returns {string}      - formatted date
+ */
+const formatDate = (date) => dayjs(date).format("DD-MMM-YY");
+
 module.exports = {
   getReportWithSubtotals,
   groupByProperty,
   whereInArray,
+  formatDate,
 };

@@ -1,4 +1,21 @@
-**August 31-, 2023 [DESCW-1273](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1273)**
+**September 5, 2023 [DESCW-1267](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1267)**
+
+- Frontend
+  - fix 'no key for repeated components' bug on frontend menu selector for reports
+  - build tab 32 XLS template
+  - configure tab 32 menu selector
+  - rename and re-arrange menu items into proper category and order
+  - delete old docx template which was missing totals & subtotals
+  - build docx and excel templates from 'scratch'
+
+- Backend
+  - fix report timeout bug ( 5000ms -> 10000ms)
+  - make utility function to format dates to standard format (using dayjs library)
+  - erase old model, route, controller
+  - build model from gary's query
+  - delete temp sql query file
+
+**August 31, 2023 [DESCW-1273](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1273)**
 
 - Frontend
   - build tab 41 XLS template

@@ -20,7 +20,7 @@ export const apiAxios = () => {
   const apiUrl = getApiUrl();
   const axiosInstance = axios.create({
     baseURL: apiUrl,
-    timeout: 5000,
+    timeout: 10000,
   });
 
   // All requests should pass an authorization header.
