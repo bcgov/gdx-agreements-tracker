@@ -1,4 +1,17 @@
-**August 31-, 2023 [DESCW-1273](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1273)**
+**September 5, 2023 [DESCW-1267](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1267)**
+
+- Frontend
+  - build tab 32 XLS template
+  - configure tab 32 menu selector
+  - rename and re-arrange menu items into proper category and order
+  - delete old docx template which was missing totals & subtotals
+  - build docx and excel templates from 'scratch'
+
+- Backend
+  - erase old model, route, controller
+  - build model from gary's query
+
+**August 31, 2023 [DESCW-1273](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1273)**
 
 - Frontend
   - build tab 41 XLS template

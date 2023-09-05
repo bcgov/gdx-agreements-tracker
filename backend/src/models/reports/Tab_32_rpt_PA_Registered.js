@@ -4,12 +4,7 @@ const log = require("../../facilities/logging")(module.filename);
 const _ = require("lodash");
 
 // utilities
-const {
-  formatDate,
-  getReportGroupSubtotals,
-  getReportWithSubtotals,
-  groupByProperty,
-} = require("./helpers");
+const { formatDate, groupByProperty } = require("./helpers");
 
 /**
  * Retrieves the data for the Projects Registered Report.
@@ -77,50 +72,59 @@ const queries = {
       .sum(queries.columns)
       .groupBy("portfolio_name"),
 
+  // use report query to get grand totals from the column planned_budget
   grandTotals: (date) => knex(queries.report(date).as("report")).sum(queries.columns).first(),
 };
 
+/**
+ *
+ * Get all the report data for the Projects Registered Report.
+ *
+ * @param   {string} date - The date to grab data for.
+ * @returns {object}      - An object containing the report, report totals, and the date.
+ */
 const getAll = async ({ date }) => {
   try {
-    const afterDate = formatDate(date);
-    const reportData = await getReportData(date);
-    const { report, totals, grand_totals } = reportData;
+    // get the report data from the database
+    const { report, totals, grand_totals, afterDate } = await getReportData(date);
 
-    const reportGroupedByPortfolio = groupByProperty(report, "portfolio_name");
-    // key totals objects by portfolio_name
-    const totalsGroupedByPortfolio = _.keyBy(totals, "portfolio_name");
+    // organize the report data into groups with subtotals
+    const reportWithSubtotals = organizeReportData(report, totals, "portfolio_name");
 
-    const reportWithSubtotals = _.map(reportGroupedByPortfolio, (portfolio) => ({
-      ...portfolio,
-      portfolio_totals: totalsGroupedByPortfolio[portfolio.portfolio_name],
-    }));
-
+    // gather all the report data in a single object
     return { report: reportWithSubtotals, grand_totals: grand_totals, afterDate };
   } catch (error) {
-    return handleGetAllError(error);
+    handleError(error);
   }
 };
 
-// Execute queries to get the report, totals, and grand totals
-const getReportData = async (date) => {
-  const [report, totals, grand_totals] = await Promise.all([
-    queries.report(date),
-    queries.totals(date),
-    queries.grandTotals(date),
-  ]);
+// Organize the report data into groups with subtotals
+const organizeReportData = (report, totals, propertyToGroupBy) => {
+  // Group the report data by the specified property
+  const reportGroupedByPortfolio = groupByProperty(report, propertyToGroupBy);
+  const totalsGroupedByPortfolio = _.keyBy(totals, propertyToGroupBy);
 
-  return { report, totals, grand_totals };
-};
-
-// Get report with subtotals folded into each section of the report
-const getReportBySectionWithSubtotalsFrom = async (reportData, sectionName) => {
-  const { report, totals } = reportData;
-  const reportWithSubtotals = await getReportWithSubtotals(report, totals, sectionName);
+  // fold in subtotals for each group
+  const reportWithSubtotals = _.map(reportGroupedByPortfolio, (portfolio) => ({
+    ...portfolio,
+    portfolio_totals: totalsGroupedByPortfolio[portfolio.portfolio_name],
+  }));
 
   return reportWithSubtotals;
 };
 
-const handleGetAllError = (error) => {
+// Execute queries to get the report, totals, and grand totals
+const getReportData = async (date) => {
+  return {
+    report: await queries.report(date),
+    totals: await queries.totals(date),
+    grand_totals: await queries.grandTotals(date),
+    afterDate: formatDate(date),
+  };
+};
+
+// handle report data retrieval errors
+const handleError = (error) => {
   log.error(error);
   throw new Error("Error retrieving data for the Projects registered report.");
 };
