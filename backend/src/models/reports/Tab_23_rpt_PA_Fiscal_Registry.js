@@ -5,6 +5,9 @@ const { keyBy, map } = require("lodash");
 // Utilities
 const { groupByProperty } = require("./helpers");
 
+// Constant
+const { dateFormatShortYear } = require("../../helpers/standards");
+
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
  *
@@ -32,8 +35,8 @@ const queries = {
           FROM contact
           WHERE id = p.project_manager
         )`),
-        start_date: knex.raw(`to_char(p.planned_start_date, 'dd-Mon-yy')`),
-        end_date: knex.raw(`to_char(p.planned_end_date, 'dd-Mon-yy')`),
+        start_date: knex.raw(`to_char(p.planned_start_date, '${dateFormatShortYear}')`),
+        end_date: knex.raw(`to_char(p.planned_end_date, '${dateFormatShortYear}')`),
         planned_budget: "p.planned_budget",
         ministry: "m.ministry_short_name",
         fiscal: "fy.id",
