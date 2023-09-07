@@ -1,3 +1,11 @@
+**September 11, 2023 [DESCW-1284](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1284)**
+
+- Frontend
+  - add new option to select Contractor resource (resource.id)
+  - add frontend config for menu selector
+- Backend
+  - build model from gary's query
+
 **September 5, 2023 [DESCW-1268](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1268)**
 
 - Frontend
