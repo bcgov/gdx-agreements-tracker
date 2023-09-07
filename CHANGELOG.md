@@ -1,3 +1,14 @@
+**September 5, 2023 [DESCW-1268](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1268)**
+
+- Frontend
+- [x] configure front end menu option for the report
+- Backend
+- [x] take query and modify it so it takes the parameter(s) and outputs the expected rows
+- [x] delete old route, and controller
+- [x] replace model logic based on model boilerplate file
+- [x] re-build .docx template based on new columns from new model plus old template
+- [x] build .xlsx template based on columns from model and .xlsx generic template
+
 **September 5, 2023 [DESCW-1267](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1267)**
 
 - Frontend

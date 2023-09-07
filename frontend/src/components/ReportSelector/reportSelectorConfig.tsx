@@ -6,37 +6,10 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
     label: "Individual Project Reports",
     types: [
       {
-        value: "Tab_17_rpt_P_Status_MostRecent",
-        label: "Project Status (Most Recent)",
-        description:
-          "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status and milestone status.",
-        parameters: [{ label: "project", required: true }],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "Tab_18_rpt_P_StatusSummary",
-        label: "Project Status Summary",
-        description:
-          "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, all status reporting, deliverable status and milestone status and Closure Report.",
-        parameters: [{ label: "project", required: true }],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
         value: "Tab_14_rpt_P_BudgetSummary",
         label: "Projects Budget Summary",
         description:
           "Runs by Project #, shows deliverable amounts, their budgets, amounts recovered to date, balance remaining. Shows breakdown across fiscals, any change requests, any contracts associated with the project and amounts invoiced/remaining on the contracts.",
-        parameters: [{ label: "project", required: true }],
-        exportPDF: true,
-        exportXLSX: false,
-      },
-      {
-        value: "Tab_16_rpt_P_QuarterlyReview",
-        label: "Project Quarterly Review",
-        description:
-          "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
         parameters: [{ label: "project", required: true }],
         exportPDF: true,
         exportXLSX: false,
@@ -51,6 +24,33 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
           { label: "fiscal", required: true },
           { label: "quarter", required: true },
         ],
+        exportPDF: true,
+        exportXLSX: false,
+      },
+      {
+        value: "Tab_16_rpt_P_QuarterlyReview",
+        label: "Project Quarterly Review",
+        description:
+          "Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter and portfolio recovery amount.",
+        parameters: [{ label: "project", required: true }],
+        exportPDF: true,
+        exportXLSX: false,
+      },
+      {
+        value: "Tab_17_rpt_P_Status_MostRecent",
+        label: "Project Status (Most Recent)",
+        description:
+          "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, status reporting, deliverable status and milestone status.",
+        parameters: [{ label: "project", required: true }],
+        exportPDF: true,
+        exportXLSX: false,
+      },
+      {
+        value: "Tab_18_rpt_P_StatusSummary",
+        label: "Project Status Summary",
+        description:
+          "Runs on Project #, Shows information: Sponsorship, Start/End Date, Strategic Alignment, Project Description, Goals, all status reporting, deliverable status and milestone status and Closure Report.",
+        parameters: [{ label: "project", required: true }],
         exportPDF: true,
         exportXLSX: false,
       },
@@ -89,6 +89,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Change requests Types",
         description:
           "Run for a specific fiscal and sorted by Project #. Shows total change requests for the project even if changes occurred in a previous fiscal.",
+        parameters: [{ label: "fiscal", required: true }],
+        exportPDF: true,
+        exportXLSX: true,
+      },
+      {
+        value: "Tab_23_rpt_PA_Fiscal_Registry",
+        label: "Projects Registered by Fiscal",
+        description:
+          "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry",
         parameters: [{ label: "fiscal", required: true }],
         exportPDF: true,
         exportXLSX: true,
@@ -163,15 +172,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportPDF: true,
         exportXLSX: false,
       },
-      {
-        value: "rpt_PA_Fiscal_Registry",
-        label: "Projects Registered by Fiscal",
-        description:
-          "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry",
-        parameters: [{ label: "fiscal", required: true }],
-        exportPDF: true,
-        exportXLSX: false,
-      },
     ],
   },
   {
@@ -195,15 +195,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         parameters: [{ label: "fiscal", required: true }],
         exportPDF: false,
         exportXLSX: true,
-      },
-      {
-        value: "Tab_23_rpt_PA_Fiscal_Registry",
-        label: "Projects Registered by Fiscal",
-        description:
-          "Run for a specific fiscal, grouped by Portfolio and sorted by Project #. Shows Project #, Project Name, PM, Start and End Date, Planned Budget and client ministry.",
-        parameters: [{ label: "portfolio", required: false }],
-        exportPDF: true,
-        exportXLSX: false,
       },
       {
         value: "Tab_30_rpt_PA_MultiYrStats_DMS_Office",
@@ -270,7 +261,6 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Project Recoveries Admin Fees for Fiscal",
         description:
           "Grouped on Portfolio shows project #, Project Name, fiscal amounts for a specific fiscal",
-
         parameters: [{ label: "fiscal", required: true }],
         exportPDF: true,
         exportXLSX: false,
