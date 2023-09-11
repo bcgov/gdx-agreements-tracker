@@ -396,7 +396,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_6_rpt_CA_ConsultingServiceUtilization-FY-Summary-byPortfolio",
         label: "Contractor Utilization summary by Portfolio",
-        description: `Report based on invoiced amount towards each type of resource (Application Design-Development, Application Management, Architecture, Business Analysis and Process Consultation etc. Based on the Competencies in the SRI).`,
+        description: `Retrieves Summary stats report for types of contract resources we have engaged on CO's. Information based on data from 14-15 forward. Shows distribution over the various Portfolios.`,
         parameters: [{ label: "fiscal", required: true }],
         exportPDF: false,
         exportXLSX: true,
@@ -406,6 +406,14 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "Contract Vendor - Contract Summary",
         description: `Sorted by Fiscal, Shows CO#, Amendment# project #, Contract Description, Start Date, End Date, Contract Value Used, Status`,
         parameters: [{ label: "resource", required: true }],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
+        value: "Tab_8_rpt_CA_ContractsbySubcontractor",
+        label: "Contract History for Specific Subcontractor Team",
+        description: `ipsem lorum`,
+        parameters: [{ label: "subcontractor", required: true }],
         exportPDF: false,
         exportXLSX: true,
       },
