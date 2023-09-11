@@ -402,6 +402,14 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_7_rpt_CA_ContractsbyContractor",
+        label: "Contract Vendor - Contract Summary",
+        description: `Sorted by Fiscal, Shows CO#, Amendment# project #, Contract Description, Start Date, End Date, Contract Value Used, Status`,
+        parameters: [{ label: "resource", required: true }],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_9_rpt_CA_MultiYrStats",
         label: "Annual Contract Multi Yr Stats",
         description:

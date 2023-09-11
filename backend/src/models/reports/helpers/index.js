@@ -2,6 +2,10 @@
 const _ = require("lodash");
 const dayjs = require("dayjs");
 
+// Constants
+const dateFormat = "dd-MON-yyyy";
+const dateFormatShortYear = "dd-Mon-yy";
+
 /**
  * Groups items in a list by a specified property.
  *
@@ -128,8 +132,10 @@ const getReportGroupSubtotals = (report, subtotals, propertyToGroupBy) =>
 const formatDate = (date) => dayjs(date).format("DD-MMM-YY");
 
 module.exports = {
+  dateFormat,
+  dateFormatShortYear,
+  formatDate,
   getReportWithSubtotals,
   groupByProperty,
   whereInArray,
-  formatDate,
 };

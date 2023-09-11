@@ -7,11 +7,11 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
   const renderComponent = (parameter: IReportCategoriesAndTypesParameters) => {
     const { label, required } = parameter;
 
+    // each form input has a unique value added to the key to force a re-render when the value changes
+    // this is necessary because the form input component is a controlled component
     switch (label) {
       case "fiscal":
         return (
-          // each form input has a unique value added to the key to force a re-render when the value changes
-          // this is necessary because the form input component is a controlled component
           <FormInput
             key={`${label}-${values.fiscal}`}
             fieldName="fiscal"
@@ -35,6 +35,21 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             width={"half"}
             pickerName="portfolio_option"
             fieldValue={values.portfolio}
+            setFieldValue={setFieldValue}
+            required={required}
+          />
+        );
+
+      case "resource":
+        return (
+          <FormInput
+            key={`${label}-${values.resource}`}
+            fieldName="resource"
+            fieldType={"select"}
+            fieldLabel="Contractor Name"
+            width={"half"}
+            pickerName="resource_option"
+            fieldValue={values.resource}
             setFieldValue={setFieldValue}
             required={required}
           />
