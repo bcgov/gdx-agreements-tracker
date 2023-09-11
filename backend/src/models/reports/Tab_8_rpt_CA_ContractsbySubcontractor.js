@@ -4,7 +4,7 @@ const log = require("../../facilities/logging")(module.filename);
 const _ = require("lodash");
 
 /**
- *
+ * Queries to retrieve data from the database
  *
  * @param   {number}               subcontractor - The subcontractor team to grab data for
  * @returns {Promise<{report: *}>}
