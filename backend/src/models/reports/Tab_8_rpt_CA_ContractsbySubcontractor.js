@@ -1,7 +1,7 @@
 // import knex database connection and utilities
 const { knex } = require("@database/databaseConnection")();
-const log = require("../../facilities/logging")(module.filename);
 const _ = require("lodash");
+const { dateFormatShortYear } = require("./helpers");
 
 /**
  * Queries to retrieve data from the database
@@ -72,8 +72,8 @@ const queries = {
         co_version: "co_version",
         project_number: "project_number",
         description: "description",
-        start_date: knex.raw(`to_char(start_date, 'dd-Mon-yy')`),
-        end_date: knex.raw(`to_char(end_date, 'dd-Mon-yy')`),
+        start_date: knex.raw(`to_char(start_date, '${dateFormatShortYear}')`),
+        end_date: knex.raw(`to_char(end_date, '${dateFormatShortYear}')`),
         status: "status",
       })
       .from("q1")
@@ -108,21 +108,15 @@ const getAll = async ({ subcontractor }) =>
   await Promise.all(
     // Map each query promise (simultaneously) to its execution with the 'fiscal' parameter.
     _.map(queries, (queryPromise) => queryPromise(subcontractor))
-  )
-    .then(
-      // Destructure the results array to extract individual components
-      ([report, report_totals]) =>
-        // Combine the extracted components into an object
-        ({
-          report,
-          report_totals,
-        })
-    )
-    // Catch, then throw the error to be caught by the controller.
-    .catch((error) => {
-      log.error(error);
-      throw error;
-    });
+  ).then(
+    // Destructure the results array to extract individual components
+    ([report, report_totals]) =>
+      // Combine the extracted components into an object
+      ({
+        report,
+        report_totals,
+      })
+  );
 
 // Export the functions to be used in controller.
 module.exports = { required: ["subcontractor"], getAll };

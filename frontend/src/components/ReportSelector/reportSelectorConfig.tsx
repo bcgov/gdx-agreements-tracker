@@ -412,7 +412,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
       {
         value: "Tab_8_rpt_CA_ContractsbySubcontractor",
         label: "Contract History for Specific Subcontractor Team",
-        description: `ipsem lorum`,
+        description: `Sorted by Fiscal, Shows CO#, Amendment# project #, ContractDescription,StartDate, EndDate, Contract Value Used, Status`,
         parameters: [{ label: "subcontractor", required: true }],
         exportPDF: false,
         exportXLSX: true,
