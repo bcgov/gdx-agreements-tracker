@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { contractId } = useParams();
@@ -10,9 +11,17 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     ? []
     : [
         { width: "half", title: "Invoice Number", value: query?.data?.data?.data?.invoice_number },
-        { width: "half", title: "Received Date", value: query?.data?.data?.data?.received_date },
-        { width: "half", title: "Invoice Date", value: query?.data?.data?.data?.invoice_date },
-        { width: "half", title: "Due Date", value: query?.data?.data?.data?.due_date },
+        {
+          width: "half",
+          title: "Received Date",
+          value: formatDate(query?.data?.data?.data?.received_date),
+        },
+        {
+          width: "half",
+          title: "Invoice Date",
+          value: formatDate(query?.data?.data?.data?.invoice_date),
+        },
+        { width: "half", title: "Due Date", value: formatDate(query?.data?.data?.data?.due_date) },
         { width: "half", title: "Billing Period", value: query?.data?.data?.data?.billing_period },
         { width: "half", title: "Fiscal Year", value: query?.data?.data?.data?.fiscal?.label },
         { width: "half", title: "GL", value: query?.data?.data?.data?.is_gl },
@@ -72,9 +81,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     contract_id: Number(contractId),
   };
 
-  const rowsToLock = [query?.data?.data?.data?.id];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = rowId ? [rowId] : [];
   const postUrl = `/contracts/${contractId}/invoices`;
-  const updateUrl = `/invoices/${query?.data?.data?.data?.id}`;
+  const updateUrl = `/invoices/${rowId}`;
   const deleteUrl = `/invoices/${query}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };

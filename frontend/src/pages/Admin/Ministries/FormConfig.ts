@@ -42,9 +42,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     is_active: false,
   };
 
-  const rowsToLock = [Number(query.data?.data?.data?.id)];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = null === rowId ? [] : [Number(rowId)];
   const postUrl = `/ministries`;
-  const updateUrl = `/ministries/${query.data?.data?.data?.id}`;
+  const updateUrl = `/ministries/${rowId}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };

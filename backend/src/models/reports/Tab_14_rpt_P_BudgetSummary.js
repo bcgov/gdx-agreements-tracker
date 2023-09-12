@@ -1,6 +1,7 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-const { dateFormat } = require("../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
+
 const { findById, findMostRecentStatusById } = require("@models/projects");
 const {
   projectBudgetTable,
@@ -61,12 +62,12 @@ const getDeliverableSummaries = (projectId) => {
     recovery_amount,
     recovered_td,
     current_budget - recovered_td AS balance_remaining
-    FROM 
+    FROM
     (SELECT
     pd.fiscal,
     SUM(q1_amount + q2_amount + q3_amount + q4_amount) AS recovered_td --good
     FROM ${projectBudgetTable} AS pb
-    
+
     LEFT JOIN ${projectDeliverableTable} AS pd ON pb.project_deliverable_id = pd.id
     WHERE pd.project_id = ${projectId}
     GROUP BY pd.fiscal) as q1
@@ -94,7 +95,7 @@ const getChangeRequests = (projectId) => {
     .select({
       version: "cr.version",
       initiated_by: "cr.initiated_by",
-      initiation_date: knex.raw(`TO_CHAR(cr.initiation_date :: DATE, '${dateFormat}')`),
+      initiation_date: knex.raw(`TO_CHAR(cr.initiation_date :: DATE, '${dateFormatShortYear}')`),
       summary: "cr.summary",
       type: knex.raw(`string_agg(crt.crtype_name, ', ')`),
     })
@@ -115,7 +116,7 @@ const getContracts = (projectId) => {
   return knex(`${contractTable} as ct`)
     .select("*", {
       supplier: "st.supplier_name",
-      end_date: knex.raw(`TO_CHAR(ct.end_date :: DATE, '${dateFormat}')`),
+      end_date: knex.raw(`TO_CHAR(ct.end_date :: DATE, '${dateFormatShortYear}')`),
       fiscal: "fy.fiscal_year",
       contract_amount: knex.raw("ct.total_fee_amount + ct.total_expense_amount"),
     })

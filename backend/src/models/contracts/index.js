@@ -1,7 +1,8 @@
 const dbConnection = require("@database/databaseConnection");
 const useModel = require("../useModel");
 const { knex, dataBaseSchemas } = dbConnection();
-const { dateFormat } = require("../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
+
 const { diffInsert } = useModel();
 
 const contractsTable = `${dataBaseSchemas().data}.contract`;
@@ -26,8 +27,8 @@ const findAll = () => {
       "c.co_version",
       "c.description",
       { supplier: "supplier.supplier_name" },
-      { start_date: knex.raw(`TO_CHAR(c.start_date :: DATE, '${dateFormat}')`) },
-      { end_date: knex.raw(`TO_CHAR(c.end_date :: DATE, '${dateFormat}')`) },
+      { start_date: knex.raw(`TO_CHAR(c.start_date :: DATE, '${dateFormatShortYear}')`) },
+      { end_date: knex.raw(`TO_CHAR(c.end_date :: DATE, '${dateFormatShortYear}')`) },
       "c.total_expense_amount",
       //"Remaining Amount" Leaving this here because it is on the wireframe but can't find it in the DB
       "c.status",

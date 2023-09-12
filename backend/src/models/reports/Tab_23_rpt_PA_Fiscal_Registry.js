@@ -6,7 +6,7 @@ const { keyBy, map } = require("lodash");
 const { groupByProperty } = require("./helpers");
 
 // Constant
-const { dateFormatShortYear } = require("../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
 
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.

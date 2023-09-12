@@ -1,5 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
+const { dateFormatShortYear } = require("@helpers/standards");
 
 const table = `${dataBaseSchemas().data}.invoice`;
 const invoiceDetailsTable = `${dataBaseSchemas().data}.invoice_detail`;
@@ -10,6 +11,9 @@ const findAllByContractId = (contractId) => {
   return knex
     .select(
       "i.*",
+      { received_date: knex.raw(`TO_CHAR(i.received_date, '${dateFormatShortYear}')`) },
+      { invoice_date: knex.raw(`TO_CHAR(i.invoice_date, '${dateFormatShortYear}')`) },
+      { due_date: knex.raw(`TO_CHAR(i.due_date, '${dateFormatShortYear}')`) },
       "fy.fiscal_year as fiscal",
       knex.raw(
         `(SELECT SUM(unit_amount * rate) FROM ${invoiceDetailsTable} WHERE invoice_id = i.id)::numeric::float8 as invoice_total`
@@ -25,6 +29,9 @@ const findById = (invoiceId) => {
   return knex
     .select(
       "i.*",
+      { received_date: knex.raw(`TO_CHAR(i.received_date, '${dateFormatShortYear}')`) },
+      { invoice_date: knex.raw(`TO_CHAR(i.invoice_date, '${dateFormatShortYear}')`) },
+      { due_date: knex.raw(`TO_CHAR(i.due_date, '${dateFormatShortYear}')`) },
       knex.raw("COALESCE(i.notes, '') as notes"),
       knex.raw("( SELECT json_build_object('value', i.fiscal, 'label', fy.fiscal_year)) AS fiscal")
     )

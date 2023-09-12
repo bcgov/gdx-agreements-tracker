@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
+const { dateFormatShortYear } = require("@helpers/standards");
 
 // filters query results to work around knex.raw()'s inability to chain methods
 const portfolioFilter = (portfolios) =>
@@ -28,6 +29,8 @@ module.exports = {
       project.project_type,
       project.planned_start_date,
       project.planned_end_date,
+      TO_CHAR(project.planned_start_date :: DATE, '${dateFormatShortYear}') AS planned_start_date,
+      TO_CHAR(project.planned_end_date :: DATE, '${dateFormatShortYear}') AS planned_end_date,
       project.planned_budget,
       ministry.ministry_short_name AS client_ministry
     FROM (
@@ -61,7 +64,7 @@ module.exports = {
   report_total: (portfolios) =>
     knex.raw(`
       SELECT (SUM(project.planned_budget)) as report_total
-      FROM data.project       
+      FROM data.project
       ${portfolioFilter(portfolios)}
   `),
 };

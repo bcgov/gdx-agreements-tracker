@@ -6,6 +6,7 @@ module.exports = {
     "^@routes(.*)$": "<rootDir>/src/routes/$1",
     "^@validators(.*)$": "<rootDir>/src/validators/$1",
     "^@database(.*)$": "<rootDir>/src/database/$1",
+    "^@helpers(.*)$": "<rootDir>/src/helpers/$1",
     "^@facilities(.*)$": "<rootDir>/src/facilities/$1",
   },
 };

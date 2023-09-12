@@ -29,7 +29,8 @@
     "@validators": "./src/validators",
     "@database": "./src/database",
     "@facilities": "./src/facilities",
-    "@reportTemplates": "./reports"
+    "@reportTemplates": "./reports",
+    "@helpers": "./src/helpers"
   },
   "author": "Shawn Turple",
   "license": "Apache-2.0",

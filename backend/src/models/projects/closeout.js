@@ -1,5 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
+const { dateFormatShortYear } = require("@helpers/standards");
 
 const projectTable = `${dataBaseSchemas().data}.project`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
@@ -9,7 +10,7 @@ const findById = (id) => {
   return knex(`${projectTable} as p`)
     .select(
       "p.id",
-      "p.close_out_date",
+      { close_out_date: knex.raw(`TO_CHAR(p.close_out_date :: DATE, '${dateFormatShortYear}')`) },
       knex.raw(`(
         SELECT json_build_object(
           'value', c.id,
@@ -18,7 +19,11 @@ const findById = (id) => {
             ELSE '' END
         ) as completed_by_contact_id
       )`),
-      "p.actual_completion_date",
+      {
+        actual_completion_date: knex.raw(
+          `TO_CHAR(p.actual_completion_date :: DATE, '${dateFormatShortYear}')`
+        ),
+      },
       knex.raw(`(
         SELECT json_build_object(
           'value', p.hand_off_to_operations,

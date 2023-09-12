@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { useParams } from "react-router-dom";
 import { IEditField } from "types";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const { projectId } = useParams();
@@ -14,7 +15,11 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       title: "Client Ministry Name",
       value: query?.data?.data?.data?.ministry_id?.label,
     },
-    { width: "half", title: "Initiation Date", value: query?.data?.data?.data?.initiation_date },
+    {
+      width: "half",
+      title: "Initiation Date",
+      value: formatDate(query?.data?.data?.data?.initiation_date),
+    },
     {
       width: "half",
       title: "Portfolio Name",
@@ -23,10 +28,14 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     {
       width: "half",
       title: "Planned Start Date",
-      value: query?.data?.data?.data?.planned_start_date,
+      value: formatDate(query?.data?.data?.data?.planned_start_date),
     },
     { width: "half", title: "Fiscal", value: query?.data?.data?.data?.fiscal?.label },
-    { width: "half", title: "Planned End Date", value: query?.data?.data?.data?.planned_end_date },
+    {
+      width: "half",
+      title: "Planned End Date",
+      value: formatDate(query?.data?.data?.data?.planned_end_date),
+    },
     { width: "half", title: "Planned Budget", value: query?.data?.data?.data?.planned_budget },
     { width: "half", title: "Project Type", value: query?.data?.data?.data?.project_type?.label },
     {

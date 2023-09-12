@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { IEditField, IOption } from "types";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const readFields =
@@ -67,14 +68,18 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
           {
             width: "half",
             title: "Assignment Start Date",
-            value: query?.data?.data?.data?.start_date,
+            value: formatDate(query?.data?.data?.data?.start_date),
           },
           {
             width: "half",
             title: "Procurement Method",
             value: query?.data?.data?.data?.procurement_method_id?.label,
           },
-          { width: "half", title: "Assignment End Date", value: query?.data?.data?.data?.end_date },
+          {
+            width: "half",
+            title: "Assignment End Date",
+            value: formatDate(query?.data?.data?.data?.end_date),
+          },
           {
             width: "full",
             title: "Contact Assignment Description",

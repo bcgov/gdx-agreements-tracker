@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { contractId } = useParams();
@@ -27,8 +28,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           value: query?.data?.data?.data?.assignment_rate,
         },
         { width: "half", title: "# Hours Req.", value: query?.data?.data?.data?.hours },
-        { width: "half", title: "Start Date", value: query?.data?.data?.data?.start_date },
-        { width: "half", title: "End Date", value: query?.data?.data?.data?.end_date },
+        {
+          width: "half",
+          title: "Start Date",
+          value: formatDate(query?.data?.data?.data?.start_date),
+        },
+        { width: "half", title: "End Date", value: formatDate(query?.data?.data?.data?.end_date) },
       ];
 
   const editFields: IEditField[] = [
@@ -103,9 +108,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     end_date: null,
   };
 
-  const rowsToLock = [query?.data?.data?.data?.id];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = null === rowId ? [] : [Number(rowId)];
   const postUrl = `/contracts/${contractId}/resources`;
-  const updateUrl = `/contracts/resources/${query?.data?.data?.data?.id}`;
+  const updateUrl = `/contracts/resources/${rowId}`;
   const deleteUrl = `/contracts/resources/${query}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };

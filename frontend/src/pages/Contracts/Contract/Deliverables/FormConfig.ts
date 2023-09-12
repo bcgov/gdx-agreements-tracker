@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { contractId } = useParams();
@@ -25,7 +26,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "full",
         },
         {
-          value: query?.data?.data?.data?.completion_date,
+          value: formatDate(query?.data?.data?.data?.completion_date),
           title: "Completion Date",
           width: "half",
         },
@@ -120,7 +121,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   /**
-   * Inital values for create form.
+   * Initial values for create form.
    */
   const initialValues = {
     deliverable_name: "",
@@ -133,9 +134,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     fiscal: "",
   };
 
-  const rowsToLock = [query?.data?.data?.data?.id];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = null === rowId ? [] : [Number(rowId)];
   const postUrl = `/contracts/${contractId}/deliverables`;
-  const updateUrl = `/contracts/deliverables/${query?.data?.data?.data?.id}`;
+  const updateUrl = `/contracts/deliverables/${rowId}`;
   const deleteUrl = `/contracts/deliverables/${query}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };

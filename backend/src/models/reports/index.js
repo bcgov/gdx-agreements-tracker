@@ -1,5 +1,5 @@
 const dbConnection = require("@database/databaseConnection");
-const { dateFormat } = require("../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
 const { knex } = dbConnection();
 // This is here for backwards compatibility
 const {
@@ -50,8 +50,8 @@ const findById = (projectId) => {
     .where({ "project.id": projectId });
 };
 
-/* 
-Individual Project Reports - Project Budget Summary 
+/*
+Individual Project Reports - Project Budget Summary
 Purpose: Provide up to date information on any particular Project, can be used to provide client with information on their project budget.
 Description: Run by project number shows deliverable amounts, their budgets, amounts recovered to date, balance remaining. Shows breakdown across fiscals, any change requests, any contracts associated with the project and amounts invoiced/remaining on the contracts.
 */
@@ -60,13 +60,13 @@ const projectBudgetReport = () => {
   return knex.raw(
     `SELECT DISTINCT *
     FROM (
-        SELECT 
+        SELECT
         data.project.id AS projectId, -- project
-        cr.Version, 
-        cr.initiation_date,    
-        cr.initiated_by, 
+        cr.Version,
+        cr.initiation_date,
+        cr.initiated_by,
         cr.Summary  --cr
-        FROM data.project 
+        FROM data.project
         LEFT JOIN data.change_request as cr
         ON data.project.id = cr.link_id
         LEFT JOIN data.change_request_crtype as crc
@@ -79,8 +79,8 @@ const projectBudgetReport = () => {
   );
 };
 
-/* 
-Individual Project Reports - Project Quarterly Review 
+/*
+Individual Project Reports - Project Quarterly Review
 Purpose: To outline how a project budget is broken down between quarters and the distribution of the recoveries over portfolios. Designed as a guide to review with PM each quarter and confirm billing amounts. Shows cross-fiscal amounts and breakdown between multiple clients as well.
 Description: Project Information, Budget Forecasting Information broken down between deliverable, detail amounts, quarter, portfolio recovery amount.
 */
@@ -91,36 +91,36 @@ const projectQuarterlyReport = () => {
     SELECT
     proj.project_number,
     proj.project_name,
-    proj.project_manager, 
-    proj.agreement_start_date, 
+    proj.project_manager,
+    proj.agreement_start_date,
     proj.agreement_end_date,
     pb.project_deliverable_id,
-    pd.deliverable_name, 
-    pb.id, 
-    pb.q1_amount, 
-    pb.q1_recovered, 
-    pb.q2_amount, 
-    pb.q2_recovered, 
-    pb.q3_amount, 
-    pb.q3_recovered, 
-    pb.q4_amount, 
-    pb.q4_recovered, 
-    pb.notes, 
-    pb.detail_amount, 
-    pb.recovery_area, 
-    pb.resource_type, 
-    pb.stob, 
-    pd.deliverable_amount, 
-    pd.project_id, 
-    port.portfolio_abbrev, 
-    port.expense_authority, 
-    port.responsibility, 
-    port.service_line, 
-    pb.fiscal, 
-    fy.fiscal_year, 
-    pb.client_coding_id, 
-    cont.last_name, 
-    cont.first_name, 
+    pd.deliverable_name,
+    pb.id,
+    pb.q1_amount,
+    pb.q1_recovered,
+    pb.q2_amount,
+    pb.q2_recovered,
+    pb.q3_amount,
+    pb.q3_recovered,
+    pb.q4_amount,
+    pb.q4_recovered,
+    pb.notes,
+    pb.detail_amount,
+    pb.recovery_area,
+    pb.resource_type,
+    pb.stob,
+    pd.deliverable_amount,
+    pd.project_id,
+    port.portfolio_abbrev,
+    port.expense_authority,
+    port.responsibility,
+    port.service_line,
+    pb.fiscal,
+    fy.fiscal_year,
+    pb.client_coding_id,
+    cont.last_name,
+    cont.first_name,
     pd.recoverable_amount,
     pb.contract_id
     FROM data.project AS proj
@@ -201,8 +201,8 @@ const getActiveProjects = (portfolios) => {
       project_manager: knex.raw("contact.last_name || ', ' || contact.first_name"),
       description: "project.description",
       project_type: "project.project_type",
-      start_date: knex.raw(`TO_CHAR(project.initiation_date :: DATE, '${dateFormat}')`),
-      end_date: knex.raw(`TO_CHAR(project.planned_end_date :: DATE, '${dateFormat}')`),
+      start_date: knex.raw(`TO_CHAR(project.initiation_date :: DATE, '${dateFormatShortYear}')`),
+      end_date: knex.raw(`TO_CHAR(project.planned_end_date :: DATE, '${dateFormatShortYear}')`),
       planned_budget: "project.planned_budget",
       client_ministry: "ministry_short_name",
     })

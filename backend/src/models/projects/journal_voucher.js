@@ -1,6 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
-const { dateFormat } = require("../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
 const jvTable = `${dataBaseSchemas().data}.jv`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 const clientCodingTable = `${dataBaseSchemas().data}.client_coding`;
@@ -11,7 +11,7 @@ const findAll = (projectId) => {
     .columns(
       "jv.id",
       "jv.jv_number",
-      { billed_date: knex.raw(`TO_CHAR(jv.billed_date :: DATE, '${dateFormat}')`) },
+      { billed_date: knex.raw(`TO_CHAR(jv.billed_date :: DATE, '${dateFormatShortYear}')`) },
       "jv.amount",
       "jv.quarter",
       "jv.project_id",
@@ -36,7 +36,7 @@ const findById = (id) => {
     .select(
       "jv.id",
       "jv.jv_number",
-      "jv.billed_date",
+      { billed_date: knex.raw(`TO_CHAR(jv.billed_date :: DATE, '${dateFormatShortYear}')`) },
       "jv.amount",
       "jv.quarter",
       "jv.project_id",

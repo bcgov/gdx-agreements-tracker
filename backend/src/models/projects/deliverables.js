@@ -4,6 +4,7 @@ const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 const projectDeliverableTable = `${dataBaseSchemas().data}.project_deliverable`;
 const projectTable = `${dataBaseSchemas().data}.project`;
 const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
+const { dateFormatShortYear } = require("@helpers/standards");
 
 const findAllById = (projectId) => {
   return knex(`${projectDeliverableTable} as prd`)
@@ -11,8 +12,8 @@ const findAllById = (projectId) => {
       "prd.id",
       "prd.deliverable_name",
       "prd.description",
-      "prd.start_date",
-      "prd.completion_date",
+      { start_date: knex.raw(`TO_CHAR(prd.start_date, '${dateFormatShortYear}')`) },
+      { completion_date: knex.raw(`TO_CHAR(prd.completion_date, '${dateFormatShortYear}')`) },
       knex.raw("prd.deliverable_amount::numeric::float8"),
       knex.raw("prd.recoverable_amount::numeric::float8"),
       "proj.project_number",
@@ -41,8 +42,8 @@ const findById = (id) => {
       "prd.id",
       "prd.deliverable_name",
       "prd.description",
-      "prd.start_date",
-      "prd.completion_date",
+      { start_date: knex.raw(`TO_CHAR(prd.start_date, '${dateFormatShortYear}')`) },
+      { completion_date: knex.raw(`TO_CHAR(prd.completion_date, '${dateFormatShortYear}')`) },
       knex.raw("prd.deliverable_amount::numeric::float8"),
       knex.raw("prd.recoverable_amount::numeric::float8"),
       knex.raw(

@@ -5,13 +5,14 @@ const projectStatusTable = `${dataBaseSchemas().data}.project_status`;
 const projectPhaseTable = `${dataBaseSchemas().data}.project_phase`;
 const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
 const contactTable = `${dataBaseSchemas().data}.contact`;
+const { dateFormatShortYear } = require("@helpers/standards");
 
 // Get all.
 const findAll = (projectId) => {
   return knex(`${projectStatusTable} as ps`)
     .columns(
       "ps.id",
-      "ps.status_date",
+      { status_date: knex.raw(`TO_CHAR(ps.status_date, '${dateFormatShortYear}')`) },
       { progress: "ps.general_progress_comments" },
       { issues: "ps.issues_and_decisions" },
       { risk: "ps.identified_risk" },
@@ -66,7 +67,7 @@ const findById = (projectStatusId) => {
         "( SELECT json_build_object('value', c.id, 'label', c.last_name || ', ' || c.first_name) )"
       ),
       id: "ps.id",
-      status_date: "ps.status_date",
+      status_date: knex.raw(`TO_CHAR(ps.status_date, '${dateFormatShortYear}')`),
       general_progress_comments: "ps.general_progress_comments",
       issues_and_decisions: "ps.issues_and_decisions",
       forecast_and_next_steps: "ps.forecast_and_next_steps",
