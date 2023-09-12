@@ -108,15 +108,22 @@ const getAll = async ({ subcontractor }) =>
   await Promise.all(
     // Map each query promise (simultaneously) to its execution with the 'fiscal' parameter.
     _.map(queries, (queryPromise) => queryPromise(subcontractor))
-  ).then(
-    // Destructure the results array to extract individual components
-    ([report, report_totals]) =>
-      // Combine the extracted components into an object
-      ({
-        report,
-        report_totals,
-      })
-  );
+  )
+    .then(
+      // Destructure the results array to extract individual components
+      ([report, report_totals]) =>
+        // Combine the extracted components into an object
+        ({
+          report,
+          report_totals,
+        })
+    )
+    // Catch, then throw the error to be caught by the controller.
+    .catch((error) => {
+      throw new Error(
+        `Error retrieving data for the Contract History for Specific Subcontractor Team Report. ${error.message}`
+      );
+    });
 
 // Export the functions to be used in controller.
 module.exports = { required: ["subcontractor"], getAll };
