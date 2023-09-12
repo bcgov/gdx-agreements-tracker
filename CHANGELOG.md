@@ -1,3 +1,11 @@
+**September 12, 2023 [DESCW-1286](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1286)**
+
+- Frontend
+  - Add report selector for tab 8 report.
+  - Add subcontractor parameter for reports.
+- Backend
+  - build model for tab 8 report.
+
 **September 11, 2023 [DESCW-1284](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1284)**
 
 - Frontend
