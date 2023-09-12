@@ -111,6 +111,20 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
             required={required}
           />
         );
+      case "subcontractor":
+        return (
+          <FormInput
+            key={`${label}-${values.subcontractor}`}
+            fieldName="subcontractor"
+            fieldType={"select"}
+            fieldLabel="Subcontractor"
+            width={"half"}
+            pickerName="subcontractor_option"
+            fieldValue={values.subcontractor}
+            setFieldValue={setFieldValue}
+            required={required}
+          />
+        );
     }
   };
 
