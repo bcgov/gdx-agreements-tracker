@@ -1,10 +1,10 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
+
 const changeRequestTable = `${dataBaseSchemas().data}.change_request`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 const changeRequestTypeTable = `${dataBaseSchemas().data}.change_request_crtype`;
 const crTypeTable = `${dataBaseSchemas().data}.crtype`;
-const { dateFormatShortYear } = require("@helpers/standards");
 
 // Find all where link_id equals the project_id
 const findAll = (projectId) => {
@@ -20,11 +20,7 @@ const findAll = (projectId) => {
       .columns(
         "change_request.id",
         "change_request.version",
-        {
-          init_date: knex.raw(
-            `TO_CHAR(change_request.initiation_date :: DATE, '${dateFormatShortYear}')`
-          ),
-        },
+        { init_date: "change_request.initiation_date" },
         { types: typesAgg },
         "change_request.initiated_by",
         "change_request.summary",
@@ -43,11 +39,7 @@ const findById = (changeRequestId, projectId) => {
     .columns(
       "change_request.id",
       "change_request.version",
-      {
-        initiation_date: knex.raw(
-          `TO_CHAR(change_request.initiation_date :: DATE, '${dateFormatShortYear}')`
-        ),
-      },
+      "change_request.initiation_date",
       "change_request.cr_contact",
       knex.raw(
         "( SELECT json_build_object('value', change_request.initiated_by, 'label', change_request.initiated_by)) AS initiated_by"
@@ -56,11 +48,7 @@ const findById = (changeRequestId, projectId) => {
         "( SELECT json_build_object('value', change_request.fiscal_year, 'label', fiscal_year.fiscal_year)) AS fiscal_year"
       ),
       "change_request.summary",
-      {
-        approval_date: knex.raw(
-          `TO_CHAR(change_request.approval_date :: DATE, '${dateFormatShortYear}')`
-        ),
-      },
+      "change_request.approval_date",
       "change_request.link_id"
     )
     .select()
