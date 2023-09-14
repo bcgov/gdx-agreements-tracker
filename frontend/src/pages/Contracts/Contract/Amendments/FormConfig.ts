@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { contractId } = useParams();
@@ -15,7 +16,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
         },
         {
-          value: query?.data?.data?.data?.amendment_date,
+          value: formatDate(query?.data?.data?.data?.amendment_date),
           title: "Amendment Date",
           width: "half",
         },

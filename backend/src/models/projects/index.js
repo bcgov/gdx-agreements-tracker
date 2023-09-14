@@ -1,5 +1,5 @@
 const dbConnection = require("@database/databaseConnection");
-const { dateFormat } = require("../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
 const { knex, dataBaseSchemas } = dbConnection();
 
 const projectTable = `${dataBaseSchemas().data}.project`;
@@ -34,8 +34,8 @@ const findAll = () => {
       { version: "p.project_version" },
       "port.portfolio_name",
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
-      { registration_date: knex.raw(`TO_CHAR(p.initiation_date :: DATE, '${dateFormat}')`) },
-      { end_date: knex.raw(`TO_CHAR(p.agreement_end_date :: DATE, '${dateFormat}')`) },
+      { registration_date: knex.raw(`p.initiation_date`) },
+      { end_date: knex.raw(`p.agreement_end_date`) },
       { status: "p.project_status" },
     ])
     .select()
@@ -59,10 +59,10 @@ const findById = (id) => {
       { version: "p.project_version" },
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
       { portfolio: "p.portfolio_id" },
-      //TODO this needs to be changed to ministyr_id in the view
+      //TODO this needs to be changed to ministry_id in the view
       { ministry: "p.ministry_id" },
-      { registration_date: knex.raw(`TO_CHAR(p.initiation_date :: DATE, '${dateFormat}')`) },
-      { end_date: knex.raw(`TO_CHAR(p.agreement_end_date :: DATE, '${dateFormat}')`) },
+      { registration_date: knex.raw(`p.initiation_date`) },
+      { end_date: knex.raw(`p.agreement_end_date`) },
       knex.raw("planned_budget::numeric::float8"),
       knex.raw("total_project_budget::numeric::float8"),
       knex.raw("recoverable_amount::numeric::float8")
@@ -107,7 +107,7 @@ const findMostRecentStatusById = (id) => {
         team_blue: "team.colour_blue",
       },
       { reported_by: knex.raw("reported_by.last_name || ', ' || reported_by.first_name") },
-      { status_date: knex.raw(`TO_CHAR(project.status_date :: DATE, '${dateFormat}')`) },
+      { status_date: knex.raw(`TO_CHAR(project.status_date :: DATE, '${dateFormatShortYear}')`) },
       "project.general_progress_comments",
       "project.issues_and_decisions",
       "project.forecast_and_next_steps",

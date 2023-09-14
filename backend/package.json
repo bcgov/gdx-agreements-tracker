@@ -1,6 +1,6 @@
 {
   "name": "gdx-agreements-tracker-api",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "GDX Agreements Tracker API",
   "main": "src/server.js",
   "scripts": {
@@ -29,7 +29,8 @@
     "@validators": "./src/validators",
     "@database": "./src/database",
     "@facilities": "./src/facilities",
-    "@reportTemplates": "./reports"
+    "@reportTemplates": "./reports",
+    "@helpers": "./src/helpers"
   },
   "author": "Shawn Turple",
   "license": "Apache-2.0",

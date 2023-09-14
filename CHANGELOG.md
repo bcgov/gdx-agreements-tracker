@@ -1,3 +1,12 @@
+**September 14, 2023 [DESCW-1447](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1447)**
+
+- Frontend
+  - make all forms display date in proper format
+  - make all tables display date in SORTABLE proper format using valueFormatter()
+- Backend
+  - make all Project models not format the date
+  - make all Contract models not format the date
+
 **September 12, 2023 [DESCW-1286](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1286)**
 
 - Frontend

@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { IEditField } from "types";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -22,12 +23,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Start Date",
-          value: query?.data?.data?.data?.start_date,
+          value: formatDate(query?.data?.data?.data?.start_date),
         },
         {
           width: "half",
           title: "Completion Date",
-          value: query?.data?.data?.data?.completion_date,
+          value: formatDate(query?.data?.data?.data?.completion_date),
         },
         {
           width: "half",
@@ -169,9 +170,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     is_expense: null,
   };
 
-  const rowsToLock = [query?.data?.data?.data?.id];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = null === rowId ? [] : [Number(rowId)];
   const postUrl = `projects/deliverables`;
-  const updateUrl = `projects/deliverables/${query?.data?.data?.data?.id}`;
+  const updateUrl = `projects/deliverables/${rowId}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };

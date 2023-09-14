@@ -50,9 +50,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     resource_first_name: "",
   };
 
-  const rowsToLock = [Number(query.data?.data?.data?.id)];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = null === rowId ? [] : [Number(rowId)];
   const postUrl = `/resources`;
-  const updateUrl = `/resources/${query.data?.data?.data?.id}`;
+  const updateUrl = `/resources/${rowId}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };

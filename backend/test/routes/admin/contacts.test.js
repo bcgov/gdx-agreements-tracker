@@ -34,7 +34,7 @@ testRoutes([
       url: "/contacts",
       payload: {
         first_name: "John",
-        last_name: "Testman",
+        last_name: "Tester",
       },
     },
     modelFunction: model.addOne,

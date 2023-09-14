@@ -4,6 +4,7 @@ const { knex, dataBaseSchemas } = dbConnection();
 const contractAmendmentTable = `${dataBaseSchemas().data}.contract_amendment`;
 const contractsTable = `${dataBaseSchemas().data}.contract`;
 const contractAmendmentTypeTable = `${dataBaseSchemas().data}.amendment_type`;
+const { dateFormatShortYear } = require("@helpers/standards");
 
 // Get all.
 const findAll = (contractId) => {
@@ -11,9 +12,10 @@ const findAll = (contractId) => {
     .columns(
       "contract_amendment.id",
       "contract.co_number as contract",
+
       {
         amendment_date: knex.raw(
-          "TO_CHAR(contract_amendment.amendment_date :: DATE, 'dd-MON-yyyy')"
+          `TO_CHAR(contract_amendment.amendment_date, '${dateFormatShortYear}')`
         ),
       },
       { amendment_type: "amendment_type.amendment_type_name" },
@@ -38,7 +40,11 @@ const findById = (contractId, amendmentId) => {
         "( SELECT json_build_object('value', contract_amendment.amendment_number, 'label', amendment_type.amendment_type_name)) AS amendment_number"
       ),
       "contract_amendment.description",
-      "contract_amendment.amendment_date"
+      {
+        amendment_date: knex.raw(
+          `TO_CHAR(contract_amendment.amendment_date, '${dateFormatShortYear}')`
+        ),
+      }
     )
     .from(contractAmendmentTable)
     .leftJoin(contractsTable, { "contract_amendment.contract_id": `${contractsTable}.id` })

@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -13,7 +14,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Initiation Date",
-          value: query?.data?.data?.data?.initiation_date,
+          value: formatDate(query?.data?.data?.data?.initiation_date),
         },
         { width: "half", title: "CR Contact", value: query?.data?.data?.data?.cr_contact },
         {
@@ -21,7 +22,11 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           title: "Initiated By",
           value: query?.data?.data?.data?.initiated_by?.label,
         },
-        { width: "half", title: "Approval Date", value: query?.data?.data?.data?.approval_date },
+        {
+          width: "half",
+          title: "Approval Date",
+          value: formatDate(query?.data?.data?.data?.approval_date),
+        },
         { width: "full", title: "Summary", value: query?.data?.data?.data?.summary },
       ];
 
@@ -82,9 +87,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     link_id: projectId,
   };
 
-  const rowsToLock = [query?.data?.data?.data?.id];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = null === rowId ? [] : [Number(rowId)];
   const postUrl = `/change_request`;
-  const updateUrl = `/change_request/${query?.data?.data?.data?.id}`;
+  const updateUrl = `/change_request/${rowId}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };

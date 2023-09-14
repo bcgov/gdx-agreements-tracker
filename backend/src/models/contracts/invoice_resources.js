@@ -1,5 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
+const { dateFormatShortYear } = require("@helpers/standards");
 
 const table = `${dataBaseSchemas().data}.invoice_detail`;
 const contractResourceTable = `${dataBaseSchemas().data}.contract_resource`;
@@ -11,6 +12,8 @@ const findAllByInvoiceId = (invoiceId) => {
   return knex
     .select(
       "*",
+      { start_date: knex.raw(`TO_CHAR(i.start_date, '${dateFormatShortYear}')`) },
+      { end_date: knex.raw(`TO_CHAR(i.end_date, '${dateFormatShortYear}')`) },
       { resource_assignment: knex.raw("r.resource_last_name || ', ' || r.resource_first_name") },
       { rate: knex.raw("i.rate::numeric::float8") },
       { amount: knex.raw("(i.rate * i.unit_amount)::numeric::float8") },
@@ -28,6 +31,8 @@ const findById = (id) => {
   return knex
     .select(
       "i.id",
+      { start_date: knex.raw(`TO_CHAR(i.start_date, '${dateFormatShortYear}')`) },
+      { end_date: knex.raw(`TO_CHAR(i.end_date, '${dateFormatShortYear}')`) },
       knex.raw("i.unit_amount::numeric::float8"),
       knex.raw("i.rate::numeric::float8"),
       {

@@ -1,12 +1,13 @@
 import { AxiosResponse } from "axios";
 import { IEditField } from "types";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const readFields = [
     {
       width: "full",
       title: "Close out date",
-      value: query?.data?.data?.data?.close_out_date,
+      value: formatDate(query?.data?.data?.data?.close_out_date),
     },
     {
       width: "full",
@@ -16,7 +17,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     {
       width: "full",
       title: "Actual completion date of project",
-      value: query?.data?.data?.data?.actual_completion_date,
+      value: formatDate(query?.data?.data?.data?.actual_completion_date),
     },
     {
       width: "full",

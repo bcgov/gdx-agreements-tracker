@@ -1,6 +1,6 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex } = dbConnection();
-const { dateFormat } = require("../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
 
 /**
  * Gets the data for a Contract Summary Report
@@ -12,8 +12,8 @@ const getContractSummaryReport = (contractId) => {
   return knex("data.contract as contract")
     .select({
       contract: "contract.*",
-      start_date: knex.raw(`TO_CHAR(contract.start_date :: DATE, '${dateFormat}')`),
-      end_date: knex.raw(`TO_CHAR(contract.end_date :: DATE, '${dateFormat}')`),
+      start_date: knex.raw(`TO_CHAR(contract.start_date :: DATE, '${dateFormatShortYear}')`),
+      end_date: knex.raw(`TO_CHAR(contract.end_date :: DATE, '${dateFormatShortYear}')`),
       total_contract: knex.raw("contract.total_fee_amount + contract.total_expense_amount"),
       supplier_name: "supplier_name",
       internal_coding: "internal_coding.*",
@@ -40,7 +40,7 @@ const getContractAmendments = (contractId) => {
     .select({
       amendment_number: "amendment_number",
       amendment_date: knex.raw(
-        `TO_CHAR(contract_amendment.amendment_date :: DATE, '${dateFormat}')`
+        `TO_CHAR(contract_amendment.amendment_date :: DATE, '${dateFormatShortYear}')`
       ),
       amendment_type: knex.raw(`string_agg(amendment_type.amendment_type_name, ', ')`),
       description: "contract_amendment.description",
@@ -91,7 +91,7 @@ const getContractInvoices = (contractId) => {
     .select({
       fiscal: knex.min("fiscal_year"),
       billing_period: knex.min("billing_period"),
-      invoice_date: knex.raw(`MIN(TO_CHAR(invoice_date:: DATE, '${dateFormat}'))`),
+      invoice_date: knex.raw(`MIN(TO_CHAR(invoice_date:: DATE, '${dateFormatShortYear}'))`),
       invoice_number: "invoice_number",
       invoice_amount: knex.raw("SUM(unit_amount * rate)"),
     })

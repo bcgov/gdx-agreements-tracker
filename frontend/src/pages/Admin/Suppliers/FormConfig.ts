@@ -230,9 +230,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     supplier_legal_name: "",
   };
 
-  const rowsToLock = [Number(query.data?.data?.data?.id)];
+  const rowId = query?.data?.data?.data?.id ?? null;
+  const rowsToLock = null === rowId ? [] : [Number(rowId)];
   const postUrl = `/suppliers`;
-  const updateUrl = `/suppliers/${query.data?.data?.data?.id}`;
+  const updateUrl = `/suppliers/${rowId}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };

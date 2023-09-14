@@ -15,50 +15,50 @@ const queries = {
       .with(
         "q1",
         knex.raw(
-          `SELECT 
-                fy.fiscal_year, 
-                s.subcontractor_name, 
-                p.project_number, 
-                c.co_number, 
-                c.co_version, 
-                c.description, 
-                c.start_date, 
-                c.end_date, 
-                c.status, 
-                c.total_fee_amount + c.total_expense_amount as total_contract_amt 
-            FROM 
-                subcontractor s 
+          `SELECT
+                fy.fiscal_year,
+                s.subcontractor_name,
+                p.project_number,
+                c.co_number,
+                c.co_version,
+                c.description,
+                c.start_date,
+                c.end_date,
+                c.status,
+                c.total_fee_amount + c.total_expense_amount as total_contract_amt
+            FROM
+                subcontractor s
                 inner join (
                 (
-                    project p 
+                    project p
                     inner join (
-                    contract c 
+                    contract c
                     inner join fiscal_year fy on c.fiscal = fy.id
                     ) on p.id = c.project_id
-                ) 
+                )
                 inner join contract_subcontractor cs on c.id = cs.contract_id
-                ) on s.id = cs.subcontractor_id 
-            WHERE 
-                s.id = ? 
-            UNION 
-            SELECT 
-                fy.fiscal_year, 
-                s.subcontractor_name, 
-                hc.project_number, 
-                hc.co_number, 
-                CASE WHEN hc.amendment_count <> 0 THEN 'a' || hc.amendment_count ELSE '' END AS expr1, 
-                'historical contract' AS expr2, 
-                hc.start_date, 
-                hc.end_date, 
-                'complete' AS status, 
-                hc.total_contract_amount 
-            FROM 
-                subcontractor s 
+                ) on s.id = cs.subcontractor_id
+            WHERE
+                s.id = ?
+            UNION
+            SELECT
+                fy.fiscal_year,
+                s.subcontractor_name,
+                hc.project_number,
+                hc.co_number,
+                CASE WHEN hc.amendment_count <> 0 THEN 'a' || hc.amendment_count ELSE '' END AS expr1,
+                'historical contract' AS expr2,
+                hc.start_date,
+                hc.end_date,
+                'complete' AS status,
+                hc.total_contract_amount
+            FROM
+                subcontractor s
                 INNER JOIN (
-                fiscal_year fy 
+                fiscal_year fy
                 INNER JOIN historical_contracts hc ON fy.id = hc.fiscal_year
-                ) ON s.id = hc.subcontractor_id 
-            WHERE 
+                ) ON s.id = hc.subcontractor_id
+            WHERE
                 s.id = ?
           `,
           [subcontractor, subcontractor]
@@ -99,8 +99,7 @@ const queries = {
  * Retrieve and process data from queries to create a structured result object.
  *
  * @param   {object} options               - Options object containing fiscal year.
- * @param   {string} options.fiscal        - The fiscal year to retrieve data for.
- * @param            options.subcontractor - The subcontractor to retrieve data for.
+ * @param   {string} options.subcontractor - The subcontractor to retrieve data for.
  * @returns {object}                       - An object containing fiscal year, report, and report total.
  */
 const getAll = async ({ subcontractor }) =>

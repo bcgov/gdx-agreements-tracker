@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -25,7 +26,11 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           title: "Schedule Health",
           value: query?.data?.data?.data?.schedule_health_id.label,
         },
-        { width: "half", title: "Start Date", value: query?.data?.data?.data?.status_date },
+        {
+          width: "half",
+          title: "Start Date",
+          value: formatDate(query?.data?.data?.data?.status_date),
+        },
         {
           width: "half",
           title: "Budget Health",

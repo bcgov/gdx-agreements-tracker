@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const { projectId } = useParams();
@@ -11,9 +12,21 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       title: "Agreement Type",
       value: query?.data?.data?.data?.agreement_type?.label,
     },
-    { width: "half", title: "Start Date", value: query?.data?.data?.data?.agreement_start_date },
-    { width: "half", title: "Signed Date", value: query?.data?.data?.data?.agreement_signed_date },
-    { width: "half", title: "End Date", value: query?.data?.data?.data?.agreement_end_date },
+    {
+      width: "half",
+      title: "Start Date",
+      value: formatDate(query?.data?.data?.data?.agreement_start_date),
+    },
+    {
+      width: "half",
+      title: "Signed Date",
+      value: formatDate(query?.data?.data?.data?.agreement_signed_date),
+    },
+    {
+      width: "half",
+      title: "End Date",
+      value: formatDate(query?.data?.data?.data?.agreement_end_date),
+    },
     { width: "full", title: "Description", value: query?.data?.data?.data?.description },
     { width: "full", title: "Notes", value: query?.data?.data?.data?.notes },
   ];
