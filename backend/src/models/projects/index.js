@@ -34,10 +34,8 @@ const findAll = () => {
       { version: "p.project_version" },
       "port.portfolio_name",
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
-      {
-        registration_date: knex.raw(`TO_CHAR(p.initiation_date :: DATE, '${dateFormatShortYear}')`),
-      },
-      { end_date: knex.raw(`TO_CHAR(p.agreement_end_date :: DATE, '${dateFormatShortYear}')`) },
+      { registration_date: knex.raw(`p.initiation_date`) },
+      { end_date: knex.raw(`p.agreement_end_date`) },
       { status: "p.project_status" },
     ])
     .select()
@@ -63,10 +61,8 @@ const findById = (id) => {
       { portfolio: "p.portfolio_id" },
       //TODO this needs to be changed to ministry_id in the view
       { ministry: "p.ministry_id" },
-      {
-        registration_date: knex.raw(`TO_CHAR(p.initiation_date :: DATE, '${dateFormatShortYear}')`),
-      },
-      { end_date: knex.raw(`TO_CHAR(p.agreement_end_date :: DATE, '${dateFormatShortYear}')`) },
+      { registration_date: knex.raw(`p.initiation_date`) },
+      { end_date: knex.raw(`p.agreement_end_date`) },
       knex.raw("planned_budget::numeric::float8"),
       knex.raw("total_project_budget::numeric::float8"),
       knex.raw("recoverable_amount::numeric::float8")

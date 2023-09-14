@@ -27,8 +27,8 @@ const findAll = () => {
       "c.co_version",
       "c.description",
       { supplier: "supplier.supplier_name" },
-      { start_date: knex.raw(`TO_CHAR(c.start_date :: DATE, '${dateFormatShortYear}')`) },
-      { end_date: knex.raw(`TO_CHAR(c.end_date :: DATE, '${dateFormatShortYear}')`) },
+      { start_date: knex.raw(`c.start_date`) },
+      { end_date: knex.raw(`c.end_date`) },
       "c.total_expense_amount",
       //"Remaining Amount" Leaving this here because it is on the wireframe but can't find it in the DB
       "c.status",

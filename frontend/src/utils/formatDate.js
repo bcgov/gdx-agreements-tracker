@@ -11,4 +11,14 @@ const DATE_FORMAT_SHORT_YEAR = "DD-MMM-YY";
  * @param   {string | unknown} date - date to be formatted
  * @returns {string}                - formatted date
  */
-export default (date) => date && dayjs(date).format(DATE_FORMAT_SHORT_YEAR);
+const formatDate = (date) => date && dayjs(date).format(DATE_FORMAT_SHORT_YEAR);
+
+/**
+ * Format a date to the format "dd-Mon-yy"
+ *
+ * @param   {string | Date | unknown } params - date to be formatted
+ * @returns {Date}                            date
+ */
+const dateFormatter = ({ value = null }) => (null === value ? "" : formatDate(value));
+
+export { formatDate as default, dateFormatter };

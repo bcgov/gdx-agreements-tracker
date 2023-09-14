@@ -1,4 +1,5 @@
 import { GridInitialState } from "@mui/x-data-grid";
+import { dateFormatter as valueFormatter } from "utils/formatDate";
 
 export const tableConfig = () => {
   const defaultFlex = 3;
@@ -11,8 +12,8 @@ export const tableConfig = () => {
     },
     { field: "description", headerName: "Description", flex: defaultFlex },
     { field: "supplier", headerName: "Supplier", flex: defaultFlex },
-    { field: "start_date", headerName: "Start Date", flex: defaultFlex },
-    { field: "end_date", headerName: "End Date", flex: defaultFlex },
+    { field: "start_date", headerName: "Start Date", valueFormatter, flex: defaultFlex },
+    { field: "end_date", headerName: "End Date", valueFormatter, flex: defaultFlex },
     { field: "status", headerName: "Status", flex: defaultFlex },
     { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
     { field: "project_number", headerName: "Project Number", flex: defaultFlex },
