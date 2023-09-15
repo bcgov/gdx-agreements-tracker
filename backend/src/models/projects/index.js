@@ -1,5 +1,4 @@
 const dbConnection = require("@database/databaseConnection");
-const { dateFormatShortYear } = require("@helpers/standards");
 const { knex, dataBaseSchemas } = dbConnection();
 
 const projectTable = `${dataBaseSchemas().data}.project`;
@@ -107,7 +106,7 @@ const findMostRecentStatusById = (id) => {
         team_blue: "team.colour_blue",
       },
       { reported_by: knex.raw("reported_by.last_name || ', ' || reported_by.first_name") },
-      { status_date: knex.raw(`TO_CHAR(project.status_date :: DATE, '${dateFormatShortYear}')`) },
+      "project.status_date",
       "project.general_progress_comments",
       "project.issues_and_decisions",
       "project.forecast_and_next_steps",

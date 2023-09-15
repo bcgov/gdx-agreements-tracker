@@ -1,5 +1,12 @@
 **September 14, 2023 [DESCW-1447](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1447)**
 
+- Backend
+  - tweak date format utils:
+    - clean up generic report controller
+    - clean up getCurrentDate() utility function in controllers/reports/helpers
+      - import formatDate instead of imperative code
+    - import date format constants to models/reports/helpers
+
 - Frontend
   - make all forms display date in proper format
   - make all tables display date in SORTABLE proper format using valueFormatter()

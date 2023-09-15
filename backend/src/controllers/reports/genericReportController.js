@@ -121,7 +121,10 @@ const getDataFromModel = async (query, model, reply) => {
     throw new Error(`There was a problem looking up this Report.`);
   }
 
-  return { date: await getCurrentDate(), ...result };
+  return {
+    date: await getCurrentDate(),
+    ...result,
+  };
 };
 
 /**

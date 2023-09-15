@@ -1,5 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid";
-import { dateFormatter as valueFormatter } from "utils/formatDate";
+import { dateFormatter } from "utils/formatDate";
 
 export const tableConfig = () => {
   const defaultFlex = 3;
@@ -12,8 +12,13 @@ export const tableConfig = () => {
     { field: "assignment_rate", headerName: "Assignment Rate", flex: defaultFlex },
     { field: "hours", headerName: "Hours", flex: defaultFlex },
     { field: "fees_for_resource", headerName: "Fees For Resource", flex: defaultFlex },
-    { field: "start_date", headerName: "Start Date", valueFormatter, flex: defaultFlex },
-    { field: "end_date", headerName: "End Date", valueFormatter, flex: defaultFlex },
+    {
+      field: "start_date",
+      headerName: "Start Date",
+      valueFormatter: dateFormatter,
+      flex: defaultFlex,
+    },
+    { field: "end_date", headerName: "End Date", valueFormatter: dateFormatter, flex: defaultFlex },
   ];
 
   const initialState = {

@@ -2,8 +2,11 @@
 const fs = require("fs");
 const path = require("path");
 const _ = require("lodash");
+const { formatDate } = require("../../../models/reports/helpers");
 
 // Constants
+const LOCALE = "en-US";
+const LOCAL_TIMEZONE = { timeZone: "America/Vancouver" };
 const pdfConfig = { responseType: "arraybuffer" };
 const validFiletypes = ["xls", "xlsx", "doc", "docx"];
 const templateMap = {
@@ -201,10 +204,11 @@ const validateQueryParameters = ({
  *
  * @returns {string} - current Vancouver date in ISO format
  */
-const getCurrentDate = async () =>
-  new Date(new Date().toLocaleString("en-US", { timeZone: "America/Vancouver" }))
-    .toISOString()
-    .split("T")[0];
+const getCurrentDate = async () => {
+  const localDate = new Date().toLocaleString(LOCALE, LOCAL_TIMEZONE);
+
+  return formatDate(localDate);
+};
 
 // Exports
 module.exports = {

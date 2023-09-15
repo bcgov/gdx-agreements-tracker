@@ -3,8 +3,7 @@ const _ = require("lodash");
 const dayjs = require("dayjs");
 
 // Constants
-const dateFormat = "dd-MON-yyyy";
-const dateFormatShortYear = "dd-Mon-yy";
+const { dateFormat, dateFormatShortYear } = require("@helpers/standards");
 
 /**
  * Groups items in a list by a specified property.
