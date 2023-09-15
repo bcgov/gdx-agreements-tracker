@@ -1,6 +1,11 @@
 import { Box, Button, Checkbox, FormControlLabel } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { apiAxios } from "utils";
+import { styled } from "@mui/material/styles";
+
+const NotifyButton = styled(Button)({
+  borderRadius: "12px",
+});
 
 export const Notify = ({ projectId }: { projectId: string | undefined }) => {
   const [checked, setChecked] = useState(false);
@@ -32,9 +37,9 @@ export const Notify = ({ projectId }: { projectId: string | undefined }) => {
         label="Check the box and click notify when ready to send a notification to the PMO staff"
       />
       <div>
-        <Button variant="contained" size="small" onClick={notify} disabled={!checked}>
+        <NotifyButton variant="contained" size="small" onClick={notify} disabled={!checked}>
           Notify
-        </Button>
+        </NotifyButton>
       </div>
     </Box>
   );

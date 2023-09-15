@@ -5,6 +5,7 @@ import { IFormControls } from "types";
 import { useFormControls } from "hooks";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
+import { Notify } from "./Notify";
 
 export const CloseOut = () => {
   const { updateTitle } = useTitle();
@@ -18,11 +19,15 @@ export const CloseOut = () => {
   const formControls: IFormControls = useFormControls();
 
   return (
-    <FormRenderer
-      formControls={formControls}
-      tableName={"projects"}
-      formConfig={FormConfig}
-      formDataApiEndpoint={`/projects/${projectId}/close-out`}
-    />
+    <>
+      <Notify projectId={projectId} />
+
+      <FormRenderer
+        formControls={formControls}
+        tableName={"projects"}
+        formConfig={FormConfig}
+        formDataApiEndpoint={`/projects/${projectId}/close-out`}
+      />
+    </>
   );
 };
