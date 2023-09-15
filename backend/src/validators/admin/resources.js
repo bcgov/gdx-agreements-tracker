@@ -21,7 +21,6 @@ const getOne = {
     S.object()
       .prop("id", S.number())
       .prop("created_date", S.string())
-      .prop("created_date_formatted", S.string())
       .prop("resource_first_name", S.string())
       .prop("resource_last_name", S.string())
       .prop("subcontractor_id", Schema.Picker)
@@ -31,7 +30,6 @@ const getOne = {
 
 const addUpdateBody = S.object()
   .prop("created_date", Schema.Date)
-  .prop("created_date_formatted", Schema.ShortString)
   .prop("resource_first_name", Schema.ShortString)
   .prop("resource_last_name", Schema.ShortString)
   .prop("subcontractor_id", Schema.Id)

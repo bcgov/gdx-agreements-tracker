@@ -1,5 +1,4 @@
 const dbConnection = require("@database/databaseConnection");
-const { dateFormatShortYear } = require("@helpers/standards");
 const { knex } = dbConnection();
 // This is here for backwards compatibility
 const {
@@ -201,8 +200,8 @@ const getActiveProjects = (portfolios) => {
       project_manager: knex.raw("contact.last_name || ', ' || contact.first_name"),
       description: "project.description",
       project_type: "project.project_type",
-      start_date: knex.raw(`TO_CHAR(project.initiation_date :: DATE, '${dateFormatShortYear}')`),
-      end_date: knex.raw(`TO_CHAR(project.planned_end_date :: DATE, '${dateFormatShortYear}')`),
+      start_date: "project.initiation_date",
+      end_date: "project.planned_end_date",
       planned_budget: "project.planned_budget",
       client_ministry: "ministry_short_name",
     })

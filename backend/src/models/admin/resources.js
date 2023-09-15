@@ -1,6 +1,5 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
-const { dateFormatShortYear } = require("@helpers/standards");
 const table = `${dataBaseSchemas().data}.resource`;
 const supplierTable = `${dataBaseSchemas().data}.supplier`;
 const subcontractorTable = `${dataBaseSchemas().data}.subcontractor`;
@@ -18,7 +17,7 @@ const findAll = () => {
       { first_name: "r.resource_first_name" },
       { supplier: "supplier.supplier_name" },
       { subcontractor: "subcontractor.subcontractor_name" },
-      { created_date: knex.raw(`TO_CHAR(r.created_date :: DATE, '${dateFormatShortYear}')`) }
+      "r.created_date"
     )
     .select()
     .leftJoin(supplierTable, { "r.supplier_id": `${supplierTable}.id` })
@@ -46,9 +45,6 @@ const findById = (id) => {
       ),
       knex.raw(
         "(SELECT json_build_object('value', COALESCE(resource.subcontractor_id,0), 'label', COALESCE(subcontractor.subcontractor_name,''))) AS subcontractor_id"
-      ),
-      knex.raw(
-        `TO_CHAR(resource.created_date, '${dateFormatShortYear}' ) as created_date_formatted`
       ),
       "resource.created_date"
     )

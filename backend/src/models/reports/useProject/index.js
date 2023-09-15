@@ -2,7 +2,7 @@
  * This is for global project models, which are used by multiple controllers.
  */
 const dbConnection = require("@database/databaseConnection");
-const { dateFormat } = require("../../../helpers/standards");
+const { dateFormatShortYear } = require("@helpers/standards");
 const { knex } = dbConnection();
 const {
   contactTable,
@@ -83,8 +83,10 @@ const projectStatusReport = (projectId) => {
           `(CASE WHEN pd.id is null then 'No Deliverables' ELSE pd.deliverable_name END)`
         ),
       },
-      { start_date: knex.raw(`TO_CHAR(pd.start_date :: DATE, '${dateFormat}')`) },
-      { completion_date: knex.raw(`TO_CHAR(pd.completion_date :: DATE, '${dateFormat}')`) },
+      { start_date: knex.raw(`TO_CHAR(pd.start_date :: DATE, '${dateFormatShortYear}')`) },
+      {
+        completion_date: knex.raw(`TO_CHAR(pd.completion_date :: DATE, '${dateFormatShortYear}')`),
+      },
       { amount: "pd.deliverable_amount" },
       { percent_complete: knex.raw("??*100", ["pd.percent_complete"]) },
       "hi.colour_red",
@@ -115,12 +117,12 @@ const getMilestones = (projectId) => {
       "fiscal_id",
       {
         target_completion_date: knex.raw(
-          `TO_CHAR(target_completion_date :: DATE, '${dateFormat}')`
+          `TO_CHAR(target_completion_date :: DATE, '${dateFormatShortYear}')`
         ),
       },
       {
         actual_completion_date: knex.raw(
-          `TO_CHAR(actual_completion_date :: DATE, '${dateFormat}')`
+          `TO_CHAR(actual_completion_date :: DATE, '${dateFormatShortYear}')`
         ),
       },
       "status",
