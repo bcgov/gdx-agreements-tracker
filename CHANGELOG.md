@@ -1,3 +1,10 @@
+**September 17, 2023 [DESCW-1286](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1286)**
+- Frontend
+  - Added option for tab 10 report
+- Backend
+  - Added model for tab 10 report
+  - Added .xlsx template for tab 10 report
+  - 
 **September 14, 2023 [DESCW-1447](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1447)**
 
 - Backend

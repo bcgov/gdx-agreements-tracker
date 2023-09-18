@@ -427,6 +427,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_10_rpt_CA_MultiYrStats_ConsultingServicesbyPortfolio",
+        label: "Annual Stats for Contractor Resource Allocation",
+        description:
+          "Grouped on Fiscal Year Report based on invoiced amount towards each type of resource (Application Design-Development, Application Management, Architecture, Business Analysis and Process Consultation etc. Based on the Competencies in the SRI). Runs since chosen fiscal year.",
+        parameters: [{ label: "fiscal", required: true }],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_12_rpt_CF_InvoicePaymentsbyPortfolio",
         label: "Invoice Payments by Portfolio",
         description:
