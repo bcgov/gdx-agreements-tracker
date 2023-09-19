@@ -1,6 +1,5 @@
 // import knex database connection and utilities
 const { knex } = require("@database/databaseConnection")();
-const log = require("../../facilities/logging")(module.filename);
 const _ = require("lodash");
 
 /**
@@ -189,7 +188,6 @@ const getAll = async ({ fiscal }) =>
     )
     // Catch, then throw the error to be caught by the controller.
     .catch((error) => {
-      log.error(error);
       throw error;
     });
 
