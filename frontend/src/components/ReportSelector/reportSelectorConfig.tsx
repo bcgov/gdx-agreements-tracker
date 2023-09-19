@@ -436,6 +436,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_11_rpt_CA_SRI_SupplierFYUseagebyPortfolio",
+        label: "SRI Usage by Portfolio",
+        description:
+          "Based on invoiced amount for each supplier and distributed across the various Portfolios.",
+        parameters: [{ label: "fiscal", required: true }],
+        exportPDF: false,
+        exportXLSX: true,
+      },
+      {
         value: "Tab_12_rpt_CF_InvoicePaymentsbyPortfolio",
         label: "Invoice Payments by Portfolio",
         description:
