@@ -97,7 +97,7 @@ To go back to live-refresh local development node server:
 
 ### DEPLOYING DEV => TEST:  Tagging the APP and API
 
-* login to oc on your local terminal, using the link to the login command by clicking your username in the upper-right of the openshift page: <https://oauth-openshift.apps.silver.devops.gov.bc.ca/oauth/token/display>
+* login to oc on your local terminal, using the link to the login command by clicking your username in the upper-right of the openshift page
 
 open a terminal and use the login command, then type the following:
 
