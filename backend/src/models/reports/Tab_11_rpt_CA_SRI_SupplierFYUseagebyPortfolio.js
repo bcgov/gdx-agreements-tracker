@@ -5,10 +5,7 @@ const _ = require("lodash");
 
 /**
  *
- * Retrieves invoiced amount towards each type of contract resource
- * (Application Design-Development, Application Management, Architecture,
- * Business Analysis and Process Consultation etc.)
- * Based on the Competencies in the SRI
+ * Summary stats report for a specific fiscal showing total amount for each of the three SRI suppliers. Shows distribution over the various Portfolios.
  *
  * @param   {number}               fiscal - The fiscal year to grab data for
  * @returns {Promise<{report: *}>}
