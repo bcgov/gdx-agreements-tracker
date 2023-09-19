@@ -1,8 +1,11 @@
 // Libs
 const { knex } = require("@database/databaseConnection")();
-const log = require("../../facilities/logging")(module.filename);
 
-// Constants
+// Utilities
+const _ = require("lodash");
+const { groupByProperty } = require("./helpers");
+
+// Constant
 const { dateFormatShortYear } = require("@helpers/standards");
 
 /**
@@ -32,37 +35,6 @@ const queries = {
       .where("contract.id", contract)
       .first(),
 
-  contractAmendments: (contract) =>
-    knex("contract_amendment")
-      .select({
-        amendment_number: "amendment_number",
-        amendment_date: knex.raw(
-          `TO_CHAR(contract_amendment.amendment_date, '${dateFormatShortYear}')`,
-        ),
-        amendment_type: knex.raw(`string_agg(amendment_type.amendment_type_name, ', ')`),
-        description: "contract_amendment.description",
-      })
-      .leftJoin("contract_amendment_amendment_type as cat", {
-        "contract_amendment.id": "cat.contract_amendment_id",
-      })
-      .leftJoin("amendment_type", { "amendment_type.id": "cat.amendment_type_id" })
-      .where("contract_amendment.contract_id", contract)
-      .groupBy("contract_amendment.id")
-      .orderBy("contract_amendment.amendment_date"),
-
-  contractPayments: (contract) =>
-    knex("invoice_detail as detail")
-      .select({
-        fees_invoiced: knex.sum("(unit_amount * rate)"),
-        fees_remaining: knex.raw("MIN(total_fee_amount - SUM(unit_amount * rate)"),
-      })
-      .leftJoin("data.invoice as invoice", { "detail.invoice_id": "invoice.id" })
-      .leftJoin("data.contract as contract", { "contract.id": "invoice.contract_id" })
-      .leftJoin("data.fiscal_year as fiscal", { "fiscal.id": "invoice.fiscal" })
-      .where({ "invoice.contract_id": contract })
-      .groupBy("fiscal")
-      .first(),
-
   contractInvoices: (contract) =>
     knex("invoice")
       .select({
@@ -80,6 +52,37 @@ const queries = {
       .where("invoice.contract_id", contract)
       .groupBy("invoice_number")
       .orderBy("invoice_number"),
+
+  contractPayments: (contract) =>
+    knex("invoice_detail as detail")
+      .select({
+        fiscal: "fiscal_year",
+        fees_invoiced: knex.raw("sum(unit_amount * rate)"),
+        fees_remaining: knex.raw("min(total_fee_amount) - sum(unit_amount * rate)"),
+      })
+      .leftJoin("invoice", { "detail.invoice_id": "invoice.id" })
+      .leftJoin("contract", { "contract.id": "invoice.contract_id" })
+      .leftJoin("fiscal_year as fiscal", { "fiscal.id": "invoice.fiscal" })
+      .where({ "invoice.contract_id": contract })
+      .groupBy("fiscal.id"),
+
+  contractAmendments: (contract) =>
+    knex("contract_amendment")
+      .select({
+        amendment_number: "amendment_number",
+        amendment_date: knex.raw(
+          `TO_CHAR(contract_amendment.amendment_date, '${dateFormatShortYear}')`,
+        ),
+        amendment_type: knex.raw(`string_agg(amendment_type.amendment_type_name, ', ')`),
+        description: "contract_amendment.description",
+      })
+      .leftJoin("contract_amendment_amendment_type as cat", {
+        "contract_amendment.id": "cat.contract_amendment_id",
+      })
+      .leftJoin("amendment_type", { "amendment_type.id": "cat.amendment_type_id" })
+      .where("contract_amendment.contract_id", contract)
+      .groupBy("contract_amendment.id")
+      .orderBy("contract_amendment.amendment_date"),
 };
 
 /**
@@ -92,22 +95,51 @@ const queries = {
 const getAll = async ({ contract }) => {
   try {
     // Await all promises in parallel
-    const [contract_summary, contract_amendments, invoice_processing, payment_summary] =
+    const [contract_summary, invoice_processing, payment_summary, contract_amendments] =
       await Promise.all([
         queries.contractSummary(contract),
-        queries.contractAmendments(contract),
-        queries.paymentSummary(contract),
         queries.contractInvoices(contract),
+        queries.contractPayments(contract),
+        queries.contractAmendments(contract),
       ]);
 
+    // Group the invoice processing data by fiscal year.
+    // use the lodash _.groupBy function to group the invoice_processing data by fiscal year
+    const groupByFiscalYear = (rows, property) => {
+      const groupedRows = [];
+      let currentValue = rows[0][property];
+      let currentGroup = [];
+      for (let i = 0; i < rows.length; i++) {
+        if (currentValue !== rows[i][property]) {
+          groupedRows.push(currentGroup);
+          currentValue = rows[i][property];
+          currentGroup = [];
+        }
+        currentGroup.push(rows[i]);
+      }
+      if (currentGroup.length > 0) {
+        groupedRows.push(currentGroup);
+      }
+      return groupedRows;
+    };
+
+    const invoice_processing_by_fiscal = _.groupBy(invoice_processing, "fiscal");
+    const payment_summary_by_fiscal = _.keyBy(payment_summary, "fiscal");
+
     // Shape this data into a form that matches the report template.
-    return { contract_summary, contract_amendments, invoice_processing, payment_summary };
+    return {
+      contract_summary,
+      invoice_processing: invoice_processing_by_fiscal,
+      payment_summary: payment_summary_by_fiscal,
+      contract_amendments,
+    };
   } catch (error) {
-    log.error(error);
-    throw error;
+    throw new Error(
+      `Error retrieving data for the Project Registry by Fiscal report. ${error.message}`,
+    );
   }
 };
 
 // Export the functions to be used in controller.
 //  required can be fiscal, date, portfolio, etc.
-module.exports = { required: ["fiscal"], getAll };
+module.exports = { required: ["contract"], getAll };
