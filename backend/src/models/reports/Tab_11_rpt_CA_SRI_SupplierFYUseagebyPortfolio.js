@@ -24,141 +24,147 @@ const queries = {
       .with(
         "q1",
         knex.raw(`
-        SELECT 
-          c.fiscal, 
-          fy.fiscal_year, 
-          c.supplier_id, 
-          s.supplier_name, 
-          p.portfolio_abbrev AS portfolio, 
-          c.co_number, 
-          SUM(unit_amount * rate) AS total_invoiced 
-        FROM 
+        select 
+          c.Fiscal, 
+          fy.Fiscal_Year, 
+          c.Supplier_ID, 
+          s.Supplier_Name, 
+          p.Portfolio_Abbrev as Portfolio, 
+          c.CO_Number, 
+          Sum(Unit_Amount * Rate) as Total_Invoiced 
+        from 
           (
-            portfolio p 
-            INNER JOIN (
+            Portfolio p 
+            inner join (
               (
                 (
                   (
-                    supplier s 
-                    RIGHT JOIN contract c ON s.id = c.supplier_id
+                    Supplier s 
+                    right join Contract c on s.ID = c.Supplier_ID
                   ) 
-                  INNER JOIN invoice i ON c.id = i.contract_id
+                  inner join Invoice i on c.ID = i.Contract_ID
                 ) 
-                INNER JOIN invoice_detail id ON i.id = id.invoice_id
+                inner join Invoice_Detail id on i.ID = id.Invoice_ID
               ) 
-              INNER JOIN sid_internal_coding sic ON c.id = sic.contract_id
-            ) ON p.id = sic.portfolio_id
+              inner join SID_Internal_Coding sic on c.ID = sic.Contract_ID
+            ) on p.ID = sic.Portfolio_ID
           ) 
-          INNER JOIN fiscal_year fy ON c.fiscal = fy.id 
-        GROUP BY 
-          c.fiscal, 
-          fy.fiscal_year, 
-          c.supplier_id, 
-          s.supplier_name, 
-          c.co_number, 
-          p.portfolio_abbrev 
-        UNION 
-        SELECT 
-          hc.fiscal_year, 
-          fy.fiscal_year, 
-          hc.supplier_id, 
-          s.supplier_name, 
-          p.portfolio_abbrev, 
-          hc.co_number, 
-          hc.invoiced 
-        FROM 
+          inner join Fiscal_Year fy ON c.Fiscal = fy.ID 
+        group by 
+          c.Fiscal, 
+          fy.Fiscal_Year, 
+          c.Supplier_ID, 
+          s.Supplier_Name, 
+          c.CO_Number, 
+          p.Portfolio_Abbrev 
+        union 
+        select 
+          hc.Fiscal_Year, 
+          fy.Fiscal_Year, 
+          hc.Supplier_ID, 
+          s.Supplier_Name, 
+          p.Portfolio_Abbrev, 
+          hc.CO_Number, 
+          hc.Invoiced 
+        from 
           (
-            supplier s 
-            INNER JOIN (
-              fiscal_year fy 
-              INNER JOIN historical_contracts hc ON fy.id = hc.fiscal_year
-            ) ON s.id = hc.supplier_id
+            Supplier s 
+            inner join (
+              Fiscal_Year fy 
+              inner join Historical_Contracts hc on fy.ID = hc.Fiscal_Year
+            ) on s.ID = hc.Supplier_ID
           ) 
-          INNER JOIN portfolio p ON hc.portfolio_id = p.id`)
+          inner join Portfolio p on hc.Portfolio_ID = p.ID`)
       )
       .with(
         "q2",
         knex.raw(`
-        SELECT 
-          q1.fiscal, 
-          q1.fiscal_year, 
-          q1.supplier_id, 
-          q1.supplier_name, 
-          SUM(
-            CASE WHEN q1.portfolio = 'OSS' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) as oss, 
-          SUM(
-            CASE WHEN q1.portfolio = 'DES' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS des, 
-          SUM(
-            CASE WHEN q1.portfolio = 'DMS' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) as dms, 
-          SUM(
-            CASE WHEN q1.portfolio = 'DP' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS dp, 
-          SUM(
-            CASE WHEN q1.portfolio = 'ANA' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS ana, 
-          SUM(
-            CASE WHEN q1.portfolio = 'SD' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS sd, 
-          SUM(
-            CASE WHEN q1.portfolio = 'CE' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS ce, 
-          SUM(
-            CASE WHEN q1.portfolio = 'EDS' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) as eds, 
-          SUM(
-            CASE WHEN q1.portfolio = 'BCS' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS bcs, 
-          SUM(
-            CASE WHEN q1.portfolio = 'DIV' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS div, 
-          SUM(
-            CASE WHEN q1.portfolio = 'GC' THEN q1.total_invoiced ELSE CAST(0 AS MONEY) END
-          ) AS gc 
-        FROM 
+        select 
+          q1.Fiscal, 
+          q1.Fiscal_Year, 
+          q1.Supplier_ID, 
+          q1.Supplier_Name, 
+          Sum(
+            case when q1.Portfolio = 'OSS' then q1.Total_Invoiced else cast(0 as money) end
+          ) as OSS, 
+          Sum(
+            case when q1.Portfolio = 'DES' then q1.Total_Invoiced else cast(0 as money) end
+          ) as DES, 
+          Sum(
+            case when q1.Portfolio = 'DMS' then q1.Total_Invoiced else cast(0 as money) end
+          ) as DMS, 
+          Sum(
+            case when q1.Portfolio = 'DP' then q1.Total_Invoiced else cast(0 as money) end
+          ) as DP, 
+          Sum(
+            case when q1.Portfolio = 'ANA' then q1.Total_Invoiced else cast(0 as money) end
+          ) as ANA, 
+          Sum(
+            case when q1.Portfolio = 'SD' then q1.Total_Invoiced else cast(0 as money) end
+          ) as SD, 
+          Sum(
+            case when q1.Portfolio = 'CE' then q1.Total_Invoiced else cast(0 as money) end
+          ) as CE, 
+          Sum(
+            case when q1.Portfolio = 'EDS' then q1.Total_Invoiced else cast(0 as money) end
+          ) as EDS, 
+          Sum(
+            case when q1.Portfolio = 'BCS' then q1.Total_Invoiced else cast(0 as money) end
+          ) as BCS, 
+          Sum(
+            case when q1.Portfolio = 'DIV' then q1.Total_Invoiced else cast(0 as money) end
+          ) as DIV, 
+          Sum(
+            case when q1.Portfolio = 'GC' then q1.Total_Invoiced else cast(0 as money) end
+          ) as GC 
+        from 
           q1 
-        WHERE 
-          (
-            (
-              (q1.fiscal_year)= '15-16'
-            ) 
-            AND (
-              (q1.supplier_name) IN ('cgi', 'sierra', 'fujitsu')
-            )
-          ) 
-        GROUP BY 
-          q1.fiscal, 
-          q1.fiscal_year, 
-          q1.supplier_id, 
-          q1.supplier_name`)
+        where q1.Supplier_Name In ('CGI', 'Sierra', 'Fujitsu')
+        group by 
+          q1.Fiscal, 
+          q1.Fiscal_Year, 
+          q1.Supplier_ID, 
+          q1.Supplier_Name`)
       )
       .select({
+        fiscal: "fiscal",
         supplier_name: "supplier_name",
-        bcs: knex.raw("CAST(bcs AS MONEY)"),
-        oss: knex.raw("CAST(oss AS MONEY)"),
-        des: knex.raw("CAST(des AS MONEY)"),
-        dp: knex.raw("CAST(dp AS MONEY)"),
-        ana: knex.raw("CAST(ana AS MONEY)"),
-        dms: knex.raw("CAST(dms AS MONEY)"),
-        sd: knex.raw("CAST(sd AS MONEY)"),
-        ce: knex.raw("CAST(ce AS MONEY)"),
-        gc: knex.raw("CAST(gc AS MONEY)"),
+        bcs: knex.raw("CAST(BCS AS MONEY)"),
+        oss: knex.raw("CAST(OSS AS MONEY)"),
+        des: knex.raw("CAST(DES AS MONEY)"),
+        dp: knex.raw("CAST(DP AS MONEY)"),
+        ana: knex.raw("CAST(ANA AS MONEY)"),
+        dms: knex.raw("CAST(DMS AS MONEY)"),
+        sd: knex.raw("CAST(SD AS MONEY)"),
+        ce: knex.raw("CAST(CE AS MONEY)"),
+        gc: knex.raw("CAST(GC AS MONEY)"),
         total: knex.raw(`
         CAST(
           (
-            bcs + oss + des + dp + ana + dms + sd + ce + gc
+            BCS + OSS + DES + DP + ANA + DMS + SD + CE + GC
           ) AS MONEY
         )`),
       })
       .from("q2")
-      .where("q1.fiscal", fiscal)
+      .where("fiscal", fiscal)
       .orderBy("supplier_name"),
 
   // returns the report total.
   report_total: (fiscal) =>
-    knex(queries.report(fiscal).as("report")).sum({ report_total: "total" }).first(),
+    knex(queries.report(fiscal).as("report"))
+      .sum({
+        bcs: "bcs",
+        oss: "oss",
+        des: "des",
+        dp: "dp",
+        ana: "ana",
+        dms: "dms",
+        sd: "sd",
+        ce: "ce",
+        gc: "gc",
+        total: "total",
+      })
+      .first(),
 };
 
 /**
@@ -176,7 +182,7 @@ const getAll = async ({ fiscal }) =>
   )
     .then(
       // Destructure the results array to extract individual components
-      ([{ fiscal_year }, report, { report_total }]) =>
+      ([{ fiscal_year }, report, report_total]) =>
         // Combine the extracted components into an object
         ({
           fiscal_year,
