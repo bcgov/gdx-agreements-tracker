@@ -30,6 +30,7 @@ export const FormRenderer = ({
   tableName,
   formConfig,
   formDataApiEndpoint,
+  isReadOnly,
 }: IFormRenderer): JSX.Element => {
   const navigate = useNavigate();
   const { handleUpdate, handlePost } = useFormSubmit();
@@ -110,7 +111,7 @@ export const FormRenderer = ({
    */
   const handleOnChange = async () => {
     await handleDbLock(formData, rowsToLock).then(async (lockData: ILockData) => {
-      if (lockData.data.locked) {
+      if (lockData?.data?.locked) {
         return confirm(
           `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`
         );
@@ -171,7 +172,7 @@ export const FormRenderer = ({
               </Box>
             ))}
           <Box ml={1}>
-            <Button variant="contained" onClick={handleOnChange}>
+            <Button variant="contained" onClick={handleOnChange} disabled={isReadOnly}>
               Change Section
             </Button>
           </Box>

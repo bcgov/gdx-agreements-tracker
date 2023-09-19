@@ -1,10 +1,21 @@
+**September 19, 2023 [DESCW-864](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-864)**
+
+- Frontend
+  - Fix bug preventing Close Out page from displaying
+  - Add checkbox & notify button components to closeout page
+  - Use a conditional to make the button & checkbox hide when Admin/Editor views the page
+- Backend
+  - update controller, route, and validator to use keycloak permissions to hide the component
+  - add instructions for deploying to dev/test to README in documentation
+
 **September 17, 2023 [DESCW-1286](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1286)**
+
 - Frontend
   - Added option for tab 10 report
 - Backend
   - Added model for tab 10 report
   - Added .xlsx template for tab 10 report
-  - 
+
 **September 14, 2023 [DESCW-1447](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1447)**
 
 - Backend

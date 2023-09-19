@@ -49,7 +49,7 @@ export const useFormLock = () => {
         },
       })
       .then((returnedRow) => {
-        return returnedRow.data;
+        return returnedRow?.data;
       })
       .catch((err: string) => {
         console.error("error", err);
