@@ -6,8 +6,8 @@ const routes = [
   {
     method: "GET",
     url: `/${what}/:id/close-out`,
-    schema: validators.getOne,
-    handler: controller.getOne,
+    schema: validators.getOneById,
+    handler: controller.getOneById,
   },
   {
     method: "POST",

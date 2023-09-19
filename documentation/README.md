@@ -14,7 +14,7 @@ docker compose up --build -d
 
 **Note**: If this is your first time starting the app, you can populate the database by running the provided migrations and seeders. See the README within the backend directory for more information.
 
-The app is then available at [http://localhost/](http://localhost/). For your reference, the API is available at [http://localhost/api/](http://localhost/api/). The websocket for the frontend react is available at http://localhost:3000/ and as long as the `frontend/.env` file (or other similar facility) specifies the WDS_SOCKET_PORT as 3000, the React live-refresh-upon-code-change feature should work in your browser. 
+The app is then available at [http://localhost/](http://localhost/). For your reference, the API is available at [http://localhost/api/](http://localhost/api/). The websocket for the frontend react is available at http://localhost:3000/ and as long as the `frontend/.env` file (or other similar facility) specifies the WDS_SOCKET_PORT as 3000, the React live-refresh-upon-code-change feature should work in your browser.
 
 Logs end up in `docker/logs/` in `backend`, `frontend`, and `web` subdirectories for your debugging convenience.
 
@@ -94,3 +94,16 @@ To go back to live-refresh local development node server:
 #### Build
 * ```cd gdx-agreements-tracker/backend```
 * ```docker build -t gdx-agreements-tracker-api:latest .```
+
+### DEPLOYING DEV => TEST:  Tagging the APP and API
+
+* login to oc on your local terminal, using the link to the login command by clicking your username in the upper-right of the openshift page: <https://oauth-openshift.apps.silver.devops.gov.bc.ca/oauth/token/display>
+
+open a terminal and use the login command, then type the following:
+
+```bash
+ oc tag gdx-agreements-tracker-api-run:dev gdx-agreements-tracker-api-run:test
+ oc tag gdx-agreements-tracker-app-run:dev gdx-agreements-tracker-app-run:test
+```
+
+* you can observe progress back in the openshift window by clicking on the workflow for gdx-agreements-tracker-a**-run, and scrolling to the bottom.

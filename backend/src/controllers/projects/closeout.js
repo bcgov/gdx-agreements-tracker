@@ -2,6 +2,7 @@ const useController = require("@controllers/useController");
 const model = require("@models/projects/closeout");
 const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
+const { getRealmRoles } = require("@facilities/keycloak");
 
 /**
  * Sends notification email when a project is closed out.
@@ -31,6 +32,42 @@ controller.notify = async (request, reply) => {
     output = controller.failedQuery(reply, err, what);
   }
   return output;
+};
+
+/**
+ * Get a specific item by ID.
+ *
+ * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+ * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+ * @returns {object}
+ */
+controller.getOneById = async (request, reply) => {
+  const targetId = Number(request.params.id);
+  try {
+    const result = await model.findById(targetId);
+
+    result.hasPMOAdminEditCapability = await controller.getPMOAdminEditCapability(request);
+
+    return !result
+      ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      : result;
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
+/**
+ * Determines the user's edit capability from the request object, which includes
+ * keycloak permissions added at the time of login..
+ *
+ * @param   {object } request - the request object
+ * @returns {boolean}         - true if the user has edit capability, false otherwise
+ */
+controller.getPMOAdminEditCapability = async (request) => {
+  const roles = await getRealmRoles(request);
+  return (
+    roles.includes("PMO-Manager-Edit-Capability") || roles.includes("PMO-Admin-Edit-Capability")
+  );
 };
 
 module.exports = controller;

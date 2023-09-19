@@ -1,7 +1,7 @@
 const { Schema, getResponse } = require("../common_schema");
 const S = require("fluent-json-schema");
 
-const getOne = {
+const getOneById = {
   params: Schema.IdParam,
   response: getResponse(
     S.object()
@@ -12,9 +12,10 @@ const getOne = {
       .prop("records_filed", Schema.Picker)
       .prop("contract_ev_completed", Schema.Picker)
       .prop("contractor_security_terminated", Schema.Picker)
+      .prop("hasPMOAdminEditCapability", S.boolean())
   ),
 };
 
 module.exports = {
-  getOne,
+  getOneById,
 };

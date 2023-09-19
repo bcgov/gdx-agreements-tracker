@@ -30,6 +30,7 @@ export const FormRenderer = ({
   tableName,
   formConfig,
   formDataApiEndpoint,
+  isReadOnly,
 }: IFormRenderer): JSX.Element => {
   const navigate = useNavigate();
   const { handleUpdate, handlePost } = useFormSubmit();
@@ -171,7 +172,7 @@ export const FormRenderer = ({
               </Box>
             ))}
           <Box ml={1}>
-            <Button variant="contained" onClick={handleOnChange}>
+            <Button variant="contained" onClick={handleOnChange} disabled={isReadOnly}>
               Change Section
             </Button>
           </Box>
