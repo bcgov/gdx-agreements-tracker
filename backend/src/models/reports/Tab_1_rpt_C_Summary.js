@@ -10,8 +10,8 @@ const { dateFormatShortYear } = require("@helpers/standards");
 /**
  * Retrieves the data for various financial metrics based on the fiscal year.
  *
- * @param {number} contract - The contract number to retrieve data for.
- * @returns {Promise} - A promise that resolves to the query result
+ * @param   {number}  contract - The contract number to retrieve data for.
+ * @returns {Promise}          - A promise that resolves to the query result
  */
 const queries = {
   contractSummary: (contract) =>
@@ -70,7 +70,7 @@ const queries = {
       .select({
         amendment_number: "amendment_number",
         amendment_date: knex.raw(
-          `TO_CHAR(contract_amendment.amendment_date, '${dateFormatShortYear}')`,
+          `TO_CHAR(contract_amendment.amendment_date, '${dateFormatShortYear}')`
         ),
         amendment_type: knex.raw(`string_agg(amendment_type.amendment_type_name, ', ')`),
         description: "contract_amendment.description",
@@ -87,8 +87,8 @@ const queries = {
 /**
  * Retrieve and process data from queries to create a structured result object.
  *
- * @param {number} contract - The contract number to retrieve data for.
- * @returns {object} - An object containing fiscal year, report, and report total.
+ * @param   {number} contract - The contract number to retrieve data for.
+ * @returns {object}          - An object containing fiscal year, report, and report total.
  */
 // add other parameters if needed, like quarter, portfolio, date etc.
 const getAll = async ({ contract }) => {
@@ -114,7 +114,7 @@ const getAll = async ({ contract }) => {
     };
   } catch (error) {
     throw new Error(
-      `Error retrieving data for the Project Registry by Fiscal report. ${error.message}`,
+      `Error retrieving data for the Project Registry by Fiscal report. ${error.message}`
     );
   }
 };
