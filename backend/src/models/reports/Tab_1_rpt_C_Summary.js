@@ -3,7 +3,6 @@ const { knex } = require("@database/databaseConnection")();
 
 // Utilities
 const _ = require("lodash");
-const { groupByProperty } = require("./helpers");
 
 // Constant
 const { dateFormatShortYear } = require("@helpers/standards");
@@ -95,7 +94,7 @@ const queries = {
 const getAll = async ({ contract }) => {
   try {
     // Await all promises in parallel
-    const [contract_summary, invoice_processing, payment_summary, contract_amendments] =
+    const [contractSummary, invoice_processing, payment_summary, contract_amendment] =
       await Promise.all([
         queries.contractSummary(contract),
         queries.contractInvoices(contract),
@@ -104,15 +103,14 @@ const getAll = async ({ contract }) => {
       ]);
 
     // Group invoice_processing and payment summary by fiscal year.
-    const invoice_processing_by_fiscal = _.groupBy(invoice_processing, "fiscal");
     const payment_summary_by_fiscal = _.keyBy(payment_summary, "fiscal");
 
     // Shape this data into a form that matches the report template.
     return {
-      contract_summary,
-      invoice_processing: invoice_processing_by_fiscal,
+      contract: contractSummary,
+      invoice_processing,
       payment_summary: payment_summary_by_fiscal,
-      contract_amendments,
+      contract_amendment,
     };
   } catch (error) {
     throw new Error(

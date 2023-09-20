@@ -1,4 +1,15 @@
+**September 20, 2023 [DESCW-1316](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1316)**
+
+- Frontend
+  - Modified tab 1 report to take new model data
+  - slight tweaks to template formatting
+- Backend
+  - Added model for tab 1 report
+  - Removed old model, controller, and route
+  - Created Bug Ticket DESCW-1527 to request queries for the missing Payment Summary info
+
 **September 19, 2023 [DESCW-1287](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1287)**
+
 - Frontend
   - Added option for tab 11 report
 - Backend
