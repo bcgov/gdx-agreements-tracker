@@ -103,26 +103,7 @@ const getAll = async ({ contract }) => {
         queries.contractAmendments(contract),
       ]);
 
-    // Group the invoice processing data by fiscal year.
-    // use the lodash _.groupBy function to group the invoice_processing data by fiscal year
-    const groupByFiscalYear = (rows, property) => {
-      const groupedRows = [];
-      let currentValue = rows[0][property];
-      let currentGroup = [];
-      for (let i = 0; i < rows.length; i++) {
-        if (currentValue !== rows[i][property]) {
-          groupedRows.push(currentGroup);
-          currentValue = rows[i][property];
-          currentGroup = [];
-        }
-        currentGroup.push(rows[i]);
-      }
-      if (currentGroup.length > 0) {
-        groupedRows.push(currentGroup);
-      }
-      return groupedRows;
-    };
-
+    // Group invoice_processing and payment summary by fiscal year.
     const invoice_processing_by_fiscal = _.groupBy(invoice_processing, "fiscal");
     const payment_summary_by_fiscal = _.keyBy(payment_summary, "fiscal");
 
@@ -140,6 +121,4 @@ const getAll = async ({ contract }) => {
   }
 };
 
-// Export the functions to be used in controller.
-//  required can be fiscal, date, portfolio, etc.
 module.exports = { required: ["contract"], getAll };
