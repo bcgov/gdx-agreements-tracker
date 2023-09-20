@@ -1,3 +1,9 @@
+**September 20, 2023 [DESCW-1246](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1246)**
+
+- Backend
+  - Update GitHub Actions to use the latest versions of workflow@v3 and checkout@v4 (DESCW-1246)
+  - This update includes the latest versions of these actions, which are passing tests on their respective GitHub repositories as of 2021-03-10.
+
 **September 20, 2023 [DESCW-1316](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1316)**
 
 - Frontend
@@ -7,6 +13,7 @@
   - Added model for tab 1 report
   - Removed old model, controller, and route
   - Created Bug Ticket DESCW-1527 to request queries for the missing Payment Summary info
+
 
 **September 19, 2023 [DESCW-1287](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1287)**
 
