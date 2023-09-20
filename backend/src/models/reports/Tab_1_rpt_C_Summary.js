@@ -107,9 +107,7 @@ const getAll = async ({ contract }) => {
       contract_amendment,
     };
   } catch (error) {
-    throw new Error(
-      `Error retrieving data for the Contract Summary report. ${error.message}`
-    );
+    throw new Error(`Error retrieving data for the Contract Summary report. ${error.message}`);
   }
 };
 
