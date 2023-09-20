@@ -1,9 +1,6 @@
 // Libs
 const { knex } = require("@database/databaseConnection")();
 
-// Utilities
-const _ = require("lodash");
-
 // Constant
 const { dateFormatShortYear } = require("@helpers/standards");
 
@@ -102,19 +99,16 @@ const getAll = async ({ contract }) => {
         queries.contractAmendments(contract),
       ]);
 
-    // Group invoice_processing and payment summary by fiscal year.
-    const payment_summary_by_fiscal = _.keyBy(payment_summary, "fiscal");
-
     // Shape this data into a form that matches the report template.
     return {
       contract: contractSummary,
       invoice_processing,
-      payment_summary: payment_summary_by_fiscal,
+      payment_summary,
       contract_amendment,
     };
   } catch (error) {
     throw new Error(
-      `Error retrieving data for the Project Registry by Fiscal report. ${error.message}`
+      `Error retrieving data for the Contract Summary report. ${error.message}`
     );
   }
 };
