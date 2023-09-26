@@ -1,0 +1,27 @@
+kind: "PersistentVolumeClaim"
+apiVersion: v1
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "5Gi"
+  storageClassName: netapp-block-standard
+  volumeMode: Filesystem
+
+---
+
+kind: "PersistentVolumeClaim"
+apiVersion: v1
+metadata:
+  name: postgres-pvc-audit-log
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "1Gi"
+  storageClassName: netapp-file-standard
+  volumeMode: Filesystem

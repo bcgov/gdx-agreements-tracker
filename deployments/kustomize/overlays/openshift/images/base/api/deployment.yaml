@@ -1,0 +1,62 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: api-deployment
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"gdx-agreements-tracker-api-run:default","namespace": "acd38d-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"api\")].image"}]
+  labels:
+    app.kubernetes.io/part-of: gdx-agreements-tracker
+    app.openshift.io/runtime: nodejs
+    app.kubernetes.io/component: backend
+    app.openshift.io/connects-to: coreDB
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        alpha.image.policy.openshift.io/resolve-names: '*'
+      labels:
+        connection: net-database-client
+    spec:
+      volumes:
+        - name: postgres-secrets-volume
+          secret:
+            secretName: secrets
+            items:
+              - key: POSTGRES_PASSWORD
+                path: postgres_password
+            defaultMode: 420
+      containers:
+        - name: api
+          image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-api-run:default
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: POSTGRES_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: POSTGRES_USER
+          envFrom:
+            - configMapRef:
+                name: config
+          volumeMounts:
+            - name: postgres-secrets-volume
+              readOnly: true
+              mountPath: /run/secrets/postgres_password
+              subPath: postgres_password
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1
+              memory: 2Gi

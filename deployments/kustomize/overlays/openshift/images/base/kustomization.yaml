@@ -1,0 +1,33 @@
+bases:
+- network
+- postgresql
+- api
+- app
+namespace: default
+namePrefix: pmo-
+commonLabels:
+  app: gdx-agreements-tracker
+  env: local
+configMapGenerator:
+- name: config
+  literals:
+  - POSTGRES_DB=pmodb
+  - POSTGRES_USER=postgres
+  - POSTGRES_REGULAR_USER=pmouser
+  - POSTGRES_HOST=pmo-postgres-service
+  - COMMON_COMPONENT_CHES_API='https://ches-dev.api.gov.bc.ca'
+  - COMMON_COMPONENT_URL='https://ches-dev.api.gov.bc.ca'
+  - COMMON_COMPONENT_CDOGS_API='https://cdogs-dev.api.gov.bc.ca'
+  - COMMON_COMPONENT_TOKEN_HOST=https://dev.loginproxy.gov.bc.ca
+  - COMMON_COMPONENT_TOKEN_PATH=/auth/realms/comsvcauth/protocol/openid-connect/token
+    #for dev api
+  - CHES_CLIENT_ID=CDACC9DF-7268BA076CB
+  - CHES_SECRET=FbDbBdmz6lYc72yiGBTSLzeHES7jLSoa
+  files:
+  - postgresql.conf
+secretGenerator:
+- name: secrets
+  type: Opaque
+  literals:
+  - POSTGRES_PASSWORD=OMGyouMUSTchangeMEbeforeDEPLOY
+  - POSTGRES_REGULAR_USER_PASSWORD=OMGyouMUSTchangeMEbeforeDEPLOY
