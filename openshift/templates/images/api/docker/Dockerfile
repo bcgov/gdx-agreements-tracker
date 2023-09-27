@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:18.18-alpine3.18
 WORKDIR /usr/scr/app
 ADD . /usr/scr/app/
 RUN npm i
