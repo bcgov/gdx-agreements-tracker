@@ -1,3 +1,7 @@
+**September 27, 2023 [DESCW-1498](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1498)**
+- OpenShift
+  - Add base templates for openshift kustomize images.
+
 **September 27, 2023 [DESCW-1533](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1533)**
 
 - Backend

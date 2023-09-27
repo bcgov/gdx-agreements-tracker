@@ -1,0 +1,20 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: app-route
+  annotations:
+    description: The Route for the React application
+    # By default, allows all IP address. To allow only specific addresses, define a whitelist.
+    haproxy.router.openshift.io/ip_whitelist: ~
+spec:
+  host: localhost:3000
+  wildcardPolicy: None
+  port:
+    targetPort: 8080-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: pmo-app-service
+    weight: 100

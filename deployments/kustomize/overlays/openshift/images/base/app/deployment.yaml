@@ -1,0 +1,38 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app-deployment
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"gdx-agreements-tracker-app-run:dev","namespace": "acd38d-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"app\")].image"}]
+  labels:
+    app.kubernetes.io/part-of: gdx-agreements-tracker
+    app.openshift.io/runtime: nodejs
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: app
+          image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-app-run:dev
+          imagePullPolicy: Always
+          env:
+            - name: REACT_APP_API_URL
+              value: /api-url
+            - name: REACT_APP_KEYCLOAK_URL
+              value: "https://keycloak-url.com"
+            - name: REACT_APP_KEYCLOAK_CLIENT_ID
+              value: "keycloak-id"
+            - name: REACT_APP_KEYCLOAK_REALM
+              value: "keycloak-realm"
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1
+              memory: 2Gi
