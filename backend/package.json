@@ -20,7 +20,7 @@
   ],
   "engineStrict": true,
   "engines": {
-    "node": "^18.14"
+    "node": "v18.18.0"
   },
   "_moduleAliases": {
     "@models": "./src/models",
