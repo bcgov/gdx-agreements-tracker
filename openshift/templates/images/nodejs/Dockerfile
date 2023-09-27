@@ -1,5 +1,5 @@
 # Base alpine images with node.js
-FROM node:lts-alpine
+FROM node:lts-alpine3.17
 
 ENV BUILDER_VERSION 1.0
 
