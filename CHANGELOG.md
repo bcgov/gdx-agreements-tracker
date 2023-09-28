@@ -1,3 +1,12 @@
+**September 27, 2023 [DESCW-1533](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1533)**
+
+- Backend
+  - update node version to lts/hydrogen (v.18.18.0)
+    - package.json
+    - openshift build configs for API
+    - documentation
+    - github actions
+
 **September 20, 2023 [DESCW-1246](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1246)**
 
 - Backend

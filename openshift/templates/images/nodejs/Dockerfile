@@ -1,12 +1,12 @@
 # Base alpine images with node.js
-FROM node:18.14-alpine3.17
+FROM node:18.18-alpine3.18
 
 ENV BUILDER_VERSION 1.0
 
 LABEL io.k8s.description="Platform for building Node.js Applications" \
-      io.k8s.display-name="builder nodejs" \
-      io.openshift.expose-services="3000:http" \
-      io.openshift.tags="builder,nodejs"
+    io.k8s.display-name="builder nodejs" \
+    io.openshift.expose-services="3000:http" \
+    io.openshift.tags="builder,nodejs"
 
 # Defines the location of the S2I
 # Although this is defined in openshift/base-centos7 image it's repeated here
