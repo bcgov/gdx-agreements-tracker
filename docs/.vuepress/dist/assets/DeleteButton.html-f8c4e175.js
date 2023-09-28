@@ -1,1 +1,0 @@
-import{_ as t,o,c as n,b as e,d as a}from"./app-b3529cd0.js";const c={},r=e("h1",{id:"delete-button",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#delete-button","aria-hidden":"true"},"#"),a(" Delete Button")],-1),s=[r];function d(_,l){return o(),n("div",null,s)}const u=t(c,[["render",d],["__file","DeleteButton.html.vue"]]);export{u as default};
