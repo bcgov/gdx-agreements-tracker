@@ -62,3 +62,8 @@ backend/reports/docx/~*
 backend/reports/xlsx/~*
 deployments/kustomize/overlays/experimental
 logs
+
+#documentation
+docs/.vuepress/.temp
+docs/.vuepress/.cache
+node_modules
