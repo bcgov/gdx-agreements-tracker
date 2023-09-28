@@ -95,15 +95,17 @@ To go back to live-refresh local development node server:
 * ```cd gdx-agreements-tracker/backend```
 * ```docker build -t gdx-agreements-tracker-api:latest .```
 
-### DEPLOYING DEV => TEST:  Tagging the APP and API
+### DEPLOYING DEV => TEST:  Tagging the APP, API, and POSTGRES DB
 
 * login to oc on your local terminal, using the link to the login command by clicking your username in the upper-right of the openshift page
+* or use the web-based terminal: click the  ' *>_* ' icon at the top-right of your openshift interface next to the help icon
 
-open a terminal and use the login command, then type the following:
+enter the following:
 
 ```bash
  oc tag gdx-agreements-tracker-api-run:dev gdx-agreements-tracker-api-run:test
  oc tag gdx-agreements-tracker-app-run:dev gdx-agreements-tracker-app-run:test
+ oc tag gdx-agreements-tracker-postgres-run:dev gdx-agreements-tracker-postgres-run:test
 ```
 
 * you can observe progress back in the openshift window by clicking on the workflow for gdx-agreements-tracker-a**-run, and scrolling to the bottom.
