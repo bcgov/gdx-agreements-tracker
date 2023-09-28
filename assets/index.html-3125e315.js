@@ -1,0 +1,1 @@
+const e=JSON.parse(`{"key":"v-66d20dad","path":"/guide/react_components/","title":"React Components","lang":"en-US","frontmatter":{},"headers":[],"git":{"updatedTime":1695937205000,"contributors":[{"name":"Richard O'Brien","email":"122112933+robrien-bcgov@users.noreply.github.com","commits":1}]},"filePathRelative":"guide/react_components/README.md"}`);export{e as data};
