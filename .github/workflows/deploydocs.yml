@@ -1,0 +1,33 @@
+name: Deploy to GitHub pages
+on:
+  push:
+    branches: [ source ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Generate static files in wwwroot
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npm run build
+
+    - name: Init new repo in wwwroot and commit generated files
+      run: |
+        cd wwwroot
+        git init
+        git add -A
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m 'deploy'
+
+    - name: Force push to feature/documentation-frontend
+      uses: ad-m/github-push-action@v0.5.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: feature/documentation-frontend
+        force: true
+        directory: ./wwwroot
