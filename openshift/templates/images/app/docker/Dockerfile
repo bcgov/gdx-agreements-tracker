@@ -1,5 +1,5 @@
 # build env.
-FROM node:18.14.0-alpine3.17
+FROM node:18.18.0-alpine3.18
 WORKDIR /app
 COPY public/ public/
 COPY src/ src/
