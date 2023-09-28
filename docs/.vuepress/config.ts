@@ -6,7 +6,7 @@ import { searchPlugin } from "@vuepress/plugin-search";
 export default defineUserConfig({
   lang: "en-US",
   title: "GDX Agreements Tracker",
-  description: "Just playing around",
+  description: "Developer Documentation for GDX Agreements Tracker",
   theme: defaultTheme({
     logo: "/images/BCID_H_rgb_pos.png",
     // sidebar array
