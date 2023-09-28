@@ -1,3 +1,8 @@
+**June 07, 2023 [DESCW-1514](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1514)**
+
+- Backend
+  - upgrade openShift postgresql to v15.4-bullseye
+
 **September 28, 2023 [DESCW-1532](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1532)**
 
 - Frontend

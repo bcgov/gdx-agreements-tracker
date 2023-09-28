@@ -1,4 +1,4 @@
-FROM postgres:15.3-bullseye
+FROM postgres:15.4-bullseye
 
 RUN set -ex; \
     apt-get update; \
