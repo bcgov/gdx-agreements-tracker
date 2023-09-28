@@ -1,13 +1,18 @@
-feature/documentation-frontend
+**September 28, 2023 [DESCW-1532](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1532)**
+
+- Frontend
+  - update openshift build configs for APP images to v.18.18-alpine3.18
+  - update node version to  >= v18.18.0
+  - update github actions version to v18.18 or lts (by default)
+  - test github actions on PR commits using node v18.18
+
 **September 28, 2023**
 
 - Added VuePress documentation intial site.
 
-
 **September 27, 2023 [DESCW-1498](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1498)**
 - OpenShift
   - Add base templates for openshift kustomize images.
-
 
 **September 27, 2023 [DESCW-1533](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1533)**
 

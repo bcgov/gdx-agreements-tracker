@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "engineStrict": true,
   "engines": {
-    "node": "^18.14"
+    "node": ">=18.18.0"
   },
   "dependencies": {
     "@bcgov/bc-sans": "^2.0.0",
