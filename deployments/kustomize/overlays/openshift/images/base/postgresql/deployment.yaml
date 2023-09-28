@@ -1,0 +1,77 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: postgres-deployment
+  labels:
+    app.kubernetes.io/part-of: gdx-agreements-tracker
+    app.openshift.io/runtime: postgresql
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/instance: coreDB
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        alpha.image.policy.openshift.io/resolve-names: '*'
+      labels:
+        connection: net-database-server
+    spec:
+      volumes:
+        - name: postgres-configmap-volume
+          configMap:
+            name: config
+            items:
+              - key: postgresql.conf
+                path: postgresql.conf
+            defaultMode: 420
+        - name: postgres-secrets-volume
+          secret:
+            secretName: secrets
+            items:
+              - key: POSTGRES_PASSWORD
+                path: postgres_password
+            defaultMode: 420
+        - name: database-volume
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+        - name: database-volume-audit-log
+          persistentVolumeClaim:
+            claimName: postgres-pvc-audit-log
+      containers:
+        - name: deployment
+          image: bcgovgdx/gdx-agreements-tracker-postgres-run
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: config
+          env:
+            - name: POSTGRES_PASSWORD_FILE
+              value: "/run/secrets/postgres_password"
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - name: postgres-configmap-volume
+              mountPath: /etc/postgresql/postgresql.conf
+              subPath: postgresql.conf
+            - name: postgres-secrets-volume
+              readOnly: true
+              mountPath: /run/secrets/postgres_password
+              subPath: postgres_password
+            - name: database-volume
+              mountPath: /var/lib/postgresql
+              subPath: postgres-data
+            - name: database-volume
+              mountPath: /var/run
+              subPath: postgres-run
+            - name: database-volume-audit-log
+              mountPath: /var/log/postgresql
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 1
+              memory: 1Gi
