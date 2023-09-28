@@ -2,9 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: app-deployment
-  annotations:
-    image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"gdx-agreements-tracker-app-run:dev","namespace": "acd38d-tools"},"fieldPath":"spec.template.spec.containers[?(@.name==\"app\")].image"}]
   labels:
     app.kubernetes.io/part-of: gdx-agreements-tracker
     app.openshift.io/runtime: nodejs
@@ -15,7 +12,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-app-run:dev
+          image: bcgovgdx/gdx-agreements-tracker-app-run
           imagePullPolicy: Always
           env:
             - name: REACT_APP_API_URL

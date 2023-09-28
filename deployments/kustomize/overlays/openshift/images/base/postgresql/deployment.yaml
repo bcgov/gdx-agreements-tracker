@@ -41,7 +41,7 @@ spec:
             claimName: postgres-pvc-audit-log
       containers:
         - name: deployment
-          image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-postgres-run:default
+          image: bcgovgdx/gdx-agreements-tracker-postgres-run
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
