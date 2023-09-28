@@ -2,8 +2,13 @@
 home: true
 heroImage: "/images/BCID_H_rgb_pos.png"
 tagline: 
-actionText: Quick Start →
-actionLink: /guide/
+actions:
+  - text: Get Started
+    link: /guide/getting-started.html
+    type: primary
+  - text: Introduction
+    link: /guide/
+    type: secondary
 features:
 - title: Projects
   details: Projects Description
