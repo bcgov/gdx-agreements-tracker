@@ -1,0 +1,20 @@
+{
+  "name": "vuepress-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "author": "",
+  "license": "ISC",
+  "engineStrict": true,
+  "engines": {
+    "node": "^18.18"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-search": "^2.0.0-beta.67",
+    "vuepress": "^2.0.0-beta.67"
+  }
+}
