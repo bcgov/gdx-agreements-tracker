@@ -4,6 +4,7 @@ import { defineUserConfig } from "vuepress";
 import { searchPlugin } from "@vuepress/plugin-search";
 
 export default defineUserConfig({
+  base: "/gdx-agreements-tracker/",
   lang: "en-US",
   title: "GDX Agreements Tracker",
   description: "Developer Documentation for GDX Agreements Tracker",
