@@ -1,3 +1,8 @@
+**September 28, 2023**
+
+- Added VuePress documentation intial site.
+
+
 **September 27, 2023 [DESCW-1533](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1533)**
 
 - Backend
