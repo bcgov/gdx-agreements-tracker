@@ -4,6 +4,7 @@
     - Fixed issue with admin contact job title not showing.
     - Added required field to subcontractor name to resolve adding empty name
     - Fixed issue with admin ministry active display only showing no.
+    - Fixed issue with notes not displaying for project reg.
     
 **October 2, 2023 [DESCW-1474](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1474)**
 - Frontend
