@@ -11,7 +11,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     ? []
     : [
         {
-          value: query?.data?.data?.data?.data?.data?.deliverable_name,
+          value: query?.data?.data?.data?.deliverable_name,
           title: "Deliverable Name",
           width: "half",
         },

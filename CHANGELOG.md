@@ -1,3 +1,7 @@
+**October 3, 2023 [DESCW-1454](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1454)**
+- Frontend
+    - Fixed issue with contract deliverable name not showing. 
+
 **October 2, 2023 [DESCW-1474](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1474)**
 - Frontend
     - Added a new Money field Type that can be used on all input forms.
