@@ -5,7 +5,7 @@ export const tableConfig = () => {
   const tableColumns: GridColDef[] = [
     { field: "last_name", headerName: "Last Name", flex: defaultFlex },
     { field: "first_name", headerName: "First Name", flex: defaultFlex },
-    { field: "contact_title", headerName: "Job Title", flex: defaultFlex },
+    { field: "job_title", headerName: "Job Title", flex: defaultFlex },
     { field: "ministry_id", headerName: "Ministry", flex: defaultFlex },
     { field: "notes", headerName: "Notes", flex: defaultFlex },
   ];
