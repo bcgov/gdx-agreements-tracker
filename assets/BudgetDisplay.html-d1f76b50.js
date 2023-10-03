@@ -1,0 +1,1 @@
+import{_ as t,o as a,c as s,a as e,b as d}from"./app-0d63c581.js";const c={},o=e("h1",{id:"budget-display",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#budget-display","aria-hidden":"true"},"#"),d(" Budget Display")],-1),r=[o];function i(n,_){return a(),s("div",null,r)}const u=t(c,[["render",i],["__file","BudgetDisplay.html.vue"]]);export{u as default};
