@@ -1,1 +1,0 @@
-import{_ as c,o,c as t,a as e,b as a}from"./app-34ca8960.js";const r={},s=e("h1",{id:"db-lock",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#db-lock","aria-hidden":"true"},"#"),a(" DB Lock")],-1),n=[s];function _(d,l){return o(),t("div",null,n)}const h=c(r,[["render",_],["__file","DBLock.html.vue"]]);export{h as default};
