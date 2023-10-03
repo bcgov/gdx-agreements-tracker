@@ -19,6 +19,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "singleText",
       fieldLabel: "Name",
       width: "half",
+      required: true,
     },
   ];
 
