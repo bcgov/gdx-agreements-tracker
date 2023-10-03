@@ -78,26 +78,29 @@ export const ReadField = ({
 
       default:
         return (
-          <div>
-            <TextField
-              disabled
-              label={title}
-              value={value}
-              fullWidth
-              sx={{
-                "& .MuiInputLabel-root ": {
-                  WebkitTextFillColor: "#16008fc4",
-                },
-                "& .MuiInputBase-input.Mui-disabled": {
-                  WebkitTextFillColor: "#333",
-                  background: "#fff",
-                },
-              }}
-              id="filled-size-small"
-              variant="filled"
-              size="small"
-            />
-          </div>
+          <TextField
+            disabled
+            label={title}
+            value={value}
+            fullWidth
+            sx={{
+              "& .MuiInputLabel-root ": {
+                WebkitTextFillColor: "#16008fc4",
+              },
+              "& .MuiInputBase-input.Mui-disabled": {
+                WebkitTextFillColor: "#333",
+                background: "#fff",
+              },
+              "& .MuiInputBase-root": {
+                WebkitTextFillColor: "#333",
+                background: "#fff",
+              },
+            }}
+            id="filled-size-small"
+            variant="filled"
+            size="small"
+            multiline
+          />
         );
     }
   };
