@@ -124,7 +124,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       fieldName: "planned_budget",
-      fieldType: "number",
+      fieldType: "money",
       fieldLabel: "Planned Budget",
       width: "half",
     },
@@ -151,7 +151,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       fieldName: "total_project_budget",
-      fieldType: "number",
+      fieldType: "money",
       fieldLabel: "Total Budget",
       width: "half",
     },
@@ -164,7 +164,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       fieldName: "recoverable_amount",
-      fieldType: "number",
+      fieldType: "money",
       fieldLabel: "Recoverable Total",
       width: "half",
     },

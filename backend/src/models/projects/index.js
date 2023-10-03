@@ -62,9 +62,9 @@ const findById = (id) => {
       { ministry: "p.ministry_id" },
       { registration_date: knex.raw(`p.initiation_date`) },
       { end_date: knex.raw(`p.agreement_end_date`) },
-      knex.raw("planned_budget::numeric::float8"),
-      knex.raw("total_project_budget::numeric::float8"),
-      knex.raw("recoverable_amount::numeric::float8")
+      knex.raw("planned_budget"),
+      knex.raw("total_project_budget"),
+      knex.raw("recoverable_amount")
     )
     .leftJoin(`${contactTable} as c`, "p.project_manager", "c.id")
     .where("p.id", id)

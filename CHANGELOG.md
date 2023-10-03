@@ -1,3 +1,10 @@
+**October 2, 2023 [DESCW-1474](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1474)**
+- Frontend
+    - Added a new Money field Type that can be used on all input forms.
+- Backend
+    - Updated validators for project details to resolve currency diplay issue
+
+
 **June 07, 2023 [DESCW-1514](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1514)**
 
 - Backend

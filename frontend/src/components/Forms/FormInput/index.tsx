@@ -7,7 +7,7 @@ import { GridItem } from "../FormLayout/GridItem";
 import { ReadField } from "components/Forms/ReadForm/ReadField";
 import { IOption, IFormInput } from "../../../types";
 import dayjs from "dayjs";
-import { Checkbox, Select } from "../Fields";
+import { Checkbox, Select, MoneyField } from "../Fields";
 
 export const FormInput = ({
   setFieldValue,
@@ -43,8 +43,28 @@ export const FormInput = ({
     }
     return options ?? defaults;
   };
-
   switch (fieldType) {
+    case "money":
+      return (
+        <>
+          <GridItem width={width}>
+            <Field
+              required={required}
+              fullWidth={true}
+              as={MoneyField}
+              name={fieldName}
+              onChange={(newValue: number) => {
+                handleChange(newValue);
+                setFieldValue?.(fieldName, newValue);
+              }}
+              value={Number(fieldValue.replace(/[^0-9.-]+/g, ""))}
+              label={fieldLabel}
+              id={fieldName}
+              role={`${fieldName}_input`}
+            />
+          </GridItem>
+        </>
+      );
     case "date":
       return (
         <GridItem width={width}>
