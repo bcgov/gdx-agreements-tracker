@@ -205,7 +205,8 @@ export type IEditFieldsFieldType =
   | "multiText"
   | "checkbox"
   | "number"
-  | "readonly";
+  | "readonly"
+  | "money";
 
 export type IWidth = "half" | "full";
 
@@ -468,3 +469,10 @@ export type IReportCategoriesAndTypes = {
     exportXLSX: boolean;
   }[];
 }[];
+
+export interface IMoneyField {
+  onChange: (newValue: string) => void;
+  id: string;
+  value: number;
+  label: string;
+}
