@@ -2,7 +2,7 @@
 
 ## Description
 
-### This is the Application Programmer Interface for the entire GDX Agreements Tracker application.
+### The Application Programmer Interface for the entire GDX Agreements Tracker application is a RESTful API that:
 
 - handles all CRUD operations for the application
 - handles all authentication and authorization for the application
@@ -191,12 +191,10 @@ backend/src/validators/{API Name}
 
 ---
 
----
-
 ### Troubleshooting
 
 - coming soon!
 
-## Folder structure
+### Folder structure
 
 - coming soon!
