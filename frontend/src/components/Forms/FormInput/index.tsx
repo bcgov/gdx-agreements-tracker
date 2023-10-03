@@ -53,7 +53,7 @@ export const FormInput = ({
               fullWidth={true}
               as={MoneyField}
               name={fieldName}
-              onChange={(newValue: string) => {
+              onChange={(newValue: number) => {
                 handleChange(newValue);
                 setFieldValue?.(fieldName, newValue);
               }}

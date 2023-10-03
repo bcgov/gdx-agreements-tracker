@@ -79,13 +79,13 @@ const addUpdateBody = S.object()
   .prop("planned_start_date", Schema.Date)
   .prop("fiscal", Schema.Id)
   .prop("planned_end_date", Schema.Date)
-  .prop("planned_budget", Schema.Money)
+  .prop("planned_budget", S.string())
   .prop("project_type", Schema.Enum(["Internal", "External", null]))
   .prop("project_status", Schema.Enum(["NewRequest", "Active", "Cancelled", "Complete", null]))
   .prop("funding", Schema.Enum(["Operational", "Capital", "Combination", null]))
-  .prop("total_project_budget", Schema.Money)
+  .prop("total_project_budget", S.string())
   .prop("recoverable", Schema.Enum(["Fully", "Partially", "Non-Recoverable", null]))
-  .prop("recoverable_amount", Schema.Money)
+  .prop("recoverable_amount", S.string())
   // Agreement
   .prop(
     "agreement_type",
