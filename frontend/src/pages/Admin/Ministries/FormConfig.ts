@@ -11,7 +11,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Is Active",
-          value: query?.data?.data?.data?.active ? "Yes" : "No",
+          value: query?.data?.data?.data?.is_active ? "Yes" : "No",
         },
       ];
 
