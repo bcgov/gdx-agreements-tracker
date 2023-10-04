@@ -22,7 +22,7 @@ controller.notify = async (request, reply) => {
       // Should be replaced in dev environment.
       to: "gax.pmo@gov.bc.ca",
     };
-    // const result = . ches.send(message);
+    // const result = ches.send(message);
     const result = message;
     return result ? result : controller.noQuery(reply, `Notification could not be sent.`);
   } catch (err) {
