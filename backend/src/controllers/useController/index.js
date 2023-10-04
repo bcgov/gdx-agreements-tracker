@@ -125,6 +125,27 @@ const useController = (model, what, capabilityPrefix = null) => {
   };
 
   /**
+   * Get a specific item by ID.
+   *
+   * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
+   * @param   {FastifyReply}   reply   FastifyReply is an instance of the standard http or http2 reply types.
+   * @returns {object}
+   */
+  const getOneById = async (request, reply) => {
+    const targetId = Number(request.params.id);
+    try {
+      const result = await model.findById(targetId);
+      if (!result) {
+        return noQuery(reply, `The ${what.single} with the specified id does not exist.`);
+      } else {
+        return result;
+      }
+    } catch (err) {
+      return failedQuery(reply, err, what);
+    }
+  };
+
+  /**
    * Add an item based on request body info.
    *
    * @param   {FastifyRequest} request FastifyRequest is an instance of the standard http or http2 request objects.
@@ -179,6 +200,7 @@ const useController = (model, what, capabilityPrefix = null) => {
     getAll,
     getAllByParentId,
     getOne,
+    getOneById,
     addOne,
     updateOne,
     deleteOne,
