@@ -1,22 +1,58 @@
-**October 5, 2023 [DESCW-1511](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1511)**
+**October **October 5, 2023 [DESCW-1513](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1513)\*\*
+
+- Backend
+  - fixed role check on closeout route
+  - remove instances of userRequires from controllers
+  - verify role checks on controllers
+  - re-run npm install on /frontend to fix some dependency issues caused in documentation package.json
+  - some comments and minor fixes
+- Frontend
+  - add API documentation to frontend documentation site,
 - Frontend
 - Backend
-    - Fixed issue with project Budget display and data 
+  - Fixed issue with project Budget display and data
 
 **October 3, 2023 [DESCW-1454](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1454)**
-- Frontend
-    - Fixed issue with contract deliverable name not showing. 
-    - Fixed issue with admin contact job title not showing.
-    - Added required field to subcontractor name to resolve adding empty name
-    - Fixed issue with admin ministry active display only showing no.
-    - Fixed issue with notes not displaying for project reg.
-    
-**October 2, 2023 [DESCW-1474](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1474)**
-- Frontend
-    - Added a new Money field Type that can be used on all input forms.
-- Backend
-    - Updated validators for project details to resolve currency diplay issue
 
+- Frontend
+  - Fixed issue with contract deliverable name not showing.
+  - Fixed issue with admin contact job title not showing.
+  - Added required field to subcontractor name to resolve adding empty name
+  - Fixed issue with admin ministry active display only showing no.
+  - Fixed issue with notes not displaying for project reg.
+
+**October 2, 2023 [DESCW-1474](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1474)**
+
+- Frontend
+  - Added a new Money field Type that can be used on all input forms.
+- Backend
+
+  - Updated validators for project details to resolve currency diplay issue
+
+- Backend
+  - fixed role check on closeout route
+  - remove instances of userRequires from controllers
+  - verify role checks on controllers
+  - re-run npm install on /frontend to fix some dependency issues caused in documentation package.json
+  - some comments and minor fixes
+- Frontend
+  - add API documentation to frontend documentation site
+
+**October 3, 2023 [DESCW-1454](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1454)**
+
+- Frontend
+  - Fixed issue with contract deliverable name not showing.
+  - Fixed issue with admin contact job title not showing.
+  - Added required field to subcontractor name to resolve adding empty name
+  - Fixed issue with admin ministry active display only showing no.
+  - Fixed issue with notes not displaying for project reg.
+
+**October 2, 2023 [DESCW-1474](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1474)**
+
+- Frontend
+  - Added a new Money field Type that can be used on all input forms.
+- Backend
+  - Updated validators for project details to resolve currency diplay issue
 
 **June 07, 2023 [DESCW-1514](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1514)**
 
@@ -27,7 +63,7 @@
 
 - Frontend
   - update openshift build configs for APP images to v.18.18-alpine3.18
-  - update node version to  >= v18.18.0
+  - update node version to >= v18.18.0
   - update github actions version to v18.18 or lts (by default)
   - test github actions on PR commits using node v18.18
 
@@ -36,6 +72,7 @@
 - Added VuePress documentation intial site.
 
 **September 27, 2023 [DESCW-1498](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1498)**
+
 - OpenShift
   - Add base templates for openshift kustomize images.
 
@@ -63,7 +100,6 @@
   - Added model for tab 1 report
   - Removed old model, controller, and route
   - Created Bug Ticket DESCW-1527 to request queries for the missing Payment Summary info
-
 
 **September 19, 2023 [DESCW-1287](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1287)**
 
@@ -94,6 +130,7 @@
 **September 14, 2023 [DESCW-1447](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1447)**
 
 - Backend
+
   - tweak date format utils:
     - clean up generic report controller
     - clean up getCurrentDate() utility function in controllers/reports/helpers
@@ -137,6 +174,7 @@
 **September 5, 2023 [DESCW-1267](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1267)**
 
 - Frontend
+
   - fix 'no key for repeated components' bug on frontend menu selector for reports
   - build tab 32 XLS template
   - configure tab 32 menu selector
@@ -154,6 +192,7 @@
 **August 31, 2023 [DESCW-1273](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1273)**
 
 - Frontend
+
   - build tab 41 XLS template
   - configure tab 41 menu selector
 
@@ -180,6 +219,7 @@
 **August 23, 2023 [DESCW-1272](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1272)**
 
 - Frontend
+
   - build tab 40 XLS template
   - configure tab 40 menu selector
 
@@ -190,6 +230,7 @@
 **August 23, 2023 [DESCW-1271](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1271)**
 
 - Frontend
+
   - build tab 30 XLS template
   - configure tab 30 menu selector
 
@@ -199,6 +240,7 @@
 **August 23, 2023 [DESCW-1270](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1270)**
 
 - Frontend
+
   - delete Login.tsx
   - build tab 29 XLS template
   - move tab 29 menu selector JSON
@@ -211,6 +253,7 @@
 **August 23, 2023 [DESCW-1269](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1269)**
 
 - Frontend
+
   - fix frontend template for DOCX so it looks like XLS template
   - rebuild tab 22 (change request types) DOCX template
   - build tab 22 XLS template
@@ -276,6 +319,7 @@
 **August 18, 2023**
 
 - Backend
+
   - build tab 5 model
   - remove .docx templates completed markdown file (unneeded)
   - delete sql scratch file for tab 5 rpt
