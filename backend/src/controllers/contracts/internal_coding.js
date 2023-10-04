@@ -13,7 +13,6 @@ module.exports = controller;
  * @returns {object}
  */
 controller.addOneWithContractId = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const contractId = Number(request.params.id);
   try {
     const result = await model.addOne(request.body, contractId);

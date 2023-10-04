@@ -18,7 +18,6 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_14_rpt_P_BudgetSummary = async (request, reply) => {
-  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
     const projectId = Number(request.query.project);

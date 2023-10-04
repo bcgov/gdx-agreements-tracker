@@ -20,7 +20,6 @@ controller.getReport = getReport;
 controller.Tab_25_rpt_PA_LessonsLearnedbyCategory = async (request, reply) => {
   let lessonsLearnedByCategory = await model.Tab_25_rpt_PA_LessonsLearnedbyCategory(request.query);
 
-  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
 

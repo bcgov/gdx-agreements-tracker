@@ -11,7 +11,6 @@ const controller = useController(model, what, "projects");
  * @returns {object}
  */
 controller.getAllJvs = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const projectId = Number(request.params.id);
   try {
     const result = await model.findAll(Number(projectId));

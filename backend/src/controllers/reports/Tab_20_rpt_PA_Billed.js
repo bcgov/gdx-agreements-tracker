@@ -18,7 +18,6 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_20_rpt_PA_Billed = async (request, reply) => {
-  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
 

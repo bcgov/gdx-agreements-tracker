@@ -14,6 +14,7 @@ export default defineUserConfig({
     // all pages will use the same sidebar
     sidebar: [
       "/guide/README.md",
+      "/guide/backend_api.md",
       // SidebarItem
       {
         text: "React Components",

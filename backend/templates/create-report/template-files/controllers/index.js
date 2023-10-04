@@ -29,7 +29,6 @@ controller.getReport = getReportAndSetRequestHeaders();
  * @throws {Error} - If there is an error generating the report.
  */
 controller.$reportName = async (request, reply) => {
-  controller.userRequires(request, "PMO-Reports-Capability", reply);
   // early exit if invalid query info provided
   try {
     const { templateType } = validateQueryParameters(request.query);

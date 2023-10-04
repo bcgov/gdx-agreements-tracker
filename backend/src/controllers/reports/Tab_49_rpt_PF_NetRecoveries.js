@@ -20,8 +20,7 @@ controller.getReport = getReport;
  */
 controller.Tab_49_rpt_PF_NetRecoveries = async (request, reply) => {
   try {
-    await controller.userRequires(request, "PMO-Reports-Capability", reply);
-    controller.validate(request.query, reply, model.required);
+    await controller.validate(request.query, reply, model.required);
     // Get the data from the database.
     const [{ fiscal_year }] = await model.getFiscalYear(request.query);
     const report = await model.Tab_49_rpt_PF_NetRecoveries(request.query);

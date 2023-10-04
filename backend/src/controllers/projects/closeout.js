@@ -14,7 +14,6 @@ const { getRealmRoles } = require("@facilities/keycloak");
  * @returns {object}
  */
 controller.notify = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   let output;
   // const targetId = Number(request.params.projectId);
   try {

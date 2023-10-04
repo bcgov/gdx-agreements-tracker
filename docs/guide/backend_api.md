@@ -1,8 +1,6 @@
 # GDX Agreements Tracker API
 
-## Description
-
-### The Application Programmer Interface for the entire GDX Agreements Tracker application is a RESTful API that:
+## What the API does
 
 - handles all CRUD operations for the application
 - handles all authentication and authorization for the application
@@ -100,11 +98,12 @@ npx knex seed:run
 > 2.  Migrations of new tables into the existing Schema
 > 3.  Seeding those tables with data
 
-# Environment Variables for the backend API [/backend/.env](/backend/.env) :
+# Environment Variables for the backend API
 
-- The .env file is not committed to the repo, you will need to create your own .env file in the backend directory
+- The .env file is not committed to the repo.
 - There is an up to date sample.env file here: [/backend/sample.env](/backend/sample.env)
-- Refer here for the variable values here: [OpenShift config maps for acd38d-dev](https://console.apps.silver.devops.gov.bc.ca/k8s/ns/acd38d-dev/configmaps/0-gdx-agreements-tracker-api-env-config/yaml)
+- you will need to create your own .env file in the backend directory: ([/backend/.env](/backend/.env))
+- For the values you will need, look here: [OpenShift config maps for acd38d-dev](https://console.apps.silver.devops.gov.bc.ca/k8s/ns/acd38d-dev/configmaps/0-gdx-agreements-tracker-api-env-config/yaml)
   > note: The JSON Web Key Set (keycloak ) endpoint is: [https://mykeycloak.com/realms/my-realm/protocol/openid-connect/certs](https://mykeycloak.com/realms/my-realm/protocol/openid-connect/certs)
 
 ## Create a New API Endpoints for existing Database Tables

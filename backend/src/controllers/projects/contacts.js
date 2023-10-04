@@ -21,7 +21,7 @@ controller.updateContacts = async (request, reply) => {
       });
     });
   }
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
+
   try {
     const result = await model.updateOne(contacts, Number(request.params.id));
     return result || controller.noQuery(reply, `The ${what.single} could not be updated.`);

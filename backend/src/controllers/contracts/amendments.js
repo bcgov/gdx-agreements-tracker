@@ -11,7 +11,6 @@ const controller = useController(model, what, "contracts");
  * @returns {object}
  */
 controller.getAllAmendments = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const contractId = Number(request.params.id);
   try {
     const result = await model.findAll(Number(contractId));
@@ -31,7 +30,6 @@ controller.getAllAmendments = async (request, reply) => {
  * @returns {object}
  */
 controller.getContractAmendment = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const contractId = Number(request.params.id);
   const amendmentId = Number(request.params.amendmentId);
   try {

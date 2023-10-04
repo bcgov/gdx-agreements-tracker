@@ -11,7 +11,6 @@ const controller = useController(model, what, "projects");
  * @returns {object}
  */
 controller.getAllByProjectId = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const projectId = Number(request.params.id);
   try {
     const result = await model.findAllByProjectId(Number(projectId));
@@ -31,7 +30,6 @@ controller.getAllByProjectId = async (request, reply) => {
  * @returns {object}
  */
 controller.addOneWithProjectId = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const projectId = Number(request.params.id);
   try {
     const result = await model.addOneWithProjectId(request.body, projectId);
