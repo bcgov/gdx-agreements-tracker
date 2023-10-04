@@ -38,9 +38,8 @@ npm run test:coverage
 
 > References:
 >
-> Test Runner: [Jest](https://jestjs.io/)
->
-> Test Utilities: [light-my-request](https://www.fastify.io/docs/latest/Guides/Testing/#benefits-of-using-fastifyinject)
+> - Test Runner: [Jest](https://jestjs.io/)
+> - Test Utilities: [light-my-request](https://www.fastify.io/docs/latest/Guides/Testing/#benefits-of-using-fastifyinject)
 
 ## Database
 
@@ -69,7 +68,9 @@ docker compose exec backend npx knex migrate:make <name_of_migration>
 docker compose exec backend npx knex migrate:latest
 ```
 
-```
+#### Reverse a migration:
+
+```shell
 docker compose exec backend npx knex migrate:rollback
 ```
 
