@@ -18,7 +18,6 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_42_rpt_PF_PortfolioStobRecoveries = async (request, reply) => {
-  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
 

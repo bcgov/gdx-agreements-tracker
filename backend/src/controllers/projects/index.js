@@ -13,7 +13,6 @@ const controller = useController(model, what);
  */
 
 controller.getOneWithContracts = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   let output;
   const targetId = Number(request.params.id);
   try {
@@ -40,7 +39,6 @@ controller.getOneWithContracts = async (request, reply) => {
  * @returns {object}
  */
 controller.addNewProject = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   try {
     const result = await model.addNewProject();
     return result || controller.noQuery(reply, `The ${what.single} could not be added.`);

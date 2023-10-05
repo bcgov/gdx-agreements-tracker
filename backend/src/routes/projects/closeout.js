@@ -8,20 +8,19 @@ const routes = [
     url: `/${what}/:id/close-out`,
     schema: validators.getOneById,
     handler: controller.getOneById,
+    config: { role: "PMO-Manager-Edit-Capability" },
   },
   {
     method: "POST",
     url: `/${what}/:id/close-out/notify`,
     handler: controller.notify,
+    config: { role: "PMO-Manager-Edit-Capability" },
   },
 ];
 
 const registerRoutes = (fastify, options, done) => {
-  // Ensure all of the routes above get registered.
   routes.forEach((route) => fastify.route(route));
   done();
 };
 
-module.exports = {
-  registerRoutes,
-};
+module.exports = { registerRoutes };

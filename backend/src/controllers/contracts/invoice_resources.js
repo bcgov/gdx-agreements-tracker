@@ -11,7 +11,6 @@ const controller = useController(model, what, "contracts");
  * @returns {object}
  */
 controller.getAllByInvoiceId = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const invoiceId = Number(request.params.id);
   try {
     const result = model.findAllByInvoiceId(invoiceId);
@@ -31,7 +30,6 @@ controller.getAllByInvoiceId = async (request, reply) => {
  * @returns {object}
  */
 controller.addOneWithInvoiceId = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   const invoiceId = Number(request.params.id);
   try {
     const result = await model.addOneWithInvoiceId(request.body, invoiceId);

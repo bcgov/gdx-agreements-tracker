@@ -2,7 +2,6 @@ const useController = require("@controllers/useController");
 const model = require("@models/projects/closeout");
 const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
-const { getRealmRoles } = require("@facilities/keycloak");
 
 /**
  * Sends notification email when a project is closed out.
@@ -14,7 +13,6 @@ const { getRealmRoles } = require("@facilities/keycloak");
  * @returns {object}
  */
 controller.notify = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
   let output;
   // const targetId = Number(request.params.projectId);
   try {
@@ -46,28 +44,19 @@ controller.getOneById = async (request, reply) => {
   try {
     const result = await model.findById(targetId);
 
-    result.hasPMOAdminEditCapability = await controller.getPMOAdminEditCapability(request);
+    if (result) {
+      // Record whether the user can edit the closeout table
+      // and add it to the result object.
+      result.hasPMOAdminEditCapability =
+        "PMO-Manager-Edit-Capability" === request.routeConfig?.role;
 
-    return !result
-      ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
-      : result;
+      return result;
+    } else {
+      return controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`);
+    }
   } catch (err) {
     return controller.failedQuery(reply, err, what);
   }
-};
-
-/**
- * Determines the user's edit capability from the request object, which includes
- * keycloak permissions added at the time of login..
- *
- * @param   {object } request - the request object
- * @returns {boolean}         - true if the user has edit capability, false otherwise
- */
-controller.getPMOAdminEditCapability = async (request) => {
-  const roles = await getRealmRoles(request);
-  return (
-    roles.includes("PMO-Manager-Edit-Capability") || roles.includes("PMO-Admin-Edit-Capability")
-  );
 };
 
 module.exports = controller;

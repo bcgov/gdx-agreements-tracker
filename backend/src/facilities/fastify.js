@@ -37,7 +37,10 @@ const verifyJWT = async (request, reply) => {
 const verifyRole = async (request, reply) => {
   request.log.debug("preValidation: verifyRole");
   const roles = await getRealmRoles(request);
+
+  // Set the default role for all routes globally
   const routeRoleRequired = request.routeConfig?.role ?? "PMO-Manager-Edit-Capability";
+
   if (!roles.includes(routeRoleRequired)) {
     const message = `User doesn't have required role ${routeRoleRequired}`;
     request.log.warn(message);

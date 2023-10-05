@@ -18,7 +18,6 @@ controller.getReport = getReport;
  * @returns {object}
  */
 controller.Tab_33_rpt_PA_Risk = async (request, reply) => {
-  controller.userRequires(request, "PMO-Reports-Capability", reply);
   try {
     // Get the data from the database.
 

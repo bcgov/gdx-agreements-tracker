@@ -12,8 +12,6 @@ const fs = require("fs");
  * @returns {object}
  */
 const getAll = async (request, reply) => {
-  controller.userRequires(request, "PMO-Manager-Edit-Capability", reply);
-
   try {
     const stream = fs.createReadStream(
       path.join(__dirname, "..", "..", "..", "docs", "Glossary", "Glossary.html"),
