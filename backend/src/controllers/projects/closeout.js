@@ -2,7 +2,6 @@ const useController = require("@controllers/useController");
 const model = require("@models/projects/closeout");
 const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
-const _ = require("lodash");
 
 /**
  * Sends notification email when a project is closed out.
