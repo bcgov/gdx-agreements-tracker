@@ -1,3 +1,8 @@
+**October 5, 2023 [DESCW-1511](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1511)**
+- Frontend
+- Backend
+    - Fixed issue with project Budget display and data 
+
 **October 3, 2023 [DESCW-1454](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1454)**
 - Frontend
     - Fixed issue with contract deliverable name not showing. 

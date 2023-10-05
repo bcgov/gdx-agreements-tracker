@@ -4,77 +4,78 @@ const projectBudgetTable = `${dataBaseSchemas().data}.project_budget`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 const projectDeliverableTable = `${dataBaseSchemas().data}.project_deliverable`;
 const contractsTable = `${dataBaseSchemas().data}.contract`;
-const recoveriesTable = `${dataBaseSchemas().data}.recovery_type`;
 const portfolioTable = `${dataBaseSchemas().data}.portfolio`;
 const clientCodingTable = `${dataBaseSchemas().data}.client_coding`;
 
 const findAllById = (projectId) => {
   return knex(`${projectBudgetTable} as prb`)
-    .columns(
-      "prb.id",
-      knex.raw("prb.q1_amount::numeric::float8"),
-      "prb.q1_recovered",
-      knex.raw("prb.q2_amount::numeric::float8"),
-      "prb.q2_recovered",
-      knex.raw("prb.q3_amount::numeric::float8"),
-      "prb.q3_recovered",
-      knex.raw("prb.q4_amount::numeric::float8"),
-      "prb.q4_recovered",
-      "fy.fiscal_year as fiscal",
-      "prb.notes",
-      "prd.deliverable_name",
-      knex.raw("prb.detail_amount::numeric::float8"),
-      "rec.recovery_type_name",
-      "prb.stob",
-      "cc.program_area",
-      "cc.client",
-      "cntr.co_number"
-    )
+    .select({
+      id: "prb.id",
+      q1_amount: "prb.q1_amount",
+      q1_recovered: "prb.q1_recovered",
+      q2_amount: "prb.q2_amount",
+      q2_recovered: "prb.q2_recovered",
+      q3_amount: "prb.q3_amount",
+      q3_recovered: "prb.q3_recovered",
+      q4_amount: "prb.q4_amount",
+      q4_recovered: "prb.q4_recovered",
+      fiscal_year: "fy.fiscal_year",
+      notes: "prb.notes",
+      deliverable_name: "prd.deliverable_name",
+      detail_amount: "prb.detail_amount",
+      recovery_area: "port.portfolio_name",
+      resource_type: "prb.resource_type",
+      responsibility_centre: "cc.responsibility_centre",
+      service_line: "cc.service_line",
+      stob: "prb.stob",
+      program_area: "cc.program_area",
+      contract_id: "cntr.co_number",
+      total: knex.raw("prb.q1_amount + prb.q2_amount + prb.q3_amount + prb.q4_amount"),
+    })
     .leftJoin(`${fiscalYearTable} as fy`, { "prb.fiscal": `fy.id` })
     .leftJoin(`${projectDeliverableTable} as prd`, { "prb.project_deliverable_id": "prd.id" })
-    .leftJoin(`${recoveriesTable} as rec`, { "prb.recovery_area": "rec.id" })
+    .leftJoin(`${portfolioTable} as port`, { "prb.recovery_area": "port.id" })
     .leftJoin(`${contractsTable} as cntr`, { "prb.contract_id": "cntr.id" })
     .leftJoin(`${clientCodingTable} as cc`, { "prb.client_coding_id": "cc.id" })
-    .orderBy("prb.id")
     .where({ "prd.project_id": projectId });
 };
 
-// Get specific one by id.
 const findById = (id) => {
-  return knex
-    .select(
-      "prb.id",
-      "prd.project_id",
-      knex.raw("prb.q1_amount::numeric::float8"),
-      "prb.q1_recovered",
-      knex.raw("prb.q2_amount::numeric::float8"),
-      "prb.q2_recovered",
-      knex.raw("prb.q3_amount::numeric::float8"),
-      "prb.q3_recovered",
-      knex.raw("prb.q4_amount::numeric::float8"),
-      "prb.q4_recovered",
-      knex.raw(
-        "(SELECT json_build_object('value', prb.fiscal, 'label', COALESCE(fy.fiscal_year, ''))) AS fiscal"
+  return knex``
+    .select({
+      id: "prb.id",
+      q1_amount: "prb.q1_amount",
+      q1_recovered: "prb.q1_recovered",
+      q2_amount: "prb.q2_amount",
+      q2_recovered: "prb.q2_recovered",
+      q3_amount: "prb.q3_amount",
+      q3_recovered: "prb.q3_recovered",
+      q4_amount: "prb.q4_amount",
+      q4_recovered: "prb.q4_recovered",
+      fiscal_year: knex.raw(
+        "(SELECT json_build_object('value', prb.fiscal, 'label', COALESCE(fy.fiscal_year, '')))"
       ),
-      "prb.notes",
-      knex.raw(
-        "(SELECT json_build_object('value', prb.project_deliverable_id, 'label', COALESCE(prd.deliverable_name, ''))) AS project_deliverable_id"
+      notes: "prb.notes",
+      deliverable_name: knex.raw(
+        "(SELECT json_build_object('value', prb.project_deliverable_id, 'label', COALESCE(prd.deliverable_name, '')))"
       ),
-      knex.raw("prb.detail_amount::numeric::float8"),
-      knex.raw(
-        "(SELECT json_build_object('value', prb.recovery_area, 'label', COALESCE(port.portfolio_name, ''))) AS recovery_area"
+      detail_amount: "prb.detail_amount",
+      recovery_area: knex.raw(
+        "(SELECT json_build_object('value', prb.recovery_area, 'label', COALESCE(port.portfolio_name, '')))"
       ),
-      knex.raw(
-        "(SELECT json_build_object('value', prb.resource_type, 'label', COALESCE(prb.resource_type, ''))) AS resource_type"
+      resource_type: knex.raw(
+        "(SELECT json_build_object('value', prb.resource_type, 'label', COALESCE(prb.resource_type, '')))"
       ),
-      "prb.stob",
-      knex.raw(
-        "(SELECT json_build_object('value', prb.client_coding_id, 'label', COALESCE(cc.program_area, cc.client))) AS client_coding_id"
+      responsibility_centre: "cc.responsibility_centre",
+      service_line: "cc.service_line",
+      stob: "prb.stob",
+      program_area: knex.raw(
+        "(SELECT json_build_object('value', prb.client_coding_id, 'label', COALESCE(cc.program_area, cc.client)))"
       ),
-      knex.raw(
-        "(SELECT json_build_object('value', prb.contract_id, 'label', COALESCE(cr.co_number, ''))) AS contract_id"
-      )
-    )
+      contract_id: knex.raw(
+        "(SELECT json_build_object('value', prb.contract_id, 'label', COALESCE(cr.co_number, '')))"
+      ),
+    })
     .from(`${projectBudgetTable} as prb`)
     .leftJoin(`${fiscalYearTable} as fy`, { "prb.fiscal": `fy.id` })
     .leftJoin(`${projectDeliverableTable} as prd`, { "prb.project_deliverable_id": "prd.id" })
