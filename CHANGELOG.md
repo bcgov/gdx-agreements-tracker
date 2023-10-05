@@ -8,7 +8,7 @@
   - re-run npm install on /frontend to fix some dependency issues caused in documentation package.json
   - some comments and minor fixes
 - Frontend
-  - add API documentation to frontend documentation site,
+  - add API documentation to frontend documentation site
 
 **October 5, 2023 [DESCW-1511](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1511)**
 
