@@ -1,7 +1,6 @@
 const controller = require("@controllers/projects/closeout");
 const validators = require("@validators/projects/closeout");
 const what = "projects";
-const ROLE = "PMO-Manager-Edit-Capability" || "PMO-Admin-Edit-Capability";
 
 const routes = [
   {
@@ -9,12 +8,13 @@ const routes = [
     url: `/${what}/:id/close-out`,
     schema: validators.getOneById,
     handler: controller.getOneById,
-    config: { role: ROLE },
+    config: { role: "PMO-Manager-Edit-Capability" },
   },
   {
     method: "POST",
     url: `/${what}/:id/close-out/notify`,
     handler: controller.notify,
+    config: { role: "PMO-Manager-Edit-Capability" },
   },
 ];
 
