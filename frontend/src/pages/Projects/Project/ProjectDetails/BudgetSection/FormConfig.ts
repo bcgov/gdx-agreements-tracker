@@ -5,10 +5,24 @@ import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
-
   const readFields = !query
     ? []
     : [
+        {
+          width: "half",
+          title: "Deliverable Name",
+          value: query?.data?.data?.data?.deliverable_name.label,
+        },
+        {
+          width: "half",
+          title: "Recovery Area",
+          value: query?.data?.data?.data?.recovery_area.label,
+        },
+        {
+          width: "half",
+          title: "Detail Amount",
+          value: query?.data?.data?.data?.detail_amount,
+        },
         {
           width: "half",
           title: "Q1 Amount",
@@ -18,6 +32,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
           title: "Q1 Recovered",
           value: query?.data?.data?.data?.q1_recovered,
+          type: "checkbox",
         },
         {
           width: "half",
@@ -28,6 +43,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
           title: "Q2 Recovered",
           value: query?.data?.data?.data?.q2_recovered,
+          type: "checkbox",
         },
         {
           width: "half",
@@ -38,6 +54,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
           title: "Q3 Recovered",
           value: query?.data?.data?.data?.q3_recovered,
+          type: "checkbox",
         },
         {
           width: "half",
@@ -48,31 +65,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
           title: "Q4 Recovered",
           value: query?.data?.data?.data?.q4_recovered,
-        },
-        {
-          width: "half",
-          title: "Fiscal",
-          value: query?.data?.data?.data?.fiscal.label,
-        },
-        {
-          width: "half",
-          title: "Deliverable Name",
-          value: query?.data?.data?.data?.project_deliverable_id.label,
-        },
-        {
-          width: "half",
-          title: "Notes",
-          value: query?.data?.data?.data?.notes,
-        },
-        {
-          width: "half",
-          title: "Detail Amount",
-          value: query?.data?.data?.data?.detail_amount,
-        },
-        {
-          width: "half",
-          title: "Recovery Area",
-          value: query?.data?.data?.data?.recovery_area.label,
+          type: "checkbox",
         },
         {
           width: "half",
@@ -81,13 +74,33 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Stop",
+          title: "Responsibility Centre",
+          value: query?.data?.data?.data?.responsibility_centre,
+        },
+        {
+          width: "half",
+          title: "Service Line",
+          value: query?.data?.data?.data?.service_line,
+        },
+        {
+          width: "half",
+          title: "STOB",
           value: query?.data?.data?.data?.stob,
         },
         {
           width: "half",
-          title: "Client Coding",
-          value: query?.data?.data?.data?.client_coding_id?.label,
+          title: "Fiscal",
+          value: query?.data?.data?.data?.fiscal_year.label,
+        },
+        {
+          width: "half",
+          title: "Notes",
+          value: query?.data?.data?.data?.notes,
+        },
+        {
+          width: "half",
+          title: "Program Area",
+          value: query?.data?.data?.data?.program_area?.label,
         },
         {
           width: "half",
@@ -98,9 +111,31 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const editFields: IEditField[] = [
     {
       width: "half",
+      fieldLabel: "Project Deliverables",
+      fieldName: "deliverable_name",
+      fieldType: "select",
+      pickerName: "project_deliverable_option",
+      projectId: Number(projectId),
+      required: true,
+    },
+    {
+      width: "half",
+      fieldLabel: "Recovery Area",
+      fieldName: "recovery_area",
+      fieldType: "select",
+      pickerName: "recovery_area_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "Detail Amount",
+      fieldName: "detail_amount",
+      fieldType: "money",
+    },
+    {
+      width: "half",
       fieldLabel: "Q1 Amount",
       fieldName: "q1_amount",
-      fieldType: "number",
+      fieldType: "money",
     },
     {
       width: "half",
@@ -112,7 +147,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Q2 Amount",
       fieldName: "q2_amount",
-      fieldType: "number",
+      fieldType: "money",
     },
     {
       width: "half",
@@ -124,7 +159,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Q3 Amount",
       fieldName: "q3_amount",
-      fieldType: "number",
+      fieldType: "money",
     },
     {
       width: "half",
@@ -136,49 +171,13 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Q4 Amount",
       fieldName: "q4_amount",
-      fieldType: "number",
+      fieldType: "money",
     },
     {
       width: "half",
       fieldLabel: "Q4 Recovered",
       fieldName: "q4_recovered",
       fieldType: "checkbox",
-    },
-    {
-      width: "half",
-      fieldLabel: "Fiscal",
-      fieldName: "fiscal",
-      fieldType: "select",
-      pickerName: "fiscal_year_option",
-    },
-    {
-      width: "half",
-      fieldLabel: "Notes",
-      fieldName: "notes",
-      fieldType: "multiText",
-    },
-    //!issue
-    {
-      width: "half",
-      fieldLabel: "Project Deliverables",
-      fieldName: "project_deliverable_id",
-      fieldType: "select",
-      pickerName: "project_deliverable_option",
-      projectId: Number(projectId),
-      required: true,
-    },
-    {
-      width: "half",
-      fieldLabel: "Detail Amount",
-      fieldName: "detail_amount",
-      fieldType: "number",
-    },
-    {
-      width: "half",
-      fieldLabel: "Recovery Area",
-      fieldName: "recovery_area",
-      fieldType: "select",
-      pickerName: "recovery_area_option",
     },
     {
       width: "half",
@@ -189,15 +188,39 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
-      fieldLabel: "Stob",
+      fieldLabel: "Responsibility Centre",
+      fieldName: "responsibility_centre",
+      fieldType: "singleText",
+    },
+    {
+      width: "half",
+      fieldLabel: "Service Line",
+      fieldName: "service_line",
+      fieldType: "singleText",
+    },
+    {
+      width: "half",
+      fieldLabel: "STOB",
       fieldName: "stob",
       fieldType: "singleText",
     },
-    //!issue
     {
       width: "half",
-      fieldLabel: "Client Coding",
-      fieldName: "client_coding_id",
+      fieldLabel: "Fiscal",
+      fieldName: "fiscal_year",
+      fieldType: "select",
+      pickerName: "fiscal_year_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "Notes",
+      fieldName: "notes",
+      fieldType: "multiText",
+    },
+    {
+      width: "half",
+      fieldLabel: "Program Area",
+      fieldName: "program_area",
       fieldType: "select",
       pickerName: "client_coding_option",
       projectId: Number(projectId),

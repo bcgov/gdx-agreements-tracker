@@ -93,7 +93,7 @@ export const ReadField = ({
               },
               "& .MuiInputBase-root": {
                 WebkitTextFillColor: "#333",
-                background: "#fff",
+                background: "#fff!important",
               },
             }}
             id="filled-size-small"
