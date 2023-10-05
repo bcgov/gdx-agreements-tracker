@@ -1,4 +1,4 @@
-**October **October 5, 2023 [DESCW-1513](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1513)\*\*
+**October 5, 2023 [DESCW-1513](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1513)**
 
 - Backend
   - fixed role check on closeout route
