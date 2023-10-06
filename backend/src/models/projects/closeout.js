@@ -49,6 +49,18 @@ const findById = (id) => {
     .first();
 };
 
+// Update one.
+const updateOne = (body, id) => {
+  return knex(projectTable).where("id", id).update(body);
+};
+
+// Add one.
+const addOne = (newCloseOut) => {
+  return knex(projectTable).insert(newCloseOut);
+};
+
 module.exports = {
   findById,
+  updateOne,
+  addOne
 };
