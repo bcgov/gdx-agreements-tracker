@@ -64,6 +64,6 @@ deployments/kustomize/overlays/experimental
 logs
 
 #documentation
-docs/.vuepress/.temp
-docs/.vuepress/.cache
-node_modules
+documentation/docs/.vuepress/.temp
+documentation/docs/.vuepress/.cache
+documentation/node_modules
