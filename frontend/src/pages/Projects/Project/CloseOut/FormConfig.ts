@@ -1,8 +1,10 @@
 import { AxiosResponse } from "axios";
+import { useParams } from "react-router-dom";
 import { IEditField } from "types";
 import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
+  const { projectId } = useParams();
   const readFields = [
     {
       width: "full",
@@ -89,5 +91,19 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       tableName: "project",
     },
   ];
-  return { readFields, editFields };
+
+  const initialValues = {
+    close_out_date: null,
+    completed_by_contact_id: null,
+    actual_completion_date: null,
+    hand_off_to_operations: null,
+    records_filed: null,
+    contract_ev_completed: null,
+    contractor_security_terminated: null,
+  };
+
+  const rowsToLock = [projectId];
+  const updateUrl = `/projects/${projectId}/close-out`;
+
+  return { readFields, editFields, initialValues, rowsToLock, updateUrl };
 };
