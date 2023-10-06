@@ -62,5 +62,5 @@ const addOne = (newCloseOut) => {
 module.exports = {
   findById,
   updateOne,
-  addOne
+  addOne,
 };

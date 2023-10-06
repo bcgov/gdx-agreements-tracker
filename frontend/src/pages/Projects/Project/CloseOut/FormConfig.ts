@@ -1,8 +1,10 @@
 import { AxiosResponse } from "axios";
+import { useParams } from "react-router-dom";
 import { IEditField } from "types";
 import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
+  const { projectId } = useParams();
   const readFields = [
     {
       width: "full",
@@ -91,26 +93,17 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
   ];
 
   const initialValues = {
-    contract_number: "",
-    status: "",
-    fiscal: "",
-    project_id: null,
-    contract_type: "",
-    supplier_id: "",
-    subcontractor_id: [],
-    total_fee_amount: "",
-    total_expense_amount: "",
-    requisition_number: "",
-    start_date: null,
-    procurement_method_id: null,
-    end_date: null,
-    description: "",
-    notes: "",
+    close_out_date: null,
+    completed_by_contact_id: null,
+    actual_completion_date: null,
+    hand_off_to_operations: null,
+    records_filed: null,
+    contract_ev_completed: null,
+    contractor_security_terminated: null,
   };
-  
-  const rowsToLock = [query?.data?.data?.data?.id];
-  const postUrl = `/contracts/`;
-  const updateUrl = `/contracts/deliverables/${query?.data?.data?.data?.id}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
+  const rowsToLock = [projectId];
+  const updateUrl = `/projects/${projectId}/close-out`;
+
+  return { readFields, editFields, initialValues, rowsToLock, updateUrl };
 };

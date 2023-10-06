@@ -76,8 +76,7 @@ export const FormInput = ({
               value={fieldValue}
               fullWidth={true}
               onChange={(newValue: string) => {
-                const formatDate = dayjs(newValue).format("YYYY-MM-DD");
-                handleChange(formatDate);
+                const formatDate = newValue ? dayjs(newValue).format("YYYY-MM-DD") : null;
                 setFieldValue?.(fieldName, formatDate);
               }}
               role={`${fieldName}_input`}

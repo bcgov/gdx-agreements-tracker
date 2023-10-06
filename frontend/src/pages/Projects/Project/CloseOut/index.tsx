@@ -17,7 +17,7 @@ export const CloseOut = () => {
 
   const { projectId } = useParams();
 
-  const isReadOnly = keycloak.tokenParsed.client_roles.includes("PMO-Manager-Edit-Capability")
+  const isReadOnly = keycloak.tokenParsed.client_roles.includes("PMO-Manager-Edit-Capability");
 
   const formControls: IFormControls = useFormControls();
   return (

@@ -12,7 +12,7 @@ const useController = (model, what, capabilityPrefix = null) => {
    */
   const failedQuery = (reply, error, what) => {
     if (reply.statusCode <= 299) {
-      reply.code(500);
+      reply.code(reply.statusCode);
     }
     log.warn(error);
     send(reply.statusCode, reply, error);

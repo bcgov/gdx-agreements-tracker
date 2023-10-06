@@ -2,6 +2,7 @@ const useController = require("@controllers/useController");
 const model = require("@models/projects/closeout");
 const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
+const { getRealmRoles } = require("@facilities/keycloak");
 
 /**
  * Sends notification email when a project is closed out.
@@ -13,23 +14,31 @@ const controller = useController(model, what);
  * @returns {object}
  */
 controller.notify = async (request, reply) => {
-  let output;
-  // const targetId = Number(request.params.projectId);
-  try {
-    const message = {
-      body: "[User/contact X closed out project Y]",
-      from: "?",
-      subject: "?",
-      // Should be replaced in dev environment.
-      to: "gax.pmo@gov.bc.ca",
-    };
-    // const result = ches.send(message);
-    const result = message;
-    output = !result ? controller.noQuery(reply, `Notification could not be sent.`) : result;
-  } catch (err) {
-    output = controller.failedQuery(reply, err, what);
+  const roles = await getRealmRoles(request);
+
+  // Record whether the user can edit the closeout table
+  // and add it to the result object.
+
+  if (roles.includes("PMO-Manager-Edit-Capability")) {
+    try {
+      const message = {
+        body: "[User/contact X closed out project Y]",
+        from: "?",
+        subject: "?",
+        // Should be replaced in dev environment.
+        to: "gax.pmo@gov.bc.ca",
+      };
+      // const result = ches.send(message);
+      const result = message;
+      return !result ? controller.noQuery(reply, `Notification could not be sent.`) : result;
+    } catch (err) {
+      return controller.failedQuery(reply, err, what);
+    }
   }
-  return output;
+  return controller.failedQuery(
+    { statusCode: 403 },
+    "User does not have PMO-Manager-Edit-Capability"
+  );
 };
 
 /**
@@ -45,11 +54,6 @@ controller.getOneById = async (request, reply) => {
     const result = await model.findById(targetId);
 
     if (result) {
-      // Record whether the user can edit the closeout table
-      // and add it to the result object.
-      result.hasPMOAdminEditCapability =
-        "PMO-Manager-Edit-Capability" === request.routeConfig?.role;
-
       return result;
     } else {
       return controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`);

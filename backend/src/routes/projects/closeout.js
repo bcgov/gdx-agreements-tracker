@@ -8,6 +8,12 @@ const routes = [
     url: `/${what}/:id/close-out`,
     schema: validators.getOneById,
     handler: controller.getOneById,
+  },
+  {
+    method: "PUT",
+    url: `/${what}/:id/close-out`,
+    schema: validators.updateOne,
+    handler: controller.updateOne,
     config: { role: "PMO-Manager-Edit-Capability" },
   },
   {
