@@ -19,7 +19,7 @@ controller.notify = async (request, reply) => {
   // Record whether the user can edit the closeout table
   // and add it to the result object.
 
-  if (roles.includes("PMO-Manager-Edit-Capability")) {
+  if (roles.includes("PMO-Admin-Edit-Capability")) {
     try {
       const message = {
         body: "[User/contact X closed out project Y]",
@@ -37,7 +37,7 @@ controller.notify = async (request, reply) => {
   }
   return controller.failedQuery(
     { statusCode: 403 },
-    "User does not have PMO-Manager-Edit-Capability"
+    "User does not have PMO-Admin-Edit-Capability"
   );
 };
 
