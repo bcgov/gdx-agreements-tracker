@@ -1,65 +1,34 @@
-// Components
 import { FormRenderer } from "components/Forms/FormRenderer";
-import { Notify } from "./Notify";
-
-// Hooks
+import { useParams } from "react-router";
+import { FormConfig } from "./FormConfig";
+import { IFormControls } from "types";
+import { useFormControls } from "hooks";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
-import { useFormControls } from "hooks";
-import { useFormData } from "hooks/useFormData";
-import { useParams } from "react-router";
+import keycloak from "../../../../keycloak";
+import { Notify } from "./Notify";
 
-// Types
-import { IFormControls } from "types";
-
-// Utils
-import { FormConfig } from "./FormConfig";
-import { get } from "lodash";
-
-// Helpers
-const getEndPoint = (projectId: string | undefined) => {
-  return `/projects/${projectId}/close-out`;
-};
-const getURL = (projectId: string | undefined) => {
-  return `/projects/${projectId}/close-out`;
-};
-
-/**
- *
- * Project Close Out Page
- * This will conditionally display the Notify component if the user has PMO Admin Edit Capability
- *
- * @returns {JSX.Element}
- */
-const CloseOut = () => {
+export const CloseOut = () => {
   const { updateTitle } = useTitle();
+
+  useEffect(() => {
+    updateTitle("Close Out");
+  }, [updateTitle]);
+
   const { projectId } = useParams();
+
+  const isReadOnly = keycloak.tokenParsed.client_roles.includes("PMO-Manager-Edit-Capability")
+
   const formControls: IFormControls = useFormControls();
-  const endpoint = getEndPoint(projectId);
-  const isReadOnly = !get(
-    useFormData({
-      url: getURL(projectId),
-      tableName: "projects",
-    }),
-    ["data", "data", "data", "hasPMOAdminEditCapability"]
-  );
-
-  // Update the title on mount
-  useEffect(() => updateTitle("Project Close Out"));
-
   return (
     <>
       {isReadOnly && <Notify projectId={projectId} />}
-
       <FormRenderer
         formControls={formControls}
         tableName="projects"
         formConfig={FormConfig}
-        formDataApiEndpoint={endpoint}
-        isReadOnly={isReadOnly}
+        formDataApiEndpoint={`/projects/${projectId}/close-out`}
       />
     </>
   );
 };
-
-export { CloseOut };

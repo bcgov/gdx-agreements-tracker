@@ -89,5 +89,28 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       tableName: "project",
     },
   ];
-  return { readFields, editFields };
+
+  const initialValues = {
+    contract_number: "",
+    status: "",
+    fiscal: "",
+    project_id: null,
+    contract_type: "",
+    supplier_id: "",
+    subcontractor_id: [],
+    total_fee_amount: "",
+    total_expense_amount: "",
+    requisition_number: "",
+    start_date: null,
+    procurement_method_id: null,
+    end_date: null,
+    description: "",
+    notes: "",
+  };
+  
+  const rowsToLock = [query?.data?.data?.data?.id];
+  const postUrl = `/contracts/`;
+  const updateUrl = `/contracts/deliverables/${query?.data?.data?.data?.id}`;
+
+  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };
