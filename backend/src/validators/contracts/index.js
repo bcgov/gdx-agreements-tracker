@@ -7,14 +7,17 @@ const getAll = {
       S.object()
         .prop("id", S.number())
         .prop("contract_number", S.string())
+        .prop("co_number", S.string().minLength(1))
         .prop("description", S.string())
         .prop("supplier", S.string())
         .prop("start_date", S.string())
         .prop("end_date", S.string())
+        .prop("max_amount", S.string())
+        .prop("remaining_amount", S.string())
         .prop("status", S.string())
         .prop("fiscal", S.string())
         .prop("project_number", S.string())
-        .prop("project_name", S.string())
+        .prop("portfolio", S.string())
     )
   ),
 };
