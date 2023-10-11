@@ -1,3 +1,8 @@
+**October 11, 2023 [DESCW-1452](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1452)**
+- Frontend
+- Backend
+  - fixed contracts section missing columns
+
 **October 6, 2023 [DESCW-1517](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1517)**
 
 - Frontend
