@@ -15,7 +15,6 @@ const contractSubcontractorTable = `${dataBaseSchemas().data}.contract_subcontra
 const contractResourceTable = `${dataBaseSchemas().data}.contract_resource`;
 const contractDeliverableTable = `${dataBaseSchemas().data}.contract_deliverable`;
 const invoiceDetail = `${dataBaseSchemas().data}.invoice_detail`;
-const invoice = `${dataBaseSchemas().data}.invoice`;
 
 // Get all.
 const findAll = () => {
