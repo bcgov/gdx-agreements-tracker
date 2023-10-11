@@ -1,4 +1,5 @@
 **October 11, 2023 [DESCW-1452](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1452)**
+
 - Frontend
 - Backend
   - fixed contracts section missing columns
@@ -8,7 +9,6 @@
 - Frontend
 - Backend
   - Added update functionality to project closeout.
-
 
 **October 5, 2023 [DESCW-1513](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1513)**
 
