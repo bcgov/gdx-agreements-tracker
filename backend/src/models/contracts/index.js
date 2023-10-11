@@ -20,18 +20,24 @@ const invoiceDetail = `${dataBaseSchemas().data}.invoice_detail`;
 const findAll = () => {
   return knex(`${contractsTable} as c`)
     .columns(
-      "p.project_number",
-      "p.project_name",
       "c.contract_number",
       "c.co_version",
       "c.description",
       { supplier: "supplier.supplier_name" },
       { start_date: knex.raw(`c.start_date`) },
       { end_date: knex.raw(`c.end_date`) },
-      "c.total_expense_amount",
-      //"Remaining Amount" Leaving this here because it is on the wireframe but can't find it in the DB
+      { max_amount: knex.raw(`total_fee_amount + c.total_expense_amount`) },
+      {
+        remaining_amount: knex.raw(`(
+        SELECT SUM(invd.unit_amount * invd.rate) FROM ${contractsTable} AS cont
+        JOIN invoice AS inv ON cont.id = inv.contract_id
+        JOIN invoice_detail AS invd ON inv.id = invd.invoice_id
+        WHERE cont.id = c.id
+      )`),
+      },
       "c.status",
       { fiscal: "fy.fiscal_year" },
+      "p.project_number",
       { portfolio: "portfolio.portfolio_name" },
       "c.id"
     )
@@ -157,7 +163,7 @@ const addOne = (newContract) => {
 const findBudgetsByFiscal = async (id) => {
   const currentYear = async () => {
     return knex(fiscalTable)
-      .select("id")
+      .select("id", "is_current")
       .where("is_current", true)
       .first()
       .then((result) => {
@@ -167,27 +173,26 @@ const findBudgetsByFiscal = async (id) => {
 
   const year = await currentYear();
 
-  return knex
-    .select(
-      "fy.fiscal_year as fiscal_year",
-      "deliverables.total_fees",
-      knex.raw("COALESCE(deliverables.total_fees, 0) as total_fees"),
-      knex.raw("ROUND(COALESCE(expenses.total_expenses, 0)) as total_expenses"),
-      knex.raw("COALESCE(resources.total_hours, 0) as total_hours"),
-      knex.raw("ROUND(COALESCE(invoiced_resources.invoiced_hours, 0)) as invoiced_hours"),
-      knex.raw("COALESCE(invoiced_fees.invoiced_fees, 0) as invoiced_fees"),
-      knex.raw("COALESCE(invoiced_expenses.invoiced_expenses, 0) as invoiced_expenses"),
-      knex.raw(
-        "ROUND(COALESCE(resources.total_hours, 0) - COALESCE(invoiced_resources.invoiced_hours, 0)) as remaining_hours"
+  return knex(`${fiscalTable} as fy`)
+    .columns({
+      current_fiscal: "fy.is_current",
+      fiscal: "fy.fiscal_year",
+      total_fees: knex.raw("COALESCE(deliverables.total_fees, 0) "),
+      total_expenses: knex.raw("ROUND(COALESCE(expenses.total_expenses, 0))"),
+      total_hours: knex.raw("COALESCE(resources.total_hours, 0)"),
+      invoiced_hours: knex.raw("ROUND(COALESCE(invoiced_resources.invoiced_hours, 0))"),
+      invoiced_fees: knex.raw("COALESCE(invoiced_fees.invoiced_fees, 0)"),
+      invoiced_expenses: knex.raw("COALESCE(invoiced_expenses.invoiced_expenses, 0)"),
+      remaining_hours: knex.raw(
+        "ROUND(COALESCE(resources.total_hours, 0) - COALESCE(invoiced_resources.invoiced_hours, 0))"
       ),
-      knex.raw(
-        "ROUND((COALESCE(deliverables.total_fees, 0) - COALESCE(invoiced_fees.invoiced_fees, 0))) as remaining_fees"
+      remaining_fees: knex.raw(
+        "ROUND((COALESCE(deliverables.total_fees, 0) - COALESCE(invoiced_fees.invoiced_fees, 0)))"
       ),
-      knex.raw(
-        "ROUND((COALESCE(expenses.total_expenses, 0) - COALESCE(invoiced_expenses.invoiced_expenses, 0))) as remaining_expenses"
-      )
-    )
-    .from(`${fiscalTable} as fy`)
+      remaining_expenses: knex.raw(
+        "ROUND((COALESCE(expenses.total_expenses, 0) - COALESCE(invoiced_expenses.invoiced_expenses, 0)))"
+      ),
+    })
     .leftJoin(
       knex(contractResourceTable)
         .select("fiscal")
