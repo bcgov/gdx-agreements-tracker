@@ -1,3 +1,8 @@
+**October 17, 2023 [DESCW-1546](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1546)**
+
+- Meta
+  - Added documentation for changing postgres passwords to vuepress.
+
 **October 17, 2023 [DESCW-1548](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1548)**
 
 - Frontend
