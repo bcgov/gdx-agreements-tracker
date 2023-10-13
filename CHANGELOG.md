@@ -1,3 +1,8 @@
+**October 13, 2023 [descw-1455](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1455)**
+
+- Frontend
+  - change column header from 'Contract' to 'Amendment Number' in Admendments tab of Contracts section
+
 **October 13, 2023 [DESCW-1403](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1403)**
 
 - Frontend
