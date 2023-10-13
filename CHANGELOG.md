@@ -3,6 +3,7 @@
 - Frontend
   - tab 42 template
   - enable XLS report output for tab 42
+  - workaround a babel-preset-react-app package dependency issue to silence a warning
 - Backend
   - tab 42 model added
   - model uses generic controller
