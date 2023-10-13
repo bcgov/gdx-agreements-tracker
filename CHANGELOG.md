@@ -1,3 +1,14 @@
+**October 13, 2023 [DESCW-1403](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1403)**
+
+- Frontend
+  - tab 42 template
+  - enable XLS report output for tab 42
+  - workaround a babel-preset-react-app package dependency issue to silence a warning
+- Backend
+  - tab 42 model added
+  - model uses generic controller
+  - the query is based on the query from Gary's spreadsheet
+
 **October 11, 2023 [DESCW-1452](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1452)**
 
 - Frontend
