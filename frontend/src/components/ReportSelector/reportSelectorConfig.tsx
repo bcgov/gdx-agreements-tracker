@@ -283,8 +283,8 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description:
           "Project#, Project Name, Recoverable Amt Current Fiscal, STOB breakdown for each of the following showing Amt and Recovered to date figures: 6398, 8807, 8809, 5798, 6598, Other.",
         parameters: [{ label: "portfolio", required: false }],
-        exportPDF: true,
-        exportXLSX: false,
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_43_rpt_PF_RecoveryForecast",
