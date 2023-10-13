@@ -70,7 +70,7 @@ module.exports = {
     // No declaring anything and not using it; did you finish cleaning up?
     //TODO uncomment once finished conversion to using new reusable form renderer.  This is needed to reduce the number of files change in the PR
     "no-unused-vars": ["error", { args: "none" }],
-    
+
     // Must use const or let.
     "no-var": "error",
 
