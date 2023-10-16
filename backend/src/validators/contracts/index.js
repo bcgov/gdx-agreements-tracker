@@ -29,7 +29,6 @@ const getOne = {
       .prop("co_number", S.string().minLength(1))
       .prop("contract_number", S.string())
       .prop("status", Schema.Picker)
-      .prop("amendment_number", S.string())
       .prop("fiscal", Schema.Picker)
       .prop("project_id", Schema.Picker)
       .prop("project_name", S.string())
