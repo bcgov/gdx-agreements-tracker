@@ -17,6 +17,7 @@ import { useEffect } from "react";
  *  `formControls` is an object that contains properties and methods for handling
  */
 
+
 //** When a  supplier is chosen in the contract details section, that is the value used to filter the resources for the contract resource section.  Then depending  */
 export const ContractResources = () => {
   const { updateTitle } = useTitle();
