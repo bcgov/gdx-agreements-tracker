@@ -1,3 +1,9 @@
+**October 16, 2023 [descw-1336](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1336)**
+
+- Frontend
+  - add 'null' type to validators for Project Details dates
+  - remove 'Agreement' from Deliverables section 'change details' modal dialog
+
 **October 13, 2023 [descw-1455](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1455)**
 
 - Frontend
