@@ -41,19 +41,19 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       fieldName: "agreement_start_date",
-      fieldLabel: "Agreement Start Date",
+      fieldLabel: "Start Date",
       fieldType: "date",
       width: "half",
     },
     {
       fieldName: "agreement_signed_date",
-      fieldLabel: "Agreement Signed Date",
+      fieldLabel: "Signed Date",
       fieldType: "date",
       width: "half",
     },
     {
       fieldName: "agreement_end_date",
-      fieldLabel: "Agreement End Date",
+      fieldLabel: "End Date",
       fieldType: "date",
       width: "half",
     },
