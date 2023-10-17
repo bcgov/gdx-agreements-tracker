@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>, invoiceId: number) => {
   const { contractId } = useParams();
-  
+
   const readFields = !query
     ? []
     : [

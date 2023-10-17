@@ -17,7 +17,6 @@ import { useEffect } from "react";
  *  `formControls` is an object that contains properties and methods for handling
  */
 
-
 //** When a  supplier is chosen in the contract details section, that is the value used to filter the resources for the contract resource section.  Then depending  */
 export const ContractResources = () => {
   const { updateTitle } = useTitle();
@@ -43,20 +42,3 @@ export const ContractResources = () => {
     </>
   );
 };
-
-
-// select 
-// suprt.rate, 
-// sup.supplier_name,
-// sup.id,
-// cr.contract_id
-
-// from data.contract_resource cr
-
-// LEFT JOIN data.resource res ON cr.resource_id = res.id
-// LEFT JOIN data.supplier sup ON res.supplier_id = sup.id
-// LEFT JOIN data.supplier_rate suprt ON suprt.supplier_id = sup.id
-// LEFT JOIN data.contract cont ON cont.supplier_id = cr.contract_id
-// LEFT JOIN data.resource_type restyp ON suprt.resource_type_id = restyp.id
-// where contract_id = 97 
-// and res.supplier_id = 11

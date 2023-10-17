@@ -2,6 +2,11 @@
 
 - Meta
   - Added documentation for changing postgres passwords to vuepress.
+**October 17, 2023 [DESCW-1453](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1453)**
+
+- Frontend
+- Backend
+  - fixed some broken inputs in contract section
 
 **October 17, 2023 [DESCW-1548](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1548)**
 
@@ -33,6 +38,8 @@
   - tab 42 model added
   - model uses generic controller
   - the query is based on the query from Gary's spreadsheet
+
+
 
 **October 11, 2023 [DESCW-1452](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1452)**
 

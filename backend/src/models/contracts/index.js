@@ -5,7 +5,6 @@ const { knex, dataBaseSchemas } = dbConnection();
 const { diffInsert } = useModel();
 
 const contractsTable = `${dataBaseSchemas().data}.contract`;
-const amendmentsTable = `${dataBaseSchemas().data}.contract_amendment`;
 const fiscalTable = `${dataBaseSchemas().data}.fiscal_year`;
 const suppliersTable = `${dataBaseSchemas().data}.supplier`;
 const portfolioTable = `${dataBaseSchemas().data}.portfolio`;
