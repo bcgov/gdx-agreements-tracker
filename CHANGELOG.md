@@ -1,3 +1,12 @@
+**October 17, 2023 [DESCW-1548](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1548)**
+
+- Frontend
+  - Updated react-scripts to 5.0.1.
+  - Removed references to 'dotenv' in frontend src.
+    - React natively uses dotenv for .env variables beginning with REACT_APP_ and thus it should not be included in frontend src.
+  - Added ability to silence warnings caused by the update: run `npm run start:nomap`
+    - React no longer supports source maps without polyfill. Our only options going forward are to remove source maps from our package (use the command above) or to use dependencies which themselves address this problem. See [here](https://github.com/facebook/create-react-app/discussions/11767#discussioncomment-1969071).
+
 **October 16, 2023 [descw-1336](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1336)**
 
 - Frontend
