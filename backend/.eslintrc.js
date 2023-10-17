@@ -95,9 +95,8 @@ module.exports = {
       "error",
       "never",
       {
-        startLines: 1
-      }
-      
+        startLines: 1,
+      },
     ],
     // Require a return type. Don't require a return type description.
     "jsdoc/require-returns": "error",
