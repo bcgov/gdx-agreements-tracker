@@ -15,7 +15,7 @@
         Secrets
     ```
 * Select the most recently dated `pmo-secrets-<unique-identifier>` secret.
-* Enter the YAML for the secret.
-* Convert your desired password to base64 using a conversion tool.
-* Replace the desired password in the YAML with your converted password.
+* View the YAML for the secret.
+* Convert your desired password(s) to base64 using a conversion tool.
+* Replace the desired password(s) in the YAML with your converted password, replacing the password(s) already there.
 * Save the YAML.
