@@ -5,7 +5,7 @@ export const tableConfig = () => {
   const defaultFlex = 3;
 
   const tableColumns: GridColDef[] = [
-    { field: "contract", headerName: "Contract", flex: defaultFlex },
+    { field: "contract", headerName: "Amendment Number", flex: defaultFlex },
     {
       field: "amendment_date",
       headerName: "Amendment Date",

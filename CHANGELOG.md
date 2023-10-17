@@ -1,4 +1,4 @@
-**October 12, 2023 [DESCW-1548](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1548)**
+**October 17, 2023 [DESCW-1548](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1548)**
 
 - Frontend
   - Updated react-scripts to 5.0.1.
@@ -6,6 +6,28 @@
     - React natively uses dotenv for .env variables beginning with REACT_APP_ and thus it should not be included in frontend src.
   - Added ability to silence warnings caused by the update: run `npm run start:nomap`
     - React no longer supports source maps without polyfill. Our only options going forward are to remove source maps from our package (use the command above) or to use dependencies which themselves address this problem. See [here](https://github.com/facebook/create-react-app/discussions/11767#discussioncomment-1969071).
+
+**October 16, 2023 [descw-1336](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1336)**
+
+- Frontend
+  - add 'null' type to validators for Project Details dates
+  - remove 'Agreement' from Deliverables section 'change details' modal dialog
+
+**October 13, 2023 [descw-1455](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1455)**
+
+- Frontend
+  - change column header from 'Contract' to 'Amendment Number' in Admendments tab of Contracts section
+
+**October 13, 2023 [DESCW-1403](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1403)**
+
+- Frontend
+  - tab 42 template
+  - enable XLS report output for tab 42
+  - workaround a babel-preset-react-app package dependency issue to silence a warning
+- Backend
+  - tab 42 model added
+  - model uses generic controller
+  - the query is based on the query from Gary's spreadsheet
 
 **October 11, 2023 [DESCW-1452](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1452)**
 
