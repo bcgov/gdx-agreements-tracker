@@ -1,5 +1,4 @@
 import Keycloak from "keycloak-js";
-require("dotenv").config({ path: ".env" });
 
 // Setup Keycloak instance as needed
 // Pass initialization options as required or leave blank to load from 'keycloak.json'
