@@ -1,3 +1,6 @@
+**October 18, 2023**
+-Updated Documentation Structure to be more in line with code layout.
+
 **October 17, 2023 [DESCW-1546](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1546)**
 
 - Meta
