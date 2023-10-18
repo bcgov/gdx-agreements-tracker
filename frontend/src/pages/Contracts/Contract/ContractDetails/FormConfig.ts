@@ -18,11 +18,6 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
             value: query?.data?.data?.data?.contract_number,
           },
           { width: "half", title: "Status", value: query?.data?.data?.data?.status?.label },
-          {
-            width: "half",
-            title: "Amendment Number",
-            value: query?.data?.data?.data?.amendment_number,
-          },
           { width: "half", title: "Fiscal", value: query?.data?.data?.data?.fiscal?.label },
           {
             width: "half",
@@ -109,12 +104,6 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       width: "half",
       tableName: "contracts",
       required: true,
-    },
-    {
-      fieldName: "amendment_number",
-      fieldType: "readonly",
-      fieldLabel: "Amendment Number",
-      width: "half",
     },
     {
       fieldName: "fiscal",

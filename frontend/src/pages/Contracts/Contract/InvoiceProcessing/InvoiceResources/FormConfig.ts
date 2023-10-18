@@ -1,8 +1,10 @@
 import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
+import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>, invoiceId: number) => {
+  const { contractId } = useParams();
   const readFields = !query
     ? []
     : [
@@ -33,7 +35,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>, invoic
       fieldName: "contract_resource_id",
       fieldType: "select",
       pickerName: "contract_resource",
-      contractId: query?.data?.data?.data?.contract_resource_id,
+      contractId: Number(contractId),
     },
     { width: "half", fieldLabel: "Fiscal Year", fieldName: "fiscal_year", fieldType: "readonly" },
     { width: "half", fieldLabel: "Hours", fieldName: "unit_amount", fieldType: "number" },

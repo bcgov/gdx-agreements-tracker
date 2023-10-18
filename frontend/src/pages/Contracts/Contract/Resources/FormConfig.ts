@@ -66,7 +66,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Assignment Role",
       fieldName: "assignment_role",
       fieldType: "readonly",
-      required: true,
     },
     {
       width: "half",

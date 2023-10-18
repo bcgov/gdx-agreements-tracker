@@ -5,7 +5,6 @@ const { knex, dataBaseSchemas } = dbConnection();
 const { diffInsert } = useModel();
 
 const contractsTable = `${dataBaseSchemas().data}.contract`;
-const amendmentsTable = `${dataBaseSchemas().data}.contract_amendment`;
 const fiscalTable = `${dataBaseSchemas().data}.fiscal_year`;
 const suppliersTable = `${dataBaseSchemas().data}.supplier`;
 const portfolioTable = `${dataBaseSchemas().data}.portfolio`;
@@ -53,12 +52,6 @@ const findById = (contractId) => {
   return knex
     .select(
       "c.*",
-      knex
-        .first("amendment_number")
-        .from(amendmentsTable)
-        .where("contract_id", contractId)
-        .orderBy("amendment_date", "desc")
-        .as("amendment_number"),
       knex.raw("total_fee_amount::numeric::float8"),
       knex.raw("total_expense_amount::numeric::float8"),
       knex.raw("( SELECT json_build_object('value', c.status, 'label', c.status)) AS status"),

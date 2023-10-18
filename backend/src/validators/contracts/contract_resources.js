@@ -32,6 +32,7 @@ const getOne = {
       .prop("id", S.number())
       .prop("fiscal", Schema.Picker)
       .prop("resource_id", Schema.Picker)
+      .prop("assignment_role", S.string())
       .prop("assignment_rate", S.number())
       .prop("supplier_rate_id", Schema.Picker)
       .prop("assignment_rate", S.string())
