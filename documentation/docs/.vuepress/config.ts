@@ -14,26 +14,29 @@ export default defineUserConfig({
     // all pages will use the same sidebar
     sidebar: [
       "/guide/README.md",
-      "/guide/backend_api.md",
       // SidebarItem
       {
-        text: "React Components",
+        text: "Frontend",
+        collapsible: true,
         children: [
-          "/guide/react_components/Accordion",
-          "/guide/react_components/BudgetDisplay",
-          "/guide/react_components/BudgetDisplay",
-          "/guide/react_components/ChipNav",
-          "/guide/react_components/ConfirmationDialog",
-          "/guide/react_components/DBLock",
-          "/guide/react_components/Debug",
-          "/guide/react_components/DeleteButton",
+          "/guide/Frontend/react_components/Accordion",
+          "/guide/Frontend/react_components/BudgetDisplay",
+          "/guide/Frontend/react_components/BudgetDisplay",
+          "/guide/Frontend/react_components/ChipNav",
+          "/guide/Frontend/react_components/ConfirmationDialog",
+          "/guide/Frontend/react_components/DBLock",
+          "/guide/Frontend/react_components/Debug",
         ],
       },
       {
+        text: "Backend",
+        collapsible: true,
+        children: ["/guide/Backend/backend_api.md"],
+      },
+      {
         text: "Openshift",
-        children: [
-          "/guide/openshift/change_password",
-        ],
+        collapsible: true,
+        children: ["/guide/openshift/change_password"],
       },
       // string - page file path
     ],
