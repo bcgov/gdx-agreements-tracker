@@ -29,6 +29,12 @@ export default defineUserConfig({
           "/guide/react_components/DeleteButton",
         ],
       },
+      {
+        text: "Openshift",
+        children: [
+          "/guide/openshift/change_password",
+        ],
+      },
       // string - page file path
     ],
   }),
