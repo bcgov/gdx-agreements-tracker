@@ -1,56 +1,27 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import { useKeycloak } from "@react-keycloak/web";
 import { useNavigate } from "react-router-dom";
 
 export const useAxios = () => {
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
+
   /**
-   * handleError handles all returned api web errors.
+   * Handles HTTP error responses and returns a rejected Promise object with the error.
    *
-   * @param   {AxiosResponse} error the error returned.
-   * @returns {Promise}             rejects a promise with the error response.
+   * @param   {object}  error - The error object returned by Axios.
+   * @returns {Promise}       A rejected Promise object with the error.
    */
-  const handleError = (error: AxiosResponse) => {
-    switch (error.status) {
-      // 400 Bad Request.
-      case 400:
-        console.error(error);
-        return Promise.reject(error);
+  const handleError = (error: AxiosError) => {
+    const status = error?.response?.status;
 
-        break;
-      // 401 Unauthorized.
-      case 401:
-        console.error(error);
-        navigate("/unauthorized");
-        return Promise.reject(error);
+    console.error(error);
 
-        break;
-      // 404 Not Found.
-      case 404:
-        console.error(error);
-        return Promise.reject(error);
-
-        break;
-      //500 Internal Server Error.
-      case 500:
-        console.error(error);
-        return Promise.reject(error);
-
-        break;
-      //502 Bad Gateway.
-      case 502:
-        console.error(error);
-        return Promise.reject(error);
-
-        break;
-      // 504 Gateway Timeout.
-      case 504:
-        console.error(error);
-        return Promise.reject(error);
-
-        break;
+    if (401 === status) {
+      navigate("/unauthorized");
     }
+
+    return Promise.reject(error);
   };
 
   const axiosAll = () => {
