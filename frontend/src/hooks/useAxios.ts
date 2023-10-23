@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 export const useAxios = () => {
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
+
   /**
-   * handleError handles all returned api web errors.
+   * Handles Axios error responses and returns a rejected Promise object with the error.
    *
-   * @param   {AxiosError} error the error returned.
-   * @returns {Promise}          rejects a promise with the error response.
+   * @param   {AxiosError}          error - The error object returned by Axios.
+   * @returns {Promise<AxiosError>}       A rejected Promise object with the error.
    */
   const handleError = (error: AxiosError): Promise<AxiosError> => {
     switch (error?.response?.status) {
