@@ -40,6 +40,11 @@ export const useFormSubmit = () => {
       })
       .catch((err: string) => {
         console.error("error:", err);
+        alert(`${err}:
+        Please check whether the Project Number is unique.
+        If you enter a project number that has already been assigned,
+        your changes will not be saved.
+        `);
         return err;
       });
   };
