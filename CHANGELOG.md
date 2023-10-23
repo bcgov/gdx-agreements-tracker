@@ -1,11 +1,19 @@
+**October 23, 2023 [DESCW-1333](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1333)**
+
+- Frontend
+  - add error message (alert) for users that enter an invalid (already existing) project number
+- Backend
+  - add migration on project_number to make it unique
+
 **October 18, 2023**
 -Updated Documentation Structure to be more in line with code layout.
 
 **October 17, 2023 [DESCW-1546](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1546)**
 
 - Meta
+
   - Added documentation for changing postgres passwords to vuepress.
-**October 17, 2023 [DESCW-1453](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1453)**
+    **October 17, 2023 [DESCW-1453](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1453)**
 
 - Frontend
 - Backend
@@ -16,7 +24,7 @@
 - Frontend
   - Updated react-scripts to 5.0.1.
   - Removed references to 'dotenv' in frontend src.
-    - React natively uses dotenv for .env variables beginning with REACT_APP_ and thus it should not be included in frontend src.
+    - React natively uses dotenv for .env variables beginning with REACT*APP* and thus it should not be included in frontend src.
   - Added ability to silence warnings caused by the update: run `npm run start:nomap`
     - React no longer supports source maps without polyfill. Our only options going forward are to remove source maps from our package (use the command above) or to use dependencies which themselves address this problem. See [here](https://github.com/facebook/create-react-app/discussions/11767#discussioncomment-1969071).
 
@@ -41,8 +49,6 @@
   - tab 42 model added
   - model uses generic controller
   - the query is based on the query from Gary's spreadsheet
-
-
 
 **October 11, 2023 [DESCW-1452](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1452)**
 

@@ -40,10 +40,10 @@ export const useFormSubmit = () => {
       })
       .catch((err: string) => {
         console.error("error:", err);
-        alert(`Error updating record:
+        alert(`${err}:
         Please check whether the Project Number is unique.
-        Any project number that matches an existing project number will not be saved.
-        The server responded with: ${err}
+        If you enter a project number that has already been assigned,
+        your changes will not be saved.
         `);
         return err;
       });
