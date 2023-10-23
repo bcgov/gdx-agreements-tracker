@@ -41,8 +41,8 @@ export const useFormSubmit = () => {
       .catch((err: string) => {
         console.error("error:", err);
         alert(`Error updating record:
-        If you have attempted to change the Project Number on this Project Registration page,
-        it should be unique. Any Project number that matches a previous Project Number will be rejected.
+        Please check whether the Project Number is unique.
+        Any project number that matches an existing project number will not be saved.
         The server responded with: ${err}
         `);
         return err;
