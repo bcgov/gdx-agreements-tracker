@@ -1,4 +1,13 @@
-**October 23, 2023 [DESCW-1333](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1333)**
+**October 24, 2023 [DESCW-1333](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1335)**
+
+- Frontend
+
+  - Changed 'Initiation Date' to 'Registration Date' in Project Details
+  - Changed 'Recovery' to 'Recovery Details' in Project Details
+  - Changed date format in Project Registration to DD-MMM-YY (ex. 01-Jan-21)
+  - Changed date format in Project Registration 'Change Section' modal to DD-MMM-YY (ex. 01-Jan-21)
+
+    **October 23, 2023 [DESCW-1333](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1333)**
 
 - Frontend
   - add error message (alert) for users that enter an invalid (already existing) project number
@@ -6,7 +15,8 @@
   - add migration on project_number to make it unique
 
 **October 18, 2023**
--Updated Documentation Structure to be more in line with code layout.
+
+- Updated Documentation Structure to be more in line with code layout.
 
 **October 17, 2023 [DESCW-1546](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1546)**
 
