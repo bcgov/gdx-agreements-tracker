@@ -6,6 +6,7 @@ import { usePickerValues } from "../../../hooks";
 import { GridItem } from "../FormLayout/GridItem";
 import { ReadField } from "components/Forms/ReadForm/ReadField";
 import { IOption, IFormInput } from "../../../types";
+import { DATE_FORMAT_SHORT_YEAR } from "utils/formatDate";
 import dayjs from "dayjs";
 import { Checkbox, Select, MoneyField } from "../Fields";
 
@@ -73,6 +74,7 @@ export const FormInput = ({
               as={DatePicker}
               id={fieldName}
               label={fieldLabel}
+              inputFormat={DATE_FORMAT_SHORT_YEAR}
               value={fieldValue}
               fullWidth={true}
               onChange={(newValue: string) => {

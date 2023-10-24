@@ -21,4 +21,4 @@ const formatDate = (date) => date && dayjs(date).format(DATE_FORMAT_SHORT_YEAR);
  */
 const dateFormatter = ({ value = null }) => (null === value ? "" : formatDate(value));
 
-export { formatDate as default, dateFormatter };
+export { formatDate as default, dateFormatter, DATE_FORMAT_SHORT_YEAR };

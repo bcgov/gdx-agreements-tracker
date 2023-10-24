@@ -17,7 +17,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       width: "half",
-      title: "Initiation Date",
+      title: "Registration Date",
       value: formatDate(query?.data?.data?.data?.initiation_date),
     },
     {
@@ -45,7 +45,11 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     { width: "half", title: "Funding", value: query?.data?.data?.data?.funding?.label },
     { width: "half", title: "Total Budget", value: query?.data?.data?.data?.total_project_budget },
-    { width: "half", title: "Recovery", value: query?.data?.data?.data?.recoverable?.label },
+    {
+      width: "half",
+      title: "Recovery Details",
+      value: query?.data?.data?.data?.recoverable?.label,
+    },
     {
       width: "half",
       title: "Recoverable Total",
@@ -93,7 +97,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     {
       fieldName: "initiation_date",
       fieldType: "date",
-      fieldLabel: "Initiation Date",
+      fieldLabel: "Registration Date",
       width: "half",
     },
     {
@@ -158,7 +162,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     {
       fieldName: "recoverable",
       fieldType: "select",
-      fieldLabel: "Recovery",
+      fieldLabel: "Recovery Details",
       width: "half",
       tableName: "project",
     },
