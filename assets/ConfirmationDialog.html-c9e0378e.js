@@ -1,0 +1,1 @@
+import{_ as e,o as a,c as t,a as o,b as i}from"./app-eac70fd5.js";const n={},r=o("h1",{id:"confirmation-dialog",tabindex:"-1"},[o("a",{class:"header-anchor",href:"#confirmation-dialog","aria-hidden":"true"},"#"),i(" Confirmation Dialog")],-1),c=[r];function s(_,d){return a(),t("div",null,c)}const f=e(n,[["render",s],["__file","ConfirmationDialog.html.vue"]]);export{f as default};
