@@ -6,7 +6,7 @@ import { usePickerValues } from "../../../hooks";
 import { GridItem } from "../FormLayout/GridItem";
 import { ReadField } from "components/Forms/ReadForm/ReadField";
 import { IOption, IFormInput } from "../../../types";
-import formatDate, { DATE_FORMAT_SHORT_YEAR } from "utils/formatDate";
+import { DATE_FORMAT_SHORT_YEAR } from "utils/formatDate";
 import dayjs from "dayjs";
 import { Checkbox, Select, MoneyField } from "../Fields";
 
