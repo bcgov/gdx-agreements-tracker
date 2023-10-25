@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - backup-db-volumes.yaml
+  - backup-db-cron.yaml
+commonLabels:
+  role: gdx-agreements-tracker-backups
+  app: gdx-agreements-tracker
+# Configuration for backup
+configMapGenerator:
+- name: gdx-agreements-tracker-backup-config
+  literals:
+  - BACKUP_DIR=/backups/local/
+  - POSTGRES_USER=secret_postgres_user
+  # format backup.conf=postgres={db service}:3306/{db user}
+  - backup.conf=postgres=postgres-service:5432/secret_postgres_user
+secretGenerator:
+- name: secrets
+  type: Opaque
+  literals:
+  - POSTGRES_PASSWORD=secrets_postgres_password_generated
+  - POSTGRES_REGULAR_USER_PASSWORD=secret_postgres_regular_user_password_generated
