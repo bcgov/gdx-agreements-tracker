@@ -162,7 +162,7 @@ const findProjectRecoverableBreakdown = (projectId) => {
     .select({
       id: knex.raw("row_number() OVER ()"),
       total_project_budget: knex.raw("SUM(detail_amount)"),
-      total_recovered_amount: knex.raw(`
+      total_recoverable_amount: knex.raw(`
       SUM(
         CASE
           WHEN q1_recovered THEN q1_amount
