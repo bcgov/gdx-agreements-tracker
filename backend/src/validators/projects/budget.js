@@ -150,7 +150,9 @@ const recoverablesBreakdown = {
   params: S.object().prop("projectId", Schema.Id),
   response: getResponse(
     S.array().items(
-      S.object().prop("total_project_budget", S.string()).prop("total_recovered_amount", S.string())
+      S.object()
+        .prop("total_project_budget", S.string())
+        .prop("total_recoverable_amount", S.string())
     )
   ),
 };
