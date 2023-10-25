@@ -92,7 +92,7 @@ export interface IMultiPickerProps extends Omit<IPickerProps, "fieldValue"> {
 export interface ICheckboxProps {
   onChange: Function;
   checked: boolean;
-  fieldName: string;
+  fieldName: string | number;
   setFieldValue: Function;
 }
 
@@ -213,7 +213,7 @@ export type IWidth = "half" | "full";
 export type IReturnValue = string | number | boolean | string[] | IOption;
 
 export interface IEditField {
-  fieldName: string;
+  fieldName: string | number;
   fieldType: IEditFieldsFieldType;
   fieldLabel: string;
   width: IWidth;
@@ -240,7 +240,7 @@ export interface IInitialValues {
 export interface IFormInput {
   setFieldValue?: Function;
   fieldValue: string | number | boolean | IOption | IOption[] | date;
-  fieldName: string;
+  fieldName: string | number;
   fieldType: IEditFieldsFieldType;
   fieldLabel: string;
   handleChange?: Function;
