@@ -1,12 +1,18 @@
 import {
   Checkbox,
+  Chip,
   Divider,
+  FilledInput,
+  FormControl,
+  InputLabel,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -14,7 +20,6 @@ import { IReturnValue } from "types";
 import { GridItem } from "../../FormLayout/GridItem";
 import { useNavigate } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
-
 /**
  * Represents a read-only field component.
  *
@@ -40,6 +45,39 @@ export const ReadField = ({
   const navigate = useNavigate();
   const renderer = () => {
     switch (type) {
+      case "multiSelect":
+        return (
+          <FormControl fullWidth>
+            <InputLabel>{title}</InputLabel>
+            <Select
+              disabled
+              multiple
+              value={value}
+              IconComponent={() => null} //To hide dropdown arrow
+              input={
+                <FilledInput
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "#333",
+                      background: "#fff",
+                    },
+                    "& .MuiInputBase-root": {
+                      WebkitTextFillColor: "#333",
+                      background: "#fff!important",
+                    },
+                  }}
+                />
+              }
+              renderValue={(selected) => (
+                <Stack gap={1} direction="row" flexWrap="wrap">
+                  {(value as string[]).map((value) => (
+                    <Chip key={value} label={value} />
+                  ))}
+                </Stack>
+              )}
+            ></Select>
+          </FormControl>
+        );
       case "checkbox":
         return (
           <div>

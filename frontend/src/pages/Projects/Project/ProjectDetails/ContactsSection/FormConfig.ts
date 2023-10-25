@@ -19,36 +19,43 @@ const FormConfig = (query: FormikValues) => {
           width: "half",
           title: "Client Contact",
           value: findContacts("ClientContact"),
+          type: "multiSelect",
         },
         {
           width: "half",
           title: "GDX Contact",
           value: findContacts("GDXContact"),
+          type: "multiSelect",
         },
         {
           width: "half",
           title: "Client Sponsor",
           value: findContacts("ClientSponsor"),
+          type: "multiSelect",
         },
         {
           width: "half",
           title: "GDX Sponsor",
           value: findContacts("GDXSponsor"),
+          type: "multiSelect",
         },
         {
           width: "half",
           title: "Client Financial",
           value: findContacts("ClientFinancial"),
+          type: "multiSelect",
         },
         {
           width: "half",
           title: "Project Manager",
           value: findContacts("ProjectManager"),
+          type: "multiSelect",
         },
         {
           width: "half",
-          title: "CommsLead",
+          title: "Comms Lead",
           value: findContacts("CommsLead"),
+          type: "multiSelect",
         },
       ];
 
@@ -108,7 +115,7 @@ const FormConfig = (query: FormikValues) => {
     const row: FormikValues[string] = {};
     !Array.isArray(query?.data?.data?.data)
       ? []
-      : query?.data?.data?.data?.map((role: { role_id: string | number; contacts: any }) => {
+      : query?.data?.data?.data?.map((role: { role_id: string | number; contacts: string[] }) => {
           row[role.role_id] = role.contacts;
         });
 
