@@ -1,8 +1,10 @@
 **October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
 
 - Frontend
+    - Added new read field type "multi select"
 - Backend
     - Fix lingo for Project agreement summary input from Total Recovered Amount - “Total Recoverable Amount"
+    - Changed order of project contacts inputs
 
 **October 24, 2023 [DESCW-1333](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1335)**
 

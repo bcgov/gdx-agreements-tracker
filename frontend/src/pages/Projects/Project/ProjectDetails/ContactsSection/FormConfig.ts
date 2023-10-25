@@ -5,37 +5,120 @@ import { IEditField } from "types";
 const FormConfig = (query: FormikValues) => {
   const { projectId } = useParams();
 
-  const readFields = !Array.isArray(query.data?.data?.data)
+  const findContacts = (keyword: string) => {
+    const filterOutContacts = query?.data?.data?.data?.find(
+      (item: { role_type: string }) => item.role_type === keyword
+    );
+    return filterOutContacts?.contacts.map((contact: { label: string }) => contact.label);
+  };
+
+  const readFields = !query
     ? []
-    : query.data?.data?.data?.map((row: { role_type: string; contacts: { label: string }[] }) => {
-        return {
+    : [
+        {
           width: "half",
-          title: row.role_type,
-          value: row.contacts.map((contact: { label: string }) => {
-            return contact.label;
-          }),
-        };
-      });
+          title: "Client Contact",
+          value: findContacts("ClientContact"),
+          type: "multiSelect",
+        },
+        {
+          width: "half",
+          title: "GDX Contact",
+          value: findContacts("GDXContact"),
+          type: "multiSelect",
+        },
+        {
+          width: "half",
+          title: "Client Sponsor",
+          value: findContacts("ClientSponsor"),
+          type: "multiSelect",
+        },
+        {
+          width: "half",
+          title: "GDX Sponsor",
+          value: findContacts("GDXSponsor"),
+          type: "multiSelect",
+        },
+        {
+          width: "half",
+          title: "Client Financial",
+          value: findContacts("ClientFinancial"),
+          type: "multiSelect",
+        },
+        {
+          width: "half",
+          title: "Project Manager",
+          value: findContacts("ProjectManager"),
+          type: "multiSelect",
+        },
+        {
+          width: "half",
+          title: "Comms Lead",
+          value: findContacts("CommsLead"),
+          type: "multiSelect",
+        },
+      ];
 
-  const roleSplitRegex = /(?=[A-Z][a-z])/;
-
-  const editFields: IEditField[] = !Array.isArray(query.data?.data?.data)
-    ? []
-    : query?.data?.data?.data?.map((role: { role_id: string; role_type: string }) => ({
-        fieldName: role.role_id,
-        fieldLabel: role.role_type.split(roleSplitRegex).join(" "),
-        fieldType: "multiselect",
-        pickerName: "contact_option",
-        width: "half",
-      }));
+  const editFields: IEditField[] = [
+    {
+      width: "half",
+      fieldLabel: "Client Contact",
+      fieldName: 2,
+      fieldType: "multiselect",
+      pickerName: "contact_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "GDX Contact",
+      fieldName: 5,
+      fieldType: "multiselect",
+      pickerName: "contact_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "Client Sponsor",
+      fieldName: 1,
+      fieldType: "multiselect",
+      pickerName: "contact_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "GDX Sponsor",
+      fieldName: 4,
+      fieldType: "multiselect",
+      pickerName: "contact_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "Client Financial",
+      fieldName: 3,
+      fieldType: "multiselect",
+      pickerName: "contact_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "Project Manager",
+      fieldName: 6,
+      fieldType: "multiselect",
+      pickerName: "contact_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "Comms Lead",
+      fieldName: 7,
+      fieldType: "multiselect",
+      pickerName: "contact_option",
+    },
+  ];
 
   const initialValues = () => {
     const row: FormikValues[string] = {};
-    !Array.isArray(query)
+    !Array.isArray(query?.data?.data?.data)
       ? []
-      : query.map((role) => {
+      : query?.data?.data?.data?.map((role: { role_id: string | number; contacts: string[] }) => {
           row[role.role_id] = role.contacts;
         });
+
     return row;
   };
 
