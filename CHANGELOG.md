@@ -1,3 +1,9 @@
+**October 26, 2023 [DESCW-859](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-859)**
+
+- Frontend
+    - Created new reusable health legend 
+    - Added new health legend to Project Deliverables section 
+    
 **October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
 
 - Frontend
@@ -6,13 +12,11 @@
     - Reordered the inputs for the Project Client Coding section
     - Swapped the signed date with the start date in the Project Agreement section
 
-
 **October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
 
 - Frontend
 - Backend
     - Reordered the inputs for the project deliverables section
-
 
 **October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
 
