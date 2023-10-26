@@ -13,7 +13,7 @@ kind: Kustomization
 resources:
   - github.com/bcgov/gdx-agreements-tracker/deployments/kustomize/base
 # Update to your license plate in the dev|test|prod namespace.
-namespace: acd38d-dev
+namespace: default
 images:
   - name: backup-container-mariadb
     newName: image-registry.openshift-image-registry.svc:5000/acd38d-tools/backup-container-mariadb
