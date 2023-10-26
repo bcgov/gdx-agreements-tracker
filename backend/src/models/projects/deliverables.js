@@ -10,7 +10,6 @@ const findAllById = (projectId) => {
     .columns(
       "prd.id",
       "prd.deliverable_name",
-      "prd.description",
       { start_date: "prd.start_date" },
       { completion_date: "prd.completion_date" },
       knex.raw("prd.deliverable_amount::numeric::float8"),
@@ -40,7 +39,6 @@ const findById = (id) => {
     .select(
       "prd.id",
       "prd.deliverable_name",
-      "prd.description",
       { start_date: "prd.start_date" },
       { completion_date: "prd.completion_date" },
       knex.raw("prd.deliverable_amount::numeric::float8"),
