@@ -2,6 +2,15 @@
 
 - Frontend
 - Backend
+    - Added Project Code input for Project Client Coding section
+    - Reordered the inputs for the Project Client Coding section
+
+
+
+**October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
+
+- Frontend
+- Backend
     - Reordered the inputs for the project deliverables section
 
 

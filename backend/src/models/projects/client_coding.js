@@ -20,7 +20,7 @@ const findById = (id) => {
   return knex
     .select(
       "cc.*",
-      { client_amount: knex.raw("cc.client_amount::numeric::float8") },
+      { client_amount: knex.raw("cc.client_amount") },
       {
         contact_id: knex.raw(
           "( SELECT json_build_object('value', cont.id, 'label', (cont.last_name || ', ' || cont.first_name)) )"
