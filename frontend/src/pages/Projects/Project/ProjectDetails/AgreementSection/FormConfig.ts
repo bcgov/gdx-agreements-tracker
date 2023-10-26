@@ -14,13 +14,13 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       width: "half",
-      title: "Start Date",
-      value: formatDate(query?.data?.data?.data?.agreement_start_date),
+      title: "Signed Date",
+      value: formatDate(query?.data?.data?.data?.agreement_signed_date),
     },
     {
       width: "half",
-      title: "Signed Date",
-      value: formatDate(query?.data?.data?.data?.agreement_signed_date),
+      title: "Start Date",
+      value: formatDate(query?.data?.data?.data?.agreement_start_date),
     },
     {
       width: "half",
@@ -40,14 +40,14 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       tableName: "project",
     },
     {
-      fieldName: "agreement_start_date",
-      fieldLabel: "Start Date",
+      fieldName: "agreement_signed_date",
+      fieldLabel: "Signed Date",
       fieldType: "date",
       width: "half",
     },
     {
-      fieldName: "agreement_signed_date",
-      fieldLabel: "Signed Date",
+      fieldName: "agreement_start_date",
+      fieldLabel: "Start Date",
       fieldType: "date",
       width: "half",
     },
