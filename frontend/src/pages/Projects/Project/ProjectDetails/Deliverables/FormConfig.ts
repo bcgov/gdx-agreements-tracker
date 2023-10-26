@@ -17,11 +17,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Description",
-          value: query?.data?.data?.data?.description,
-        },
-        {
-          width: "half",
           title: "Start Date",
           value: formatDate(query?.data?.data?.data?.start_date),
         },
@@ -42,11 +37,11 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Project",
-          value: query?.data?.data?.data?.project_id.label,
+          title: "Expense",
+          value: query?.data?.data?.data?.is_expense,
         },
         {
-          width: "half",
+          width: "full",
           title: "Comments",
           value: query?.data?.data?.data?.comments,
         },
@@ -57,23 +52,18 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Deliverable Status",
-          value: query?.data?.data?.data?.deliverable_status,
-        },
-        {
-          width: "half",
           title: "Percent Complete",
           value: query?.data?.data?.data?.percent_complete,
         },
         {
           width: "half",
-          title: "Health",
-          value: query?.data?.data?.data?.health_id.label,
+          title: "Deliverable Status",
+          value: query?.data?.data?.data?.deliverable_status,
         },
         {
           width: "half",
-          title: "Expense",
-          value: query?.data?.data?.data?.is_expense,
+          title: "Health",
+          value: query?.data?.data?.data?.health_id.label,
         },
       ];
 
@@ -83,12 +73,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Deliverable Name",
       fieldName: "deliverable_name",
       fieldType: "singleText",
-    },
-    {
-      width: "half",
-      fieldLabel: "Description",
-      fieldName: "description",
-      fieldType: "multiText",
     },
     {
       width: "half",
@@ -106,16 +90,22 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Deliverable Amount",
       fieldName: "deliverable_amount",
-      fieldType: "number",
+      fieldType: "money",
     },
     {
       width: "half",
       fieldLabel: "Recoverable Amount",
       fieldName: "recoverable_amount",
-      fieldType: "number",
+      fieldType: "money",
     },
     {
       width: "half",
+      fieldLabel: "Is Expense",
+      fieldName: "is_expense",
+      fieldType: "checkbox",
+    },
+    {
+      width: "full",
       fieldLabel: "Comments",
       fieldName: "comments",
       fieldType: "multiText",
@@ -128,6 +118,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       pickerName: "fiscal_year_option",
     },
     {
+      width: "half",
+      fieldLabel: "Percent Complete",
+      fieldName: "percent_complete",
+      fieldType: "number",
+    },
+    {
       fieldName: "deliverable_status",
       fieldType: "select",
       fieldLabel: "Deliverable Status",
@@ -136,38 +132,25 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
-      fieldLabel: "Percent Complete",
-      fieldName: "percent_complete",
-      fieldType: "number",
-    },
-    {
-      width: "half",
       fieldLabel: "Health",
       fieldName: "health_id",
       fieldType: "select",
       pickerName: "health_status_option",
     },
-    {
-      width: "half",
-      fieldLabel: "Is Expense",
-      fieldName: "is_expense",
-      fieldType: "checkbox",
-    },
   ];
 
   const initialValues = {
     deliverable_name: null,
-    description: null,
     start_date: null,
     completion_date: null,
     deliverable_amount: null,
-    project_id: projectId,
+    recoverable_amount: null,
+    is_expense: null,
     comments: null,
     fiscal: null,
-    deliverable_status: null,
     percent_complete: null,
+    deliverable_status: null,
     health_id: null,
-    is_expense: null,
   };
 
   const rowId = query?.data?.data?.data?.id ?? null;
