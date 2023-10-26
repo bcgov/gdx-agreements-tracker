@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pmo-postgres-sidecar
+  labels:
+    app.openshift.io/runtime: sidecar
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: pmo-postgres-sidecar
+        net-tcp-5432: client
+    spec:
+      containers:
+      - name: pmo-postgres-sidecar
+        volumeMounts:
+        - name: pmo-postgres-backup
+          readOnly: true
+          mountPath: /home/sidecxar/backups/db
+        volumes:
+        - name: pmo-postgres-backup
+          persistentVolumeClaim:
+            claimName: pmo-postgres-backup
