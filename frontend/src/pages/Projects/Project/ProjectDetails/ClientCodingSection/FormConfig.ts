@@ -16,13 +16,28 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
+          title: "Client",
+          value: query?.data?.data?.data?.client,
+        },
+        {
+          width: "half",
+          title: "Responsibility Centre",
+          value: query?.data?.data?.data?.responsibility_centre,
+        },
+        {
+          width: "half",
           title: "Service Line",
           value: query?.data?.data?.data?.service_line,
         },
         {
           width: "half",
-          title: "Client",
-          value: query?.data?.data?.data?.client,
+          title: "STOB",
+          value: query?.data?.data?.data?.stob,
+        },
+        {
+          width: "half",
+          title: "Project Code",
+          value: query?.data?.data?.data?.project_code,
         },
         {
           width: "half",
@@ -33,21 +48,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
           title: "Expense Authority Name",
           value: query?.data?.data?.data?.expense_authority_name,
-        },
-        {
-          width: "half",
-          title: "STOB",
-          value: query?.data?.data?.data?.stob,
-        },
-        {
-          width: "half",
-          title: "Responsibility Centre",
-          value: query?.data?.data?.data?.responsibility_centre,
-        },
-        {
-          width: "half",
-          title: "Project Code",
-          value: query?.data?.data?.data?.project_code,
         },
         {
           width: "half",
@@ -65,11 +65,34 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
+      fieldLabel: "Client",
+      fieldName: "client",
+      fieldType: "singleText",
+    },
+    {
+      width: "half",
+      fieldLabel: "Responsibility Centre",
+      fieldName: "responsibility_centre",
+      fieldType: "singleText",
+    },
+    {
+      width: "half",
       fieldLabel: "Service Line",
       fieldName: "service_line",
       fieldType: "singleText",
     },
-    { width: "half", fieldLabel: "Client", fieldName: "client", fieldType: "singleText" },
+    {
+      width: "half",
+      fieldLabel: "STOB",
+      fieldName: "stob",
+      fieldType: "singleText",
+    },
+    {
+      width: "half",
+      fieldLabel: "Project Code",
+      fieldName: "project_code",
+      fieldType: "singleText",
+    },
     {
       width: "half",
       fieldLabel: "Financial Contact",
@@ -84,31 +107,24 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "expense_authority_name",
       fieldType: "singleText",
     },
-    { width: "half", fieldLabel: "STOB", fieldName: "stob", fieldType: "singleText" },
-    {
-      width: "half",
-      fieldLabel: "Responsibility Centre",
-      fieldName: "responsibility_centre",
-      fieldType: "singleText",
-    },
     {
       width: "half",
       fieldLabel: "Client Amount",
       fieldName: "client_amount",
-      fieldType: "number",
+      fieldType: "money",
     },
   ];
 
   const initialValues = {
     program_area: "",
-    service_line: "",
     client: "",
+    responsibility_centre: "",
+    service_line: "",
+    stob: "",
+    project_code: "",
     contact_id: null,
     expense_authority_name: "",
-    stob: "",
-    responsibility_centre: "",
-    project_code: projectId,
-    client_amount: 0,
+    client_amount: "",
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
