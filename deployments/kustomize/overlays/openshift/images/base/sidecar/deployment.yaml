@@ -20,7 +20,7 @@ spec:
         volumeMounts:
         - name: pmo-postgres-backup
           readOnly: true
-          mountPath: /home/sidecxar/backups/db
+          mountPath: /home/sidecar/backups/db
         volumes:
         - name: pmo-postgres-backup
           persistentVolumeClaim:
