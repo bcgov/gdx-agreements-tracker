@@ -25,7 +25,7 @@ configMapGenerator:
       - BACKUP_DIR=/backups/my-backup-folder/
       - MYSQL_USER=db_user
       # format backup.conf=mariadb={db service}:3306/{db name}
-      - backup.conf=mariadb=gdx-agreements-tracker-mariadb:3306/db_name
+      - backup.conf=postgres=deployment:5432/secret_postgres_user
 # The Secrets, please update all the secrets.
 secretGenerator:
   - name: gdx-agreements-tracker-backup-secrets
