@@ -15,7 +15,7 @@ resources:
 # Update to your license plate in the dev|test|prod namespace.
 namespace: default
 images:
-  - name: backup-container-mariadb
+  - name: backup-container-postgres
     newName: image-registry.openshift-image-registry.svc:5000/acd38d-tools/backup-container-mariadb
     newTag: latest
 configMapGenerator:
