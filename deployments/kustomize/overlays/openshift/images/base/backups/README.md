@@ -11,7 +11,7 @@ In order to restore backups you will need to utilize the sidecar, this needs to 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - github.com/bcgov/gdx-agreements-tracker/deployments/kustomize/base
+  - github.com/bcgov/gdx-agreements-tracker/deployments/kustomize/base/backups
 # Update to your license plate in the dev|test|prod namespace.
 namespace: default
 images:
