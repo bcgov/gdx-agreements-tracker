@@ -1,12 +1,9 @@
 import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 import { IEditField } from "types";
 import formatDate from "utils/formatDate";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
-  const { projectId } = useParams();
-
   const readFields = !query
     ? []
     : [
