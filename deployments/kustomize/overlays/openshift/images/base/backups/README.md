@@ -16,7 +16,7 @@ resources:
 namespace: default
 images:
   - name: backup-container-postgres
-    newName: image-registry.openshift-image-registry.svc:5000/acd38d-tools/backup-container-mariadb
+    newName: backup-container-postgres
     newTag: latest
 configMapGenerator:
   - name: gdx-agreements-tracker-backup-config
