@@ -1,5 +1,9 @@
 import { GridRowsProp, GridColDef, GridInitialState } from "@mui/x-data-grid";
-
+export interface ILegendValues {
+  label: string;
+  color: string;
+  caption: string;
+}
 // Data Structures
 export interface IUser {
   created_at: string;

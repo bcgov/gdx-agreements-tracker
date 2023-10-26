@@ -41,7 +41,7 @@ const DeliverablesTotals = (): JSX.Element => {
     <Loader />
   ) : (
     <Grid container spacing={10}>
-      <Grid item xs={12} sm={12} md={6} lg={6} xl={12}>
+      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
         {tableData?.data?.rows?.map((row: { [key: string]: string }, index: number) => {
           return (
             <Card key={index}>
@@ -72,7 +72,7 @@ const DeliverablesTotals = (): JSX.Element => {
           height: "5vh",
         }}
       />
-      <Grid item xs={12} sm={12} md={6} lg={6} xl={12}>
+      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card>
           <CardHeader title="Totals By Fiscal" sx={{ backgroundColor: "#ededed" }} />
           <DataGrid
