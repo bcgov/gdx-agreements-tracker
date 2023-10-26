@@ -90,7 +90,7 @@ gzip -cd ~/backups/db/daily/test.sql.gz | mysql -u $GDX_AGREEMENTS_TRACKER_DB_US
 
 ## File Backups within the sidecar
 
-- The `gdx-agreements-tracker` pvc (gdx-agreements-tracker wp-content folder) uses the `netapp-file-backup` storageClassName, which is the same according to [Bcgov OpenShift Storage Solutions Document](https://developer.gov.bc.ca/Persistent-Storage-Services) as the `netapp-file-standard`
+- The `gdx-agreements-tracker` pvc (gdx-agreements-tracker folder) uses the `netapp-file-backup` storageClassName, which is the same according to [Bcgov OpenShift Storage Solutions Document](https://developer.gov.bc.ca/Persistent-Storage-Services) as the `netapp-file-standard`
 - This is being backed up according to the [OCP4 Backup and Restore Document](https://developer.gov.bc.ca/OCP4-Backup-and-Restore)
   - As of the time of this writing it does full backups monthly, incremental backups daily, and retained for 90 days.
 - A manual backup can be done by `rsync -a /var/www/html/wp-content/ /home/sidecar/backups/files/`
@@ -104,6 +104,6 @@ gzip -cd ~/backups/db/daily/test.sql.gz | mysql -u $GDX_AGREEMENTS_TRACKER_DB_US
 - Ensure the files to be restored is in the `/home/sidecar/backups/files`
 - Switch from regular volume to backup volume as indicated below. (Your Instance is now using the backup volume, this is only temporary)
 - Use the sidecar, see instructions for deploying the sidecar.
-- Do a `rsync -a --exclude=restore /home/sidecar/backups/html/ /var/www/html/wp-content`
+- Do a `rsync -a --exclude=restore /home/sidecar/backups/ /var/www/html/wp-content`
   - you might have to delete the files in /var/www/html, but **WARNING** make sure you know what you are doing.
 - Switch from backup volume to regular volume as indicated below, so now gdx-agreements-tracker should be using restored files.

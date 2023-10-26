@@ -1,14 +1,14 @@
 kind: CronJob
 apiVersion: batch/v1
 metadata:
-  name: gdx-agreements-tracker-postgres-backup-cron
+  name: pmo-postgres-backup-cron
   annotations:
     openshift.io/display-name:  Cron job templates for backups.
-    description: Cron job to backup WordPress database, https://developer.gov.bc.ca/Backup-Container.
-    tags: backups,wordpress
+    description: Cron job to backup PMO database, https://developer.gov.bc.ca/Backup-Container.
+    tags: backups,PMO,postgres
   labels:
-    template: "gdx-agreements-tracker-postgres-cron-cronjob"
-    cronjob: "gdx-agreements-tracker-postgres-cron-backup"
+    template: "pmo-postgres-cron-cronjob"
+    cronjob: "pmo-postgres-cron-backup"
 spec:
   schedule: "30 10 * * *" # 10:30am UTC = 2:30am PST
   concurrencyPolicy: "Forbid"
@@ -17,29 +17,30 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        template: "gdx-agreements-tracker-postgres-cron-job"
-        cronjob: "gdx-agreements-tracker-postgres-cron-backup"
+        template: "pmo-postgres-cron-job"
+        cronjob: "pmo-postgres-cron-backup"
     spec:
       backoffLimit: 0
       template:
         metadata:
           labels:
-            template: "gdx-agreements-tracker-postgres-cron-job"
-            cronjob: "gdx-agreements-tracker-postgres-cron-backup"
+            template: "pmo-postgres-cron-job"
+            cronjob: "pmo-postgres-cron-backup"
         spec:
           containers:
-            - name: gdx-agreements-tracker-postgres-backup-runner
+            - name: pmo-postgres-backup-runner
               image: backup-container-postgres
               command:
                 - "/bin/bash"
                 - "-c"
                 - "/backup.sh -1"
               volumeMounts:
-              - name: gdx-agreements-tracker-backup-db
+              - name: pmo-postgres-backup-db
                 mountPath: /backups/
-              - name: gdx-agreements-tracker-backup-verification
-                mountPath: /var/lib/mysql/
-              - name: gdx-agreements-tracker-backup-config
+              - name: pmo-postgres-backup-verification
+                mountPath: /var/lib/postgresql/
+              - name: pmo-postgres-backup-config
+                # but where is backup.conf, really?
                 mountPath: /backup.conf
                 subPath: backup.conf
               env:
@@ -48,30 +49,30 @@ spec:
               - name: BACKUP_DIR
                 valueFrom:
                   configMapKeyRef:
-                    name: gdx-agreements-tracker-backup-config
+                    name: pmo-postgres-backup-config
                     key: BACKUP_DIR
               - name: MONTHLY_BACKUPS
                 value: "3"
               - name: DATABASE_USER
                 valueFrom:
                   configMapKeyRef:
-                    name: gdx-agreements-tracker-backup-config
-                    key: MYSQL_USER
+                    name: pmo-postgres-backup-config
+                    key: POSTGRES_USER
               - name: DATABASE_PASSWORD
                 valueFrom:
                   secretKeyRef:
-                    name: gdx-agreements-tracker-backup-secrets
+                    name: pmo-postgres-backup-secrets
                     key: MYSQL_PASSWORD
           volumes:
-            - name: gdx-agreements-tracker-backup-db
+            - name: pmo-postgres-backup-db
               persistentVolumeClaim:
-                claimName: gdx-agreements-tracker-backup-db
-            - name: gdx-agreements-tracker-backup-verification
+                claimName: pmo-postgres-backup-db
+            - name: pmo-postgres-backup-verification
               persistentVolumeClaim:
-                claimName: gdx-agreements-tracker-backup-verification
-            - name: gdx-agreements-tracker-backup-config
+                claimName: pmo-postgres-backup-verification
+            - name: pmo-postgres-backup-config
               configMap:
-                name: gdx-agreements-tracker-backup-config
+                name: pmo-postgres-backup-config
                 items:
                   - key: backup.conf
                     path: backup.conf
