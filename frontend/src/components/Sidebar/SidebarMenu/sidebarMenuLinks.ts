@@ -38,6 +38,10 @@ export const sidebarMenuLinks = [
         name: "Glossary",
         url: "/admin/glossary",
       },
+      {
+        name: "Users",
+        url: "/admin/users",
+      },
     ],
   },
 ];
