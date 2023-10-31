@@ -1,3 +1,9 @@
+**October 31, 2023 [DESCW-1629](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1629)**
+
+- Frontend
+- Backend
+    - Upgraded @jest to fix vulnerability with @babel/traverse
+
 **October 26, 2023 [DESCW-859](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-859)**
 
 - Frontend
