@@ -1,44 +1,35 @@
-# This is used to backup the WordPress Database.
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
+namespace: acd38d-dev
 metadata:
-  name: pmo-backup-db
+  labels:
+    app: backup-container
+    env: v1
+    name: pmo-backup
+    role: backup-container
+  name: pmo-backup-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
   storageClassName: netapp-file-backup
-  volumeMode: Filesystem
 ---
-# This will be used in the case the files need to be restored, otherwise this volume is empty.
-kind: PersistentVolumeClaim
 apiVersion: v1
-metadata:
-  name: pmo-backup-files
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 500M
-  storageClassName: netapp-file-standard
-  volumeMode: Filesystem
-
----
-# For Backup Verifications
 kind: PersistentVolumeClaim
-apiVersion: v1
+namespace: acd38d-dev
 metadata:
-  name: pmo-backup-verification
   labels:
-    role: verification-backup-container-db
+    app: backup-container
+    env: v1
+    name: pmo-backup
+    role: backup-container
+  name: pmo-backup-verification-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
-      storage: 100M
+      storage: 1Gi
   storageClassName: netapp-file-standard
-  volumeMode: Filesystem

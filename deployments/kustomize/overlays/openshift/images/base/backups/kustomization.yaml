@@ -1,20 +1,23 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
-  - backup-db-volumes.yaml
-  - backup-db-cron.yaml
+namespace: default
+namePrefix: pmo-
 commonLabels:
-  role: pmo-postgres-backups
-  app: pmo-postgres
+  app: gdx-agreements-tracker
+  env: local
+resources:
+  - backup-db-cron.yaml
+  - backup-db-volumes.yaml
 # Configuration for backup
 configMapGenerator:
-- name: pmo-postgres-backup-config
-  literals:
-  - BACKUP_DIR=/backups/local/
-  - POSTGRES_USER=secret_postgres_user
-  # format backup.conf=postgres={db service}:3306/{db user}
-  # not sure about this one, or where to find it.
-  - backup.conf=postgres=deployment:5432/secret_postgres_user
+  - name: pmo-backup-config-volume
+    behavior: merge
+    literals:
+    - backup.conf=postgres=deployment:5432/postgres
+    - POSTGRES_DB=secret_postgres_db
+    - POSTGRES_USER=secret_postgres_user
+    - POSTGRES_REGULAR_USER=secret_postgres_regular_user
+    - POSTGRES_HOST=secret_postgres_host
 secretGenerator:
 - name: secrets
   type: Opaque

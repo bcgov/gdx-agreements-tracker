@@ -1,84 +1,100 @@
-kind: CronJob
 apiVersion: batch/v1
+kind: CronJob
+namespace: acd38d-dev
 metadata:
-  name: pmo-postgres-backup-cron
+  name: pmo-backup-cron
   annotations:
     openshift.io/display-name:  Cron job templates for backups.
-    description: Cron job to backup PMO database, https://developer.gov.bc.ca/Backup-Container.
-    tags: backups,PMO,postgres
+    description: CronJob to backup gdx-agreements-tracker database, https://developer.gov.bc.ca/Backup-Container.
+    tags: backups,pmo,postgres,gdx-agreements-tracker
   labels:
     template: "pmo-postgres-cron-cronjob"
     cronjob: "pmo-postgres-cron-backup"
 spec:
-  schedule: "30 10 * * *" # 10:30am UTC = 2:30am PST
-  concurrencyPolicy: "Forbid"
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 2
-  jobTemplate:
+# TODO - finish updating this based on backup-db-cron.yaml from wordpres repo: deployments/kustomize/base/backups
+  replicas: 1
+  selector:
+    name: pmo-backup
+  strategy:
+    type: Recreate
+  template:
     metadata:
       labels:
-        template: "pmo-postgres-cron-job"
-        cronjob: "pmo-postgres-cron-backup"
+        app: backup-container
+        env: v1
+        name: pmo-backup
+        role: backup-container
+      name: pmo-backup
     spec:
-      backoffLimit: 0
-      template:
-        metadata:
-          labels:
-            template: "pmo-postgres-cron-job"
-            cronjob: "pmo-postgres-cron-backup"
-        spec:
-          containers:
-            - name: pmo-postgres-backup-runner
-              image: backup-container-postgres
-              command:
-                - "/bin/bash"
-                - "-c"
-                - "/backup.sh -1"
-              volumeMounts:
-              - name: pmo-postgres-backup-db
-                mountPath: /backups/
-              - name: pmo-postgres-backup-verification
-                mountPath: /var/lib/postgresql/
-              - name: pmo-postgres-backup-config
-                # but where is backup.conf, really?
-                mountPath: /backup.conf
-                subPath: backup.conf
-              env:
-              - name: BACKUP_STRATEGY
-                value: rolling
-              - name: BACKUP_DIR
-                valueFrom:
-                  configMapKeyRef:
-                    name: pmo-postgres-backup-config
-                    key: BACKUP_DIR
-              - name: MONTHLY_BACKUPS
-                value: "3"
-              - name: DATABASE_USER
-                valueFrom:
-                  configMapKeyRef:
-                    name: pmo-postgres-backup-config
-                    key: POSTGRES_USER
-              - name: DATABASE_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: pmo-postgres-backup-secrets
-                    key: MYSQL_PASSWORD
-          volumes:
-            - name: pmo-postgres-backup-db
-              persistentVolumeClaim:
-                claimName: pmo-postgres-backup-db
-            - name: pmo-postgres-backup-verification
-              persistentVolumeClaim:
-                claimName: pmo-postgres-backup-verification
-            - name: pmo-postgres-backup-config
-              configMap:
-                name: pmo-postgres-backup-config
-                items:
-                  - key: backup.conf
-                    path: backup.conf
-          restartPolicy: "Never"
-          terminationGracePeriodSeconds: 30
-          activeDeadlineSeconds: 1600
-          dnsPolicy: "ClusterFirst"
-          serviceAccountName: "default"
-          serviceAccount: "default"
+      containers:
+      - env:
+        - name: BACKUP_STRATEGY
+          value: rolling
+        - name: BACKUP_DIR
+          value: /backups/
+        - name: NUM_BACKUPS
+          value: ""
+        - name: DAILY_BACKUPS
+          value: ""
+        - name: WEEKLY_BACKUPS
+          value: ""
+        - name: MONTHLY_BACKUPS
+          value: "3"
+        - name: BACKUP_PERIOD
+          value: ""
+        - name: DATABASE_SERVICE_NAME
+          value: ""
+        - name: DATABASE_NAME
+          value: ""
+        - name: TABLE_SCHEMA
+          value: public
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: "nW2Kxj)c>19[X$]_Q+evU88fM8"
+        - name: ENVIRONMENT_FRIENDLY_NAME
+          value: GDX Agreements Tracker Postgresql Backups
+        - name: ENVIRONMENT_NAME
+          value: dev
+        image: "bcgovimages/backup-container:latest"
+        name: pmo-backup
+        ports: []
+        resources:
+          limits:
+            cpu: "0"
+            memory: 0Mi
+          requests:
+            cpu: "0"
+            memory: 0Mi
+        volumeMounts:
+        - mountPath: /backups/
+          name: pmo-backup-pvc
+        - mountPath: /var/lib/pgsql/data
+          name: pmo-backup-verification-pvc
+        - mountPath: /backup.conf
+          name: pmo-backup-config-volume
+          subPath: backup.conf
+      volumes:
+      - name: pmo-backup-pvc
+        persistentVolumeClaim:
+          claimName: pmo-backup-pvc
+      - name: pmo-backup-verification-pvc
+        persistentVolumeClaim:
+          claimName: pmo-backup-verification-pvc
+      - configMap:
+          items:
+          - key: backup.conf
+            path: backup.conf
+          name: backup-conf
+        name: pmo-backup-config-volume
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - pmo-backup
+      from:
+        kind: ImageStreamTag
+        name: pmo-backup:v1
+        namespace: acd38d-tools
+    type: ImageChange
