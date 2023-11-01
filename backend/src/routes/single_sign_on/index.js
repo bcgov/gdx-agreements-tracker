@@ -7,6 +7,9 @@ const routes = [
     url: `/sso/users`,
     schema: validators.getAll,
     handler: controller.getUsers,
+    config: {
+      role: "PMO-Admin-Edit-Capability",
+    },
   },
 ];
 
