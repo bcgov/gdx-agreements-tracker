@@ -7,6 +7,7 @@ import { Suppliers } from "../../pages/Admin/Suppliers";
 import { Ministries } from "../../pages/Admin/Ministries";
 import { Resources } from "../../pages/Admin/Resources";
 import { Glossary } from "pages/Admin/Glossary";
+import { Users } from "pages/Admin/Users";
 
 /*
  * Routes for Admin pages.
@@ -28,6 +29,7 @@ const routes = [
     <Route key="resources" path="resources" element={<Resources />} />
     <Route key="ministries" path="ministries" element={<Ministries />} />
     <Route key="glossary" path="glossary" element={<Glossary />} />
+    <Route key="users" path="users" element={<Users />} />
   </Route>,
 ];
 

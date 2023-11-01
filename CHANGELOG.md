@@ -1,3 +1,9 @@
+**October 31, 2023 [DESCW-1443](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1443)**
+
+- Frontend
+- Backend
+    - Added user section to the app that connects to the single sign on service.
+
 **October 31, 2023 [DESCW-1629](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1629)**
 
 - Frontend
