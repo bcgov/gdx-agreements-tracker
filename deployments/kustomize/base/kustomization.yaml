@@ -4,7 +4,6 @@ bases:
 - api
 - app
 namespace: default
-namePrefix: pmo-
 commonLabels:
   app: gdx-agreements-tracker
   env: local
