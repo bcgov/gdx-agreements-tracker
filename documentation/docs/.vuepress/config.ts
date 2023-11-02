@@ -28,7 +28,6 @@ export default defineUserConfig({
         children: [
           "/guide/Frontend/react_components/Accordion",
           "/guide/Frontend/react_components/BudgetDisplay",
-          "/guide/Frontend/react_components/BudgetDisplay",
           "/guide/Frontend/react_components/ChipNav",
           "/guide/Frontend/react_components/ConfirmationDialog",
           "/guide/Frontend/react_components/DBLock",
