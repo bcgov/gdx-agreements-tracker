@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-7359428a","path":"/guide/Frontend/react_components/ChipNav.html","title":"Chip Nav","lang":"en-US","frontmatter":{},"headers":[],"git":{"updatedTime":1698937550000,"contributors":[{"name":"Shawn","email":"45861534+ShawnTurple@users.noreply.github.com","commits":1}]},"filePathRelative":"guide/Frontend/react_components/ChipNav.md"}');export{e as data};
