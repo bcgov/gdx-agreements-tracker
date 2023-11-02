@@ -1,1 +1,0 @@
-import{_ as a,o as t,c,a as e,b as n}from"./app-f99dff2e.js";const o={},r=e("h1",{id:"chip-nav",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#chip-nav","aria-hidden":"true"},"#"),n(" Chip Nav")],-1),s=[r];function i(_,h){return t(),c("div",null,s)}const l=a(o,[["render",i],["__file","ChipNav.html.vue"]]);export{l as default};
