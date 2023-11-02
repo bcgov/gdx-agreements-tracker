@@ -63,7 +63,3 @@ describe("Close out notify function", () => {
     });
   });
 });
-
-
-
-
