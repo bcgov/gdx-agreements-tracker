@@ -7,7 +7,8 @@ x-env:
   POSTGRES_DATABASE: &POSTGRES_DATABASE gat_db
   DATABASE_AUTO_DEPLOY: &DATABASE_AUTO_DEPLOY 1
 volumes:
-  database:
+  gdx-agreements-tracker_database:
+    external: true
   database_log:
 services:
   db:
@@ -19,7 +20,7 @@ services:
       POSTGRES_PASSWORD: *POSTGRES_PASSWORD
       POSTGRES_USER: *POSTGRES_USER
     volumes:
-      - database:/var/lib/postgresql/data
+      - gdx-agreements-tracker_database:/var/lib/postgresql/data
       - ../openshift/templates/images/postgres/postgresql.conf:/home/postgresql.conf
       #- ../logs/postgresql:/var/log/postgresql
     networks:
