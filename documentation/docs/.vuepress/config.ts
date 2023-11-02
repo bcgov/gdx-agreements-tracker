@@ -10,6 +10,7 @@ export default defineUserConfig({
   description: "Developer Documentation for GDX Agreements Tracker",
   theme: defaultTheme({
     logo: "/images/BCID_H_rgb_pos.png",
+    logoDark: "/images/BCID_H_rgb_rev.png",
     // sidebar array
     // all pages will use the same sidebar
     sidebar: [
