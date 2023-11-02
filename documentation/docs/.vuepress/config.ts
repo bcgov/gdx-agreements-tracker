@@ -1,5 +1,5 @@
 import { defaultTheme } from "@vuepress/theme-default";
-import { sidebar } from "./configs";
+
 import { defineUserConfig } from "vuepress";
 import { searchPlugin } from "@vuepress/plugin-search";
 
@@ -15,6 +15,13 @@ export default defineUserConfig({
     sidebar: [
       "/guide/README.md",
       // SidebarItem
+      {
+        text: "Getting Started",
+        collapsible: true,
+        children: [
+          "/guide/GettingStarted/deploy_locally"
+        ]
+      }, 
       {
         text: "Frontend",
         collapsible: true,
@@ -36,7 +43,11 @@ export default defineUserConfig({
       {
         text: "Openshift",
         collapsible: true,
-        children: ["/guide/openshift/change_password"],
+        children: [
+          "/guide/openshift/change_password",
+          "/guide/openshift/temp"
+        ],
+
       },
       // string - page file path
     ],
@@ -44,6 +55,6 @@ export default defineUserConfig({
   plugins: [
     searchPlugin({
       // options
-    }),
+    })
   ],
 });

@@ -1,3 +1,12 @@
+**November 1, 2023 [DESCW-1687](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1687)**
+
+- Backend
+  - Moved the docker-compose.yaml to the backend, in order to use the .env file
+  - Update the sample.env
+- Documentation
+  - Create a Getting Started Developer documentation
+- Update repo README.md to point to gh_pages
+
 **October 31, 2023 [DESCW-1443](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1443)**
 
 - Frontend
