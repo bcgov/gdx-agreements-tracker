@@ -1,3 +1,9 @@
+**November 2, 2023 [DESCW-1516](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1516)**
+
+- Frontend
+- Backend
+    - Added notify functionality for project close out notify
+    
 **November 1, 2023 [DESCW-1687](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1687)**
 
 - Backend
