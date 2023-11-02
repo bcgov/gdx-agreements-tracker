@@ -3,7 +3,7 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: api-route
   annotations:
-    description: The Route for the React application.
+    description: The Route for the Fastify application.
     # Rewrite /api to / so that when the node container sees the request, every request to /api/blah is instead to /blah
     haproxy.router.openshift.io/rewrite-target: /
 spec:

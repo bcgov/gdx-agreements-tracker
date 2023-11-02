@@ -1,3 +1,7 @@
+
+**November 2, 2023 [DESCW-1688](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1688)**
+- Deployments
+  - Re-organize
 **November 2, 2023 [DESCW-1580](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1580)**
 
 - Frontend

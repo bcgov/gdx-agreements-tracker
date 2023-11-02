@@ -4,7 +4,6 @@ metadata:
   name: api-deployment
   labels:
     app.kubernetes.io/part-of: gdx-agreements-tracker
-    app.openshift.io/runtime: nodejs
     app.kubernetes.io/component: backend
     app.openshift.io/connects-to: coreDB
 spec:
