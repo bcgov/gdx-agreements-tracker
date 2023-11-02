@@ -3,6 +3,7 @@ bases:
 - postgresql
 - api
 - app
+- backups
 namespace: default
 commonLabels:
   app: gdx-agreements-tracker
