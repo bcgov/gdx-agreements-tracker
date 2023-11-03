@@ -1,3 +1,10 @@
+**November 2, 2023 [DESCW-1687](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1687)**
+
+- Documentation
+  - Kubernetes and OpenShift deployments
+  - Image builds
+- Cleaned up readme's within OpenShift and images
+- Remove unused OpenShift deployments using templates.
 
 **November 2, 2023 [DESCW-1688](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1688)**
 - Deployments

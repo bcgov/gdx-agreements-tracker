@@ -1,19 +1,5 @@
 # Deploying Using Node and Docker
 
-- [Deploying Using Node and Docker](#deploying-using-node-and-docker)
-  - [Prerequisite](#prerequisite)
-  - [Setup](#setup)
-    - [Download Source Code](#download-source-code)
-    - [Setup Certificates](#setup-certificates)
-  - [Setup and Deploy Database](#setup-and-deploy-database)
-  - [Backend Setup and Deploy](#backend-setup-and-deploy)
-    - [Migrations and Seeds](#migrations-and-seeds)
-  - [Frontend Setup and Deploy](#frontend-setup-and-deploy)
-  - [Deployment of Application After Setup](#deployment-of-application-after-setup)
-  - [Setting up PGAdmin to Access Postgres Database](#setting-up-pgadmin-to-access-postgres-database)
-  - [Deleting GDX Agreements Database](#deleting-gdx-agreements-database)
-
-
 ## Prerequisite 
 All development setup is done with a Mac OS 
 
@@ -35,10 +21,10 @@ Install brew if not already installed.
 
 
 ### Setup Certificates
-**All bash commands are assumed from root of repository** ```./gdx-agreements-tracer```
+**All bash commands are assumed from root of repository** ```./gdx-agreements-tracker```
 A self signed certificate is required for local development deployments.
 - in a terminal window go to the GDX agreements tracker repository ```cd gdx-agreements-tracker```
-- create a ```.cert``` director in the frontend folder if not already created ```mkdir -p ./frontend/.cert```
+- create a ```.cert``` directory in the frontend folder if not already created ```mkdir -p ./frontend/.cert```
   - This is where your certificates will be saved.
   - This folder is also excluded from the repository via the .gitignore file.
 - create a key and cert file ```mkcert -key-file ./frontend/.cert/key.pem -cert-file ./frontend/.cert/cert.pem "localhost"```
@@ -103,7 +89,7 @@ COMMON_COMPONENT_SECRET=
 COMMON_COMPONENT_URL=
 ```
 - go to backend directory `cd ./backend`
-- Insure using the correct version of Node which is restricted by the `./backend/package.json` engines parameter
+- Ensure using the correct version of Node which is restricted by the `./backend/package.json` engines parameter
 - Using `NVM` switch versions for example `nvm use 18.18`
 - Install dependencies `npm i`
 - Run frontend app `npm run start`
@@ -129,7 +115,7 @@ REACT_APP_KEYCLOAK_URL="https://keyloak-login-server/auth"
 REACT_APP_KEYCLOAK_CLIENT_ID="keycloak-id"
 REACT_APP_KEYCLOAK_REALM=standard
 ```
-- Insure using the correct version of Node which is restricted by the `./frontend/package.json`
+- Ensure using the correct version of Node which is restricted by the `./frontend/package.json`
 ```json
   /*/frontend/package.json --- example node version*/
   ...
@@ -147,7 +133,7 @@ REACT_APP_KEYCLOAK_REALM=standard
 ## Deployment of Application After Setup
 - Deploy database  ```cd ./backend && docker compose up```
 - Deploy backend ```cd ./backend && npm run start```
-- Deply frontend ```cd ./frontend && npm run start```
+- Deploy frontend ```cd ./frontend && npm run start```
 
 ## Setting up PGAdmin to Access Postgres Database
 Import the following into PGAdmin
