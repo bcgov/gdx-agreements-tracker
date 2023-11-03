@@ -1,6 +1,6 @@
+# this is the volume claim template for the backup container
 apiVersion: v1
 kind: PersistentVolumeClaim
-namespace: acd38d-dev
 metadata:
   labels:
     app: backup-container
@@ -10,25 +10,25 @@ metadata:
   name: pmo-backup-pvc
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
   storageClassName: netapp-file-backup
 ---
-apiVersion: v1
+# For backup verification (pg_verifybackup)
 kind: PersistentVolumeClaim
-namespace: acd38d-dev
+apiVersion: v1
 metadata:
+  name: pmo-backup-verification-pvc
   labels:
     app: backup-container
     env: v1
     name: pmo-backup
     role: backup-container
-  name: pmo-backup-verification-pvc
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
