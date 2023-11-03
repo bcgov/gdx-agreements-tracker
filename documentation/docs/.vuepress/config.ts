@@ -11,16 +11,28 @@ export default defineUserConfig({
   theme: defaultTheme({
     logo: "/images/BCID_H_rgb_pos.png",
     logoDark: "/images/BCID_H_rgb_rev.png",
+    editLink: false,
+    lastUpdated: false,
+    repo: 'bcgov/gdx-agreements-tracker',
+    repoLabel: 'Github',
+    navbar: [
+      {
+        text: 'Home',
+        link: '/',
+      },
+    ],
     // sidebar array
     // all pages will use the same sidebar
     sidebar: [
-      "/guide/README.md",
       // SidebarItem
       {
         text: "Getting Started",
         collapsible: true,
         children: [
-          "/guide/GettingStarted/deploy_locally"
+          "/guide/GettingStarted/deploy_locally",
+          "/guide/GettingStarted/deploy_kubernetes",
+          "/guide/GettingStarted/deploy_openshift",
+          "/guide/GettingStarted/building_images",
         ]
       }, 
       {

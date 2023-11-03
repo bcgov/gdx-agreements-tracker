@@ -1,111 +1,19 @@
-![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)
+# Introduction
 
-# GDX Agreements Tracker
+Welcome to the GDX Agreements Tracker, your comprehensive solution for efficient project and contract management within the GDX division. This powerful application is designed with developers like you in mind, providing a seamless platform to streamline project and contract-related tasks while empowering you to make informed decisions and generate insightful reports.
 
-## Installation
-* ```git clone https://github.com/bcgov/gdx-agreements-tracker.git```
+## Project Management Made Easy
 
-## Development All-in-One Quick Start
-If you have Docker:
-```bash
-cd gdx-agreements-tracker
-docker compose up --build -d
-```
+With the GDX Agreements Tracker, managing projects has never been more straightforward. You can effortlessly submit valuable data such as lessons learned, project closures, change requests, billing information, and more. Our user-friendly interface ensures that you can efficiently handle all project-related operations, saving you time and effort.
 
-**Note**: If this is your first time starting the app, you can populate the database by running the provided migrations and seeders. See the README within the backend directory for more information.
+## Contract Management Simplified
 
-The app is then available at [http://localhost/](http://localhost/). For your reference, the API is available at [http://localhost/api/](http://localhost/api/). The websocket for the frontend react is available at http://localhost:3000/ and as long as the `frontend/.env` file (or other similar facility) specifies the WDS_SOCKET_PORT as 3000, the React live-refresh-upon-code-change feature should work in your browser.
+The contracts section of our app offers a robust system for tracking contractor agreements within the division. You'll find similar functionality to our project management tools, but tailored specifically for managing contracts. Stay on top of contract milestones, deadlines, and revisions with ease.
 
-Logs end up in `docker/logs/` in `backend`, `frontend`, and `web` subdirectories for your debugging convenience.
+## Comprehensive Reporting
 
-If you haven't done a `yarn install` or `npm install` in the frontend or backend subdirectories before executing the above, the docker-compose will handle that for you. This is useful if your local node/npm are not the right version.
+One of the standout features of the GDX Agreements Tracker is its powerful reporting capabilities. Whether you need to compile data from various parts of the app or create comprehensive reports for stakeholders, our reporting tools provide the flexibility and precision you need. Generate professional, detailed reports that present your data in a clear and organized manner.
 
-### Various Actions Useful for Development
-#### To Stop and Remove All Development Containers
-`docker compose down`
+Your development work is essential to the success of GDX, and this application is designed to support your efforts. As you dive into the developer documentation, you'll find in-depth guides, tutorials, and resources to help you maximize the potential of the GDX Agreements Tracker.
 
-#### To Update Packages After Changing `package.json`
-* Frontend: `docker compose exec frontend yarn install`
-* Backend: `docker compose exec backend npm install`
-
-#### To Stop, Start, Restart, Remove, and Get a Shell Inside a Container
-These are all demonstrated below on the `web` container, but can work on any of `frontend`, `backend`, or `db` as well, just change the container name on the lines below accordingly.
-* Stop: `docker compose stop web`
-* Start: `docker compose start web`
-* Restart: `docker compose restart web`
-* Remove: `docker compose rm web`
-* Get a shell inside the container: `docker compose exec web /bin/sh`
-
-### If You Want to Try a Production Build in Local Dev
-Open `frontend/Docker/nginx.conf` find the `location / {` section and **uncomment the `try_files` line** so the section looks like this:
-```
-location / {
-    # this will let you try out a static build on dev. delete build/index.html to go back to using the node server.
-    # if the request can be served from the build directory, try it first, otherwise shunt it to the proxy.\
-    try_files $uri $uri/ @app_proxy;
-    error_page 403 = @app_proxy;
-    error_page 404 = @app_proxy;
-}
-```
-Then restart the web container:
-* `docker compose restart web`
-
-If your containers are running, as per above:
-
-* `docker compose exec frontend yarn build` and wait for the build to complete
-* Refresh [http://localhost/](http://localhost/)
-
-To go back to live-refresh local development node server:
-* Temporarily:
-  * Delete the contents of `frontend/build` directory (`rm -rf build/*`)
-  * Refresh [http://localhost/](http://localhost/)
-* Permanently:
-  * Delete the contents of `frontend/build` directory
-  * Comment out the `try_files` line in nginx.conf as per above by placing a `#` before `try_files`
-  * Restart the web container
-    * `docker compose restart web`
-
-## Development à la Carte
-
-### Front End
-
-#### Setup
-* ```cd gdx-agreements-tracker/frontend```
-* ```yarn install```
-* Commands
-    * ```yarn start``` - starts front end app on localhost:3000
-    * ```yarn build``` - builds for production deployment
-
-#### Build
-* ```cd gdx-agreements-tracker-front-end/frontend```
-* ```docker build -t gdx-agreements-tracker-front-end:latest .```
-* Test build by running ```docker run -p 8081:80 --rm gdx-agreements-tracker-front-end```
-
-
-### Back End
-
-#### Setup
-* ```cd gdx-agreements-tracker/backend```
-* ```npm i```
-* Commands
-  * ```npm run start``` - to start api server on localhost:8080
-  * ```npm run test``` - to run tests.
-
-#### Build
-* ```cd gdx-agreements-tracker/backend```
-* ```docker build -t gdx-agreements-tracker-api:latest .```
-
-### DEPLOYING DEV => TEST:  Tagging the APP, API, and POSTGRES DB
-
-* login to oc on your local terminal, using the link to the login command by clicking your username in the upper-right of the openshift page
-* or use the web-based terminal: click the  ' *>_* ' icon at the top-right of your openshift interface next to the help icon
-
-enter the following:
-
-```bash
- oc tag gdx-agreements-tracker-api-run:dev gdx-agreements-tracker-api-run:test
- oc tag gdx-agreements-tracker-app-run:dev gdx-agreements-tracker-app-run:test
- oc tag gdx-agreements-tracker-postgres-run:dev gdx-agreements-tracker-postgres-run:test
-```
-
-* you can observe progress back in the openshift window by clicking on the workflow for gdx-agreements-tracker-a**-run, and scrolling to the bottom.
+Get ready to take your project and contract management to the next level with the GDX Agreements Tracker. We're excited to see how this tool will enhance your work within the division and contribute to the success of GDX as a whole.
