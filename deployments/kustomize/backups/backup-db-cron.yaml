@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: pmo-backup-cron
+  name: backup-cron
   annotations:
     openshift.io/display-name: Cron job templates for backups.
     description: CronJob to backup gdx-agreements-tracker database, https://developer.gov.bc.ca/Backup-Container.
@@ -10,7 +10,6 @@ metadata:
   labels:
     template: "pmo-postgres-cron-cronjob"
     cronjob: "pmo-postgres-cron-backup"
-    # remove pmo- and call it backup-cron
 spec:
   schedule: "33 3 * * *" # 3:33am daily
   concurrencyPolicy: Forbid
@@ -37,12 +36,12 @@ spec:
                 - "-c"
                 - "/backup.sh -1"
               volumeMounts:
-                - mountPath: /backups/
-                  name: pmo-backup-pvc
-                - mountPath: /var/lib/pgsql/data
-                  name: pmo-backup-verification-pvc
-                - mountPath: /backup.conf
-                  name: pmo-backup-config-volume
+                - name: pmo-backup-db
+                  mountPath: /backups/
+                - name: pmo-backup-verification
+                  mountPath: /var/lib/pgsql/data
+                - name: pmo-backup-config
+                  mountPath: /backup.conf
                   subPath: backup.conf
               env:
                 - name: BACKUP_STRATEGY
@@ -50,13 +49,10 @@ spec:
                 - name: BACKUP_DIR
                   valueFrom:
                     configMapKeyRef:
-                      name: backup-conf
+                      name: pmo-backup-config
                       key: BACKUP_DIR
                 - name: MONTHLY_BACKUPS
-                  valueFrom:
-                    configMapKeyRef:
-                      name: backup-conf
-                      key: MONTHLY_BACKUPS
+                  value: "3"
                 - name: DATABASE_USER
                   valueFrom:
                     configMapKeyRef:
@@ -65,7 +61,7 @@ spec:
                 - name: DATABASE_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: pmo-backup-config
+                      name: pmo-backup-secrets
                       key: POSTGRES_PASSWORD
           volumes:
             - name: pmo-backup-db
@@ -80,11 +76,12 @@ spec:
                 items:
                   - key: backup.conf
                     path: backup.conf
-
                     # make sure all these configKeyRefs are correct
+          dnsPolicy: "ClusterFirst"
+          successfulJobHistoryLimit: 5
+          failedJobHistoryLimit: 2
           restartPolicy: "Never"
           terminationGracePeriodSeconds: 30
           activeDeadlineSeconds: 1600
-          dnsPolicy: "ClusterFirst"
           serviceAccountName: "default"
           serviceAccount: "default"

@@ -2,34 +2,28 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    app: backup-container
-    env: v1
-    name: pmo-backup
-    role: backup-container
-  name: pmo-backup-pvc
+  name: pmo-backup-db
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 500M
   storageClassName: netapp-file-backup
+  volumeMode: Filesystem
 ---
 # For backup verification (pg_verifybackup)
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pmo-backup-verification-pvc
+  name: pmo-backup-verification
   labels:
-    app: backup-container
-    env: v1
-    name: pmo-backup
-    role: backup-container
+    role: verification-backup-container-db
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 100M
   storageClassName: netapp-file-standard
+volumeMode: Filesystem
