@@ -11,7 +11,7 @@ metadata:
     template: "pmo-postgres-cron-cronjob"
     cronjob: "pmo-postgres-cron-backup"
 spec:
-  schedule: "33 3 * * *" # 3:33am daily
+  schedule: "28 15 * * *" #MM HH DD MM WEEKDAY
   concurrencyPolicy: Forbid
   successfulJobHistoryLimit: 3
   failedJobHistoryLimit: 2
@@ -30,7 +30,7 @@ spec:
         spec:
           containers:
             - name: pmo-postgres-backup-runner
-              image: "bcgovimages/backup-container:latest"
+              image: "bcgovgdx/backup-postgres:latest"
               command:
                 - "/bin/bash"
                 - "-c"
