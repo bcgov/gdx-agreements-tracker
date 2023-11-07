@@ -17,7 +17,7 @@ configMapGenerator:
       - POSTGRES_REGULAR_USER=secret_postgres_regular_user
       - POSTGRES_HOST=secret_postgres_host
 secretGenerator:
-  - name: pmo-backup-secrets
+  - name: secrets
     type: Opaque
     literals:
       - POSTGRES_PASSWORD=secrets_postgres_password_generated
