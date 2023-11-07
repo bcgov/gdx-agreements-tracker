@@ -12,12 +12,4 @@ configMapGenerator:
     literals:
       - BACKUP_DIR=/backups/
       - backup.conf=postgres=config_postgres_backup
-      - POSTGRES_DB=secret_postgres_db
-      - POSTGRES_USER=secret_postgres_user
-      - POSTGRES_REGULAR_USER=secret_postgres_regular_user
       - POSTGRES_HOST=secret_postgres_host
-secretGenerator:
-  - name: secrets
-    type: Opaque
-    literals:
-      - POSTGRES_PASSWORD=secrets_postgres_password_generated
