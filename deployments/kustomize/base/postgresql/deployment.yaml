@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        alpha.image.policy.openshift.io/resolve-names: '*'
+        alpha.image.policy.openshift.io/resolve-names: "*"
       labels:
         connection: net-database-server
     spec:
