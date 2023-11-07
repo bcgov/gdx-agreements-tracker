@@ -1,39 +1,40 @@
 bases:
-  - network
-  - postgresql
-  - api
-  - app
+- network
+- postgresql
+- api
+- app
 namespace: default
+namePrefix: pmo-
 commonLabels:
   app: gdx-agreements-tracker
   env: local
 configMapGenerator:
-  - name: config
-    literals:
-      - POSTGRES_DB=secret_postgres_db
-      - POSTGRES_USER=secret_postgres_user
-      - POSTGRES_REGULAR_USER=secret_postgres_regular_user
-      - POSTGRES_HOST=secret_postgres_host
-      - COMMON_COMPONENT_CHES_API=secret_common_component_ches_api
-      - COMMON_COMPONENT_URL=secret_common_component_url
-      - COMMON_COMPONENT_CDOGS_API=secret_common_component_cdogs_api
-      - COMMON_COMPONENT_TOKEN_HOST=secrets_common_component_token_host
-      - COMMON_COMPONENT_TOKEN_PATH=secrets_common_component_token_path
-        #for dev api
-      - CHES_CLIENT_ID=secrets_ches_client_id
-      - CHES_SECRET=secrets_ches_secret
-      - SINGLE_SIGN_ON_API_TOKEN_HOST=secrets_single_sign_on_token_host
-      - SINGLE_SIGN_ON_API_TOKEN_PATH=secrets_single_sign_on_token_path
-      - SINGLE_SIGN_ON_API_CLIENT_ID=secrets_single_sign_on_client_id
-      - SINGLE_SIGN_ON_CLIENT_SECRET=secrets_single_sign_on_client_secret
-      - SINGLE_SIGN_ON_API=secrets_single_sign_on_api
-      - SINGLE_SIGN_ON_INTEGRATION_ID=secrets_single_sign_on_integration_id
-      - SINGLE_SIGN_ON_ENVIRONMENT=secrets_single_sign_on_environment
-    files:
-      - postgresql.conf
+- name: config
+  literals:
+  - POSTGRES_DB=secret_postgres_db
+  - POSTGRES_USER=secret_postgres_user
+  - POSTGRES_REGULAR_USER=secret_postgres_regular_user
+  - POSTGRES_HOST=secret_postgres_host
+  - COMMON_COMPONENT_CHES_API=secret_common_component_ches_api
+  - COMMON_COMPONENT_URL=secret_common_component_url
+  - COMMON_COMPONENT_CDOGS_API=secret_common_component_cdogs_api
+  - COMMON_COMPONENT_TOKEN_HOST=secrets_common_component_token_host
+  - COMMON_COMPONENT_TOKEN_PATH=secrets_common_component_token_path
+    #for dev api
+  - CHES_CLIENT_ID=secrets_ches_client_id
+  - CHES_SECRET=secrets_ches_secret
+  - SINGLE_SIGN_ON_API_TOKEN_HOST=secrets_single_sign_on_token_host
+  - SINGLE_SIGN_ON_API_TOKEN_PATH=secrets_single_sign_on_token_path
+  - SINGLE_SIGN_ON_API_CLIENT_ID=secrets_single_sign_on_client_id
+  - SINGLE_SIGN_ON_CLIENT_SECRET=secrets_single_sign_on_client_secret
+  - SINGLE_SIGN_ON_API=secrets_single_sign_on_api
+  - SINGLE_SIGN_ON_INTEGRATION_ID=secrets_single_sign_on_integration_id
+  - SINGLE_SIGN_ON_ENVIRONMENT=secrets_single_sign_on_environment
+  files:
+  - postgresql.conf
 secretGenerator:
-  - name: secrets
-    type: Opaque
-    literals:
-      - POSTGRES_PASSWORD=secrets_postgres_password_generated
-      - POSTGRES_REGULAR_USER_PASSWORD=secret_postgres_regular_user_password_generated
+- name: secrets
+  type: Opaque
+  literals:
+  - POSTGRES_PASSWORD=secrets_postgres_password_generated
+  - POSTGRES_REGULAR_USER_PASSWORD=secret_postgres_regular_user_password_generated
