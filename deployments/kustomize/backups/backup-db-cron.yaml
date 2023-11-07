@@ -11,7 +11,7 @@ metadata:
     template: "pmo-postgres-cron-cronjob"
     cronjob: "pmo-postgres-cron-backup"
 spec:
-  schedule: "31 15 * * *" #MM HH DD MM WEEKDAY
+  schedule: "09 18 * * *" #MM HH DD MM WEEKDAY
   concurrencyPolicy: Forbid
   successfulJobHistoryLimit: 3
   failedJobHistoryLimit: 2
@@ -30,7 +30,7 @@ spec:
         spec:
           containers:
             - name: pmo-postgres-backup-runner
-              image: "bcgovgdx/backup-postgres:latest"
+              image: "image-registry.openshift-image-registry.svc:5000/acd38d-tools/backup-container:postgres-15"
               command:
                 - "/bin/bash"
                 - "-c"
