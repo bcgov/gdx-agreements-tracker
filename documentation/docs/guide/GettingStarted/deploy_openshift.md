@@ -38,7 +38,6 @@ configMapGenerator:
     literals:
       - POSTGRES_DB=
       - POSTGRES_USER=
-      - POSTGRES_REGULAR_USER=
       - POSTGRES_HOST=
       - NODE_ENV=test
       - JWKSURI=

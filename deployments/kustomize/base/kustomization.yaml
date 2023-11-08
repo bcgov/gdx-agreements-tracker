@@ -12,7 +12,6 @@ configMapGenerator:
     literals:
       - POSTGRES_DB=secret_postgres_db
       - POSTGRES_USER=secret_postgres_user
-      - POSTGRES_REGULAR_USER=secret_postgres_regular_user
       - POSTGRES_HOST=secret_postgres_host
       - COMMON_COMPONENT_CHES_API=secret_common_component_ches_api
       - COMMON_COMPONENT_URL=secret_common_component_url
@@ -36,4 +35,4 @@ secretGenerator:
     type: Opaque
     literals:
       - POSTGRES_PASSWORD=secrets_postgres_password_generated
-      - POSTGRES_REGULAR_USER_PASSWORD=secret_postgres_regular_user_password_generated
+    
