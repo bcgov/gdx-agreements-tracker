@@ -1,3 +1,7 @@
+**November 8, 2023 [DESCW-1549](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1549)**
+- Removed backend read me
+
+
 **November 8, 2023 [DESCW-1685](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1685)**
 - Removed all references to postgres_regular_user account
 
