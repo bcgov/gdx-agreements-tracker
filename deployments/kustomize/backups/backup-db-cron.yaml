@@ -11,7 +11,7 @@ metadata:
     template: "postgres-cron-cronjob"
     cronjob: "postgres-cron-backup"
 spec:
-  schedule: "09 18 * * *" #MM HH DD MM WEEKDAY
+  schedule: "0 9 * * *" # 1 am PST / 0900 UTC
   concurrencyPolicy: Forbid
   successfulJobHistoryLimit: 3
   failedJobHistoryLimit: 2
