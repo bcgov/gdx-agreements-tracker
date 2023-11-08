@@ -1,7 +1,11 @@
+**November 8, 2023 [DESCW-1685](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1685)**
+- Removed all references to postgres_regular_user account
+
+
 **November 2, 2023 [DESCW-1687](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1687)**
 
 - Documentation
-  - Kubernetes and OpenShift deployments
+  - Kubernetes and OpenShift deploymentsß
   - Image builds
 - Cleaned up readme's within OpenShift and images
 - Remove unused OpenShift deployments using templates.
