@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pmo-backup-db
+  name: backup-db
 spec:
   accessModes:
     - ReadWriteMany

@@ -8,8 +8,8 @@ metadata:
     description: CronJob to backup gdx-agreements-tracker database, https://developer.gov.bc.ca/Backup-Container.
     tags: backups,pmo,postgres,gdx-agreements-tracker
   labels:
-    template: "pmo-postgres-cron-cronjob"
-    cronjob: "pmo-postgres-cron-backup"
+    template: "postgres-cron-cronjob"
+    cronjob: "postgres-cron-backup"
 spec:
   schedule: "09 18 * * *" #MM HH DD MM WEEKDAY
   concurrencyPolicy: Forbid
@@ -18,29 +18,29 @@ spec:
   jobTemplate:
     metadata:
     labels:
-      template: "pmo-postgres-cron-cronjob"
-      cronjob: "pmo-postgres-cron-backup"
+      template: "postgres-cron-cronjob"
+      cronjob: "postgres-cron-backup"
     spec:
       backoffLimit: 0
       template:
         metadata:
           labels:
-            template: "pmo-postgres-cron-cronjob"
-            cronjob: "pmo-postgres-cron-backup"
+            template: "postgres-cron-cronjob"
+            cronjob: "postgres-cron-backup"
         spec:
           containers:
-            - name: pmo-postgres-backup-runner
+            - name: postgres-backup-runner
               image: "image-registry.openshift-image-registry.svc:5000/acd38d-tools/backup-container:postgres-15"
               command:
                 - "/bin/bash"
                 - "-c"
                 - "/backup.sh -1"
               volumeMounts:
-                - name: pmo-backup-db
+                - name: backup-db
                   mountPath: /backups/
-                - name: pmo-backup-verification
+                - name: backup-verification
                   mountPath: /var/lib/pgsql/data
-                - name: pmo-backup-config
+                - name: backup-config
                   mountPath: /backup.conf
                   subPath: backup.conf
               env:
@@ -49,7 +49,7 @@ spec:
                 - name: BACKUP_DIR
                   valueFrom:
                     configMapKeyRef:
-                      name: pmo-backup-config
+                      name: backup-config
                       key: BACKUP_DIR
                 - name: MONTHLY_BACKUPS
                   value: "3"
@@ -64,15 +64,15 @@ spec:
                       name: secrets
                       key: POSTGRES_PASSWORD
           volumes:
-            - name: pmo-backup-db
+            - name: backup-db
               persistentVolumeClaim:
-                claimName: pmo-backup-db
-            - name: pmo-backup-verification
+                claimName: backup-db
+            - name: backup-verification
               persistentVolumeClaim:
-                claimName: pmo-backup-verification
-            - name: pmo-backup-config
+                claimName: backup-verification
+            - name: backup-config
               configMap:
-                name: pmo-backup-config
+                name: backup-config
                 items:
                   - key: backup.conf
                     path: backup.conf
