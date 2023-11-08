@@ -8,7 +8,7 @@ commonLabels:
   app: gdx-agreements-tracker
 # Configuration for backup
 configMapGenerator:
-  - name: pmo-backup-config
+  - name: backup-config
     literals:
       - BACKUP_DIR=/backups/
       - backup.conf=postgres=config_postgres_backup

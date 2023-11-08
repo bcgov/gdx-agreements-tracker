@@ -40,7 +40,7 @@ spec:
                   mountPath: /backups/
                 - name: pmo-backup-verification
                   mountPath: /var/lib/pgsql/data
-                - name: pmo-backup-config
+                - name: backup-config
                   mountPath: /backup.conf
                   subPath: backup.conf
               env:
@@ -49,7 +49,7 @@ spec:
                 - name: BACKUP_DIR
                   valueFrom:
                     configMapKeyRef:
-                      name: pmo-backup-config
+                      name: backup-config
                       key: BACKUP_DIR
                 - name: MONTHLY_BACKUPS
                   value: "3"
@@ -70,9 +70,9 @@ spec:
             - name: pmo-backup-verification
               persistentVolumeClaim:
                 claimName: pmo-backup-verification
-            - name: pmo-backup-config
+            - name: backup-config
               configMap:
-                name: pmo-backup-config
+                name: backup-config
                 items:
                   - key: backup.conf
                     path: backup.conf
