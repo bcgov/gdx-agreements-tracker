@@ -9,7 +9,6 @@
   ```
 * From the tenant repo, note the following in the kustomization.yaml for the project(s) you would like to change the password(s) for:
   * POSTGRES_USER
-  * POSTGRES_REGULAR_USER
   * POSTGRES_DB
 * In the same file(s), change any password(s) as needed in the section under:
     ```
@@ -20,7 +19,6 @@
       behavior: merge
       literals:
       - POSTGRESS_PASSWORD=<some-password>
-      - POSTGRES_REGULAR_USER=<some-password>
     ```
 * Commit and submit your changes in a pull request so they can be merged into main.
 * Log in to [Silver Cluster](https://console.apps.silver.devops.gov.bc.ca/k8s/cluster/projects).
