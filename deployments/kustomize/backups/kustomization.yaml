@@ -12,4 +12,3 @@ configMapGenerator:
     literals:
       - BACKUP_DIR=/backups/
       - backup.conf=postgres=config_postgres_backup
-      - POSTGRES_HOST=secret_postgres_host
