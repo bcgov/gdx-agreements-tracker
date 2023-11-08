@@ -16,7 +16,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pmo-backup-verification
+  name: backup-verification
   labels:
     role: verification-backup-container-db
 spec:
