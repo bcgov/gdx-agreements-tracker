@@ -1,3 +1,7 @@
+**November 9, 2023 [DESCW-1682](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1682)**
+- Move configurations that should be secretes into secretes
+- updated deployment for api
+
 **November 8, 2023 [DESCW-1549](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1549)**
 - Removed backend read me
 
