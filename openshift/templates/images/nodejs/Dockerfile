@@ -18,6 +18,9 @@ LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
 
 # Copy extra files to the image.
 COPY ./s2i/root/ /
+
+# this only differs from ./Dockerfile.api in that we copy to '/' instead of to /usr/local/s2i
+# it is not clear why this was changed from L17 in this file, which was commented out.
 COPY ./s2i/api/ /
 
 ENV \
