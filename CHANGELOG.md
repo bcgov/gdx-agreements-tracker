@@ -1,3 +1,6 @@
+**November 9, 2023 [DESCW-1584](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1584)**
+- Added docs for ConfirmationDialog and DeleteButton
+
 **November 9, 2023 [DESCW-1682](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1682)**
 - Move configurations that should be secretes into secretes
 - updated deployment for api

@@ -45,6 +45,7 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/ConfirmationDialog",
           "/guide/Frontend/react_components/DBLock",
           "/guide/Frontend/react_components/Debug",
+          "/guide/Frontend/react_components/DeleteButton",
         ],
       },
       {
