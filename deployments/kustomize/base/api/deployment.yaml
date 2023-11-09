@@ -15,14 +15,6 @@ spec:
       labels:
         connection: net-database-client
     spec:
-      volumes:
-        - name: postgres-secrets-volume
-          secret:
-            secretName: secrets
-            items:
-              - key: POSTGRES_PASSWORD
-                path: postgres_password
-            defaultMode: 420
       containers:
         - name: api
           image: bcgovgdx/gdx-agreements-tracker-api-run
@@ -36,19 +28,11 @@ spec:
                 configMapKeyRef:
                   name: config
                   key: POSTGRES_DB
-            - name: POSTGRES_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: config
-                  key: POSTGRES_USER
           envFrom:
             - configMapRef:
                 name: config
-          volumeMounts:
-            - name: postgres-secrets-volume
-              readOnly: true
-              mountPath: /run/secrets/postgres_password
-              subPath: postgres_password
+            - secretRef:
+                name: secrets
           resources:
             requests:
               cpu: 100m
