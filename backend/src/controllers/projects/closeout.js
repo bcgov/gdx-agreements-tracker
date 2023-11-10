@@ -23,10 +23,10 @@ controller.notify = async (request, reply) => {
     const message = {
       // TODO these will be updated in future tickets
       bodyType: "text", //"text" || "html"  This is the format of the email, can be text or html
-      body: "Placeholder", //string The Body of the email
-      from: "Placeholder", //string The From Email
-      subject: "Placeholder", //string The subject of the email
-      to: ["Placeholder"], //string[] The to Email(s) in an array
+      body: "Good day, please complete project close-out <link> to the project in the GDX agreement tracker.", //string The Body of the email
+      from: "<current user email from keycloak token>", //string The From Email
+      subject: "Project <project #> close-out.", //string The subject of the email
+      to: ["<project manager in the project>"], //string[] The to Email(s) in an array
     };
     const response = await commonComponentsController.api.post("/email", message);
     return response;
