@@ -66,10 +66,10 @@ spec:
       memory: 7Gi
   runPolicy: Serial
   triggers:
-  - type: ConfigChange
+    - type: ConfigChange
 
 ---
-# BuildConfig app-build
+# BuildConfig app-run
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
@@ -90,12 +90,12 @@ spec:
       USER 104
       CMD  /usr/libexec/s2i/run
     images:
-    - from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-app-build:dev
-      paths:
-      - destinationDir: tmp
-        sourcePath: /app/build/.
+      - from:
+          kind: ImageStreamTag
+          name: gdx-agreements-tracker-app-build:dev
+        paths:
+          - destinationDir: tmp
+            sourcePath: /app/build/.
     type: Dockerfile
   strategy:
     dockerStrategy:
@@ -116,14 +116,14 @@ spec:
       memory: 2Gi
   runPolicy: Serial
   triggers:
-  - type: ConfigChange
-  - imageChange:
-      from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-nginx-run:dev
-    type: ImageChange
-  - imageChange:
-      from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-app-build:dev
-    type: ImageChange
+    - type: ConfigChange
+    - imageChange:
+        from:
+          kind: ImageStreamTag
+          name: gdx-agreements-tracker-nginx-run:dev
+      type: ImageChange
+    - imageChange:
+        from:
+          kind: ImageStreamTag
+          name: gdx-agreements-tracker-app-build:dev
+      type: ImageChange
