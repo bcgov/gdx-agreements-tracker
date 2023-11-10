@@ -1,4 +1,4 @@
-name: Start API Image Pipeline.
+name: Start API Image Pipeline
 on:
   push:
     branches:
@@ -25,7 +25,6 @@ jobs:
           curl -LO https://github.com/tektoncd/cli/releases/download/v0.23.0/tkn_0.23.0_Linux_x86_64.tar.gz
           tar xvzf tkn_0.23.0_Linux_x86_64.tar.gz
           sudo mv tkn /usr/local/bin/
-
       - name: Image Build for gdx-agreements-tracker-api-build
         uses: redhat-developer/openshift-actions@v1.1
         with:
