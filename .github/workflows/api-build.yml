@@ -27,5 +27,4 @@ jobs:
           openshift_server_url: ${{ secrets.OpenShiftServerURL }}
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
-            oc project acd38d-tools
-            oc start-build gdx-agreements-tracker-api-build --follow
+            tkn pipeline start pipeline-gdx-agreements-build-api
