@@ -20,6 +20,12 @@ jobs:
     if: github.repository_owner == 'bcgov'
     runs-on: ubuntu-latest
     steps:
+      - name: Install Tekton CLI
+        run: |
+          curl -LO https://github.com/tektoncd/cli/releases/download/v0.23.0/tkn_0.23.0_Linux_x86_64.tar.gz
+          tar xvzf tkn_0.23.0_Linux_x86_64.tar.gz
+          sudo mv tkn /usr/local/bin/
+
       - name: Image Build for gdx-agreements-tracker-api-build
         uses: redhat-developer/openshift-actions@v1.1
         with:
