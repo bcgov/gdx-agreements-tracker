@@ -32,4 +32,4 @@ jobs:
           openshift_server_url: ${{ secrets.OpenShiftServerURL }}
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
-            tkn pipeline start pipeline-gdx-agreements-build-api
+            /usr/local/bin/tkn pipeline start pipeline-gdx-agreements-build-api
