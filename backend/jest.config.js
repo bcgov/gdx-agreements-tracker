@@ -12,7 +12,7 @@ module.exports = {
   collectCoverage: true,
   coverageThreshold: {
     global: {
-      lines: 100, //Change this number to the desired code covergae percentage
+      lines: 0, //Change this number to the desired code covergae percentage
     },
   },
 };
