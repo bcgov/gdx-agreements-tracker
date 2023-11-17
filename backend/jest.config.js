@@ -9,4 +9,10 @@ module.exports = {
     "^@helpers(.*)$": "<rootDir>/src/helpers/$1",
     "^@facilities(.*)$": "<rootDir>/src/facilities/$1",
   },
+  collectCoverage: true,
+  coverageThreshold: {
+    global: {
+      lines: 0, //Change this number to the desired code covergae percentage
+    },
+  },
 };
