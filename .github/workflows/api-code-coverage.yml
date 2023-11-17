@@ -42,7 +42,7 @@ jobs:
 
       - name: Run Backend Tests and Generate Coverage
         run: |
-          npm run test:covergage
+          npm test -- --coverage
 
 
     
