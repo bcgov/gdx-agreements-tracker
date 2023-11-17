@@ -39,7 +39,8 @@ jobs:
 
       - name: Install packages
         run: npm ci
-      #Check backend/jest.config.js for code coverage percentage
+        
+      # Check backend/jest.config.js for code coverage percentage
       - name: Run Backend Tests and Generate Coverage  
         run: | 
           npm test -- --coverage
