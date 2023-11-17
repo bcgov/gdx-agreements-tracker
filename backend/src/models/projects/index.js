@@ -57,6 +57,7 @@ const findById = (id) => {
       "p.project_goals",
       { version: "p.project_version" },
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
+      { project_manager_email: "c.email" },
       { portfolio: "p.portfolio_id" },
       //TODO this needs to be changed to ministry_id in the view
       { ministry: "p.ministry_id" },
