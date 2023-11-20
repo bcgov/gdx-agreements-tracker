@@ -42,12 +42,12 @@ The database is a postgres database, which needs to be deployed via docker compo
 ```sh
 #/backend/.env
 ...
-POSTGRES_PORT=15432
-POSTGRES_HOST=localhost
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DATABASE=gat_db
 DATABASE_AUTO_DEPLOY=1
+POSTGRES_DB=gat_db
+POSTGRES_HOST=0.0.0.0
+POSTGRES_PASSWORD=postgres
+POSTGRES_PORT=15432
+POSTGRES_USER=postgres
 ...
 ```
 
