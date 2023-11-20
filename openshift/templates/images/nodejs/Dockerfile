@@ -1,4 +1,4 @@
-# Base alpine images with node.js
+# Base alpine images with node.js for both api, and app build.
 FROM node:18.18-alpine3.18
 
 ENV BUILDER_VERSION 1.0
@@ -13,12 +13,12 @@ LABEL io.k8s.description="Platform for building Node.js Applications" \
 # to make it clear why the following COPY operation is happening
 LABEL io.openshift.s2i.scripts-url=image:///usr/local/s2i
 
-# Copy the S2I scripts from ./.s2i/bin/ to /usr/local/s2i when making the builder image
-#COPY ./s2i/bin/ /usr/local/s2i
-
-# Copy extra files to the image.
+# Copy S2I base files to the image.
 COPY ./s2i/root/ /
-COPY ./s2i/api/ /
+
+# Copy the S2I scripts from ./s2i/api/ to /usr/local/s2i for the API runtime image.
+# This runs the migrations and seeds, then runs the server.
+COPY ./s2i/api/ /usr/local/s2i
 
 ENV \
     # The $HOME is not set by default, but some applications needs this variable
@@ -49,5 +49,5 @@ EXPOSE 3000
 # can execute relative to this path.
 WORKDIR ${HOME}
 
-# Set the default CMD for the image
+# Set the default CMD for the image, without it will fail as no script usage exists.
 CMD ["usage"]
