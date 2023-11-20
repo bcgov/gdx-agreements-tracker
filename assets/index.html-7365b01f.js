@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-5b8d8068","path":"/guide/Frontend/react_components/Forms/","title":"Forms","lang":"en-US","frontmatter":{},"headers":[],"git":{"contributors":[{"name":"Shawn","email":"45861534+ShawnTurple@users.noreply.github.com","commits":1}]},"filePathRelative":"guide/Frontend/react_components/Forms/README.md"}');export{e as data};
