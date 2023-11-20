@@ -8,5 +8,5 @@ Dockerfile*
 .prettierrc.js
 jest.config.js
 package-lock.json
-yarn.lock
 sample.env
+docker-compose*
