@@ -1,22 +1,30 @@
 **November 20, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+
 - Devops
   - consolidate Dockerfile for api/app
   - cleanup run file for api
 
+**November 20, 2023 [DESCW-943](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-943)**
+
+- Frontend
+  - update local deployment documentation
+
 **November 9, 2023 [DESCW-1584](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1584)**
+
 - Added docs for ConfirmationDialog and DeleteButton
 
 **November 9, 2023 [DESCW-1682](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1682)**
+
 - Move configurations that should be secretes into secretes
 - updated deployment for api
 
 **November 8, 2023 [DESCW-1549](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1549)**
-- Removed backend read me
 
+- Removed backend README
 
 **November 8, 2023 [DESCW-1685](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1685)**
-- Removed all references to postgres_regular_user account
 
+- Removed all references to postgres_regular_user account
 
 **November 2, 2023 [DESCW-1687](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1687)**
 
@@ -27,21 +35,22 @@
 - Remove unused OpenShift deployments using templates.
 
 **November 2, 2023 [DESCW-1688](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1688)**
+
 - Deployments
   - Re-organize
+
 **November 2, 2023 [DESCW-1580](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1580)**
 
 - Frontend
-    - Added documentation for project budget display
+  - Added documentation for project budget display
 - Backend
-    - Added notify functionality for project close out notify
-    - 
+  - Added notify functionality for project close out notify
+
 **November 2, 2023 [DESCW-1516](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1516)**
 
-- Frontend
 - Backend
-    - Added notify functionality for project close out notify
-    
+  - Added notify functionality for project close out notify
+
 **November 1, 2023 [DESCW-1687](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1687)**
 
 - Backend
@@ -55,41 +64,41 @@
 
 - Frontend
 - Backend
-    - Added user section to the app that connects to the single sign on service.
+  - Added user section to the app that connects to the single sign on service.
 
 **October 31, 2023 [DESCW-1629](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1629)**
 
 - Frontend
 - Backend
-    - Upgraded @jest to fix vulnerability with @babel/traverse
+  - Upgraded @jest to fix vulnerability with @babel/traverse
 
 **October 26, 2023 [DESCW-859](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-859)**
 
 - Frontend
-    - Created new reusable health legend 
-    - Added new health legend to Project Deliverables section 
-    
-**October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
-
-- Frontend
-- Backend
-    - Added Project Code input for Project Client Coding section
-    - Reordered the inputs for the Project Client Coding section
-    - Swapped the signed date with the start date in the Project Agreement section
+  - Created new reusable health legend
+  - Added new health legend to Project Deliverables section
 
 **October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
 
 - Frontend
 - Backend
-    - Reordered the inputs for the project deliverables section
+  - Added Project Code input for Project Client Coding section
+  - Reordered the inputs for the Project Client Coding section
+  - Swapped the signed date with the start date in the Project Agreement section
 
 **October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
 
 - Frontend
-    - Added new read field type "multi select"
 - Backend
-    - Fix lingo for Project agreement summary input from Total Recovered Amount - “Total Recoverable Amount"
-    - Changed order of project contacts inputs
+  - Reordered the inputs for the project deliverables section
+
+**October 25, 2023 [DESCW-1658](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1658)**
+
+- Frontend
+  - Added new read field type "multi select"
+- Backend
+  - Fix lingo for Project agreement summary input from Total Recovered Amount - “Total Recoverable Amount"
+  - Changed order of project contacts inputs
 
 **October 24, 2023 [DESCW-1333](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1335)**
 
