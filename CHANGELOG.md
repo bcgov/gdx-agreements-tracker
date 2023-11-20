@@ -1,3 +1,8 @@
+**November 20, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+- Devops
+  - consolidate Dockerfile for api/app
+  - cleanup run file for api
+
 **November 9, 2023 [DESCW-1584](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1584)**
 - Added docs for ConfirmationDialog and DeleteButton
 
