@@ -51,18 +51,24 @@ POSTGRES_USER=postgres
 ...
 ```
 
-- Start the database by running the docker compose command `cd ./backend && docker compose up --build`
-  - if this fails you can manually build the image, starting in the **gdx-agreements-tracker** directory:
-  ```bash
-   docker volume create gdx-agreements-tracker_database # only if you have no volume set up to hold the database
-   docker build -t backend-db ./openshift/templates/images/postgres/
-   cd ./backend && docker compose up
-  ```
+- Start the database by running the docker compose command:
+
+```bash
+cd ./backend
+docker volume create gdx-agreements-tracker_database # set up a volume to hold the database
+docker compose up --build
+```
+
+- If the --build step fails you can manually build the image:
+
+```bash
+ docker build -t backend-db ./openshift/templates/images/postgres/
+ docker compose up
+```
 
 ## Set up Back-End API
 
 - Use the [Set Up and Deploy Database](#set-up-and-deploy-database) instructions above to create your .env file, or Create`./backend/.env` _(see example below)_ using [sample.env](https://github.com/bcgov/gdx-agreements-tracker/blob/development/backend/sample.env) as a template:
-
 
 ```bash
 # Refer here for configs: https://console.apps.silver.devops.gov.bc.ca/k8s/ns/acd38d-dev/configmaps/0-gdx-agreements-tracker-api-env-config/yaml
@@ -104,20 +110,21 @@ COMMON_COMPONENT_SECRET=
 COMMON_COMPONENT_URL=
 ```
 
-
 ### Seed the production database and do migrations
 
 - In order to fully seed the database with production data, the `./backend/srcs/database/production_seeds` folder needs to contain the \*.dat production seeds.
   - See the [pmo-mssql-converter README](https://apps.itsm.gov.bc.ca/bitbucket/projects/DES/repos/pmo-mssql-converter/browse/README.md?useDefaultHandler=true#50) on how to generate and copy seeds over.
-    - __DO NOT COPY THE MIGRATIONS from the pmo-mssql-converter__!
+    - **DO NOT COPY THE MIGRATIONS from the pmo-mssql-converter**!
       - those migrations will conflict with the picker options from the `08_picker_options.js` seeder!
 - To perform the migration and seeding on your local database from the **gdx-agreements-tracker** directory:
+
 ```bash
 cd ./backend
 npx knex migrate: latest
 npx knex seed:run --specific=999_production_seeder.js
 ```
-### Set up PGAdmin tool to view and make queries on your new Postgres Database
+
+### Set up PGAdmin to view and make queries
 
 - You can generate a config file for pgAdmin with the following command:
 
@@ -145,21 +152,20 @@ cat << EOF > pgAdminConfig.JSON
 }
 EOF
 ```
+
 > To use this file, simply open PGAdmin, click tools > Import / Export Servers > Import,
-select your pgAdminConfig.JSON file, and import it by following the prompts.
+> select your pgAdminConfig.JSON file, and import it by following the prompts.
 
 > If you want to configure PGAdmin without a JSON file, simply use the interface to create a new server using the database values from the JSON snippet above, or from **./backend/.env**.
 
 ### Run the Backend API
-- check which version of Node you should be using:
+
+- check which version of Node you should be using.
+
 ```bash
  cd ./backend
  cat package.json | less
-
-```
-- your version should look like this:
-
-```json
+ # your version should look like this:
 ...
   "engineStrict": true,
   "engines": {
@@ -167,66 +173,91 @@ select your pgAdminConfig.JSON file, and import it by following the prompts.
   },
 ...
 ```
+
 - Switch to the correct (currently: v18.18.0) Node version:
+
 ```bash
 cd ./backend
 nvm list # find out what versions are available for you
 nvm install  v18.18.0 # install matching version from package.json
 nvm use v18.18.0 # switch to that version
 nvm alias default v18.18.0 # Optional: set the default version
-npm i # installs dedpendencies
+npm i # installs dependencies
 npm run start # runs the backend API
 ```
 
 ---
+
 ---
+
 ## Frontend Setup and Deploy
 
-- Create/update an .env for frontend
-  - the `REACT_APP_KEYCLOAK_URL`, `REACT_APP_KEYCLOAK_CLIENT_ID`, `REACT_APP_KEYCLOAK_REALM` will have to be updated according to your keycloak server settings.
+### Set up Frontend App
 
-```sh
-#/frontend/.env
+- Create`./frontend/.env` using the example below as a template:
+- the `REACT_APP_KEYCLOAK_URL`, `REACT_APP_KEYCLOAK_CLIENT_ID`, `REACT_APP_KEYCLOAK_REALM` will have to be updated according to your [keycloak server settings](https://console.apps.silver.devops.gov.bc.ca/k8s/ns/acd38d-dev/deployments/pmo-app-deployment/yaml)
+
+```bash
+# frontend .env
 WDS_SOCKET_PORT=3000
-REACT_APP_API_URL=https://localhost:8080
-REACT_APP_KEYCLOAK_URL="https://keyloak-login-server/auth"
-REACT_APP_KEYCLOAK_CLIENT_ID="keycloak-id"
+REACT_APP_API_URL="https://localhost:8080/"
+REACT_APP_KEYCLOAK_CLIENT_ID=# see note above for value
 REACT_APP_KEYCLOAK_REALM=standard
+REACT_APP_KEYCLOAK_URL=# see note above for value
 ```
 
-- Ensure using the correct version of Node which is restricted by the `./frontend/package.json`
+- check which version of Node you should be using.
 
-```json
-  /*/frontend/package.json --- example node version*/
-  ...
+```bash
+ cd ./frontend
+ cat package.json | less
+ # your version should look like this:
+...
+  "engineStrict": true,
   "engines": {
     "node": ">=18.18.0"
-  }
-  ...
+  },
+...
 ```
 
-- go to frontend directory `cd ./frontend`
-- Using `NVM` switch versions for example `nvm use 18.18`
-- Install dependencies `yarn i`
-- Run frontend app `npm run start`
+- Switch to the correct (currently: v18.18.0) Node version:
+
+```bash
+cd ./frontend
+nvm list # find out what versions are available for you
+nvm install  v18.18.0 # install matching version from package.json
+nvm use v18.18.0 # switch to that version
+nvm alias default v18.18.0 # Optional: set the default version
+npm i # installs dependencies
+npm run start # runs the frontend App
+```
+
 - Your browser should open up at [localhost:3000](https://localhost:3000)
 
-## Deployment of Application After Setup
+### Deploy the Application After Setup
 
-- Locally Deploy database `cd ./backend && docker compose up`
-- Locally Deploy backend `cd ./backend && npm run start`
-- Locally Deploy frontend `cd ./frontend && npm run start`
-
----
----
-### APPENDIX: Locally Deleting GDX Agreements Database (in case of corruption)
-
-- If the database container is not running, go to the `./backend` folder and run `docker-compose up db`
 ```bash
-docker ps # If the database container is not running, do:
 cd ./backend
+docker compose up # starts database container
+npm run start # starts API backend
+cd ../frontend
+npm run start # starts APP frontend
+```
+
+---
+
+---
+
+### APPENDIX: How to reset local database using PGAdmin
+
+- make sure the db container is active:
+
+```bash
+cd ./backend
+docker ps # If the database container is not running, do:
 docker-compose up db
 ```
-- In pgAdmin, right click the pmo database and drop/delete it.
-- In pgAdmin, right click your pmo server and create a new database with the same name as the old pmo database.
 
+- In pgAdmin:
+  - Right click the GDX Agreements Tracker server > Remove Server
+  - Use the instructions in [Set up PGAdmin to view and make queries](#set-up-pgadmin-to-view-and-make-queries) to import settings again
