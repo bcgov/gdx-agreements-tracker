@@ -112,7 +112,7 @@ COMMON_COMPONENT_URL=
 
 ### Seed the production database and do migrations
 
-- In order to fully seed the database with production data, the `./backend/srcs/database/production_seeds` folder needs to contain the \*.dat production seeds.
+- In order to fully seed the database with production data, the `./backend/src/database/production_seeds` folder needs to contain the \*.dat production seeds.
   - See the [pmo-mssql-converter README](https://apps.itsm.gov.bc.ca/bitbucket/projects/DES/repos/pmo-mssql-converter/browse/README.md?useDefaultHandler=true#50) on how to generate and copy seeds over.
     - **DO NOT COPY THE MIGRATIONS from the pmo-mssql-converter**!
       - those migrations will conflict with the picker options from the `08_picker_options.js` seeder!
@@ -248,7 +248,7 @@ npm run start # starts APP frontend
 
 ---
 
-### APPENDIX: How to reset local database using PGAdmin
+### APPENDIX: How to delete your local database using PGAdmin
 
 - make sure the db container is active:
 
@@ -259,5 +259,8 @@ docker-compose up db
 ```
 
 - In pgAdmin:
+  - Navigate to Databases > Schemas > data
+  - right-click data and select 'Delete'
   - Right click the GDX Agreements Tracker server > Remove Server
+  - You will need to re-seed and migrate the database again before you can use it. See: [Seed the production database and do migrations](#seed-the-production-database-and-do-migrations)
   - Use the instructions in [Set up PGAdmin to view and make queries](#set-up-pgadmin-to-view-and-make-queries) to import settings again
