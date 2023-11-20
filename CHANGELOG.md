@@ -37,16 +37,16 @@
 **November 2, 2023 [DESCW-1688](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1688)**
 
 - Deployments
-
   - Re-organize
-    **November 2, 2023 [DESCW-1580](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1580)**
+
+**November 2, 2023 [DESCW-1580](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1580)**
 
 - Frontend
   - Added documentation for project budget display
 - Backend - Added notify functionality for project close out notify -
-  **November 2, 2023 [DESCW-1516](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1516)**
 
-- Frontend
+**November 2, 2023 [DESCW-1516](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1516)**
+
 - Backend
   - Added notify functionality for project close out notify
 
