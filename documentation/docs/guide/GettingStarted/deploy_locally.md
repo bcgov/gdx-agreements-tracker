@@ -37,7 +37,7 @@ A self signed certificate is required for local development deployments.
 The database is a postgres database, which needs to be deployed via docker compose.
 
 - Add a `./backend/.env` by either creating a new file or using [sample.env](https://github.com/bcgov/gdx-agreements-tracker/blob/development/backend/sample.env) as the template
-- Update/add all database [environment variables]
+- Update/add all database environment variables
 
 ```sh
 #/backend/.env
@@ -52,24 +52,35 @@ POSTGRES_USER=postgres
 ```
 
 - Start the database by running the docker compose command `cd ./backend && docker compose up --build`
-  - if this fails you can manually build the image `docker build -t backend-db ./openshift/templates/images/postgres/` and then run `cd ./backend && docker compose up`
+  - if this fails you can manually build the image, starting in the **gdx-agreements-tracker** directory:
+  ```bash
+   docker volume create gdx-agreements-tracker_database # only if you have no volume set up to hold the database
+   docker build -t backend-db ./openshift/templates/images/postgres/
+   cd ./backend && docker compose up
+  ```
 
 ## Backend Setup and Deploy
 
-- Create/update an .env for the backend
+- Use the existing .env you made above, or Create`./backend/.env` by either creating a new file or using [sample.env](https://github.com/bcgov/gdx-agreements-tracker/blob/development/backend/sample.env) as the template
+
+  - Refer here for config values:
+    [(dev) config values on OpenShift](https://console.apps.silver.devops.gov.bc.ca/k8s/ns/acd38d-dev/configmaps/0-gdx-agreements-tracker-api-env-config/yaml)
+
+  - Refer here for secret values:
+    [(dev) secret values on OpenShift](https://console.apps.silver.devops.gov.bc.ca/k8s/ns/acd38d-dev/secrets/pmo-secrets-7f57hmd56g/yaml)
 
 ```sh
-# Json web token uri
-JWKSURI=https://example.com/auth/realms/aaoozhcp/protocol/openid-connect/certs
-# Node env
+# JSON Web Key Set Universal Resource Identifier
+JWKSURI=
+# Node environment
 NODE_ENV=development
-# Database
-POSTGRES_PORT=
-POSTGRES_HOST=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_DATABASE=
+# Database Config
 DATABASE_AUTO_DEPLOY=1
+POSTGRES_DATABASE=gat_db
+POSTGRES_HOST=localhost
+POSTGRES_PASSWORD=postgres
+POSTGRES_PORT=15432
+POSTGRES_USER=postgres
 # Common Component Token host/path used for CHES and CDOGS
 COMMON_COMPONENT_TOKEN_HOST=
 COMMON_COMPONENT_TOKEN_PATH=
@@ -77,18 +88,18 @@ COMMON_COMPONENT_TOKEN_PATH=
 CDOGS_CLIENT_ID=
 CDOGS_SECRET=
 COMMON_COMPONENT_CDOGS_API=
-# Common Hosted Email API
+# Common Hosted Email Sending API
 CHES_CLIENT_ID=
 CHES_SECRET=
 COMMON_COMPONENT_CHES_API=
-# Single Sign on API
+# Single Sign-on API
+SINGLE_SIGN_ON_API=
+SINGLE_SIGN_ON_API_CLIENT_ID=
 SINGLE_SIGN_ON_API_TOKEN_HOST=
 SINGLE_SIGN_ON_API_TOKEN_PATH=
-SINGLE_SIGN_ON_API_CLIENT_ID=
 SINGLE_SIGN_ON_CLIENT_SECRET=
-SINGLE_SIGN_ON_API=
-SINGLE_SIGN_ON_INTEGRATION_ID=
 SINGLE_SIGN_ON_ENVIRONMENT=
+SINGLE_SIGN_ON_INTEGRATION_ID=
 # Deprecated
 COMMON_COMPONENT_CLIENT_ID=
 COMMON_COMPONENT_SECRET=
