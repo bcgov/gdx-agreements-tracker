@@ -44,7 +44,7 @@ The database is a postgres database, which needs to be deployed via docker compo
 ...
 DATABASE_AUTO_DEPLOY=1
 POSTGRES_DB=gat_db
-POSTGRES_HOST=0.0.0.0
+POSTGRES_HOST=localhost
 POSTGRES_PASSWORD=postgres
 POSTGRES_PORT=15432
 POSTGRES_USER=postgres
@@ -120,7 +120,7 @@ COMMON_COMPONENT_URL=
 
 ```bash
 cd ./backend
-npx knex migrate: latest
+npx knex migrate:latest
 npx knex seed:run --specific=999_production_seeder.js
 ```
 
@@ -229,7 +229,7 @@ nvm install  v18.18.0 # install matching version from package.json
 nvm use v18.18.0 # switch to that version
 nvm alias default v18.18.0 # Optional: set the default version
 npm i # installs dependencies
-npm run start # runs the frontend App
+yarn start # runs the frontend App
 ```
 
 - Your browser should open up at [localhost:3000](https://localhost:3000)
