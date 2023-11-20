@@ -20,7 +20,7 @@
 
 **November 8, 2023 [DESCW-1549](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1549)**
 
-- Removed backend read me
+- Removed backend README
 
 **November 8, 2023 [DESCW-1685](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1685)**
 
@@ -43,7 +43,8 @@
 
 - Frontend
   - Added documentation for project budget display
-- Backend - Added notify functionality for project close out notify -
+- Backend
+  - Added notify functionality for project close out notify
 
 **November 2, 2023 [DESCW-1516](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1516)**
 
