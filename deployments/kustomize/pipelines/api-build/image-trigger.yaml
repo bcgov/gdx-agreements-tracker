@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: api-build-image-trigger
+spec:
   namespaceSelector: {}
   resources: {}
   serviceAccountName: pipeline
