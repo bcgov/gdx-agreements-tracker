@@ -32,7 +32,7 @@ spec:
   source:
     contextDir: openshift/templates/images/nodejs
     git:
-      ref: feature/descw-1735-buildconfig-cleanup
+      ref: development
       uri: https://github.com/bcgov/gdx-agreements-tracker.git
     type: Git
   output:

@@ -26,7 +26,7 @@ spec:
   source:
     contextDir: frontend
     git:
-      ref: feature/descw-1735-buildconfig-cleanup
+      ref: development
       uri: https://github.com/bcgov/gdx-agreements-tracker.git
     type: Git
     images:
@@ -46,58 +46,9 @@ spec:
       name: gdx-agreements-tracker-app-run:dev
   resources:
     limits:
-      cpu: "1"
-      memory: 2Gi
+      cpu: "3"
+      memory: 4Gi
     requests:
-      cpu: "0.8m"
-      memory: 1Gi
-  runPolicy: Serial
-
----
-# BuildConfig app-build
-apiVersion: build.openshift.io/v1
-kind: BuildConfig
-metadata:
-  annotations:
-    description: Compiles the React application for GDX agreements tracker.
-  labels:
-    role: app
-  name: app-run
-spec:
-  failedBuildsHistoryLimit: 1
-  successfulBuildsHistoryLimit: 1
-  strategy:
-    dockerStrategy:
-      from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-nginx-s2i:latest
-    type: Docker
-  source:
-    dockerfile: |-
-      FROM scratch
-      COPY * /tmp/app/dist/
-      USER root
-      RUN ln -sf /etc/nginx/publicServerEnvironmentSettings.js  /tmp/app/dist/publicServerEnvironmentSettings.js
-      USER 104
-      RUN ls -la /tmp/app/dist
-      CMD  /usr/libexec/s2i/run
-    images:
-    - from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-app-build:dev
-      paths:
-      - destinationDir: tmp
-        sourcePath: /tmp/build/.
-    type: Dockerfile
-  output:
-    to:
-      kind: ImageStreamTag
-      name: gdx-agreements-tracker-app-run:dev
-  resources:
-    limits:
-      cpu: "1"
-      memory: 1Gi
-    requests:
-      cpu: "500m"
-      memory: 0.5Gi
+      cpu: "2"
+      memory: 3Gi
   runPolicy: Serial
