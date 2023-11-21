@@ -1,9 +1,12 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
+  labels:
+    app: gdx-agreements
+    env: tools
   name: api-build-pipeline
 spec:
-  tasks:
+  finally:
     - name: push-to-teams-success
       params:
         - name: webhook-url
@@ -18,10 +21,20 @@ spec:
                 "title": "[DESCW] GDX Agreements Tracker API ",
                 "sections": [
                     {
-                        "text": "This is a placeholder for now."
+                        "text": "The latest version of GDX Agreements Tracker api has been build and deployed to **dev**."
                     }
                 ],
             }
       taskRef:
         kind: Task
         name: teams-notifier
+
+  tasks:
+    - name: build-api-builder
+      params:
+        - name: SCRIPT
+          value: |
+            oc project
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
