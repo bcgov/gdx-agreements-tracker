@@ -1,4 +1,0 @@
-FROM node:18.18-alpine3.18
-WORKDIR /app
-RUN apk add --no-cache curl bash
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/docker-entrypoint.sh"]

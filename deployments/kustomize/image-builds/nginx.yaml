@@ -2,9 +2,11 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
+  annotations:
+    description: Nginx image for serving the frontend application.
   labels:
     role: nginx
-  name: gdx-agreements-tracker-nginx-run
+  name: nginx-s2i
 ---
 # BuildConfig nginx-run
 apiVersion: build.openshift.io/v1
@@ -14,11 +16,15 @@ metadata:
     description: Creates the Nginx runtime container.
   labels:
     role: nginx
-  name: gdx-agreements-tracker-nginx-run
+  name: nginx-s2i
 spec:
   failedBuildsHistoryLimit: 1
-  successfulBuildsHistoryLimit: 2
+  successfulBuildsHistoryLimit: 1
   strategy:
+    dockerStrategy:
+      from:
+        kind: DockerImage
+        name: nginx:1.25.3
     type: Docker
   source:
     contextDir: openshift/templates/images/nginx/docker
@@ -29,5 +35,9 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: gdx-agreements-tracker-nginx-run:dev
+      name: gdx-agreements-tracker-nginx-s2i:latest
+  resources:
+    limits:
+      cpu: "250m"
+      memory: 200Mi
   runPolicy: Serial

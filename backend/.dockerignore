@@ -1,8 +1,12 @@
 node_modules/
 test/
 docs/
+templates/
 Dockerfile*
 .dockerignore
 .eslint*
+.prettierrc.js
+jest.config.js
 package-lock.json
-yarn.lock
+sample.env
+docker-compose*

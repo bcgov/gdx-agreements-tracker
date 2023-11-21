@@ -1,7 +1,8 @@
 node_modules/
 docs/
-
+src/__tests*
 Dockerfile*
 .dockerignore
 package-lock.json
 yarn.lock
+README*

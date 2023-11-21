@@ -1,3 +1,11 @@
+**November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+
+- Devops
+  - re-factored build images
+  - removed unused OpenShift templates
+  - consolidated build/runs, now only run for each image
+
+  
 **November 20, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
 
 - Devops

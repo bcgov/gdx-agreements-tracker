@@ -1,5 +1,6 @@
 # Use the offical nginx (based on debian)
-FROM nginx:1.22.0
+# OpenShift uses version from buildconfig - Don't update
+FROM nginx:1
 
 # Required for HTTP Basic feature
 RUN apt-get update -y && \

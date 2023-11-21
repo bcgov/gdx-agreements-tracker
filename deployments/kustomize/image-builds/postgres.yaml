@@ -3,10 +3,10 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   annotations:
-    description: Keeps track of changes to the final runtime deploy image
+    description: PostgreSQL database image.
   labels:
-    role: postgres
-  name: gdx-agreements-tracker-postgres-run
+    role: postgresql
+  name: postgres-run
 spec:
   lookupPolicy:
     local: true
@@ -19,11 +19,11 @@ metadata:
     description: PostgreSQL runtime container
   labels:
     role: postgres
-  name: gdx-agreements-tracker-postgres-run
+  name: postgres-run
 spec:
   completionDeadlineSeconds: 1800
   failedBuildsHistoryLimit: 1
-  successfulBuildsHistoryLimit: 2
+  successfulBuildsHistoryLimit: 1
   strategy:
     dockerStrategy:
       dockerfilePath: Dockerfile
@@ -40,8 +40,8 @@ spec:
       name: gdx-agreements-tracker-postgres-run:dev
   resources:
     limits:
-      cpu: "1"
-      memory: 6Gi
+      cpu: "200m"
+      memory: 300Mi
   runPolicy: Serial
   
   
