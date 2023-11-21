@@ -1,0 +1,23 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: api-build-image-trigger
+  namespaceSelector: {}
+  resources: {}
+  serviceAccountName: pipeline
+  triggers:
+    - bindings:
+        - kind: TriggerBinding
+          ref:  api-build-trigger-binding
+      interceptors:
+        - params:
+            - name: eventTypes
+              value:
+                - pull_request
+                - push
+          ref:
+            kind: ClusterInterceptor
+            name: github
+      name: github-trigger
+      template:
+        ref:  api-build-trigger

@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: api-build-pipeline
+spec:
+  tasks:
+    - name: push-to-teams-success
+      params:
+        - name: webhook-url
+          value: gitops-value
+        - name: webhook-payload
+          value: |-
+            {
+                "@type": "MessageCard",
+                "@context": "https://schema.org/extensions",
+                "summary": "Issue 176715375",
+                "themeColor": "33cc33",
+                "title": "[DESCW] GDX Agreements Tracker API ",
+                "sections": [
+                    {
+                        "text": "This is a placeholder for now."
+                    }
+                ],
+            }
+      taskRef:
+        kind: Task
+        name: push-to-teams

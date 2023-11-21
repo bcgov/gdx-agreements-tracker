@@ -1,0 +1,21 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: api-build-trigger-route
+  labels:
+    app: gdx-agreements-tracker-api
+    app.kubernetes.io/component: gdx-agreements-tracker-api
+    app.kubernetes.io/instance: gdx-agreements-tracker-api
+    app.kubernetes.io/part-of: gdx-agreements-tracker-api-app
+  annotations:
+    openshift.io/host.generated: "true"
+spec:
+  host: gitops-value
+  to:
+    kind: Service
+    name: el-api-build-trigger
+    weight: 100
+  port:
+    targetPort: 3000-tcp
+  wildcardPolicy: None
+
