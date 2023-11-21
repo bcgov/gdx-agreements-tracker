@@ -1,5 +1,6 @@
 # Base alpine images with node.js for both api, and app build.
-FROM node:18.18-alpine3.18
+# OpenShift uses version from buildconfig - Don't update
+FROM node:18
 
 ENV BUILDER_VERSION 1.0
 

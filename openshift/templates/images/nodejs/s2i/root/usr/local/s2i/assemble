@@ -23,3 +23,4 @@ cp -Rf /tmp/src/. ./
 
 echo "---> Installing distributable dependencies..."
 npm install --omit=dev
+npm run build
