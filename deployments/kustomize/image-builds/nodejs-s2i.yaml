@@ -1,12 +1,48 @@
-# ImageStream for Node
-# Need to Update to use artifactory.
+# ImageStream node s2i
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   annotations:
-    description: Keeps track of NodeJS images that originate from Dockerhub
-  name: nodejs
+    description: The S2i build image for the backend api and for the app build process. Both should use the same version of node.
+  labels:
+    role: api
+  name: node-s2i
+
 ---
-  
-    
+# BuildConfig node s2i
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: The source to image build to create a common nodejs for app build and api server.
+  labels:
+    role: api
+  name: node-s2i
+spec:
+  completionDeadlineSeconds: 1800
+  failedBuildsHistoryLimit: 1
+  successfulBuildsHistoryLimit: 1
+  strategy:
+    strategy:
+    dockerStrategy:
+      from:
+        kind: DockerImage
+        name: node:18.18-alpine3.18
+    type: Docker
+  source:
+    contextDir: openshift/templates/images/nodejs
+    git:
+      ref: feature/descw-1735-buildconfig-cleanup
+      uri: https://github.com/bcgov/gdx-agreements-tracker.git
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-node-s2i:latest
+  resources:
+    limits:
+      cpu: "0.5"
+      memory: 500Mi
+  runPolicy: Serial
+
   

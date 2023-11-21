@@ -22,7 +22,6 @@ services:
     volumes:
       - gdx-agreements-tracker_database:/var/lib/postgresql/data
       - ../openshift/templates/images/postgres/postgresql.conf:/home/postgresql.conf
-      #- ../logs/postgresql:/var/log/postgresql
     networks:
       - gat-db
     ports:

@@ -23,4 +23,5 @@ cp -Rf /tmp/src/. ./
 
 echo "---> Installing distributable dependencies..."
 npm install --omit=dev
-npm run build
+# Just in case it might not exists add flag --if-present
+npm run build --if-present

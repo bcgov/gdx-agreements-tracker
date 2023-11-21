@@ -6,7 +6,7 @@ metadata:
     description: This is the image stream for the app build, this will then get combined with nginx
   labels:
     role: app
-  name: gdx-agreements-tracker-app-build
+  name: app-build
 
 ---
 # ImageStream app-run
@@ -17,7 +17,7 @@ metadata:
     description: This is the image stream for the app run
   labels:
     role: app
-  name: gdx-agreements-tracker-app-run
+  name: app-run
 
 ---
 # BuildConfig app-build
@@ -28,27 +28,20 @@ metadata:
     description: Compiles the React application for GDX agreements tracker.
   labels:
     role: app
-  name: gdx-agreements-tracker-app-build
+  name: app-build
 spec:
   failedBuildsHistoryLimit: 1
   successfulBuildsHistoryLimit: 2
   strategy:
-    type: Docker
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: gdx-agreements-tracker-node-s2i:latest
+      incremental: false
+    type: source
   source:
     contextDir: frontend
-    dockerfile: |-
-      FROM node:18.18.0-alpine3.18
-      WORKDIR /app
-      COPY public/ public/
-      COPY src/ src/
-      COPY package.json .
-      ADD tsconfig.json .
-      ADD .eslintrc.js .
-      ADD .eslintignore .
-      ADD .prettierrc.js .
-      RUN yarn
-      RUN yarn build --openssl-legacy-provider --prod
-
+    dockerfile: ""
     git:
       ref: development
       uri: https://github.com/bcgov/gdx-agreements-tracker.git
@@ -59,14 +52,12 @@ spec:
       name: gdx-agreements-tracker-app-build:dev
   resources:
     limits:
-      cpu: "2"
-      memory: 8Gi
+      cpu: "1"
+      memory: 1Gi
     requests:
-      cpu: "2"
-      memory: 7Gi
+      cpu: "500m"
+      memory: 500Mi
   runPolicy: Serial
-  triggers:
-  - type: ConfigChange
 
 ---
 # BuildConfig app-build
@@ -77,32 +68,34 @@ metadata:
     description: Compiles the React application for GDX agreements tracker.
   labels:
     role: app
-  name: gdx-agreements-tracker-app-run
+  name: app-run
 spec:
   failedBuildsHistoryLimit: 1
   successfulBuildsHistoryLimit: 2
-  source:
-    dockerfile: |-
-      FROM gdx-agreements-tracker-nginx-run:dev
-      COPY * /tmp/app/dist/
-      USER root
-      RUN ln -sf /etc/nginx/publicServerEnvironmentSettings.js  /tmp/app/dist/publicServerEnvironmentSettings.js
-      USER 104
-      CMD  /usr/libexec/s2i/run
-    images:
-    - from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-app-build:dev
-      paths:
-      - destinationDir: tmp
-        sourcePath: /app/build/.
-    type: Dockerfile
   strategy:
     dockerStrategy:
       from:
         kind: ImageStreamTag
-        name: gdx-agreements-tracker-nginx-run:dev
+        #name: gdx-agreements-tracker-nginx-s2i:latest
+        name: gdx-agreements-tracker-app-build:dev
+      incremental: true
     type: Docker
+  source:
+    dockerfile: |-
+      FROM scratch
+      # USER root
+      # RUN ln -sf /etc/nginx/publicServerEnvironmentSettings.js  /tmp/app/dist/publicServerEnvironmentSettings.js
+      # USER 104
+      RUN cd /tmp/src && ls -la && npm run build
+      CMD  /usr/libexec/s2i/run
+    # images:
+    # - from:
+    #     kind: ImageStreamTag
+    #     name: gdx-agreements-tracker-app-build:dev
+    #   paths:
+    #   - destinationDir: tmp
+    #     sourcePath: /tmp/src/build/.
+    type: Dockerfile
   output:
     to:
       kind: ImageStreamTag
@@ -110,20 +103,8 @@ spec:
   resources:
     limits:
       cpu: "1"
-      memory: 4Gi
+      memory: 1Gi
     requests:
-      cpu: "1"
-      memory: 2Gi
+      cpu: "500m"
+      memory: 0.5Gi
   runPolicy: Serial
-  triggers:
-  - type: ConfigChange
-  - imageChange:
-      from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-nginx-run:dev
-    type: ImageChange
-  - imageChange:
-      from:
-        kind: ImageStreamTag
-        name: gdx-agreements-tracker-app-build:dev
-    type: ImageChange
