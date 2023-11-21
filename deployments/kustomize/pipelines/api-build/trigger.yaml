@@ -1,0 +1,32 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: api-build-trigger
+  annotations: 
+    description: "This is a trigger for starting the api build pipeline"
+spec:
+  params:
+    - default: simple-react
+      name: appName
+    - default: 'https://github.com/bcgov/gdx-agreements-tracker.git'
+      name: repoUrl
+    - default: development
+      name: branchName
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: api-build-runner-
+      spec:
+        params:
+          - name: appName
+            value: $(tt.params.appName)
+          - name: repoUrl
+            value: $(tt.params.repoUrl)
+          - name: branchName
+            value: $(tt.params.branchName)
+        pipelineRef:
+          name: api-build-pipeline
+        workspaces:
+          - emptyDir: {}
+            name: git-source
