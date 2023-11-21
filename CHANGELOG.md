@@ -1,3 +1,8 @@
+
+**November 21, 2023 [DESCW-376](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-376)**
+- Devops
+    - Added Openshift api-build-pipeline trigger configs
+
 **November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
 
 - Devops
