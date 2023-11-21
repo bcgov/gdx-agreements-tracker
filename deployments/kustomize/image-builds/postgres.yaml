@@ -40,8 +40,8 @@ spec:
       name: gdx-agreements-tracker-postgres-run:dev
   resources:
     limits:
-      cpu: "1"
-      memory: 1Gi
+      cpu: "200m"
+      memory: 300Mi
   runPolicy: Serial
   
   

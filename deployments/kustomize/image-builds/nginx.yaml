@@ -36,4 +36,8 @@ spec:
     to:
       kind: ImageStreamTag
       name: gdx-agreements-tracker-nginx-s2i:latest
+  resources:
+    limits:
+      cpu: "250m"
+      memory: 200Mi
   runPolicy: Serial
