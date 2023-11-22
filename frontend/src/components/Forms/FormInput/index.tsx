@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { Checkbox, Select, MoneyField } from "../Fields";
 
 export const FormInput = ({
+  errors,
   setFieldValue,
   fieldValue,
   fieldName,
@@ -23,6 +24,7 @@ export const FormInput = ({
   projectId,
   contractId,
   required = false,
+  touched,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,6 +64,8 @@ export const FormInput = ({
               label={fieldLabel}
               id={fieldName}
               role={`${fieldName}_input`}
+              helperText={touched[fieldName] && errors[fieldName]}
+              error={touched[fieldName] && Boolean(errors[fieldName])}
             />
           </GridItem>
         </>
@@ -83,7 +87,13 @@ export const FormInput = ({
               }}
               role={`${fieldName}_input`}
               renderInput={(params: Object) => (
-                <TextField {...params} fullWidth={true} required={required} />
+                <TextField
+                  {...params}
+                  fullWidth={true}
+                  required={required}
+                  helperText={touched[fieldName] && errors[fieldName]}
+                  error={touched[fieldName] && Boolean(errors[fieldName])}
+                />
               )}
             />
           </LocalizationProvider>
@@ -103,6 +113,8 @@ export const FormInput = ({
             label={fieldLabel}
             id={fieldName}
             role={`${fieldName}_input`}
+            helperText={touched[fieldName] && errors[fieldName]}
+            error={touched[fieldName] && Boolean(errors[fieldName])}
           />
         </GridItem>
       );
@@ -120,6 +132,8 @@ export const FormInput = ({
             rows={10}
             id={fieldName}
             role={`${fieldName}_input`}
+            helperText={touched[fieldName] && errors[fieldName]}
+            error={touched[fieldName] && Boolean(errors[fieldName])}
           />
         </GridItem>
       );
@@ -139,6 +153,8 @@ export const FormInput = ({
             fieldLabel={fieldLabel}
             setFieldValue={setFieldValue as Function}
             pickerData={GetPickerOptions()}
+            helperText={touched[fieldName] && errors[fieldName]}
+            error={touched[fieldName] && Boolean(errors[fieldName])}
           />
         </GridItem>
       );
@@ -155,6 +171,8 @@ export const FormInput = ({
             label={fieldLabel}
             id={fieldName}
             role={`${fieldName}_input`}
+            helperText={touched[fieldName] && errors[fieldName]}
+            error={touched[fieldName] && Boolean(errors[fieldName])}
           />
         </GridItem>
       );
@@ -168,6 +186,8 @@ export const FormInput = ({
                 onChange={handleChange as Function}
                 fieldName={fieldName}
                 setFieldValue={setFieldValue as Function}
+                helperText={touched[fieldName] && errors[fieldName]}
+                error={touched[fieldName] && Boolean(errors[fieldName])}
               />
             }
             label={fieldLabel}

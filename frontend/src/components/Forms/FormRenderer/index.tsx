@@ -42,8 +42,15 @@ export const FormRenderer = ({
     tableName,
   });
 
-  const { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl } =
-    formConfig(formData);
+  const {
+    readFields,
+    editFields,
+    initialValues,
+    rowsToLock,
+    postUrl,
+    updateUrl,
+    validationSchema,
+  } = formConfig(formData);
   /**
    * This function handles form submission for editing or posting data and updates the UI accordingly.
    *
@@ -144,6 +151,7 @@ export const FormRenderer = ({
         initialValues={formData?.data?.data?.data}
         handleOnCancel={handleOnCancel}
         editFields={editFields}
+        validationSchema={validationSchema}
       />
     );
   }
@@ -154,6 +162,7 @@ export const FormRenderer = ({
         initialValues={initialValues}
         handleOnCancel={handleOnCancel}
         editFields={editFields}
+        validationSchema={validationSchema}
       />
     );
   }

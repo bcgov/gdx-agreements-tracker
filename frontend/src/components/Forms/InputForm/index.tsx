@@ -1,6 +1,6 @@
 import { FormInput } from "components/Forms/FormInput";
 import { Form, Formik, FormikValues } from "formik";
-import { IEditField } from "types";
+import { IEditField, YupSchema } from "types";
 import { FormButtons } from "../FormButtons";
 import { FormLayout } from "../FormLayout";
 
@@ -9,6 +9,7 @@ interface IEditForm {
   handleOnCancel: Function;
   initialValues: FormikValues;
   editFields: IEditField[];
+  validationSchema?: YupSchema<{ [key: string]: Function }>;
 }
 
 export const InputForm = ({
@@ -16,10 +17,15 @@ export const InputForm = ({
   initialValues,
   handleOnCancel,
   editFields,
+  validationSchema,
 }: IEditForm) => {
   return (
-    <Formik onSubmit={handleOnSubmit} initialValues={initialValues}>
-      {({ setFieldValue, values, handleChange, dirty }) => {
+    <Formik
+      onSubmit={handleOnSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+    >
+      {({ setFieldValue, values, handleChange, dirty, errors, touched }) => {
         return (
           <Form>
             <FormLayout>
@@ -37,6 +43,7 @@ export const InputForm = ({
                 }) => {
                   return (
                     <FormInput
+                      errors={errors}
                       setFieldValue={setFieldValue}
                       handleChange={handleChange}
                       fieldValue={values?.[fieldName]}
@@ -50,6 +57,7 @@ export const InputForm = ({
                       projectId={projectId}
                       contractId={contractId}
                       required={required}
+                      touched={touched}
                     />
                   );
                 }
