@@ -47,7 +47,7 @@ const RadioSelect = () => {
     setFieldValue("project", null);
   };
 
-  const { setFieldValue, values, handleSubmit } = formik;
+  const { setFieldValue, values, handleSubmit, touched } = formik;
 
   const handleCategoryChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setFieldValue("category", event.target.value);
@@ -150,6 +150,7 @@ const RadioSelect = () => {
                     values={values}
                     setFieldValue={setFieldValue}
                     categoriesAndTypes={categoriesAndTypes}
+                    touched={touched}
                   />
                   <CardActions>
                     <Button

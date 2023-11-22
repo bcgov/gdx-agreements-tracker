@@ -8,7 +8,13 @@ import { ICheckboxProps } from "../../../../types";
  * @returns                                                                    a JSX checkbox
  */
 
-export const Checkbox: FC<ICheckboxProps> = ({ checked, fieldName, setFieldValue }) => {
+export const Checkbox: FC<ICheckboxProps> = ({
+  checked,
+  fieldName,
+  setFieldValue,
+  helperText,
+  error,
+}) => {
   return (
     <>
       <MUICheckbox
@@ -17,6 +23,11 @@ export const Checkbox: FC<ICheckboxProps> = ({ checked, fieldName, setFieldValue
         }}
         checked={checked as boolean}
       />
+      {error && (
+        <p className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-upsu6h-MuiFormHelperText-root">
+          ${helperText}
+        </p>
+      )}
     </>
   );
 };
