@@ -12,9 +12,14 @@ const findAllById = async (projectId) => {
       "cr.role_type",
       {
         contacts: knex.raw(
-          `CASE json_agg(cp.id)::text
-          WHEN '[null]' THEN '[]'
-          ELSE json_agg(json_strip_nulls(json_build_object('value', c.id, 'label', c.last_name || ', ' || c.first_name)))
+          `CASE 
+          WHEN cp.contact_role = 6 THEN
+           json_build_object('value', c.id, 'label', c.last_name || ', ' || c.first_name)
+          ELSE 
+            CASE json_agg(cp.id)::text
+              WHEN '[null]' THEN '[]'
+              ELSE json_agg(json_strip_nulls(json_build_object('value', c.id, 'label', c.last_name || ', ' || c.first_name)))
+            END
         END`
         ),
       },
@@ -27,7 +32,7 @@ const findAllById = async (projectId) => {
       knex.raw(`cp.contact_role = cr.id AND cp.project_id = ${projectId}`)
     )
     .leftJoin(`${contactTable} as c`, { "cp.contact_id": "c.id" })
-    .groupBy("cr.id");
+    .groupBy("cr.id", "cp.contact_role", "c.id");
 };
 
 // Update one.

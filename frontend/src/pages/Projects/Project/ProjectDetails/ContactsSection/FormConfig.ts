@@ -9,6 +9,9 @@ const FormConfig = (query: FormikValues) => {
     const filterOutContacts = query?.data?.data?.data?.find(
       (item: { role_type: string }) => item.role_type === keyword
     );
+    if ("ProjectManager" === filterOutContacts?.role_type) {
+      return filterOutContacts?.contacts.label;
+    }
     return filterOutContacts?.contacts.map((contact: { label: string }) => contact.label);
   };
 
@@ -49,7 +52,7 @@ const FormConfig = (query: FormikValues) => {
           width: "half",
           title: "Project Manager",
           value: findContacts("ProjectManager"),
-          type: "multiSelect",
+          type: "select",
         },
         {
           width: "half",
@@ -99,7 +102,7 @@ const FormConfig = (query: FormikValues) => {
       width: "half",
       fieldLabel: "Project Manager",
       fieldName: 6,
-      fieldType: "multiselect",
+      fieldType: "select",
       pickerName: "contact_option",
     },
     {

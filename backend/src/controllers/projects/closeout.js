@@ -1,8 +1,10 @@
 const useController = require("@controllers/useController");
 const model = require("@models/projects/closeout");
+const projectModel = require("@models/projects");
 const what = { single: "project", plural: "projects" };
 const controller = useController(model, what);
 const useCommonComponents = require("../useCommonComponents/index.js");
+const { getUserInfo } = require("@facilities/keycloak");
 
 /**
  * Sends notification email when a project is closed out.
@@ -19,19 +21,22 @@ controller.notify = async (request, reply) => {
   // and add it to the result object.
 
   // const user = await getUserInfo(request)
+
+  const projectID = Number(request.params.id);
+  const currentUser = await getUserInfo(request);
+  const currentProjectData = await projectModel.findById(projectID);
+
   try {
     const message = {
-      // TODO these will be updated in future tickets
-      bodyType: "text", //"text" || "html"  This is the format of the email, can be text or html
-      body: "Placeholder", //string The Body of the email
-      from: "Placeholder", //string The From Email
-      subject: "Placeholder", //string The subject of the email
-      to: ["Placeholder"], //string[] The to Email(s) in an array
+      bodyType: "html", //"text" || "html"  This is the format of the email, can be text or html
+      body: `Good day, please complete <a href="https://gdx-agreements-tracker-prod.apps.silver.devops.gov.bc.ca/projects/${projectID}/close-out">project close-out</a> for the project ${currentProjectData.project_number} in the GDX agreement tracker.`, //string The Body of the email
+      from: currentUser.email, //string The From Email
+      subject: `Project ${currentProjectData.project_number} close-out.`, //string The subject of the email
+      to: [currentProjectData.project_manager_email], //string[] The to Email(s) in an array
     };
+
     const response = await commonComponentsController.api.post("/email", message);
     return response;
-
-    // return !result ? controller.noQuery(reply, `Notification could not be sent.`) : result;
   } catch (err) {
     console.error("err", err);
     return controller.failedQuery(reply, err, what);

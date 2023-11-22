@@ -8,7 +8,8 @@ const getAll = {
       S.object()
         .prop("role_id", S.number())
         .prop("role_type", S.string())
-        .prop("contacts", S.array().items(Schema.Picker))
+
+        .prop("contacts", S.anyOf([S.array().items(Schema.Picker), Schema.Picker]))
         .prop("rows_to_lock", S.array().items(Schema.Id))
     )
   ),

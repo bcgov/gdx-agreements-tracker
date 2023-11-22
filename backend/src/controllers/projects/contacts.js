@@ -2,6 +2,7 @@ const useController = require("@controllers/useController");
 const model = require("@models/projects/contacts");
 const what = { single: "project contact", plural: "project contacts" };
 const controller = useController(model, what, "projects");
+const projectsModel = require("@models/projects");
 
 /**
  * Update an item by ID. Use passed info from the request body.
@@ -11,19 +12,36 @@ const controller = useController(model, what, "projects");
  * @returns {object}
  */
 controller.updateContacts = async (request, reply) => {
-  let contacts = [];
-  for (const [key, value] of Object.entries(request.body)) {
-    value.map((row) => {
-      contacts.push({
-        contact_role: Number(key),
-        project_id: Number(request.params.id),
-        contact_id: row.value,
-      });
-    });
-  }
-
+  const projectId = Number(request.params.id);
   try {
-    const result = await model.updateOne(contacts, Number(request.params.id));
+    let contactsFormatted = [];
+    for (const [key, contactsRaw] of Object.entries(request.body)) {
+      if (contactsRaw?.value) {
+        contactsFormatted.push({
+          contact_role: 6, // 6 is the id for the project manager role.
+          projectId,
+          contact_id: contactsRaw.value,
+        });
+      } else {
+        contactsRaw?.map((row) => {
+          contactsFormatted.push({
+            contact_role: Number(key),
+            projectId,
+            contact_id: row.value,
+          });
+        });
+      }
+    }
+    const projectManager = contactsFormatted.find((contact) => 6 === contact.contact_role); // find the project manager contact using the id for the project manager role.
+    if (projectManager) {
+      await projectsModel.updateOne(
+        {
+          project_manager: projectManager.contact_id,
+        },
+        projectId
+      );
+    }
+    const result = await model.updateOne(contactsFormatted, projectId);
     return result || controller.noQuery(reply, `The ${what.single} could not be updated.`);
   } catch (err) {
     return controller.failedQuery(reply, err, what);

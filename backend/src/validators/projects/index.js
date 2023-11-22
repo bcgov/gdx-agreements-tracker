@@ -36,6 +36,8 @@ const getOne = {
       .prop("planned_budget", S.string())
       .prop("project_type", Schema.Picker)
       .prop("project_status", Schema.Picker)
+      .prop("project_manager", S.string())
+      .prop("project_manager_email", S.string())
       .prop("funding", Schema.Picker)
       .prop("total_project_budget", S.string())
       .prop("recoverable", Schema.Picker)
@@ -46,7 +48,6 @@ const getOne = {
       .prop("agreement_end_date", S.anyOf([S.string(), S.null()]))
       .prop("description", S.string())
       .prop("notes", S.anyOf([S.string(), S.null()]))
-
       .prop(
         "contracts",
         S.array().items(S.object().prop("id", S.number()).prop("co_number", S.string()))
