@@ -228,7 +228,7 @@ nvm list # find out what versions are available for you
 nvm install  v18.18.0 # install matching version from package.json
 nvm use v18.18.0 # switch to that version
 nvm alias default v18.18.0 # Optional: set the default version
-npm i # installs dependencies
+yarn # installs dependencies
 yarn start # runs the frontend App
 ```
 
@@ -241,7 +241,7 @@ cd ./backend
 docker compose up # starts database container
 npm run start # starts API backend
 cd ../frontend
-npm run start # starts APP frontend
+yarn start # starts APP frontend
 ```
 
 ---
