@@ -17,7 +17,7 @@ controller.updateContacts = async (request, reply) => {
     for (const [key, contactsRaw] of Object.entries(request.body)) {
       if (contactsRaw?.value) {
         contactsFormatted.push({
-          contact_role: 6,
+          contact_role: 6, // 6 is the id for the project manager role.
           project_id: Number(request.params.id),
           contact_id: contactsRaw.value,
         });
@@ -31,7 +31,7 @@ controller.updateContacts = async (request, reply) => {
         });
       }
     }
-    const projectManager = contactsFormatted.find((contact) => 6 === contact.contact_role);
+    const projectManager = contactsFormatted.find((contact) => 6 === contact.contact_role); // find the project manager contact using the id for the project manager role.
     if (projectManager) {
       await projectsModel.updateOne(
         {
