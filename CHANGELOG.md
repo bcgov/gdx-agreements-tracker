@@ -1,3 +1,7 @@
+**November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+- git workflows
+  - update references
+
 **November 21, 2023  Documentation: minor edit**
 - backend
   - Added project close-out notification functionality
