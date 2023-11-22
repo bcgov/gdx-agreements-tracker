@@ -23,4 +23,4 @@ jobs:
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
             oc project acd38d-tools
-            oc start-build gdx-agreements-tracker-nginx-run --follow
+            oc start-build gdx-agreements-tracker-nginx-s2i --follow
