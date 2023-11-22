@@ -1,6 +1,9 @@
+**November 21, 2023  Documentation: minor edit**
+- Documentation
+  - update frontend deploy instructions to use yarn instead of npm
 
 **November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
-- Devops 
+- Devops
   - updated postgres image base to be in buildconfig
   - slight modification to frontend Dockerfile
 - Documentation
@@ -16,7 +19,7 @@
   - removed unused OpenShift templates
   - consolidated build/runs, now only run for each image
 
-  
+
 **November 20, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
 
 - Devops
