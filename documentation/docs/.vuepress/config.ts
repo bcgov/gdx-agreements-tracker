@@ -46,6 +46,9 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/DBLock",
           "/guide/Frontend/react_components/Debug",
           "/guide/Frontend/react_components/DeleteButton",
+          {text:"Forms",children:[
+            "/guide/Frontend/react_components/Forms/Validation",
+          ]}
         ],
       },
       {

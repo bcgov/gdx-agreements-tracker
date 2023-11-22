@@ -3,7 +3,7 @@ import { IReportCategoriesAndTypesParameters } from "types";
 
 // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: any) => {
+export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes, touched }: any) => {
   const renderComponent = (parameter: IReportCategoriesAndTypesParameters) => {
     const { label, required } = parameter;
 
@@ -13,6 +13,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "fiscal":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.fiscal}`}
             fieldName="fiscal"
             fieldType={"select"}
@@ -28,6 +29,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "portfolio":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.portfolio}`}
             fieldName="portfolio"
             fieldType={"multiselect"}
@@ -43,6 +45,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "resource":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.resource}`}
             fieldName="resource"
             fieldType={"select"}
@@ -58,6 +61,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "contract":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.contract}`}
             fieldName="contract"
             fieldType={"select"}
@@ -72,6 +76,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "date":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.date}`}
             fieldName="date"
             fieldType={"date"}
@@ -86,6 +91,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "quarter":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.quarter}`}
             fieldName="quarter"
             fieldType={"select"}
@@ -100,6 +106,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "project":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.project}`}
             fieldName="project"
             fieldType={"select"}
@@ -114,6 +121,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes }: 
       case "subcontractor":
         return (
           <FormInput
+            touched={touched}
             key={`${label}-${values.subcontractor}`}
             fieldName="subcontractor"
             fieldType={"select"}

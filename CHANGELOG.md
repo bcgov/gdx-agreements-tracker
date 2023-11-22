@@ -1,3 +1,8 @@
+**November 21, 2023 [DESCW-1698](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1698)**
+- frontend
+  - Added reusable form yup validation
+  
+
 **November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
 - git workflows
   - update references

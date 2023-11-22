@@ -16,6 +16,8 @@ export const Select: FC<IPickerProps> = ({
   pickerData,
   required,
   multiple,
+  helperText,
+  error,
 }: IPickerProps) => {
   return (
     <>
@@ -36,6 +38,8 @@ export const Select: FC<IPickerProps> = ({
               label={fieldLabel ? fieldLabel : pickerData?.title}
               name={fieldName}
               {...params}
+              error={Boolean(error)}
+              helperText={helperText}
             />
           )}
           isOptionEqualToValue={(option: IOption, value: IOption) => value.value === option.value}

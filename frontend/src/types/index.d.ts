@@ -1,4 +1,6 @@
 import { GridRowsProp, GridColDef, GridInitialState } from "@mui/x-data-grid";
+import { Schema } from "yup";
+import { FormikErrors, FormikTouched, FormikValues } from "formik";
 export interface ILegendValues {
   label: string;
   color: string;
@@ -84,6 +86,8 @@ export interface IPickerProps {
   };
   required?: boolean;
   multiple?: boolean;
+  helperText: string;
+  error: boolean;
 }
 
 // Picker options for multiselect inputs.
@@ -98,6 +102,8 @@ export interface ICheckboxProps {
   checked: boolean;
   fieldName: string | number;
   setFieldValue: Function;
+  helperText: string;
+  error?: boolean;
 }
 
 export interface IPickerTableData {
@@ -242,6 +248,7 @@ export interface IInitialValues {
  * Used for FormInput component.
  */
 export interface IFormInput {
+  errors?: FormikErrors;
   setFieldValue?: Function;
   fieldValue: string | number | boolean | IOption | IOption[] | date;
   fieldName: string | number;
@@ -254,6 +261,7 @@ export interface IFormInput {
   projectId?: number | undefined;
   contractId?: number | undefined;
   required?: boolean;
+  touched: FormikTouched<FormikValues>;
 }
 
 export interface IRadioGroup {
@@ -406,6 +414,10 @@ export interface IContactRole {
   contacts: Array<IOption>;
 }
 
+export type YupSchema<T> = {
+  [K in keyof T]: Schema<T[K]>;
+};
+
 export type TFormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   deleteUrl?: string;
   readFields: {
@@ -418,6 +430,7 @@ export type TFormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   rowsToLock: number[];
   postUrl: string;
   updateUrl: string;
+  validationSchema?: YupSchema<{ [key]: Function }>;
 };
 
 export interface ITableWithModalData {
@@ -475,6 +488,8 @@ export type IReportCategoriesAndTypes = {
 }[];
 
 export interface IMoneyField {
+  helperText: string;
+  error: boolean;
   onChange: (newValue: string) => void;
   id: string;
   value: number;
