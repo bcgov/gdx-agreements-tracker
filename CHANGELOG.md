@@ -1,4 +1,10 @@
 **November 21, 2023  Documentation: minor edit**
+- backend
+  - Added project close-out notification functionality
+  - Combined project manager fields for project table and project contact table
+
+
+**November 21, 2023  Documentation: minor edit**
 - Documentation
   - update frontend deploy instructions to use yarn instead of npm
 
