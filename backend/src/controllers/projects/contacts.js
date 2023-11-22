@@ -12,7 +12,7 @@ const projectsModel = require("@models/projects");
  * @returns {object}
  */
 controller.updateContacts = async (request, reply) => {
-  const projectId = Number(request.params.id)
+  const projectId = Number(request.params.id);
   try {
     let contactsFormatted = [];
     for (const [key, contactsRaw] of Object.entries(request.body)) {
