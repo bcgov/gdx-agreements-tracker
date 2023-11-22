@@ -22,7 +22,7 @@ jobs:
     if: github.repository_owner == 'bcgov'
     runs-on: ubuntu-latest
     steps:
-      - name: Image Build for gdx-agreements-tracker-app-build
+      - name: Image Build for gdx-agreements-tracker-app-run
         uses: redhat-developer/openshift-actions@v1.1
         with:
           version: "latest"
@@ -30,4 +30,4 @@ jobs:
           parameters: '{"apitoken": "${{ secrets.OpenShiftToken }}", "acceptUntrustedCerts": "true"}'
           cmd: |
             oc project acd38d-tools
-            oc start-build gdx-agreements-tracker-app-build --follow
+            oc start-build gdx-agreements-tracker-app-run --follow
