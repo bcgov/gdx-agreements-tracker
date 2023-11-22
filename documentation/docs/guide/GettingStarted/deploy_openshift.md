@@ -5,8 +5,8 @@ In order to deploy to a kubernetes cluster, follow these steps.  [Kustomize](htt
 - Add a `kustomization.yaml` and a `patch.yaml` to your deployment
 - Copy the sample code into these files and add configuration and secretes
 - [Create images](#deploying-image-builds-to-openshift) for your deployment, which needs to be accessible by your deployment, and also match the architecture of kubernetes cluster (amd/arm)
-- View and test your deployment run `oc kustomize ./deployment`
-- Deploy your deployment `oc apply -k ./deployment`
+- Deploy to OpenShift using the `oc apply -k` command
+
 
 
 ## Deploying Gdx Agreements tracker to OpenShift
@@ -105,23 +105,11 @@ spec:
             - name: REACT_APP_KEYCLOAK_REALM
               value: ""
 ```
-
-## Deploying Image Builds to OpenShift
-
-- Create a folder for your deployment for this example we use `image-deployments`
-- Add a `kustomization.yaml` to your image-deployments
-- Copy the sample configuration into the `kkustomization.yaml`, the only thing that should need to be changed is the namespace.
-- View and test your deployment run `oc kustomize ./image-deployments`
-- Deploy your deployment `oc apply -k ./image-deployments`
-
-### kustomization.yaml
-```yaml
-#/image-deployments/kustomization.yaml
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-- github.com/bcgov/gdx-agreements-tracker/deployments/kustomize/image-builds
-namespace: 12345-tools
-#patchesStrategicMerge:
-#- patch.yaml
+### Deploying
+```sh
+# Create a kubomization.yaml, and patch.yaml
+# View your deployments (outputs to screen, but doesn't apply to OpenShift)
+oc kustomize ./deployment
+# Deploys and applies to OpenShift
+oc apply -k ./deployment
 ```

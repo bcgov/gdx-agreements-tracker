@@ -3,7 +3,8 @@
       FROM node-s2i as build
       WORKDIR /tmp
       COPY . /tmp
-      RUN yarn && yarn build --openssl-legacy-provider --prod
+      RUN yarn
+      RUN yarn build --openssl-legacy-provider --prod
 
       # Adding Nginx
       FROM nginx-s2i

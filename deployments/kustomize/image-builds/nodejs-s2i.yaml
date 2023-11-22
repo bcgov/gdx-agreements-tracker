@@ -23,7 +23,6 @@ spec:
   failedBuildsHistoryLimit: 1
   successfulBuildsHistoryLimit: 1
   strategy:
-    strategy:
     dockerStrategy:
       from:
         kind: DockerImage

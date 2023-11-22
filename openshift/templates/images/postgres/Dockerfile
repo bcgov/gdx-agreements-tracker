@@ -1,4 +1,5 @@
-FROM postgres:15.4-bullseye
+# OpenShift uses version from buildconfig - Don't update
+FROM postgres:15-bullseye
 
 RUN set -ex; \
     apt-get update; \
