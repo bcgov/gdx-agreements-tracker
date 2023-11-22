@@ -37,7 +37,7 @@ const getOne = {
       .prop("project_type", Schema.Picker)
       .prop("project_status", Schema.Picker)
       .prop("project_manager", S.string())
-      .prop("project_manager_email", S.string())   
+      .prop("project_manager_email", S.string())
       .prop("funding", Schema.Picker)
       .prop("total_project_budget", S.string())
       .prop("recoverable", Schema.Picker)

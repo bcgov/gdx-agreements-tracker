@@ -25,21 +25,18 @@ controller.notify = async (request, reply) => {
   const projectID = Number(request.params.id);
   const currentUser = await getUserInfo(request);
   const currentProjectData = await projectModel.findById(projectID);
-  console.log("currentProjectData", currentProjectData);
+
   try {
     const message = {
       bodyType: "html", //"text" || "html"  This is the format of the email, can be text or html
-      body: `Good day, please complete project close-out <a href=/projects/${projectID}/close-out></a> to the project in the GDX agreement tracker.`, //string The Body of the email
+      body: `Good day, please complete <a href="https://gdx-agreements-tracker-prod.apps.silver.devops.gov.bc.ca/projects/${projectID}/close-out">project close-out</a> for the project ${currentProjectData.project_number} in the GDX agreement tracker.`, //string The Body of the email
       from: currentUser.email, //string The From Email
       subject: `Project ${currentProjectData.project_number} close-out.`, //string The subject of the email
-      to: [currentProjectData.project_manager_email], //string[] The to Email(s) in an array //TODO need to change to send to project manager email
+      to: [currentProjectData.project_manager_email], //string[] The to Email(s) in an array
     };
 
-    console.log('message', message)
-    // const response = await commonComponentsController.api.post("/email", message);
-    // return response;
-
-    // return !result ? controller.noQuery(reply, `Notification could not be sent.`) : result;
+    const response = await commonComponentsController.api.post("/email", message);
+    return response;
   } catch (err) {
     console.error("err", err);
     return controller.failedQuery(reply, err, what);

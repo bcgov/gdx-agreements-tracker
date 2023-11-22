@@ -123,7 +123,7 @@ export const ReadField = ({
             fullWidth
             sx={{
               "& .MuiInputLabel-root ": {
-                WebkitTextFillColor: "#16008fc4",
+                WebkitTextFillColor: "#999",
               },
               "& .MuiInputBase-input.Mui-disabled": {
                 WebkitTextFillColor: "#333",
