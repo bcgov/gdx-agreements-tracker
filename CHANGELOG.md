@@ -1,4 +1,10 @@
 
+**November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+- Devops 
+  - updated postgres image base to be in buildconfig
+  - slight modification to frontend Dockerfile
+- Documentation
+  - Instruction on where to update base images for node, nginx and postgres
 **November 21, 2023 [DESCW-376](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-376)**
 - Devops
     - Added Openshift api-build-pipeline trigger configs
