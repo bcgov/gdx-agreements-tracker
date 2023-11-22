@@ -12,20 +12,21 @@ const projectsModel = require("@models/projects");
  * @returns {object}
  */
 controller.updateContacts = async (request, reply) => {
+  const projectId = Number(request.params.id)
   try {
     let contactsFormatted = [];
     for (const [key, contactsRaw] of Object.entries(request.body)) {
       if (contactsRaw?.value) {
         contactsFormatted.push({
           contact_role: 6, // 6 is the id for the project manager role.
-          project_id: Number(request.params.id),
+          projectId,
           contact_id: contactsRaw.value,
         });
       } else {
         contactsRaw?.map((row) => {
           contactsFormatted.push({
             contact_role: Number(key),
-            project_id: Number(request.params.id),
+            projectId,
             contact_id: row.value,
           });
         });
@@ -37,10 +38,10 @@ controller.updateContacts = async (request, reply) => {
         {
           project_manager: projectManager.contact_id,
         },
-        Number(request.params.id)
+        projectId
       );
     }
-    const result = await model.updateOne(contactsFormatted, Number(request.params.id));
+    const result = await model.updateOne(contactsFormatted, projectId);
     return result || controller.noQuery(reply, `The ${what.single} could not be updated.`);
   } catch (err) {
     return controller.failedQuery(reply, err, what);
