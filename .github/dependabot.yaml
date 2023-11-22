@@ -36,6 +36,13 @@ updates:
     reviewers:
       - bcgov/gdx-engagement-admin
   # Maintain dependencies for postgres database image
+  - package-ecosystem: "docker"
+    directory: "openshift/templates/images/nodejs"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 1
+    reviewers:
+      - bcgov/gdx-engagement-admin
 
 
 
