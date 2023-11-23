@@ -70,7 +70,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "full",
           title: "Total",
-          value: query?.data?.data?.data?.total
+          value: query?.data?.data?.data?.total,
         },
         {
           width: "half",
