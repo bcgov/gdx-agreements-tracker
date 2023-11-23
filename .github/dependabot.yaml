@@ -2,48 +2,38 @@
 ---
 version: 2
 updates:
-  # Maintain dependencies for nodeJS image
+  # Maintain dependencies for postgres image
   - package-ecosystem: "docker"
-    directory: "openshift/templates/images/nodejs"
+    directory: "openshift/templates/images/postgres"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 1
+    open-pull-requests-limit: 0
     reviewers:
       - bcgov/gdx-engagement-admin
 
-  # Maintain dependencies for App image
+  # Maintain dependencies for NGINX web server image
   - package-ecosystem: "docker"
-    directory: "openshift/templates/images/nodejs"
+    directory: "openshift/templates/images/nginx/docker"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 1
-    reviewers:
-      - bcgov/gdx-engagement-admin
-  # Maintain dependencies for API image
-  - package-ecosystem: "docker"
-    directory: "openshift/templates/images/nodejs"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 1
-    reviewers:
-      - bcgov/gdx-engagement-admin
-  # Maintain dependencies for nginx webserver image
-  - package-ecosystem: "docker"
-    directory: "openshift/templates/images/nodejs"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 1
-    reviewers:
-      - bcgov/gdx-engagement-admin
-  # Maintain dependencies for postgres database image
-  - package-ecosystem: "docker"
-    directory: "openshift/templates/images/nodejs"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 1
+    open-pull-requests-limit: 0
     reviewers:
       - bcgov/gdx-engagement-admin
 
+  # Maintain dependencies for NodeJS image
+  - package-ecosystem: "docker"
+    directory: "openshift/templates/images/nodejs"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 0
+    reviewers:
+      - bcgov/gdx-engagement-admin
 
-
-  ...
+  # Maintain dependencies for Frontend App image
+  - package-ecosystem: "docker"
+    directory: "frontend"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 0
+    reviewers:
+      - bcgov/gdx-engagement-admin
