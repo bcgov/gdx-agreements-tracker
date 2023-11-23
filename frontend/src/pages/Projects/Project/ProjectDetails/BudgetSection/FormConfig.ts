@@ -10,16 +10,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     : [
         {
           width: "half",
-          title: "Deliverable Name",
-          value: query?.data?.data?.data?.deliverable_name.label,
-        },
-        {
-          width: "half",
           title: "Recovery Area",
           value: query?.data?.data?.data?.recovery_area.label,
         },
         {
           width: "half",
+          title: "Deliverable Name",
+          value: query?.data?.data?.data?.deliverable_name.label,
+        },
+        {
+          width: "full",
           title: "Detail Amount",
           value: query?.data?.data?.data?.detail_amount,
         },
@@ -68,13 +68,23 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           type: "checkbox",
         },
         {
+          width: "full",
+          title: "Total",
+          value: query?.data?.data?.data?.total,
+        },
+        {
           width: "half",
           title: "Resource Type",
           value: query?.data?.data?.data?.resource_type.label,
         },
         {
           width: "half",
-          title: "Responsibility Centre",
+          title: "STOB",
+          value: query?.data?.data?.data?.stob,
+        },
+        {
+          width: "half",
+          title: "Responsibility",
           value: query?.data?.data?.data?.responsibility_centre,
         },
         {
@@ -84,18 +94,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "STOB",
-          value: query?.data?.data?.data?.stob,
-        },
-        {
-          width: "half",
           title: "Fiscal",
           value: query?.data?.data?.data?.fiscal_year.label,
-        },
-        {
-          width: "half",
-          title: "Notes",
-          value: query?.data?.data?.data?.notes,
         },
         {
           width: "half",
@@ -106,6 +106,11 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
           title: "Contract",
           value: query?.data?.data?.data?.contract_id.label,
+        },
+        {
+          width: "half",
+          title: "Notes",
+          value: query?.data?.data?.data?.notes,
         },
       ];
   const editFields: IEditField[] = [
