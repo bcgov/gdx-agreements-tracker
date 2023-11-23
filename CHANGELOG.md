@@ -1,31 +1,43 @@
+**November 22, 2023 [DESCW-432](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+
+- backend
+  - dependabot .yaml to track security/bug updates on the postgres, api, app, and s2i images
+
 **November 21, 2023 [DESCW-1698](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1698)**
+
 - frontend
   - Added reusable form yup validation
-  
 
 **November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+
 - git workflows
+
   - update references
 
-**November 21, 2023  Documentation: minor edit**
 - backend
   - Added project close-out notification functionality
   - Combined project manager fields for project table and project contact table
 
+**November 22, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
 
-**November 21, 2023  Documentation: minor edit**
+- git workflows
+  - update references
+
+**November 21, 2023 Documentation: minor edit**
+
 - Documentation
   - update frontend deploy instructions to use yarn instead of npm
 
 **November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
+
 - Devops
   - updated postgres image base to be in buildconfig
   - slight modification to frontend Dockerfile
 - Documentation
   - Instruction on where to update base images for node, nginx and postgres
-**November 21, 2023 [DESCW-376](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-376)**
+    **November 21, 2023 [DESCW-376](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-376)**
 - Devops
-    - Added Openshift api-build-pipeline trigger configs
+  - Added Openshift api-build-pipeline trigger configs
 
 **November 21, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
 
@@ -33,7 +45,6 @@
   - re-factored build images
   - removed unused OpenShift templates
   - consolidated build/runs, now only run for each image
-
 
 **November 20, 2023 [DESCW-1735](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1735)**
 

@@ -1,0 +1,30 @@
+# dependabot for checking docker images for updates
+---
+version: 2
+updates:
+  # Maintain dependencies for postgres image
+  - package-ecosystem: "docker"
+    directory: "openshift/templates/images/postgres"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 0
+    reviewers:
+      - bcgov/gdx-engagement-admin
+
+  # Maintain dependencies for NGINX web server image
+  - package-ecosystem: "docker"
+    directory: "openshift/templates/images/nginx/docker"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 0
+    reviewers:
+      - bcgov/gdx-engagement-admin
+
+  # Maintain dependencies for NodeJS image
+  - package-ecosystem: "docker"
+    directory: "openshift/templates/images/nodejs"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 0
+    reviewers:
+      - bcgov/gdx-engagement-admin
