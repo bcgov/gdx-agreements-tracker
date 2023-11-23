@@ -61,6 +61,7 @@ const getOne = {
       .prop("program_area", Schema.Picker)
       .prop("contract_id", Schema.Picker)
       .prop("responsibility_centre", S.string())
+      .prop("total", S.string())
   ),
 };
 
