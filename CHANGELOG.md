@@ -1,6 +1,9 @@
 **November 23, 2023 [DESCW-1695](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1695)**
 - Frontend
   - adjust order of inputs on the form for project budget
+- Backend
+  - add total to model
+  - add total to validator
 
 **November 22, 2023 [DESCW-432](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-432)**
 
