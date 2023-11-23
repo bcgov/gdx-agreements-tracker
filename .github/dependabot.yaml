@@ -28,12 +28,3 @@ updates:
     open-pull-requests-limit: 0
     reviewers:
       - bcgov/gdx-engagement-admin
-
-  # Maintain dependencies for Frontend App image
-  - package-ecosystem: "docker"
-    directory: "frontend"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 0
-    reviewers:
-      - bcgov/gdx-engagement-admin
