@@ -39,6 +39,10 @@
 - removed reference to debug component
 
 **November 24, 2023 [DESCW-1589](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1589)**
+- Frontend
+  - implement YUP validation for Total field in the Project Budget form
+
+**November 24, 2023 [DESCW-1589](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1589)**
 
 - Documentation
   - forms/fields/checkbox component
