@@ -1,4 +1,13 @@
+
+**November 24, 2023 [DESCW-1589](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1589)**
+
+- Documentation
+  - forms/fields/checkbox component
+  - delete config orphan for Debug component
+  - add Fields folder to documentation's react_components
+
 **November 24, 2023 [DESCW-1586](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1586)**
+
 - Frontend
   - remove the Debug Component
 

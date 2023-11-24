@@ -34,7 +34,7 @@ export default defineUserConfig({
           "/guide/GettingStarted/deploy_openshift",
           "/guide/GettingStarted/building_images",
         ]
-      }, 
+      },
       {
         text: "Frontend",
         collapsible: true,
@@ -44,9 +44,9 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/ChipNav",
           "/guide/Frontend/react_components/ConfirmationDialog",
           "/guide/Frontend/react_components/DBLock",
-          "/guide/Frontend/react_components/Debug",
           "/guide/Frontend/react_components/DeleteButton",
           {text:"Forms",children:[
+            "/guide/Frontend/react_components/Forms/Fields/Checkbox",
             "/guide/Frontend/react_components/Forms/Validation",
           ]}
         ],
