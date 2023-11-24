@@ -1,3 +1,6 @@
+**November 24, 2023**
+
+- removed reference to debug component
 
 **November 24, 2023 [DESCW-1589](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1589)**
 
