@@ -1,15 +1,35 @@
+import { object, string, number } from "yup";
 import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
-import { object, string } from "yup";
+import { FormikValues } from "formik";
+import _ from "lodash";
 
-const validationSchema = object({
-  stob: string()
-    .min(4, "Must contain exactly 4 alphanumeric characters.")
-    .max(4, "Must contain exactly 4 alphanumeric characters.")
-    .matches(/^[A-Za-z0-9]{4}$/, "Must contain exactly 4 alphanumeric characters."),
-});
+// Utilities for this Form
+/**
+ * Converts a string representing money into a number.
+ *
+ * This function takes a string input that represents money (e.g., "$1,234.56")
+ * and removes any currency symbols and commas before converting it into a
+ * floating-point number.
+ *
+ * @param   {string} str - The money string to convert.
+ * @returns {number}     The numeric value of the money string.
+ */
+const toNumber = (str = "") => _.toNumber(_.replace(str, /[,|$]/g, ""));
+
+/*
+ * Sums up Q1 - Q4 amounts and inserts them in the total field when inputs q1-q4 change.
+ */
+const onChangeQuarterlyAmount = (values: FormikValues, setFieldValue: Function) => {
+  // get the quarterly values
+  const { q1_amount: q1, q2_amount: q2, q3_amount: q3, q4_amount: q4 } = values;
+  // set the value of total
+  const quarterlyTotal = String(_.sum([q1, q2, q3, q4].map(toNumber)));
+
+  setFieldValue("total", quarterlyTotal);
+};
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -121,6 +141,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           value: query?.data?.data?.data?.notes,
         },
       ];
+
   const editFields: IEditField[] = [
     {
       width: "half",
@@ -154,6 +175,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q1 Amount",
       fieldName: "q1_amount",
       fieldType: "money",
+      onInputChange: onChangeQuarterlyAmount,
+      disabled: true,
     },
     {
       width: "half",
@@ -166,6 +189,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q2 Amount",
       fieldName: "q2_amount",
       fieldType: "money",
+      onInputChange: onChangeQuarterlyAmount,
     },
     {
       width: "half",
@@ -178,6 +202,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q3 Amount",
       fieldName: "q3_amount",
       fieldType: "money",
+      onInputChange: onChangeQuarterlyAmount,
     },
     {
       width: "half",
@@ -190,6 +215,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q4 Amount",
       fieldName: "q4_amount",
       fieldType: "money",
+      onInputChange: onChangeQuarterlyAmount,
     },
     {
       width: "half",
@@ -198,11 +224,18 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "checkbox",
     },
     {
+      width: "full",
+      fieldLabel: "Total",
+      fieldName: "total",
+      fieldType: "money",
+    },
+    {
       width: "half",
       fieldLabel: "Resource Type",
       fieldName: "resource_type",
       fieldType: "select",
       tableName: "project_budget",
+      pickerName: "resource_type_option",
     },
     {
       width: "half",
@@ -254,29 +287,73 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   const initialValues = {
-    q1_amount: "0",
-    q1_recovered: null,
-    q2_amount: "0",
-    q2_recovered: null,
-    q3_amount: "0",
-    q3_recovered: null,
-    q4_amount: "0",
-    q4_recovered: null,
-    fiscal: null,
-    project_deliverable_id: null,
-    notes: null,
-    detail_amount: "0",
+    deliverable_name: "",
     recovery_area: null,
-    resource_type: null,
-    stob: null,
-    client_coding_id: null,
+    detail_amount: "",
+    q1_amount: "",
+    q1_recovered: false,
+    q2_amount: "",
+    q2_recovered: false,
+    q3_amount: "",
+    q3_recovered: false,
+    q4_amount: "",
+    q4_recovered: false,
+    resource_type: "",
+    responsibility_centre: "",
+    service_line: "",
+    stob: "",
+    fiscal_year: "",
+    program_area: "",
     contract_id: null,
-    deliverable_name: null,
+    notes: null,
   };
-  const rowsToLock = [query?.data?.data?.data?.id];
+
+  const rowId = Number(query?.data?.data?.data?.id) ?? null;
+  const rowsToLock = null === rowId ? [] : [rowId];
   const postUrl = `/projects/budget`;
-  const updateUrl = `/projects/budget/${query?.data?.data?.data?.id}`;
+  const updateUrl = `/projects/budget/${rowId}`;
   const deleteUrl = `/projects/budget/${query}`;
+
+  // validates that the total field does not exceed the detail_amount field
+  const validationSchema = object({
+    // make sure the STOB is 4 alpha-numeric characters long
+    stob: string()
+      .min(4, "Must contain exactly 4 alphanumeric characters.")
+      .max(4, "Must contain exactly 4 alphanumeric characters.")
+      .matches(/^[A-Za-z0-9]{4}$/, "Must contain exactly 4 alphanumeric characters."),
+
+    // make sure the detail amount is filled in, then convert money to number
+    detail_amount: number()
+      .transform((value, originalValue) => toNumber(originalValue))
+      .required("Detail amount is required")
+      .positive(),
+
+    // make sure the total doesn't exceed the sum of the quarters
+    total: number()
+      .transform((value, originalValue) => toNumber(originalValue))
+      .required("Total is required")
+      .positive()
+      .test("total", "Total should should not exceed the Detail Amount.", (value, { parent }) => {
+        const detailAmount = toNumber(parent.detail_amount);
+        return value <= detailAmount;
+      })
+      .test(
+        "total",
+        "Total should equal the sum of the Q1, Q2, Q3, and Q4 amount.",
+        (value, { parent }) => {
+          const sumOfQuarters = [
+            parent.q1_amount,
+            parent.q2_amount,
+            parent.q3_amount,
+            parent.q4_amount,
+          ]
+            .map((amount) => toNumber(amount))
+            .reduce((acc, amount) => acc + amount);
+
+          return sumOfQuarters === value;
+        }
+      ),
+  });
 
   return {
     validationSchema,

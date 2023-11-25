@@ -248,6 +248,8 @@ export interface IEditField {
   pickerName?: string;
   required?: boolean;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
+  onInputChange?: Function;
+  disabled?: boolean;
 }
 
 export interface IReadField {
