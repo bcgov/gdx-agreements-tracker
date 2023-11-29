@@ -6,9 +6,9 @@ import { object, string } from "yup";
 
 const validationSchema = object({
   stob: string()
-  .min(4, 'Must contain exactly 4 alphanumeric characters.')
-  .max(4, 'Must contain exactly 4 alphanumeric characters.')
-  .matches(/^[A-Za-z0-9]{4}$/, 'Must contain exactly 4 alphanumeric characters.')
+    .min(4, "Must contain exactly 4 alphanumeric characters.")
+    .max(4, "Must contain exactly 4 alphanumeric characters.")
+    .matches(/^[A-Za-z0-9]{4}$/, "Must contain exactly 4 alphanumeric characters."),
 });
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
@@ -272,5 +272,14 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const updateUrl = `/projects/budget/${query?.data?.data?.data?.id}`;
   const deleteUrl = `/projects/budget/${query}`;
 
-  return { validationSchema, readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };
+  return {
+    validationSchema,
+    readFields,
+    editFields,
+    initialValues,
+    rowsToLock,
+    postUrl,
+    updateUrl,
+    deleteUrl,
+  };
 };
