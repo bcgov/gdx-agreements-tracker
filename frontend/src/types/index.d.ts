@@ -89,6 +89,10 @@ export interface IPickerProps {
   helperText: string;
   error: boolean;
 }
+export interface IAutocompleteTable extends IPickerProps {
+  autocompleteTableColumns: { field: string; headerName: string }[];
+  fieldValue: IOption;
+}
 
 // Picker options for multiselect inputs.
 export interface IMultiPickerProps extends Omit<IPickerProps, "fieldValue"> {
@@ -139,21 +143,6 @@ export interface IChipNav {
   key: number;
   name: string;
   url: string;
-}
-
-//Project Form Props
-export interface IProjectFormProps {
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  query?: any;
-  handleChange: Function;
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  values: any;
-  // todo: Define a good type. "Any" type temporarily permitted.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setFieldValue: any;
-  dirty: boolean;
 }
 
 //Change Request row Props
@@ -216,7 +205,8 @@ export type IEditFieldsFieldType =
   | "checkbox"
   | "number"
   | "readonly"
-  | "money";
+  | "money"
+  | "autocompleteTable";
 
 export type IWidth = "half" | "full";
 
@@ -232,6 +222,7 @@ export interface IEditField {
   contractId?: number | undefined;
   pickerName?: string;
   required?: boolean;
+  autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
 }
 
 export interface IReadField {
@@ -262,6 +253,7 @@ export interface IFormInput {
   contractId?: number | undefined;
   required?: boolean;
   touched: FormikTouched<FormikValues>;
+  autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
 }
 
 export interface IRadioGroup {
@@ -302,7 +294,7 @@ export interface IDate {
 
 export interface IOption {
   value: number | string;
-  label?: string;
+  [key: string]: string;
 }
 
 export interface ISelect {

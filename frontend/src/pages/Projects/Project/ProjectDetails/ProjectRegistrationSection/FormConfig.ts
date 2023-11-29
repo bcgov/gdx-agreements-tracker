@@ -6,68 +6,78 @@ import formatDate from "utils/formatDate";
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const { projectId } = useParams();
 
-  const readFields = [
-    { width: "half", title: "Project Number", value: query?.data?.data?.data?.project_number },
-    { width: "half", title: "Project Name", value: query?.data?.data?.data?.project_name },
-    { width: "half", title: "Version", value: query?.data?.data?.data?.project_version },
-    {
-      width: "half",
-      title: "Client Ministry Name",
-      value: query?.data?.data?.data?.ministry_id?.label,
-    },
-    {
-      width: "half",
-      title: "Registration Date",
-      value: formatDate(query?.data?.data?.data?.initiation_date),
-    },
-    {
-      width: "half",
-      title: "Portfolio Name",
-      value: query?.data?.data?.data?.portfolio_id?.label,
-    },
-    {
-      width: "half",
-      title: "Planned Start Date",
-      value: formatDate(query?.data?.data?.data?.planned_start_date),
-    },
-    { width: "half", title: "Fiscal", value: query?.data?.data?.data?.fiscal?.label },
-    {
-      width: "half",
-      title: "Planned End Date",
-      value: formatDate(query?.data?.data?.data?.planned_end_date),
-    },
-    { width: "half", title: "Planned Budget", value: query?.data?.data?.data?.planned_budget },
-    { width: "half", title: "Project Type", value: query?.data?.data?.data?.project_type?.label },
-    {
-      width: "half",
-      title: "Project Status",
-      value: query?.data?.data?.data?.project_status?.label,
-    },
-    { width: "half", title: "Funding", value: query?.data?.data?.data?.funding?.label },
-    { width: "half", title: "Total Budget", value: query?.data?.data?.data?.total_project_budget },
-    {
-      width: "half",
-      title: "Recovery Details",
-      value: query?.data?.data?.data?.recoverable?.label,
-    },
-    {
-      width: "half",
-      title: "Recoverable Total",
-      value: query?.data?.data?.data?.recoverable_amount,
-    },
-    {
-      width: "half",
-      title: "Contracts",
-      value: query?.data?.data?.data?.contracts
-        ? (query?.data?.data?.data?.contracts as Array<{ id: number; co_number: string }>).map(
-            (c) => {
-              return { link: `/contracts/${c.id}`, label: c.co_number };
-            }
-          )
-        : "",
-      type: "link",
-    },
-  ];
+  const readFields = !query
+    ? []
+    : [
+        { width: "half", title: "Project Number", value: query?.data?.data?.data?.project_number },
+        { width: "half", title: "Project Name", value: query?.data?.data?.data?.project_name },
+        { width: "half", title: "Version", value: query?.data?.data?.data?.project_version },
+        {
+          width: "half",
+          title: "Client Ministry Name",
+          value: query?.data?.data?.data?.ministry_id?.label,
+        },
+        {
+          width: "half",
+          title: "Registration Date",
+          value: formatDate(query?.data?.data?.data?.initiation_date),
+        },
+        {
+          width: "half",
+          title: "Portfolio Name",
+          value: query?.data?.data?.data?.portfolio_id?.label,
+        },
+        {
+          width: "half",
+          title: "Planned Start Date",
+          value: formatDate(query?.data?.data?.data?.planned_start_date),
+        },
+        { width: "half", title: "Fiscal", value: query?.data?.data?.data?.fiscal?.label },
+        {
+          width: "half",
+          title: "Planned End Date",
+          value: formatDate(query?.data?.data?.data?.planned_end_date),
+        },
+        { width: "half", title: "Planned Budget", value: query?.data?.data?.data?.planned_budget },
+        {
+          width: "half",
+          title: "Project Type",
+          value: query?.data?.data?.data?.project_type?.label,
+        },
+        {
+          width: "half",
+          title: "Project Status",
+          value: query?.data?.data?.data?.project_status?.label,
+        },
+        { width: "half", title: "Funding", value: query?.data?.data?.data?.funding?.label },
+        {
+          width: "half",
+          title: "Total Budget",
+          value: query?.data?.data?.data?.total_project_budget,
+        },
+        {
+          width: "half",
+          title: "Recovery Details",
+          value: query?.data?.data?.data?.recoverable?.label,
+        },
+        {
+          width: "half",
+          title: "Recoverable Total",
+          value: query?.data?.data?.data?.recoverable_amount,
+        },
+        {
+          width: "half",
+          title: "Contracts",
+          value: query?.data?.data?.data?.contracts
+            ? (query?.data?.data?.data?.contracts as Array<{ id: number; co_number: string }>).map(
+                (c) => {
+                  return { link: `/contracts/${c.id}`, label: c.co_number };
+                }
+              )
+            : "",
+          type: "link",
+        },
+      ];
   const editFields: IEditField[] = [
     {
       fieldName: "project_number",

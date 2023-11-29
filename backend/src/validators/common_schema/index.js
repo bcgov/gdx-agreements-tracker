@@ -17,9 +17,9 @@ const Schema = {
   Id: Id,
   IdParam: S.object().prop("id", Id),
   Phone: S.oneOf([S.string().pattern("^[0-9]{3} [0-9]{3}-[0-9]{4}$"), S.const("")]),
-  Picker: S.object()
-    .prop("value", S.anyOf([Id, S.string(), S.null()]))
-    .prop("label", S.string()),
+  Picker: S.object().patternProperties({
+    "^.*$": S.anyOf([Id, S.string(), S.null()]), // Match any string as the property name
+  }),
   ShortString: S.string().maxLength(MaxStringLength),
   Uri: S.oneOf([S.string().format(S.FORMATS.URI), S.const("")]),
   Enum: (list) => {
