@@ -21,7 +21,7 @@
     "@types/react-table": "^7.7.9",
     "@types/react-test-renderer": "^18.0.0",
     "autonumeric": "^4.10.0",
-    "axios": "^0.24.0",
+    "axios": "^1.6.2",
     "dayjs": "^1.11.8",
     "formik": "^2.2.9",
     "jsdoc": "^3.6.11",
