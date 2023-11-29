@@ -1,3 +1,7 @@
+**November 29, 2023 [DESCW-1728](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1728)**
+
+- Update Axios to 1.6.2. 
+
 **November 24, 2023**
 
 - removed reference to debug component
