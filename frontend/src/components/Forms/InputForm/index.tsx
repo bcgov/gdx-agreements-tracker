@@ -1,7 +1,7 @@
-import { FormInput } from "components/Forms/FormInput";
+import { FormInput } from "components/Forms/Fields";
 import { Form, Formik, FormikValues } from "formik";
 import { IEditField, YupSchema } from "types";
-import { FormButtons } from "../FormButtons";
+import { FormButtons } from "./FormButtons";
 import { FormLayout } from "../FormLayout";
 
 interface IEditForm {
@@ -40,6 +40,7 @@ export const InputForm = ({
                   projectId,
                   contractId,
                   required,
+                  autocompleteTableColumns,
                 }) => {
                   return (
                     <FormInput
@@ -58,6 +59,7 @@ export const InputForm = ({
                       contractId={contractId}
                       required={required}
                       touched={touched}
+                      autocompleteTableColumns={autocompleteTableColumns}
                     />
                   );
                 }

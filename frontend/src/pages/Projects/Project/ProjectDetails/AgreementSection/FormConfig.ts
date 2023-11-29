@@ -6,30 +6,32 @@ import formatDate from "utils/formatDate";
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const { projectId } = useParams();
 
-  const readFields = [
-    {
-      width: "half",
-      title: "Agreement Type",
-      value: query?.data?.data?.data?.agreement_type?.label,
-    },
-    {
-      width: "half",
-      title: "Signed Date",
-      value: formatDate(query?.data?.data?.data?.agreement_signed_date),
-    },
-    {
-      width: "half",
-      title: "Start Date",
-      value: formatDate(query?.data?.data?.data?.agreement_start_date),
-    },
-    {
-      width: "half",
-      title: "End Date",
-      value: formatDate(query?.data?.data?.data?.agreement_end_date),
-    },
-    { width: "full", title: "Description", value: query?.data?.data?.data?.description },
-    { width: "full", title: "Notes", value: query?.data?.data?.data?.notes },
-  ];
+  const readFields = !query
+    ? []
+    : [
+        {
+          width: "half",
+          title: "Agreement Type",
+          value: query?.data?.data?.data?.agreement_type?.label,
+        },
+        {
+          width: "half",
+          title: "Signed Date",
+          value: formatDate(query?.data?.data?.data?.agreement_signed_date),
+        },
+        {
+          width: "half",
+          title: "Start Date",
+          value: formatDate(query?.data?.data?.data?.agreement_start_date),
+        },
+        {
+          width: "half",
+          title: "End Date",
+          value: formatDate(query?.data?.data?.data?.agreement_end_date),
+        },
+        { width: "full", title: "Description", value: query?.data?.data?.data?.description },
+        { width: "full", title: "Notes", value: query?.data?.data?.data?.notes },
+      ];
 
   const editFields: IEditField[] = [
     {

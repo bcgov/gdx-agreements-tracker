@@ -15,17 +15,19 @@ const databaseConnection = () => {
         { title: knex.raw(`'${option.title}'`) },
         { description: knex.raw(`'${option.description}'`) },
         {
-          definition: knex.raw(`
-        (
-          SELECT COALESCE(json_agg(${option.id}), '[]')
-          FROM (
-            SELECT ${option.value} AS value, 
-            ${option.label} AS label 
-            FROM ${option.table}
-            ${option?.queryAdditions}
-          ) 
-          ${option.id}
-        )`),
+          definition: option.customDefinition
+            ? knex.raw(option.customDefinition)
+            : knex.raw(`
+          (
+            SELECT COALESCE(json_agg(${option.id}), '[]')
+            FROM (
+              SELECT ${option.value} AS value, 
+              ${option.label} AS label 
+              FROM ${option.table}
+              ${option?.queryAdditions}
+            ) 
+            ${option.id}
+          )`),
         },
         { associated_form: knex.raw("'_options'") }
       );
