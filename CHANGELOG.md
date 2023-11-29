@@ -1,6 +1,11 @@
+**November 29, 2023 [DESCW-1696](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1696)**
+
+- Frontend
+  - Added new Autocomplete table dropdown
+
 **November 29, 2023 [DESCW-1728](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1728)**
 
-- Update Axios to 1.6.2. 
+- Update Axios to 1.6.2.
 
 **November 24, 2023**
 
