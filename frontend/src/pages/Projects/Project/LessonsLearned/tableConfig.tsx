@@ -12,7 +12,7 @@ export const tableConfig = () => {
   const initialState = {
     filter: {
       filterModel: {
-        items: [{ columnField: "amount", operatorValue: "equals", value: "Active" }],
+        items: [{ columnField: "amount", operator: "equals", value: "Active" }],
       },
     },
   };

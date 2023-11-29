@@ -184,11 +184,30 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
   ];
 
+  const initialValues = {
+    project_number: "",
+    project_name: "",
+    project_version: "",
+    ministry_id: "",
+    initiation_date: "",
+    portfolio_id: "",
+    planned_start_date: "",
+    planned_end_date: "",
+    planned_budget: "",
+    project_type: "",
+    project_status: "",
+    funding: "",
+    total_project_budget: "",
+    recoverable: false,
+    recoverable_amount: "",
+    co_number: "",
+  };
+
   const rowsToLock = [Number(projectId)];
 
   const postUrl = "/projects";
 
   const updateUrl = `/projects/${projectId}`;
 
-  return { readFields, editFields, rowsToLock, postUrl, updateUrl };
+  return { initialValues, readFields, editFields, rowsToLock, postUrl, updateUrl };
 };

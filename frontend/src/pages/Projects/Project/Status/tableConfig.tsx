@@ -21,7 +21,7 @@ export const tableConfig = () => {
   const initialState = {
     filter: {
       filterModel: {
-        items: [{ columnField: "status_date", operatorValue: "equals", value: "Active" }],
+        items: [{ columnField: "status_date", operator: "equals", value: "Active" }],
       },
     },
   };

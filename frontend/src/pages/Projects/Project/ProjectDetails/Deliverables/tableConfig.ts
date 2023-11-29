@@ -35,7 +35,7 @@ export const tableConfig = () => {
   const initialState = {
     filter: {
       filterModel: {
-        items: [{ columnField: "status", operatorValue: "equals", value: "Active" }],
+        items: [{ columnField: "status", operator: "equals", value: "Active" }],
       },
     },
   };
