@@ -2,6 +2,14 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
+import { object, string } from "yup";
+
+const validationSchema = object({
+  stob: string()
+    .min(4, "Must contain exactly 4 alphanumeric characters.")
+    .max(4, "Must contain exactly 4 alphanumeric characters.")
+    .matches(/^[A-Za-z0-9]{4}$/, "Must contain exactly 4 alphanumeric characters."),
+});
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -264,5 +272,14 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const updateUrl = `/projects/budget/${query?.data?.data?.data?.id}`;
   const deleteUrl = `/projects/budget/${query}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };
+  return {
+    validationSchema,
+    readFields,
+    editFields,
+    initialValues,
+    rowsToLock,
+    postUrl,
+    updateUrl,
+    deleteUrl,
+  };
 };
