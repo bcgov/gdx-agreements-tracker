@@ -1,4 +1,4 @@
-import { FormInput } from "components/Forms/FormInput";
+import { FormInput } from "components/Forms/Fields";
 import { IReportCategoriesAndTypesParameters } from "types";
 
 // todo: Define a good type. "Any" type temporarily permitted.
