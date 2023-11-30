@@ -76,8 +76,13 @@ export const FormRenderer = ({
           currentRowData: formData.data?.data.data,
           tableName,
         }).then(async () => {
-          await removeLock(formData, rowsToLock).then(() => {
-            handleFormType("read");
+          await removeLock(formData, rowsToLock).then(async () => {
+            await queryClient.invalidateQueries().then(() => {
+              handleFormType("read");
+              handleSnackbarMessage("success");
+              handleSnackbarType("success");
+              handleSnackbar();
+            });
           });
         });
       } else {
@@ -93,12 +98,6 @@ export const FormRenderer = ({
       handleSnackbarType("error");
       handleSnackbar();
     }
-
-    handleSnackbarMessage("success");
-    handleSnackbarType("success");
-    handleSnackbar();
-    //TODO Make the invalidation of queries more efficient.
-    queryClient.invalidateQueries();
   };
 
   /**
@@ -132,23 +131,28 @@ export const FormRenderer = ({
   }
 
   if ("edit" === formType) {
-    if (Array.isArray(formData?.data?.data?.data) && formData?.data) {
-      const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};
-      formData?.data?.data?.data.map(
-        (role: {
-          role_id: number;
-          role_type: string;
-          contacts: { [key: string]: string | number }[];
-        }) => {
-          newInitialValues[role.role_id] = role.contacts;
-        }
-      );
-      formData.data.data.data = newInitialValues;
-    }
+    const formatEditValues = () => {
+      if (Array.isArray(formData?.data?.data?.data) && formData?.data) {
+        const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};
+        formData?.data?.data?.data.map(
+          (role: {
+            role_id: number;
+            role_type: string;
+            contacts: { [key: string]: string | number }[];
+          }) => {
+            newInitialValues[role.role_id] = role.contacts;
+          }
+        );
+        return newInitialValues;
+      } else {
+        return formData?.data?.data?.data;
+      }
+    };
+
     return (
       <InputForm
         handleOnSubmit={handleOnSubmit}
-        initialValues={formData?.data?.data?.data}
+        initialValues={formatEditValues()}
         handleOnCancel={handleOnCancel}
         editFields={editFields}
         validationSchema={validationSchema}

@@ -19,14 +19,14 @@ controller.updateContacts = async (request, reply) => {
       if (contactsRaw?.value) {
         contactsFormatted.push({
           contact_role: 6, // 6 is the id for the project manager role.
-          projectId,
+          project_id:projectId,
           contact_id: contactsRaw.value,
         });
       } else {
         contactsRaw?.map((row) => {
           contactsFormatted.push({
             contact_role: Number(key),
-            projectId,
+            project_id:projectId,
             contact_id: row.value,
           });
         });
@@ -44,6 +44,7 @@ controller.updateContacts = async (request, reply) => {
     const result = await model.updateOne(contactsFormatted, projectId);
     return result || controller.noQuery(reply, `The ${what.single} could not be updated.`);
   } catch (err) {
+    console.log('err', err)
     return controller.failedQuery(reply, err, what);
   }
 };
