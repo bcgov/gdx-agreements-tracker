@@ -1,3 +1,7 @@
+**November 30, 2023 [DESCW-1772](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1772)**
+
+- fix for project contacts section
+
 **November 29, 2023 [DESCW-1700](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1700)**
 
 - Add Yup validation to STOB input in budget section of projects.

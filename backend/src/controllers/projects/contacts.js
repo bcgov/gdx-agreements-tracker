@@ -19,14 +19,14 @@ controller.updateContacts = async (request, reply) => {
       if (contactsRaw?.value) {
         contactsFormatted.push({
           contact_role: 6, // 6 is the id for the project manager role.
-          projectId,
+          project_id: projectId,
           contact_id: contactsRaw.value,
         });
       } else {
         contactsRaw?.map((row) => {
           contactsFormatted.push({
             contact_role: Number(key),
-            projectId,
+            project_id: projectId,
             contact_id: row.value,
           });
         });
