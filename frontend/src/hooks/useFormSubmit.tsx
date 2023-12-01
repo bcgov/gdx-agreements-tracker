@@ -65,12 +65,5 @@ export const useFormSubmit = () => {
     }
   };
 
-  // ... (other functions)
-
-  //TODO Remove this component and update where it's being used with a new method for snackbar rendering
-  const Notification = () => {
-    return <div></div>;
-  };
-
-  return { handlePost, handleUpdate, handleDelete, Notification };
+  return { handlePost, handleUpdate, handleDelete };
 };
