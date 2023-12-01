@@ -6,8 +6,8 @@ export const useSnackbar = () => {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState<AlertColor>("info");
 
-  const handleSnackbar = () => {
-    setSnackbarOpen(!snackbarOpen);
+  const handleSnackbar = (status: boolean) => {
+    setSnackbarOpen(status);
   };
 
   const handleSnackbarMessage = (snackbarMessage: string) => {
@@ -17,7 +17,6 @@ export const useSnackbar = () => {
   const handleSnackbarType = (sncakbarType: AlertColor) => {
     setSnackbarType(sncakbarType);
   };
-
   return {
     handleSnackbar,
     handleSnackbarMessage,

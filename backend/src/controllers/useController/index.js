@@ -11,11 +11,12 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @param {object}       what  The type of model being accessed
    */
   const failedQuery = (reply, error, what) => {
+    let statusCode = reply.statusCode;
     if (reply.statusCode <= 299) {
-      reply.code(500);
+      statusCode = 500;
     }
     log.warn(error);
-    send(reply.statusCode, reply, error);
+    send(statusCode, reply, error);
   };
 
   /**
@@ -53,10 +54,8 @@ const useController = (model, what, capabilityPrefix = null) => {
    * @param {string}       message    The message to display to indicate the issue.
    */
   const send = (statusCode, reply, message) => {
-    if (reply.statusCode <= 299) {
-      reply.code(statusCode);
-      reply.send({ message });
-    }
+    reply.code(statusCode);
+    reply.send({ message });
   };
 
   /**
