@@ -1,3 +1,8 @@
+**December 1, 2023 [DESCW-1774](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1774)**
+
+- Frontend Backend
+    - Added better error handling
+
 **November 30, 2023 [DESCW-1772](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1772)**
 
 - fix for project contacts section
