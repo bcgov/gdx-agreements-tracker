@@ -67,6 +67,7 @@ export const FormRenderer = ({
   } = useSnackbar();
 
   const { formType, handleFormType, handleClose } = formControls;
+
   const handleOnSubmit = async (values: unknown) => {
     try {
       if ("edit" === formType || formData?.data?.data?.dbRowLock?.currentUser) {
@@ -81,7 +82,7 @@ export const FormRenderer = ({
               handleFormType("read");
               handleSnackbarMessage("success");
               handleSnackbarType("success");
-              handleSnackbar();
+              handleSnackbar(true);
             });
           });
         });
@@ -93,10 +94,9 @@ export const FormRenderer = ({
         });
       }
     } catch (error) {
-      console.error("error", error);
-      handleSnackbarMessage("fail");
+      handleSnackbarMessage((error as { message: string }).message as string);
       handleSnackbarType("error");
-      handleSnackbar();
+      handleSnackbar(true);
     }
   };
 
@@ -126,78 +126,78 @@ export const FormRenderer = ({
     handleFormType("edit");
   };
 
-  if (formData.isLoading) {
+  if (!formData.data) {
     return <LinearProgress />;
   }
 
-  if ("edit" === formType) {
-    const formatEditValues = () => {
-      if (Array.isArray(formData?.data?.data?.data) && formData?.data) {
-        const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};
-        formData?.data?.data?.data.map(
-          (role: {
-            role_id: number;
-            role_type: string;
-            contacts: { [key: string]: string | number }[];
-          }) => {
-            newInitialValues[role.role_id] = role.contacts;
-          }
-        );
-        return newInitialValues;
-      } else {
-        return formData?.data?.data?.data;
-      }
-    };
+  const formatEditValues = () => {
+    if (Array.isArray(formData?.data?.data?.data) && formData?.data) {
+      const newInitialValues: { [key: string]: { [key: string]: string | number }[] } = {};
+      formData?.data?.data?.data.map(
+        (role: {
+          role_id: number;
+          role_type: string;
+          contacts: { [key: string]: string | number }[];
+        }) => {
+          newInitialValues[role.role_id] = role.contacts;
+        }
+      );
+      return newInitialValues;
+    } else {
+      return formData?.data?.data?.data;
+    }
+  };
 
-    return (
-      <InputForm
-        handleOnSubmit={handleOnSubmit}
-        initialValues={formatEditValues()}
-        handleOnCancel={handleOnCancel}
-        editFields={editFields}
-        validationSchema={validationSchema}
-      />
-    );
-  }
-  if ("new" === formType) {
-    return (
-      <InputForm
-        handleOnSubmit={handleOnSubmit}
-        initialValues={initialValues}
-        handleOnCancel={handleOnCancel}
-        editFields={editFields}
-        validationSchema={validationSchema}
-      />
-    );
-  }
-  if ("read" === formType) {
-    return (
-      <>
-        <ReadForm fields={readFields} />
+  switch (formType) {
+    case "edit":
+    case "new":
+      return (
+        <>
+          <InputForm
+            handleOnSubmit={handleOnSubmit}
+            initialValues={"edit" === formType ? formatEditValues() : initialValues}
+            handleOnCancel={handleOnCancel}
+            editFields={editFields}
+            validationSchema={validationSchema}
+          />
+          <NotificationSnackBar
+            snackbarMessage={snackbarMessage}
+            snackbarOpen={snackbarOpen}
+            snackbarType={snackbarType}
+            handleSnackbar={handleSnackbar}
+          />
+        </>
+      );
+    case "read":
+      return (
+        <>
+          <ReadForm fields={readFields} />
 
-        <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
-          {"edit" === formType ||
-            ("new" === formType && (
-              <Box>
-                <Button variant="contained" onClick={handleOnCancel} color="secondary">
-                  Cancel
-                </Button>
-              </Box>
-            ))}
-          <Box ml={1}>
-            <Button variant="contained" onClick={handleOnChange} disabled={isReadOnly}>
-              Change Section
-            </Button>
+          <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
+            {"edit" === formType ||
+              ("new" === formType && (
+                <Box>
+                  <Button variant="contained" onClick={handleOnCancel} color="secondary">
+                    Cancel
+                  </Button>
+                </Box>
+              ))}
+            <Box ml={1}>
+              <Button variant="contained" onClick={handleOnChange} disabled={isReadOnly}>
+                Change Section
+              </Button>
+            </Box>
           </Box>
-        </Box>
-        <NotificationSnackBar
-          snackbarMessage={snackbarMessage}
-          snackbarOpen={snackbarOpen}
-          snackbarType={snackbarType}
-          handleSnackbar={handleSnackbar}
-        />
-      </>
-    );
+          <NotificationSnackBar
+            snackbarMessage={snackbarMessage}
+            snackbarOpen={snackbarOpen}
+            snackbarType={snackbarType}
+            handleSnackbar={handleSnackbar}
+          />
+        </>
+      );
+
+    default:
+      return <LinearProgress />;
   }
-  return <LinearProgress />;
 };

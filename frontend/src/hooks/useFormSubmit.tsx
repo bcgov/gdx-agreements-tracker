@@ -33,20 +33,8 @@ export const useFormSubmit = () => {
       }
     }
 
-    axiosAll()
-      .put(apiUrl, deltaChanges)
-      .then((data) => {
-        return data.status;
-      })
-      .catch((err: string) => {
-        console.error("error:", err);
-        alert(`${err}:
-        Please check whether the Project Number is unique.
-        If you enter a project number that has already been assigned,
-        your changes will not be saved.
-        `);
-        return err;
-      });
+    const response = await axiosAll().put(apiUrl, deltaChanges);
+    return response.data;
   };
 
   const handlePost = async ({ formValues, apiUrl }: IUseFormSubmitHandlePost) => {
@@ -62,30 +50,20 @@ export const useFormSubmit = () => {
         }
       }
     }
-    return await axiosAll()
-      .post(apiUrl, formattedValues)
-      .then((results) => {
-        return results.data.data;
-      })
-      .catch((err: string) => {
-        console.error("error:", err);
-      });
+
+    const response = await axiosAll().post(apiUrl, formattedValues);
+    return response.data.data;
   };
 
   const handleDelete = async ({ apiUrl }: { apiUrl: string }) => {
-    return axiosAll()
-      .delete(apiUrl)
-      .then((response) => {
-        Promise.resolve(response);
-      })
-      .catch((err: string) => {
-        console.error("error:", err);
-      });
-  };
-  //TODO Remove this component and update where it's being used with new method for snackbar rendering
-  const Notification = () => {
-    return <div></div>;
+    try {
+      const response = await axiosAll().delete(apiUrl);
+      Promise.resolve(response);
+    } catch (error) {
+      console.error("error:", error);
+      throw error; // Ensure the error is propagated
+    }
   };
 
-  return { handlePost, handleUpdate, handleDelete, Notification };
+  return { handlePost, handleUpdate, handleDelete };
 };

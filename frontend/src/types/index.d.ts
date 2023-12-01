@@ -1,6 +1,31 @@
 import { GridRowsProp, GridColDef, GridInitialState } from "@mui/x-data-grid";
 import { Schema } from "yup";
 import { FormikErrors, FormikTouched, FormikValues } from "formik";
+
+export interface IUseAxiosHandleError {
+  response: {
+    data: {
+      data: {
+        message: {
+          length: number;
+          name: string;
+          severity: string;
+          code: string;
+          detail: string;
+          schema: string;
+          table: string;
+          constraint: string;
+          file: string;
+          line: string;
+          routine: string;
+        };
+      };
+    };
+    status: number;
+    statusText: string;
+  };
+}
+
 export interface ILegendValues {
   label: string;
   color: string;

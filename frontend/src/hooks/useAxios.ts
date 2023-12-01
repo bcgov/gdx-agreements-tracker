@@ -1,18 +1,13 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useKeycloak } from "@react-keycloak/web";
 import { useNavigate } from "react-router-dom";
+import { IUseAxiosHandleError } from "types";
 
 export const useAxios = () => {
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
 
-  /**
-   * Handles Axios error responses and returns a rejected Promise object with the error.
-   *
-   * @param   {AxiosError}          error - The error object returned by Axios.
-   * @returns {Promise<AxiosError>}       A rejected Promise object with the error.
-   */
-  const handleError = (error: AxiosError): Promise<AxiosError> => {
+  const handleError = (error: IUseAxiosHandleError) => {
     switch (error?.response?.status) {
       // 400 Bad Request.
       case 400:
@@ -33,7 +28,7 @@ export const useAxios = () => {
       //500 Internal Server Error.
       case 500:
         console.error(error);
-        return Promise.reject(error);
+        return Promise.reject({ message: error?.response.data?.data?.message?.detail });
 
       //502 Bad Gateway.
       case 502:
