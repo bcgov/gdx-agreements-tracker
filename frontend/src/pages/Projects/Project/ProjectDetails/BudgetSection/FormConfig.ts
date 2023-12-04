@@ -1,4 +1,4 @@
-import { object, string, number, ref } from "yup";
+import { object, string, number } from "yup";
 import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
@@ -290,14 +290,15 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     deliverable_name: "",
     recovery_area: null,
     detail_amount: "",
-    q1_amount: "",
+    q1_amount: "0.00",
     q1_recovered: false,
-    q2_amount: "",
+    q2_amount: "0.00",
     q2_recovered: false,
-    q3_amount: "",
+    q3_amount: "0.00",
     q3_recovered: false,
-    q4_amount: "",
+    q4_amount: "0.00",
     q4_recovered: false,
+    total: "0.00",
     resource_type: "",
     responsibility_centre: "",
     service_line: "",
