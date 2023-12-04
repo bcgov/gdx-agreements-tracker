@@ -227,7 +227,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "full",
       fieldLabel: "Total",
       fieldName: "total",
-      fieldType: "money",
+      fieldType: "readonly",
     },
     {
       width: "half",
@@ -308,11 +308,17 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     contract_id: null,
     notes: null,
   };
+<<<<<<< HEAD
 
   const rowId = Number(query?.data?.data?.data?.id) ?? null;
   const rowsToLock = null === rowId ? [] : [rowId];
   const postUrl = `/projects/budget`;
   const updateUrl = `/projects/budget/${rowId}`;
+=======
+  const rowsToLock = [query?.data?.data?.data?.id];
+  const postUrl = `/projects/budget/`;
+  const updateUrl = `/projects/budget/${query?.data?.data?.data?.id}`;
+>>>>>>> 4bfc2a86 (fix lint error)
   const deleteUrl = `/projects/budget/${query}`;
 
   // validates that the total field does not exceed the detail_amount field
@@ -340,6 +346,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       })
       .test(
         "total",
+<<<<<<< HEAD
         "Total should equal the sum of the Q1, Q2, Q3, and Q4 amount.",
         (value, { parent }) => {
           const sumOfQuarters = [
@@ -352,6 +359,33 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
             .reduce((acc, amount) => acc + amount);
 
           return sumOfQuarters === value;
+=======
+        "Total should be the sum of Q1 through Q4 amounts, and cannot exceed the Detail Amount.",
+        (value, testContext) => {
+          // validate for whether this is a number.
+          const { total, q1_amount, q2_amount, q3_amount, q4_amount, detail_amount } =
+            testContext.parent;
+          // eslint-disable-next-line no-console
+          console.log(JSON.stringify(testContext.parent, null, 2));
+          const q1 = makeNum(q1_amount);
+          const q2 = makeNum(q2_amount);
+          const q3 = makeNum(q3_amount);
+          const q4 = makeNum(q4_amount);
+          const sumOfQuarters = _.sum([q1, q2, q3, q4]);
+          const sumGtDetailAmount = _.gt(sumOfQuarters, detail_amount);
+
+          // eslint-disable-next-line no-console
+          console.log(` AMOUNTS:
+        q1: ${q1}
+        q2: ${q2}
+        q3: ${q3}
+        q4: ${q4}
+        sum of quarters = ${sumOfQuarters}
+        detail_amount: ${detail_amount}
+        total from transform: ${total}
+        sum(q1, q2, q3, q4): ${sumOfQuarters} exceeds Detail amount: ${sumGtDetailAmount} `);
+          return sumGtDetailAmount;
+>>>>>>> 4bfc2a86 (fix lint error)
         }
       ),
   });
