@@ -227,7 +227,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "full",
       fieldLabel: "Total",
       fieldName: "total",
-      fieldType: "readonly",
+      fieldType: "money",
     },
     {
       width: "half",
@@ -298,7 +298,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     q3_recovered: false,
     q4_amount: "",
     q4_recovered: false,
-    total: "",
     resource_type: "",
     responsibility_centre: "",
     service_line: "",
@@ -309,7 +308,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     notes: null,
   };
 
-  const rowId = _.toNumber(query?.data?.data?.data?.id) ?? null;
+  const rowId = Number(query?.data?.data?.data?.id) ?? null;
   const rowsToLock = null === rowId ? [] : [rowId];
   const postUrl = `/projects/budget`;
   const updateUrl = `/projects/budget/${rowId}`;
@@ -354,6 +353,18 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         }
       ),
   });
+
+  /**
+   * Converts a string representing money into a number.
+   *
+   * This function takes a string input that represents money (e.g., "$1,234.56")
+   * and removes any currency symbols and commas before converting it into a
+   * floating-point number.
+   *
+   * @param   {string} str - The money string to convert.
+   * @returns {number}     The numeric value of the money string.
+   */
+  const toNumber = (str = "") => _.toNumber(_.replace(str, /[,|$]/g, ""));
 
   return {
     validationSchema,
