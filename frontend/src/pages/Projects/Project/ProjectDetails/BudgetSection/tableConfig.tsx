@@ -25,7 +25,19 @@ export const tableConfig = () => {
     { field: "notes", headerName: "Notes", flex: defaultFlex },
   ];
 
-  const initialState = {};
+  const initialState = {
+    filter: {
+      filterModel: {
+        items: [
+          {
+            columnField: "program_area",
+            operator: "equals",
+            value: "Active",
+          },
+        ],
+      },
+    },
+  };
 
   return { tableColumns, initialState };
 };
