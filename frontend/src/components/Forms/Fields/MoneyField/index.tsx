@@ -28,7 +28,7 @@ export const MoneyField = ({ onChange, id, value, label, helperText, error }: IM
   useEffect(() => {
     // Empty dependency array for running once on initial mount
     new AutoNumeric(`#${id}`, value, { outputFormat: "number" });
-  }, []);
+  }, [id, value]);
 
   return (
     <TextField
