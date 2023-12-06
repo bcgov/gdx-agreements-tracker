@@ -24,7 +24,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Deliverable Name",
-          value: query?.data?.data?.data?.deliverable_name.label,
+          value: query?.data?.data?.data?.project_deliverable_id.deliverable_name,
         },
         {
           width: "full",
@@ -124,20 +124,25 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const editFields: IEditField[] = [
     {
       width: "half",
-      fieldLabel: "Project Deliverables",
-      fieldName: "deliverable_name",
-      fieldType: "select",
-      pickerName: "project_deliverable_option",
-      projectId: Number(projectId),
-      required: true,
-    },
-    {
-      width: "half",
       fieldLabel: "Recovery Area",
       fieldName: "recovery_area",
       fieldType: "select",
       pickerName: "recovery_area_option",
     },
+    {
+      fieldName: "project_deliverable_id",
+      fieldLabel: "Deliverable Name",
+      fieldType: "autocompleteTable",
+      width: "half",
+      pickerName: "project_budget_deliverables_option",
+      autocompleteTableColumns: [
+        { field: "deliverable_name", headerName: "Deliverable Name" },
+        { field: "deliverable_id", headerName: "Deliverable ID" },
+      ],
+      required: true,
+      projectId: Number(projectId),
+    },
+
     {
       width: "half",
       fieldLabel: "Detail Amount",
@@ -266,6 +271,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     stob: null,
     client_coding_id: null,
     contract_id: null,
+    deliverable_name: null,
   };
   const rowsToLock = [query?.data?.data?.data?.id];
   const postUrl = `/projects/budget`;

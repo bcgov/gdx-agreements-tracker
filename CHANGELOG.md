@@ -1,3 +1,12 @@
+**December 6, 2023 [DESCW-1697](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1697)**
+
+- Frontend Backend
+    - better organzied picker options by project, contract, 
+    - fixed bugs with autocomplete table. 
+    - added autcomplete table to project budget section
+
+
+
 **December 1, 2023 [DESCW-1774](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1774)**
 
 - Frontend Backend

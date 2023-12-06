@@ -27,8 +27,8 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
     "&:hover": {
       backgroundColor: "#ddd!important", // Change this to your desired hover color
     },
+    borderBottom: "1px solid #D3D3D3",
   };
-
   return (
     <>
       {!pickerData ? (
@@ -39,7 +39,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
           autoHighlight
           options={pickerData?.definition}
           onChange={(e, selection) => {
-            onChange(selection?.value);
+            onChange(selection);
           }}
           value={fieldValue}
           getOptionLabel={(option) => {
@@ -60,19 +60,17 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
           renderOption={(props: object, option: IOption) => (
             <Table>
               {0 === pickerData?.definition.indexOf(option) && (
-                <TableHead sx={{ background: "#444" }}>
-                  <TableRow sx={{ paddingLeft: 15, display: "flex" }}>
-                    {autocompleteTableColumns.map(
-                      (column, index) =>
-                        column.field !== "value" && (
-                          <TableCell
-                            key={index}
-                            sx={{ minWidth: 100, display: "flex", color: "#fff" }}
-                          >
-                            {column.headerName}
-                          </TableCell>
-                        )
-                    )}
+                <TableHead sx={{ background: "#444", display: "flex" }}>
+                  <TableRow>
+                    {autocompleteTableColumns.map((column, index) => (
+                      <TableCell
+                        key={index}
+                        sx={{ paddingLeft: 3, width: 255, color: "#fff" }}
+                        // sx={{ color: "#fff" }}
+                      >
+                        {column.headerName}
+                      </TableCell>
+                    ))}
                   </TableRow>
                 </TableHead>
               )}
@@ -81,7 +79,12 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
                   {Object.keys(option).map(
                     (key, index) =>
                       key !== "value" && (
-                        <TableCell key={index} sx={{ minWidth: 100, display: "flex" }}>
+                        <TableCell
+                          key={index}
+                          sx={{ maxWidth: 250, minWidth: 250, display: "flex", border: "none" }}
+                          component="th"
+                          scope="row"
+                        >
                           {option[key]}
                         </TableCell>
                       )
