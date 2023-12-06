@@ -141,6 +141,22 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           value: query?.data?.data?.data?.notes,
         },
       ];
+<<<<<<< HEAD
+=======
+  /*
+   * Sums up Q1 - Q4 amounts and inserts them in the total field when inputs q1-q4 change.
+   */
+  const onChangeQuarterlyAmount = () => {
+    // eslint-disable-next-line no-console
+    console.log(`In onChange for a field
+
+
+
+
+
+                `);
+  };
+>>>>>>> e51ffa3c (add latest attempt to make q1_amount a controlled component)
 
   const editFields: IEditField[] = [
     {
@@ -175,8 +191,29 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q1 Amount",
       fieldName: "q1_amount",
       fieldType: "money",
+<<<<<<< HEAD
       onInputChange: onChangeQuarterlyAmount,
       disabled: true,
+=======
+      onInputChange: (values: {}) => {
+        // eslint-disable-next-line no-console
+        console.log(`ON INPUT CHANGE FROM BudgetSection FormConfig > editFields
+
+
+
+        STATE:
+
+        values: ${JSON.stringify(values, null, 2)}
+
+        `);
+      },
+      // add the type for this onChange
+      // all four q1 -q4
+      // must be called on render
+      // formik onchange function
+      // pass this all the way down to the renderer
+      // must change the state of the form
+>>>>>>> e51ffa3c (add latest attempt to make q1_amount a controlled component)
     },
     {
       width: "half",
@@ -215,7 +252,11 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q4 Amount",
       fieldName: "q4_amount",
       fieldType: "money",
+<<<<<<< HEAD
       onInputChange: onChangeQuarterlyAmount,
+=======
+      // add onchange functgion
+>>>>>>> e51ffa3c (add latest attempt to make q1_amount a controlled component)
     },
     {
       width: "half",
@@ -227,7 +268,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "full",
       fieldLabel: "Total",
       fieldName: "total",
-      fieldType: "money",
+      fieldType: "readonly",
     },
     {
       width: "half",

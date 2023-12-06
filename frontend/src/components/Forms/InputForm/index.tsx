@@ -41,12 +41,16 @@ export const InputForm = ({
                   contractId,
                   required,
                   autocompleteTableColumns,
+                  onInputChange = () => {},
                 }) => {
                   return (
                     <FormInput
                       errors={errors}
                       setFieldValue={setFieldValue}
-                      handleChange={handleChange}
+                      handleChange={() => {
+                        handleChange;
+                        onInputChange?.(values);
+                      }}
                       fieldValue={values?.[fieldName]}
                       fieldName={fieldName}
                       fieldType={fieldType}
