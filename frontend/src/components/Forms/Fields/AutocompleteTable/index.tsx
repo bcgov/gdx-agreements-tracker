@@ -66,7 +66,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
                       <TableCell
                         key={index}
                         sx={{ paddingLeft: 3, width: 255, color: "#fff" }}
-                      // sx={{ color: "#fff" }}
+                        // sx={{ color: "#fff" }}
                       >
                         {column.headerName}
                       </TableCell>
