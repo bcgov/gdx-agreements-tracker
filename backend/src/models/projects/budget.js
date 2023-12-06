@@ -57,8 +57,8 @@ const findById = (id) => {
         "(SELECT json_build_object('value', prb.fiscal, 'label', COALESCE(fy.fiscal_year, '')))"
       ),
       notes: "prb.notes",
-      deliverable_name: knex.raw(
-        "(SELECT json_build_object('value', prb.project_deliverable_id, 'label', COALESCE(prd.deliverable_name, '')))"
+      project_deliverable_id: knex.raw(
+        "(SELECT json_build_object('deliverable_name', COALESCE(prd.deliverable_name, ''), 'deliverable_id',prb.project_deliverable_id,'value', prb.project_deliverable_id))"
       ),
       detail_amount: "prb.detail_amount",
       recovery_area: knex.raw(

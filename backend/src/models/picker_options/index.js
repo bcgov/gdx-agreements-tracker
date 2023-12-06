@@ -57,7 +57,7 @@ const getCaseStatements = () => {
  * @returns {Array}
  */
 const tableLookupValues = (projectId, contractId) => {
-  return [
+  const pickerOptions = [
     {
       id: "ministry",
       name: "ministry_option",
@@ -179,46 +179,6 @@ const tableLookupValues = (projectId, contractId) => {
       queryAdditions: `JOIN data.resource_type  ON supplier_rate.resource_type_id = resource_type.id WHERE supplier_rate.rate IS NOT NULL`,
     },
     {
-      id: "clientcoding",
-      name: "client_coding_option",
-      title: "Client Coding",
-      description: "",
-      table: "data.client_coding",
-      value: "client_coding.id",
-      label: `COALESCE(client_coding.program_area, client_coding.client)`,
-      queryAdditions: getClientCodingQueryAdditions(projectId),
-    },
-    {
-      id: "projdel",
-      name: "project_deliverable_option",
-      title: "Project Deliverable",
-      description: "",
-      table: "data.project_deliverable",
-      value: "project_deliverable.id",
-      label: `project_deliverable.deliverable_name`,
-      queryAdditions: getProjectDeliverablesQueryAdditions(projectId),
-    },
-    {
-      id: "contractresource",
-      name: "contract_resource",
-      title: "Contract Resource",
-      description: "",
-      table: "data.contract_resource",
-      value: "contract_resource.id",
-      label: `(r.resource_last_name || ', ' || r.resource_first_name)`,
-      queryAdditions: getContractResourceQueryAdditions(contractId),
-    },
-    {
-      id: "contractdeliverable",
-      name: "contract_deliverable",
-      title: "Contract Deliverable",
-      description: "",
-      table: "data.contract_deliverable",
-      value: "contract_deliverable.id",
-      label: `contract_deliverable.deliverable_name`,
-      queryAdditions: getContractDeliverableQueryAdditions(contractId),
-    },
-    {
       id: "contract",
       name: "contract_option",
       title: "Contract",
@@ -227,16 +187,6 @@ const tableLookupValues = (projectId, contractId) => {
       value: "contract.id",
       label: `co_number`,
       queryAdditions: ``,
-    },
-    {
-      id: "projectBudgetContract",
-      name: "budget_contract_option", //To be use din the fron end fields file
-      title: "Contract", //Title for the frontend if you don't provide a title in the fields file
-      description: "the contract related to the project budget",
-      table: "data.contract", // The table you want to lookup to
-      value: "contract.id", //The value for the picker ex: {label:"example", value:contract.id}
-      label: `co_number`, //The label for the picker ex: {label:"example", value:contract.id}
-      queryAdditions: getProjectBudgetContractQueryAdditions(projectId), //Any extra queries you want to add to the lookup example filters.
     },
     {
       id: "health",
@@ -289,6 +239,87 @@ const tableLookupValues = (projectId, contractId) => {
       queryAdditions: ``,
     },
   ];
+
+  if (projectId) {
+    pickerOptions.push(
+      {
+        id: "clientcoding",
+        name: "client_coding_option",
+        title: "Client Coding",
+        description: "",
+        table: "data.client_coding",
+        value: "client_coding.id",
+        label: `COALESCE(client_coding.program_area, client_coding.client)`,
+        queryAdditions: getClientCodingQueryAdditions(projectId),
+      },
+      {
+        id: "projdel",
+        name: "project_deliverable_option",
+        title: "Project Deliverable",
+        description: "",
+        table: "data.project_deliverable",
+        value: "project_deliverable.id",
+        label: `project_deliverable.deliverable_name`,
+        queryAdditions: getProjectDeliverablesQueryAdditions(projectId),
+      },
+      {
+        id: "projectBudgetContract",
+        name: "budget_contract_option", //To be use din the fron end fields file
+        title: "Contract", //Title for the frontend if you don't provide a title in the fields file
+        description: "the contract related to the project budget",
+        table: "data.contract", // The table you want to lookup to
+        value: "contract.id", //The value for the picker ex: {label:"example", value:contract.id}
+        label: `co_number`, //The label for the picker ex: {label:"example", value:contract.id}
+        queryAdditions: getProjectBudgetContractQueryAdditions(projectId), //Any extra queries you want to add to the lookup example filters.
+      },
+      {
+        id: "deliverablename",
+        name: "project_budget_deliverables_option",
+        title: "Deliverable Name",
+        description: "the project budget deliverables",
+        table: "",
+        value: "",
+        label: "",
+        queryAdditions: ``,
+        customDefinition: `(SELECT COALESCE(json_agg(projbudgdelname), '[]')
+            FROM (
+              SELECT 
+                prjd.deliverable_name as deliverable_name,
+                prjd.id as value,
+                prjd.id as deliverable_id                
+              FROM data.project_deliverable prjd
+              WHERE project_id = ${projectId}
+            ) projbudgdelname)`,
+      }
+    );
+  }
+
+  if (contractId) {
+    pickerOptions.push(
+      {
+        id: "contractresource",
+        name: "contract_resource",
+        title: "Contract Resource",
+        description: "",
+        table: "data.contract_resource",
+        value: "contract_resource.id",
+        label: `(r.resource_last_name || ', ' || r.resource_first_name)`,
+        queryAdditions: getContractResourceQueryAdditions(contractId),
+      },
+      {
+        id: "contractdeliverable",
+        name: "contract_deliverable",
+        title: "Contract Deliverable",
+        description: "",
+        table: "data.contract_deliverable",
+        value: "contract_deliverable.id",
+        label: `contract_deliverable.deliverable_name`,
+        queryAdditions: getContractDeliverableQueryAdditions(contractId),
+      }
+    );
+  }
+
+  return pickerOptions;
 };
 
 /**

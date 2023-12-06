@@ -22,7 +22,7 @@ export const useFormSubmit = () => {
     if ("contact_project" === tableName) {
       deltaChanges = changedValues;
     } else {
-      for (const key in changedValues) {
+      Object.keys(changedValues).forEach((key) => {
         if (changedValues[key] !== currentRowData[key]) {
           if (null !== changedValues[key] && changedValues[key].value) {
             deltaChanges[key] = changedValues[key].value;
@@ -30,7 +30,7 @@ export const useFormSubmit = () => {
             deltaChanges[key] = changedValues[key];
           }
         }
-      }
+      });
     }
 
     const response = await axiosAll().put(apiUrl, deltaChanges);

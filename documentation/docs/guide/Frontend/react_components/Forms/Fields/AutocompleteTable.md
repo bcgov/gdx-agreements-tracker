@@ -88,6 +88,6 @@ To configure the frontend, add a new object to the formconfig edit fields for th
       fieldType: "autocompleteTable",
       width: "full",
       pickerName: "auto_complete_test",  //This should match the picker name used to create the picker options in the previous step.
-      autocompleteColumns:[{ field: "STOB", headerName: "STOB " }]
+      autocompleteTableColumns:[{ field: "STOB", headerName: "STOB " }]
     },
 ```
