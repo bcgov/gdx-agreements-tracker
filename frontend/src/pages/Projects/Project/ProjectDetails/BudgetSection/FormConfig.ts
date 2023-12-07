@@ -1,4 +1,4 @@
-import { object, string, number } from "yup";
+import { object, string, number, ref } from "yup";
 import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
@@ -315,9 +315,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const deleteUrl = `/projects/budget/${query}`;
 
   // validates that the total field does not exceed the detail_amount field
-  // const moneyRegex = /^(\d{1,3}(,\d{3})*|\d+)(\.\d{2})?$/;
   const validationSchema = object({
-<<<<<<< HEAD
     // make sure the STOB is 4 alpha-numeric characters long
     stob: string()
       .min(4, "Must contain exactly 4 alphanumeric characters.")
@@ -355,21 +353,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           return sumOfQuarters === value;
         }
       ),
-=======
-    total: number()
-      // validate for whether this is a number.
-      .transform((value, originalValue) => {
-        const str = String(originalValue);
-        return parseFloat(str.replace(/,/g, ""));
-      })
-      .lessThan(ref("detail_amount"), "Total must not exceed the detail amount"),
-    detail_amount: number()
-      .transform((value, originalValue) => {
-        const str = String(originalValue);
-        return parseFloat(str.replace(/,/g, ""));
-      })
-      .positive("Detail amount must be positive"),
->>>>>>> d8924a3e (fix the Cast from String to Number for the total and Detail amount)
   });
 
   return {
