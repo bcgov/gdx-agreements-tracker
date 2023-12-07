@@ -126,7 +126,7 @@ export const FormRenderer = ({
     handleFormType("edit");
   };
 
-  if (!formData.data) {
+  if (!formData.data && formType !== "new") {
     return <LinearProgress />;
   }
 
