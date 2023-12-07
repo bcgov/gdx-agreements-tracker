@@ -254,18 +254,18 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   const initialValues = {
-    q1_amount: null,
+    q1_amount: "0",
     q1_recovered: null,
-    q2_amount: null,
+    q2_amount: "0",
     q2_recovered: null,
-    q3_amount: null,
+    q3_amount: "0",
     q3_recovered: null,
-    q4_amount: null,
+    q4_amount: "0",
     q4_recovered: null,
     fiscal: null,
     project_deliverable_id: null,
     notes: null,
-    detail_amount: null,
+    detail_amount: "0",
     recovery_area: null,
     resource_type: null,
     stob: null,
