@@ -1,3 +1,8 @@
+**December 7, 2023 [DESCW-1792](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1792)**
+
+- Frontend 
+    - Fixed new form functionality by adding more accurate conditional rednering.
+
 **December 6, 2023 [DESCW-1697](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1697)**
 
 - Frontend Backend
