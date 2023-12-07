@@ -94,7 +94,6 @@ const addUpdateBody = S.object()
   .prop("recovery_area", S.string())
   .prop("stob", S.string())
   .prop("program_area", S.anyOf([S.number(), S.null()]))
-  .prop("total", S.string())
   .prop("responsibility_centre", S.string())
   .prop("service_line", S.string());
 
