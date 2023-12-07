@@ -11,7 +11,7 @@ import { IMoneyField } from "types";
  * @param   {string}      props.value    - The current value of the input field.
  * @param   {string}      props.label    - The label for the input field.
  * @param   {Function}    props.onChange - A callback function to handle value changes.
- * @param   {Boolean}     props.disabled - Sets the field read-only.
+ * @param   {boolean}     props.disabled - Sets the field read-only.
  * @returns {JSX.Element}                - A MoneyField component with an input field for money values.
  * @example
  *
