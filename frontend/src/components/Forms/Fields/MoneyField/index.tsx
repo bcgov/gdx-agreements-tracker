@@ -11,6 +11,7 @@ import { IMoneyField } from "types";
  * @param   {string}      props.value    - The current value of the input field.
  * @param   {string}      props.label    - The label for the input field.
  * @param   {Function}    props.onChange - A callback function to handle value changes.
+ * @param   {Boolean}     props.disabled - Sets the field read-only.
  * @returns {JSX.Element}                - A MoneyField component with an input field for money values.
  * @example
  *
@@ -24,7 +25,15 @@ import { IMoneyField } from "types";
  * />
  */
 
-export const MoneyField = ({ onChange, id, value, label, helperText, error }: IMoneyField) => {
+export const MoneyField = ({
+  onChange,
+  id,
+  value,
+  label,
+  helperText,
+  error,
+  disabled,
+}: IMoneyField) => {
   useEffect(() => {
     // Empty dependency array for running once on initial mount
     new AutoNumeric(`#${id}`, value, { outputFormat: "number" });
@@ -44,6 +53,7 @@ export const MoneyField = ({ onChange, id, value, label, helperText, error }: IM
       label={label}
       error={Boolean(error)}
       helperText={helperText}
+      disabled={disabled}
     />
   );
 };

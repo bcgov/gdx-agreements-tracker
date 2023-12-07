@@ -281,6 +281,7 @@ export interface IFormInput {
   required?: boolean;
   touched: FormikTouched<FormikValues>;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
+  disabled?: boolean;
 }
 
 export interface IRadioGroup {
@@ -513,4 +514,5 @@ export interface IMoneyField {
   id: string;
   value: number;
   label: string;
+  disabled?: boolean;
 }

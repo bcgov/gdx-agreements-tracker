@@ -29,6 +29,7 @@ export const FormInput = ({
   required = false,
   touched,
   autocompleteTableColumns,
+  disabled = false,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,6 +60,7 @@ export const FormInput = ({
               required={required}
               fullWidth={true}
               as={MoneyField}
+              disabled={disabled}
               name={fieldName}
               onChange={(newValue: number) => {
                 handleChange(newValue);

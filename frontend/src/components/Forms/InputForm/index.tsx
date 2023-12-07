@@ -48,8 +48,8 @@ export const InputForm = ({
                       errors={errors}
                       setFieldValue={setFieldValue}
                       handleChange={() => {
-                        handleChange;
                         onInputChange?.(values, setFieldValue);
+                        handleChange;
                       }}
                       fieldValue={values?.[fieldName]}
                       fieldName={fieldName}
