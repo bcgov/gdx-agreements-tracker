@@ -63,8 +63,7 @@ export const FormInput = ({
               disabled={disabled}
               name={fieldName}
               onChange={(newValue: number) => {
-                handleChange(newValue);
-                setFieldValue?.(fieldName, newValue);
+                handleChange({ [fieldName]: newValue });
               }}
               value={Number(fieldValue.replace(/[^0-9.-]+/g, ""))}
               label={fieldLabel}

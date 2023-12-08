@@ -36,7 +36,12 @@ export const MoneyField = ({
 }: IMoneyField) => {
   useEffect(() => {
     // Empty dependency array for running once on initial mount
-    new AutoNumeric(`#${id}`, value, { outputFormat: "number" });
+    const elementId = `#${id}`;
+    const element = document.getElementById(elementId);
+    if (!AutoNumeric.isManagedByAutoNumeric(element as HTMLElement)) {
+      new AutoNumeric(`#${id}`, value, { outputFormat: "number" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, value]);
 
   return (

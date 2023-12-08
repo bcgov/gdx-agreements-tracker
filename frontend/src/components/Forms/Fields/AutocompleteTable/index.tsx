@@ -35,6 +35,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
         <Skeleton variant="rectangular" width={"auto"} height={38} />
       ) : (
         <Autocomplete
+          freeSolo
           id={fieldName}
           autoHighlight
           options={pickerData?.definition}

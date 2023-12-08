@@ -25,6 +25,7 @@ export const Select: FC<IPickerProps> = ({
         <Skeleton variant="rectangular" width={"auto"} height={38} />
       ) : (
         <Autocomplete
+          freeSolo
           id={fieldName}
           options={pickerData?.definition}
           onChange={(event, choice: unknown) => {

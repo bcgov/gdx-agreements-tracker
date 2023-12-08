@@ -22,13 +22,34 @@ const toNumber = (str = "") => _.toNumber(_.replace(str, /[,|$]/g, ""));
 /*
  * Sums up Q1 - Q4 amounts and inserts them in the total field when inputs q1-q4 change.
  */
-const onChangeQuarterlyAmount = (values: FormikValues, setFieldValue: Function) => {
-  // get the quarterly values
-  const { q1_amount: q1, q2_amount: q2, q3_amount: q3, q4_amount: q4 } = values;
-  // set the value of total
-  const quarterlyTotal = String(_.sum([q1, q2, q3, q4].map(toNumber)));
+const onChangeQuarterlyAmount = ({
+  newValue,
+  values,
+  setFieldValue,
+}: {
+  newValue: { [key: string]: string };
+  values: { [key: string]: string };
+  setFieldValue: Function;
+}) => {
+  // get the quarterly amounts from the values
+  const { q1_amount, q2_amount, q3_amount, q4_amount } = values;
 
-  setFieldValue("total", quarterlyTotal);
+  // update them with the new quarterly amount
+  const newQuarterlyAmounts = {
+    q1_amount,
+    q2_amount,
+    q3_amount,
+    q4_amount,
+    ...newValue,
+  };
+
+  // get the total
+  const numericAmounts = _.map(newQuarterlyAmounts, toNumber);
+  const totalAmounts = _.sum(numericAmounts);
+  const totalAsString = _.toString(totalAmounts);
+
+  // change the total value in the form
+  setFieldValue("total", totalAsString);
 };
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
@@ -288,7 +309,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
 
   const initialValues = {
     deliverable_name: "",
-    recovery_area: null,
+    recovery_area: "",
     detail_amount: "",
     q1_amount: "",
     q1_recovered: false,
@@ -305,8 +326,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     stob: "",
     fiscal_year: "",
     program_area: "",
-    contract_id: null,
-    notes: null,
+    contract_id: "",
+    notes: "",
   };
 
   const rowId = Number(query?.data?.data?.data?.id) ?? null;

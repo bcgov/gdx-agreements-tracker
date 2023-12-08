@@ -47,9 +47,9 @@ export const InputForm = ({
                     <FormInput
                       errors={errors}
                       setFieldValue={setFieldValue}
-                      handleChange={() => {
-                        onInputChange?.(values, setFieldValue);
+                      handleChange={(newValue: FormikValues) => {
                         handleChange;
+                        onInputChange?.({ newValue, values, setFieldValue });
                       }}
                       fieldValue={values?.[fieldName]}
                       fieldName={fieldName}
