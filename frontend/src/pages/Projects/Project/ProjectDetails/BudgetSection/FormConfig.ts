@@ -37,6 +37,7 @@ const onChangeQuarterlyAmount = ({
   const { q1_amount, q2_amount, q3_amount, q4_amount } = values;
 
   // update them with the new quarterly amount
+  // get these from the most recent
   const newQuarterlyAmounts = {
     q1_amount,
     q2_amount,
@@ -44,6 +45,11 @@ const onChangeQuarterlyAmount = ({
     q4_amount,
     ...newValue,
   };
+  console.log(newQuarterlyAmounts);
+  console.log(`values
+
+  ${JSON.stringify(values)}
+  `);
 
   // get the total
   const numericAmounts = _.map(newQuarterlyAmounts, toNumber);

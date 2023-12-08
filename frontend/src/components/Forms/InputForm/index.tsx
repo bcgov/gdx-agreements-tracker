@@ -41,15 +41,16 @@ export const InputForm = ({
                   contractId,
                   required,
                   autocompleteTableColumns,
-                  onInputChange = () => {},
+                  onInputChange,
                 }) => {
                   return (
                     <FormInput
                       errors={errors}
                       setFieldValue={setFieldValue}
                       handleChange={(newValue: FormikValues) => {
-                        handleChange;
-                        onInputChange?.({ newValue, values, setFieldValue });
+                        onInputChange
+                          ? onInputChange({ newValue, values, setFieldValue })
+                          : handleChange;
                       }}
                       fieldValue={values?.[fieldName]}
                       fieldName={fieldName}
