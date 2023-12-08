@@ -22,13 +22,15 @@ const toNumber = (str = "") => _.toNumber(_.replace(str, /[,|$]/g, ""));
 /*
  * Sums up Q1 - Q4 amounts and inserts them in the total field when inputs q1-q4 change.
  */
+// TODO: comment this with a docblock
+// TODO: get the 'total' field read-only
 const onChangeQuarterlyAmount = ({
   newValue,
   values,
   setFieldValue,
 }: {
-  newValue: { [key: string]: string };
-  values: { [key: string]: string };
+  newValue: FormikValues;
+  values: FormikValues;
   setFieldValue: Function;
 }) => {
   // get the quarterly amounts from the values
