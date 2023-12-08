@@ -15,7 +15,7 @@ import { AutocompleteTable } from "./AutocompleteTable";
 
 export const FormInput = ({
   errors,
-  setFieldValue,
+  setFieldValue = () => {},
   fieldValue,
   fieldName,
   fieldType,
@@ -30,6 +30,8 @@ export const FormInput = ({
   touched,
   autocompleteTableColumns,
   disabled = false,
+  customMoneyHandler = () => {},
+  formikValues,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,8 +64,9 @@ export const FormInput = ({
               as={MoneyField}
               disabled={disabled}
               name={fieldName}
-              onChange={(newValue: number) => {
-                handleChange({ [fieldName]: newValue });
+              onChange={(e: any) => {
+                handleChange(e);
+                customMoneyHandler(fieldName, e.target.value, setFieldValue, formikValues);
               }}
               value={Number(fieldValue.replace(/[^0-9.-]+/g, ""))}
               label={fieldLabel}

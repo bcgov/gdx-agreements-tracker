@@ -248,7 +248,7 @@ export interface IEditField {
   pickerName?: string;
   required?: boolean;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
-  onInputChange?: Function;
+  customMoneyHandler?: Function;
   disabled?: boolean;
 }
 
@@ -282,6 +282,8 @@ export interface IFormInput {
   touched: FormikTouched<FormikValues>;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
   disabled?: boolean;
+  customMoneyHandler?: Function;
+  formikValues?: FormikValues;
 }
 
 export interface IRadioGroup {
@@ -510,7 +512,7 @@ export type IReportCategoriesAndTypes = {
 export interface IMoneyField {
   helperText: string;
   error: boolean;
-  onChange: (newValue: string) => void;
+  onChange: (e: any) => void;
   id: string;
   value: number;
   label: string;

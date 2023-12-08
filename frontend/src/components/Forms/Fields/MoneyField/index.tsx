@@ -52,9 +52,7 @@ export const MoneyField = ({
         startAdornment: <InputAdornment position="start">$</InputAdornment>,
       }}
       id={id}
-      onChange={(e) => {
-        onChange(e.target.value);
-      }}
+      onChange={onChange}
       label={label}
       error={Boolean(error)}
       helperText={helperText}

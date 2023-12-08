@@ -18,45 +18,31 @@ import _ from "lodash";
  * @returns {number}     The numeric value of the money string.
  */
 const toNumber = (str = "") => _.toNumber(_.replace(str, /[,|$]/g, ""));
+const customMoneyHandler = (
+  fieldName: string,
+  newValue: number,
+  setFieldValue: Function,
+  formikValues: FormikValues
+) => {
+  formikValues[fieldName] = newValue;
 
-/*
- * Sums up Q1 - Q4 amounts and inserts them in the total field when inputs q1-q4 change.
- */
-// TODO: comment this with a docblock
-// TODO: get the 'total' field read-only
-const onChangeQuarterlyAmount = ({
-  newValue,
-  values,
-  setFieldValue,
-}: {
-  newValue: FormikValues;
-  values: FormikValues;
-  setFieldValue: Function;
-}) => {
   // get the quarterly amounts from the values
-  const { q1_amount, q2_amount, q3_amount, q4_amount } = values;
-
+  const { q1_amount, q2_amount, q3_amount, q4_amount } = formikValues;
   // update them with the new quarterly amount
   // get these from the most recent
-  const newQuarterlyAmounts = {
-    q1_amount,
-    q2_amount,
-    q3_amount,
-    q4_amount,
-    ...newValue,
-  };
-  console.log(newQuarterlyAmounts);
-  console.log(`values
-
-  ${JSON.stringify(values)}
-  `);
-
-  // get the total
+  const newQuarterlyAmounts = [q1_amount, q2_amount, q3_amount, q4_amount];
   const numericAmounts = _.map(newQuarterlyAmounts, toNumber);
   const totalAmounts = _.sum(numericAmounts);
   const totalAsString = _.toString(totalAmounts);
+  /*
+  console.log(newQuarterlyAmounts);
+  console.log(`values
 
-  // change the total value in the form
+  ${JSON.stringify(formikValues)}
+  `);
+
+  */
+  // get the total for q1..q4 as a string
   setFieldValue("total", totalAsString);
 };
 
@@ -204,7 +190,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q1 Amount",
       fieldName: "q1_amount",
       fieldType: "money",
-      onInputChange: onChangeQuarterlyAmount,
+      customMoneyHandler,
       disabled: true,
     },
     {
@@ -218,7 +204,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q2 Amount",
       fieldName: "q2_amount",
       fieldType: "money",
-      onInputChange: onChangeQuarterlyAmount,
+      customMoneyHandler,
     },
     {
       width: "half",
@@ -231,7 +217,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q3 Amount",
       fieldName: "q3_amount",
       fieldType: "money",
-      onInputChange: onChangeQuarterlyAmount,
+      customMoneyHandler,
     },
     {
       width: "half",
@@ -244,7 +230,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Q4 Amount",
       fieldName: "q4_amount",
       fieldType: "money",
-      onInputChange: onChangeQuarterlyAmount,
+      customMoneyHandler,
     },
     {
       width: "half",

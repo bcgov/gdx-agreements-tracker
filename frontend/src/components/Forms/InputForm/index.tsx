@@ -24,6 +24,7 @@ export const InputForm = ({
       onSubmit={handleOnSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}
+      enableReinitialize={true}
     >
       {({ setFieldValue, values, handleChange, dirty, errors, touched }) => {
         return (
@@ -41,17 +42,15 @@ export const InputForm = ({
                   contractId,
                   required,
                   autocompleteTableColumns,
-                  onInputChange,
+                  customMoneyHandler,
                 }) => {
                   return (
                     <FormInput
                       errors={errors}
                       setFieldValue={setFieldValue}
-                      handleChange={(newValue: FormikValues) => {
-                        onInputChange
-                          ? onInputChange({ newValue, values, setFieldValue })
-                          : handleChange;
-                      }}
+                      handleChange={handleChange}
+                      customMoneyHandler={customMoneyHandler}
+                      formikValues={values}
                       fieldValue={values?.[fieldName]}
                       fieldName={fieldName}
                       fieldType={fieldType}
