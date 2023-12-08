@@ -298,6 +298,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     q3_recovered: false,
     q4_amount: "",
     q4_recovered: false,
+    total: "",
     resource_type: "",
     responsibility_centre: "",
     service_line: "",
