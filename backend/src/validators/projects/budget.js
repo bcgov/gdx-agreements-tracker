@@ -74,7 +74,7 @@ const getOne = {
 const addUpdateBody = S.object()
   .prop("id", S.number())
   .prop("contract_id", S.anyOf([S.number(), S.null()]))
-  .prop("deliverable_name", S.anyOf([S.number(), S.null()]))
+  //.prop("deliverable_name", S.anyOf([S.number(), S.null()]))
   .prop("detail_amount", S.string())
   .prop("fiscal_year", S.anyOf([S.number(), S.null()]))
   .prop("q1_amount", S.string())

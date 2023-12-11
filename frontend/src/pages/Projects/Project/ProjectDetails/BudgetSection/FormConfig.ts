@@ -243,6 +243,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Total",
       fieldName: "total",
       fieldType: "money",
+      disabled: true,
     },
     {
       width: "half",

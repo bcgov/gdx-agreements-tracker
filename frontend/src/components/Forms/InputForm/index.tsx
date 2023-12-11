@@ -43,6 +43,7 @@ export const InputForm = ({
                   required,
                   autocompleteTableColumns,
                   customMoneyHandler,
+                  disabled,
                 }) => {
                   return (
                     <FormInput
@@ -64,6 +65,7 @@ export const InputForm = ({
                       required={required}
                       touched={touched}
                       autocompleteTableColumns={autocompleteTableColumns}
+                      disabled={disabled}
                     />
                   );
                 }
