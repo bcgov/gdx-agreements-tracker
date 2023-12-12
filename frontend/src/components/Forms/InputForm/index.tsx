@@ -25,6 +25,7 @@ export const InputForm = ({
       initialValues={initialValues}
       validationSchema={validationSchema}
       enableReinitialize={true}
+      validateOnChange={true}
     >
       {({ setFieldValue, values, handleChange, dirty, errors, touched }) => {
         return (

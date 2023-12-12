@@ -2,8 +2,9 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
-import { object, string } from "yup";
+import { object, string, number } from "yup";
 import { FormikValues } from "formik";
+import _ from "lodash";
 
 const validationSchema = object({
   stob: string()
@@ -30,7 +31,7 @@ interface IRecoveredQuarterAmounts {
 const getRecoveredTotalsByQuarter = async (
   formikValues: FormikValues,
   setFieldValue: Function,
-  newValue: { [key: string]: string }
+  newValue: { [key: string]: string },  
 ) => {
   const { q1_amount, q2_amount, q3_amount, q4_amount } = formikValues;
   const recoveredQuarterAmounts: IRecoveredQuarterAmounts = {
@@ -106,8 +107,21 @@ const getRecoveredTotalsByQuarter = async (
    */
   const toCurrency = sumOfQuarters.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
-  setFieldValue("total", toCurrency);
+  setFieldValue("total", toCurrency);  
 };
+
+
+/**
+ * Converts a formatted string to a number.
+ * 
+ * This function takes a string `str` as input, representing a numeric value that may contain commas or dollar signs.
+ * It removes any commas and dollar signs from the input string and returns the corresponding numeric value.
+ * 
+ * @param {string} [str=""] - The input string to be converted to a number. Defaults to an empty string if not provided.
+ * @returns {number} - The numeric representation of the input string after removing commas and dollar signs.
+ */
+
+const toNumber = (str = "") => _.toNumber(_.replace(str, /[,|$]/g, ""));
 
 /**
  * Generates configuration for the form based on the query result.
@@ -392,6 +406,46 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const postUrl = `/projects/budget`;
   const updateUrl = `/projects/budget/${query?.data?.data?.data?.id}`;
   const deleteUrl = `/projects/budget/${query}`;
+
+  // validates that the total field does not exceed the detail_amount field
+  const validationSchema = object({
+    // make sure the STOB is 4 alpha-numeric characters long
+    stob: string()
+      .min(4, "Must contain exactly 4 alphanumeric characters.")
+      .max(4, "Must contain exactly 4 alphanumeric characters.")
+      .matches(/^[A-Za-z0-9]{4}$/, "Must contain exactly 4 alphanumeric characters."),
+
+    // make sure the detail amount is filled in, then convert money to number
+    detail_amount: number()
+      .transform((value, originalValue) => toNumber(originalValue))
+      .required("Detail amount is required")
+      .positive(),
+
+    // make sure the total doesn't exceed the sum of the quarters
+    total: number()
+      .transform((value, originalValue) => toNumber(originalValue))
+      .required("Total is required")
+      .positive()
+      .test("total", "Total should should not exceed the Detail Amount.", (value, { parent }) => {
+        const detailAmount = toNumber(parent.detail_amount);
+        return value <= detailAmount;
+      })
+      .test(
+        "total",
+        "Total should equal the sum of the Q1, Q2, Q3, and Q4 amount.",
+        (value, { parent }) => {
+          const sumOfQuarters = [
+            parent.q1_amount,
+            parent.q2_amount,
+            parent.q3_amount,
+            parent.q4_amount,
+          ]
+            .map((amount) => toNumber(amount))
+            .reduce((acc, amount) => acc + amount);
+          return sumOfQuarters === value;
+        }
+      ),
+  });
 
   return {
     validationSchema,
