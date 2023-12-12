@@ -218,7 +218,14 @@ export const FormInput = ({
         </GridItem>
       );
     case "readonly":
-      return <ReadField width={width} title={fieldLabel} value={fieldValue as string } helperText={touched[fieldName] && errors[fieldName]} error={touched[fieldName] && Boolean(errors[fieldName])}/>;
+      return (
+        <ReadField
+          width={width}
+          title={fieldLabel}
+          value={fieldValue as string}
+          helperText={touched[fieldName] && errors[fieldName]}
+          error={touched[fieldName] && Boolean(errors[fieldName])}
+        />
+      );
   }
 };
-
