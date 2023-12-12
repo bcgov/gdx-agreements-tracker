@@ -24,7 +24,6 @@ export const InputForm = ({
       onSubmit={handleOnSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      enableReinitialize={true}
       validateOnChange={true}
     >
       {({ setFieldValue, values, handleChange, dirty, errors, touched }) => {
