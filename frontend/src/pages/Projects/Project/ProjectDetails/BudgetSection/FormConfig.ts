@@ -37,8 +37,9 @@ const getRecoveredTotalsByQuarter = async (
   /**
    * The function `updateQuarterAmounts` updates the values in the `recoveredQuarterAmounts` object
    * with the values from the `newValue` object, and returns the updated object.
+   *
    * @returns {IRecoveredQuarterAmounts} The function `updateQuarterAmounts` is returning the updated amounts object,
-   * `updatedAmounts`.
+   *                                     `updatedAmounts`.
    */
   const updateQuarterAmounts = () => {
     const updatedAmounts: IRecoveredQuarterAmounts = { ...recoveredQuarterAmounts };
