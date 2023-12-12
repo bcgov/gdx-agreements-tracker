@@ -24,6 +24,7 @@ export const InputForm = ({
       onSubmit={handleOnSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}
+      enableReinitialize={true}
     >
       {({ setFieldValue, values, handleChange, dirty, errors, touched }) => {
         return (
@@ -41,6 +42,7 @@ export const InputForm = ({
                   contractId,
                   required,
                   autocompleteTableColumns,
+                  customOnChange = () => {},
                 }) => {
                   return (
                     <FormInput
@@ -60,6 +62,9 @@ export const InputForm = ({
                       required={required}
                       touched={touched}
                       autocompleteTableColumns={autocompleteTableColumns}
+                      customOnChange={(newValue: Object) => {
+                        customOnChange(values, setFieldValue, newValue);
+                      }}
                     />
                   );
                 }

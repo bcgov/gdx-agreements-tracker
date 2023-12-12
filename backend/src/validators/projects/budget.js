@@ -72,6 +72,7 @@ const getOne = {
 };
 
 const addUpdateBody = S.object()
+  .additionalProperties(false)
   .prop("id", S.number())
   .prop("q1_amount", S.string())
   .prop("q1_recovered", S.boolean())
@@ -92,7 +93,6 @@ const addUpdateBody = S.object()
   .prop("stob", S.string())
   .prop("program_area", S.anyOf([S.number(), S.null()]))
   .prop("contract_id", S.anyOf([S.number(), S.null()]))
-  .prop("total", S.string())
   .prop("responsibility_centre", S.string())
   .prop("service_line", S.string());
 

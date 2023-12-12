@@ -127,7 +127,7 @@ export interface IMultiPickerProps extends Omit<IPickerProps, "fieldValue"> {
 
 //checkbox types
 export interface ICheckboxProps {
-  onChange: Function;
+  onChange: (event: ChangeEvent<HTMLInputElement>, checked: boolean) => void;
   checked: boolean;
   fieldName: string | number;
   setFieldValue: Function;
@@ -248,6 +248,7 @@ export interface IEditField {
   pickerName?: string;
   required?: boolean;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
+  customOnChange?: Function;
 }
 
 export interface IReadField {
@@ -270,7 +271,7 @@ export interface IFormInput {
   fieldName: string | number;
   fieldType: IEditFieldsFieldType;
   fieldLabel: string;
-  handleChange?: Function;
+  handleChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   width: "half" | "full";
   tableName?: string;
   pickerName?: string;
@@ -279,6 +280,7 @@ export interface IFormInput {
   required?: boolean;
   touched: FormikTouched<FormikValues>;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
+  customOnChange?: Function;
 }
 
 export interface IRadioGroup {
@@ -507,7 +509,7 @@ export type IReportCategoriesAndTypes = {
 export interface IMoneyField {
   helperText: string;
   error: boolean;
-  onChange: (newValue: string) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   id: string;
   value: number;
   label: string;
