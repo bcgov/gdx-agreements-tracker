@@ -15,7 +15,7 @@ import { AutocompleteTable } from "./AutocompleteTable";
 
 export const FormInput = ({
   errors,
-  setFieldValue,
+  setFieldValue = () => {},
   fieldValue,
   fieldName,
   fieldType,
@@ -29,6 +29,7 @@ export const FormInput = ({
   required = false,
   touched,
   autocompleteTableColumns,
+  customOnChange = () => {},
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,9 +61,9 @@ export const FormInput = ({
               fullWidth={true}
               as={MoneyField}
               name={fieldName}
-              onChange={(newValue: number) => {
-                handleChange(newValue);
-                setFieldValue?.(fieldName, newValue);
+              onChange={async (newValue: string) => {
+                await setFieldValue(fieldName, newValue);
+                customOnChange({ [fieldName]: newValue });
               }}
               value={Number(fieldValue.replace(/[^0-9.-]+/g, ""))}
               label={fieldLabel}
@@ -205,7 +206,7 @@ export const FormInput = ({
             control={
               <Checkbox
                 checked={fieldValue as boolean}
-                onChange={handleChange as Function}
+                onChange={handleChange}
                 fieldName={fieldName}
                 setFieldValue={setFieldValue as Function}
                 helperText={touched[fieldName] && errors[fieldName]}
@@ -217,6 +218,14 @@ export const FormInput = ({
         </GridItem>
       );
     case "readonly":
-      return <ReadField width={width} title={fieldLabel} value={fieldValue as string} />;
+      return (
+        <ReadField
+          width={width}
+          title={fieldLabel}
+          value={fieldValue as string}
+          helperText={touched[fieldName] && errors[fieldName]}
+          error={touched[fieldName] && Boolean(errors[fieldName])}
+        />
+      );
   }
 };

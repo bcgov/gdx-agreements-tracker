@@ -27,7 +27,11 @@ import { IMoneyField } from "types";
 export const MoneyField = ({ onChange, id, value, label, helperText, error }: IMoneyField) => {
   useEffect(() => {
     // Empty dependency array for running once on initial mount
-    new AutoNumeric(`#${id}`, value, { outputFormat: "number" });
+    new AutoNumeric(`#${id}`, value, {
+      outputFormat: "string",
+      minimumValue: "0.00", // Adjust this if necessary
+      maximumValue: "999999999.99", // Adjust this if necessary
+    });
   }, []);
 
   return (

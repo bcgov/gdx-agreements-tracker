@@ -36,11 +36,15 @@ export const ReadField = ({
   title,
   value,
   type,
+  helperText,
+  error,
 }: {
   width: string;
   title: string;
   value: IReturnValue;
   type?: string;
+  helperText?: string;
+  error?: boolean;
 }) => {
   const navigate = useNavigate();
   const renderer = () => {
@@ -138,6 +142,8 @@ export const ReadField = ({
             variant="filled"
             size="small"
             multiline
+            error={Boolean(error)}
+            helperText={helperText}
           />
         );
     }
