@@ -1,3 +1,12 @@
+**December 7, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
+
+- Frontend 
+    - Bug fixes for moneyfield
+    - Added custom on change functionality to moneyfield
+    - Added validation error message display to read only fields
+    - Added validation schema for project budget fields
+    - added realtime total diaply for quarterly recovered amounts
+
 **December 7, 2023 [DESCW-1792](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1792)**
 
 - Frontend 
@@ -9,6 +18,7 @@
     - better organzied picker options by project, contract, 
     - fixed bugs with autocomplete table. 
     - added autcomplete table to project budget section
+    
 
 
 
