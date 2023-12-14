@@ -1,14 +1,21 @@
-**December 14, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
+
+
+
+**December 14, 2023 [DESCW-395](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-395)**
+
+- Frontend 
+    - Removed Sass from the app
+
+**December 14, 2023 [DESCW-1259](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1259)**
 
 - Frontend
   - fix whitescreen bug after report 'export xls' button is clicked
   - add fiscal and quarter (required) parameters to the selector on the report page
   - build custom excel template for the report.
 - Backend
-
   - build model to extract the report data from the sql and send it to the controller/view
 
-    **December 7, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
+**December 7, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
 
 - Frontend
   - Bug fixes for moneyfield
