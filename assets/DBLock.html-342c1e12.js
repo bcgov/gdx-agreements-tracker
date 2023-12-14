@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-800b2b70","path":"/guide/Frontend/react_components/DBLock.html","title":"DB Lock","lang":"en-US","frontmatter":{},"headers":[],"git":{"contributors":[{"name":"kshapka-bcgov","email":"102179447+kshapka-bcgov@users.noreply.github.com","commits":1}]},"filePathRelative":"guide/Frontend/react_components/DBLock.md"}');export{e as data};
