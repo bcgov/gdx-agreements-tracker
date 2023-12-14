@@ -2,6 +2,10 @@
 
 - Frontend Backend
   - Added Read-Only Fields for Responsibility Center and Service Line in project budget form
+**December 14, 2023 [DESCW-503](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-503)**
+
+- github
+    - Added code coverage check for frontend
 
 **December 14, 2023 [DESCW-1702](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1702)**
 
