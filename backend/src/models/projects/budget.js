@@ -6,6 +6,8 @@ const projectDeliverableTable = `${dataBaseSchemas().data}.project_deliverable`;
 const contractsTable = `${dataBaseSchemas().data}.contract`;
 const portfolioTable = `${dataBaseSchemas().data}.portfolio`;
 const clientCodingTable = `${dataBaseSchemas().data}.client_coding`;
+const ministryTable = `${dataBaseSchemas().data}.ministry`;
+const contactTable = `${dataBaseSchemas().data}.contact`;
 
 const findAllById = (projectId) => {
   return knex(`${projectBudgetTable} as prb`)
@@ -21,14 +23,14 @@ const findAllById = (projectId) => {
       q4_recovered: "prb.q4_recovered",
       fiscal_year: "fy.fiscal_year",
       notes: "prb.notes",
-      deliverable_name: "prd.deliverable_name",
+      project_deliverable_id: "prd.deliverable_name",
       detail_amount: "prb.detail_amount",
       recovery_area: "port.portfolio_name",
       resource_type: "prb.resource_type",
       responsibility_centre: "cc.responsibility_centre",
       service_line: "cc.service_line",
       stob: "prb.stob",
-      program_area: "cc.program_area",
+      client_coding_id: "cc.program_area",
       contract_id: "cntr.co_number",
       total: knex.raw("prb.q1_amount + prb.q2_amount + prb.q3_amount + prb.q4_amount"),
     })
@@ -70,8 +72,8 @@ const findById = (id) => {
       responsibility_centre: "cc.responsibility_centre",
       service_line: "cc.service_line",
       stob: "prb.stob",
-      program_area: knex.raw(
-        "(SELECT json_build_object('value', prb.client_coding_id, 'label', COALESCE(cc.program_area, cc.client)))"
+      client_coding_id: knex.raw(
+        "(SELECT json_build_object('program_area', COALESCE(cc.program_area, ''), 'client', cc.client, 'ministry_short_name', min.ministry_short_name, 'value', prb.client_coding_id))"
       ),
       contract_id: knex.raw(
         "(SELECT json_build_object('value', prb.contract_id, 'label', COALESCE(cr.co_number, '')))"
@@ -83,6 +85,8 @@ const findById = (id) => {
     .leftJoin(`${contractsTable} as cr`, { "prb.contract_id": "cr.id" })
     .leftJoin(`${portfolioTable} as port`, { "prb.recovery_area": "port.id" })
     .leftJoin(`${clientCodingTable} as cc`, { "prb.client_coding_id": "cc.id" })
+    .leftJoin(`${contactTable} as con`, { "cc.contact_id": "con.id" })
+    .leftJoin(`${ministryTable} as min`, { "con.ministry_id": "min.id" })
     .where("prb.id", id)
     .first();
 };

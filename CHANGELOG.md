@@ -1,3 +1,8 @@
+**December 14, 2023 [DESCW-1702](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1702)**
+
+- Frontend Backend
+  - Added program area picker for project budget view/edit forms.
+
 **December 14, 2023 [DESCW-395](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-395)**
 
 - Frontend 
