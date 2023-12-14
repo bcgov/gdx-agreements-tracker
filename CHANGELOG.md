@@ -1,3 +1,8 @@
+**December 14, 2023 [DESCW-395](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-395)**
+
+- Frontend 
+    - Removed Sass from the app
+
 **December 7, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
 
 - Frontend 
