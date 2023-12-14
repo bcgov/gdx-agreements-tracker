@@ -339,9 +339,12 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         label: "ADI Export",
         description:
           "Project CAScoding for both recovery ministry and GDX in the format required for input- can be run by quarter or project for all projects √ for processing.",
-        parameters: [{ label: "portfolio", required: false }],
-        exportPDF: true,
-        exportXLSX: false,
+        parameters: [
+          { label: "fiscal", required: true },
+          { label: "quarter", required: false },
+        ],
+        exportPDF: false,
+        exportXLSX: true,
       },
       {
         value: "Tab_53_rpt_PF_FinProjectForecast-NEW",
