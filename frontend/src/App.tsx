@@ -1,4 +1,3 @@
-import "./styles/App.scss";
 import React, { FC } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./routes";
