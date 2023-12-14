@@ -12,64 +12,38 @@ on:
       - "!backend/README.md"
 
   workflow_dispatch:
-
+defaults:
+  run:
+    working-directory: backend/
 jobs:
   api_lint_and_test_check:
     if: github.repository_owner == 'bcgov'
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout backend
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: backend
 
       - name: Caching node modules
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
-          path: backend/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('backend/**/package-lock.json') }}
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install backend packages
-        working-directory: backend/
+      - name: Install packages
         run: npm ci
-
+        
+      # Check backend/jest.config.js for code coverage percentage
       - name: Run Backend Tests and Generate Coverage  
-        working-directory: backend/
-        run: npm test -- --coverage
+        run: | 
+          npm test -- --coverage
 
-  frontend_lint_and_test_check:
-    if: github.repository_owner == 'bcgov'
-    timeout-minutes: 5
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout frontend
-        uses: actions/checkout@v4
-        with:
-          path: frontend
 
-      - name: Caching node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: frontend/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('frontend/**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: Install frontend packages
-        working-directory: frontend/
-        run: npm ci
-
-      - name: Run Frontend Tests and Generate Coverage  
-        working-directory: frontend/
-        run: npm test -- --coverage
+    
