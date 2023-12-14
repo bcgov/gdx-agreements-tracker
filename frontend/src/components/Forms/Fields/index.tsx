@@ -158,8 +158,8 @@ export const FormInput = ({
             fieldLabel={fieldLabel}
             setFieldValue={setFieldValue as Function}
             pickerData={GetPickerOptions()}
-            helperText={touched[fieldName] && errors[fieldName]}
-            error={touched[fieldName] && Boolean(errors[fieldName])}
+            helperText={touched?.[fieldName] && errors?.[fieldName]}
+            error={touched?.[fieldName] && Boolean(errors?.[fieldName])}
           />
         </GridItem>
       );
