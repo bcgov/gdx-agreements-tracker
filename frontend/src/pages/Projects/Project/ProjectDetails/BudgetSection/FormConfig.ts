@@ -221,7 +221,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Program Area",
-          value: query?.data?.data?.data?.program_area?.label,
+          value: query?.data?.data?.data?.client_coding_id?.program_area,
         },
         {
           width: "half",
@@ -359,11 +359,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "multiText",
     },
     {
-      width: "half",
+      width: "full",
       fieldLabel: "Program Area",
-      fieldName: "program_area",
-      fieldType: "select",
-      pickerName: "client_coding_option",
+      fieldName: "client_coding_id",
+      fieldType: "autocompleteTable",
+      pickerName: "program_area_option",
+      autocompleteTableColumns: [
+        { field: "program_area", headerName: "Program Area Name" },
+        { field: "client", headerName: "Financial Contact Name" },
+        { field: "ministry_short_name", headerName: "Ministry Abrev" },
+      ],
       projectId: Number(projectId),
     },
     {

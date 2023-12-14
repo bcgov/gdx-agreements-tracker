@@ -4,7 +4,7 @@ export const tableConfig = () => {
   const defaultFlex = 3;
   const tableColumns: GridColDef[] = [
     { field: "recovery_area", headerName: "Recovery Area", flex: defaultFlex },
-    { field: "deliverable_name", headerName: "Deliverable Name", flex: defaultFlex },
+    { field: "project_deliverable_id", headerName: "Deliverable Name", flex: defaultFlex },
     { field: "detail_amount", headerName: "Detail Amount", flex: defaultFlex },
     { field: "q1_amount", headerName: "Q1 Amount", flex: defaultFlex },
     { field: "q1_recovered", headerName: "Q1 Recovered", flex: defaultFlex },
@@ -20,7 +20,7 @@ export const tableConfig = () => {
     { field: "responsibility_centre", headerName: "Responsibility", flex: defaultFlex },
     { field: "service_line", headerName: "Service Line", flex: defaultFlex },
     { field: "fiscal_year", headerName: "Fiscal", flex: defaultFlex },
-    { field: "program_area", headerName: "Program Area", flex: defaultFlex },
+    { field: "client_coding_id", headerName: "Program Area", flex: defaultFlex },
     { field: "contract_id", headerName: "Contract", flex: defaultFlex },
     { field: "notes", headerName: "Notes", flex: defaultFlex },
   ];
