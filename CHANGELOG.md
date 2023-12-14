@@ -1,31 +1,38 @@
-**December 7, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
+**December 14, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
 
-- Frontend 
-    - Bug fixes for moneyfield
-    - Added custom on change functionality to moneyfield
-    - Added validation error message display to read only fields
-    - Added validation schema for project budget fields
-    - added realtime total diaply for quarterly recovered amounts
+- Frontend
+  - fix whitescreen bug after report 'export xls' button is clicked
+  - add fiscal and quarter (required) parameters to the selector on the report page
+  - build custom excel template for the report.
+- Backend
+
+  - build model to extract the report data from the sql and send it to the controller/view
+
+    **December 7, 2023 [DESCW-1699](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1699)**
+
+- Frontend
+  - Bug fixes for moneyfield
+  - Added custom on change functionality to moneyfield
+  - Added validation error message display to read only fields
+  - Added validation schema for project budget fields
+  - added realtime total diaply for quarterly recovered amounts
 
 **December 7, 2023 [DESCW-1792](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1792)**
 
-- Frontend 
-    - Fixed new form functionality by adding more accurate conditional rednering.
+- Frontend
+  - Fixed new form functionality by adding more accurate conditional rednering.
 
 **December 6, 2023 [DESCW-1697](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1697)**
 
 - Frontend Backend
-    - better organzied picker options by project, contract, 
-    - fixed bugs with autocomplete table. 
-    - added autcomplete table to project budget section
-    
-
-
+  - better organzied picker options by project, contract,
+  - fixed bugs with autocomplete table.
+  - added autcomplete table to project budget section
 
 **December 1, 2023 [DESCW-1774](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1774)**
 
 - Frontend Backend
-    - Added better error handling
+  - Added better error handling
 
 **November 30, 2023 [DESCW-1772](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1772)**
 
