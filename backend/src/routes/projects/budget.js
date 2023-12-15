@@ -41,6 +41,12 @@ const routes = [
     handler: controller.recoverablesBreakdown,
   },
   {
+    method: "GET",
+    url: `/project/${what}/responsibilityservice/:id`,
+    // schema: validators.recoverablesBreakdown,
+    handler: controller.getResponsibilityServiceLine,
+  },
+  {
     method: "PUT",
     url: `/projects/${what}/:id`,
     schema: validators.updateOne,

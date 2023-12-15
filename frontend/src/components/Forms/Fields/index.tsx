@@ -151,6 +151,7 @@ export const FormInput = ({
             as={Select}
             onChange={(newValue: string) => {
               setFieldValue?.(fieldName, newValue);
+              customOnChange(newValue);
             }}
             multiple={"multiselect" === fieldType ? true : false}
             fieldName={fieldName}

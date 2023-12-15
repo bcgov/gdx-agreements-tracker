@@ -63,7 +63,7 @@ export const InputForm = ({
                       touched={touched}
                       autocompleteTableColumns={autocompleteTableColumns}
                       customOnChange={(newValue: Object) => {
-                        customOnChange(values, setFieldValue, newValue);
+                        customOnChange({ formikValues: values, setFieldValue, newValue });
                       }}
                     />
                   );

@@ -27,8 +27,14 @@ const findAllById = (projectId) => {
       detail_amount: "prb.detail_amount",
       recovery_area: "port.portfolio_name",
       resource_type: "prb.resource_type",
-      responsibility_centre: "cc.responsibility_centre",
-      service_line: "cc.service_line",
+      responsibility_centre: knex
+        .select("responsibility")
+        .from(`${portfolioTable}`)
+        .where({ id: knex.raw("prb.recovery_area") }), // Subquery for responsibility_centre
+      service_line: knex
+        .select("service_line")
+        .from(`${portfolioTable}`)
+        .where({ id: knex.raw("prb.recovery_area") }), // Subquery for responsibility_centre
       stob: "prb.stob",
       client_coding_id: "cc.program_area",
       contract_id: "cntr.co_number",
@@ -43,7 +49,7 @@ const findAllById = (projectId) => {
 };
 
 const findById = (id) => {
-  return knex``
+  return knex
     .select({
       id: "prb.id",
       q1_amount: "prb.q1_amount",
@@ -69,8 +75,14 @@ const findById = (id) => {
       resource_type: knex.raw(
         "(SELECT json_build_object('value', prb.resource_type, 'label', COALESCE(prb.resource_type, '')))"
       ),
-      responsibility_centre: "cc.responsibility_centre",
-      service_line: "cc.service_line",
+      responsibility_centre: knex
+        .select("responsibility")
+        .from(`${portfolioTable}`)
+        .where({ id: knex.raw("prb.recovery_area") }), // Subquery for responsibility_centre
+      service_line: knex
+        .select("service_line")
+        .from(`${portfolioTable}`)
+        .where({ id: knex.raw("prb.recovery_area") }), // Subquery for responsibility_centre
       stob: "prb.stob",
       client_coding_id: knex.raw(
         "(SELECT json_build_object('program_area', COALESCE(cc.program_area, ''), 'client', cc.client, 'ministry_short_name', min.ministry_short_name, 'value', prb.client_coding_id))"
@@ -89,6 +101,17 @@ const findById = (id) => {
     .leftJoin(`${ministryTable} as min`, { "con.ministry_id": "min.id" })
     .where("prb.id", id)
     .first();
+};
+
+// Update one.
+const getResponsibilityServiceLine = (id) => {
+  return knex
+    .select({
+      responsibility_centre: "port.responsibility",
+      service_line: "port.service_line",
+    })
+    .from(`${portfolioTable} as port`)
+    .where({ "port.id": id });
 };
 
 // Update one.
@@ -197,5 +220,6 @@ module.exports = {
   findPortfolioBreakdown,
   findDeliverablesBreakdown,
   findProjectRecoverableBreakdown,
+  getResponsibilityServiceLine,
   removeOne,
 };
