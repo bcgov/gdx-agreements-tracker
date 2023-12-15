@@ -134,7 +134,7 @@ const getResponsabilityServiceLine = async ({
       setFieldValue("service_line", response.service_line);
     });
   }
-  return "there was no protfolio ID provided"
+  return "there was no protfolio ID provided";
 };
 
 /**
