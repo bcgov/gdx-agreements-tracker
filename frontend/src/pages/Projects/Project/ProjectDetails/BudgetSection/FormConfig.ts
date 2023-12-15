@@ -398,14 +398,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       ],
       projectId: Number(projectId),
     },
-    // {
-    //   width: "half",
-    //   fieldLabel: "Contract",
-    //   fieldName: "contract_id",
-    //   fieldType: "select",
-    //   pickerName: "budget_contract_option",
-    //   projectId: Number(projectId),
-    // },
     {
       fieldName: "contract_id",
       fieldLabel: "Contract",
