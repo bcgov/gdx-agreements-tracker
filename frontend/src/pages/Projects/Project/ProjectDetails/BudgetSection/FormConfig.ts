@@ -128,10 +128,13 @@ const getResponsabilityServiceLine = async ({
 
   // Queries
 
-  return getCall().then((response) => {
-    setFieldValue("responsibility_centre", response.responsibility_centre);
-    setFieldValue("service_line", response.service_line);
-  });
+  if (newValue) {
+    return getCall().then((response) => {
+      setFieldValue("responsibility_centre", response.responsibility_centre);
+      setFieldValue("service_line", response.service_line);
+    });
+  }
+  return "there was no protfolio ID provided"
 };
 
 /**
