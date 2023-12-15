@@ -43,4 +43,16 @@ controller.recoverablesBreakdown = async (request, reply) => {
   }
 };
 
+controller.getResponsibilityServiceLine = async (request, reply) => {
+  const portfolioId = Number(request.params.id);
+  try {
+    const result = await model.getResponsibilityServiceLine(Number(portfolioId));
+    return !result
+      ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      : result;
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
 module.exports = controller;

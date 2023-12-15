@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { object, string, number } from "yup";
 import { FormikValues } from "formik";
 import _ from "lodash";
+import { apiAxios } from "utils";
 
 interface IRecoveredQuarterAmounts {
   q1_amount: string;
@@ -21,11 +22,15 @@ interface IRecoveredQuarterAmounts {
  * @param {Function}     setFieldValue - Formik's setFieldValue function.
  * @param {object}       newValue      - The object containing updated values for quarters.
  */
-const getRecoveredTotalsByQuarter = async (
-  formikValues: FormikValues,
-  setFieldValue: Function,
-  newValue: { [key: string]: string }
-) => {
+const getRecoveredTotalsByQuarter = async ({
+  formikValues,
+  setFieldValue,
+  newValue,
+}: {
+  formikValues: FormikValues;
+  setFieldValue: Function;
+  newValue: { [key: string]: string };
+}) => {
   const { q1_amount, q2_amount, q3_amount, q4_amount } = formikValues;
   const recoveredQuarterAmounts: IRecoveredQuarterAmounts = {
     q1_amount,
@@ -103,6 +108,33 @@ const getRecoveredTotalsByQuarter = async (
   const toCurrency = sumOfQuarters.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
   setFieldValue("total", toCurrency);
+};
+
+const getResponsabilityServiceLine = async ({
+  newValue,
+  setFieldValue,
+}: {
+  newValue: { value: string | number };
+  setFieldValue: Function;
+}) => {
+  const getCall = async () => {
+    const results = await apiAxios()
+      .get(`/project/budget/responsibilityservice/${newValue?.value}`)
+      .then((responsabilityServiceLine) => {
+        return responsabilityServiceLine;
+      });
+    return results.data.data[0];
+  };
+
+  // Queries
+
+  if (newValue) {
+    return getCall().then((response) => {
+      setFieldValue("responsibility_centre", response.responsibility_centre);
+      setFieldValue("service_line", response.service_line);
+    });
+  }
+  return "there was no portfolio ID provided";
 };
 
 /**
@@ -205,7 +237,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Responsibility",
+          title: "Responsibility Centre",
           value: query?.data?.data?.data?.responsibility_centre,
         },
         {
@@ -213,6 +245,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           title: "Service Line",
           value: query?.data?.data?.data?.service_line,
         },
+
         {
           width: "half",
           title: "Fiscal",
@@ -241,6 +274,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "recovery_area",
       fieldType: "select",
       pickerName: "recovery_area_option",
+      customOnChange: getResponsabilityServiceLine,
     },
     {
       fieldName: "project_deliverable_id",
@@ -257,7 +291,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
 
     {
-      width: "half",
+      width: "full",
       fieldLabel: "Detail Amount",
       fieldName: "detail_amount",
       fieldType: "money",
@@ -315,7 +349,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "checkbox",
     },
     {
-      width: "half",
+      width: "full",
       fieldLabel: "Total",
       fieldName: "total",
       fieldType: "readonly",
@@ -329,21 +363,21 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
+      fieldLabel: "STOB",
+      fieldName: "stob",
+      fieldType: "singleText",
+    },
+    {
+      width: "half",
       fieldLabel: "Responsibility Centre",
       fieldName: "responsibility_centre",
-      fieldType: "singleText",
+      fieldType: "readonly",
     },
     {
       width: "half",
       fieldLabel: "Service Line",
       fieldName: "service_line",
-      fieldType: "singleText",
-    },
-    {
-      width: "half",
-      fieldLabel: "STOB",
-      fieldName: "stob",
-      fieldType: "singleText",
+      fieldType: "readonly",
     },
     {
       width: "half",
@@ -354,12 +388,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
-      fieldLabel: "Notes",
-      fieldName: "notes",
-      fieldType: "multiText",
-    },
-    {
-      width: "full",
       fieldLabel: "Program Area",
       fieldName: "client_coding_id",
       fieldType: "autocompleteTable",
@@ -378,6 +406,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "select",
       pickerName: "budget_contract_option",
       projectId: Number(projectId),
+    },
+    {
+      width: "half",
+      fieldLabel: "Notes",
+      fieldName: "notes",
+      fieldType: "multiText",
     },
   ];
 
