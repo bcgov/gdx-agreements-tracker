@@ -263,14 +263,24 @@ const tableLookupValues = (projectId, contractId) => {
         queryAdditions: getProjectDeliverablesQueryAdditions(projectId),
       },
       {
-        id: "projectBudgetContract",
+        id: "projectbudgetcontract",
         name: "budget_contract_option", //To be use din the fron end fields file
         title: "Contract", //Title for the frontend if you don't provide a title in the fields file
         description: "the contract related to the project budget",
         table: "data.contract", // The table you want to lookup to
         value: "contract.id", //The value for the picker ex: {label:"example", value:contract.id}
         label: `co_number`, //The label for the picker ex: {label:"example", value:contract.id}
-        queryAdditions: getProjectBudgetContractQueryAdditions(projectId), //Any extra queries you want to add to the lookup example filters.
+        queryAdditions: ``,
+        customDefinition: `(SELECT COALESCE(json_agg(projbudgcont), '[]')
+          FROM(
+            select 
+              cont.co_number, 
+              cont.id as value,          
+              cont.co_version, 
+              cont.contract_number
+            FROM data.contract cont
+            WHERE project_id = ${projectId}
+            ) projbudgcont)`,
       },
       {
         id: "deliverablename",
@@ -417,24 +427,6 @@ const getProjectDeliverablesQueryAdditions = (projectId) => {
   if (Number(projectId) > 0) {
     query = `
       WHERE project_deliverable.project_id = ${Number(projectId)}
-      GROUP BY label, value
-      ORDER BY label ASC
-      `;
-  }
-  return query;
-};
-
-/**
- * Gets contract deliverable query additions.
- *
- * @param   {int}    projectId The project id.
- * @returns {string}
- */
-const getProjectBudgetContractQueryAdditions = (projectId) => {
-  let query = `WHERE contract.project_id IS NOT NULL`;
-  if (Number(projectId) > 0) {
-    query = `
-      WHERE contract.project_id = ${Number(projectId)}
       GROUP BY label, value
       ORDER BY label ASC
       `;

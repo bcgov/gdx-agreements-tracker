@@ -72,7 +72,14 @@ const getOne = {
           .prop("ministry_short_name", S.string())
           .prop("value", S.number())
       )
-      .prop("contract_id", Schema.Picker)
+      .prop(
+        "contract_id",
+        S.object()
+          .prop("co_number", S.string())
+          .prop("co_version", S.string())
+          .prop("contract_number", S.string())
+          .prop("value", S.number())
+      )
       .prop("responsibility_centre", S.string())
       .prop("total", S.string())
   ),
