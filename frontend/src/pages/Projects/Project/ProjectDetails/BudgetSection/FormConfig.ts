@@ -234,7 +234,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Responsibility",
+          title: "Responsibility Centre",
           value: query?.data?.data?.data?.responsibility_centre,
         },
         {
@@ -242,6 +242,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           title: "Service Line",
           value: query?.data?.data?.data?.service_line,
         },
+
         {
           width: "half",
           title: "Fiscal",
@@ -287,7 +288,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
 
     {
-      width: "half",
+      width: "full",
       fieldLabel: "Detail Amount",
       fieldName: "detail_amount",
       fieldType: "money",
@@ -345,7 +346,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "checkbox",
     },
     {
-      width: "half",
+      width: "full",
       fieldLabel: "Total",
       fieldName: "total",
       fieldType: "readonly",
@@ -356,6 +357,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "resource_type",
       fieldType: "select",
       tableName: "project_budget",
+    },
+    {
+      width: "half",
+      fieldLabel: "STOB",
+      fieldName: "stob",
+      fieldType: "singleText",
     },
     {
       width: "half",
@@ -371,12 +378,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
-      fieldLabel: "STOB",
-      fieldName: "stob",
-      fieldType: "singleText",
-    },
-    {
-      width: "half",
       fieldLabel: "Fiscal",
       fieldName: "fiscal_year",
       fieldType: "select",
@@ -384,12 +385,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       width: "half",
-      fieldLabel: "Notes",
-      fieldName: "notes",
-      fieldType: "multiText",
-    },
-    {
-      width: "full",
       fieldLabel: "Program Area",
       fieldName: "client_coding_id",
       fieldType: "autocompleteTable",
@@ -408,6 +403,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "select",
       pickerName: "budget_contract_option",
       projectId: Number(projectId),
+    },
+    {
+      width: "half",
+      fieldLabel: "Notes",
+      fieldName: "notes",
+      fieldType: "multiText",
     },
   ];
 
