@@ -30,7 +30,7 @@ spec:
         spec:
           containers:
             - name: postgres-backup-runner
-              image: "image-registry.openshift-image-registry.svc:5000/acd38d-tools/backup-container:postgres-15"
+              image: "gdx-agreements-tracker-backup-container"
               command:
                 - "/bin/bash"
                 - "-c"
