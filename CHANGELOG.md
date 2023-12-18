@@ -1,3 +1,8 @@
+**December 15, 2023 [DESCW-1715](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1715)**
+
+- Frontend Backend
+  - Added AutoComplete dropdown to project budget contract input
+
 **December 15, 2023 [DESCW-1701](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1701)**
 
 - Frontend Backend

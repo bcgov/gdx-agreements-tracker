@@ -34,7 +34,7 @@ const findAllById = (projectId) => {
       service_line: knex
         .select("service_line")
         .from(`${portfolioTable}`)
-        .where({ id: knex.raw("prb.recovery_area") }), // Subquery for responsibility_centre
+        .where({ id: knex.raw("prb.recovery_area") }), // Subquery for service_line
       stob: "prb.stob",
       client_coding_id: "cc.program_area",
       contract_id: "cntr.co_number",
@@ -88,7 +88,7 @@ const findById = (id) => {
         "(SELECT json_build_object('program_area', COALESCE(cc.program_area, ''), 'client', cc.client, 'ministry_short_name', min.ministry_short_name, 'value', prb.client_coding_id))"
       ),
       contract_id: knex.raw(
-        "(SELECT json_build_object('value', prb.contract_id, 'label', COALESCE(cr.co_number, '')))"
+        "(SELECT json_build_object('value', prb.contract_id, 'co_number', COALESCE(cr.co_number, '')))"
       ),
     })
     .from(`${projectBudgetTable} as prb`)
