@@ -48,7 +48,8 @@ export default defineUserConfig({
           {text:"Forms",children:[
             "/guide/Frontend/react_components/Forms/Fields/Checkbox",
             "/guide/Frontend/react_components/Forms/Validation",
-          ]}
+          ]},
+          "/guide/Frontend/react_components/MoneyField",
         ],
       },
       {
