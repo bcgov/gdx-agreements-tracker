@@ -3,7 +3,7 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
 import { object, string, number } from "yup";
-import { FormikValues } from "formik";
+import { FormikValues, FormikFormProps } from "formik";
 import _ from "lodash";
 import { apiAxios } from "utils";
 
@@ -18,9 +18,10 @@ interface IRecoveredQuarterAmounts {
 /**
  * Updates the values in the `recoveredQuarterAmounts` object with the values from the `newValue` object.
  *
- * @param {FormikValues} formikValues  - The Formik values object.
- * @param {Function}     setFieldValue - Formik's setFieldValue function.
- * @param {object}       newValue      - The object containing updated values for quarters.
+ * @param {object}       args               - The arguments object.
+ * @param {FormikValues} args.formikValues  - The Formik values object.
+ * @param {Function}     args.setFieldValue - Formik's setFieldValue function.
+ * @param {object}       args.newValue      - The object containing updated values for quarters.
  */
 const getRecoveredTotalsByQuarter = async ({
   formikValues,
@@ -28,7 +29,7 @@ const getRecoveredTotalsByQuarter = async ({
   newValue,
 }: {
   formikValues: FormikValues;
-  setFieldValue: Function;
+  setFieldValue: FormikFormProps;
   newValue: { [key: string]: string };
 }) => {
   const { q1_amount, q2_amount, q3_amount, q4_amount } = formikValues;
