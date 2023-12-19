@@ -3,7 +3,7 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
 import { object, string, number } from "yup";
-import { FormikValues, FormikFormProps } from "formik";
+import { FormikValues } from "formik";
 import _ from "lodash";
 import { apiAxios } from "utils";
 
@@ -29,7 +29,7 @@ const getRecoveredTotalsByQuarter = async ({
   newValue,
 }: {
   formikValues: FormikValues;
-  setFieldValue: FormikFormProps;
+  setFieldValue: Function;
   newValue: { [key: string]: string };
 }) => {
   const { q1_amount, q2_amount, q3_amount, q4_amount } = formikValues;
