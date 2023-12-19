@@ -1,3 +1,9 @@
+**December 18, 2023 [DESCW-1834](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1834)**
+
+- Frontend
+  - removes Autocomplete console warning for non-atomic input values (e.g. objects)
+  - see: https://mui.com/material-ui/react-autocomplete/#free-solo
+
 **December 18, 2023 [DESCW-1752](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1752)**
 
 - Create build configuration for backup container images.

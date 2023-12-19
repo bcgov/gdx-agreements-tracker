@@ -25,6 +25,8 @@ export const Select: FC<IPickerProps> = ({
         <Skeleton variant="rectangular" width={"auto"} height={38} />
       ) : (
         <Autocomplete
+          // allows text box to contain an arbitrary value https://mui.com/material-ui/react-autocomplete/#free-solo
+          freeSolo
           id={fieldName}
           options={pickerData?.definition}
           onChange={(event, choice: unknown) => {

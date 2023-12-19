@@ -18,9 +18,10 @@ interface IRecoveredQuarterAmounts {
 /**
  * Updates the values in the `recoveredQuarterAmounts` object with the values from the `newValue` object.
  *
- * @param {FormikValues} formikValues  - The Formik values object.
- * @param {Function}     setFieldValue - Formik's setFieldValue function.
- * @param {object}       newValue      - The object containing updated values for quarters.
+ * @param {object}       args               - The arguments object.
+ * @param {FormikValues} args.formikValues  - The Formik values object.
+ * @param {Function}     args.setFieldValue - Formik's setFieldValue function.
+ * @param {object}       args.newValue      - The object containing updated values for quarters.
  */
 const getRecoveredTotalsByQuarter = async ({
   formikValues,
