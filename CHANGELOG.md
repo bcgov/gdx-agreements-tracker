@@ -1,3 +1,7 @@
+**December 18, 2023 [DESCW-1752](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1752)**
+
+- Create build configuration for backup container images.
+
 **December 18, 2023 [DESCW-1590](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1590)**
 
 - Documentation

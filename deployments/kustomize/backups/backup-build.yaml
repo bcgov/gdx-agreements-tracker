@@ -1,0 +1,37 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    description: Image Build for backup container
+  labels:
+    role: app
+  name: gdx-agreements-tracker-backup
+spec:
+  failedBuildsHistoryLimit: 1
+  successfulBuildsHistoryLimit: 2
+  source:
+    type: Git
+    git:
+      uri: https://github.com/BCDevOps/backup-container.git
+      ref: master
+    contextDir: docker
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: DockerImage
+        name: quay.io/fedora/postgresql-15:15
+      dockerfilePath: Dockerfile
+      incremental: false
+  output:
+    to:
+      kind: ImageStreamTag
+      name: gdx-agreements-tracker-backup-container:latest
+  resources:
+    limits:
+      cpu: "2"
+      memory: 2Gi
+    requests:
+      cpu: "1.5"
+      memory: 1.5Gi
+  runPolicy: Serial
