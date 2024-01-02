@@ -1,6 +1,12 @@
-**January 2, 2024 [DESCW-1596](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1597)
+**January 2, 2024 [DESCW-1597](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1597)**
+
 - Documentation
   - document GridItem component.
+
+**January 2, 2024 [DESCW-1596](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1596)**
+
+- Documentation
+  - Documents usage and props of FormLayout, a grid-based form layout container component.
 
 **December 18, 2023 [DESCW-1834](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1834)**
 
