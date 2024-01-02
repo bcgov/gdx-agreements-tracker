@@ -13,12 +13,12 @@ export default defineUserConfig({
     logoDark: "/images/BCID_H_rgb_rev.png",
     editLink: false,
     lastUpdated: false,
-    repo: 'bcgov/gdx-agreements-tracker',
-    repoLabel: 'Github',
+    repo: "bcgov/gdx-agreements-tracker",
+    repoLabel: "Github",
     navbar: [
       {
-        text: 'Home',
-        link: '/',
+        text: "Home",
+        link: "/",
       },
     ],
     // sidebar array
@@ -33,7 +33,7 @@ export default defineUserConfig({
           "/guide/GettingStarted/deploy_kubernetes",
           "/guide/GettingStarted/deploy_openshift",
           "/guide/GettingStarted/building_images",
-        ]
+        ],
       },
       {
         text: "Frontend",
@@ -45,10 +45,14 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/ConfirmationDialog",
           "/guide/Frontend/react_components/DBLock",
           "/guide/Frontend/react_components/DeleteButton",
-          {text:"Forms",children:[
-            "/guide/Frontend/react_components/Forms/Fields/Checkbox",
-            "/guide/Frontend/react_components/Forms/Validation",
-          ]},
+          {
+            text: "Forms",
+            children: [
+              "/guide/Frontend/react_components/Forms/Fields/Checkbox",
+              "/guide/Frontend/react_components/Forms/GridItem",
+              "/guide/Frontend/react_components/Forms/Validation",
+            ],
+          },
           "/guide/Frontend/react_components/MoneyField",
         ],
       },
@@ -60,11 +64,7 @@ export default defineUserConfig({
       {
         text: "Openshift",
         collapsible: true,
-        children: [
-          "/guide/openshift/change_password",
-          "/guide/openshift/temp"
-        ],
-
+        children: ["/guide/openshift/change_password", "/guide/openshift/temp"],
       },
       // string - page file path
     ],
@@ -72,6 +72,6 @@ export default defineUserConfig({
   plugins: [
     searchPlugin({
       // options
-    })
+    }),
   ],
 });
