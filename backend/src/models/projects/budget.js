@@ -138,7 +138,7 @@ const findProjectBudgetByFiscal = (projectId) => {
     .sum("q2_amount as q2_amount")
     .sum("q3_amount as q3_amount")
     .sum("q4_amount as q4_amount")
-    .sum("detail_amount as total_detail_amount")
+    .sum("detail_amount as recovery_amount")
     .from(`${projectBudgetTable} as pb`)
     .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
     .join(`${fiscalYearTable} as fy`, "pd.fiscal", "fy.id")
