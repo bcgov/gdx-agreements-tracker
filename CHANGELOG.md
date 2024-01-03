@@ -1,10 +1,12 @@
-**January 3, 2024 [DESCW-1803](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1803)**
-- Changed fiscal breakdown column title from "total detail amount" to "recovery amount".
-
 **January 3, 2024 [DESCW-1599](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1599)**
+
 - Documentation
   - document InputForm component.
   - add docblock comment to InputForm
+
+**January 3, 2024 [DESCW-1803](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1803)**
+
+- Changed fiscal breakdown column title from "total detail amount" to "recovery amount".
 
 **January 2, 2024 [DESCW-1598](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1598)**
 
