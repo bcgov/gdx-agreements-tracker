@@ -53,6 +53,7 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/Forms/FormRenderer",
               "/guide/Frontend/react_components/Forms/GridItem",
               "/guide/Frontend/react_components/Forms/InputForm",
+              "/guide/Frontend/react_components/Forms/ReadForm",
               "/guide/Frontend/react_components/Forms/Validation",
             ],
           },
