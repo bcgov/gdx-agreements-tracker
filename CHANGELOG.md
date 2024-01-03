@@ -1,3 +1,8 @@
+**January 3, 2024 [DESCW-1599](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1599)**
+- Documentation
+  - document InputForm component.
+  - add docblock comment to InputForm
+
 **January 2, 2024 [DESCW-1598](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1598)**
 
 - Documentation

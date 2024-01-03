@@ -12,6 +12,17 @@ interface IEditForm {
   validationSchema?: YupSchema<{ [key: string]: Function }>;
 }
 
+/**
+ * InputForm component renders a form using Formik for handling form state and validation.
+ *
+ * @param   {object}      props                  - The input form component props.
+ * @param   {Function}    props.handleOnSubmit   - Function to handle form submission.
+ * @param   {object}      props.initialValues    - Initial values for the form fields.
+ * @param   {Function}    props.handleOnCancel   - Function to handle form cancellation.
+ * @param   {Array}       props.editFields       - Array of field configurations for the form.
+ * @param   {object}      props.validationSchema - Validation schema for the form fields.
+ * @returns {JSX.Element}                        - The rendered InputForm component.
+ */
 export const InputForm = ({
   handleOnSubmit,
   initialValues,
