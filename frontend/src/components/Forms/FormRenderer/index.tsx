@@ -10,19 +10,22 @@ import { useFormData } from "hooks/useFormData";
 import { useNavigate } from "react-router";
 
 /**
- * This is a functional component called `FormRenderer` that takes in several props including `queryKey`, `readFields`, `editFields`, `rowId`, `postUrl`, and `updateUrl`.
- * It uses the `useQuery` hook from the `react-query` library to fetch data based on the `queryKey` prop.
+ * This is a functional component called `FormRenderer` that takes in several props including `formControls`, `tableName`, `formConfig`, `formDataApiEndpoint`, and `isReadOnly`.
+ * It uses several hooks to generate the props it needs to generate a dynamic form capable of CRUD operations on the table data it displays and updates.
+ * The hooks include `useQueryClient` to generate a client function for validating and running queries against the backend, and throw snackbar alerts to the client app
+ * The `useSnackbar` hook is used to display success/fail methods on CRUD operations in the client app
  * It also uses several custom hooks including `useFormSubmit`, `useFormControls`, and `useFormLock`
  * to handle form submission, form controls, and database locking respectively.
  *
- * @param   {object}             props            The props passed to this rendering component
- * @param   {string[]}           props.tableName  The key used to find the react query cache for the that item
- * @param   {Function}           props.readFields The read fields for the read form
- * @param   {Function}           props.editFields The read fields for the read form
- * @param   {string | undefined} props.rowId      The Database Table Row ID used to tell the dblock which row to lock or unlock
- * @param   {string}             props.postUrl    The URL used to send a post request to the database
- * @param   {string}             props.updateUrl  The URL used to send an update request to the database
- * @returns {JSX.Element}
+ * It Renders a form with the given configuration and data.
+ *
+ * @param   {IFormRenderer} props - The props parameter is of type IFormRenderer and contains the following properties:
+ *                                formControls: an object containing form controls,
+ *                                tableName: a string representing the name of the table,
+ *                                formConfig: a function that returns an object containing form configuration,
+ *                                formDataApiEndpoint: a string representing the API endpoint for form data,
+ *                                isReadOnly: a boolean indicating whether the form is read-only.
+ * @returns {JSX.Element}         - Returns a JSX element that renders a form.
  */
 
 export const FormRenderer = ({

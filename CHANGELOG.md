@@ -1,3 +1,10 @@
+**January 2, 2024 [DESCW-1598](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1598)**
+
+- Documentation
+  - document FormRenderer component.
+  - updates docblock comment inside FormRenderer.
+  - updates FormLayout and GridItem documentation to make it consistent.
+
 **January 2, 2024 [DESCW-1597](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1597)**
 
 - Documentation

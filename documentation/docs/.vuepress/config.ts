@@ -50,6 +50,7 @@ export default defineUserConfig({
             children: [
               "/guide/Frontend/react_components/Forms/Fields/Checkbox",
               "/guide/Frontend/react_components/Forms/FormLayout",
+              "/guide/Frontend/react_components/Forms/FormRenderer",
               "/guide/Frontend/react_components/Forms/GridItem",
               "/guide/Frontend/react_components/Forms/Validation",
             ],
