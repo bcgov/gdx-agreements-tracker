@@ -127,7 +127,7 @@ const fiscalBreakdown = {
     S.array().items(
       S.object()
         .prop("fiscal_year", S.string())
-        .prop("total_detail_amount", S.string())
+        .prop("recovery_amount", S.string())
         .prop("recovered_amount", S.string())
         .prop("balance_remaining", S.string())
         .prop("q1_amount", S.string())
