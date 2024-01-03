@@ -1,101 +1,60 @@
 # Read Form
 
-This React component is designed to create a flexible and reusable input form using the Formik library for form management and validation. The component, named `ReadForm`,
-serves as a wrapper that encapsulates the configuration and rendering of form fields based on the provided parameters.
-
+The `ReadForm` component is a React component designed to render a form layout with read-only fields.
 
 ### Usage
-1. **Form Configuration**: The component takes several parameters (`handleOnSubmit`, `initialValues`, `handleOnCancel`, `editFields`, `validationSchema`) to configure the form's behavior.
 
-2. **Dynamic Field Rendering**: The `editFields` array allows the dynamic rendering of input fields based on the specified configuration for each field. Each field is described by properties like `fieldName`, `fieldType`, `fieldLabel`, etc.
+`ReadForm` takes a prop named `fields`, which is an array of field configurations. Each field configuration is an object with the following properties:
 
-3. **Formik Integration**: The component integrates with Formik, a popular form management library for React. It uses the `Formik` component to handle form state, form submission (`handleOnSubmit`), and form validation (`validationSchema`).
+- `width` (string): Specifies the width of the field.
+- `title` (string): Represents the title or label for the field.
+- `value` (IReturnValue): Contains the value to be displayed in the field.
+- `type` (optional, string): Indicates the type of the field (e.g., text, number).
 
-4. **Customization**: The component allows customization of field behavior through various optional properties such as `customOnChange`. This enables the user to define custom logic when a specific input field changes.
+The component then maps over the provided `fields` array, rendering a `ReadField` component for each field configuration. The `ReadField` component is assumed to be another component responsible for displaying a single read-only field based on the provided properties (width, title, value, type).
 
-5. **Form Layout and Buttons**: The form structure is managed with a custom `FormLayout` component. Additionally, there's a `FormButtons` component responsible for rendering form buttons, including a cancellation button (`handleOnCancel`) and dynamic enablement based on form dirtiness (`dirty`).
-
-In summary, this `InputForm` component is a configurable and reusable form that leverages Formik for state management and validation. It provides a way to easily create input forms with dynamic fields and customizable behavior for different use cases within a React application.
-
-
-## Styling
-
-The `InputForm` component utilizes Material-UI components for its structure and interaction.
-
-
+Overall, the `ReadForm` component serves as a reusable and configurable way to present read-only information in a structured form layout.
 
 ### Example
 
 ```jsx
-  import React from 'react';
-  import { InputForm } from './InputForm'; // Adjust the import path based on your project structure
+import React from "react";
+import { ReadForm } from "./ReadForm";
 
-  // Assume you have a function for handling form submission
-  const handleFormSubmit = (values) => {
-    // Logic to handle form submission
-    console.log('Form submitted with values:', values);
-  };
+// Sample data for the fields
+const sampleFields = [
+  {
+    width: "50%",
+    title: "Name",
+    value: "John Doe",
+    type: "text",
+  },
+  {
+    width: "30%",
+    title: "Age",
+    value: 25,
+    type: "number",
+  },
+  {
+    width: "100%",
+    title: "Address",
+    value: "123 Main St, Cityville",
+    // Note: type is optional and not provided for this field
+  },
+  // Add more fields as needed
+];
 
-  // Assume you have a function for handling form cancellation
-  const handleFormCancel = () => {
-    // Logic to handle form cancellation
-    console.log('Form canceled');
-  };
+// Example usage of the ReadForm component
+const App = () => {
+  return (
+    <div>
+      <h1>User Information</h1>
+      <ReadForm fields={sampleFields} />
+    </div>
+  );
+};
 
-  // Sample initial form values
-  const initialFormValues = {
-    username: '',
-    email: '',
-    password: '',
-    // ... other fields
-  };
-
-  // Sample validation schema
-  // (Yup is what we use natively - search for 'validationSchema' in this repo globally to see working examples)
-  const validationSchema = /* ... */;
-
-  // Sample configuration for editFields
-  const editFields = [
-    {
-      fieldName: 'username',
-      fieldType: 'text',
-      fieldLabel: 'Username',
-      width: 6,
-      required: true,
-    },
-    {
-      fieldName: 'email',
-      fieldType: 'email',
-      fieldLabel: 'Email',
-      width: 6,
-      required: true,
-    },
-    {
-      fieldName: 'password',
-      fieldType: 'password',
-      fieldLabel: 'Password',
-      width: 12,
-      required: true,
-    },
-    // ... add more fields as needed
-  ];
-
-  const App = () => {
-    return (
-      <div>
-        <h1>User Registration Form</h1>
-        <InputForm
-          handleOnSubmit={handleFormSubmit}
-          initialValues={initialFormValues}
-          handleOnCancel={handleFormCancel}
-          editFields={editFields}
-          validationSchema={validationSchema}
-        />
-      </div>
-    );
-  };
-
-  export default App;
+export default App;
 ```
 
-##### For a current in-use example, see: [components/Forms/ReadForm](https://github.com/bcgov/gdx-agreements-tracker/blob/development/frontend/src/components/Forms/ReadForm/index.tsx)
+##### For a current in-use example, see: [components/Forms/FormRenderer](https://github.com/bcgov/gdx-agreements-tracker/blob/development/frontend/src/components/Forms/FormRenderer/index.tsx)
