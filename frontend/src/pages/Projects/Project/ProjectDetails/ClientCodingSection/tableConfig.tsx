@@ -8,13 +8,13 @@ export const tableConfig = () => {
       headerName: "Program Area",
       flex: defaultFlex,
     },
-    { field: "service_line", headerName: "Service Line", flex: defaultFlex },
     { field: "client", headerName: "Client", flex: defaultFlex },
+    { field: "responsibility_centre", headerName: "Responsibility Centre", flex: defaultFlex },
+    { field: "service_line", headerName: "Service Line", flex: defaultFlex },
+    { field: "stob", headerName: "STOB", flex: defaultFlex },
+    { field: "project_code", headerName: "Project Code", flex: defaultFlex },
     { field: "contact", headerName: "Financial Contact", flex: defaultFlex },
     { field: "expense_authority_name", headerName: "Expense Authority Name", flex: defaultFlex },
-    { field: "stob", headerName: "STOB", flex: defaultFlex },
-    { field: "responsibility_centre", headerName: "Responsibility Centre", flex: defaultFlex },
-    { field: "project_code", headerName: "Project Code", flex: defaultFlex },
     { field: "client_amount", headerName: "Client Amount", flex: defaultFlex },
   ];
 

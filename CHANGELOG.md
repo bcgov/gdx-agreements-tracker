@@ -1,7 +1,14 @@
+**January 3, 2024 [DESCW-1807](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1807)**
+
+- Frontend
+  - Changed order of columns in project client coding table
+
 **January 3, 2024 [DESCW-1805](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1805)**
+
 - Changed portfolio breakdown column "portfolio name" to "recovery area".
 
 **January 3, 2024 [DESCW-1803](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1803)**
+
 - Changed fiscal breakdown column title from "total detail amount" to "recovery amount".
 
 **January 3, 2024 [DESCW-1599](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1599)**
