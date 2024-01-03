@@ -149,7 +149,7 @@ const findProjectBudgetByFiscal = (projectId) => {
 const findPortfolioBreakdown = (projectId) => {
   return knex
     .select({
-      portfolio_name: "port.portfolio_name",
+      recovery_area: "port.portfolio_name",
       recovery_amount: knex.raw("SUM(pb.detail_amount)"),
       id: knex.raw("row_number() OVER ()"),
       recovered_to_date: knex.raw(

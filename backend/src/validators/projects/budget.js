@@ -144,7 +144,7 @@ const portfolioBreakdown = {
   response: getResponse(
     S.array().items(
       S.object()
-        .prop("portfolio_name", S.string())
+        .prop("recovery_area", S.string())
         .prop("recovery_amount", S.string())
         .prop("recovered_to_date", S.string())
         .prop("balance_remaining", S.string())
