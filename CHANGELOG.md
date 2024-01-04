@@ -5,7 +5,13 @@
 
 **January 4, 2024 [DESCW-1830](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1830)**
 
+- Frontend
   - Add forecast column to project status table
+
+**January 4, 2024 [DESCW-1808](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1808)**
+
+- Frontend
+  - Changed order of columns in project deliverables table
 
 **January 4, 2024 [DESCW-1810](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1810)**
 
