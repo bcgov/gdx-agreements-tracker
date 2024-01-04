@@ -12,6 +12,7 @@ const getAll = {
         .prop("progress", S.string())
         .prop("issues", S.string())
         .prop("risk", S.string())
+        .prop("forecast_and_next_steps", S.string())
         .prop("project_health", color)
         .prop("schedule_health", color)
         .prop("budget_health", color)

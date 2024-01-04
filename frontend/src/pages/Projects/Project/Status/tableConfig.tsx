@@ -12,6 +12,7 @@ export const tableConfig = () => {
     },
     { field: "progress", headerName: "Progress", flex: defaultFlex },
     { field: "issues", headerName: "Issues", flex: defaultFlex },
+    { field: "forecast_and_next_steps", headerName: "Forecast", flex: defaultFlex },
     { field: "risk", headerName: "Risk", flex: defaultFlex },
     { field: "schedule_health", headerName: "Schedule Health", flex: defaultFlex },
     { field: "budget_health", headerName: "Budget Health", flex: defaultFlex },

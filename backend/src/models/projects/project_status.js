@@ -14,6 +14,7 @@ const findAll = (projectId) => {
       "ps.status_date",
       { progress: "ps.general_progress_comments" },
       { issues: "ps.issues_and_decisions" },
+      { forecast_and_next_steps: "ps.forecast_and_next_steps" },
       { risk: "ps.identified_risk" },
       {
         project_health: knex.raw(
