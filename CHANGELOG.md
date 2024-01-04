@@ -1,3 +1,8 @@
+**January 4, 2024 [DESCW-1810](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1810)**
+
+- Frontend
+  - Changed order of columns in project billing table
+
 **January 3, 2024 [DESCW-1807](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1807)**
 
 - Frontend
