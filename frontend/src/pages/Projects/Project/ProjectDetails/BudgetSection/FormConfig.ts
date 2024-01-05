@@ -174,7 +174,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "full",
-          title: "Detail Amount",
+          title: "Recovery Amount",
           value: query?.data?.data?.data?.detail_amount,
         },
         {
@@ -238,7 +238,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Responsibility Centre",
+          title: "Responsibility",
           value: query?.data?.data?.data?.responsibility_centre,
         },
         {
