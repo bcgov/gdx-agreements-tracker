@@ -10,7 +10,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     ? []
     : [
         { width: "half", title: "Version", value: query?.data?.data?.data?.version },
-        { width: "half", title: "Fiscal Year", value: query?.data?.data?.data?.fiscal_year?.label },
         {
           width: "half",
           title: "Initiation Date",
@@ -22,21 +21,26 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           title: "Initiated By",
           value: query?.data?.data?.data?.initiated_by?.label,
         },
+        { width: "half", title: "Fiscal Year", value: query?.data?.data?.data?.fiscal_year?.label },
         {
           width: "half",
           title: "Approval Date",
           value: formatDate(query?.data?.data?.data?.approval_date),
+        },
+        {
+          width: "full",
+          title: "Types",
+          value: query?.data?.data?.data?.types,
         },
         { width: "full", title: "Summary", value: query?.data?.data?.data?.summary },
       ];
 
   const editFields: IEditField[] = [
     {
-      fieldName: "fiscal_year",
-      fieldType: "select",
-      fieldLabel: "Fiscal Year",
+      fieldName: "version",
+      fieldType: "singleText",
+      fieldLabel: "Version",
       width: "half",
-      pickerName: "fiscal_year_option",
       required: true,
     },
     {
@@ -62,10 +66,25 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       required: true,
     },
     {
+      fieldName: "fiscal_year",
+      fieldType: "select",
+      fieldLabel: "Fiscal Year",
+      width: "half",
+      pickerName: "fiscal_year_option",
+      required: true,
+    },
+    {
       fieldName: "approval_date",
       fieldType: "date",
       fieldLabel: "Approval Date",
       width: "half",
+      required: true,
+    },
+    {
+      fieldName: "types",
+      fieldType: "multiText",
+      fieldLabel: "Types",
+      width: "full",
       required: true,
     },
     {
@@ -78,11 +97,13 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   const initialValues = {
+    version: null,
     fiscal_year: null,
     initiation_date: null,
     cr_contact: null,
     initiated_by: null,
     approval_date: null,
+    types: null,
     summary: null,
     link_id: projectId,
   };

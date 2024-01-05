@@ -11,21 +11,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     ? []
     : [
         {
-          width: "full",
-          title: "Journal Voucher Number",
-          value: query?.data?.data?.data?.jv_number,
-        },
-        {
-          width: "full",
-          title: "Billed Date",
-          value: formatDate(query?.data?.data?.data?.billed_date),
-        },
-        {
-          width: "full",
-          title: "Amount",
-          value: query?.data?.data?.data?.amount,
-        },
-        {
           width: "half",
           title: "Fiscal Year",
           value: query?.data?.data?.data?.fiscal_year_id.label,
@@ -40,30 +25,24 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           title: "Program Area",
           value: query?.data?.data?.data?.client_coding_id?.label,
         },
+        {
+          width: "full",
+          title: "Journal Voucher Number",
+          value: query?.data?.data?.data?.jv_number,
+        },
+        {
+          width: "full",
+          title: "Billed Date",
+          value: formatDate(query?.data?.data?.data?.billed_date),
+        },
+        {
+          width: "full",
+          title: "Amount",
+          value: query?.data?.data?.data?.amount,
+        },
       ];
 
   const editFields: IEditField[] = [
-    {
-      fieldName: "jv_number",
-      fieldLabel: "Journal Voucher Number",
-      fieldType: "singleText",
-      width: "full",
-      required: true,
-    },
-    {
-      fieldName: "billed_date",
-      fieldLabel: "Billed Date",
-      fieldType: "date",
-      width: "full",
-      required: true,
-    },
-    {
-      fieldName: "amount",
-      fieldLabel: "Amount",
-      fieldType: "singleText",
-      width: "full",
-      required: true,
-    },
     {
       fieldName: "fiscal_year_id",
       fieldLabel: "Fiscal Year",
@@ -86,6 +65,27 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       pickerName: "client_coding_option",
       projectId: query?.data?.data?.data?.project_id,
       width: "half",
+      required: true,
+    },
+    {
+      fieldName: "jv_number",
+      fieldLabel: "Journal Voucher Number",
+      fieldType: "singleText",
+      width: "full",
+      required: true,
+    },
+    {
+      fieldName: "billed_date",
+      fieldLabel: "Billed Date",
+      fieldType: "date",
+      width: "full",
+      required: true,
+    },
+    {
+      fieldName: "amount",
+      fieldLabel: "Amount",
+      fieldType: "singleText",
+      width: "full",
       required: true,
     },
   ];
