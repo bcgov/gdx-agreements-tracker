@@ -1,3 +1,8 @@
+**January 5, 2024 [DESCW-1831](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1831)**
+
+- Frontend
+  - Changed order of inputs in project status form.
+
 **January 5, 2024 [DESCW-1828](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1828)**
 
 - Frontend

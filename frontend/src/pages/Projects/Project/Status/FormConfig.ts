@@ -10,11 +10,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const readFields = !query
     ? []
     : [
+        {
+          width: "full",
+          title: "Overall Project Health",
+          value: query?.data?.data?.data?.health_id.label,
+        },
         { width: "half", title: "Phase", value: query?.data?.data?.data?.project_phase_id.label },
         {
           width: "half",
-          title: "Overall Project Health",
-          value: query?.data?.data?.data?.health_id.label,
+          title: "Schedule Health",
+          value: query?.data?.data?.data?.schedule_health_id.label,
         },
         {
           width: "half",
@@ -23,49 +28,51 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Schedule Health",
-          value: query?.data?.data?.data?.schedule_health_id.label,
-        },
-        {
-          width: "half",
-          title: "Start Date",
-          value: formatDate(query?.data?.data?.data?.status_date),
-        },
-        {
-          width: "half",
           title: "Budget Health",
           value: query?.data?.data?.data?.budget_health_id.label,
         },
         {
           width: "half",
-          title: "General and progress comments this period",
-          value: query?.data?.data?.data?.general_progress_comments,
+          title: "Status Date",
+          value: formatDate(query?.data?.data?.data?.status_date),
         },
         {
           width: "half",
           title: "Team Health",
           value: query?.data?.data?.data?.team_health_id.label,
         },
-
         {
-          width: "half",
+          width: "full",
+          title: "General and progress comments this period",
+          value: query?.data?.data?.data?.general_progress_comments,
+        },
+        {
+          width: "full",
           title: "Issues and necessary decisions this period",
           value: query?.data?.data?.data?.issues_and_decisions,
         },
         {
-          width: "half",
+          width: "full",
           title: "Forecast and next steps",
           value: query?.data?.data?.data?.forecast_and_next_steps,
         },
 
         {
-          width: "half",
+          width: "full",
           title: "Risk watch list",
           value: query?.data?.data?.data?.identified_risk,
         },
       ];
 
   const editFields: IEditField[] = [
+    {
+      fieldName: "health_id",
+      fieldType: "select",
+      fieldLabel: "Overall Project Health",
+      width: "full",
+      pickerName: "health_status_option",
+      required: true,
+    },
     {
       fieldName: "project_phase_id",
       fieldType: "select",
@@ -75,12 +82,11 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       required: true,
     },
     {
-      fieldName: "health_id",
+      fieldName: "schedule_health_id",
       fieldType: "select",
-      fieldLabel: "Overall Project Health",
+      fieldLabel: "Schedule Health",
       width: "half",
       pickerName: "health_status_option",
-      required: true,
     },
     {
       fieldName: "reported_by_contact_id",
@@ -91,9 +97,9 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       required: true,
     },
     {
-      fieldName: "schedule_health_id",
+      fieldName: "budget_health_id",
       fieldType: "select",
-      fieldLabel: "Schedule Health",
+      fieldLabel: "Budget Health",
       width: "half",
       pickerName: "health_status_option",
     },
@@ -105,20 +111,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       required: true,
     },
     {
-      fieldName: "budget_health_id",
-      fieldType: "select",
-      fieldLabel: "Budget Health",
-      width: "half",
-      pickerName: "health_status_option",
-    },
-    {
-      fieldName: "general_progress_comments",
-      fieldType: "multiText",
-      fieldLabel: "General and progress comments this period",
-      width: "half",
-      required: true,
-    },
-    {
       fieldName: "team_health_id",
       fieldType: "select",
       fieldLabel: "Team Health",
@@ -126,22 +118,29 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       pickerName: "health_status_option",
     },
     {
+      fieldName: "general_progress_comments",
+      fieldType: "multiText",
+      fieldLabel: "General and progress comments this period",
+      width: "full",
+      required: true,
+    },
+    {
       fieldName: "issues_and_decisions",
       fieldType: "multiText",
       fieldLabel: "Issues and necessary decisions this period",
-      width: "half",
+      width: "full",
     },
     {
       fieldName: "forecast_and_next_steps",
       fieldType: "multiText",
       fieldLabel: "Forecast and next steps",
-      width: "half",
+      width: "full",
     },
     {
       fieldName: "identified_risk",
       fieldType: "multiText",
       fieldLabel: "Risk watch list",
-      width: "half",
+      width: "full",
     },
   ];
 
