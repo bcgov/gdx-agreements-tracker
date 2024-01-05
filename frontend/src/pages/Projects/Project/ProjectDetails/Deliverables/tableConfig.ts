@@ -1,5 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { dateFormatter } from "utils/formatDate";
+import percentFormatter from "utils/formatPercent";
 
 export const tableConfig = () => {
   const defaultFlex = 3;
@@ -9,7 +10,6 @@ export const tableConfig = () => {
       headerName: "Deliverable Name",
       flex: defaultFlex,
     },
-    { field: "description", headerName: "Description", flex: defaultFlex },
     {
       field: "start_date",
       headerName: "Start Date",
@@ -18,18 +18,21 @@ export const tableConfig = () => {
     },
     {
       field: "completion_date",
-      headerName: "Completion Date",
+      headerName: "End Date",
       valueFormatter: dateFormatter,
       flex: defaultFlex,
     },
     { field: "deliverable_amount", headerName: "Deliverable Amount", flex: defaultFlex },
     { field: "recoverable_amount", headerName: "Recoverable Amount", flex: defaultFlex },
-    { field: "project_number", headerName: "Project Number", flex: defaultFlex },
-    { field: "comments", headerName: "Comments", flex: defaultFlex },
     { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
+    {
+      field: "percent_complete",
+      headerName: "Percent Complete",
+      valueFormatter: percentFormatter,
+      flex: defaultFlex,
+    },
     { field: "deliverable_status", headerName: "Deliverable Status", flex: defaultFlex },
-    { field: "health_id", headerName: "Health ID", flex: defaultFlex },
-    { field: "is_expense", headerName: "Is Expense", flex: defaultFlex },
+    { field: "health_id", headerName: "Health", flex: defaultFlex },
   ];
 
   const initialState = {
