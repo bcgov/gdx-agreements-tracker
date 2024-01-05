@@ -92,8 +92,13 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldName: "reported_by_contact_id",
       fieldType: "select",
       fieldLabel: "Reported By",
-      width: "half",
+      width: "full",
       pickerName: "contact_option",
+      autocompleteTableColumns: [
+        { field: "first_name", headerName: "First Name" },
+        { field: "last_name", headerName: "Last Name" },
+        { field: "ministry", headerName: "Ministry" },
+      ],
       required: true,
     },
     {

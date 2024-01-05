@@ -30,7 +30,13 @@ const getOne = {
       .prop("schedule_health_id", Schema.Picker)
       .prop("team_health_id", Schema.Picker)
       .prop("project_phase_id", Schema.Picker)
-      .prop("reported_by_contact_id", Schema.Picker)
+      .prop(
+        "reported_by_contact_id",
+        S.object()
+          .prop("first_name", S.string())
+          .prop("last_name", S.string())
+          .prop("ministry", S.string())
+      )
       .prop("id", S.number())
       .prop("status_date", S.string())
       .prop("general_progress_comments", S.string())
