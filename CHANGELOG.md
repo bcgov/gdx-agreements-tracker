@@ -1,3 +1,14 @@
+**January 5, 2024 [DESCW-1828](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1828)**
+
+- Frontend
+  - Changed order of inputs in project change request form.
+    - Added 'version' and 'types' to form.
+
+**January 5, 2024 [DESCW-1811](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1811)**
+
+- Frontend
+  - Changed order of inputs in project billing form.
+
 **January 4, 2024 [DESCW-1827](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1827)**
 
 - Frontend
