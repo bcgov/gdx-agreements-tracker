@@ -1,6 +1,7 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
-
+const projectTable = `${dataBaseSchemas().data}.project`;
+const ministryTable = `${dataBaseSchemas().data}.ministry`;
 const projectStatusTable = `${dataBaseSchemas().data}.project_status`;
 const projectPhaseTable = `${dataBaseSchemas().data}.project_phase`;
 const healthIndicatorTable = `${dataBaseSchemas().data}.health_indicator`;
@@ -63,9 +64,15 @@ const findById = (projectStatusId) => {
       project_phase_id: knex.raw(
         "( SELECT json_build_object('value', pp.id, 'label', pp.phase_name) )"
       ),
-      reported_by_contact_id: knex.raw(
-        "( SELECT json_build_object('value', c.id, 'label', c.last_name || ', ' || c.first_name) )"
-      ),
+      reported_by_contact_id: knex.raw(`
+        (SELECT json_build_object(
+          'value', c.id ,
+          'label', COALESCE(c.last_name || ', ' || c.first_name, ''),
+          'first_name', COALESCE(c.first_name, ''),
+          'last_name', COALESCE(c.last_name, ''),
+          'ministry', COALESCE(min.ministry_short_name, '')
+        ))
+      `),
       id: "ps.id",
       status_date: "ps.status_date",
       general_progress_comments: "ps.general_progress_comments",
@@ -79,6 +86,8 @@ const findById = (projectStatusId) => {
     .leftJoin(`${healthIndicatorTable} as sh`, "ps.schedule_health_id", "sh.id")
     .leftJoin(`${healthIndicatorTable} as bh`, "ps.budget_health_id", "bh.id")
     .leftJoin(`${healthIndicatorTable} as th`, "ps.team_health_id", "th.id")
+    .join(`${projectTable} as proj`, "ps.project_id", "proj.id")
+    .join(`${ministryTable} as min`, "proj.ministry_id", "min.id")
     .where("ps.id", projectStatusId)
     .first();
 };

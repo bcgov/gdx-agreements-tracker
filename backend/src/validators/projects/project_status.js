@@ -33,6 +33,8 @@ const getOne = {
       .prop(
         "reported_by_contact_id",
         S.object()
+          .prop("value", S.number())
+          .prop("label", S.string())
           .prop("first_name", S.string())
           .prop("last_name", S.string())
           .prop("ministry", S.string())

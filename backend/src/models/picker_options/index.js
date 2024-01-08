@@ -44,8 +44,8 @@ const findAllByContract = (id) => {
  */
 const getCaseStatements = () => {
   return `
-    CASE 
-      WHEN definition ->> 'dropDownValues' IS NOT NULL THEN definition -> 'dropDownValues' 
+    CASE
+      WHEN definition ->> 'dropDownValues' IS NOT NULL THEN definition -> 'dropDownValues'
     END definition`;
 };
 
@@ -282,14 +282,38 @@ const tableLookupValues = (projectId, contractId) => {
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(projbudgcont), '[]')
           FROM(
-            select 
-              cont.co_number, 
-              cont.id as value,          
-              cont.co_version, 
+            select
+              cont.co_number,
+              cont.id as value,
+              cont.co_version,
               cont.contract_number
             FROM data.contract cont
             WHERE project_id = ${projectId}
             ) projbudgcont)`,
+      },
+      {
+        id: "reportedby",
+        name: "reported_by_contact_id_option",
+        title: "Reported By",
+        description: "The individual(s) reporting the Project Status",
+        table: "",
+        value: "",
+        label: "",
+        queryAdditions: ``,
+        customDefinition: `(SELECT COALESCE(json_agg(ps), '[]')
+          FROM (
+            SELECT
+              c.id AS value,
+              c.first_name,
+              c.last_name,
+              min.ministry_short_name,
+              ps.project_id AS projectID
+            FROM data.project_status AS ps
+            LEFT JOIN data.project AS proj  on ps.project_id = proj.id
+            LEFT JOIN data.ministry AS min ON proj.ministry_id = min.id
+            LEFT JOIN data.contact AS c ON ps.reported_by_contact_id = c.id
+            WHERE ps.project_id = ${projectId}
+          )ps)`,
       },
       {
         id: "deliverablename",
@@ -302,10 +326,10 @@ const tableLookupValues = (projectId, contractId) => {
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(projbudgdelname), '[]')
             FROM (
-              SELECT 
+              SELECT
                 prjd.deliverable_name as deliverable_name,
                 prjd.id as value,
-                prjd.id as deliverable_id                
+                prjd.id as deliverable_id
               FROM data.project_deliverable prjd
               WHERE project_id = ${projectId}
             ) projbudgdelname)`,
@@ -331,7 +355,7 @@ const tableLookupValues = (projectId, contractId) => {
               FROM data.project_budget pb
               LEFT JOIN data.client_coding cc ON pb.client_coding_id = cc.id
               LEFT JOIN data.contact con ON cc.contact_id = con.id
-              LEFT JOIN data.ministry min ON con.ministry_id = min.id              
+              LEFT JOIN data.ministry min ON con.ministry_id = min.id
               WHERE cc.project_id = ${projectId}
             ) as programArea
           )`,
