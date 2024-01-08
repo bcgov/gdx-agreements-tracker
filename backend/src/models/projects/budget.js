@@ -70,7 +70,7 @@ const findById = (id) => {
       ),
       detail_amount: "prb.detail_amount",
       recovery_area: knex.raw(
-        "(SELECT json_build_object('value', prb.recovery_area, 'label', COALESCE(port.portfolio_name, '')))"
+        "(SELECT json_build_object('portfolio_name', COALESCE(port.portfolio_name, ''), 'portfolio_abbrev', port.portfolio_abbrev, 'value', port.id))"
       ),
       resource_type: knex.raw(
         "(SELECT json_build_object('value', prb.resource_type, 'label', COALESCE(prb.resource_type, '')))"

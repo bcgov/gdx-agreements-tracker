@@ -61,7 +61,13 @@ const getOne = {
           .prop("value", S.number())
       )
       .prop("detail_amount", S.string())
-      .prop("recovery_area", Schema.Picker)
+      .prop(
+        "recovery_area",
+        S.object()
+          .prop("portfolio_name", S.string())
+          .prop("portfolio_abbrev", S.string())
+          .prop("value", S.number())
+      )
       .prop("resource_type", Schema.Picker)
       .prop("stob", S.string())
       .prop(
