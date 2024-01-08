@@ -240,7 +240,7 @@ const tableLookupValues = (projectId, contractId) => {
       customDefinition: `(SELECT COALESCE(json_agg(projbudgrecovarea), '[]')
       FROM(
         SELECT
-        portfolio_name, 
+        portfolio_name,
         portfolio_abbrev,
         id as value
         FROM data.portfolio
@@ -296,9 +296,9 @@ const tableLookupValues = (projectId, contractId) => {
         name: "reported_by_contact_id_option",
         title: "Reported By",
         description: "The individual(s) reporting the Project Status",
-        table: "",
-        value: "",
-        label: "",
+        table: "data.contact",
+        value: "id",
+        label: "label",
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(ps), '[]')
           FROM (
@@ -306,6 +306,7 @@ const tableLookupValues = (projectId, contractId) => {
               c.id AS value,
               c.first_name,
               c.last_name,
+              COALESCE(c.last_name || ', ' || c.first_name, '') AS label,
               min.ministry_short_name,
               ps.project_id AS projectID
             FROM data.project_status AS ps
