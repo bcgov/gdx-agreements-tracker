@@ -237,6 +237,15 @@ const tableLookupValues = (projectId, contractId) => {
       value: "id",
       label: "portfolio_name",
       queryAdditions: ``,
+      customDefinition: `(SELECT COALESCE(json_agg(projbudgrecovarea), '[]')
+      FROM(
+        SELECT
+        portfolio_name, 
+        portfolio_abbrev,
+        id as value
+        FROM data.portfolio
+        ORDER BY id ASC
+        ) projbudgrecovarea)`,
     },
   ];
 

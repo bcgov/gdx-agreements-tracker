@@ -165,7 +165,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Recovery Area",
-          value: query?.data?.data?.data?.recovery_area.label,
+          value: query?.data?.data?.data?.recovery_area.portfolio_name,
         },
         {
           width: "half",
@@ -273,8 +273,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Recovery Area",
       fieldName: "recovery_area",
-      fieldType: "select",
+      fieldType: "autocompleteTable",
       pickerName: "recovery_area_option",
+      autocompleteTableColumns: [
+        { field: "portfolio_name", headerName: "Portfolio Name" },
+        { field: "portfolio_abbrev", headerName: "Portfolio Abbrv." },
+      ],
       customOnChange: getResponsabilityServiceLine,
     },
     {
