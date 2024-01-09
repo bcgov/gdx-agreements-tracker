@@ -32,12 +32,7 @@ const getOne = {
       .prop("project_phase_id", Schema.Picker)
       .prop(
         "reported_by_contact_id",
-        S.object()
-          .prop("value", S.number())
-          .prop("label", S.string())
-          .prop("first_name", S.string())
-          .prop("last_name", S.string())
-          .prop("ministry", S.string())
+        S.object().prop("name", S.string()).prop("ministry", S.string()).prop("value", S.number())
       )
       .prop("id", S.number())
       .prop("status_date", S.string())

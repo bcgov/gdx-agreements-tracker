@@ -66,11 +66,9 @@ const findById = (projectStatusId) => {
       ),
       reported_by_contact_id: knex.raw(`
         (SELECT json_build_object(
-          'value', c.id ,
-          'label', COALESCE(c.last_name || ', ' || c.first_name, ''),
-          'first_name', COALESCE(c.first_name, ''),
-          'last_name', COALESCE(c.last_name, ''),
-          'ministry', COALESCE(min.ministry_short_name, '')
+          'name', COALESCE(c.last_name || ', ' || c.first_name, ''),
+          'ministry', COALESCE(min.ministry_short_name, ''),
+          'value', c.id
         ))
       `),
       id: "ps.id",

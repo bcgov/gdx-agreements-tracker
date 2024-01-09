@@ -24,7 +24,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Reported By",
-          value: query?.data?.data?.data?.reported_by_contact_id?.label,
+          value: query?.data?.data?.data?.reported_by_contact_id?.name,
         },
         {
           width: "half",
@@ -89,15 +89,14 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       pickerName: "health_status_option",
     },
     {
-      width: "full",
+      width: "half",
       fieldLabel: "Reported By",
       fieldName: "reported_by_contact_id",
       fieldType: "autocompleteTable",
       pickerName: "reported_by_contact_id_option",
       autocompleteTableColumns: [
-        { field: "first_name", headerName: "First Name" },
-        { field: "last_name", headerName: "Last Name" },
-        { field: "ministry_short_name", headerName: "Ministry" },
+        { field: "name", headerName: "Name" },
+        { field: "ministry", headerName: "Ministry" },
       ],
       required: true,
       projectId: Number(projectId),

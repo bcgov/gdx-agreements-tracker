@@ -302,13 +302,10 @@ const tableLookupValues = (projectId, contractId) => {
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(ps), '[]')
           FROM (
-            SELECT
-              c.id AS value,
-              c.first_name,
-              c.last_name,
-              COALESCE(c.last_name || ', ' || c.first_name, '') AS label,
-              min.ministry_short_name,
-              ps.project_id AS projectID
+            SELECT DISTINCT ON (c.id)
+              COALESCE(c.last_name || ', ' || c.first_name, '') AS name,
+              min.ministry_short_name AS ministry,
+              c.id AS value
             FROM data.project_status AS ps
             LEFT JOIN data.project AS proj  on ps.project_id = proj.id
             LEFT JOIN data.ministry AS min ON proj.ministry_id = min.id
