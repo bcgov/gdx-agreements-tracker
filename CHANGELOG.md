@@ -1,3 +1,10 @@
+**January 10, 2024 [DESCW-1789](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1789)**
+
+- Frontend
+    - Convert billing amount field to moeny type input
+- Backend
+  - added dynamic validation logic for amount field
+  
 **January 9, 2024 [DESCW-1791](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1791)**
 
 - Frontend
