@@ -189,6 +189,11 @@ const deleteOne = {
   response: getDeleteResponse(),
 };
 
+const recovered = {
+  params: S.object().prop("projectId", Schema.Id),
+  response: getResponse(S.object().prop("sum", S.string())),
+};
+
 module.exports = {
   getAll,
   getOne,
@@ -199,4 +204,5 @@ module.exports = {
   deliverablesBreakdown,
   recoverablesBreakdown,
   deleteOne,
+  recovered,
 };

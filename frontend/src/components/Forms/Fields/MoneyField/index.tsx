@@ -29,7 +29,7 @@ export const MoneyField = ({ onChange, id, value, label, helperText, error }: IM
     // Empty dependency array for running once on initial mount
     new AutoNumeric(`#${id}`, value, {
       outputFormat: "string",
-      minimumValue: "0.00", // Adjust this if necessary
+      minimumValue: "-999999999.99", // Adjust this if necessary
       maximumValue: "999999999.99", // Adjust this if necessary
     });
   }, []);

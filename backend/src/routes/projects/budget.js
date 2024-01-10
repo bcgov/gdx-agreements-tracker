@@ -24,6 +24,12 @@ const routes = [
   },
   {
     method: "GET",
+    url: `/projects/:id/${what}/recovered`,
+    schema: validators.recovered,
+    handler: controller.recovered,
+  },
+  {
+    method: "GET",
     url: `/projects/:id/${what}/portfoliobreakdown`,
     schema: validators.portfoliobreakdown,
     handler: controller.portfolioBreakdown,
