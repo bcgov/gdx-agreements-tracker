@@ -25,7 +25,7 @@ const routes = [
   {
     method: "GET",
     url: `/projects/:id/${what}/recovered`,
-    // schema: validators.fiscalBreakdown,
+    schema: validators.recovered,
     handler: controller.recovered,
   },
   {

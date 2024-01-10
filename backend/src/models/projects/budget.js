@@ -213,11 +213,8 @@ const removeOne = (projectId) => {
 
 const findRecoveredBudgets = (quarter, projectId, fiscal, portfolio) => {
   return knex
-    .select(
-      knex.raw(`
-    SUM(q${quarter}_amount)
-  `)
-    )
+    .select()
+    .sum(`q${quarter}_amount`)
     .from(`${projectBudgetTable} as pb`)
     .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
     .where("pd.project_id", projectId)
