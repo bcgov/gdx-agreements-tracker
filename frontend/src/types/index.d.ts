@@ -2,6 +2,14 @@ import { GridRowsProp, GridColDef, GridInitialState } from "@mui/x-data-grid";
 import { Schema } from "yup";
 import { FormikErrors, FormikTouched, FormikValues } from "formik";
 
+export interface IBillingAmountValidationContext {
+  parent: {
+    quarter: { value: number };
+    fiscal_year_id: { value: number };
+    client_coding_id: { value: number };
+  };
+}
+
 export interface IUseAxiosHandleError {
   response: {
     data: {

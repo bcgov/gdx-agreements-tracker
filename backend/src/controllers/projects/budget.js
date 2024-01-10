@@ -55,4 +55,23 @@ controller.getResponsibilityServiceLine = async (request, reply) => {
   }
 };
 
+controller.recovered = async (request, reply) => {
+  const { quarter, fiscal_year_id, client_coding_id } = request.query;
+
+  const projectId = Number(request.params.id);
+  try {
+    const result = await model.findRecoveredBudgets(
+      quarter,
+      Number(projectId),
+      fiscal_year_id,
+      client_coding_id
+    );
+    return !result
+      ? controller.noQuery(reply, `The ${what.single} with the specified id does not exist.`)
+      : result;
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
 module.exports = controller;

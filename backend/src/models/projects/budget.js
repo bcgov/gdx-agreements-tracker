@@ -211,6 +211,22 @@ const removeOne = (projectId) => {
   return knex(`${projectBudgetTable} as prb`).where("prb.id", projectId).del();
 };
 
+const findRecoveredBudgets = (quarter, projectId, fiscal, portfolio) => {
+  return knex
+    .select(
+      knex.raw(`
+    SUM(q${quarter}_amount)
+  `)
+    )
+    .from(`${projectBudgetTable} as pb`)
+    .leftJoin(`${projectDeliverableTable} as pd`, { "pb.project_deliverable_id": "pd.id" })
+    .where("pd.project_id", projectId)
+    .where(`q${quarter}_recovered`, true)
+    .where("pb.fiscal", fiscal)
+    .where("pb.client_coding_id", portfolio)
+    .first();
+};
+
 module.exports = {
   findAllById,
   findById,
@@ -222,4 +238,5 @@ module.exports = {
   findProjectRecoverableBreakdown,
   getResponsibilityServiceLine,
   removeOne,
+  findRecoveredBudgets,
 };
