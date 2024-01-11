@@ -26,8 +26,18 @@ const getOne = {
       .prop("amount", S.string())
       .prop("fiscal_year_id", Schema.Picker)
       .prop("quarter", S.number())
-      .prop("client_coding_id", Schema.Picker)
       .prop("project_id", Schema.Id)
+      .prop(
+        "client_coding_id",
+        S.object()
+          .prop("client", S.string())
+          .prop("responsibility_centre", S.string())
+          .prop("service_line", S.string())
+          .prop("stob", S.string())
+          .prop("project_code", S.string())
+          .prop("client_amount", S.string())
+          .prop("value", S.number())
+      )
   ),
 };
 

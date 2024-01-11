@@ -55,7 +55,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Program Area",
-          value: query?.data?.data?.data?.client_coding_id?.label,
+          value: query?.data?.data?.data?.client_coding_id?.client,
         },
         {
           width: "full",
@@ -94,11 +94,19 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     {
       fieldName: "client_coding_id",
       fieldLabel: "Program Area",
-      fieldType: "select",
-      pickerName: "client_coding_option",
-      projectId: query?.data?.data?.data?.project_id,
-      width: "half",
+      fieldType: "autocompleteTable",
+      pickerName: "billing_program_area_option",
+      autocompleteTableColumns: [
+        { field: "client", headerName: "Client" },
+        { field: "responsibility_centre", headerName: "Responsibility Centre" },
+        { field: "service_line", headerName: "Service Line" },
+        { field: "stob", headerName: "STOB" },
+        { field: "project_code", headerName: "Project Code" },
+        { field: "client_amount", headerName: "Client Amount" },
+      ],
+      width: "full",
       required: true,
+      projectId: Number(projectId),
     },
     {
       fieldName: "jv_number",

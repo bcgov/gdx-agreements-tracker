@@ -357,6 +357,33 @@ const tableLookupValues = (projectId, contractId) => {
               WHERE cc.project_id = ${projectId}
             ) as programArea
           )`,
+      },
+      {
+        id: "billingProgramArea",
+        name: "billing_program_area_option",
+        title: "Program Area",
+        description: "the project billing program areas",
+        table: "",
+        value: "",
+        label: "",
+        queryAdditions: ``,
+        customDefinition: `
+          (
+            SELECT COALESCE(json_agg(billingProgramArea), '[]')
+            FROM (
+              SELECT DISTINCT ON (cc.id)
+                cc.client,
+                cc.responsibility_centre,
+                cc.service_line,
+                cc.stob,
+                cc.project_code,
+                cc.client_amount,
+                cc.id AS value
+              FROM data.jv jv
+              LEFT JOIN data.client_coding cc ON jv.client_coding_id = cc.id
+              WHERE cc.project_id = ${projectId}
+            ) as billingProgramArea
+          )`,
       }
     );
   }

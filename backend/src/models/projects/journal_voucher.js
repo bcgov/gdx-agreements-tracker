@@ -14,6 +14,7 @@ const findAll = (projectId) => {
       "jv.amount",
       "jv.quarter",
       "jv.project_id",
+      { client_coding_id: `${clientCodingTable}.program_area` },
       { fiscal: `${fiscalYearTable}.fiscal_year` },
       {
         financial_contact: knex.raw(
@@ -43,12 +44,12 @@ const findById = (id) => {
         "(SELECT json_build_object('value', jv.fiscal_year_id, 'label', fiscal_year.fiscal_year)) AS fiscal_year_id"
       ),
       knex.raw(
-        "(SELECT json_build_object('value', COALESCE(jv.client_coding_id,0), 'label', COALESCE(client_coding.program_area, client_coding.client))) AS client_coding_id"
+        "(SELECT json_build_object('client', cc.client, 'responsibility_centre', cc.responsibility_centre, 'service_line', cc.service_line, 'stob', cc.stob, 'project_code', cc.project_code, 'client_amount', cc.client_amount, 'value', cc.id)) AS client_coding_id"
       )
     )
     .from(jvTable)
     .leftJoin(fiscalYearTable, { "jv.fiscal_year_id": `${fiscalYearTable}.id` })
-    .leftJoin(clientCodingTable, { "jv.client_coding_id": `${clientCodingTable}.id` })
+    .leftJoin(`${clientCodingTable} as cc`, { "jv.client_coding_id": "cc.id" })
     .where("jv.id", id)
     .first();
 };

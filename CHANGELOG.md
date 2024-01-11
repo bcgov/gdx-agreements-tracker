@@ -1,3 +1,9 @@
+**January 10, 2024 [DESCW-1813](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1813)**
+
+- Frontend
+- Backend
+  - Added Program Area component to project billing section
+
 **January 10, 2024 [DESCW-1789](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1789)**
 
 - Frontend
