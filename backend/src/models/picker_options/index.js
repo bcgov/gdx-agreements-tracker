@@ -301,17 +301,14 @@ const tableLookupValues = (projectId, contractId) => {
         label: "label",
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(ps), '[]')
-          FROM (
-            SELECT DISTINCT ON (c.id)
-              COALESCE(c.last_name || ', ' || c.first_name, '') AS name,
-              min.ministry_short_name AS ministry,
-              c.id AS value
-            FROM data.project_status AS ps
-            LEFT JOIN data.project AS proj  on ps.project_id = proj.id
-            LEFT JOIN data.ministry AS min ON proj.ministry_id = min.id
-            LEFT JOIN data.contact AS c ON ps.reported_by_contact_id = c.id
-            WHERE ps.project_id = ${projectId}
-          )ps)`,
+        FROM (
+          SELECT
+          COALESCE(c.last_name || ', ' || c.first_name, '') AS name,
+          min.ministry_short_name AS ministry,
+          c.id AS value
+          FROM data.contact AS c          
+          LEFT JOIN data.ministry AS min ON c.ministry_id = min.id
+        )ps)`,
       },
       {
         id: "deliverablename",
@@ -368,22 +365,20 @@ const tableLookupValues = (projectId, contractId) => {
         label: "",
         queryAdditions: ``,
         customDefinition: `
-          (
-            SELECT COALESCE(json_agg(billingProgramArea), '[]')
-            FROM (
-              SELECT DISTINCT ON (cc.id)
-                cc.client,
-                cc.responsibility_centre,
-                cc.service_line,
-                cc.stob,
-                cc.project_code,
-                cc.client_amount,
-                cc.id AS value
-              FROM data.jv jv
-              LEFT JOIN data.client_coding cc ON jv.client_coding_id = cc.id
-              WHERE cc.project_id = ${projectId}
-            ) as billingProgramArea
-          )`,
+        (SELECT COALESCE(json_agg(billingProgramArea), '[]')
+        FROM (  
+          SELECT
+            cc.program_area,
+            cc.client,
+            cc.responsibility_centre,
+            cc.service_line,
+            cc.stob,
+            cc.project_code,
+            cc.client_amount,
+            cc.id AS value
+          from data.client_coding cc         
+          WHERE cc.project_id= ${projectId}
+        ) as billingProgramArea)`,
       }
     );
   }

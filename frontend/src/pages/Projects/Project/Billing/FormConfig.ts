@@ -97,6 +97,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "autocompleteTable",
       pickerName: "billing_program_area_option",
       autocompleteTableColumns: [
+        { field: "program_area", headerName: "Program Area" },
         { field: "client", headerName: "Client" },
         { field: "responsibility_centre", headerName: "Responsibility Centre" },
         { field: "service_line", headerName: "Service Line" },
@@ -150,20 +151,24 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const validationSchema = object({
     amount: string().test({
       name: "billing amount validation",
-      message: `Amount should be less than the recovered budget`,
+      message: `Amount should be less than the recovered budget or the recovered budget based on your selections may be empty`,
       test: async (value, context: IBillingAmountValidationContext) => {
         const { quarter, fiscal_year_id, client_coding_id } = context.parent;
-        const recoveredBudget = await getRecoveredTotalsByQuarter(
-          quarter,
-          fiscal_year_id,
-          client_coding_id,
-          projectId as string
-        );
-        return (
-          //parseFloat with regex converts the money formatted string "$100.00" to a number like "100.00.  This is required to do a compare."
-          parseFloat((value as string).replace(/[^0-9.]/g, "")) <=
-          parseFloat(recoveredBudget.replace(/[^0-9.]/g, ""))
-        );
+
+        if (fiscal_year_id && client_coding_id && quarter) {
+          const recoveredBudget = await getRecoveredTotalsByQuarter(
+            quarter,
+            fiscal_year_id,
+            client_coding_id,
+            projectId as string
+          );
+          return (
+            //parseFloat with regex converts the money formatted string "$100.00" to a number like "100.00.  This is required to do a compare."
+            parseFloat((value as string).replace(/[^0-9.]/g, "")) <=
+            parseFloat(recoveredBudget.replace(/[^0-9.]/g, ""))
+          );
+        }
+        return true;
       },
     }),
   });

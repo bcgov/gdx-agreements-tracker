@@ -521,4 +521,5 @@ export interface IMoneyField {
   id: string;
   value: number;
   label: string;
+  required: boolean;
 }

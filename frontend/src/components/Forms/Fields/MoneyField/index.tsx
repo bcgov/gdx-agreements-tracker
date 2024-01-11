@@ -24,7 +24,15 @@ import { IMoneyField } from "types";
  * />
  */
 
-export const MoneyField = ({ onChange, id, value, label, helperText, error }: IMoneyField) => {
+export const MoneyField = ({
+  onChange,
+  id,
+  value,
+  label,
+  helperText,
+  error,
+  required,
+}: IMoneyField) => {
   useEffect(() => {
     // Empty dependency array for running once on initial mount
     new AutoNumeric(`#${id}`, value, {
@@ -48,6 +56,7 @@ export const MoneyField = ({ onChange, id, value, label, helperText, error }: IM
       label={label}
       error={Boolean(error)}
       helperText={helperText}
+      required={required}
     />
   );
 };

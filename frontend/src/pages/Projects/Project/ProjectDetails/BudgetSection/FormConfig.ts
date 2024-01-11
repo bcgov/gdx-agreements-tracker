@@ -299,6 +299,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Detail Amount",
       fieldName: "detail_amount",
       fieldType: "money",
+      required: true,
     },
     {
       width: "half",
@@ -414,7 +415,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         { field: "co_version", headerName: "Amendment #" },
         { field: "contract_number", headerName: "Contract Number" },
       ],
-      required: true,
       projectId: Number(projectId), //may need this
     },
     {
@@ -440,7 +440,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     detail_amount: "0",
     recovery_area: null,
     resource_type: null,
-    stob: null,
+    stob: "",
     client_coding_id: null,
     contract_id: null,
     deliverable_name: null,
@@ -461,33 +461,18 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     // make sure the detail amount is filled in, then convert money to number
     detail_amount: number()
       .transform((value, originalValue) => toNumber(originalValue))
-      .required("Detail amount is required")
-      .positive(),
+      .required("Detail amount is required"),
 
     // make sure the total doesn't exceed the sum of the quarters
     total: number()
       .transform((value, originalValue) => toNumber(originalValue))
-      .required("Total is required")
-      .positive()
       .test("total", "Total should should not exceed the Detail Amount.", (value, { parent }) => {
         const detailAmount = toNumber(parent.detail_amount);
-        return value <= detailAmount;
-      })
-      .test(
-        "total",
-        "Total should equal the sum of the Q1, Q2, Q3, and Q4 amount.",
-        (value, { parent }) => {
-          const sumOfQuarters = [
-            parent.q1_amount,
-            parent.q2_amount,
-            parent.q3_amount,
-            parent.q4_amount,
-          ]
-            .map((amount) => toNumber(amount))
-            .reduce((acc, amount) => acc + amount);
-          return sumOfQuarters === value;
+        if (value) {
+          return value <= detailAmount;
         }
-      ),
+        return true;
+      }),
   });
 
   return {

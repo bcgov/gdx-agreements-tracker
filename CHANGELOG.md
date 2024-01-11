@@ -1,3 +1,17 @@
+**January 10, 2024 [DESCW-1894](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1894)**
+
+- Frontend
+    - Added required property to money field
+    - Fixed issue with adding new items to tables
+    - Made adding and editing table rows for efficient 
+    - Fixed validation for project section fields
+- Backend
+  - Fixed reportedby picker options to by more accurate
+  - Fixed billingProgramArea picker options to by more accurate 
+  - Added program area value to the program_area option for project billing section
+  
+
+
 **January 10, 2024 [DESCW-1813](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1813)**
 
 - Frontend

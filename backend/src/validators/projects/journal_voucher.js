@@ -30,6 +30,7 @@ const getOne = {
       .prop(
         "client_coding_id",
         S.object()
+          .prop("program_area", S.string())
           .prop("client", S.string())
           .prop("responsibility_centre", S.string())
           .prop("service_line", S.string())

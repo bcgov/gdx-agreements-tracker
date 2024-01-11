@@ -81,8 +81,8 @@ export const FormRenderer = ({
           tableName,
         }).then(async () => {
           await removeLock(formData, rowsToLock).then(async () => {
+            handleFormType("read");
             await queryClient.invalidateQueries().then(() => {
-              handleFormType("read");
               handleSnackbarMessage("success");
               handleSnackbarType("success");
               handleSnackbar(true);
@@ -90,11 +90,19 @@ export const FormRenderer = ({
           });
         });
       } else {
-        await handlePost({ formValues: values, apiUrl: postUrl as string }).then((newItem) => {
-          if ("contract" === tableName) {
-            navigate(`/contracts/${newItem}`);
+        await handlePost({ formValues: values, apiUrl: postUrl as string }).then(
+          async (newItem) => {
+            if ("contract" === tableName) {
+              navigate(`/contracts/${newItem}`);
+            }
+            await queryClient.invalidateQueries().then(() => {
+              handleSnackbarMessage("success");
+              handleSnackbarType("success");
+              handleSnackbar(true);
+              handleClose();
+            });
           }
-        });
+        );
       }
     } catch (error) {
       handleSnackbarMessage((error as { message: string }).message as string);
