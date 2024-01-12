@@ -379,7 +379,7 @@ export interface IStandardRow {
 }
 
 export interface IBudget {
-  fiscal_year: string;
+  fiscal: string;
   invoiced_expenses: number;
   invoiced_fees: number;
   invoiced_hours: number;
