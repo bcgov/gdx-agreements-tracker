@@ -2,8 +2,11 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import formatDate from "utils/formatDate";
+import { useParams } from "react-router-dom";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
+  const { projectId } = useParams();
+
   const readFields = !query
     ? []
     : [
@@ -148,6 +151,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     percent_complete: null,
     deliverable_status: null,
     health_id: null,
+    project_id: projectId,
   };
 
   const rowId = query?.data?.data?.data?.id ?? null;
