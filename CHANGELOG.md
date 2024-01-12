@@ -1,3 +1,9 @@
+**January 11, 2024 [DESCW-1899](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1899)**
+
+- Frontend
+- Backend
+  - Fixed issue with budget display title showing undefined.
+
 **January 10, 2024 [DESCW-1894](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1894)**
 
 - Frontend

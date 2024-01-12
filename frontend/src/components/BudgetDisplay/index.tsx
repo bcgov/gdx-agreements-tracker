@@ -26,7 +26,6 @@ export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {
     retry: false,
     staleTime: Infinity,
   });
-
   return (
     <Grid container spacing={2} sx={{ marginTop: "5%" }}>
       {!data ? (
@@ -53,7 +52,7 @@ export const BudgetDisplay = ({ apiUrl }: { apiUrl: string }) => {
               Total: budget.remaining_fees + budget.remaining_expenses,
             },
           ];
-          return <List key={index} data={rows} title={`Fiscal ${budget.fiscal_year}`} />;
+          return <List key={index} data={rows} title={`Fiscal ${budget.fiscal}`} />;
         })
       )}
     </Grid>
