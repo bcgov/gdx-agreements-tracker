@@ -245,6 +245,11 @@ export type IWidth = "half" | "full";
 
 export type IReturnValue = string | number | boolean | string[] | IOption;
 
+interface IGenerateValueButton {
+  buttonTitle: string;
+  buttonFunction: Function;
+}
+
 export interface IEditField {
   fieldName: string | number;
   fieldType: IEditFieldsFieldType;
@@ -257,6 +262,7 @@ export interface IEditField {
   required?: boolean;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
   customOnChange?: Function;
+  generateValueButton?: IGenerateValueButton;
 }
 
 export interface IReadField {
@@ -289,6 +295,7 @@ export interface IFormInput {
   touched: FormikTouched<FormikValues>;
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
   customOnChange?: Function;
+  generateValueButton?: IGenerateValueButton;
 }
 
 export interface IRadioGroup {

@@ -52,9 +52,12 @@ const addOne = {
   response: getAddResponse(),
 };
 
+const getNextCRVersion = S.object().prop("cr_version", S.string());
+
 module.exports = {
   getAll,
   getOne,
   updateOne,
   addOne,
+  getNextCRVersion,
 };

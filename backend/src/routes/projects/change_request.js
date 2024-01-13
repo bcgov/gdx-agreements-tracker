@@ -16,6 +16,12 @@ const routes = [
     handler: controller.getOneByTwoIds,
   },
   {
+    method: "GET",
+    url: `/projects/${what}/nextCRVersion`,
+    schema: validators.getNextCRVersion,
+    handler: controller.getNextCRVersion,
+  },
+  {
     method: "PUT",
     url: `/${what}/:id`,
     schema: validators.updateOne,

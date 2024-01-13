@@ -3,6 +3,15 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
 import formatDate from "utils/formatDate";
+import { apiAxios } from "utils";
+
+const generateCRVersion = async () => {
+  return await apiAxios()
+    .get(`/projects/change_request/nextCRVersion`)
+    .then((CRVersion) => {
+      return CRVersion.data.data[0].cr_version;
+    });
+};
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -42,6 +51,14 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Version",
       width: "half",
       required: true,
+      generateValueButton: {
+        buttonTitle: "generate cr-version",
+        buttonFunction: (setFieldValue: Function) => {
+          generateCRVersion().then((nextCRVersion: string) => {
+            setFieldValue("version", nextCRVersion);
+          });
+        },
+      },
     },
     {
       fieldName: "initiation_date",
@@ -51,11 +68,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       required: true,
     },
     {
+      //TODO: Broken, wil be updated in future ticket
       fieldName: "cr_contact",
       fieldType: "singleText",
       fieldLabel: "CR Contact",
       width: "half",
-      required: true,
+      // required: true,
     },
     {
       fieldName: "initiated_by",
@@ -81,11 +99,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       required: true,
     },
     {
+      //TODO: Broken, wil be updated in future ticket
       fieldName: "types",
       fieldType: "multiText",
       fieldLabel: "Types",
       width: "full",
-      required: true,
+      // required: true,
     },
     {
       fieldName: "summary",
@@ -97,7 +116,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   const initialValues = {
-    version: null,
+    version: "",
     fiscal_year: null,
     initiation_date: null,
     cr_contact: null,
