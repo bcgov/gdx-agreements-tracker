@@ -1,3 +1,10 @@
+**January 13, 2024 [DESCW-1829](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1829)**
+
+- Frontend
+  - Added new custom generate value button for textfield input
+- Backend
+  - Added functionality to generate next cr-version for project change requests
+
 **January 11, 2024 [DESCW-1899](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1899)**
 
 - Frontend
@@ -7,16 +14,14 @@
 **January 10, 2024 [DESCW-1894](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1894)**
 
 - Frontend
-    - Added required property to money field
-    - Fixed issue with adding new items to tables
-    - Made adding and editing table rows for efficient 
-    - Fixed validation for project section fields
+  - Added required property to money field
+  - Fixed issue with adding new items to tables
+  - Made adding and editing table rows for efficient
+  - Fixed validation for project section fields
 - Backend
   - Fixed reportedby picker options to by more accurate
-  - Fixed billingProgramArea picker options to by more accurate 
+  - Fixed billingProgramArea picker options to by more accurate
   - Added program area value to the program_area option for project billing section
-  
-
 
 **January 10, 2024 [DESCW-1813](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1813)**
 
@@ -27,10 +32,10 @@
 **January 10, 2024 [DESCW-1789](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1789)**
 
 - Frontend
-    - Convert billing amount field to moeny type input
+  - Convert billing amount field to moeny type input
 - Backend
   - added dynamic validation logic for amount field
-  
+
 **January 9, 2024 [DESCW-1791](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1791)**
 
 - Frontend
