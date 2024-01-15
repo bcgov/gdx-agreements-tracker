@@ -54,6 +54,7 @@ export const InputForm = ({
                   required,
                   autocompleteTableColumns,
                   customOnChange = () => {},
+                  generateValueButton,
                 }) => {
                   return (
                     <FormInput
@@ -76,6 +77,7 @@ export const InputForm = ({
                       customOnChange={(newValue: Object) => {
                         customOnChange({ formikValues: values, setFieldValue, newValue });
                       }}
+                      generateValueButton={generateValueButton}
                     />
                   );
                 }

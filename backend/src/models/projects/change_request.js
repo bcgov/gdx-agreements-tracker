@@ -67,9 +67,22 @@ const addOne = (newChangeRequest) => {
   return knex(changeRequestTable).insert(newChangeRequest);
 };
 
+// Find all where link_id equals the project_id
+const getNextCRVersion = () => {
+  return knex
+    .select(knex.raw("'CR-' || MAX(CAST(match[1] AS INTEGER)+1) as cr_version"))
+    .from(function () {
+      this.select(knex.raw("REGEXP_MATCHES(version, '(\\d+)', 'g') AS match"))
+        .from("change_request")
+        .whereRaw("version ~ '^s*CR-\\d+s*$'")
+        .as("matches");
+    });
+};
+
 module.exports = {
   findAll,
   findById,
   updateOne,
   addOne,
+  getNextCRVersion,
 };

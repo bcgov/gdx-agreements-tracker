@@ -1,4 +1,4 @@
-import { FormControlLabel, TextField } from "@mui/material";
+import { Button, FormControlLabel, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Field } from "formik";
@@ -30,6 +30,7 @@ export const FormInput = ({
   touched,
   autocompleteTableColumns,
   customOnChange = () => {},
+  generateValueButton,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -107,20 +108,33 @@ export const FormInput = ({
     case "singleText":
       return (
         <GridItem width={width}>
-          <Field
-            required={required}
-            fullWidth={true}
-            as={TextField}
-            name={fieldName}
-            onChange={(newValue: string) => {
-              handleChange(newValue);
-            }}
-            label={fieldLabel}
-            id={fieldName}
-            role={`${fieldName}_input`}
-            helperText={touched[fieldName] && errors[fieldName]}
-            error={touched[fieldName] && Boolean(errors[fieldName])}
-          />
+          <>
+            <Field
+              required={required}
+              fullWidth={true}
+              as={TextField}
+              name={fieldName}
+              onChange={(newValue: string) => {
+                handleChange(newValue);
+              }}
+              value={fieldValue}
+              label={fieldLabel}
+              id={fieldName}
+              role={`${fieldName}_input`}
+              helperText={touched[fieldName] && errors[fieldName]}
+              error={touched[fieldName] && Boolean(errors[fieldName])}
+            />
+            {generateValueButton && (
+              <Button
+                onClick={() => {
+                  generateValueButton?.buttonFunction(setFieldValue);
+                }}
+                variant="contained"
+              >
+                {generateValueButton?.buttonTitle}
+              </Button>
+            )}
+          </>
         </GridItem>
       );
     case "multiText":

@@ -39,4 +39,13 @@ controller.getOneByTwoIds = async (request, reply) => {
   }
 };
 
+controller.getNextCRVersion = async (request, reply) => {
+  try {
+    const result = await model.getNextCRVersion();
+    return result ? result : [];
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
 module.exports = controller;
