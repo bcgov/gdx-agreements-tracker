@@ -1,52 +1,44 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { dateFormatter } from "utils/formatDate";
 import percentFormatter from "utils/formatPercent";
+import LineBreak from "utils/LineBreak";
 
 export const tableConfig = () => {
   const defaultFlex = 4;
   const smallFlex = 3;
-  const lineBreakStyle = { lineHeight: "1.5em" };
-
-  const lineBreak = (l1: string, l2: string) => (
-    <div style={lineBreakStyle}>
-      <span>{l1}</span>
-      <br />
-      <span>{l2}</span>
-    </div>
-  );
 
   const tableColumns: GridColDef[] = [
     {
       field: "deliverable_name",
       headerName: "Deliverable Name",
       flex: defaultFlex,
-      renderHeader: (): JSX.Element => lineBreak("Deliverable", "Name"),
+      renderHeader: (): JSX.Element => LineBreak("Deliverable", "Name"),
     },
     {
       field: "start_date",
       headerName: "Start Date",
       valueFormatter: dateFormatter,
       flex: defaultFlex,
-      renderHeader: (): JSX.Element => lineBreak("Start", "Date"),
+      renderHeader: (): JSX.Element => LineBreak("Start", "Date"),
     },
     {
       field: "completion_date",
       headerName: "End Date",
       valueFormatter: dateFormatter,
       flex: defaultFlex,
-      renderHeader: (): JSX.Element => lineBreak("End", "Date"),
+      renderHeader: (): JSX.Element => LineBreak("End", "Date"),
     },
     {
       field: "deliverable_amount",
       headerName: "Deliverable Amount",
       flex: defaultFlex,
-      renderHeader: (): JSX.Element => lineBreak("Deliverable", "Amount"),
+      renderHeader: (): JSX.Element => LineBreak("Deliverable", "Amount"),
     },
     {
       field: "recoverable_amount",
       headerName: "Recoverable Amount",
       flex: defaultFlex,
-      renderHeader: (): JSX.Element => lineBreak("Recoverable", "Amount"),
+      renderHeader: (): JSX.Element => LineBreak("Recoverable", "Amount"),
     },
     { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
     {
@@ -55,13 +47,13 @@ export const tableConfig = () => {
       valueFormatter: percentFormatter,
       flex: defaultFlex,
 
-      renderHeader: (): JSX.Element => lineBreak("Percent", "Complete"),
+      renderHeader: (): JSX.Element => LineBreak("Percent", "Complete"),
     },
     {
       field: "deliverable_status",
       headerName: "Deliverable Status",
       flex: defaultFlex,
-      renderHeader: (): JSX.Element => lineBreak("Deliverable", "Status"),
+      renderHeader: (): JSX.Element => LineBreak("Deliverable", "Status"),
     },
     {
       field: "health_id",

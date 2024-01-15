@@ -3,6 +3,7 @@
 - Frontend
   - reformatted table column widths to be narrow for health chips in app
   - added word-wrap to column titles for the columns affected by this narrowing
+  - added utility component <LineBreak> for rendering table headers with a linebreak
 
 **January 13, 2024 [DESCW-1829](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1829)**
 

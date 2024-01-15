@@ -73,6 +73,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "singleText",
       fieldLabel: "CR Contact",
       width: "half",
+      // required: true,
     },
     {
       fieldName: "initiated_by",
@@ -103,6 +104,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "multiText",
       fieldLabel: "Types",
       width: "full",
+      // required: true,
     },
     {
       fieldName: "summary",
