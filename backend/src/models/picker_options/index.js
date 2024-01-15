@@ -282,13 +282,14 @@ const tableLookupValues = (projectId, contractId) => {
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(projbudgcont), '[]')
           FROM(
-            select DISTINCT ON (cont.id)
-              cont.co_number,
-              cont.co_version,
-              cont.contract_number,
-              cont.id AS value
-            FROM data.contract AS cont
-            WHERE cont.project_id = ${projectId}
+            select
+              cr.co_number,
+              cr.co_version,
+              cr.contract_number,
+              cr.id AS value
+            FROM data.contract as cr
+            WHERE cr.project_id = ${projectId}
+            ORDER BY co_number
             ) projbudgcont)`,
       },
       {

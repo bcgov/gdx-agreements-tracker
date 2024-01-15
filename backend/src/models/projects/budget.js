@@ -89,9 +89,9 @@ const findById = (id) => {
       ),
       contract_id: knex.raw(`
         (SELECT json_build_object(
-          'co_number', COALESCE(cr.co_number, 'No Contact Number'),
-          'co_version', COALESCE(cr.co_version, 'No Contract Version'),
-          'contract_number', COALESCE(cr.contract_number, 'No Contract Number'),
+          'co_number', cr.co_number,
+          'co_version', cr.co_version,
+          'contract_number', cr.contract_number,
           'value', cr.id
           ))
       `),
