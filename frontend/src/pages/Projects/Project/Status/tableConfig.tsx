@@ -1,8 +1,12 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { dateFormatter } from "utils/formatDate";
+import LineBreak from "utils/LineBreak";
 
 export const tableConfig = () => {
-  const defaultFlex = 3;
+  const largeFlex = 8;
+  const defaultFlex = 4;
+  const smallFlex = 2;
+
   const tableColumns: GridColDef[] = [
     {
       field: "status_date",
@@ -10,13 +14,28 @@ export const tableConfig = () => {
       valueFormatter: dateFormatter,
       flex: defaultFlex,
     },
-    { field: "progress", headerName: "Progress", flex: defaultFlex },
+    { field: "progress", headerName: "Progress", flex: largeFlex },
     { field: "issues", headerName: "Issues", flex: defaultFlex },
-    { field: "forecast_and_next_steps", headerName: "Forecast", flex: defaultFlex },
-    { field: "risk", headerName: "Risk", flex: defaultFlex },
-    { field: "schedule_health", headerName: "Schedule Health", flex: defaultFlex },
-    { field: "budget_health", headerName: "Budget Health", flex: defaultFlex },
-    { field: "team_health", headerName: "Team Health", flex: defaultFlex },
+    { field: "forecast_and_next_steps", headerName: "Forecast", flex: largeFlex },
+    { field: "risk", headerName: "Risk", flex: smallFlex },
+    {
+      field: "schedule_health",
+      headerName: "Schedule Health",
+      flex: smallFlex,
+      renderHeader: (): JSX.Element => LineBreak("Schedule", "Health"),
+    },
+    {
+      field: "budget_health",
+      headerName: "Budget Health",
+      flex: smallFlex,
+      renderHeader: (): JSX.Element => LineBreak("Budget", "Health"),
+    },
+    {
+      field: "team_health",
+      headerName: "Team Health",
+      flex: smallFlex,
+      renderHeader: (): JSX.Element => LineBreak("Team", "Health"),
+    },
   ];
 
   const initialState = {

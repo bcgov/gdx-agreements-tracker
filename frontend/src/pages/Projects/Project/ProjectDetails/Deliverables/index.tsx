@@ -43,7 +43,7 @@ export const DeliverablesSection = (): JSX.Element => {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={12} md={12} lg={10} xl={11}>
+      <Grid item xs={12} sm={12} md={12} lg={10} xl={11} sx={{ overflowX: "scroll" }}>
         <TableWithModal
           tableName={"project_deliverable"}
           tableConfig={tableConfig()}
