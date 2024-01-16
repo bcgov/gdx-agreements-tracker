@@ -93,7 +93,7 @@ const findById = (id) => {
           'co_version', cr.co_version,
           'contract_number', cr.contract_number,
           'value', cr.id
-          ))
+        ))
       `),
     })
     .from(`${projectBudgetTable} as prb`)
