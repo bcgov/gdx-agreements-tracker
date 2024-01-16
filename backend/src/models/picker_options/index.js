@@ -273,23 +273,23 @@ const tableLookupValues = (projectId, contractId) => {
       },
       {
         id: "projectbudgetcontract",
-        name: "budget_contract_option", //To be use din the fron end fields file
-        title: "Contract", //Title for the frontend if you don't provide a title in the fields file
+        name: "budget_contract_option", // To be used in the front end FormConfig.ts file
+        title: "Contract", // Title for the frontend if you don't provide a title in the FormConfig
         description: "the contract related to the project budget",
         table: "data.contract", // The table you want to lookup to
-        value: "id", //The value for the picker ex: {label:"example", value:contract.id}
-        label: "label", //The label for the picker ex: {label:"example", value:contract.id}
+        value: "id", // The value for the picker ex: {label:"example", value:contract.id}
+        label: "label", // The label for the picker ex: {label:"example", value:contract.id}
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(projbudgcont), '[]')
-          FROM(
-            select
+          FROM (
+            SELECT
               cont.co_number,
               cont.co_version,
               cont.contract_number,
               cont.id AS value
             FROM data.contract as cont
             WHERE cont.project_id = ${projectId}
-            ) projbudgcont)`,
+            ) AS projbudgcont)`,
       },
       {
         id: "reportedby",
