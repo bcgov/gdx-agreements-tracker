@@ -1,3 +1,11 @@
+**January 16, 2024 [DESCW-1715](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1715)**
+
+- Frontend
+  - update the form config for project>budget>Change Section> Contract dropdown table
+- Backend
+  - update picker options to include the required query
+  - update budget model to include the required query
+
 **January 15, 2024 [DESCW-1833](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1833)**
 
 - Frontend
