@@ -260,7 +260,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Contract",
-          value: query?.data?.data?.data?.contract_id?.co_number,
+          value: query?.data?.data?.data?.contract_id?.contract_number,
         },
         {
           width: "half",
@@ -405,17 +405,17 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       projectId: Number(projectId),
     },
     {
-      fieldName: "contract_id",
+      width: "full",
       fieldLabel: "Contract",
+      fieldName: "contract_id",
       fieldType: "autocompleteTable",
-      width: "half",
-      pickerName: "budget_contract_option", //Change this
+      pickerName: "budget_contract_option",
       autocompleteTableColumns: [
-        { field: "co_number", headerName: "CO Number" },
+        { field: "co_number", headerName: "CO #" },
         { field: "co_version", headerName: "Amendment #" },
-        { field: "contract_number", headerName: "Contract Number" },
+        { field: "contract_number", headerName: "Contract #" },
       ],
-      projectId: Number(projectId), //may need this
+      projectId: Number(projectId),
     },
     {
       width: "half",

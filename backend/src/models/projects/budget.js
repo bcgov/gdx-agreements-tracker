@@ -87,9 +87,14 @@ const findById = (id) => {
       client_coding_id: knex.raw(
         "(SELECT json_build_object('program_area', COALESCE(cc.program_area, ''), 'client', cc.client, 'ministry_short_name', min.ministry_short_name, 'value', prb.client_coding_id))"
       ),
-      contract_id: knex.raw(
-        "(SELECT json_build_object('value', prb.contract_id, 'co_number', COALESCE(cr.co_number, '')))"
-      ),
+      contract_id: knex.raw(`
+        (SELECT json_build_object(
+          'co_number', cr.co_number,
+          'co_version', cr.co_version,
+          'contract_number', cr.contract_number,
+          'value', cr.id
+        ))
+      `),
     })
     .from(`${projectBudgetTable} as prb`)
     .leftJoin(`${fiscalYearTable} as fy`, { "prb.fiscal": `fy.id` })

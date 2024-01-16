@@ -273,23 +273,23 @@ const tableLookupValues = (projectId, contractId) => {
       },
       {
         id: "projectbudgetcontract",
-        name: "budget_contract_option", //To be use din the fron end fields file
-        title: "Contract", //Title for the frontend if you don't provide a title in the fields file
+        name: "budget_contract_option", // To be used in the front end FormConfig.ts file
+        title: "Contract", // Title for the frontend if you don't provide a title in the FormConfig
         description: "the contract related to the project budget",
         table: "data.contract", // The table you want to lookup to
-        value: "contract.id", //The value for the picker ex: {label:"example", value:contract.id}
-        label: `co_number`, //The label for the picker ex: {label:"example", value:contract.id}
+        value: "id", // The value for the picker ex: {label:"example", value:contract.id}
+        label: "label", // The label for the picker ex: {label:"example", value:contract.id}
         queryAdditions: ``,
         customDefinition: `(SELECT COALESCE(json_agg(projbudgcont), '[]')
-          FROM(
-            select
+          FROM (
+            SELECT
               cont.co_number,
-              cont.id as value,
               cont.co_version,
-              cont.contract_number
-            FROM data.contract cont
-            WHERE project_id = ${projectId}
-            ) projbudgcont)`,
+              cont.contract_number,
+              cont.id AS value
+            FROM data.contract as cont
+            WHERE cont.project_id = ${projectId}
+            ) AS projbudgcont)`,
       },
       {
         id: "reportedby",
@@ -306,7 +306,7 @@ const tableLookupValues = (projectId, contractId) => {
           COALESCE(c.last_name || ', ' || c.first_name, '') AS name,
           min.ministry_short_name AS ministry,
           c.id AS value
-          FROM data.contact AS c          
+          FROM data.contact AS c
           LEFT JOIN data.ministry AS min ON c.ministry_id = min.id
         )ps)`,
       },
@@ -366,7 +366,7 @@ const tableLookupValues = (projectId, contractId) => {
         queryAdditions: ``,
         customDefinition: `
         (SELECT COALESCE(json_agg(billingProgramArea), '[]')
-        FROM (  
+        FROM (
           SELECT
             cc.program_area,
             cc.client,
@@ -376,7 +376,7 @@ const tableLookupValues = (projectId, contractId) => {
             cc.project_code,
             cc.client_amount,
             cc.id AS value
-          from data.client_coding cc         
+          from data.client_coding cc
           WHERE cc.project_id= ${projectId}
         ) as billingProgramArea)`,
       }
