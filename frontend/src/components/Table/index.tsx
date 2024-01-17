@@ -27,6 +27,10 @@ any) => {
       {
         color: "#fff",
       },
+    // rem
+    "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": { py: "8px" },
+    "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": { py: "15px" },
+    "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": { py: "22px" },
   };
 
   const BoxStyles = { width: "100%" };
@@ -35,7 +39,9 @@ any) => {
     <Box sx={BoxStyles}>
       {rows && (
         <DataGrid
-          autoHeight
+          getRowHeight={() => "auto"}
+          /*autoHeight*/
+          getEstimatedRowHeight={() => 400}
           columns={tableColumns}
           rows={rows}
           initialState={initialState}
