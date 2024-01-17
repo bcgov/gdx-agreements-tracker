@@ -1,3 +1,9 @@
+**January 17, 2024 [DESCW-1887](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1887)**
+
+- Frontend
+  - make new title card component
+  - add title card to invoice processing > hourly / fixed price tables.
+
 **January 16, 2024 [DESCW-1715](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1715)**
 
 - Frontend
@@ -6,7 +12,7 @@
   - update picker options to include the required query
   - update budget model to include the required query
 
-**January 15, 2024 [DESCW-1833](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1833)**
+**January 16, 2024 [DESCW-1833](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1833)**
 
 - Frontend
   - reformatted table column widths to be narrow for health chips in app
