@@ -44,10 +44,13 @@ export const InvoiceProcessing = () => {
       {formControls.currentRowData && (
         <Grid container spacing={2}>
           <Grid item md={6} sm={12}>
-            <InvoiceResources invoiceId={formControls.currentRowData?.id} />
+            <InvoiceResources invoiceId={formControls.currentRowData?.id} title={"Hourly"} />
           </Grid>
           <Grid item md={6} sm={12}>
-            <InvoiceDeliverables invoiceId={formControls.currentRowData?.id} />
+            <InvoiceDeliverables
+              invoiceId={formControls.currentRowData?.id}
+              title={"Fixed Price Deliverables/Expense"}
+            />
           </Grid>
         </Grid>
       )}
