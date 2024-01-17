@@ -5,6 +5,7 @@ import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
+import { Card, CardHeader } from "@mui/material";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -16,7 +17,7 @@ import { useEffect } from "react";
  *  `formControls` is an object that contains properties and methods for handling
  */
 
-export const InvoiceResources = ({ invoiceId }: { invoiceId: number }) => {
+export const InvoiceResources = ({ invoiceId, title }: { invoiceId: number; title: string }) => {
   const { updateTitle } = useTitle();
 
   useEffect(() => {
@@ -26,15 +27,18 @@ export const InvoiceResources = ({ invoiceId }: { invoiceId: number }) => {
   const formControls: IFormControls = useFormControls();
 
   return (
-    <TableWithModal
-      tableName={"invoice_detail"}
-      tableConfig={tableConfig()}
-      formControls={formControls}
-      formConfig={(formData) => {
-        return FormConfig(formData, invoiceId);
-      }}
-      tableDataApiEndPoint={`invoices/${invoiceId}/resources`}
-      formDataApiEndpoint={`/invoices/resources/${formControls.currentRowData?.id}`}
-    />
+    <Card sx={{ height: "400px" }}>
+      <CardHeader title={title} sx={{ backgroundColor: "#ededed" }} />
+      <TableWithModal
+        tableName={"invoice_detail"}
+        tableConfig={tableConfig()}
+        formControls={formControls}
+        formConfig={(formData) => {
+          return FormConfig(formData, invoiceId);
+        }}
+        tableDataApiEndPoint={`invoices/${invoiceId}/resources`}
+        formDataApiEndpoint={`/invoices/resources/${formControls.currentRowData?.id}`}
+      />
+    </Card>
   );
 };
