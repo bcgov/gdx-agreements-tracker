@@ -5,7 +5,7 @@ import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
-import { TitleCard } from "components";
+import TitleCard from "components/TitleCard";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
