@@ -3,22 +3,21 @@ import { dateFormatter } from "utils/formatDate";
 import LineBreak from "utils/LineBreak";
 
 export const tableConfig = () => {
-  const defaultFlex = 4;
-  const smallFlex = 3;
-  const largeFlex = 4;
+  const defaultFlex = 3;
+  const midFlex = 4;
+  const largeFlex = 5;
 
   const tableColumns = [
     {
       field: "contract_number",
       headerName: "Contract Number",
-      flex: defaultFlex,
+      flex: midFlex,
       renderHeader: (): JSX.Element => LineBreak("Contract", "Number"),
     },
     {
       field: "co_version",
       headerName: "CO Version",
       flex: defaultFlex,
-      renderHeader: (): JSX.Element => LineBreak("CO", "Version"),
     },
     { field: "description", headerName: "Description", flex: largeFlex },
     { field: "supplier", headerName: "Supplier", flex: defaultFlex },
@@ -26,20 +25,43 @@ export const tableConfig = () => {
       field: "start_date",
       headerName: "Start Date",
       valueFormatter: dateFormatter,
-      flex: largeFlex,
+      flex: defaultFlex,
+      renderHeader: (): JSX.Element => LineBreak("Start", "Date"),
     },
     {
       field: "end_date",
       headerName: "End Date",
       valueFormatter: dateFormatter,
-      flex: largeFlex,
+      flex: defaultFlex,
+      renderHeader: (): JSX.Element => LineBreak("End", "Date"),
     },
-    { field: "max_amount", headerName: "Max Amount", flex: defaultFlex },
-    { field: "remaining_amount", headerName: "Remaining Amount", flex: defaultFlex },
-    { field: "status", headerName: "Status", flex: defaultFlex },
+    {
+      field: "max_amount",
+      headerName: "Max Amount",
+      flex: midFlex,
+      renderHeader: (): JSX.Element => LineBreak("Max", "Amount"),
+    },
+    {
+      field: "remaining_amount",
+      headerName: "Remaining Amount",
+      flex: midFlex,
+
+      renderHeader: (): JSX.Element => LineBreak("Remaining", "Amount"),
+    },
+    { field: "status", headerName: "Status", flex: midFlex },
     { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
-    { field: "project_number", headerName: "Project Number", flex: defaultFlex },
-    { field: "portfolio_name", headerName: "Portfolio Name", flex: defaultFlex },
+    {
+      field: "project_number",
+      headerName: "Project Number",
+      flex: defaultFlex,
+      renderHeader: (): JSX.Element => LineBreak("Project", "Number"),
+    },
+    {
+      field: "portfolio_name",
+      headerName: "Portfolio Name",
+      flex: defaultFlex,
+      renderHeader: (): JSX.Element => LineBreak("Portfolio", "Name"),
+    },
   ];
 
   const initialState: GridInitialState = {

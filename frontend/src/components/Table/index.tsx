@@ -27,10 +27,11 @@ any) => {
       {
         color: "#fff",
       },
-    //  use rem instead of px
-    "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": { py: "8px" },
-    "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": { py: "15px" },
-    "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": { py: "22px" },
+    //  padding for the auto-height row cells
+    "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": { py: "0.5rem" },
+    "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": { py: "0.9375rem" },
+    "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": { py: "1.375rem" },
+    flex: "1 0 auto",
   };
 
   const BoxStyles = { width: "100%" };
@@ -40,7 +41,6 @@ any) => {
       {rows && (
         <DataGrid
           getRowHeight={() => "auto"}
-          getEstimatedRowHeight={() => 400}
           columns={tableColumns}
           rows={rows}
           initialState={initialState}
