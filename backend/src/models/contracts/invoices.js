@@ -12,7 +12,7 @@ const findAllByContractId = (contractId) => {
       "i.*",
       "fy.fiscal_year as fiscal",
       knex.raw(
-        `(SELECT SUM(unit_amount * rate) FROM ${invoiceDetailsTable} WHERE invoice_id = i.id)::numeric::float8 as invoice_total`
+        `(SELECT SUM(unit_amount * rate) FROM ${invoiceDetailsTable} WHERE invoice_id = i.id) as invoice_total`
       )
     )
     .from(`${table} as i`)
@@ -26,7 +26,10 @@ const findById = (invoiceId) => {
     .select(
       "i.*",
       knex.raw("COALESCE(i.notes, '') as notes"),
-      knex.raw("( SELECT json_build_object('value', i.fiscal, 'label', fy.fiscal_year)) AS fiscal")
+      knex.raw("( SELECT json_build_object('value', i.fiscal, 'label', fy.fiscal_year)) AS fiscal"),
+      knex.raw(
+        `(SELECT SUM(unit_amount * rate) FROM ${invoiceDetailsTable} WHERE invoice_id = i.id) as invoice_total`
+      )
     )
     .from(`${table} as i`)
     .join(`${fiscalYearTable} as fy`, { "i.fiscal": "fy.id" })

@@ -1,3 +1,9 @@
+**January 17, 2024 [DESCW-1883](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1883)**
+
+- Frontend
+- Backend
+  -added ead only money field for invoice total on the read and edit form for contract invoice processing.
+
 **January 17, 2024 [DESCW-1887](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1887)**
 
 - Frontend

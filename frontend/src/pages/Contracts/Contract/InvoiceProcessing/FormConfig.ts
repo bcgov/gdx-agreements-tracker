@@ -24,6 +24,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         { width: "half", title: "Due Date", value: formatDate(query?.data?.data?.data?.due_date) },
         { width: "half", title: "Billing Period", value: query?.data?.data?.data?.billing_period },
         { width: "half", title: "Fiscal Year", value: query?.data?.data?.data?.fiscal?.label },
+        { width: "half", title: "Invoice Total", value: query?.data?.data?.data?.invoice_total },
         { width: "half", title: "GL", value: query?.data?.data?.data?.is_gl },
         { width: "full", title: "Notes", value: query?.data?.data?.data?.notes },
       ];
@@ -58,6 +59,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       pickerName: "fiscal_year_option",
       required: true,
+    },
+    {
+      width: "half",
+      fieldLabel: "Invoice Total",
+      fieldName: "invoice_total",
+      fieldType: "readonly",
     },
     {
       width: "half",
