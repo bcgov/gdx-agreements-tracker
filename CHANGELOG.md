@@ -1,3 +1,9 @@
+**January 17, 2024 [DESCW-1882](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1882)**
+
+- Frontend
+  - fix formatting on table cells so the text will wrap automatically
+  - adjust column header wrap on some table(s) as well.
+
 **January 17, 2024 [DESCW-1883](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1883)**
 
 - Frontend

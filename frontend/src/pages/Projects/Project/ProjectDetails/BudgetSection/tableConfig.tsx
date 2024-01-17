@@ -3,7 +3,6 @@ import LineBreak from "utils/LineBreak";
 
 export const tableConfig = () => {
   const defaultFlex = 4;
-  const smallFlex = 2;
   const largeFlex = 8;
 
   const tableColumns: GridColDef[] = [
