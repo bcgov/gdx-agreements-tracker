@@ -5,7 +5,7 @@ import { useFormControls } from "hooks";
 import { IFormControls } from "types";
 import useTitle from "hooks/useTitle";
 import { useEffect } from "react";
-import { Card, CardHeader } from "@mui/material";
+import { TitleCard } from "components";
 
 /**
  * This is a TypeScript React component that renders a table with modal for change requests related to
@@ -27,8 +27,7 @@ export const InvoiceDeliverables = ({ invoiceId, title }: { invoiceId: number; t
   const formControls: IFormControls = useFormControls();
 
   return (
-    <Card sx={{ height: "400px" }}>
-      <CardHeader title={title} sx={{ backgroundColor: "#ededed" }} />
+    <TitleCard title={title}>
       <TableWithModal
         tableName={"invoice_detail"}
         tableConfig={tableConfig()}
@@ -39,6 +38,6 @@ export const InvoiceDeliverables = ({ invoiceId, title }: { invoiceId: number; t
         tableDataApiEndPoint={`invoices/${invoiceId}/deliverables`}
         formDataApiEndpoint={`/invoices/deliverables/${formControls.currentRowData?.id}`}
       />
-    </Card>
+    </TitleCard>
   );
 };
