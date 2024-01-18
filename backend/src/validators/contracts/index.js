@@ -5,6 +5,7 @@ const getAll = {
   response: getResponse(
     S.array().items(
       S.object()
+        .prop("id", S.number())
         .prop("contract_number", S.string())
         .prop("co_number", S.string().minLength(1))
         .prop("description", S.string())
