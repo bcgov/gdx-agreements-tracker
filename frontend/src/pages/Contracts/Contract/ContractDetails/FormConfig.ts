@@ -62,13 +62,13 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
           },
           {
             width: "half",
-            title: "Assignment Start Date",
-            value: formatDate(query?.data?.data?.data?.start_date),
+            title: "Procurement Method",
+            value: query?.data?.data?.data?.procurement_method_id?.label,
           },
           {
             width: "half",
-            title: "Procurement Method",
-            value: query?.data?.data?.data?.procurement_method_id?.label,
+            title: "Assignment Start Date",
+            value: formatDate(query?.data?.data?.data?.start_date),
           },
           {
             width: "half",
@@ -103,7 +103,6 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldLabel: "Status",
       width: "half",
       tableName: "contracts",
-      required: true,
     },
     {
       fieldName: "fiscal",
@@ -111,7 +110,6 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldLabel: "Fiscal",
       width: "half",
       pickerName: "fiscal_year_option",
-      required: true,
     },
     {
       width: "half",
@@ -126,7 +124,6 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "contract_type",
       fieldType: "select",
       tableName: "contracts",
-      required: true,
     },
     {
       width: "half",
@@ -140,7 +137,6 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "supplier_id",
       fieldType: "select",
       pickerName: "supplier_option",
-      required: true,
     },
     {
       width: "half",
@@ -159,14 +155,14 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       width: "half",
       fieldLabel: "Total Fees Payable",
       fieldName: "total_fee_amount",
-      fieldType: "number",
+      fieldType: "money",
       required: true,
     },
     {
       width: "half",
       fieldLabel: "Total Expenses Payable",
       fieldName: "total_expense_amount",
-      fieldType: "number",
+      fieldType: "money",
       required: true,
     },
     {
@@ -175,19 +171,20 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "requisition_number",
       fieldType: "singleText",
     },
-    {
-      width: "half",
-      fieldLabel: "Assignment Start Date",
-      fieldName: "start_date",
-      fieldType: "date",
-      required: true,
-    },
+
     {
       width: "half",
       fieldLabel: "Procurement Method",
       fieldName: "procurement_method_id",
       fieldType: "select",
       pickerName: "procurement_method_option",
+    },
+    {
+      width: "half",
+      fieldLabel: "Assignment Start Date",
+      fieldName: "start_date",
+      fieldType: "date",
+      required: true,
     },
     {
       width: "half",
@@ -202,6 +199,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "description",
       fieldType: "multiText",
     },
+
     { width: "full", fieldLabel: "Notes", fieldName: "notes", fieldType: "multiText" },
   ];
 
@@ -224,7 +222,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
   };
   const rowsToLock = [query?.data?.data?.data?.id];
   const postUrl = `/contracts/`;
-  const updateUrl = `/contracts/deliverables/${query?.data?.data?.data?.id}`;
+  const updateUrl = `/contracts/${query?.data?.data?.data?.id}`;
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
 };
