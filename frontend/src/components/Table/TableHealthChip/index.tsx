@@ -7,9 +7,9 @@ export const TableHealthChip = ({ rgb }: Irgb) => {
   const chipStyles = {
     backgroundColor: `rgb(${red},${green},${blue})`,
     fontWeight: "bold",
-    height: "45%",
     border: "solid 1px red",
     borderRadius: "4px",
+    maxHeight: "1.6rem", // make them square in spite of the auto-height on the row cells.
   };
 
   return <Chip sx={chipStyles} label={health_name} />;
