@@ -1,8 +1,13 @@
+**January 18, 2024 [DESCW-1835](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1835)**
+
+- Frontend
+  - fix bug causing a null value warning on TextArea inputs in product detail forms.
+
 **January 18, 2024 [DESCW-1886](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1886)**
 
 - Frontend
 - Backend
-    - Fixed bugs with adding new item, reordered inputs, updated input type to be correct
+  - Fixed bugs with adding new item, reordered inputs, updated input type to be correct
 
 **January 17, 2024 [DESCW-1882](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1882)**
 

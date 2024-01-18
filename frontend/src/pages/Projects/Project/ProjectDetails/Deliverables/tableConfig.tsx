@@ -62,15 +62,7 @@ export const tableConfig = () => {
     },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "status", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
   const modalToggleColumn = "deliverable_name";
 
-  return { tableColumns, initialState, modalToggleColumn };
+  return { tableColumns, modalToggleColumn };
 };
