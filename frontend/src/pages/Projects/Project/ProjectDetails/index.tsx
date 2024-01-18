@@ -21,10 +21,10 @@ export const ProjectDetails = () => {
       <Accordion sectionTitle="Project Registration">
         <ProjectRegistrationSection />
       </Accordion>
-      <Accordion sectionTitle="Agreement">
+      {/* <Accordion sectionTitle="Agreement">
         <AgreementSection />
-      </Accordion>
-      <Accordion sectionTitle="Contacts">
+      </Accordion> */}
+      {/* <Accordion sectionTitle="Contacts">
         <ContactsSection />
       </Accordion>
       <Accordion sectionTitle="Deliverables">
@@ -35,7 +35,7 @@ export const ProjectDetails = () => {
       </Accordion>
       <Accordion sectionTitle="Budget">
         <BudgetSection />
-      </Accordion>
+      </Accordion> */}
     </>
   );
 };
