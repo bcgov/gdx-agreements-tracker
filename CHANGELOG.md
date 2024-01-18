@@ -1,7 +1,10 @@
-**January 18, 2024 [DESCW-1835](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1835)**
+**January 18, 2024 [DESCW-1835, 1837](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1835) (https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1837)**
 
 - Frontend
   - fix bug causing a null value warning on TextArea inputs in product detail forms.
+  - fixed bug with mui dataepicker warning of Mask does not support numbers with variable length such as 'M'.
+Either use numbers with fix length or disable mask feature with 'disableMaskedInput' prop
+Falling down to uncontrolled no-mask input. 
 
 **January 18, 2024 [DESCW-1886](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1886)**
 
