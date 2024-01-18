@@ -85,22 +85,16 @@ export const FormInput = ({
               id={fieldName}
               label={fieldLabel}
               inputFormat={DATE_FORMAT_SHORT_YEAR}
-              value={fieldValue}
+              value={dayjs(fieldValue)}
               fullWidth={true}
               onChange={(newValue: string) => {
                 const formatDate = newValue ? dayjs(newValue).format("YYYY-MM-DD") : null;
                 setFieldValue?.(fieldName, formatDate);
               }}
+              sx={{
+                width: "100%",
+              }}
               role={`${fieldName}_input`}
-              renderInput={(params: Object) => (
-                <TextField
-                  {...params}
-                  fullWidth={true}
-                  required={required}
-                  helperText={touched[fieldName] && errors[fieldName]}
-                  error={touched[fieldName] && Boolean(errors[fieldName])}
-                />
-              )}
             />
           </LocalizationProvider>
         </GridItem>
