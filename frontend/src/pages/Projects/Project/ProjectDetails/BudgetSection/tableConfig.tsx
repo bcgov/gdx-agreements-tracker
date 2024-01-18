@@ -108,13 +108,5 @@ export const tableConfig = () => {
     { field: "notes", headerName: "Notes", flex: largeFlex },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "program_area", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
-  return { tableColumns, initialState };
+  return { tableColumns };
 };
