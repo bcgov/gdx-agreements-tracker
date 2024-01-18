@@ -20,13 +20,5 @@ export const tableConfig = () => {
     { field: "deliverable_name", headerName: "Deliverable Name", flex: defaultFlex },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "fiscal", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
-  return { tableColumns, initialState };
+  return { tableColumns };
 };

@@ -21,13 +21,5 @@ export const tableConfig = () => {
     { field: "end_date", headerName: "End Date", valueFormatter: dateFormatter, flex: defaultFlex },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "fiscal", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
-  return { tableColumns, initialState };
+  return { tableColumns };
 };

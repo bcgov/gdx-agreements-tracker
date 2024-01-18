@@ -243,7 +243,13 @@ export type IEditFieldsFieldType =
 
 export type IWidth = "half" | "full";
 
-export type IReturnValue = string | number | boolean | string[] | IOption;
+export type IReturnValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | IOption
+  | (Key | null | undefined);
 
 interface IGenerateValueButton {
   buttonTitle: string;
