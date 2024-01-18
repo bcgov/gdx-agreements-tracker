@@ -10,13 +10,5 @@ export const tableConfig = () => {
     { field: "notes", headerName: "Notes", flex: defaultFlex },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "last_name", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
-  return { tableColumns, initialState };
+  return { tableColumns };
 };

@@ -17,13 +17,5 @@ export const tableConfig = () => {
     { field: "financial_contact", headerName: "Financial Contact", flex: defaultFlex },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "amount", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
-  return { tableColumns, initialState };
+  return { tableColumns };
 };

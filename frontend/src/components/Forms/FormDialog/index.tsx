@@ -37,9 +37,11 @@ const FormDialog: React.FC<FormDialogProps> = ({
       queryClient.invalidateQueries();
     });
   };
+
   return (
-    <>
+    <div>
       <Dialog open={open} fullWidth maxWidth="md">
+        {" INSIDE FORM DIALOG  > DIALOG"}
         <DialogTitle
           sx={{
             display: "flex",
@@ -91,7 +93,7 @@ const FormDialog: React.FC<FormDialogProps> = ({
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </div>
   );
 };
 

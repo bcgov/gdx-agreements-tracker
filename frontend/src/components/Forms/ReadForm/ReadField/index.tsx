@@ -100,9 +100,14 @@ export const ReadField = ({
               <ListSubheader sx={{ bgcolor: "#2d2b2b", color: "#fff" }}>{title}</ListSubheader>
             }
           >
-            {(value as unknown as { link: string; label: string }[]).map((value) => {
+            {(
+              value as unknown as {
+                link: string;
+                label: string;
+              }[]
+            ).map((value) => {
               return (
-                <>
+                <div key={value?.link /* prevent key warning in console */}>
                   <Divider />
                   <ListItem component="div" disablePadding>
                     <ListItemButton onClick={() => navigate(value.link)}>
@@ -112,7 +117,7 @@ export const ReadField = ({
                       </ListItemIcon>
                     </ListItemButton>
                   </ListItem>
-                </>
+                </div>
               );
             })}
           </List>

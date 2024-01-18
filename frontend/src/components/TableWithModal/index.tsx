@@ -55,15 +55,17 @@ export const TableWithModal = ({
       <FormDialog
         open={formControls.open}
         handleClose={formControls.handleClose}
-        deleteUrl={formConfig(formControls.currentRowData?.id).deleteUrl as string}
+        // deleteUrl={formConfig(formControls.currentRowData?.id).deleteUrl as string}
+        deleteUrl={"deleteURL"}
         handleDelete={handleDelete}
       >
-        <FormRenderer
+        <div> IN FORM DIALOG </div>
+        {/* <FormRenderer
           formControls={formControls}
           tableName={tableName}
           formConfig={formConfig}
           formDataApiEndpoint={formDataApiEndpoint}
-        />
+        /> */}
       </FormDialog>
     </>
   );

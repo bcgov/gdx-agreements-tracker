@@ -9,13 +9,5 @@ export const tableConfig = () => {
     { field: "province", headerName: "Province", flex: defaultFlex },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "supplier_name", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
-  return { tableColumns, initialState };
+  return { tableColumns };
 };

@@ -13,13 +13,5 @@ export const tableConfig = () => {
     { field: "qualified_receiver", headerName: "Qualified Receiver", flex: defaultFlex },
   ];
 
-  const initialState = {
-    filter: {
-      filterModel: {
-        items: [{ columnField: "portfolio", operatorValue: "equals", value: "Active" }],
-      },
-    },
-  };
-
-  return { tableColumns, initialState };
+  return { tableColumns };
 };
