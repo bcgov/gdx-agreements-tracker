@@ -80,4 +80,5 @@ export const MyForm = () => {
 };
 ```
 
-There is a working example at [`components/Forms/InputForm`](https://github.com/bcgov/gdx-agreements-tracker/blob/development/frontend/src/components/Forms/InputForm/index.tsx)
+There is a working example [`components/Forms/InputForm`](https://github.com/bcgov/gdx-agreements-tracker/blob/development/frontend/src/components/Forms/InputForm/index.tsx)
+used by the [`<formRenderer>`](https://github.com/bgov/gdx-agreements-tracker/blob/development/frontend/src/pages/Contracts/Contract/ContractDetails) on the Contracts > ContractDetails page.
