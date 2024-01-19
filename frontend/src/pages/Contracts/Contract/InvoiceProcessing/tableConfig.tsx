@@ -19,8 +19,8 @@ export const tableConfig = () => {
     { field: "due_date", headerName: "Due Date", valueFormatter: dateFormatter, flex: defaultFlex },
     { field: "billing_period", headerName: "Billing Period", flex: defaultFlex },
     { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
-    { field: "invoice_total", headerName: "Invoice Total", flex: defaultFlex },
     { field: "invoice_number", headerName: "Invoice Number", flex: defaultFlex },
+    { field: "invoice_total", headerName: "Invoice Total", flex: defaultFlex },
     { field: "is_gl", headerName: "Is Gl", flex: defaultFlex },
     { field: "notes", headerName: "Notes", flex: defaultFlex },
   ];
