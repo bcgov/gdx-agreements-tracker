@@ -66,7 +66,7 @@ export const FormInput = ({
                 await setFieldValue(fieldName, newValue);
                 customOnChange({ [fieldName]: newValue });
               }}
-              value={Number(fieldValue.replace(/[^0-9.-]+/g, ""))}
+              value={fieldValue !== null ? Number(fieldValue.replace(/[^0-9.-]+/g, "")) : "0.00"}
               label={fieldLabel}
               id={fieldName}
               role={`${fieldName}_input`}
@@ -84,15 +84,22 @@ export const FormInput = ({
               as={DatePicker}
               id={fieldName}
               label={fieldLabel}
-              inputFormat={DATE_FORMAT_SHORT_YEAR}
-              value={dayjs(fieldValue)}
-              fullWidth={true}
+              format={DATE_FORMAT_SHORT_YEAR}
+              value={null === fieldValue ? null : dayjs(fieldValue)}
               onChange={(newValue: string) => {
                 const formatDate = newValue ? dayjs(newValue).format("YYYY-MM-DD") : null;
                 setFieldValue?.(fieldName, formatDate);
               }}
               sx={{
                 width: "100%",
+              }}
+              slotProps={{
+                field: { clearable: true },
+                textField: {
+                  required: required,
+                  helperText: touched[fieldName] && errors[fieldName],
+                  error: touched[fieldName] && Boolean(errors[fieldName]),
+                },
               }}
               role={`${fieldName}_input`}
             />

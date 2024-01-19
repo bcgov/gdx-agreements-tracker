@@ -39,7 +39,7 @@ export const InputForm = ({
     >
       {({ setFieldValue, values, handleChange, dirty, errors, touched }) => {
         return (
-          <Form>
+          <Form noValidate>
             <FormLayout>
               {editFields.map(
                 ({
