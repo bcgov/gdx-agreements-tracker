@@ -58,6 +58,7 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/Forms/InputForm",
               "/guide/Frontend/react_components/Forms/ReadForm",
               "/guide/Frontend/react_components/Forms/Validation",
+              "/guide/Frontend/react_components/Forms/FormEditButton",
             ],
           },
           "/guide/Frontend/react_components/MoneyField",
