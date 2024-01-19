@@ -104,10 +104,13 @@ export interface IPickerLookupData {
 
 //picker options types
 export interface IPickerProps {
-  handleChange: Function;
-  fieldValue: IOption;
-  fieldName?: string;
+  error: boolean;
   fieldLabel?: string;
+  fieldName?: string;
+  fieldValue: IOption;
+  handleChange: Function;
+  helperText: string;
+  multiple?: boolean;
   onChange: Function;
   pickerData: {
     associated_table: string;
@@ -118,9 +121,6 @@ export interface IPickerProps {
     title: string;
   };
   required?: boolean;
-  multiple?: boolean;
-  helperText: string;
-  error: boolean;
 }
 export interface IAutocompleteTable extends IPickerProps {
   autocompleteTableColumns: { field: string; headerName: string }[];
