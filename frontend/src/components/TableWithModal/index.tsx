@@ -6,13 +6,24 @@ import { GridRowParams } from "@mui/x-data-grid";
 import { useFormSubmit, useFormatTableData } from "hooks";
 import FormDialog from "components/Forms/FormDialog";
 
-/* This is a functional component called `TableWithModal` that takes in an object with a `apiEndPoint`
-property of type string as its only argument. It uses the `useFormControls` and `useFormatTableData`
-hooks to manage state and fetch data from the API endpoint. It also uses the `TableConfig` function
-
-
-to get the columns, initial state, and selected row for the table. */
-
+/**
+ * A component that renders a table with a modal dialog box.
+ *
+ * This component uses the `useFormControls` and `useFormatTableData` hooks
+ * hooks to manage state and fetch data from the API endpoint.
+ * It also uses the `TableConfig` function to get the columns,
+ * initial state, and selected row for the table.
+ *
+ * @param   {object}          props                      - The properties passed to this component.
+ * @param   {object}          props.tableConfig          - The configuration for the table.
+ * @param   {object}          props.formControls         - The controls for the form.
+ * @param   {Function}        props.formConfig           - The configuration for the form.
+ * @param   {string}          props.tableName            - The name of the table.
+ * @param   {string}          props.tableDataApiEndPoint - The API endpoint for the table data.
+ * @param   {string}          props.formDataApiEndpoint  - The API endpoint for the form data.
+ * @param   {Function}        props.handleRowDoubleClick - The function to call when a row is double-clicked.
+ * @returns {React.ReactNode}                            - The rendered component.
+ */
 export const TableWithModal = ({
   tableConfig,
   formControls,
@@ -24,7 +35,7 @@ export const TableWithModal = ({
     formControls.handleCurrentRowData(params.row);
     formControls.handleOpen();
   },
-}: ITableWithModal) => {
+}: ITableWithModal): React.ReactNode => {
   const { handleDelete } = useFormSubmit();
 
   const handleTableNewButton = () => {
