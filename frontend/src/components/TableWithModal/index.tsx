@@ -22,7 +22,7 @@ import FormDialog from "components/Forms/FormDialog";
  * @param   {string}          props.tableDataApiEndPoint - The API endpoint for the table data.
  * @param   {string}          props.formDataApiEndpoint  - The API endpoint for the form data.
  * @param   {Function}        props.handleRowDoubleClick - The function to call when a row is double-clicked.
- * @returns {React.ReactNode}                            - The rendered component.
+ * @returns {JSX.Element}                            - The rendered component.
  */
 export const TableWithModal = ({
   tableConfig,
@@ -35,7 +35,7 @@ export const TableWithModal = ({
     formControls.handleCurrentRowData(params.row);
     formControls.handleOpen();
   },
-}: ITableWithModal): React.ReactNode => {
+}: ITableWithModal): JSX.Element => {
   const { handleDelete } = useFormSubmit();
 
   const handleTableNewButton = () => {
