@@ -14,15 +14,15 @@ import FormDialog from "components/Forms/FormDialog";
  * It also uses the `TableConfig` function to get the columns,
  * initial state, and selected row for the table.
  *
- * @param   {object}          props                      - The properties passed to this component.
- * @param   {object}          props.tableConfig          - The configuration for the table.
- * @param   {object}          props.formControls         - The controls for the form.
- * @param   {Function}        props.formConfig           - The configuration for the form.
- * @param   {string}          props.tableName            - The name of the table.
- * @param   {string}          props.tableDataApiEndPoint - The API endpoint for the table data.
- * @param   {string}          props.formDataApiEndpoint  - The API endpoint for the form data.
- * @param   {Function}        props.handleRowDoubleClick - The function to call when a row is double-clicked.
- * @returns {React.ReactNode}                            - The rendered component.
+ * @param   {object}      props                      - The properties passed to this component.
+ * @param   {object}      props.tableConfig          - The configuration for the table.
+ * @param   {object}      props.formControls         - The controls for the form.
+ * @param   {Function}    props.formConfig           - The configuration for the form.
+ * @param   {string}      props.tableName            - The name of the table.
+ * @param   {string}      props.tableDataApiEndPoint - The API endpoint for the table data.
+ * @param   {string}      props.formDataApiEndpoint  - The API endpoint for the form data.
+ * @param   {Function}    props.handleRowDoubleClick - The function to call when a row is double-clicked.
+ * @returns {JSX.Element}                            - The rendered component.
  */
 export const TableWithModal = ({
   tableConfig,
@@ -35,7 +35,7 @@ export const TableWithModal = ({
     formControls.handleCurrentRowData(params.row);
     formControls.handleOpen();
   },
-}: ITableWithModal): React.ReactNode => {
+}: ITableWithModal): JSX.Element => {
   const { handleDelete } = useFormSubmit();
 
   const handleTableNewButton = () => {
