@@ -51,6 +51,7 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/Forms/Fields/Checkbox",
               "/guide/Frontend/react_components/Forms/Fields/Select",
               "/guide/Frontend/react_components/Forms/Fields/AutocompleteTable",
+              "/guide/Frontend/react_components/Forms/Fields/FormInput",              
               "/guide/Frontend/react_components/Forms/FormButtons",
               "/guide/Frontend/react_components/Forms/FormLayout",
               "/guide/Frontend/react_components/Forms/FormRenderer",
