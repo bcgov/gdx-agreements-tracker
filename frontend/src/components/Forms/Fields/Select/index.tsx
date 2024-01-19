@@ -3,22 +3,31 @@ import { Autocomplete, Skeleton, TextField, TextFieldProps } from "@mui/material
 import { IPickerProps, IOption } from "../../../../types";
 
 /**
- * Renders an Autocomplete/Select component
+ * A component that renders a select input field with autocomplete functionality.
  *
- * @param   {IPickerProps} props passed into component
- * @returns {JSX.Element}        a JSX select
+ * @param   {object}      props            - The properties passed to the component.
+ * @param   {string}      props.error      - The error message to display if the field is invalid.
+ * @param   {string}      props.fieldLabel - The label of the field.
+ * @param   {string}      props.fieldName  - The name of the field.
+ * @param   {IOption}     props.fieldValue - The value of the field.
+ * @param   {string}      props.helperText - The helper text to display below the field.
+ * @param   {boolean}     props.multiple   - Whether the field allows multiple selections.
+ * @param   {Function}    props.onChange   - The function to call when the field value changes.
+ * @param   {object}      props.pickerData - The data to populate the autocomplete options.
+ * @param   {boolean}     props.required   - Whether the field is required.
+ * @returns {JSX.Element}                  - The rendered component.
  */
 export const Select: FC<IPickerProps> = ({
+  error,
+  fieldLabel,
   fieldName,
   fieldValue,
-  fieldLabel,
+  helperText,
+  multiple,
   onChange,
   pickerData,
   required,
-  multiple,
-  helperText,
-  error,
-}: IPickerProps) => {
+}: IPickerProps): JSX.Element => {
   return (
     <>
       {!pickerData ? (
