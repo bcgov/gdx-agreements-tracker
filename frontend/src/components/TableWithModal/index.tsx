@@ -41,6 +41,10 @@ export const TableWithModal = ({
     formControls.handleCurrentRowData(params.row);
   };
 
+  const deleteUrl = tableData.isLoading
+    ? formConfig(formControls.currentRowData?.id)?.deleteUrl
+    : "";
+
   return tableData.isLoading ? (
     <LinearProgress />
   ) : (
@@ -55,7 +59,7 @@ export const TableWithModal = ({
       <FormDialog
         open={formControls.open}
         handleClose={formControls.handleClose}
-        deleteUrl={formConfig(formControls.currentRowData?.id).deleteUrl as string}
+        deleteUrl={deleteUrl as string}
         handleDelete={handleDelete}
       >
         <FormRenderer

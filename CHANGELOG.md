@@ -1,3 +1,9 @@
+
+**January 18, 2024 [DESCW-1836](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1836)**
+
+- Frontend
+  - fix bug related to hook calling order by moving the call to formConfig() above the component render
+
 **January 18, 2024 [DESCW-1591](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1591)**
 
 - Frontend
@@ -5,6 +11,7 @@
 - Documentation
   - Adds documentation for Select component
   - Recovered missing documentation for AutocompleteTable component
+
 
 **January 18, 2024 [DESCW-1835, 1837](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1835) (https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1837)**
 
