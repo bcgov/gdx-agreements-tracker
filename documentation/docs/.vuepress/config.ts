@@ -49,6 +49,8 @@ export default defineUserConfig({
             text: "Forms",
             children: [
               "/guide/Frontend/react_components/Forms/Fields/Checkbox",
+              "/guide/Frontend/react_components/Forms/Fields/Select",
+              "/guide/Frontend/react_components/Forms/Fields/AutocompleteTable",
               "/guide/Frontend/react_components/Forms/FormLayout",
               "/guide/Frontend/react_components/Forms/FormRenderer",
               "/guide/Frontend/react_components/Forms/GridItem",
