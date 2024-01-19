@@ -3,6 +3,7 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router-dom";
 import formatDate from "utils/formatDate";
+import { object, string } from "yup";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { contractId } = useParams();
@@ -88,11 +89,32 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     contract_id: Number(contractId),
   };
 
+  const validationSchema = object({
+    // make sure the detail amount is filled in, then convert money to number
+    fiscal: object()
+      .shape({
+        value: string(),
+        label: string(),
+      })
+      .nullable()
+      .required("Fiscal is required."),
+    received_date: string().required("Received Date is required"),
+  });
+
   const rowId = query?.data?.data?.data?.id ?? null;
   const rowsToLock = rowId ? [rowId] : [];
   const postUrl = `/contracts/${contractId}/invoices`;
   const updateUrl = `/invoices/${rowId}`;
   const deleteUrl = `/invoices/${query}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };
+  return {
+    readFields,
+    editFields,
+    initialValues,
+    rowsToLock,
+    postUrl,
+    updateUrl,
+    deleteUrl,
+    validationSchema,
+  };
 };
