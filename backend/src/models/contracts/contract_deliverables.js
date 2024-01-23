@@ -17,17 +17,29 @@ const findAll = (contractId) => {
 // Get specific one by id.
 const findById = (id) => {
   return knex
-    .select(
-      "cd.*",
-      knex.raw("cd.deliverable_amount::numeric::float8"),
-      knex.raw(
-        "( SELECT json_build_object('value', COALESCE(cd.project_deliverable_id, 0), 'label', COALESCE(pd.deliverable_name, ''))) as project_deliverable_id"
-      ),
-      knex.raw("( SELECT json_build_object('value', fy.id, 'label', fy.fiscal_year)) as fiscal"),
-      knex.raw(
-        "( SELECT json_build_object('value', cd.deliverable_status, 'label', cd.deliverable_status)) as deliverable_status"
-      )
-    )
+    .select({
+      deliverable_name: "cd.deliverable_name",
+      is_expense: "cd.is_expense",
+      description: "cd.description",
+      completion_date: "cd.completion_date",
+      deliverable_amount: "cd.deliverable_amount",
+      deliverable_status: knex.raw(`
+        ( SELECT json_build_object(
+          'value', cd.deliverable_status,
+          'label', cd.deliverable_status
+        ))
+      `),
+      project_deliverable_id: knex.raw(`
+        (SELECT json_build_object(
+          'deliverable_name', cd.deliverable_name,
+          'deliverable_amount', cd.deliverable_amount,
+          'deliverable_status', cd.deliverable_status,
+          'label', coalesce(cd.deliverable_name, ''),
+          'value', cd.project_deliverable_id
+        ))
+      `),
+      fiscal: knex.raw("( SELECT json_build_object('value', fy.id, 'label', fy.fiscal_year))"),
+    })
     .from(`${table} as cd`)
     .join(`${fiscalTable} as fy`, { "cd.fiscal": "fy.id" })
     .leftJoin(`${projectDeliverableTable} as pd`, { "cd.project_deliverable_id": "pd.id" })

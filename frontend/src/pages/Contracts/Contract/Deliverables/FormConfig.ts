@@ -85,7 +85,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       fieldName: "deliverable_amount",
-      fieldType: "number",
+      fieldType: "money",
       fieldLabel: "Deliverable Amount",
       width: "half",
     },
@@ -99,10 +99,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     },
     {
       fieldName: "project_deliverable_id",
-      fieldType: "select",
+      fieldType: "autocompleteTable",
       fieldLabel: "Project Deliverable",
       width: "half",
       pickerName: "project_deliverable_option",
+      autocompleteTableColumns: [
+        { field: "deliverable_name", headerName: "Deliverable Name" },
+        { field: "deliverable_amount", headerName: "Deliverable Amount" },
+        { field: "deliverable_status", headerName: "Deliverable Status" },
+      ],
+      contractId: Number(contractId),
     },
     {
       fieldName: "fiscal",
