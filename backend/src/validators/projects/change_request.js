@@ -28,6 +28,13 @@ const getOne = {
       .prop("summary", S.string())
       .prop("approval_date", S.string())
       .prop("link_id", S.number())
+      .prop(
+        "types",
+        S.object()
+          .prop("cr_type", S.string())
+          .prop("inactive", S.boolean())
+          .prop("value", S.number())
+      )
   ),
 };
 
