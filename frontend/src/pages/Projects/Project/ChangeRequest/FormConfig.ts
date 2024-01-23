@@ -39,7 +39,9 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "full",
           title: "Types",
-          value: query?.data?.data?.data?.types,
+          value:
+            query?.data?.data?.data?.types?.map((item: { cr_type: string }) => item.cr_type) || [],
+          type: "multiSelect",
         },
         { width: "full", title: "Summary", value: query?.data?.data?.data?.summary },
       ];
@@ -99,12 +101,17 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       required: true,
     },
     {
-      //TODO: Broken, wil be updated in future ticket
       fieldName: "types",
-      fieldType: "multiText",
+      fieldType: "autocompleteTable",
+      pickerName: "cr_type_option",
       fieldLabel: "Types",
       width: "full",
+      multiple: true,
       // required: true,
+      autocompleteTableColumns: [
+        { field: "crtype_name", headerName: "Type" },
+        { field: "inactive", headerName: "Inactive ?" },
+      ],
     },
     {
       fieldName: "summary",

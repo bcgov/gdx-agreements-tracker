@@ -269,6 +269,7 @@ export interface IEditField {
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
   customOnChange?: Function;
   generateValueButton?: IGenerateValueButton;
+  multiple?: boolean;
 }
 
 export interface IReadField {
@@ -302,6 +303,7 @@ export interface IFormInput {
   autocompleteTableColumns?: IAutocompleteTable[autocompleteTableColumns];
   customOnChange?: Function;
   generateValueButton?: IGenerateValueButton;
+  multiple?: boolean;
 }
 
 export interface IRadioGroup {
