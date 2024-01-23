@@ -1,3 +1,7 @@
+**January 22, 2024 [DESCW-1928](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1928)**
+
+- Frontend
+  - get the contract > deliverables > project deliverables tableselect populating
 
 **January 18, 2024 [DESCW-1836](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1836)**
 
@@ -11,7 +15,6 @@
 - Documentation
   - Adds documentation for Select component
   - Recovered missing documentation for AutocompleteTable component
-
 
 **January 18, 2024 [DESCW-1835, 1837](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1835) (https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1837)**
 
