@@ -404,6 +404,26 @@ const tableLookupValues = (projectId, contractId) => {
         value: "contract_deliverable.id",
         label: `contract_deliverable.deliverable_name`,
         queryAdditions: getContractDeliverableQueryAdditions(contractId),
+      },
+      {
+        id: "projdel",
+        name: "project_deliverable_option",
+        title: "Project Deliverable",
+        description: `The Deliverable details for this project contract#${contractId}`,
+        table: "data.contract_deliverable",
+        value: "id",
+        label: "label",
+        queryAdditions: "",
+        customDefinition: `(SELECT COALESCE(json_agg(projdel), '[]')
+        FROM (
+          SELECT
+            cd.deliverable_name,
+            cd.deliverable_amount,
+            cd.deliverable_status,
+            cd.project_deliverable_id
+          FROM data.contract_deliverable AS cd
+          WHERE cd.contract_id = ${contractId}
+        ) AS projdel)`,
       }
     );
   }
@@ -484,6 +504,14 @@ const getProjectDeliverablesQueryAdditions = (projectId) => {
       ORDER BY label ASC
       `;
   }
+  console.log(`inside getProjectDeliverablesQueryAdditions
+
+  projectId: ${projectId}
+
+  query: ${query}
+
+
+  `);
   return query;
 };
 
