@@ -504,14 +504,6 @@ const getProjectDeliverablesQueryAdditions = (projectId) => {
       ORDER BY label ASC
       `;
   }
-  console.log(`inside getProjectDeliverablesQueryAdditions
-
-  projectId: ${projectId}
-
-  query: ${query}
-
-
-  `);
   return query;
 };
 
