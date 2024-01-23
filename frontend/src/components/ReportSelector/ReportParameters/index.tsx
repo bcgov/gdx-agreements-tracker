@@ -103,6 +103,23 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes, to
             required={required}
           />
         );
+
+      case "project_type":
+        return (
+          <FormInput
+            touched={touched}
+            key={`${label}-${values.project_type}`}
+            fieldName="project_type"
+            fieldType={"select"}
+            fieldLabel="Project Type"
+            width={"half"}
+            tableName="generic"
+            fieldValue={values.project_type}
+            setFieldValue={setFieldValue}
+            required={required}
+          />
+        );
+  
       case "project":
         return (
           <FormInput

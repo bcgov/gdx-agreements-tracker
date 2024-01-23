@@ -197,6 +197,18 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: true,
       },
       {
+        value: "Tab_27_rpt_PA_Ministry",
+        label: "Ministry Project Usage",
+        description:
+          "Lorem impsum",
+        parameters: [
+          { label: "fiscal", required: true },
+          { label: "project_type", required: true },
+        ],
+        exportPDF: true,
+        exportXLSX: false,
+      },
+      {
         value: "Tab_30_rpt_PA_MultiYrStats_DMS_Office",
         label: "Annual Stats for the DMS",
         description:

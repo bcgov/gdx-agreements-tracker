@@ -21,7 +21,7 @@ const yesNoOptions = [
 ];
 
 /**
- * Yes no options.
+ * Quarter options.
  */
 const quarter = [
   {
@@ -241,6 +241,14 @@ const projectType = [
   {
     value: "Internal",
     label: "Internal",
+  },
+  {
+    value: "SocialMedia",
+    label: "Social Media",
+  },
+  {
+    value: "Service",
+    label: "Service",
   },
 ];
 
