@@ -61,13 +61,49 @@ const findById = (changeRequestId) => {
 };
 
 // Update one.
-const updateOne = (body, id) => {
+const updateOne = async (body, id) => {
+  try {
+    await knex(changeRequestTypeTable).where("change_request_id", id).del();
+
+    for (const crtype of newChangeRequest.types) {
+      await knex(changeRequestTypeTable).insert({
+        crtype,
+        crtype,
+      });
+    }
+
+    console.log(`Rows inserted successfully into ${tableName}`);
+  } catch (error) {
+    console.error("Error inserting rows:", error);
+  } finally {
+    // Don't forget to close the database connection when done
+    await knex.destroy();
+  }
+
   return knex(changeRequestTable).where("id", id).update(body);
 };
 
 // Add one.
-const addOne = (newChangeRequest) => {
-  return knex(changeRequestTable).insert(newChangeRequest);
+// const addOne = (newChangeRequest) => {
+//   return knex(changeRequestTable).insert(newChangeRequest);
+// };
+
+const addOne = async (newChangeRequest) => {
+  const { types, ...body } = newChangeRequest;
+  try {
+    const returnedNewCRId = await knex(changeRequestTypeTable).returning("id").insert(body);
+
+    for (const crtype of newChangeRequest.types) {
+      await knex(changeRequestTypeTable).insert({
+        change_request_id: returnedNewCRId[0],
+        crtype_id: crtype.value,
+      });
+    }
+
+    console.log(`Rows inserted successfully into project change request`);
+  } catch (error) {
+    console.error("Error inserting rows:", error);
+  }
 };
 
 // Find all where link_id equals the project_id

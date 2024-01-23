@@ -129,7 +129,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     cr_contact: null,
     initiated_by: null,
     approval_date: null,
-    types: null,
+    types: [],
     summary: null,
     link_id: projectId,
   };
