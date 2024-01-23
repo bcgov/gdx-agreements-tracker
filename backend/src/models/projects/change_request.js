@@ -34,13 +34,16 @@ const findAll = (projectId) => {
 };
 
 // Get specific one by id.
-const findById = (changeRequestId, projectId) => {
+const findById = (changeRequestId) => {
   return knex(`${changeRequestTable}`)
     .columns(
       "change_request.id",
       "change_request.version",
       "change_request.initiation_date",
       "change_request.cr_contact",
+      knex.raw(
+        "( SELECT jsonb_agg(jsonb_build_object( 'cr_type', crtype.crtype_name, 'inactive', crtype.inactive )) FROM data.change_request_crtype crcrtype LEFT JOIN data.crtype crtype ON crtype.id = crcrtype.crtype_id WHERE crcrtype.change_request_id = change_request.id ) AS types"
+      ),
       knex.raw(
         "( SELECT json_build_object('value', change_request.initiated_by, 'label', change_request.initiated_by)) AS initiated_by"
       ),

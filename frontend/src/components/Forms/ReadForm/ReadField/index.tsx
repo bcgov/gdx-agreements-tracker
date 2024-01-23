@@ -86,7 +86,7 @@ export const ReadField = ({
         return (
           <div>
             <Typography variant="subtitle1" color="textSecondary">
-              {title}:
+              {title}
             </Typography>
             <Checkbox disabled checked={value as boolean} />
           </div>

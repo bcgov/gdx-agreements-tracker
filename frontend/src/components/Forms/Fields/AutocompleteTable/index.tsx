@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { IAutocompleteTable, IOption } from "types";
+import { ReadField } from "components/Forms/ReadForm/ReadField";
 
 export const AutocompleteTable: FC<IAutocompleteTable> = ({
   fieldName,
@@ -21,6 +22,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
   helperText,
   error,
   autocompleteTableColumns,
+  multiple,
 }: IAutocompleteTable) => {
   const tableCellStyles = {
     width: "100%",
@@ -36,6 +38,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
       ) : (
         <Autocomplete
           // allows text box to contain an arbitrary value https://mui.com/material-ui/react-autocomplete/#free-solo
+          multiple={multiple}
           freeSolo
           id={fieldName}
           autoHighlight
@@ -87,7 +90,16 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
                           component="th"
                           scope="row"
                         >
-                          {option[key]}
+                          {"boolean" === typeof option[key] ? (
+                            <ReadField
+                              width={""}
+                              title={""}
+                              value={option[key]}
+                              type={"checkbox"}
+                            />
+                          ) : (
+                            option[key]
+                          )}
                         </TableCell>
                       )
                   )}

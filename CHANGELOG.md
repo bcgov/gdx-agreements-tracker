@@ -1,3 +1,11 @@
+**January 23, 2024 [DESCW-1896](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1896)**
+
+- Frontend
+- Backend
+    - added multiselect option to autocomplete table. 
+    - added new autocomplete component to project cr section
+
+
 **January 22, 2024 [DESCW-1928](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1928)**
 
 - Frontend

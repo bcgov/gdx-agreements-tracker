@@ -247,6 +247,24 @@ const tableLookupValues = (projectId, contractId) => {
         ORDER BY id ASC
         ) projbudgrecovarea)`,
     },
+    {
+      id: "projectCRType",
+      name: "cr_type_option",
+      title: "Change Request Type",
+      description: "the project change request type ",
+      table: "data.crtype",
+      value: "id",
+      label: "label",
+      queryAdditions: ``,
+      customDefinition: `(SELECT COALESCE(json_agg(projectCRType), '[]')
+      FROM (
+        SELECT
+        crtype_name,
+        inactive,
+        id AS value
+        from data.crtype
+      ) as projectCRType)`,
+    },
   ];
 
   if (projectId) {
