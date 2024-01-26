@@ -1,3 +1,10 @@
+**January 23, 2024 [DESCW-1945](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1945)**
+
+- Frontend
+- Backend
+    - Added ability to add ultiple values to project change request types.
+
+
 **January 23, 2024 [DESCW-1896](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1896)**
 
 - Frontend

@@ -8,7 +8,19 @@ const response = S.array().items(
     .prop("title", S.string())
     .prop("description", S.string())
     .prop("associated_form", S.string())
-    .prop("definition", S.array().items(Schema.Picker))
+    .prop(
+      "definition",
+      S.array().items(
+        S.object()
+          .prop("label", S.string())
+          .prop("portfolio_name", S.string())
+          .prop("portfolio_abbrev", S.string())
+          .prop("crtype_name", S.string())
+          .prop("inactive", S.boolean())
+          .prop("value", S.string())
+          .required(["value"])
+      )
+    )
 );
 
 const getAll = {

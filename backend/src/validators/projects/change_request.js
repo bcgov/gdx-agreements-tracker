@@ -7,10 +7,12 @@ const getAll = {
     S.array().items(
       S.object()
         .prop("id", S.number())
-        .prop("version", S.string())
         .prop("init_date", S.string())
-        .prop("types", S.string())
+        .prop("initiated_by", S.string())
+        .prop("link_id", S.number())
         .prop("summary", S.string())
+        .prop("types", S.anyOf([S.string(), S.null()]))
+        .prop("version", S.string())
     )
   ),
 };
@@ -30,23 +32,36 @@ const getOne = {
       .prop("link_id", S.number())
       .prop(
         "types",
-        S.object()
-          .prop("cr_type", S.string())
-          .prop("inactive", S.boolean())
-          .prop("value", S.number())
+        S.anyOf([
+          S.array().items(
+            S.object()
+              .prop("crtype_name", S.string())
+              .prop("inactive", S.boolean())
+              .prop("value", S.number())
+          ),
+          S.array(),
+        ])
       )
   ),
 };
 
 const addUpdateBody = S.object()
+  .prop("version", S.string())
   .prop("initiation_date", Schema.Date)
   .prop("cr_contact", Schema.ShortString)
   .prop("initiated_by", Schema.ShortString)
   .prop("fiscal_year", Schema.ShortString)
   .prop("summary", S.string())
   .prop("approval_date", Schema.Date)
-  .prop("fiscal_year", Schema.Id)
-  .prop("initiated_by", Schema.Enum(["GDX", "Client", null]));
+  .prop(
+    "types",
+    S.array().items(
+      S.object()
+        .prop("crtype_name", S.string())
+        .prop("inactive", S.boolean())
+        .prop("value", S.number())
+    )
+  );
 
 const updateOne = {
   params: Schema.IdParam,

@@ -61,7 +61,7 @@ export const TableWithModal = ({
   ) : (
     <>
       <Table
-        rows={tableData?.data.rows}
+        rows={tableData?.data?.rows}
         tableConfig={tableConfig}
         handleRowDoubleClick={handleRowDoubleClick}
         handleRowClick={handleRowClick}
