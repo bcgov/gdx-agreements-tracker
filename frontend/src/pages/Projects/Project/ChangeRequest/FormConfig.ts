@@ -40,7 +40,9 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "full",
           title: "Types",
           value:
-            query?.data?.data?.data?.types?.map((item: { cr_type: string }) => item.cr_type) || [],
+            query?.data?.data?.data?.types?.map(
+              (item: { crtype_name: string }) => item.crtype_name
+            ) || [],
           type: "multiSelect",
         },
         { width: "full", title: "Summary", value: query?.data?.data?.data?.summary },

@@ -42,7 +42,15 @@ const findById = (changeRequestId) => {
       "change_request.initiation_date",
       "change_request.cr_contact",
       knex.raw(
-        "( SELECT jsonb_agg(jsonb_build_object( 'cr_type', crtype.crtype_name, 'inactive', crtype.inactive )) FROM data.change_request_crtype crcrtype LEFT JOIN data.crtype crtype ON crtype.id = crcrtype.crtype_id WHERE crcrtype.change_request_id = change_request.id ) AS types"
+        `COALESCE(
+          (
+            SELECT jsonb_agg(jsonb_build_object('crtype_name', crtype.crtype_name, 'inactive', crtype.inactive, 'value', crtype.id))
+            FROM data.change_request_crtype crcrtype
+            LEFT JOIN data.crtype crtype ON crtype.id = crcrtype.crtype_id
+            WHERE crcrtype.change_request_id = change_request.id
+          ),
+          '[]'::jsonb
+        ) AS types`
       ),
       knex.raw(
         "( SELECT json_build_object('value', change_request.initiated_by, 'label', change_request.initiated_by)) AS initiated_by"
@@ -60,47 +68,47 @@ const findById = (changeRequestId) => {
     .first();
 };
 
-// Update one.
 const updateOne = async (body, id) => {
-  try {
-    await knex(changeRequestTypeTable).where("change_request_id", id).del();
+  const { types, ...request } = body;
 
-    for (const crtype of newChangeRequest.types) {
-      await knex(changeRequestTypeTable).insert({
-        crtype,
-        crtype,
-      });
+  // Array to store promises
+  const promises = [];
+
+  // Delete existing records
+  promises.push(knex(changeRequestTypeTable).where("change_request_id", id).del());
+
+  // Insert new records if 'types' is present
+  if (types) {
+    for (const crtype of types) {
+      promises.push(
+        knex(changeRequestTypeTable).insert({
+          change_request_id: id,
+          crtype_id: Number(crtype.value),
+        })
+      );
     }
-
-    console.log(`Rows inserted successfully into ${tableName}`);
-  } catch (error) {
-    console.error("Error inserting rows:", error);
-  } finally {
-    // Don't forget to close the database connection when done
-    await knex.destroy();
   }
 
-  return knex(changeRequestTable).where("id", id).update(body);
-};
+  // Update 'request' if it is present
+  if (Object.keys(request).length > 0) {
+    promises.push(knex(changeRequestTable).where("id", id).update(request));
+  }
 
-// Add one.
-// const addOne = (newChangeRequest) => {
-//   return knex(changeRequestTable).insert(newChangeRequest);
-// };
+  // Return a promise that resolves when all promises in the array resolve
+  return Promise.all(promises);
+};
 
 const addOne = async (newChangeRequest) => {
   const { types, ...body } = newChangeRequest;
   try {
-    const returnedNewCRId = await knex(changeRequestTypeTable).returning("id").insert(body);
-
-    for (const crtype of newChangeRequest.types) {
+    const returnedNewCRId = await knex(changeRequestTable).returning("id").insert(body);
+    for (const crtype of types) {
       await knex(changeRequestTypeTable).insert({
-        change_request_id: returnedNewCRId[0],
-        crtype_id: crtype.value,
+        change_request_id: returnedNewCRId[0].id,
+        crtype_id: Number(crtype.value),
       });
     }
-
-    console.log(`Rows inserted successfully into project change request`);
+    return returnedNewCRId[0];
   } catch (error) {
     console.error("Error inserting rows:", error);
   }
