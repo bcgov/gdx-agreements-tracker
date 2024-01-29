@@ -1,105 +1,122 @@
 const { knex } = require("@database/databaseConnection")();
 const log = require("../../facilities/logging")(module.filename);
 
-  const queries = {
-    fiscal: (fiscal) =>
-      knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
+// Constant
+const { dateFormatShortYear } = require("@helpers/standards");
 
-    report: ( fiscal, project_type ) => 
-      knex('data.project')
+const queries = {
+  fiscal: (fiscal) =>
+    knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
+
+  report: (fiscal, project_type) =>
+    knex
       .select({
-        fiscal: 'project.fiscal',
-        project_number: 'project.project_number',
-        project_name: 'project.project_name',
-        portfolio_abbrev: 'portfolio.portfolio_abbrev',
-        description: 'project.description',
-        ministry_id: 'project.ministry_id',
-        ministry_name: 'ministry.ministry_name',
-        ministry_short_name: 'ministry.ministry_short_name',
-        planned_start_date: 'project.planned_start_date',
-        planned_end_date: 'project.planned_end_date',
+        project_number: "p.project_number",
+        project_name: "p.project_name",
+        portfolio_abbrev: "portfolio.portfolio_abbrev",
+        description: "p.description",
+        ministry_id: "p.ministry_id",
+        ministry_name: "ministry.ministry_name",
+        ministry_short_name: "ministry.ministry_short_name",
+        planned_start_date: knex.raw(
+          `to_char(project.planned_start_date, '${dateFormatShortYear}')`
+        ),
+        planned_end_date: knex.raw(`to_char(project.planned_end_date, '${dateFormatShortYear}')`),
         total_project_budget: knex.raw(
-            `CASE WHEN client_coding.client_amount IS NULL
-                THEN project.total_project_budget
-                ELSE client_coding.client_amount
-                END`
+          `coalesce(
+            cc.client_amount,
+            p.total_project_budget
+          ) AS total_project_budget`
         ),
-        portfolio_name: 'portfolio.portfolio_name',
-        project_manager: knex.raw('project.project_manager::VARCHAR'),
-        client_sponsor: knex.select(knex.raw(
-              `
-                  CASE WHEN client_coding.client_amount IS NULL
-                    THEN get_project_contacts( project.id, 'ClientSponsor')
-                    ELSE contact.first_name || ' ' || contact.last_name
-                  END
-          
-                FROM
-                  client_coding
-                  RIGHT JOIN portfolio ON portfolio.id = project.portfolio_id
-                  LEFT JOIN fiscal_year ON project.fiscal = fiscal_year.id
-                  LEFT JOIN ministry ON project.Ministry_ID = ministry.id
-                  LEFT JOIN contact ON client_coding.Contact_ID = contact.id
-                LIMIT 1
-                `
-        )
-        ),
-        fiscal_year: 'fiscal_year.fiscal_year',
-        project_type: 'project.project_type',
+        portfolio_name: "portfolio.portfolio_name",
+        client_sponsor: knex.raw(`
+            SELECT CASE
+                WHEN cc.client_amount IS NULL THEN (
+                  SELECT c.first_name || ' ' || c.last_name AS full_name
+                  FROM contact_project cp
+                    JOIN contact_role cr ON cp.contact_role = cr.id
+                    JOIN contact c ON cp.contact_id = c.id
+                    JOIN project ON cp.project_id = project.id
+                  WHERE cr.role_type = 'ClientSponsor'
+                    AND project.id = p.id
+                )
+                ELSE (
+                  SELECT c.first_name || ' ' || c.last_name
+                  FROM client_coding cc
+                    RIGHT JOIN portfolio po ON po.id = p.portfolio_id
+                    LEFT JOIN fiscal_year fy ON p.fiscal = fy.id
+                    LEFT JOIN contact c ON cc.contact_id = c.id
+                  WHERE fy.id = 9
+                    AND c.id = p.id
+                )
+                END
+        `),
+        project_manager: knex.raw(`(
+          SELECT first_name || ' ' || last_name
+          FROM contact
+          JOIN project ON project.project_manager = contact.id
+          WHERE project.id = p.id
+        )`),
+        fy: "fy.fiscal_year",
+        project_type: "p.project_type",
       })
-      .leftJoin('portfolio', 'project.portfolio_id', 'portfolio.id')
-      .leftJoin('ministry', 'project.ministry_id', 'ministry.id')
-      .leftJoin('fiscal_year', 'project.fiscal', 'fiscal_year.id')
-      .joinRaw('LEFT JOIN client_coding ON portfolio.client::INTEGER = client_coding.id')
+      .from("project")
+      .as("p")
+      .leftJoin("portfolio", "p.portfolio_id", "portfolio.id")
+      .leftJoin("ministry", "p.ministry_id", "ministry.id")
+      .leftJoin("fiscal_year", "p.fiscal", "fiscal_year.id")
+      .joinRaw("LEFT JOIN client_coding ON portfolio.client::INTEGER = client_coding.id")
       .where({
-        'project.fiscal': fiscal,
-        'project.project_type': JSON.parse(project_type),
+        "p.fiscal": fiscal,
+        "p.project_type": JSON.parse(project_type),
       })
-      .unionAll(function() {
+      .unionAll(function () {
         this.select({
-          fiscal: 'historical_projects.fiscal_year',
-          project_number: 'historical_projects.project_number',
-          project_name: 'historical_projects.project_name',
-          portfolio_abbrev: 'portfolio.portfolio_abbrev',
-          description: 'historical_projects.description',
-          ministry_id: 'historical_projects.ministry_id',
-          ministry_name: 'ministry.ministry_name',
-          ministry_short_name: 'ministry.ministry_short_name',
-          start_date: 'historical_projects.start_date',
-          end_date: 'historical_projects.end_date',
-          total_project_budget: 'historical_projects.total_project_budget',
-          portfolio_name: 'portfolio.portfolio_name',
-          project_manager: 'historical_projects.project_manager',
-          client_sponsor: knex.raw('NULL'),
-          fiscal_year: 'fiscal_year.fiscal_year',
-          project_type: 'historical_projects.project_type'
+          fiscal: "hp.fiscal_year",
+          project_number: "hp.project_number",
+          project_name: "hp.project_name",
+          portfolio_abbrev: "portfolio.portfolio_abbrev",
+          description: "hp.description",
+          ministry_id: "hp.ministry_id",
+          ministry_name: "ministry.ministry_name",
+          ministry_short_name: "ministry.ministry_short_name",
+          start_date: knex.raw(
+            `to_char(historical_projects.planned_start_date, '${dateFormatShortYear}')`
+          ),
+          end_date: knex.raw(
+            `to_char(historical_projects.planned_end_date, '${dateFormatShortYear}')`
+          ),
+          total_project_budget: "hp.total_project_budget",
+          portfolio_name: "portfolio.portfolio_name",
+          client_sponsor: knex.raw("NULL"),
+          project_manager: "hp.project_manager",
+          fiscal_year: "fiscal_year.fiscal_year",
+          project_type: "hp.project_type",
         })
-        .from('historical_projects')
-        .innerJoin('portfolio', 'historical_projects.portfolio_id', 'portfolio.id')
-        .innerJoin('fiscal_year', 'historical_projects.fiscal_year', 'fiscal_year.id')
-        .innerJoin('ministry', 'historical_projects.ministry_id', 'ministry.id')
-        .where({
-          'historical_projects.fiscal_year': fiscal,
-          'historical_projects.project_type': JSON.parse(project_type),
-        })
-      })
-  }
+          .from("historical_projects")
+          .as("hp")
+          .innerJoin("portfolio", "hp.portfolio_id", "portfolio.id")
+          .innerJoin("fiscal_year", "hp.fiscal_year", "fiscal_year.id")
+          .innerJoin("ministry", "hp.ministry_id", "ministry.id")
+          .where({
+            "hp.fiscal_year": fiscal,
+            "hp.project_type": JSON.parse(project_type),
+          });
+      }),
+};
 
 const getAll = async ({ fiscal, project_type }) => {
   try {
-    const [{ fiscal_year }, report ] = await Promise.all([
+    const [{ fiscal_year }, report] = await Promise.all([
       queries.fiscal(fiscal),
       queries.report(fiscal, project_type),
     ]);
 
-  return { fiscal_year, report };
-
+    return { fiscal_year, report };
   } catch (error) {
     log.error(error);
     throw error;
   }
-}
-
-module.exports = {
-  required: ["fiscal", "project_type"],
-  getAll
 };
+
+module.exports = { required: ["fiscal", "project_type"], getAll };
