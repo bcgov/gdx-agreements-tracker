@@ -116,7 +116,7 @@ exports.seed = function (knex) {
       title: "Project Type",
       description: "The Project Type of a project.",
       definition: { dropDownValues: projectType },
-      associated_form: tables.generic,
+      associated_form: tables.projects,
     },
 
     {
