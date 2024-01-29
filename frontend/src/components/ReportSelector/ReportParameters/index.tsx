@@ -119,7 +119,7 @@ export const ReportParameters = ({ values, setFieldValue, categoriesAndTypes, to
             required={required}
           />
         );
-  
+
       case "project":
         return (
           <FormInput
