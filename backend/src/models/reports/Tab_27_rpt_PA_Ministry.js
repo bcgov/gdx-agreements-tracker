@@ -72,7 +72,7 @@ const queries = {
   total: (fiscal, project_type) =>
     knex(queries.report(fiscal, project_type).as("report"))
       .sum({
-        project_budget: "project_budget",
+        total_budget: "project_budget",
       })
       .first(),
 };
@@ -81,13 +81,13 @@ const getAll = async ({ fiscal, project_type }) => {
   const projectType = project_type.replace(/["]/g, "");
 
   try {
-    const [{ fiscal_year }, report, total] = await Promise.all([
+    const [{ fiscal_year }, report, { total_budget }] = await Promise.all([
       queries.fiscal(fiscal),
       queries.report(fiscal, projectType),
       queries.total(fiscal, projectType),
     ]);
 
-    return { fiscal_year, report, total };
+    return { fiscal_year, report, total_budget };
   } catch (error) {
     log.error(error);
     throw error;
