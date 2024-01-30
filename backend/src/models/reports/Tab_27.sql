@@ -1,76 +1,70 @@
 SET search_path = PUBLIC,
   DATA;
-SELECT p.project_number,
-  p.project_name,
-  pf.portfolio_abbrev,
-  p.description,
-  p.ministry_id,
-  m.ministry_name,
-  m.ministry_short_name,
-  to_char(p.planned_start_date, 'DD-Mon-YY') AS start_date,
-  to_char(p.planned_end_date, 'DD-Mon-YY') AS end_date,
-  coalesce(
-    cc.client_amount,
-    p.total_project_budget
-  ) AS total_project_budget,
-  pf.portfolio_name,
-  (
-    SELECT CASE
-        WHEN cc.client_amount IS NULL THEN (
-          SELECT c.first_name || ' ' || c.last_name AS full_name
-          FROM contact_project cp
-            JOIN contact_role cr ON cp.contact_role = cr.id
-            JOIN contact c ON cp.contact_id = c.id
-            JOIN project ON cp.project_id = project.id
-          WHERE cr.role_type = 'ClientSponsor'
-            AND project.id = p.id
-        )
-        ELSE (
-          SELECT c.first_name || ' ' || c.last_name
+SELECT *
+FROM (
+    WITH clientsponsor AS (
+      SELECT cp.project_id,
+        c.first_name || ' ' || c.last_name AS full_name
+      FROM contact_project AS cp
+        JOIN contact_role AS cr ON cp.contact_role = cr.id
+        JOIN contact AS c ON cp.contact_id = c.id
+        JOIN project ON cp.project_id = project.id
+      WHERE cr.role_type = 'ClientSponsor'
+    ),
+    projectmanager AS (
+      SELECT project.id,
+        contact.first_name || ' ' || contact.last_name AS full_name
+      FROM contact
+        JOIN project ON project.project_manager = contact.id
+    ),
+    clientcontactsubquery AS (
+      SELECT p.id AS project_id,
+        coalesce(
+          cc.client_amount,
+          p.total_project_budget
+        ) AS project_budget,
+        coalesce(
+          c_sponsor.full_name,
+          cc_client.full_name
+        ) AS client_sponsor
+      FROM project p
+        LEFT JOIN client_coding cc ON cc.project_id = p.id
+        LEFT JOIN LATERAL (
+          SELECT c.id,
+            c.first_name || ' ' || c.last_name AS full_name
           FROM client_coding cc
             RIGHT JOIN portfolio po ON po.id = p.portfolio_id
             LEFT JOIN fiscal_year fy ON p.fiscal = fy.id
             LEFT JOIN contact c ON cc.contact_id = c.id
-          WHERE fy.id = 9
-            AND c.id = p.id
-        )
-      END
-  ) AS client_sponsor,
-  (
-    SELECT contact.first_name || ' ' || contact.last_name
-    FROM contact
-      JOIN project ON project.project_manager = contact.id
-    WHERE project.id = p.id
-  ) AS project_manager,
-  fy.fiscal_year,
-  p.project_type
-FROM project p
-  LEFT JOIN fiscal_year fy ON p.fiscal = fy.id
-  LEFT JOIN ministry m ON p.ministry_id = m.id
-  LEFT JOIN portfolio pf ON pf.id = p.portfolio_id
-  LEFT JOIN client_coding cc ON cc.project_id = p.id
-WHERE p.project_type = 'Internal'
-  AND fy.id = 9
-UNION ALL
-SELECT hp.project_number,
-  hp.project_name,
-  pf.portfolio_abbrev,
-  hp.description,
-  hp.ministry_id,
-  m.ministry_name,
-  m.ministry_short_name,
-  to_char(hp.start_date, 'DD-Mon-YY') AS start_date,
-  to_char(hp.end_date, 'DD-Mon-YY') AS end_date,
-  hp.total_project_budget,
-  pf.portfolio_name,
-  NULL AS client_sponsor,
-  hp.project_manager,
-  fy.fiscal_year,
-  hp.project_type
-FROM historical_projects hp
-  INNER JOIN portfolio pf ON pf.id = hp.portfolio_id
-  INNER JOIN ministry m ON m.id = hp.ministry_id
-  INNER JOIN fiscal_year fy ON hp.fiscal_year = fy.id
-WHERE fy.id = 9
-  AND hp.project_type = 'Internal'
-ORDER BY project_number
+          WHERE c.id = p.id
+        ) AS cc_client ON TRUE
+        LEFT JOIN clientsponsor c_sponsor ON c_sponsor.project_id = p.id
+    )
+    SELECT DISTINCT ON (p.project_number) po.portfolio_abbrev,
+      p.project_number,
+      p.project_name,
+      p.project_type,
+      p.description,
+      to_char(
+        p.planned_start_date,
+        'DD-Mon-YY'
+      ) AS start_date,
+      to_char(
+        p.planned_end_date,
+        'DD-Mon-YY'
+      ) AS end_date,
+      cc.project_budget,
+      cc.client_sponsor,
+      pm.full_name AS project_manager,
+      p.fiscal AS fiscalid,
+      p.project_type AS projtype
+    FROM project p
+      LEFT JOIN fiscal_year fy ON p.fiscal = fy.id
+      LEFT JOIN ministry m ON p.ministry_id = m.id
+      LEFT JOIN portfolio po ON po.id = p.portfolio_id
+      LEFT JOIN projectmanager pm ON pm.id = p.id
+      LEFT JOIN clientcontactsubquery cc ON cc.project_id = p.id
+    ORDER BY p.project_number
+  ) AS base
+WHERE projtype = 'Internal'
+  AND fiscalid = 9

@@ -9,110 +9,85 @@ const queries = {
     knex("fiscal_year").select("fiscal_year").where("fiscal_year.id", fiscal).first(),
 
   report: (fiscal, project_type) =>
-    knex
-      .select({
-        project_number: "p.project_number",
-        project_name: "p.project_name",
-        portfolio_abbrev: "portfolio.portfolio_abbrev",
-        description: "p.description",
-        ministry_id: "p.ministry_id",
-        ministry_name: "ministry.ministry_name",
-        ministry_short_name: "ministry.ministry_short_name",
-        planned_start_date: knex.raw(
-          `to_char(project.planned_start_date, '${dateFormatShortYear}')`
+    knex.select().fromRaw(
+      `
+        (
+        WITH ClientSponsor AS (
+          SELECT cp.project_id,
+            c.first_name || ' ' || c.last_name AS full_name
+          FROM contact_project AS cp
+            JOIN contact_role AS cr ON cp.contact_role = cr.id
+            JOIN contact AS c ON cp.contact_id = c.id
+            JOIN project ON cp.project_id = project.id
+          WHERE cr.role_type = 'ClientSponsor'
         ),
-        planned_end_date: knex.raw(`to_char(project.planned_end_date, '${dateFormatShortYear}')`),
-        total_project_budget: knex.raw(
-          `coalesce(
-            cc.client_amount,
-            p.total_project_budget
-          ) AS total_project_budget`
-        ),
-        portfolio_name: "portfolio.portfolio_name",
-        client_sponsor: knex.raw(`
-            SELECT CASE
-                WHEN cc.client_amount IS NULL THEN (
-                  SELECT c.first_name || ' ' || c.last_name AS full_name
-                  FROM contact_project cp
-                    JOIN contact_role cr ON cp.contact_role = cr.id
-                    JOIN contact c ON cp.contact_id = c.id
-                    JOIN project ON cp.project_id = project.id
-                  WHERE cr.role_type = 'ClientSponsor'
-                    AND project.id = p.id
-                )
-                ELSE (
-                  SELECT c.first_name || ' ' || c.last_name
-                  FROM client_coding cc
-                    RIGHT JOIN portfolio po ON po.id = p.portfolio_id
-                    LEFT JOIN fiscal_year fy ON p.fiscal = fy.id
-                    LEFT JOIN contact c ON cc.contact_id = c.id
-                  WHERE fy.id = 9
-                    AND c.id = p.id
-                )
-                END
-        `),
-        project_manager: knex.raw(`(
-          SELECT first_name || ' ' || last_name
+        ProjectManager AS (
+          SELECT project.id,
+            contact.first_name || ' ' || contact.last_name AS full_name
           FROM contact
-          JOIN project ON project.project_manager = contact.id
-          WHERE project.id = p.id
-        )`),
-        fy: "fy.fiscal_year",
-        project_type: "p.project_type",
+            JOIN project ON project.project_manager = contact.id
+        ),
+        ClientContactSubquery AS (
+          SELECT p.id AS project_id,
+            COALESCE(cc.client_amount, p.total_project_budget) AS project_budget,
+            COALESCE(c_sponsor.full_name, cc_client.full_name) AS client_sponsor
+          FROM project p
+            LEFT JOIN client_coding cc ON cc.project_id = p.id
+            LEFT JOIN LATERAL (
+              SELECT c.id,
+                c.first_name || ' ' || c.last_name AS full_name
+              FROM client_coding cc
+                RIGHT JOIN portfolio po ON po.id = p.portfolio_id
+                LEFT JOIN fiscal_year fy ON p.fiscal = fy.id
+                LEFT JOIN contact c ON cc.contact_id = c.id
+              WHERE c.id = p.id
+            ) AS cc_client ON true
+            LEFT JOIN ClientSponsor c_sponsor ON c_sponsor.project_id = p.id
+        )
+        SELECT DISTINCT ON (p.project_number)
+          po.portfolio_abbrev,
+          p.project_number,
+          p.project_name,
+          p.project_type,
+          p.description,
+          to_char(p.planned_start_date, '${dateFormatShortYear}') AS start_date,
+          to_char(p.planned_end_date, '${dateFormatShortYear}') AS end_date,
+          cc.project_budget,
+          cc.client_sponsor,
+          pm.full_name AS project_manager,
+          p.fiscal AS fiscalId,
+          p.project_type AS projType
+        FROM project p
+          LEFT JOIN fiscal_year fy ON p.fiscal = fy.id
+          LEFT JOIN ministry m ON p.ministry_id = m.id
+          LEFT JOIN portfolio po ON po.id = p.portfolio_id
+          LEFT JOIN ProjectManager pm ON pm.id = p.id
+          LEFT JOIN ClientContactSubquery cc ON cc.project_id = p.id
+        ORDER BY p.project_number
+      ) AS base
+      WHERE base.fiscalId = ? AND base.projType = ?`,
+      [fiscal, project_type]
+    ),
+
+  total: (fiscal, project_type) =>
+    knex(queries.report(fiscal, project_type).as("report"))
+      .sum({
+        project_budget: "project_budget",
       })
-      .from("project")
-      .as("p")
-      .leftJoin("portfolio", "p.portfolio_id", "portfolio.id")
-      .leftJoin("ministry", "p.ministry_id", "ministry.id")
-      .leftJoin("fiscal_year", "p.fiscal", "fiscal_year.id")
-      .joinRaw("LEFT JOIN client_coding ON portfolio.client::INTEGER = client_coding.id")
-      .where({
-        "p.fiscal": fiscal,
-        "p.project_type": JSON.parse(project_type),
-      })
-      .unionAll(function () {
-        this.select({
-          fiscal: "hp.fiscal_year",
-          project_number: "hp.project_number",
-          project_name: "hp.project_name",
-          portfolio_abbrev: "portfolio.portfolio_abbrev",
-          description: "hp.description",
-          ministry_id: "hp.ministry_id",
-          ministry_name: "ministry.ministry_name",
-          ministry_short_name: "ministry.ministry_short_name",
-          start_date: knex.raw(
-            `to_char(historical_projects.planned_start_date, '${dateFormatShortYear}')`
-          ),
-          end_date: knex.raw(
-            `to_char(historical_projects.planned_end_date, '${dateFormatShortYear}')`
-          ),
-          total_project_budget: "hp.total_project_budget",
-          portfolio_name: "portfolio.portfolio_name",
-          client_sponsor: knex.raw("NULL"),
-          project_manager: "hp.project_manager",
-          fiscal_year: "fiscal_year.fiscal_year",
-          project_type: "hp.project_type",
-        })
-          .from("historical_projects")
-          .as("hp")
-          .innerJoin("portfolio", "hp.portfolio_id", "portfolio.id")
-          .innerJoin("fiscal_year", "hp.fiscal_year", "fiscal_year.id")
-          .innerJoin("ministry", "hp.ministry_id", "ministry.id")
-          .where({
-            "hp.fiscal_year": fiscal,
-            "hp.project_type": JSON.parse(project_type),
-          });
-      }),
+      .first(),
 };
 
 const getAll = async ({ fiscal, project_type }) => {
+  const projectType = project_type.replace(/["]/g, "");
+
   try {
-    const [{ fiscal_year }, report] = await Promise.all([
+    const [{ fiscal_year }, report, total] = await Promise.all([
       queries.fiscal(fiscal),
-      queries.report(fiscal, project_type),
+      queries.report(fiscal, projectType),
+      queries.total(fiscal, projectType),
     ]);
 
-    return { fiscal_year, report };
+    return { fiscal_year, report, total };
   } catch (error) {
     log.error(error);
     throw error;
