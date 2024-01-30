@@ -30,7 +30,7 @@ spec:
         spec:
           containers:
             - name: postgres-backup-runner
-              image: "gdx-agreements-tracker-backup-container"
+              image: "bcgovgdx/gdx-agreements-tracker-backup-container"
               command:
                 - "/bin/bash"
                 - "-c"
