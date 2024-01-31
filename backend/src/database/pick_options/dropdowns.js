@@ -243,7 +243,7 @@ const projectType = [
     label: "Internal",
   },
   {
-    value: "SocialMedia",
+    value: "Social Media",
     label: "Social Media",
   },
   {

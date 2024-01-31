@@ -1,17 +1,22 @@
+**January 31, 2024 [DESCW-1261](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1261)**
+
+- Frontend
+  - Built .xlsx template for the tab 27 report, and adjusted styling for clarity
+- Backend
+  - Built tab 27 model to grab report, total, and count of results for template
+
 **January 23, 2024 [DESCW-1945](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1945)**
 
 - Frontend
 - Backend
-    - Added ability to add ultiple values to project change request types.
-
+  - Added ability to add ultiple values to project change request types.
 
 **January 23, 2024 [DESCW-1896](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1896)**
 
 - Frontend
 - Backend
-    - added multiselect option to autocomplete table. 
-    - added new autocomplete component to project cr section
-
+  - added multiselect option to autocomplete table.
+  - added new autocomplete component to project cr section
 
 **January 22, 2024 [DESCW-1928](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1928)**
 
