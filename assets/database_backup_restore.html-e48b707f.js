@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-de519872","path":"/guide/openshift/database_backup_restore.html","title":"Database Backup Restore","lang":"en-US","frontmatter":{},"headers":[],"git":{"contributors":[{"name":"ASpiteri-BCGov","email":"49036255+ASpiteri-BCGov@users.noreply.github.com","commits":1}]},"filePathRelative":"guide/openshift/database_backup_restore.md"}');export{e as data};
