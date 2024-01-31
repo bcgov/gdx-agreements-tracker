@@ -74,7 +74,7 @@ export default defineUserConfig({
       {
         text: "Openshift",
         collapsible: true,
-        children: ["/guide/openshift/change_password", "/guide/openshift/temp"],
+        children: ["/guide/openshift/change_password", "/guide/openshift/temp", "/guide/openshift/database_backup_restore"],
       },
       // string - page file path
     ],
