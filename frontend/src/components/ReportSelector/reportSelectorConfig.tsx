@@ -166,7 +166,7 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         description: `Shows a basic summary report of all projects in a given fiscal either externally or internally. External projects grouped by Ministry and provides a count of unique clients.`,
         parameters: [
           { label: "fiscal", required: true },
-          { label: "project_type", required: true },
+          { label: "project_type", required: false },
         ],
         exportPDF: false,
         exportXLSX: true,
