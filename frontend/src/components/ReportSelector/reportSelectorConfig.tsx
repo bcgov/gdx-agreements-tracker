@@ -161,16 +161,15 @@ export const categoriesAndTypes: IReportCategoriesAndTypes = [
         exportXLSX: false,
       },
       {
-        value: "rpt_PA_Ministry",
+        value: "Tab_27_rpt_PA_Ministry",
         label: "Ministry Project Usage",
-        description:
-          "Portfolio, Project #, Project Name, Project Description, Start Date, End Date, Project Budget, Client Sponsor and Project Manager.",
+        description: `Shows a basic summary report of all projects in a given fiscal either externally or internally. External projects grouped by Ministry and provides a count of unique clients.`,
         parameters: [
-          { label: "portfolio", required: false },
           { label: "fiscal", required: true },
+          { label: "project_type", required: false },
         ],
-        exportPDF: true,
-        exportXLSX: false,
+        exportPDF: false,
+        exportXLSX: true,
       },
     ],
   },

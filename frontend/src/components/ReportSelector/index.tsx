@@ -45,6 +45,7 @@ const RadioSelect = () => {
     setFieldValue("date", null);
     setFieldValue("quarter", null);
     setFieldValue("project", null);
+    setFieldValue("project_type", null);
   };
 
   const { setFieldValue, values, handleSubmit, touched } = formik;
