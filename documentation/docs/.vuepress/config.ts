@@ -51,13 +51,14 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/Forms/Fields/Checkbox",
               "/guide/Frontend/react_components/Forms/Fields/Select",
               "/guide/Frontend/react_components/Forms/Fields/AutocompleteTable",
-              "/guide/Frontend/react_components/Forms/Fields/FormInput",              
+              "/guide/Frontend/react_components/Forms/Fields/FormInput",
               "/guide/Frontend/react_components/Forms/FormButtons",
               "/guide/Frontend/react_components/Forms/FormDialog",
               "/guide/Frontend/react_components/Forms/FormLayout",
               "/guide/Frontend/react_components/Forms/GridItem",
               "/guide/Frontend/react_components/Forms/InputForm",
               "/guide/Frontend/react_components/Forms/ReadForm",
+              "/guide/Frontend/react_components/Forms/ReadForm/ReadField",
               "/guide/Frontend/react_components/Forms/FormRenderer",
               "/guide/Frontend/react_components/Forms/Validation",
               "/guide/Frontend/react_components/Forms/FormEditButton",
@@ -74,7 +75,11 @@ export default defineUserConfig({
       {
         text: "Openshift",
         collapsible: true,
-        children: ["/guide/openshift/change_password", "/guide/openshift/temp", "/guide/openshift/database_backup_restore"],
+        children: [
+          "/guide/openshift/change_password",
+          "/guide/openshift/temp",
+          "/guide/openshift/database_backup_restore",
+        ],
       },
       // string - page file path
     ],

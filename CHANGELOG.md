@@ -1,3 +1,9 @@
+**February 1, 2024 [DESCW-1601](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1261)**
+
+- Documentation
+  - documented the ReadField Component
+  - updated the docblock comment and types for the component
+
 **January 31, 2024 [DESCW-1261](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1261)**
 
 - Frontend
