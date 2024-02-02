@@ -1,1 +1,0 @@
-import{_ as t,o,c as r,b as e,d as s}from"./app-f7716081.js";const a={},c=e("h1",{id:"forms",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#forms","aria-hidden":"true"},"#"),s(" Forms")],-1),n=[c];function d(_,i){return o(),r("div",null,n)}const h=t(a,[["render",d],["__file","index.html.vue"]]);export{h as default};
