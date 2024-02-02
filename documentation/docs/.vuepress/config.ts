@@ -68,6 +68,7 @@ export default defineUserConfig({
             text: "Layout",
             children: [
               "/guide/Frontend/react_components/Layout/PageFooter",
+              "/guide/Frontend/react_components/Layout/PageHeader",              
             ],
           },
           "/guide/Frontend/react_components/MoneyField",
