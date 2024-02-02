@@ -49,6 +49,11 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           title: "Qualified Receiver",
           width: "half",
         },
+        {
+          value: query?.data?.data?.data?.recovery_info?.recovery_type_name,
+          title: "Recovery Info",
+          width: "half",
+        },
       ];
 
   const editFields: IEditField[] = [
@@ -100,6 +105,17 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldType: "singleText",
       fieldLabel: "Qualified Receiver",
       width: "half",
+    },
+    {
+      width: "half",
+      fieldLabel: "Recovery Info",
+      fieldName: "recovery_info",
+      fieldType: "autocompleteTable",
+      pickerName: "recovery_type_option",
+      autocompleteTableColumns: [
+        { field: "recovery_type_name", headerName: "Recovery Type Name" },
+        { field: "inactive", headerName: "Inactive?" },
+      ],
     },
   ];
 

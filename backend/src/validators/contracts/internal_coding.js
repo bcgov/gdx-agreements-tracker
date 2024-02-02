@@ -15,6 +15,7 @@ const getAll = {
         .prop("asset_tag", S.string())
         .prop("WIP #", S.string())
         .prop("qualified_receiver", S.string())
+        .prop("recovery_info", S.string())
     )
   ),
 };
@@ -32,6 +33,13 @@ const getOne = {
       .prop("asset_tag", S.string())
       .prop("wip_no", S.string())
       .prop("qualified_receiver", S.string())
+      .prop(
+        "recovery_info",
+        S.object()
+          .prop("recovery_type_name", S.string())
+          .prop("inactive", S.boolean())
+          .prop("value", S.number())
+      )
   ),
 };
 

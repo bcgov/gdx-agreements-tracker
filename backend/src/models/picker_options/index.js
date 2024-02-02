@@ -212,11 +212,20 @@ const tableLookupValues = (projectId, contractId) => {
       id: "recoveryType",
       name: "recovery_type_option",
       title: "Recovery",
-      description: "the project budget recovery",
+      description: "the recovery type",
       table: "data.recovery_type",
       value: "id",
       label: "recovery_type_name",
       queryAdditions: ``,
+      customDefinition: `(SELECT COALESCE(json_agg(recoveryType), '[]')
+      FROM(
+        SELECT 
+        recovery_type_name,
+        inactive,
+        id as value 
+        FROM data.recovery_type
+        ORDER BY id ASC
+        ) recoveryType)`,
     },
     {
       id: "resourceType",
