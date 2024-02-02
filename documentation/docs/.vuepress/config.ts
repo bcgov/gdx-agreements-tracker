@@ -64,6 +64,12 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/Forms/FormEditButton",
             ],
           },
+          {
+            text: "Layout",
+            children: [
+              "/guide/Frontend/react_components/Layout/PageFooter",
+            ],
+          },
           "/guide/Frontend/react_components/MoneyField",
         ],
       },
