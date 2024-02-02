@@ -1,8 +1,14 @@
+**February 2, 2024 [DESCW-1602](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1602)**
+
+- Documentation
+  - documented the Layout/Main Component
+  - updated its docblock comment and types for the component
+
 **February 1, 2024 [DESCW-1601](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1261)**
 
 - Documentation
   - documented the ReadField Component
-  - updated the docblock comment and types for the component
+  - updated its docblock comment and types for the component
 
 **January 31, 2024 [DESCW-1261](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1261)**
 

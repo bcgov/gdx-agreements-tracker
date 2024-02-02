@@ -45,6 +45,7 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/ConfirmationDialog",
           "/guide/Frontend/react_components/DBLock",
           "/guide/Frontend/react_components/DeleteButton",
+          "/guide/Frontend/react_components/Layout/Main",
           {
             text: "Forms",
             children: [
@@ -68,7 +69,7 @@ export default defineUserConfig({
             text: "Layout",
             children: [
               "/guide/Frontend/react_components/Layout/PageFooter",
-              "/guide/Frontend/react_components/Layout/PageHeader",              
+              "/guide/Frontend/react_components/Layout/PageHeader",
             ],
           },
           "/guide/Frontend/react_components/MoneyField",
