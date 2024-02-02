@@ -11,6 +11,7 @@ export const tableConfig = () => {
     { field: "asset_tag", headerName: "Asset Tag", flex: defaultFlex },
     { field: "wip_number", headerName: "WIP #", flex: defaultFlex },
     { field: "qualified_receiver", headerName: "Qualified Receiver", flex: defaultFlex },
+    { field: "recovery_info", headerName: "Recovery Info", flex: defaultFlex },
   ];
 
   return { tableColumns };
