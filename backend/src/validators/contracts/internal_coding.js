@@ -12,8 +12,6 @@ const getAll = {
         .prop("service_line", S.string())
         .prop("stob", S.string())
         .prop("CAS Project #", S.string())
-        .prop("asset_tag", S.string())
-        .prop("WIP #", S.string())
         .prop("qualified_receiver", S.string())
         .prop("recovery_info", S.string())
     )
@@ -30,8 +28,6 @@ const getOne = {
       .prop("service_line", S.string())
       .prop("stob", S.string())
       .prop("cas_project_number", S.string())
-      .prop("asset_tag", S.string())
-      .prop("wip_no", S.string())
       .prop("qualified_receiver", S.string())
       .prop(
         "recovery_info",
@@ -48,8 +44,6 @@ const addUpdateBody = S.object()
   .prop("portfolio_id", Schema.Id)
   .prop("stob", Schema.ShortString)
   .prop("cas_project_number", Schema.ShortString)
-  .prop("asset_tag", Schema.ShortString)
-  .prop("wip_no", Schema.ShortString)
   .prop("qualified_receiver", Schema.ShortString);
 
 const updateOne = {
