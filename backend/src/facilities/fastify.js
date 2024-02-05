@@ -5,6 +5,7 @@ const jwksUri = process.env.JWKSURI;
 const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");
 const fastifyAuth = require("@fastify/auth");
+const fastifyHelmet = require("@fastify/helmet");
 const fastifyPayload = require("../plugins/fastifyPayload");
 
 /**
@@ -67,6 +68,7 @@ const verifyAuthentication = async (request, reply) => {
  * for verifying JWT tokens and roles.
  * - Register the fastify auth plugin used in combination with verifyJWT.
  * - Register the fastifyCors plugin.
+ * - Register the fastifytHelmet plugin (security for response headers)
  * - Register the fastifyMarkdown plugin.
  * - Register user routes.
  * - After all that is complete, add a preHandler hook. This sites in front
@@ -82,6 +84,7 @@ const fastifyInstance = (options) => {
     .decorate("verifyAuthentication", verifyAuthentication)
     .register(fastifyAuth)
     .register(fastifyCors, {})
+    .register(fastifyHelmet, { global: true })
     .register(fastifyPayload)
     .setSchemaErrorFormatter((errors) => {
       return new Error(errors);
