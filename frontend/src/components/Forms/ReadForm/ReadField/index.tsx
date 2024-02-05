@@ -24,7 +24,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 /**
  * Represents a read-only field component.
  *
- * @component
+ * @module
  * @param   {object}       props              - The properties object.
  * @param   {string}       props.width        - The width of the field.
  * @param   {string}       props.title        - The title of the field.
@@ -32,7 +32,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
  * @param   {string}       [props.type]       - The type of the field.
  * @param   {string}       [props.helperText] - Additional text to provide assistance.
  * @param   {boolean}      [props.error]      - Indicates if there is an error in the field.
- * @returns {JSX.Element}                     The rendered ReadField component.
+ * @returns {JSX.Element}                     - The rendered ReadField component.
  */
 export const ReadField = ({
   width,
