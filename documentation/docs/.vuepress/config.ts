@@ -2,12 +2,14 @@ import { defaultTheme } from "@vuepress/theme-default";
 
 import { defineUserConfig } from "vuepress";
 import { searchPlugin } from "@vuepress/plugin-search";
+import { viteBundler } from "@vuepress/bundler-vite";
 
 export default defineUserConfig({
   base: "/gdx-agreements-tracker/",
   lang: "en-US",
   title: "GDX Agreements Tracker",
   description: "Developer Documentation for GDX Agreements Tracker",
+  bundler: viteBundler({}),
   theme: defaultTheme({
     logo: "/images/BCID_H_rgb_pos.png",
     logoDark: "/images/BCID_H_rgb_rev.png",
