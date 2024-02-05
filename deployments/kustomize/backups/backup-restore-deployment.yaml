@@ -1,0 +1,75 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  #name: backup-restore
+  name: pmo-backup-restore
+  labels:
+    app.kubernetes.io/part-of: gdx-agreements-tracker
+    app.openshift.io/runtime: backup-restore
+    app.kubernetes.io/component: backup
+    app.kubernetes.io/instance: coreDB
+    env: dev
+spec:
+  replicas: 0
+  strategy:
+    type: Recreate
+  selector:
+      matchLabels:
+        env: dev
+  template:
+    metadata:
+      labels:
+        env: dev
+    spec:
+      volumes:
+        - name: backup-db
+          persistentVolumeClaim:
+            claimName: pmo-backup-db
+        - name: backup-verification
+          persistentVolumeClaim:
+            claimName: pmo-backup-verification
+        - name: backup-config
+          configMap:
+            #name: backup-config
+            name: pmo-backup-config-m6mk9gf2bh
+            items:
+              - key: backup.conf
+                path: backup.conf
+      containers:
+        - name: postgres-restore-runner
+          #image: "bcgovgdx/gdx-agreements-tracker-backup-container"
+          image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-backup-container:latest
+          volumeMounts:
+            - name: backup-db
+              mountPath: /backups/
+            - name: backup-verification
+              mountPath: /var/lib/pgsql/data
+            - name: backup-config
+              mountPath: /backup.conf
+              subPath: backup.conf
+          env:
+            - name: BACKUP_DIR
+              valueFrom:
+                configMapKeyRef:
+                  name: pmo-backup-config-m6mk9gf2bh
+                  #name: backup-config
+                  key: BACKUP_DIR
+            - name: DATABASE_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: pmo-config-ddg76ttmch
+                  #name: config
+                  key: POSTGRES_USER
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pmo-secrets-7f57hmd56g
+                  #name: secrets
+                  key: POSTGRES_PASSWORD
+          resources:
+            requests:
+              cpu: 200m
+              memory: 400Mi
+            limits:
+              cpu: 1
+            memory: 1Gi
