@@ -25,18 +25,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
         },
         {
-          value: query?.data?.data?.data?.asset_tag,
-          title: "Asset Tag",
-          width: "half",
-        },
-        {
           value: query?.data?.data?.data?.service_line,
           title: "Service_line",
-          width: "half",
-        },
-        {
-          value: query?.data?.data?.data?.wip_no,
-          title: "WIP #",
           width: "half",
         },
         {
@@ -77,21 +67,9 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
     },
     {
-      fieldName: "asset_tag",
-      fieldType: "singleText",
-      fieldLabel: "Asset Tag",
-      width: "half",
-    },
-    {
       fieldName: "service_line",
       fieldType: "readonly",
       fieldLabel: "Service Line",
-      width: "half",
-    },
-    {
-      fieldName: "wip_no",
-      fieldType: "singleText",
-      fieldLabel: "WIP #",
       width: "half",
     },
     {
@@ -120,15 +98,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   /**
-   * Inital values for create form.
+   * Initial values for create form.
    */
   const initialValues = {
     portfolio_id: null,
     cas_project_number: "",
-    asset_tag: "",
-    wip_no: "",
+    responsibility: "",
+    service_line: "",
     stob: "",
     qualified_receiver: "",
+    recovery_info: "",
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];
