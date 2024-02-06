@@ -1,3 +1,8 @@
+**February 6, 2024 [DESCW-1989](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1989)**
+
+- Added custom database logging functionality
+- !important  run migrations to create new db_logs table
+
 **February 2, 2024 [DESCW-1602](https://apps.itsm.gov.bc.ca/jira/browse/DESCW-1602)**
 
 - Documentation
