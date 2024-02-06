@@ -6,6 +6,7 @@ const fastify = require("fastify");
 const fastifyCors = require("@fastify/cors");
 const fastifyAuth = require("@fastify/auth");
 const fastifyPayload = require("../plugins/fastifyPayload");
+const fastifyDBLogger = require("../plugins/fastifyDBLogger");
 
 /**
  * Verify jWT, to verify auth token, as part of the verifyAuthentication decorator.
@@ -83,6 +84,7 @@ const fastifyInstance = (options) => {
     .register(fastifyAuth)
     .register(fastifyCors, {})
     .register(fastifyPayload)
+    .register(fastifyDBLogger)
     .setSchemaErrorFormatter((errors) => {
       return new Error(errors);
     })

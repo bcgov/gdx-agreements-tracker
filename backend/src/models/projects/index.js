@@ -10,17 +10,13 @@ const projectPhaseTable = `${dataBaseSchemas().data}.project_phase`;
 const healthTable = `${dataBaseSchemas().data}.health_indicator`;
 
 const addNewProject = () => {
-  return knex(`data.project`)
+  return knex(projectTable)
     .insert({
       project_number: knex.raw("(select data.get_project_number() as project_number)"),
       project_name: "",
       project_status: "Active",
     })
-    .returning("id")
-    .then((result) => {
-      // return the "first" row.  Knex returns result as an array as there could be more than one row inserted, in this case we are only ever interested in the first row.  .first() does not work on an insert.
-      return result[0];
-    });
+    .returning("*");
 };
 
 // Get all.
