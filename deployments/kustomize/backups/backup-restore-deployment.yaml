@@ -1,8 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  #name: backup-restore
-  name: pmo-backup-restore
+  name: backup-restore
   labels:
     app.kubernetes.io/part-of: gdx-agreements-tracker
     app.openshift.io/runtime: backup-restore
@@ -30,15 +29,13 @@ spec:
             claimName: pmo-backup-verification
         - name: backup-config
           configMap:
-            #name: backup-config
-            name: pmo-backup-config-m6mk9gf2bh
+            name: backup-config
             items:
               - key: backup.conf
                 path: backup.conf
       containers:
         - name: postgres-restore-runner
-          #image: "bcgovgdx/gdx-agreements-tracker-backup-container"
-          image: image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-backup-container:latest
+          image: "bcgovgdx/gdx-agreements-tracker-backup-container"
           volumeMounts:
             - name: backup-db
               mountPath: /backups/
@@ -51,20 +48,17 @@ spec:
             - name: BACKUP_DIR
               valueFrom:
                 configMapKeyRef:
-                  name: pmo-backup-config-m6mk9gf2bh
-                  #name: backup-config
+                  name: backup-config
                   key: BACKUP_DIR
             - name: DATABASE_USER
               valueFrom:
                 configMapKeyRef:
-                  name: pmo-config-ddg76ttmch
-                  #name: config
+                  name: config
                   key: POSTGRES_USER
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: pmo-secrets-7f57hmd56g
-                  #name: secrets
+                  name: secrets
                   key: POSTGRES_PASSWORD
           resources:
             requests:
