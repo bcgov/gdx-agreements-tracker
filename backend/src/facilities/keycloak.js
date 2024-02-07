@@ -69,7 +69,7 @@ const verifyToken = (token, jwksUri = null) => {
  * @todo  Add tests after logic becomes more stable.
  * @returns {object}                 The User object.
  */
-const getUserInfo = async (request) => {
+const getUserInfo = (request) => {
   const token = getBearerTokenFromRequest(request);
   const decodedToken = jwt.decode(token, { complete: true });
   if (decodedToken) {
