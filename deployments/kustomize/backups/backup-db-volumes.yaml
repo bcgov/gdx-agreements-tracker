@@ -21,7 +21,7 @@ metadata:
     role: verification-backup-container-db
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: "100Mi"
