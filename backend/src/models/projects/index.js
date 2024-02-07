@@ -16,7 +16,8 @@ const addNewProject = () => {
       project_name: "",
       project_status: "Active",
     })
-    .returning("*");
+    .returning("*")
+    .then((result) => result[0]);
 };
 
 // Get all.

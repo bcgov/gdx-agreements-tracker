@@ -25,7 +25,7 @@ export const Projects = () => {
 
   const handleTableNewButton = async () => {
     await handlePost({ formValues: [], apiUrl: apiUrl as string }).then((response) => {
-      navigate(`/${apiUrl}/${response[0].id}`);
+      navigate(`/${apiUrl}/${response.id}`);
     });
   };
 

@@ -5,11 +5,11 @@ exports.up = function (knex) {
       .primary()
       .notNullable()
       .defaultTo(knex.raw("nextval('config.id_seq'::regclass)"));
-    table.text("api_method");
-    table.text("api_user");
+    table.string("api_method");
+    table.string("api_user");
     table.timestamp("api_date", { precision: 6 }).notNullable().defaultTo(knex.fn.now());
     table.json("api_body");
-    table.text("api_url");
+    table.string("api_url");
   });
 };
 
