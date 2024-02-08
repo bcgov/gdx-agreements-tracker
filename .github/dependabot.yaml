@@ -28,3 +28,25 @@ updates:
     open-pull-requests-limit: 0
     reviewers:
       - bcgov/digital-engagement-solutions-custom-web
+---
+# dependabot for checking FRONTEND npm packages for updates (and creating PRS)
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "frontend"
+    schedule:
+      interval: "daily"
+    create-pull-requests: true
+    # set a reasonable limit to pr requests
+    open-pull-requests-limit: 5
+---
+# dependabot for checking npm BACKEND packages for updates (and creating PRS)
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "backend"
+    schedule:
+      interval: "daily"
+    create-pull-requests: true
+    # set a reasonable limit to pr requests
+    open-pull-requests-limit: 5
