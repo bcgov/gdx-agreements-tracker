@@ -35,7 +35,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "frontend"
     schedule:
-      interval: "daily" # this should be changed to "weekly" after we confirm it works.
+      interval: "daily"
     create-pull-requests: true
     # set a reasonable limit to pr requests
     open-pull-requests-limit: 5
@@ -46,7 +46,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "backend"
     schedule:
-      interval: "daily" # this should be changed to "weekly" after we confirm it works.
+      interval: "daily"
     create-pull-requests: true
     # set a reasonable limit to pr requests
     open-pull-requests-limit: 5
