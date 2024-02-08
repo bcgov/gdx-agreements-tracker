@@ -33,25 +33,20 @@ updates:
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/frontend"
-    schedule:
-      interval: "daily" # this should be changed to "weekly" after we confirm it works.
-    create-pull-requests: false
-    open-pull-requests-limit: 5
-    # do not specify the target branch for security updates:
-    #target-branches:
-    #  - "development"
----
-# dependabot for checking npm BACKEND packages for updates (and creating PRS)
-version: 2
-updates:
-  - package-ecosystem: "npm"
-    directory: "/backend"
+    directory: "frontend"
     schedule:
       interval: "daily" # this should be changed to "weekly" after we confirm it works.
     create-pull-requests: false
     # set a reasonable limit to pr requests
     open-pull-requests-limit: 5
-    # do not specify the target branch for security updates:
-    #target-branches:
-    #  - "development"
+---
+# dependabot for checking npm BACKEND packages for updates (and creating PRS)
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "backend"
+    schedule:
+      interval: "daily" # this should be changed to "weekly" after we confirm it works.
+    create-pull-requests: false
+    # set a reasonable limit to pr requests
+    open-pull-requests-limit: 5
