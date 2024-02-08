@@ -47,6 +47,6 @@ updates:
     directory: "backend"
     schedule:
       interval: "daily" # this should be changed to "weekly" after we confirm it works.
-    create-pull-requests: false
+    create-pull-requests: true
     # set a reasonable limit to pr requests
     open-pull-requests-limit: 5
