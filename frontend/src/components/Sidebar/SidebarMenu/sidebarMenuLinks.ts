@@ -42,6 +42,10 @@ export const sidebarMenuLinks = [
         name: "Users",
         url: "/admin/users",
       },
+      {
+        name: "Logs",
+        url: "/admin/logs",
+      },
     ],
   },
 ];

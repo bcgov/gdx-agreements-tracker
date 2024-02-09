@@ -2,6 +2,8 @@ import { Grid, Card, CardHeader } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Loader } from "components/Loader";
 import { useFormatTableData } from "hooks";
+import { ReadTableToolbar } from "./ReadTableToolbar";
+import { useRenderTableCell } from "hooks/useRenderTableCell";
 
 const ReadOnlyTable = ({
   apiEndPoint,
@@ -30,7 +32,11 @@ const ReadOnlyTable = ({
       {
         color: "#fff",
       },
-    height: "400px",
+    //  padding for the auto-height row cells
+    "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": { py: "0.5rem" },
+    "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": { py: "0.9375rem" },
+    "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": { py: "1.375rem" },
+    flex: "1 0 auto",
   };
 
   const tableData = useFormatTableData({
@@ -42,15 +48,13 @@ const ReadOnlyTable = ({
     <Loader />
   ) : (
     <Grid item xs={12} sm={12} md={mdSize} lg={lgSize} xl={xlSize}>
-      <Card sx={{ height: "400px" }}>
+      <Card>
         <CardHeader title={title} sx={{ backgroundColor: "#ededed" }} />
         <DataGrid
-          columnVisibilityModel={{
-            id: false,
-          }}
+          getRowHeight={() => "auto"}
+          slots={{ toolbar: () => <ReadTableToolbar />, cell: useRenderTableCell }}
           rows={tableData?.data?.rows}
           columns={tableData?.data?.columns}
-          columnBuffer={0}
           sx={DataGridStyles}
           hideFooterPagination
           rowSelection={false}
