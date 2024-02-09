@@ -1,12 +1,12 @@
 const controller = require("@controllers/admin/logs");
-// const validators = require("@validators/admin/logs");
+const validators = require("@validators/admin/logs");
 const what = "logs";
 
 const routes = [
   {
     method: "GET",
     url: `/${what}`,
-    // schema: validators.getAll,
+    schema: validators.getAll,
     handler: controller.getAll,
   },
 ];
