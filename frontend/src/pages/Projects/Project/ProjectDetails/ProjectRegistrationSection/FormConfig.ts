@@ -98,7 +98,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       width: "half",
     },
     {
-      fieldName: "ministry",
+      fieldName: "ministry_id",
       fieldType: "select",
       fieldLabel: "Client Ministry Name",
       width: "half",
