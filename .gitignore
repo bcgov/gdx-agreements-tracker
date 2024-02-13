@@ -61,7 +61,7 @@ backend/temp.postgres
 backend/reports/docx/~*
 backend/reports/xlsx/~*
 deployments/kustomize/overlays/experimental
-logs
+/logs
 
 #documentation
 documentation/docs/.vuepress/.temp
