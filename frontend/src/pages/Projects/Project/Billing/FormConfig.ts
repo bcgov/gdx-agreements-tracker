@@ -155,7 +155,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       test: async (value, context: IBillingAmountValidationContext) => {
         const { quarter, fiscal_year_id, client_coding_id } = context.parent;
 
-        if (fiscal_year_id && client_coding_id && quarter) {
+        if (fiscal_year_id && client_coding_id && quarter && value) {
           const recoveredBudget = await getRecoveredTotalsByQuarter(
             quarter,
             fiscal_year_id,
@@ -164,8 +164,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           );
           return (
             //parseFloat with regex converts the money formatted string "$100.00" to a number like "100.00.  This is required to do a compare."
-            parseFloat((value as string).replace(/[^0-9.]/g, "")) <=
-            parseFloat(recoveredBudget.replace(/[^0-9.]/g, ""))
+
+            parseFloat(
+              recoveredBudget !== "" ? (recoveredBudget as string).replace(/[^0-9.]/g, "") : "0"
+            ) <= parseFloat((value as string).replace(/[^0-9.]/g, ""))
           );
         }
         return true;
