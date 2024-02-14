@@ -16,7 +16,7 @@ testRoutes([
   {
     request: {
       method: "PUT",
-      url: "/projects/1/contacts",
+      url: "/projects/contacts/1",
       payload: {},
     },
     modelFunction: model.updateOne,
