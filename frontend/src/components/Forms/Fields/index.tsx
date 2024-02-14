@@ -12,6 +12,7 @@ import { MoneyField } from "./MoneyField";
 import { Select } from "./Select";
 import { Checkbox } from "./Checkbox";
 import { AutocompleteTable } from "./AutocompleteTable";
+import { PercentField } from "./PercentField";
 
 export const FormInput = ({
   errors,
@@ -54,6 +55,29 @@ export const FormInput = ({
     return options ?? defaults;
   };
   switch (fieldType) {
+    case "percentage":
+      return (
+        <>
+          <GridItem width={width}>
+            <Field
+              required={required}
+              fullWidth={true}
+              as={PercentField}
+              name={fieldName}
+              onChange={async (newValue: string) => {
+                await setFieldValue(fieldName, newValue);
+                customOnChange({ [fieldName]: newValue });
+              }}
+              value={fieldValue}
+              label={fieldLabel}
+              id={fieldName}
+              role={`${fieldName}_input`}
+              helperText={touched[fieldName] && errors[fieldName]}
+              error={touched[fieldName] && Boolean(errors[fieldName])}
+            />
+          </GridItem>
+        </>
+      );
     case "money":
       return (
         <>

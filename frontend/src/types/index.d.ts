@@ -239,7 +239,8 @@ export type IEditFieldsFieldType =
   | "number"
   | "readonly"
   | "money"
-  | "autocompleteTable";
+  | "autocompleteTable"
+  | "percentage";
 
 export type IWidth = "half" | "full";
 
@@ -529,12 +530,14 @@ export type IReportCategoriesAndTypes = {
   }[];
 }[];
 
-export interface IMoneyField {
-  helperText: string;
-  error: boolean;
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+export interface IAutoNumericField {
+  helperText?: string;
+  error?: boolean;
+  onChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   id: string;
   value: number;
   label: string;
-  required: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  styles?: Object | null;
 }
