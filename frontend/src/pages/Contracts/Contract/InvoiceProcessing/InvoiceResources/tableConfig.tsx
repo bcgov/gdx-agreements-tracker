@@ -6,8 +6,18 @@ export const tableConfig = () => {
   const tableColumns: GridColDef[] = [
     { field: "resource_assignment", headerName: "Resource Assignment", flex: defaultFlex },
     { field: "hours", headerName: "Hours", flex: defaultFlex },
-    { field: "rate", headerName: "Rate", flex: defaultFlex, sortComparator: sortComparatorByCurrency(), },
-    { field: "amount", headerName: "Amount", flex: defaultFlex, sortComparator: sortComparatorByCurrency(), },
+    {
+      field: "rate",
+      headerName: "Rate",
+      flex: defaultFlex,
+      sortComparator: sortComparatorByCurrency(),
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      flex: defaultFlex,
+      sortComparator: sortComparatorByCurrency(),
+    },
   ];
 
   const initialState = {

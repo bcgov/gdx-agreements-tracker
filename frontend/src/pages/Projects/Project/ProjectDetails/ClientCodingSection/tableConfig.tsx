@@ -16,7 +16,12 @@ export const tableConfig = () => {
     { field: "project_code", headerName: "Project Code", flex: defaultFlex },
     { field: "contact", headerName: "Financial Contact", flex: defaultFlex },
     { field: "expense_authority_name", headerName: "Expense Authority Name", flex: defaultFlex },
-    { field: "client_amount", headerName: "Client Amount", flex: defaultFlex, sortComparator: sortComparatorByCurrency(), },
+    {
+      field: "client_amount",
+      headerName: "Client Amount",
+      flex: defaultFlex,
+      sortComparator: sortComparatorByCurrency(),
+    },
   ];
 
   return { tableColumns };

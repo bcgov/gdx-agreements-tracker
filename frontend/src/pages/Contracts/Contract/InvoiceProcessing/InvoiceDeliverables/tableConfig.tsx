@@ -7,7 +7,12 @@ export const tableConfig = () => {
   const tableColumns: GridColDef[] = [
     { field: "deliverable_name", headerName: "Deliverable Name", flex: defaultFlex },
     { field: "type", headerName: "Type", flex: defaultFlex },
-    { field: "amount", headerName: "Amount", flex: defaultFlex,sortComparator: sortComparatorByCurrency(), },
+    {
+      field: "amount",
+      headerName: "Amount",
+      flex: defaultFlex,
+      sortComparator: sortComparatorByCurrency(),
+    },
   ];
 
   const initialState = {

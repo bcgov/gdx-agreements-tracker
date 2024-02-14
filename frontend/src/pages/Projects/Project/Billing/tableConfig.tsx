@@ -12,7 +12,12 @@ export const tableConfig = () => {
       valueFormatter: dateFormatter,
       flex: defaultFlex,
     },
-    { field: "amount", headerName: "Amount", flex: defaultFlex, sortComparator: sortComparatorByCurrency(), },
+    {
+      field: "amount",
+      headerName: "Amount",
+      flex: defaultFlex,
+      sortComparator: sortComparatorByCurrency(),
+    },
     { field: "quarter", headerName: "Quarter", flex: defaultFlex },
     { field: "fiscal", headerName: "Fiscal Year", flex: defaultFlex },
     { field: "financial_contact", headerName: "Financial Contact", flex: defaultFlex },
