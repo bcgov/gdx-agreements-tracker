@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import AutoNumeric from "autonumeric";
 import { TextField, InputAdornment } from "@mui/material";
-import { IMoneyField } from "types";
+import { IAutoNumericField } from "types";
 
 /**
  * MoneyField component for displaying and editing money values with currency symbol.
@@ -25,14 +25,14 @@ import { IMoneyField } from "types";
  */
 
 export const MoneyField = ({
-  onChange,
+  onChange = () => {},
   id,
   value,
   label,
   helperText,
   error,
   required,
-}: IMoneyField) => {
+}: IAutoNumericField) => {
   useEffect(() => {
     // Empty dependency array for running once on initial mount
     new AutoNumeric(`#${id}`, value, {

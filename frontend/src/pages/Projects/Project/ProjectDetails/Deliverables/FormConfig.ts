@@ -54,6 +54,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
           width: "half",
           title: "Percent Complete",
           value: query?.data?.data?.data?.percent_complete,
+          type: "percentage",
         },
         {
           width: "half",
@@ -121,7 +122,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Percent Complete",
       fieldName: "percent_complete",
-      fieldType: "number",
+      fieldType: "percentage",
     },
     {
       fieldName: "deliverable_status",

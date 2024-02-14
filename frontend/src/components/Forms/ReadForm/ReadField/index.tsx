@@ -20,6 +20,7 @@ import { IReturnValue } from "types";
 import { GridItem } from "../../FormLayout/GridItem";
 import { useNavigate } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { PercentField } from "components/Forms/Fields/PercentField";
 
 /**
  * Represents a read-only field component.
@@ -49,6 +50,20 @@ export const ReadField = ({
   helperText?: string;
   error?: boolean;
 }): JSX.Element => {
+  const defaultReadInputStyles = {
+    "& .MuiInputLabel-root ": {
+      WebkitTextFillColor: "#999",
+    },
+    "& .MuiInputBase-input.Mui-disabled": {
+      WebkitTextFillColor: "#333",
+      background: "#fff",
+    },
+    "& .MuiInputBase-root": {
+      WebkitTextFillColor: "#333",
+      background: "#fff!important",
+    },
+  };
+
   const navigate = useNavigate();
   const renderer = () => {
     switch (type) {
@@ -94,7 +109,16 @@ export const ReadField = ({
             <Checkbox disabled checked={value as boolean} />
           </div>
         );
-
+      case "percentage":
+        return (
+          <PercentField
+            value={value}
+            label={title}
+            id={title.replace(/\s(\w)/g, (_, c) => c.toUpperCase())}
+            disabled={true}
+            styles={defaultReadInputStyles}
+          />
+        );
       case "link":
         return (
           <List
@@ -133,19 +157,7 @@ export const ReadField = ({
             label={title}
             value={value ?? ""}
             fullWidth
-            sx={{
-              "& .MuiInputLabel-root ": {
-                WebkitTextFillColor: "#999",
-              },
-              "& .MuiInputBase-input.Mui-disabled": {
-                WebkitTextFillColor: "#333",
-                background: "#fff",
-              },
-              "& .MuiInputBase-root": {
-                WebkitTextFillColor: "#333",
-                background: "#fff!important",
-              },
-            }}
+            sx={defaultReadInputStyles}
             id="filled-size-small"
             variant="filled"
             size="small"
