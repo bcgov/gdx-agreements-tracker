@@ -21,7 +21,7 @@ interface IFormButtons {
  * @returns {JSX.Element}                      - A JSX element representing the form with two buttons.
  */
 export const FormButtons = ({ dirty, handleOnCancel }: IFormButtons): JSX.Element => {
-  const handleCancelClick = () => handleOnCancel;
+  const handleCancelClick = () => handleOnCancel();
 
   return (
     <Box mt={1} display="flex" justifyContent="flex-end" alignItems="flex-end">
