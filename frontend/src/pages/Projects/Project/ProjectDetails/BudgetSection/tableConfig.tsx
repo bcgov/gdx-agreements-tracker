@@ -1,5 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 import LineBreak from "utils/LineBreak";
+import { sortComparatorByCurrency } from "utils/sortComparatorByCurrency";
 
 export const tableConfig = () => {
   const defaultFlex = 4;
@@ -22,14 +23,15 @@ export const tableConfig = () => {
       field: "detail_amount",
       headerName: "Detail Amount",
       flex: largeFlex,
-
       renderHeader: (): JSX.Element => LineBreak("Detail", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     {
       field: "q1_amount",
       headerName: "Q1 Amount",
       flex: defaultFlex,
       renderHeader: (): JSX.Element => LineBreak("Q1", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     {
       field: "q1_recovered",
@@ -42,6 +44,7 @@ export const tableConfig = () => {
       headerName: "Q2 Amount",
       flex: defaultFlex,
       renderHeader: (): JSX.Element => LineBreak("Q2", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     {
       field: "q2_recovered",
@@ -54,6 +57,7 @@ export const tableConfig = () => {
       headerName: "Q3 Amount",
       flex: defaultFlex,
       renderHeader: (): JSX.Element => LineBreak("Q3", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     {
       field: "q3_recovered",
@@ -66,6 +70,7 @@ export const tableConfig = () => {
       headerName: "Q4 Amount",
       flex: defaultFlex,
       renderHeader: (): JSX.Element => LineBreak("Q4", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     {
       field: "q4_recovered",
@@ -73,7 +78,12 @@ export const tableConfig = () => {
       flex: defaultFlex,
       renderHeader: (): JSX.Element => LineBreak("Q4", "Recovered"),
     },
-    { field: "total", headerName: "Total", flex: defaultFlex },
+    {
+      field: "total",
+      headerName: "Total",
+      flex: defaultFlex,
+      sortComparator: sortComparatorByCurrency(),
+    },
     {
       field: "resource_type",
       headerName: "Resource Type",

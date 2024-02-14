@@ -1,5 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { dateFormatter } from "utils/formatDate";
+import { sortComparatorByCurrency } from "utils/sortComparatorByCurrency";
 
 export const tableConfig = () => {
   const defaultFlex = 3;
@@ -14,7 +15,7 @@ export const tableConfig = () => {
       valueFormatter: dateFormatter,
       flex: defaultFlex,
     },
-    { field: "deliverable_amount", headerName: "Deliverable Amount", flex: defaultFlex },
+    { field: "deliverable_amount", headerName: "Deliverable Amount", flex: defaultFlex, sortComparator: sortComparatorByCurrency(), },
     { field: "deliverable_status", headerName: "Deliverable Status", flex: defaultFlex },
     { field: "comments", headerName: "Comments", flex: defaultFlex },
     { field: "deliverable_name", headerName: "Deliverable Name", flex: defaultFlex },

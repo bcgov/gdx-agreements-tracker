@@ -2,6 +2,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { dateFormatter } from "utils/formatDate";
 import percentFormatter from "utils/formatPercent";
 import LineBreak from "utils/LineBreak";
+import { sortComparatorByCurrency } from "utils/sortComparatorByCurrency";
 
 export const tableConfig = () => {
   const defaultFlex = 4;
@@ -33,12 +34,14 @@ export const tableConfig = () => {
       headerName: "Deliverable Amount",
       flex: defaultFlex,
       renderHeader: (): JSX.Element => LineBreak("Deliverable", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     {
       field: "recoverable_amount",
       headerName: "Recoverable Amount",
       flex: defaultFlex,
       renderHeader: (): JSX.Element => LineBreak("Recoverable", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
     {
