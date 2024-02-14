@@ -1,17 +1,17 @@
 const controller = require("@controllers/projects/contacts");
 const validators = require("@validators/projects/contacts");
-const what = "projects";
+const what = "contacts";
 
 const routes = [
   {
     method: "GET",
-    url: `/${what}/:id/contacts`,
+    url: `/projects/:id/${what}`,
     schema: validators.getAll,
     handler: controller.getAllByParentId,
   },
   {
     method: "PUT",
-    url: `/${what}/:id/contacts`,
+    url: `/projects/${what}/:id`,
     schema: validators.updateOne,
     handler: controller.updateContacts,
   },

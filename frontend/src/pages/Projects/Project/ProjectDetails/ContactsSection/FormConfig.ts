@@ -135,7 +135,7 @@ const FormConfig = (query: FormikValues) => {
           : []
       );
 
-  const updateUrl = `/projects/${projectId}/contacts`;
+  const updateUrl = `/projects/contacts/${projectId}`;
 
   return { readFields, editFields, initialValues, rowsToLock, updateUrl };
 };
