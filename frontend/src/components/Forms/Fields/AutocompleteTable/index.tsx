@@ -1,7 +1,6 @@
 import { FC } from "react";
 import {
   Autocomplete,
-  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -35,7 +34,17 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
   return (
     <>
       {pickerData?.definition.length <= 0 ? (
-        <TextField disabled label={fieldLabel ? fieldLabel : pickerData?.title} name={fieldName} fullWidth required={required} error helperText={"There are no options available, you may need to enter data in a previous section for options to appear."}/>
+        <TextField
+          disabled
+          label={fieldLabel ? fieldLabel : pickerData?.title}
+          name={fieldName}
+          fullWidth
+          required={required}
+          error
+          helperText={
+            "There are no options available, you may need to enter data in a previous section for options to appear."
+          }
+        />
       ) : (
         <Autocomplete
           // allows text box to contain an arbitrary value https://mui.com/material-ui/react-autocomplete/#free-solo
