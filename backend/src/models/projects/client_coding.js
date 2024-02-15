@@ -8,7 +8,7 @@ const contactsTable = `${dataBaseSchemas().data}.contact`;
 const findAllByProjectId = (projectId) => {
   return knex
     .select("cc.*", {
-      financial_contact: knex.raw("(cont.last_name || ', ' || cont.first_name)"),
+      contact_id: knex.raw("(cont.last_name || ', ' || cont.first_name)"),
     })
     .from(`${table} as cc`)
     .join(`${contactsTable} as cont`, { "cc.contact_id": "cont.id" })
@@ -23,7 +23,7 @@ const findById = (id) => {
       { client_amount: knex.raw("cc.client_amount") },
       {
         contact_id: knex.raw(
-          "( SELECT json_build_object('value', cont.id, 'label', (cont.last_name || ', ' || cont.first_name)) )"
+          "(SELECT json_build_object('value', cont.id, 'label', cont.last_name || ', ' || cont.first_name))"
         ),
       }
     )

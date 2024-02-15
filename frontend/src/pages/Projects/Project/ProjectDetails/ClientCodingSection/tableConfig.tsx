@@ -13,7 +13,7 @@ export const tableConfig = () => {
     { field: "service_line", headerName: "Service Line", flex: defaultFlex },
     { field: "stob", headerName: "STOB", flex: defaultFlex },
     { field: "project_code", headerName: "Project Code", flex: defaultFlex },
-    { field: "contact", headerName: "Financial Contact", flex: defaultFlex },
+    { field: "contact_id", headerName: "Financial Contact", flex: defaultFlex },
     { field: "expense_authority_name", headerName: "Expense Authority Name", flex: defaultFlex },
     { field: "client_amount", headerName: "Client Amount", flex: defaultFlex },
   ];
