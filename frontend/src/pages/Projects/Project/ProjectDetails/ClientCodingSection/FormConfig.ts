@@ -5,7 +5,6 @@ import { useParams } from "react-router";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
-
   const readFields = !query
     ? []
     : [
