@@ -19,13 +19,13 @@ const routes = [
     method: "PUT",
     url: `/projects/${what}/:id`,
     schema: validators.updateOne,
-    handler: controller.updateOneWithNullDates,
+    handler: controller.updateOne,
   },
   {
     method: "POST",
     url: `/projects/${what}`,
     schema: validators.addOne,
-    handler: controller.addOneWithNullDates,
+    handler: controller.addOne,
   },
 ];
 const registerRoutes = (fastify, options, done) => {
