@@ -31,10 +31,11 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
     },
     borderBottom: "1px solid #D3D3D3",
   };
+
   return (
     <>
-      {!pickerData ? (
-        <Skeleton variant="rectangular" width={"auto"} height={38} />
+      {pickerData?.definition.length <= 0 ? (
+        <TextField disabled label={fieldLabel ? fieldLabel : pickerData?.title} name={fieldName} fullWidth required={required} error helperText={"There are no options available, you may need to enter data in a previous section for options to appear."}/>
       ) : (
         <Autocomplete
           // allows text box to contain an arbitrary value https://mui.com/material-ui/react-autocomplete/#free-solo
