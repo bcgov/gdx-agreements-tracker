@@ -104,7 +104,14 @@ export const FormInput = ({
     case "date":
       return (
         <GridItem width={width}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            localeText={{
+              // placeholder for dates: "DD-Mon-YY"
+              fieldMonthPlaceholder: (params) =>
+                "letter" === params.contentType ? "Mon" : params.format,
+            }}
+          >
             <Field
               as={DatePicker}
               id={fieldName}
