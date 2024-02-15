@@ -1,6 +1,7 @@
 import { GridInitialState } from "@mui/x-data-grid";
 import { dateFormatter } from "utils/formatDate";
 import LineBreak from "utils/LineBreak";
+import { sortComparatorByCurrency } from "utils/sortComparatorByCurrency";
 
 export const tableConfig = () => {
   const defaultFlex = 3;
@@ -40,13 +41,14 @@ export const tableConfig = () => {
       headerName: "Max Amount",
       flex: midFlex,
       renderHeader: (): JSX.Element => LineBreak("Max", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     {
       field: "remaining_amount",
       headerName: "Remaining Amount",
       flex: midFlex,
-
       renderHeader: (): JSX.Element => LineBreak("Remaining", "Amount"),
+      sortComparator: sortComparatorByCurrency(),
     },
     { field: "status", headerName: "Status", flex: midFlex },
     { field: "fiscal", headerName: "Fiscal", flex: defaultFlex },
