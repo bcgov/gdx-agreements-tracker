@@ -37,8 +37,9 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         },
         {
           width: "half",
-          title: "Expense",
+          title: "Is Expense",
           value: query?.data?.data?.data?.is_expense,
+          type: "checkbox",
         },
         {
           width: "full",
@@ -146,7 +147,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     completion_date: null,
     deliverable_amount: "0",
     recoverable_amount: "0",
-    is_expense: null,
+    is_expense: false,
     comments: null,
     fiscal: null,
     percent_complete: null,
