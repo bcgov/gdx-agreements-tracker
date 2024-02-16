@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { TableToolBar } from "./TableToolbar";
-import { useRenderTableCell } from "hooks/useRenderTableCell";
+import { useRenderTableCell } from "hooks";
 
 export const Table = ({
   rows,

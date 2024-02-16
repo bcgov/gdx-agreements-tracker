@@ -541,3 +541,12 @@ export interface IAutoNumericField {
   disabled?: boolean;
   styles?: Object | null;
 }
+
+export interface IReadOnlyTableProps {
+  apiEndPoint: string;
+  tableName: string;
+  title: string;
+  mdSize?: number;
+  lgSize?: number;
+  xlSize?: number;
+}
