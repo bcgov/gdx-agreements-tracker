@@ -24,7 +24,7 @@ The `NotificationSnackBar` component renders a snackbar with an alert message an
 
 ## Example
 
-````jsx
+```jsx
 import * as React from "react";
 import { NotificationSnackBar } from "./NotificationSnackBar"; // Import the NotificationSnackBar component
 
@@ -58,4 +58,3 @@ function App() {
 
 export default App;
 ```
-````
