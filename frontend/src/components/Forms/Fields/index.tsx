@@ -220,6 +220,8 @@ export const FormInput = ({
             pickerData={GetPickerOptions()}
             autocompleteTableColumns={autocompleteTableColumns}
             multiple={multiple}
+            helperText={touched[fieldName] && errors[fieldName]}
+            error={touched[fieldName] && Boolean(errors[fieldName])}
           />
         </GridItem>
       );

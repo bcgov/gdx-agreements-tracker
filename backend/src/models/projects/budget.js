@@ -21,7 +21,7 @@ const findAllById = (projectId) => {
       q3_recovered: "prb.q3_recovered",
       q4_amount: "prb.q4_amount",
       q4_recovered: "prb.q4_recovered",
-      fiscal_year: "fy.fiscal_year",
+      fiscal: "fy.fiscal_year",
       notes: "prb.notes",
       project_deliverable_id: "prd.deliverable_name",
       detail_amount: "prb.detail_amount",
@@ -61,7 +61,7 @@ const findById = (id) => {
       q4_amount: "prb.q4_amount",
       q4_recovered: "prb.q4_recovered",
       total: knex.raw("prb.q1_amount + prb.q2_amount + prb.q3_amount + prb.q4_amount"),
-      fiscal_year: knex.raw(
+      fiscal: knex.raw(
         "(SELECT json_build_object('value', prb.fiscal, 'label', COALESCE(fy.fiscal_year, '')))"
       ),
       notes: "prb.notes",

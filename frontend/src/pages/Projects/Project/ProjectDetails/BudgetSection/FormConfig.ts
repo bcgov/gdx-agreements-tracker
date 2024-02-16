@@ -250,7 +250,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Fiscal",
-          value: query?.data?.data?.data?.fiscal_year.label,
+          value: query?.data?.data?.data?.fiscal.label,
         },
         {
           width: "half",
@@ -387,7 +387,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     {
       width: "half",
       fieldLabel: "Fiscal",
-      fieldName: "fiscal_year",
+      fieldName: "fiscal",
       fieldType: "select",
       pickerName: "fiscal_year_option",
     },
@@ -443,7 +443,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     stob: "",
     client_coding_id: null,
     contract_id: null,
-    deliverable_name: null,
   };
   const rowsToLock = [query?.data?.data?.data?.id];
   const postUrl = `/projects/budget`;
@@ -473,6 +472,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         }
         return true;
       }),
+    project_deliverable_id: object()
+      .shape({
+        label: string(),
+        value: number(),
+      })
+      .required("Deliverable Amount is required"),
   });
 
   return {
