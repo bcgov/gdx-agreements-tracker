@@ -50,6 +50,7 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/Layout/Main",
           "/guide/Frontend/react_components/List",
           "/guide/Frontend/react_components/Loader",
+          "/guide/Frontend/react_components/NotificationSnackbar",
           {
             text: "Forms",
             children: [
