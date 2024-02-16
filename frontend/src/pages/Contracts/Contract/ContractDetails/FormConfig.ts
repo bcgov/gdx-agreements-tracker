@@ -59,7 +59,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
             width: "half",
             title: "Total Expenses Payable",
             value: query?.data?.data?.data?.total_expense_amount,
-          },          
+          },
           {
             width: "half",
             title: "Procurement Method",
@@ -170,7 +170,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "total_expense_amount",
       fieldType: "money",
       required: true,
-    },   
+    },
     {
       width: "half",
       fieldLabel: "Procurement Method",
