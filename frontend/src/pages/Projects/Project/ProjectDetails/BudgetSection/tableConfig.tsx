@@ -104,7 +104,7 @@ export const tableConfig = () => {
       renderHeader: (): JSX.Element => LineBreak("Service", "Line"),
     },
     {
-      field: "fiscal_year",
+      field: "fiscal",
       headerName: "Fiscal",
       flex: defaultFlex,
     },
