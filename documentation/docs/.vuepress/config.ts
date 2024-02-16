@@ -49,6 +49,7 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/DeleteButton",
           "/guide/Frontend/react_components/Layout/Main",
           "/guide/Frontend/react_components/List",
+          "/guide/Frontend/react_components/Loader",
           {
             text: "Forms",
             children: [
