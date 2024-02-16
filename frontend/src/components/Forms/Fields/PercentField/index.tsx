@@ -27,7 +27,7 @@ export const PercentField = ({
       selectOnFocus: true,
       rawValueDivisor: 100, // Divide by 100 when reading value
     });
-  }, [value]);
+  }, [styles, id]);
 
   return (
     <TextField
