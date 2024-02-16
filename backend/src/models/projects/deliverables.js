@@ -12,8 +12,8 @@ const findAllById = (projectId) => {
       "prd.deliverable_name",
       { start_date: "prd.start_date" },
       { completion_date: "prd.completion_date" },
-      knex.raw("prd.deliverable_amount::numeric::float8"),
-      knex.raw("prd.recoverable_amount::numeric::float8"),
+      knex.raw("prd.deliverable_amount"),
+      knex.raw("prd.recoverable_amount"),
       "proj.project_number",
       "prd.comments",
       "fy.fiscal_year as fiscal",
@@ -41,8 +41,8 @@ const findById = (id) => {
       "prd.deliverable_name",
       { start_date: "prd.start_date" },
       { completion_date: "prd.completion_date" },
-      knex.raw("prd.deliverable_amount::numeric::float8"),
-      knex.raw("prd.recoverable_amount::numeric::float8"),
+      knex.raw("prd.deliverable_amount"),
+      knex.raw("prd.recoverable_amount"),
       knex.raw(
         "( SELECT json_build_object('value', prd.project_id, 'label', proj.project_number)) AS project_id"
       ),
