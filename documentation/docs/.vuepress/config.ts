@@ -96,6 +96,12 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/SideBar/sideBarMenuLinks",
             ],
           },
+          {
+            text: "Table",
+            children: [
+              "/guide/Frontend/react_components/Table/Table",
+            ],
+          },
 
           "/guide/Frontend/react_components/MoneyField",
         ],
