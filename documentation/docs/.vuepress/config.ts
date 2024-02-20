@@ -100,6 +100,7 @@ export default defineUserConfig({
             text: "Table",
             children: [
               "/guide/Frontend/react_components/Table/Table",
+              "/guide/Frontend/react_components/Table/TableHealthChipTable",              
             ],
           },
 
