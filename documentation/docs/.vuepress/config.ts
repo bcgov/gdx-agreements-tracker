@@ -52,6 +52,7 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/Loader",
           "/guide/Frontend/react_components/NotificationSnackbar",
           "/guide/Frontend/react_components/ReadOnlyTable",
+          "/guide/Frontend/react_components/Renderer",
           {
             text: "Forms",
             children: [
