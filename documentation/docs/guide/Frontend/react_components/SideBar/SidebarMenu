@@ -1,0 +1,19 @@
+# SidebarMenu
+
+## Description
+
+The `SidebarMenu` component is a sidebar menu that displays a list of navigation links. It also includes a footer with the BC Gov logo.
+
+## Dependencies
+Box, List, Typography, and styled from "@mui/material"
+bcgovTheme from "../../../bcgovTheme"
+sidebarMenuLinks from "./sidebarMenuLinks"
+SidebarMenuItem from "./SidebarMenuItem"
+
+## Usage
+
+```jsx
+import { SidebarMenu } from "./SidebarMenu";
+
+// Inside your component
+<SidebarMenu />
