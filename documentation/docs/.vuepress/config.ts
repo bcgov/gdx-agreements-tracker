@@ -78,7 +78,7 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/ReportSelector/ReportSelector",
               "/guide/Frontend/react_components/ReportSelector/reportSelectorConfig",
               "/guide/Frontend/react_components/ReportSelector/ReportParameters",
-              "/guide/Frontend/react_components/ReportSelector/ReportTypes",              
+              "/guide/Frontend/react_components/ReportSelector/ReportTypes",
             ],
           },
           {
@@ -88,6 +88,11 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/Layout/PageHeader",
             ],
           },
+          {
+            text: "SideBar",
+            children: ["/guide/Frontend/react_components/SideBar/SideBar"],
+          },
+
           "/guide/Frontend/react_components/MoneyField",
         ],
       },
