@@ -53,6 +53,8 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/NotificationSnackbar",
           "/guide/Frontend/react_components/ReadOnlyTable",
           "/guide/Frontend/react_components/Renderer",
+          "/guide/Frontend/react_components/SignoutButton",              
+          "/guide/Frontend/react_components/Forms/TableWithModal",                       
           {
             text: "Forms",
             children: [
@@ -70,7 +72,6 @@ export default defineUserConfig({
               "/guide/Frontend/react_components/Forms/FormRenderer",
               "/guide/Frontend/react_components/Forms/Validation",
               "/guide/Frontend/react_components/Forms/FormEditButton",
-              "/guide/Frontend/react_components/Forms/SignoutButton",              
             ],
           },
           {
