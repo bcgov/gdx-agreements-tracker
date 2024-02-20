@@ -101,6 +101,7 @@ export default defineUserConfig({
             children: [
               "/guide/Frontend/react_components/Table/Table",
               "/guide/Frontend/react_components/Table/TableHealthChipTable",              
+              "/guide/Frontend/react_components/Table/TableToolbar",              
             ],
           },
 
