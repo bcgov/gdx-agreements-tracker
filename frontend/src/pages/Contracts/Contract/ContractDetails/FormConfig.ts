@@ -52,13 +52,13 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
           },
           {
             width: "half",
-            title: "Total Expenses Payable",
-            value: query?.data?.data?.data?.total_expense_amount,
+            title: "Requisition Number",
+            value: query?.data?.data?.data?.requisition_number,
           },
           {
             width: "half",
-            title: "Requisition Number",
-            value: query?.data?.data?.data?.requisition_number,
+            title: "Total Expenses Payable",
+            value: query?.data?.data?.data?.total_expense_amount,
           },
           {
             width: "half",
@@ -160,18 +160,17 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     },
     {
       width: "half",
+      fieldLabel: "Requisition Number",
+      fieldName: "requisition_number",
+      fieldType: "singleText",
+    },
+    {
+      width: "half",
       fieldLabel: "Total Expenses Payable",
       fieldName: "total_expense_amount",
       fieldType: "money",
       required: true,
     },
-    {
-      width: "half",
-      fieldLabel: "Requisition Number",
-      fieldName: "requisition_number",
-      fieldType: "singleText",
-    },
-
     {
       width: "half",
       fieldLabel: "Procurement Method",
