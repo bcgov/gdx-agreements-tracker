@@ -1,4 +1,4 @@
-# ResportSelector
+# Resport Selector
 
 A component that provides a form for selecting a category, type, and exporting reports.
 
