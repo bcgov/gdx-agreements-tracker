@@ -92,7 +92,7 @@ export default defineUserConfig({
             text: "SideBar",
             children: [
               "/guide/Frontend/react_components/SideBar/SideBar",
-              "/guide/Frontend/react_components/SideBar/SidebarMenu",
+              "/guide/Frontend/react_components/SideBar/sideBarMenuLinks",
             ],
           },
 
