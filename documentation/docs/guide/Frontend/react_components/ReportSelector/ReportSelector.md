@@ -1,4 +1,4 @@
-# Resport Selector
+# Report Selector
 
 A component that provides a form for selecting a category, type, and exporting reports.
 
@@ -8,7 +8,7 @@ None
 
 ## Description
 
-The `ResportSelector` component is a form that allows users to select a category and a type of report. It also provides a description of the selected report type and allows the user to export the report in either PDF or XLSX format.
+The `ReportSelector` component is a form that allows users to select a category and a type of report. It also provides a description of the selected report type and allows the user to export the report in either PDF or XLSX format.
 
 ## State
 
