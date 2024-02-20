@@ -77,7 +77,8 @@ export default defineUserConfig({
             children: [
               "/guide/Frontend/react_components/ReportSelector/ReportSelector",
               "/guide/Frontend/react_components/ReportSelector/reportSelectorConfig",
-              "/guide/Frontend/react_components/ReportSelector/ReportParameters",             
+              "/guide/Frontend/react_components/ReportSelector/ReportParameters",
+              "/guide/Frontend/react_components/ReportSelector/ReportTypes",              
             ],
           },
           {
