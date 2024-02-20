@@ -73,6 +73,12 @@ export default defineUserConfig({
             ],
           },
           {
+            text: "ReportSelector",
+            children: [
+              "/guide/Frontend/react_components/ReportSelector/ReportSelector.md",
+            ],
+          },
+          {
             text: "Layout",
             children: [
               "/guide/Frontend/react_components/Layout/PageFooter",
