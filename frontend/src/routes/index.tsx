@@ -8,6 +8,7 @@ import contractRoutes from "./subRoutes/contractRoutes";
 import adminRoutes from "./subRoutes/adminRoutes";
 import reportRoutes from "./subRoutes/reportRoutes";
 import Signout from "pages/Signout";
+import Unauthorized from "pages/Unauthorized";
 const AppRouter: FC = () => {
   return (
     <Routes>
@@ -18,6 +19,7 @@ const AppRouter: FC = () => {
         {contractRoutes}
         {adminRoutes}
         {reportRoutes}
+        <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
