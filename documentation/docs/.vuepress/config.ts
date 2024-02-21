@@ -54,7 +54,9 @@ export default defineUserConfig({
           "/guide/Frontend/react_components/ReadOnlyTable",
           "/guide/Frontend/react_components/Renderer",
           "/guide/Frontend/react_components/SignoutButton",              
-          "/guide/Frontend/react_components/Forms/TableWithModal",                       
+          "/guide/Frontend/react_components/TableWithModal",            
+          "/guide/Frontend/react_components/TotalsDisplay",
+          "/guide/Frontend/react_components/DBLock",   
           {
             text: "Forms",
             children: [
