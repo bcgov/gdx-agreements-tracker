@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { IEditField, IOption } from "types";
 import formatDate from "utils/formatDate";
+import { object, string, number } from "yup";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const readFields =
@@ -10,7 +11,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
           {
             width: "half",
             title: "Change Order Number",
-            value: query?.data?.data?.data?.co_number,
+            value: query?.data?.data?.data?.co_number ?? null,
           },
           {
             width: "half",
@@ -103,6 +104,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldLabel: "Status",
       width: "half",
       tableName: "contracts",
+      required: true,
     },
     {
       fieldName: "fiscal",
@@ -110,6 +112,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldLabel: "Fiscal",
       width: "half",
       pickerName: "fiscal_year_option",
+      required: true,
     },
     {
       width: "half",
@@ -124,6 +127,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "contract_type",
       fieldType: "select",
       tableName: "contracts",
+      required: true,
     },
     {
       width: "half",
@@ -137,6 +141,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "supplier_id",
       fieldType: "select",
       pickerName: "supplier_option",
+      required: true,
     },
     {
       width: "half",
@@ -203,12 +208,13 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
   ];
 
   const initialValues = {
+    co_number: null,
     contract_number: "",
-    status: "",
-    fiscal: "",
+    status: null,
+    fiscal: null,
     project_id: null,
-    contract_type: "",
-    supplier_id: "",
+    contract_type: null,
+    supplier_id: null,
     subcontractor_id: [],
     total_fee_amount: "",
     total_expense_amount: "",
@@ -223,5 +229,47 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
   const postUrl = `/contracts/`;
   const updateUrl = `/contracts/${query?.data?.data?.data?.id}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
+  // Validate contract details section (required) inputs
+  const validationSchema = object({
+    co_number: string().required("Change Order Number is required."),
+    status: object()
+      .shape({
+        label: string(),
+        value: string(),
+      })
+      .nullable()
+      .required("Status is required."),
+    fiscal: object()
+      .shape({
+        label: string(),
+        value: number(),
+      })
+      .nullable()
+      .required("Fiscal is required."),
+    contract_type: object()
+      .shape({ label: string(), value: string() })
+      .nullable()
+      .required("Contract type is required."),
+    supplier_id: object()
+      .shape({
+        label: string(),
+        value: number(),
+      })
+      .nullable()
+      .required("Supplier is required."),
+    total_fee_amount: string().required("Total Fees Payable is required."),
+    total_expense_amount: string().required("Total Expenses Payable  is required."),
+    start_date: string().required("Assignment Start Date is required."),
+    end_date: string().required("Assignment End Date is required."),
+  });
+
+  return {
+    editFields,
+    initialValues,
+    postUrl,
+    readFields,
+    rowsToLock,
+    updateUrl,
+    validationSchema,
+  };
 };

@@ -34,6 +34,7 @@ export const FormInput = ({
   generateValueButton,
   multiple,
 }: IFormInput) => {
+  console.log("errors", errors);
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pickerValues: any = usePickerValues(projectId, contractId);
