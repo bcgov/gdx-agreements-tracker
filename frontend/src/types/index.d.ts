@@ -126,6 +126,7 @@ export interface IPickerProps {
 export interface IAutocompleteTable extends IPickerProps {
   autocompleteTableColumns: { field: string; headerName: string }[];
   fieldValue: IOption;
+  noOptionsMessage?: string;
 }
 
 // Picker options for multiselect inputs.
@@ -497,7 +498,6 @@ export interface ITableWithModal {
   tableName: string;
   formDataApiEndpoint: string;
   handleRowDoubleClick?: Function;
-  noOptionsMessage?: string;
 }
 
 export interface IRowDoubleClickParams {

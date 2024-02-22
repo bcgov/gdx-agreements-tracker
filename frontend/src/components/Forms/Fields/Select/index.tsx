@@ -30,7 +30,7 @@ export const Select: FC<IPickerProps> = ({
   required,
   noOptionsMessage,
 }: IPickerProps): JSX.Element => {
-  return pickerData?.definition?.length <= 0 ? (
+  return !pickerData?.definition?.length ? (
     <TextField
       disabled
       label={fieldLabel ? fieldLabel : pickerData?.title}

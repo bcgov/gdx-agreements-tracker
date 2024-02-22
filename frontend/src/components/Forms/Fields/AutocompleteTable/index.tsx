@@ -34,7 +34,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
 
   return (
     <>
-      {pickerData?.definition.length <= 0 ? (
+      {!pickerData?.definition?.length ? (
         <TextField
           disabled
           label={fieldLabel ? fieldLabel : pickerData?.title}

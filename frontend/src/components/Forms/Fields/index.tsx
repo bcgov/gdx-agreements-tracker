@@ -191,7 +191,7 @@ export const FormInput = ({
         </GridItem>
       );
     case "select":
-    case "multiselect": {
+    case "multiselect":
       return (
         <GridItem width={width}>
           <Field
@@ -213,7 +213,6 @@ export const FormInput = ({
           />
         </GridItem>
       );
-    }
     case "autocompleteTable":
       return (
         <GridItem width={width}>
