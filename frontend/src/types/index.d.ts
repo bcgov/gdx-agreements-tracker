@@ -121,10 +121,12 @@ export interface IPickerProps {
     title: string;
   };
   required?: boolean;
+  noOptionsMessage?: string;
 }
 export interface IAutocompleteTable extends IPickerProps {
   autocompleteTableColumns: { field: string; headerName: string }[];
   fieldValue: IOption;
+  noOptionsMessage?: string;
 }
 
 // Picker options for multiselect inputs.
@@ -271,6 +273,7 @@ export interface IEditField {
   customOnChange?: Function;
   generateValueButton?: IGenerateValueButton;
   multiple?: boolean;
+  noOptionsMessage?: string;
 }
 
 export interface IReadField {
@@ -305,6 +308,7 @@ export interface IFormInput {
   customOnChange?: Function;
   generateValueButton?: IGenerateValueButton;
   multiple?: boolean;
+  noOptionsMessage?: string;
 }
 
 export interface IRadioGroup {

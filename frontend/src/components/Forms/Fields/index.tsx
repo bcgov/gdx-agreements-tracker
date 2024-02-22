@@ -33,6 +33,7 @@ export const FormInput = ({
   customOnChange = () => {},
   generateValueButton,
   multiple,
+  noOptionsMessage,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -208,6 +209,7 @@ export const FormInput = ({
             pickerData={GetPickerOptions()}
             helperText={touched?.[fieldName] && errors?.[fieldName]}
             error={touched?.[fieldName] && Boolean(errors?.[fieldName])}
+            noOptionsMessage={noOptionsMessage}
           />
         </GridItem>
       );
@@ -229,6 +231,7 @@ export const FormInput = ({
             multiple={multiple}
             helperText={touched[fieldName] && errors[fieldName]}
             error={touched[fieldName] && Boolean(errors[fieldName])}
+            noOptionsMessage={noOptionsMessage}
           />
         </GridItem>
       );

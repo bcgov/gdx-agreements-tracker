@@ -108,6 +108,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "full",
       required: true,
       projectId: Number(projectId),
+      noOptionsMessage: `There are no Program Area options available.
+      Please confirm that you have entered a Client Coding entry in Project Details > Client Coding.`,
     },
     {
       fieldName: "jv_number",
