@@ -33,6 +33,7 @@ export const FormInput = ({
   customOnChange = () => {},
   generateValueButton,
   multiple,
+  noOptionsMessage,
 }: IFormInput) => {
   // todo: Define a good type. "Any" type temporarily permitted.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -190,7 +191,7 @@ export const FormInput = ({
         </GridItem>
       );
     case "select":
-    case "multiselect":
+    case "multiselect": {
       return (
         <GridItem width={width}>
           <Field
@@ -208,9 +209,11 @@ export const FormInput = ({
             pickerData={GetPickerOptions()}
             helperText={touched?.[fieldName] && errors?.[fieldName]}
             error={touched?.[fieldName] && Boolean(errors?.[fieldName])}
+            noOptionsMessage={noOptionsMessage}
           />
         </GridItem>
       );
+    }
     case "autocompleteTable":
       return (
         <GridItem width={width}>

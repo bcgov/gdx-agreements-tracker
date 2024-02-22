@@ -56,6 +56,7 @@ export const InputForm = ({
                   customOnChange = () => {},
                   generateValueButton,
                   multiple,
+                  noOptionsMessage = "",
                 }) => {
                   return (
                     <FormInput
@@ -80,6 +81,7 @@ export const InputForm = ({
                       }}
                       generateValueButton={generateValueButton}
                       multiple={multiple}
+                      noOptionsMessage={noOptionsMessage}
                     />
                   );
                 }

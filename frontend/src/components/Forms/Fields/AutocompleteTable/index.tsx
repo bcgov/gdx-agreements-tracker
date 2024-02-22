@@ -22,6 +22,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
   error,
   autocompleteTableColumns,
   multiple,
+  noOptionsMessage = "",
 }: IAutocompleteTable) => {
   const tableCellStyles = {
     width: "100%",
@@ -42,6 +43,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
           required={required}
           error
           helperText={
+            noOptionsMessage ||
             "There are no options available, you may need to enter data in a previous section for options to appear."
           }
         />
