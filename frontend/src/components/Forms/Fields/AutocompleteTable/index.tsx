@@ -22,7 +22,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
   error,
   autocompleteTableColumns,
   multiple,
-  noOptionsMessage = "",
+  noOptionsMessage,
 }: IAutocompleteTable) => {
   const tableCellStyles = {
     width: "100%",
@@ -44,14 +44,13 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
           error
           helperText={
             noOptionsMessage ||
-            "There are no options available, you may need to enter data in a previous section for options to appear."
+            "There are no options available, Please contact your system administrator to resolve this issue."
           }
         />
       ) : (
         <Autocomplete
-          // allows text box to contain an arbitrary value https://mui.com/material-ui/react-autocomplete/#free-solo
           multiple={multiple}
-          freeSolo
+          freeSolo // allows text box to contain an arbitrary value https://mui.com/material-ui/react-autocomplete/#free-solo
           id={fieldName}
           autoHighlight
           options={pickerData?.definition}
@@ -80,11 +79,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
                 <TableHead sx={{ background: "#444", display: "flex" }}>
                   <TableRow>
                     {autocompleteTableColumns.map((column, index) => (
-                      <TableCell
-                        key={index}
-                        sx={{ paddingLeft: 3, width: 255, color: "#fff" }}
-                        // sx={{ color: "#fff" }}
-                      >
+                      <TableCell key={index} sx={{ paddingLeft: 3, width: 255, color: "#fff" }}>
                         {column.headerName}
                       </TableCell>
                     ))}

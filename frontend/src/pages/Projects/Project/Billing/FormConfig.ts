@@ -82,6 +82,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       pickerName: "fiscal_year_option",
       width: "half",
       required: true,
+      noOptionsMessage:
+        "There are no Fiscal year options available. Please contact your system administrator to resolve this issue.",
     },
     {
       fieldName: "quarter",
@@ -90,6 +92,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       required: true,
       tableName: "generic",
+      noOptionsMessage:
+        "There are no Quarter options available. Please contact your system administrator to resolve this issue.",
     },
     {
       fieldName: "client_coding_id",
@@ -108,6 +112,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "full",
       required: true,
       projectId: Number(projectId),
+      noOptionsMessage: `There are no Program Area options available.
+      Please confirm that you have entered a Client Coding entry in Project Details > Client Coding.`,
     },
     {
       fieldName: "jv_number",

@@ -35,7 +35,6 @@ export const TableWithModal = ({
     formControls.handleCurrentRowData(params.row);
     formControls.handleOpen();
   },
-  noOptionsMessage = "",
 }: ITableWithModal): JSX.Element => {
   const { handleDelete } = useFormSubmit();
 

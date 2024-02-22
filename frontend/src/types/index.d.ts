@@ -125,14 +125,12 @@ export interface IPickerProps {
 }
 export interface IAutocompleteTable extends IPickerProps {
   autocompleteTableColumns: { field: string; headerName: string }[];
-  noOptionsMessage?: string;
   fieldValue: IOption;
 }
 
 // Picker options for multiselect inputs.
 export interface IMultiPickerProps extends Omit<IPickerProps, "fieldValue"> {
   fieldValue: IOption[];
-  noOptionsMessage?: string;
   multiple: boolean;
 }
 

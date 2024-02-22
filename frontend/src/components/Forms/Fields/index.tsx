@@ -232,6 +232,7 @@ export const FormInput = ({
             multiple={multiple}
             helperText={touched[fieldName] && errors[fieldName]}
             error={touched[fieldName] && Boolean(errors[fieldName])}
+            noOptionsMessage={noOptionsMessage}
           />
         </GridItem>
       );

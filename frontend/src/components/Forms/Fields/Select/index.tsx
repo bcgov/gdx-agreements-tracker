@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Autocomplete, Skeleton, TextField, TextFieldProps } from "@mui/material";
+import { Autocomplete, TextField, TextFieldProps } from "@mui/material";
 import { IPickerProps, IOption } from "../../../../types";
 
 /**
@@ -28,9 +28,9 @@ export const Select: FC<IPickerProps> = ({
   onChange,
   pickerData,
   required,
-  noOptionsMessage = "",
+  noOptionsMessage,
 }: IPickerProps): JSX.Element => {
-  return pickerData?.definition?.length >= 0 ? (
+  return pickerData?.definition?.length <= 0 ? (
     <TextField
       disabled
       label={fieldLabel ? fieldLabel : pickerData?.title}
@@ -40,7 +40,7 @@ export const Select: FC<IPickerProps> = ({
       error
       helperText={
         noOptionsMessage ||
-        "There are no options available, you may need to enter data in a previous section for options to appear."
+        "There are no options available, Please contact your system administrator to resolve this issue."
       }
     />
   ) : (
