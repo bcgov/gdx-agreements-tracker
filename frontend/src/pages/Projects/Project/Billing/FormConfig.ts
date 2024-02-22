@@ -135,7 +135,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const initialValues = {
     jv_number: null,
     billed_date: null,
-    amount: "0",
+    amount: "$0",
     fiscal_year_id: null,
     client_coding_id: null,
     quarter: null,
@@ -173,6 +173,29 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         return true;
       },
     }),
+    fiscal: object()
+      .shape({
+        value: string(),
+        label: string(),
+      })
+      .nullable()
+      .required("Fiscal is required."),
+    quarter: object()
+      .shape({
+        value: string(),
+        label: string(),
+      })
+      .nullable()
+      .required("quarter is required."),
+    client_coding_id: object()
+      .shape({
+        value: string(),
+        label: string(),
+      })
+      .nullable()
+      .required("Program Area is required."),
+    jv_number: string().nullable().required("Journal Voucher is required."),
+    billed_date: string().nullable().required("Billed date is required."),
   });
 
   return {
