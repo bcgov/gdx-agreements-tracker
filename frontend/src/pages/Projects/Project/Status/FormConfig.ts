@@ -111,7 +111,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     {
       fieldName: "status_date",
       fieldType: "date",
-      fieldLabel: "Start Date",
+      fieldLabel: "Status Date",
       width: "half",
       required: true,
     },
