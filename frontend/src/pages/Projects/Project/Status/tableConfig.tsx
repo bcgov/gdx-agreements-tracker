@@ -1,4 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid";
+import { sortComparatorByHealth } from "utils";
 import { dateFormatter } from "utils/formatDate";
 import LineBreak from "utils/LineBreak";
 
@@ -23,18 +24,21 @@ export const tableConfig = () => {
       headerName: "Schedule Health",
       flex: smallFlex,
       renderHeader: (): JSX.Element => LineBreak("Schedule", "Health"),
+      sortComparator: sortComparatorByHealth(),
     },
     {
       field: "budget_health",
       headerName: "Budget Health",
       flex: smallFlex,
       renderHeader: (): JSX.Element => LineBreak("Budget", "Health"),
+      sortComparator: sortComparatorByHealth(),
     },
     {
       field: "team_health",
       headerName: "Team Health",
       flex: smallFlex,
       renderHeader: (): JSX.Element => LineBreak("Team", "Health"),
+      sortComparator: sortComparatorByHealth(),
     },
   ];
 
