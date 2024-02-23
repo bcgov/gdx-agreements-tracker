@@ -221,6 +221,7 @@ export const FormInput = ({
             as={AutocompleteTable}
             onChange={(newValue: string) => {
               setFieldValue?.(fieldName, newValue);
+              customOnChange(newValue);
             }}
             fieldName={fieldName}
             fieldValue={fieldValue as IOption}
