@@ -1,4 +1,4 @@
-import { LinearProgress } from "@mui/material";
+import { Box, LinearProgress } from "@mui/material";
 import { IRowDoubleClickParams, ITableWithModal } from "types";
 import { Table } from "../Table";
 import { FormRenderer } from "components/Forms/FormRenderer";
@@ -73,12 +73,14 @@ export const TableWithModal = ({
         deleteUrl={deleteUrl as string}
         handleDelete={handleDelete}
       >
-        <FormRenderer
-          formControls={formControls}
-          tableName={tableName}
-          formConfig={formConfig}
-          formDataApiEndpoint={formDataApiEndpoint}
-        />
+        <Box mt={4} >
+          <FormRenderer
+            formControls={formControls}
+            tableName={tableName}
+            formConfig={formConfig}
+            formDataApiEndpoint={formDataApiEndpoint}
+          />
+        </Box>
       </FormDialog>
     </>
   );
