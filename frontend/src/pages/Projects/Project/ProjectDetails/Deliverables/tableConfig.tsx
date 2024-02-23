@@ -2,7 +2,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { dateFormatter } from "utils/formatDate";
 import percentFormatter from "utils/formatPercent";
 import LineBreak from "utils/LineBreak";
-import { sortComparatorByCurrency } from "utils/sortComparatorByCurrency";
+import { sortComparatorByCurrency, sortComparatorByHealth } from "utils";
 
 export const tableConfig = () => {
   const defaultFlex = 4;
@@ -62,6 +62,7 @@ export const tableConfig = () => {
       field: "health_id",
       headerName: "Health",
       flex: smallFlex,
+      sortComparator: sortComparatorByHealth(),
     },
   ];
 
