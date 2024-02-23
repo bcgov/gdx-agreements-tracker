@@ -32,7 +32,14 @@ const getOne = {
       .prop("contract_number", S.string())
       .prop("status", Schema.Picker)
       .prop("fiscal", Schema.Picker)
-      .prop("project_id", Schema.Picker)
+      .prop(
+        "project_id",
+        S.object()
+          .prop("project_number", S.string())
+          .prop("project_name", S.string())
+          .prop("project_status", S.string())
+          .prop("value", S.number())
+      )
       .prop("project_name", S.string())
       .prop("contract_type", Schema.Picker)
       .prop("supplier_id", Schema.Picker)
