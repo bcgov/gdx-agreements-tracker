@@ -73,7 +73,7 @@ export const TableWithModal = ({
         deleteUrl={deleteUrl as string}
         handleDelete={handleDelete}
       >
-        <Box mt={4} >
+        <Box mt={4}>
           <FormRenderer
             formControls={formControls}
             tableName={tableName}
