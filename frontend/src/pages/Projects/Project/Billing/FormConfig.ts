@@ -55,7 +55,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           width: "half",
           title: "Program Area",
-          value: query?.data?.data?.data?.client_coding_id?.client,
+          value: query?.data?.data?.data?.client_coding_id?.program_area,
         },
         {
           width: "full",
