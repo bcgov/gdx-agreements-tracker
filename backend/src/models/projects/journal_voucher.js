@@ -43,9 +43,17 @@ const findById = (id) => {
       knex.raw(
         "(SELECT json_build_object('value', jv.fiscal_year_id, 'label', fiscal_year.fiscal_year)) AS fiscal_year_id"
       ),
-      knex.raw(
-        "(SELECT json_build_object('client', cc.client, 'responsibility_centre', cc.responsibility_centre, 'service_line', cc.service_line, 'stob', cc.stob, 'project_code', cc.project_code, 'client_amount', cc.client_amount, 'value', cc.id)) AS client_coding_id"
-      )
+      knex.raw(`(
+          SELECT json_build_object(
+            'program_area', cc.program_area,
+            'client', cc.client,
+            'responsibility_centre', cc.responsibility_centre,
+            'service_line', cc.service_line,
+            'stob', cc.stob,
+            'project_code', cc.project_code,
+            'client_amount', cc.client_amount,
+            'value', cc.id)
+            ) AS client_coding_id`)
     )
     .from(jvTable)
     .leftJoin(fiscalYearTable, { "jv.fiscal_year_id": `${fiscalYearTable}.id` })
