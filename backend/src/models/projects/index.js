@@ -17,7 +17,9 @@ const addNewProject = () => {
       project_status: "Active",
     })
     .returning("*")
-    .then((result) => result[0]);
+    .then((result) => {
+      return result[0];
+    });
 };
 
 // Get all.
@@ -56,8 +58,7 @@ const findById = (id) => {
       { project_manager: knex.raw("c.last_name || ', ' || c.first_name") },
       { project_manager_email: "c.email" },
       { portfolio: "p.portfolio_id" },
-      //TODO this needs to be changed to ministry_id in the view
-      { ministry: "p.ministry_id" },
+      { ministry_id: "p.ministry_id" },
       { registration_date: knex.raw(`p.initiation_date`) },
       { end_date: knex.raw(`p.agreement_end_date`) },
       knex.raw("planned_budget"),
