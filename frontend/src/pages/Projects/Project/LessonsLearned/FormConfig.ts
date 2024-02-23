@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router";
+import { object, string } from "yup";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -38,18 +39,21 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Category",
       width: "full",
       pickerName: "lesson_category_option",
+      required: true,
     },
     {
       fieldName: "lesson_sub_category",
       fieldType: "singleText",
       fieldLabel: "Lesson Sub Category",
       width: "full",
+      required: true,
     },
     {
       fieldName: "lesson",
       fieldType: "singleText",
       fieldLabel: "Lesson",
       width: "full",
+      required: true,
     },
     {
       fieldName: "recommendations",
@@ -71,5 +75,25 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const postUrl = `/lessons-learned`;
   const updateUrl = `/projects/${Number(projectId)}/lessons-learned/${query?.data?.data?.data?.id}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
+  const validationSchema = object({
+    lesson_category_id: object()
+      .shape({
+        value: string(),
+        label: string(),
+      })
+      .nullable()
+      .required("Category is required."),
+    lesson_sub_category: string().required("Lesson Sub Category is required."),
+    lesson: string().required("Lesson is required."),
+  });
+
+  return {
+    readFields,
+    editFields,
+    initialValues,
+    rowsToLock,
+    postUrl,
+    updateUrl,
+    validationSchema,
+  };
 };
