@@ -5,9 +5,9 @@ const getOneById = {
   params: Schema.IdParam,
   response: getResponse(
     S.object()
-      .prop("close_out_date", S.string())
+      .prop("close_out_date", S.anyOf([S.string(), S.null()]))
       .prop("completed_by_contact_id", Schema.Picker)
-      .prop("actual_completion_date", S.string())
+      .prop("actual_completion_date", S.anyOf([S.string(), S.null()]))
       .prop("hand_off_to_operations", Schema.Picker)
       .prop("records_filed", Schema.Picker)
       .prop("contract_ev_completed", Schema.Picker)
