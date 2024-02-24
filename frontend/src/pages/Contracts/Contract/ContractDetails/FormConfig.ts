@@ -1,9 +1,36 @@
 import { AxiosResponse } from "axios";
 import { IEditField, IOption } from "types";
+import { apiAxios } from "utils";
 import formatDate from "utils/formatDate";
 import { object, string, number } from "yup";
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
+  const getProjectInfo = async ({
+    newValue,
+    setFieldValue,
+  }: {
+    newValue: { value: string | number };
+    setFieldValue: Function;
+  }) => {
+    const getCall = async () => {
+      const results = await apiAxios()
+        .get(`/projects/${newValue.value}`)
+        .then((project) => {
+          return project;
+        });
+      return results.data.data;
+    };
+
+    // Queries
+
+    if (newValue) {
+      return getCall().then((response) => {
+        setFieldValue("project_name", response.project_name);
+      });
+    }
+    return "there was no portfolio ID provided";
+  };
+
   const readFields =
     !query || Array.isArray(query?.data?.data?.data)
       ? []
@@ -125,6 +152,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
         { field: "project_number", headerName: "Project Number" },
         { field: "project_status", headerName: "Status" },
       ],
+      customOnChange: getProjectInfo,
     },
     {
       width: "half",
