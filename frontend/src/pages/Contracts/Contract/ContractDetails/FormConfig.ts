@@ -23,7 +23,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
           {
             width: "half",
             title: "Project Number",
-            value: query?.data?.data?.data?.project_id?.label,
+            value: query?.data?.data?.data?.project_id?.project_number,
           },
           {
             width: "half",
@@ -118,8 +118,13 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       width: "half",
       fieldLabel: "Project Number",
       fieldName: "project_id",
-      fieldType: "select",
-      pickerName: "project_option",
+      fieldType: "autocompleteTable",
+      pickerName: "project_autocompletetable_picker",
+      autocompleteTableColumns: [
+        { field: "project_name", headerName: "Project Name" },
+        { field: "project_number", headerName: "Project Number" },
+        { field: "project_status", headerName: "Status" },
+      ],
     },
     {
       width: "half",

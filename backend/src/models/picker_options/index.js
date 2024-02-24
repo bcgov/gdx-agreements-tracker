@@ -274,6 +274,25 @@ const tableLookupValues = (projectId, contractId) => {
         from data.crtype
       ) as projectCRType)`,
     },
+    {
+      id: "projectAutoCompleteTable",
+      name: "project_autocompletetable_picker",
+      title: "Projects",
+      description: "",
+      table: "data.project",
+      value: "id",
+      label: `project_number`,
+      queryAdditions: ``,
+      customDefinition: `(SELECT COALESCE(json_agg(projectAutoCompleteTable), '[]')
+      FROM (
+        SELECT
+        project_number,
+        project_name,
+        project_status,
+        id AS value
+        from data.project
+      ) as projectAutoCompleteTable)`,
+    },
   ];
 
   if (projectId) {
