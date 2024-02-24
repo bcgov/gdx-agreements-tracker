@@ -57,13 +57,13 @@ const getOne = {
 };
 
 const addUpdateBody = S.object()
+  .additionalProperties(false)
   .prop("co_number", Schema.ShortString.minLength(1))
   .prop("contract_number", Schema.ShortString)
   .prop("status", Schema.ShortString.minLength(1))
   .prop("amendment_number", Schema.ShortString)
   .prop("fiscal", Schema.Id)
   .prop("project_id", Schema.Id)
-  .prop("project_name", Schema.ShortString)
   .prop("contract_type", Schema.ShortString.minLength(1))
   .prop("supplier_id", Schema.Id)
   .prop("total_project_budget", S.string())
