@@ -554,3 +554,10 @@ export interface IReadOnlyTableProps {
   lgSize?: number;
   xlSize?: number;
 }
+
+// For setting formic fields programmatically
+export interface IFormikFieldValues {
+  formikValues: FormikValues;
+  setFieldValue: Function;
+  newValue: { [key: string]: string };
+}
