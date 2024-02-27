@@ -146,7 +146,8 @@ const tableLookupValues = (projectId, contractId) => {
       table: "data.procurement_method",
       value: "id",
       label: `procurement_method`,
-      queryAdditions: `WHERE procurement_method IS NOT NULL`,
+      queryAdditions: `WHERE procurement_method IS NOT NULL
+      AND procurement_method NOT LIKE '%historical%'`,
     },
     {
       id: "lessonscategory",
@@ -219,10 +220,10 @@ const tableLookupValues = (projectId, contractId) => {
       queryAdditions: ``,
       customDefinition: `(SELECT COALESCE(json_agg(recoveryType), '[]')
       FROM(
-        SELECT 
+        SELECT
         recovery_type_name,
         inactive,
-        id as value 
+        id as value
         FROM data.recovery_type
         ORDER BY id ASC
         ) recoveryType)`,
