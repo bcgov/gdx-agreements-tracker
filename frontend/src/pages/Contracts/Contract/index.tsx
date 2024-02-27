@@ -22,23 +22,23 @@ export const Contract = () => {
     },
     {
       key: 1,
-      name: "Invoice Processing",
-      url: `/contracts/${contractId}/invoice-processing`,
-    },
-    {
-      key: 2,
       name: "Resources",
       url: `/contracts/${contractId}/resources`,
     },
     {
-      key: 3,
+      key: 2,
       name: "Deliverables",
       url: `/contracts/${contractId}/deliverables`,
     },
     {
-      key: 4,
+      key: 3,
       name: "GDX Internal Coding",
       url: `/contracts/${contractId}/internal-coding`,
+    },
+    {
+      key: 4,
+      name: "Invoice Processing",
+      url: `/contracts/${contractId}/invoice-processing`,
     },
     {
       key: 5,
