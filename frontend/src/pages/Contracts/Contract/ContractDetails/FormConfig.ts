@@ -3,6 +3,33 @@ import { IEditField, IOption } from "types";
 import { apiAxios } from "utils";
 import formatDate from "utils/formatDate";
 import { object, string, number } from "yup";
+import { IFormikFieldValues } from "types";
+import { toMoney, toNum } from "utils/formatNumberMoney";
+
+/**
+ * Updates the max_amount field with the values from (total_fee_amount + total_expense_amount).
+ *
+ * @param {object}       args               - The arguments object.
+ * @param {FormikValues} args.formikValues  - The Formik values object.
+ * @param {Function}     args.setFieldValue - Formik's setFieldValue function.
+ * @param {object}       args.newValue      - The object containing updated values for quarters.
+ */
+const setMaxAmountPayable = async ({
+  formikValues,
+  setFieldValue,
+  newValue,
+}: IFormikFieldValues) => {
+  // Get the freshest values for fee and expense totals
+  const { total_expense_amount, total_fee_amount }: { [key: string]: string } = {
+    ...formikValues,
+    ...newValue,
+  };
+
+  // Calculate the sum of the expense and fee, then convert it to money.
+  const maxAmountPayable = toMoney(toNum(total_expense_amount) + toNum(total_fee_amount));
+
+  setFieldValue("max_amount", maxAmountPayable);
+};
 
 export const FormConfig = (query: AxiosResponse | undefined) => {
   const getProjectInfo = async ({
@@ -62,7 +89,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
           {
             width: "half",
             title: "Maximum Amount Payable",
-            value: query?.data?.data?.data?.total_project_budget,
+            value: query?.data?.data?.data?.max_amount,
           },
           {
             width: "half",
@@ -179,7 +206,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
     {
       width: "half",
       fieldLabel: "Maximum Amount Payable",
-      fieldName: "total_project_budget",
+      fieldName: "max_amount",
       fieldType: "readonly",
     },
     {
@@ -195,6 +222,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "total_fee_amount",
       fieldType: "money",
       required: true,
+      customOnChange: setMaxAmountPayable,
     },
     {
       width: "half",
@@ -208,6 +236,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldName: "total_expense_amount",
       fieldType: "money",
       required: true,
+      customOnChange: setMaxAmountPayable,
     },
     {
       width: "half",
