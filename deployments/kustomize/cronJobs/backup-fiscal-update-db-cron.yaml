@@ -1,39 +1,232 @@
-# this is used to create a cronjob that will run a backup of the database
-apiVersion: batch/v1beta1
+# this is the yaml straight from OpenShift.
 kind: CronJob
+apiVersion: batch/v1
 metadata:
-  name: update-fiscal-year-job
   annotations:
+    description: >-
+      CronJob to update the current fiscal year in the gdx-agreements-tracker
+      database
     openshift.io/display-name: Cron job template for fiscal year update
-    description: CronJob to update the current fiscal year in the gdx-agreements-tracker database
-    tags: pmo,postgres,gdx-agreements-tracker,fiscal
+    tags: "pmo,postgres,gdx-agreements-tracker,fiscal"
+  resourceVersion: "9226365698"
+  name: update-fiscal-year-job
+  uid: 7126af18-e458-4aee-a782-9de662b8b1b8
+  creationTimestamp: "2024-02-28T20:08:03Z"
+  generation: 37
+  managedFields:
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: batch/v1
+      time: "2024-02-29T00:05:15Z"
+      fieldsType: FieldsV1
+      fieldsV1:
+        "f:status":
+          "f:lastScheduleTime": {}
+          "f:lastSuccessfulTime": {}
+      subresource: status
+    - manager: Mozilla
+      operation: Update
+      apiVersion: batch/v1
+      time: "2024-02-29T00:09:29Z"
+      fieldsType: FieldsV1
+      fieldsV1:
+        "f:metadata":
+          "f:annotations":
+            .: {}
+            "f:description": {}
+            "f:openshift.io/display-name": {}
+            "f:tags": {}
+          "f:labels":
+            .: {}
+            "f:app.kubernetes.io/component": {}
+            "f:app.kubernetes.io/instance": {}
+            "f:app.kubernetes.io/part-of": {}
+            "f:app.openshift.io/runtime": {}
+            "f:cronjob": {}
+            "f:env": {}
+            "f:template": {}
+        "f:spec":
+          "f:concurrencyPolicy": {}
+          "f:failedJobsHistoryLimit": {}
+          "f:jobTemplate":
+            "f:spec":
+              "f:template":
+                "f:metadata":
+                  "f:labels":
+                    .: {}
+                    "f:cronjob": {}
+                    "f:template": {}
+                "f:spec":
+                  "f:volumes":
+                    .: {}
+                    'k:{"name":"backup-config"}':
+                      .: {}
+                      "f:configMap":
+                        .: {}
+                        "f:defaultMode": {}
+                        "f:items": {}
+                        "f:name": {}
+                      "f:name": {}
+                    'k:{"name":"backup-db"}':
+                      .: {}
+                      "f:name": {}
+                      "f:persistentVolumeClaim":
+                        .: {}
+                        "f:claimName": {}
+                    'k:{"name":"backup-verification"}':
+                      .: {}
+                      "f:name": {}
+                      "f:persistentVolumeClaim":
+                        .: {}
+                        "f:claimName": {}
+                  "f:containers":
+                    'k:{"name":"postgres-restore-runner"}':
+                      "f:image": {}
+                      "f:volumeMounts":
+                        .: {}
+                        'k:{"mountPath":"/backup.conf"}':
+                          .: {}
+                          "f:mountPath": {}
+                          "f:name": {}
+                          "f:subPath": {}
+                        'k:{"mountPath":"/backups/"}':
+                          .: {}
+                          "f:mountPath": {}
+                          "f:name": {}
+                        'k:{"mountPath":"/var/lib/pgsql/data"}':
+                          .: {}
+                          "f:mountPath": {}
+                          "f:name": {}
+                      "f:terminationMessagePolicy": {}
+                      .: {}
+                      "f:resources": {}
+                      "f:command": {}
+                      "f:env":
+                        .: {}
+                        'k:{"name":"BACKUP_DIR"}':
+                          .: {}
+                          "f:name": {}
+                          "f:valueFrom":
+                            .: {}
+                            "f:configMapKeyRef": {}
+                        'k:{"name":"BACKUP_STRATEGY"}':
+                          .: {}
+                          "f:name": {}
+                          "f:value": {}
+                        'k:{"name":"DATABASE_HOST"}':
+                          .: {}
+                          "f:name": {}
+                          "f:valueFrom":
+                            .: {}
+                            "f:configMapKeyRef": {}
+                        'k:{"name":"DATABASE_NAME"}':
+                          .: {}
+                          "f:name": {}
+                          "f:valueFrom":
+                            .: {}
+                            "f:configMapKeyRef": {}
+                        'k:{"name":"DATABASE_PASSWORD"}':
+                          .: {}
+                          "f:name": {}
+                          "f:valueFrom":
+                            .: {}
+                            "f:secretKeyRef": {}
+                        'k:{"name":"DATABASE_USER"}':
+                          .: {}
+                          "f:name": {}
+                          "f:valueFrom":
+                            .: {}
+                            "f:configMapKeyRef": {}
+                        'k:{"name":"MONTHLY_BACKUPS"}':
+                          .: {}
+                          "f:name": {}
+                          "f:value": {}
+                      "f:terminationMessagePath": {}
+                      "f:imagePullPolicy": {}
+                      "f:name": {}
+                  "f:dnsPolicy": {}
+                  "f:serviceAccount": {}
+                  "f:restartPolicy": {}
+                  "f:activeDeadlineSeconds": {}
+                  "f:schedulerName": {}
+                  "f:terminationGracePeriodSeconds": {}
+                  "f:serviceAccountName": {}
+                  "f:securityContext": {}
+          "f:schedule": {}
+          "f:successfulJobsHistoryLimit": {}
+          "f:suspend": {}
+  namespace: acd38d-dev
   labels:
-    template: "postgres-cron-cronjob"
-    cronjob: "postgres-cron-fiscal-update"
-    app.kubernetes.io/part-of: gdx-agreements-tracker
-    app.openshift.io/runtime: backup-restore
     app.kubernetes.io/component: backup
     app.kubernetes.io/instance: coreDB
+    app.kubernetes.io/part-of: gdx-agreements-tracker
+    app.openshift.io/runtime: backup-restore
+    cronjob: postgres-cron-fiscal-update
     env: dev
+    template: postgres-cron-cronjob
 spec:
-  #schedule: "30 22 31 3 *" # 11:30pm March 31, Annually
-  schedule: "*/10 * * * *" # every 10 minutes (for testing "hello world i'm updating the fiscal year")
+  schedule: "*/45 * * * *"
   concurrencyPolicy: Forbid
+  suspend: false
   jobTemplate:
     metadata:
-    labels:
-      template: "postgres-cron-cronjob"
-      cronjob: "postgres-cron-fiscal-update"
+      creationTimestamp: null
     spec:
       template:
         metadata:
+          creationTimestamp: null
           labels:
-            template: "postgres-cron-cronjob"
-            cronjob: "postgres-cron-fiscal-update"
+            cronjob: postgres-cron-fiscal-update
+            template: postgres-cron-cronjob
         spec:
+          restartPolicy: Never
+          activeDeadlineSeconds: 1600
+          serviceAccountName: default
+          schedulerName: default-scheduler
+          terminationGracePeriodSeconds: 30
+          securityContext: {}
           containers:
-            - name: postgres-restore-runner
-              image: "bcgovgdx/gdx-agreements-tracker-backup-container"
+            - resources: {}
+              terminationMessagePath: /dev/termination-log
+              name: postgres-restore-runner
+              command:
+                - /bin/bash
+                - "-c"
+                - >-
+                  psql
+                  "postgresql://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST/$DATABASE_NAME"
+                  -c 'SELECT * FROM data.fiscal_year;'
+              env:
+                - name: DATABASE_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      name: pmo-config-ddg76ttmch
+                      key: POSTGRES_HOST
+                - name: BACKUP_STRATEGY
+                  value: rolling
+                - name: BACKUP_DIR
+                  valueFrom:
+                    configMapKeyRef:
+                      name: pmo-backup-config-m6mk9gf2bh
+                      key: BACKUP_DIR
+                - name: MONTHLY_BACKUPS
+                  value: "3"
+                - name: DATABASE_USER
+                  valueFrom:
+                    configMapKeyRef:
+                      name: pmo-config-ddg76ttmch
+                      key: POSTGRES_USER
+                - name: DATABASE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: pmo-secrets-7f57hmd56g
+                      key: POSTGRES_PASSWORD
+                - name: DATABASE_NAME
+                  valueFrom:
+                    configMapKeyRef:
+                      name: pmo-config-ddg76ttmch
+                      key: POSTGRES_DB
+              imagePullPolicy: Always
               volumeMounts:
                 - name: backup-db
                   mountPath: /backups/
@@ -42,37 +235,10 @@ spec:
                 - name: backup-config
                   mountPath: /backup.conf
                   subPath: backup.conf
-              env:
-                - name: DATABASE_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: secrets
-                      key: POSTGRES_HOST
-                - name: DATABASE_USER
-                  valueFrom:
-                    configMapKeyRef:
-                      name: config
-                      key: POSTGRES_USER
-                - name: DATABASE_NAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: secrets
-                      key: POSTGRES_DB
-                - name: DATABASE_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: secrets
-                      key: POSTGRES_PASSWORD
-                - name: BACKUP_DIR
-                  valueFrom:
-                    configMapKeyRef:
-                      name: backup-config
-                      key: BACKUP_DIR
-              command:
-                - "/bin/bash"
-                - "-c"
-                - |
-                  "psql -h $DATABASE_HOST -U $DATABASE_USER -d $DATABASE_NAME -c 'SELECT * FROM data.fiscal_year'"
+              terminationMessagePolicy: File
+              image: >-
+                image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-backup-container:latest
+          serviceAccount: default
           volumes:
             - name: backup-db
               persistentVolumeClaim:
@@ -86,12 +252,10 @@ spec:
                 items:
                   - key: backup.conf
                     path: backup.conf
-                    # make sure all these configKeyRefs are correct
-          dnsPolicy: "ClusterFirst"
-          successfulJobHistoryLimit: 5
-          failedJobHistoryLimit: 2
-          restartPolicy: "Never"
-          terminationGracePeriodSeconds: 30
-          activeDeadlineSeconds: 1600
-          serviceAccountName: "default"
-          serviceAccount: "default"
+                defaultMode: 420
+          dnsPolicy: ClusterFirst
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+status:
+  lastScheduleTime: "2024-02-29T00:05:00Z"
+  lastSuccessfulTime: "2024-02-29T00:05:15Z"
