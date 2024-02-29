@@ -8,7 +8,7 @@ const MaxStringLength = 255;
  * Collection of commonly used field validations.
  */
 const Schema = {
-  Money: S.oneOf([S.number().multipleOf(0.01), S.const("")]),
+  Money: S.string().pattern("^(\\$)?-?\\d{1,3}(,\\d{3})*(\\.\\d{2})?$"),
   Date: S.oneOf([S.string().format(S.FORMATS.DATE), S.const("")]),
   RequiredDateTime: S.string().format(S.FORMATS.DATE_TIME).minLength(1),
   RequiredDate: S.string().format(S.FORMATS.DATE).minLength(1),

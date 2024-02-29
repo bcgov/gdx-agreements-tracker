@@ -32,7 +32,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>, invoic
       contractId: Number(contractId),
     },
     { width: "half", fieldLabel: "Fiscal Year", fieldName: "fiscal_year", fieldType: "readonly" },
-    { width: "half", fieldLabel: "Amount", fieldName: "rate", fieldType: "number" },
+    { width: "half", fieldLabel: "Amount", fieldName: "rate", fieldType: "money" },
     {
       width: "half",
       fieldLabel: "Amount Remaining",
@@ -46,8 +46,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>, invoic
    */
   const initialValues = {
     contract_deliverable_id: "",
-    rate: 0,
+    rate: "0.00",
     unit_amount: 1,
+    fiscal_year: null,
+    amount_remaining: null,
   };
 
   const rowsToLock = [query?.data?.data?.data?.id];

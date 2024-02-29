@@ -16,8 +16,8 @@ const findAll = (contractId) => {
       { start_date: "cr.start_date" },
       { end_date: "cr.end_date" },
       knex.raw("r.resource_last_name || ', ' || r.resource_first_name as resource"),
-      knex.raw("(cr.assignment_rate * cr.hours)::numeric::float8 as fees_for_resource"),
-      knex.raw("cr.assignment_rate::numeric::float8"),
+      knex.raw("(cr.assignment_rate * cr.hours) as fees_for_resource"),
+      knex.raw("cr.assignment_rate"),
       "sr.rate as supplier_rate",
       "rt.resource_type as assignment_role",
       "fy.fiscal_year as fiscal"
@@ -38,7 +38,7 @@ const findById = (id) => {
       "rt.resource_type as assignment_role",
       "cr.start_date",
       "cr.end_date",
-      knex.raw("cr.assignment_rate::numeric::float8"),
+      knex.raw("cr.assignment_rate"),
       knex.raw("( SELECT json_build_object('value', fy.id, 'label', fy.fiscal_year)) as fiscal"),
       knex.raw(
         "( SELECT json_build_object('value', r.id, 'label', r.resource_last_name || ', ' || r.resource_first_name)) as resource_id"

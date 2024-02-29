@@ -71,7 +71,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Assignment Rate",
       fieldName: "assignment_rate",
-      fieldType: "number",
+      fieldType: "money",
       required: true,
     },
     {

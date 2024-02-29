@@ -12,8 +12,8 @@ const findAllByInvoiceId = (invoiceId) => {
     .select(
       "*",
       { resource_assignment: knex.raw("r.resource_last_name || ', ' || r.resource_first_name") },
-      { rate: knex.raw("i.rate::numeric::float8") },
-      { amount: knex.raw("(i.rate * i.unit_amount)::numeric::float8") },
+      { rate: knex.raw("i.rate") },
+      { amount: knex.raw("i.unit_amount * i.rate") },
       { hours: "i.unit_amount" },
       "i.id"
     )
@@ -28,12 +28,11 @@ const findById = (id) => {
   return knex
     .select(
       "i.id",
-      knex.raw("i.unit_amount::numeric::float8"),
-      knex.raw("i.rate::numeric::float8"),
+      { amount: knex.raw("i.unit_amount * i.rate") },
+      knex.raw("i.unit_amount"),
+      knex.raw("i.rate"),
       {
-        amount_remaining: knex.raw(
-          "((cr.assignment_rate * cr.hours) - amount_total.sum)::numeric::float8"
-        ),
+        amount_remaining: knex.raw("((cr.assignment_rate * cr.hours) - amount_total.sum)"),
       },
       knex.raw(
         "( SELECT json_build_object('value', cr.resource_id, 'label', (r.resource_last_name || ', ' || r.resource_first_name))) AS contract_resource_id"

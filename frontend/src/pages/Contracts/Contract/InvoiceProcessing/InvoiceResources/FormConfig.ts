@@ -19,7 +19,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>, invoic
         {
           width: "half",
           title: "Amount",
-          value: query?.data?.data?.data?.rate * query?.data?.data?.data?.unit_amount,
+          value: query?.data?.data?.data?.amount,
         },
         {
           width: "half",
@@ -40,6 +40,12 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>, invoic
     { width: "half", fieldLabel: "Fiscal Year", fieldName: "fiscal_year", fieldType: "readonly" },
     { width: "half", fieldLabel: "Hours", fieldName: "unit_amount", fieldType: "number" },
     { width: "half", fieldLabel: "Rate", fieldName: "rate", fieldType: "readonly" },
+    {
+      width: "half",
+      fieldLabel: "Amount",
+      fieldName: "amount",
+      fieldType: "readonly",
+    },
     {
       width: "half",
       fieldLabel: "Amount Remaining",

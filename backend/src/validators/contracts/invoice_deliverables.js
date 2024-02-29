@@ -9,7 +9,7 @@ const getAll = {
         .prop("id", S.number())
         .prop("deliverable_name", S.string())
         .prop("type", S.string())
-        .prop("amount", S.number())
+        .prop("amount", Schema.Money)
     )
   ),
 };
@@ -19,17 +19,18 @@ const getOne = {
   response: getResponse(
     S.object()
       .prop("id", S.number())
+      .prop("is_expense", S.boolean())
+      .prop("contract_id", S.number())
+      .prop("rate", Schema.Money)
+      .prop("amount_remaining", Schema.Money)
       .prop("contract_deliverable_id", Schema.Picker)
-      .prop("unit_amount", S.number())
-      .prop("rate", S.number())
-      .prop("amount_remaining", S.number())
       .prop("fiscal_year", S.string())
   ),
 };
 
 const addUpdateBody = S.object()
   .prop("contract_deliverable_id", Schema.Id)
-  .prop("unit_amount", S.number())
+  .prop("unit_amount", Schema.Money)
   .prop("rate", Schema.Money);
 
 const updateOne = {

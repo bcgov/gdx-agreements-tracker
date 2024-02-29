@@ -24,7 +24,7 @@ const routes = [
   {
     method: "POST",
     url: `/contracts/:id/${what}`,
-    schema: validators.addOned,
+    schema: validators.addOne,
     handler: controller.addOneWithContractId,
   },
   {
