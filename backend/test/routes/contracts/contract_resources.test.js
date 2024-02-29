@@ -20,7 +20,7 @@ testRoutes([
     request: {
       method: "PUT",
       url: "/contracts/resources/1",
-      payload: { resource_id: 1, supplier_rate_id: 1, assignment_rate: "1",fiscal:1 },
+      payload: { resource_id: 1, supplier_rate_id: 1, assignment_rate: "1", fiscal: 1 },
     },
     modelFunction: model.updateOne,
     capabilities: ["contracts_update_one"],
@@ -30,7 +30,7 @@ testRoutes([
     request: {
       method: "POST",
       url: "/contracts/1/resources",
-      payload: { resource_id: 1, supplier_rate_id: 1, assignment_rate: "1",fiscal:1 },
+      payload: { resource_id: 1, supplier_rate_id: 1, assignment_rate: "1", fiscal: 1 },
     },
     modelFunction: model.addOne,
     capabilities: ["contracts_add_one"],
