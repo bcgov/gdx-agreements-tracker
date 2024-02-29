@@ -7,10 +7,10 @@ const getAll = {
     S.array().items(
       S.object()
         .prop("id", S.number())
-        .prop("resource_assignment", S.string())
+        .prop("resource_assignment", Schema.Money)
         .prop("hours", S.number())
-        .prop("rate", S.number())
-        .prop("amount", S.number())
+        .prop("rate", Schema.Money)
+        .prop("amount", Schema.Money)
     )
   ),
 };
@@ -22,9 +22,10 @@ const getOne = {
       .prop("id", S.number())
       .prop("contract_resource_id", Schema.Picker)
       .prop("unit_amount", S.number())
-      .prop("rate", S.number())
-      .prop("amount_remaining", S.number())
+      .prop("rate", Schema.Money)
+      .prop("amount_remaining", Schema.Money)
       .prop("fiscal_year", S.string())
+      .prop("amount", Schema.Money)
   ),
 };
 

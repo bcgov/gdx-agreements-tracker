@@ -10,7 +10,7 @@ const findAllByInvoiceId = (invoiceId) => {
   return knex
     .select(
       "*",
-      { amount: knex.raw("(i.unit_amount * i.rate)::numeric::float8") },
+      { amount: knex.raw("(i.unit_amount * i.rate)") },
       { type: knex.raw("(CASE WHEN is_expense THEN 'Expense' ELSE 'Fixed Price' END)") },
       "cd.deliverable_name",
       "i.id"
@@ -26,9 +26,9 @@ const findById = (id) => {
       "i.id",
       "cd.is_expense",
       "cd.contract_id",
-      knex.raw("i.rate::numeric::float8 as rate"),
+      { rate: knex.raw("(i.unit_amount * i.rate)") }, //aka amount in the frontend
       {
-        amount_remaining: knex.raw("(cd.deliverable_amount - amount_total.sum)::numeric::float8"),
+        amount_remaining: knex.raw("(cd.deliverable_amount - amount_total.sum)"),
       },
       knex.raw(
         "( SELECT json_build_object('value', cd.id, 'label', cd.deliverable_name)) AS contract_deliverable_id"
@@ -58,6 +58,7 @@ const updateOne = (body, id) => {
 // Add one.
 const addOneWithInvoiceId = (newDeliverable, invoiceId) => {
   newDeliverable.invoice_id = invoiceId;
+  newDeliverable.unit_amount = 1;
   return knex(table).insert(newDeliverable);
 };
 
