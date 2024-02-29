@@ -1,0 +1,97 @@
+# this is used to create a cronjob that will run a backup of the database
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: update-fiscal-year-job
+  annotations:
+    openshift.io/display-name: Cron job template for fiscal year update
+    description: CronJob to update the current fiscal year in the gdx-agreements-tracker database
+    tags: pmo,postgres,gdx-agreements-tracker,fiscal
+  labels:
+    template: "postgres-cron-cronjob"
+    cronjob: "postgres-cron-fiscal-update"
+    app.kubernetes.io/part-of: gdx-agreements-tracker
+    app.openshift.io/runtime: backup-restore
+    app.kubernetes.io/component: backup
+    app.kubernetes.io/instance: coreDB
+    env: dev
+spec:
+  #schedule: "30 22 31 3 *" # 11:30pm March 31, Annually
+  schedule: "*/10 * * * *" # every 10 minutes (for testing "hello world i'm updating the fiscal year")
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+    labels:
+      template: "postgres-cron-cronjob"
+      cronjob: "postgres-cron-fiscal-update"
+    spec:
+      template:
+        metadata:
+          labels:
+            template: "postgres-cron-cronjob"
+            cronjob: "postgres-cron-fiscal-update"
+        spec:
+          containers:
+            - name: postgres-restore-runner
+              image: "bcgovgdx/gdx-agreements-tracker-backup-container"
+              volumeMounts:
+                - name: backup-db
+                  mountPath: /backups/
+                - name: backup-verification
+                  mountPath: /var/lib/pgsql/data
+                - name: backup-config
+                  mountPath: /backup.conf
+                  subPath: backup.conf
+              env:
+                - name: DATABASE_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: POSTGRES_HOST
+                - name: DATABASE_USER
+                  valueFrom:
+                    configMapKeyRef:
+                      name: config
+                      key: POSTGRES_USER
+                - name: DATABASE_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: POSTGRES_DB
+                - name: DATABASE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: POSTGRES_PASSWORD
+                - name: BACKUP_DIR
+                  valueFrom:
+                    configMapKeyRef:
+                      name: backup-config
+                      key: BACKUP_DIR
+              command:
+                - "/bin/bash"
+                - "-c"
+                - |
+                  "psql -h $DATABASE_HOST -U $DATABASE_USER -d $DATABASE_NAME -c 'SELECT * FROM data.fiscal_year'"
+          volumes:
+            - name: backup-db
+              persistentVolumeClaim:
+                claimName: pmo-backup-db
+            - name: backup-verification
+              persistentVolumeClaim:
+                claimName: pmo-backup-verification
+            - name: backup-config
+              configMap:
+                name: pmo-backup-config-m6mk9gf2bh
+                items:
+                  - key: backup.conf
+                    path: backup.conf
+                    # make sure all these configKeyRefs are correct
+          dnsPolicy: "ClusterFirst"
+          successfulJobHistoryLimit: 5
+          failedJobHistoryLimit: 2
+          restartPolicy: "Never"
+          terminationGracePeriodSeconds: 30
+          activeDeadlineSeconds: 1600
+          serviceAccountName: "default"
+          serviceAccount: "default"
