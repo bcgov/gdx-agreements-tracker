@@ -17,13 +17,21 @@ testRoutes([
     type: routeTypes.Specific,
   },
   {
-    request: { method: "PUT", url: "/contracts/resources/1", payload: {} },
+    request: {
+      method: "PUT",
+      url: "/contracts/resources/1",
+      payload: { resource_id: 1, supplier_rate_id: 1, assignment_rate: "1",fiscal:1 },
+    },
     modelFunction: model.updateOne,
     capabilities: ["contracts_update_one"],
     type: routeTypes.Specific,
   },
   {
-    request: { method: "POST", url: "/contracts/1/resources", payload: {} },
+    request: {
+      method: "POST",
+      url: "/contracts/1/resources",
+      payload: { resource_id: 1, supplier_rate_id: 1, assignment_rate: "1",fiscal:1 },
+    },
     modelFunction: model.addOne,
     capabilities: ["contracts_add_one"],
     type: routeTypes.General,

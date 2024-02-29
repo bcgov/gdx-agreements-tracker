@@ -94,6 +94,7 @@ const testRoutes = (args) => {
       const response = await testRequester.run(test.modelFunction, test.request, [
         "PMO-Manager-Edit-Capability",
       ]);
+      console.log('response', response)
       expect(response.statusCode).toBe(200);
     });
   });
