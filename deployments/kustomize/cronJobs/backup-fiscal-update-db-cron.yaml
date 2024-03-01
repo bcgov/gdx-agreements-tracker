@@ -9,7 +9,7 @@ metadata:
       database
     openshift.io/display-name: Cron job template for fiscal year update
     tags: "pmo,postgres,gdx-agreements-tracker,fiscal"
-  resourceVersion: "9235343956"
+  resourceVersion: "9235445500"
   name: update-fiscal-year-job
   uid: 7126af18-e458-4aee-a782-9de662b8b1b8
   creationTimestamp: "2024-02-28T20:08:03Z"
@@ -148,7 +148,7 @@ metadata:
     - manager: kube-controller-manager
       operation: Update
       apiVersion: batch/v1
-      time: "2024-02-29T23:00:10Z"
+      time: "2024-02-29T23:15:09Z"
       fieldsType: FieldsV1
       fieldsV1:
         "f:status":
@@ -275,5 +275,5 @@ spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
 status:
-  lastScheduleTime: "2024-02-29T23:00:00Z"
-  lastSuccessfulTime: "2024-02-29T23:00:10Z"
+  lastScheduleTime: "2024-02-29T23:15:00Z"
+  lastSuccessfulTime: "2024-02-29T23:15:09Z"

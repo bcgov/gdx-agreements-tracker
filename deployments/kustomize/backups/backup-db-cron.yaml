@@ -1,248 +1,40 @@
-kind: CronJob
+# this is used to create a cronjob that will run a backup of the database
 apiVersion: batch/v1
+kind: CronJob
 metadata:
+  name: backup-cron
   annotations:
-    description: >-
-      CronJob to update the current fiscal year in the gdx-agreements-tracker
-      database
-    openshift.io/display-name: Cron job template for fiscal year update
-    tags: "pmo,postgres,gdx-agreements-tracker,fiscal"
-  resourceVersion: "9235380302"
-  name: update-fiscal-year-job
-  uid: 7126af18-e458-4aee-a782-9de662b8b1b8
-  creationTimestamp: "2024-02-28T20:08:03Z"
-  generation: 45
-  managedFields:
-    - manager: Mozilla
-      operation: Update
-      apiVersion: batch/v1
-      time: "2024-02-29T20:47:58Z"
-      fieldsType: FieldsV1
-      fieldsV1:
-        "f:metadata":
-          "f:annotations":
-            .: {}
-            "f:description": {}
-            "f:openshift.io/display-name": {}
-            "f:tags": {}
-          "f:labels":
-            .: {}
-            "f:app.kubernetes.io/component": {}
-            "f:app.kubernetes.io/instance": {}
-            "f:app.kubernetes.io/part-of": {}
-            "f:app.openshift.io/runtime": {}
-            "f:cronjob": {}
-            "f:env": {}
-            "f:template": {}
-        "f:spec":
-          "f:concurrencyPolicy": {}
-          "f:failedJobsHistoryLimit": {}
-          "f:jobTemplate":
-            "f:spec":
-              "f:template":
-                "f:metadata":
-                  "f:labels":
-                    .: {}
-                    "f:cronjob": {}
-                    "f:template": {}
-                "f:spec":
-                  "f:volumes":
-                    .: {}
-                    'k:{"name":"backup-config"}':
-                      .: {}
-                      "f:configMap":
-                        .: {}
-                        "f:defaultMode": {}
-                        "f:items": {}
-                        "f:name": {}
-                      "f:name": {}
-                    'k:{"name":"backup-db"}':
-                      .: {}
-                      "f:name": {}
-                      "f:persistentVolumeClaim":
-                        .: {}
-                        "f:claimName": {}
-                    'k:{"name":"backup-verification"}':
-                      .: {}
-                      "f:name": {}
-                      "f:persistentVolumeClaim":
-                        .: {}
-                        "f:claimName": {}
-                  "f:containers":
-                    'k:{"name":"postgres-restore-runner"}':
-                      "f:image": {}
-                      "f:volumeMounts":
-                        .: {}
-                        'k:{"mountPath":"/backup.conf"}':
-                          .: {}
-                          "f:mountPath": {}
-                          "f:name": {}
-                          "f:subPath": {}
-                        'k:{"mountPath":"/backups/"}':
-                          .: {}
-                          "f:mountPath": {}
-                          "f:name": {}
-                        'k:{"mountPath":"/var/lib/pgsql/data"}':
-                          .: {}
-                          "f:mountPath": {}
-                          "f:name": {}
-                      "f:terminationMessagePolicy": {}
-                      .: {}
-                      "f:resources": {}
-                      "f:env":
-                        .: {}
-                        'k:{"name":"DATABASE_HOST"}':
-                          .: {}
-                          "f:name": {}
-                          "f:valueFrom":
-                            .: {}
-                            "f:configMapKeyRef": {}
-                        'k:{"name":"DATABASE_NAME"}':
-                          .: {}
-                          "f:name": {}
-                          "f:valueFrom":
-                            .: {}
-                            "f:configMapKeyRef": {}
-                        'k:{"name":"DATABASE_PASSWORD"}':
-                          .: {}
-                          "f:name": {}
-                          "f:valueFrom":
-                            .: {}
-                            "f:secretKeyRef": {}
-                        'k:{"name":"DATABASE_USER"}':
-                          .: {}
-                          "f:name": {}
-                          "f:valueFrom":
-                            .: {}
-                            "f:configMapKeyRef": {}
-                      "f:terminationMessagePath": {}
-                      "f:imagePullPolicy": {}
-                      "f:name": {}
-                  "f:dnsPolicy": {}
-                  "f:serviceAccount": {}
-                  "f:restartPolicy": {}
-                  "f:activeDeadlineSeconds": {}
-                  "f:schedulerName": {}
-                  "f:terminationGracePeriodSeconds": {}
-                  "f:serviceAccountName": {}
-                  "f:securityContext": {}
-          "f:successfulJobsHistoryLimit": {}
-          "f:suspend": {}
-    - manager: kubectl-edit
-      operation: Update
-      apiVersion: batch/v1
-      time: "2024-02-29T22:57:00Z"
-      fieldsType: FieldsV1
-      fieldsV1:
-        "f:spec":
-          "f:jobTemplate":
-            "f:spec":
-              "f:template":
-                "f:spec":
-                  "f:containers":
-                    'k:{"name":"postgres-restore-runner"}':
-                      "f:command": {}
-          "f:schedule": {}
-    - manager: kube-controller-manager
-      operation: Update
-      apiVersion: batch/v1
-      time: "2024-02-29T23:05:16Z"
-      fieldsType: FieldsV1
-      fieldsV1:
-        "f:status":
-          "f:lastScheduleTime": {}
-          "f:lastSuccessfulTime": {}
-      subresource: status
-  namespace: acd38d-dev
+    openshift.io/display-name: Cron job templates for backups.
+    description: CronJob to backup gdx-agreements-tracker database, https://developer.gov.bc.ca/Backup-Container.
+    tags: backups,pmo,postgres,gdx-agreements-tracker
   labels:
-    app.kubernetes.io/component: backup
-    app.kubernetes.io/instance: coreDB
-    app.kubernetes.io/part-of: gdx-agreements-tracker
-    app.openshift.io/runtime: backup-restore
-    cronjob: postgres-cron-fiscal-update
-    env: dev
-    template: postgres-cron-cronjob
+    template: "postgres-cron-cronjob"
+    cronjob: "postgres-cron-backup"
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "0 9 * * *" # 1 am PST / 0900 UTC
   concurrencyPolicy: Forbid
-  suspend: false
+  successfulJobHistoryLimit: 3
+  failedJobHistoryLimit: 2
   jobTemplate:
     metadata:
-      creationTimestamp: null
+    labels:
+      template: "postgres-cron-cronjob"
+      cronjob: "postgres-cron-backup"
     spec:
+      backoffLimit: 0
       template:
         metadata:
-          creationTimestamp: null
           labels:
-            cronjob: postgres-cron-fiscal-update
-            template: postgres-cron-cronjob
+            template: "postgres-cron-cronjob"
+            cronjob: "postgres-cron-backup"
         spec:
-          restartPolicy: Never
-          activeDeadlineSeconds: 1600
-          serviceAccountName: default
-          schedulerName: default-scheduler
-          terminationGracePeriodSeconds: 30
-          securityContext: {}
           containers:
-            - resources: {}
-              terminationMessagePath: /dev/termination-log
-              name: postgres-restore-runner
+            - name: postgres-backup-runner
+              image: "bcgovgdx/gdx-agreements-tracker-backup-container"
               command:
-                - /bin/bash
+                - "/bin/bash"
                 - "-c"
-                - >
-                  psql
-                  "postgresql://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST/$DATABASE_NAME"
-                  <<EOF
-
-                  DO \$\$ DECLARE
-                      current_fiscal VARCHAR(5);
-                      current_year INTEGER;
-                      next_year INTEGER;
-                      next_fiscal VARCHAR(5);
-                  BEGIN
-                      -- Get the current fiscal year
-                      SELECT fiscal_year INTO current_fiscal FROM data.fiscal_year WHERE is_current = true;
-                      -- Calculate the next fiscal year
-                      current_year := CAST(SPLIT_PART(current_fiscal, '-', 2) AS INTEGER);
-                      next_year := current_year + 1;
-                      next_fiscal := CONCAT(RIGHT(current_year::TEXT, 2), '-', RIGHT(next_year::TEXT, 2));
-                      -- Update is_current for the next fiscal year
-                      UPDATE data.fiscal_year SET is_current = false;
-                      UPDATE data.fiscal_year SET is_current = true WHERE fiscal_year = next_fiscal;
-                  END \$\$;
-
-                  SELECT * FROM data.fiscal_year;
-
-                  UPDATE data.fiscal_year SET is_current = true WHERE
-                  fiscal_year = '22-23';
-
-                  SELECT * FROM data.fiscal_year;
-
-
-                  EOF
-              env:
-                - name: DATABASE_HOST
-                  valueFrom:
-                    configMapKeyRef:
-                      name: pmo-config-ddg76ttmch
-                      key: POSTGRES_HOST
-                - name: DATABASE_NAME
-                  valueFrom:
-                    configMapKeyRef:
-                      name: pmo-config-ddg76ttmch
-                      key: POSTGRES_DB
-                - name: DATABASE_USER
-                  valueFrom:
-                    configMapKeyRef:
-                      name: pmo-config-ddg76ttmch
-                      key: POSTGRES_USER
-                - name: DATABASE_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: pmo-secrets-7f57hmd56g
-                      key: POSTGRES_PASSWORD
-              imagePullPolicy: Always
+                - "/backup.sh -1"
               volumeMounts:
                 - name: backup-db
                   mountPath: /backups/
@@ -251,27 +43,45 @@ spec:
                 - name: backup-config
                   mountPath: /backup.conf
                   subPath: backup.conf
-              terminationMessagePolicy: File
-              image: >-
-                image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-backup-container:latest
-          serviceAccount: default
+              env:
+                - name: BACKUP_STRATEGY
+                  value: rolling
+                - name: BACKUP_DIR
+                  valueFrom:
+                    configMapKeyRef:
+                      name: backup-config
+                      key: BACKUP_DIR
+                - name: MONTHLY_BACKUPS
+                  value: "3"
+                - name: DATABASE_USER
+                  valueFrom:
+                    configMapKeyRef:
+                      name: config
+                      key: POSTGRES_USER
+                - name: DATABASE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: POSTGRES_PASSWORD
           volumes:
             - name: backup-db
               persistentVolumeClaim:
-                claimName: pmo-backup-db
+                claimName: backup-db
             - name: backup-verification
               persistentVolumeClaim:
-                claimName: pmo-backup-verification
+                claimName: backup-verification
             - name: backup-config
               configMap:
-                name: pmo-backup-config-m6mk9gf2bh
+                name: backup-config
                 items:
                   - key: backup.conf
                     path: backup.conf
-                defaultMode: 420
-          dnsPolicy: ClusterFirst
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
-status:
-  lastScheduleTime: "2024-02-29T23:05:00Z"
-  lastSuccessfulTime: "2024-02-29T23:05:16Z"
+                    # make sure all these configKeyRefs are correct
+          dnsPolicy: "ClusterFirst"
+          successfulJobHistoryLimit: 5
+          failedJobHistoryLimit: 2
+          restartPolicy: "Never"
+          terminationGracePeriodSeconds: 30
+          activeDeadlineSeconds: 1600
+          serviceAccountName: "default"
+          serviceAccount: "default"
