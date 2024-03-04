@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - update-current-year-cron.yaml
+commonLabels:
+  role: pmo-update-current-year
+  app: gdx-agreements-tracker
