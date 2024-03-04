@@ -1,11 +1,14 @@
+# this is a backup of the working config for the update-current-year-cron CronJob.
+# it should be deleted once we have argoCD syncing the cronjob code successfully
+
 kind: CronJob
 apiVersion: batch/v1
 metadata:
   name: update-current-year-cron
   namespace: acd38d-dev
   uid: 3de28c56-9c37-4f0e-8af0-f53d6b8fb1c6
-  resourceVersion: "9244853122"
-  generation: 16
+  resourceVersion: "9275666845"
+  generation: 23
   creationTimestamp: "2024-03-01T19:38:21Z"
   labels:
     app: gdx-agreements-tracker
@@ -17,7 +20,7 @@ metadata:
     - manager: Mozilla
       operation: Update
       apiVersion: batch/v1
-      time: "2024-03-01T22:43:04Z"
+      time: "2024-03-04T18:51:14Z"
       fieldsType: FieldsV1
       fieldsV1:
         "f:metadata":
@@ -51,46 +54,9 @@ metadata:
                     "f:role": {}
                     "f:template": {}
                 "f:spec":
-                  "f:volumes":
-                    .: {}
-                    'k:{"name":"backup-config"}':
-                      .: {}
-                      "f:configMap":
-                        .: {}
-                        "f:defaultMode": {}
-                        "f:items": {}
-                        "f:name": {}
-                      "f:name": {}
-                    'k:{"name":"backup-db"}':
-                      .: {}
-                      "f:name": {}
-                      "f:persistentVolumeClaim":
-                        .: {}
-                        "f:claimName": {}
-                    'k:{"name":"backup-verification"}':
-                      .: {}
-                      "f:name": {}
-                      "f:persistentVolumeClaim":
-                        .: {}
-                        "f:claimName": {}
                   "f:containers":
                     'k:{"name":"postgres-current-year-updater"}':
                       "f:image": {}
-                      "f:volumeMounts":
-                        .: {}
-                        'k:{"mountPath":"/backup.conf"}':
-                          .: {}
-                          "f:mountPath": {}
-                          "f:name": {}
-                          "f:subPath": {}
-                        'k:{"mountPath":"/backups/"}':
-                          .: {}
-                          "f:mountPath": {}
-                          "f:name": {}
-                        'k:{"mountPath":"/var/lib/pgsql/data"}':
-                          .: {}
-                          "f:mountPath": {}
-                          "f:name": {}
                       "f:terminationMessagePolicy": {}
                       .: {}
                       "f:resources": {}
@@ -138,7 +104,7 @@ metadata:
     - manager: kube-controller-manager
       operation: Update
       apiVersion: batch/v1
-      time: "2024-03-01T22:55:08Z"
+      time: "2024-03-04T19:55:07Z"
       fieldsType: FieldsV1
       fieldsV1:
         "f:status":
@@ -146,7 +112,7 @@ metadata:
           "f:lastSuccessfulTime": {}
       subresource: status
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/5  * * * *"
   concurrencyPolicy: Forbid
   suspend: false
   jobTemplate:
@@ -176,9 +142,9 @@ spec:
           terminationGracePeriodSeconds: 30
           securityContext: {}
           containers:
-            - resources: {}
-              terminationMessagePath: /dev/termination-log
-              name: postgres-current-year-updater
+            - name: postgres-current-year-updater
+              image: >-
+                image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-backup-container:latest
               command:
                 - /bin/bash
                 - "-c"
@@ -237,36 +203,14 @@ spec:
                     secretKeyRef:
                       name: pmo-secrets-7f57hmd56g
                       key: POSTGRES_PASSWORD
-              imagePullPolicy: Always
-              volumeMounts:
-                - name: backup-db
-                  mountPath: /backups/
-                - name: backup-verification
-                  mountPath: /var/lib/pgsql/data
-                - name: backup-config
-                  mountPath: /backup.conf
-                  subPath: backup.conf
+              resources: {}
+              terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
-              image: >-
-                image-registry.openshift-image-registry.svc:5000/acd38d-tools/gdx-agreements-tracker-backup-container:latest
+              imagePullPolicy: Always
           serviceAccount: default
-          volumes:
-            - name: backup-db
-              persistentVolumeClaim:
-                claimName: pmo-backup-db
-            - name: backup-verification
-              persistentVolumeClaim:
-                claimName: pmo-backup-verification
-            - name: backup-config
-              configMap:
-                name: pmo-backup-config-m6mk9gf2bh
-                items:
-                  - key: backup.conf
-                    path: backup.conf
-                defaultMode: 420
           dnsPolicy: ClusterFirst
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
 status:
-  lastScheduleTime: "2024-03-01T22:55:00Z"
-  lastSuccessfulTime: "2024-03-01T22:55:08Z"
+  lastScheduleTime: "2024-03-04T19:55:00Z"
+  lastSuccessfulTime: "2024-03-04T19:55:07Z"

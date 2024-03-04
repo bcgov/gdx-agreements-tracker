@@ -7,7 +7,7 @@ metadata:
     cronjob: postgres-cron-current-year
     template: postgres-cron-current-year-cronjob
 spec:
-  schedule: "*/5 * * * *" # schedule: "30 22 31 3 *" # 11:30pm March 31, Annually
+  schedule: "30 22 04 3 *" # schedule: "30 22 31 3 *" # 11:30pm March 31, Annually
   concurrencyPolicy: Forbid
   suspend: false
   jobTemplate:
@@ -60,14 +60,6 @@ spec:
                   SELECT * FROM data.fiscal_year ORDER BY id ASC;
 
                   EOF
-              volumeMounts:
-                - name: backup-db
-                  mountPath: /backups/
-                - name: backup-verification
-                  mountPath: /var/lib/pgsql/data
-                - name: backup-config
-                  mountPath: /backup.conf
-                  subPath: backup.conf
               env:
                 - name: DATABASE_HOST
                   valueFrom:
@@ -90,19 +82,6 @@ spec:
                       name: secrets
                       key: POSTGRES_PASSWORD
               imagePullPolicy: Always
-          volumes:
-            - name: backup-db
-              persistentVolumeClaim:
-                claimName: backup-db
-            - name: backup-verification
-              persistentVolumeClaim:
-                claimName: backup-verification
-            - name: backup-config
-              configMap:
-                name: backup-config
-                items:
-                  - key: backup.conf
-                    path: backup.conf
           dnsPolicy: "ClusterFirst"
           successfulJobsHistoryLimit: 3
           failedJobsHistoryLimit: 2
