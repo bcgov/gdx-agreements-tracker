@@ -54,9 +54,9 @@ spec:
                       UPDATE data.fiscal_year SET is_current = true WHERE fiscal_year = next_fiscal;
 
                       -- TESTING ONLY! Set the fiscal_year back to '22-23' again (testing purposes only)
-                      IF NOT EXISTS (SELECT 1 FROM data.fiscal_year WHERE is_current = true) THEN
-                      UPDATE data.fiscal_year SET is_current=true WHERE fiscal_year='22-23';
-                      END IF;
+                      -- IF NOT EXISTS (SELECT 1 FROM data.fiscal_year WHERE is_current = true) THEN
+                      -- UPDATE data.fiscal_year SET is_current=true WHERE fiscal_year='22-23';
+                      -- END IF;
                   END \$\$;
 
                   SELECT * FROM data.fiscal_year ORDER BY id ASC;
