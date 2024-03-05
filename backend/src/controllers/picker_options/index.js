@@ -14,9 +14,12 @@ controller.findAllByProject = async (request, reply) => {
 };
 
 controller.findAllByContract = async (request, reply) => {
+  console.log("request.query123", request.query);
   try {
     const targetId = Number(request.params.id);
-    const result = await model.findAllByContract(targetId);
+    const queryParams = request.query;
+
+    const result = await model.findAllByContract(targetId, queryParams);
     return result ? result : [];
   } catch (err) {
     return controller.failedQuery(reply, err, what);

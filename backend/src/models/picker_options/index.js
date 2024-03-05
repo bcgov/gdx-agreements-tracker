@@ -441,6 +441,49 @@ const tableLookupValues = (projectId, contractId) => {
         value: "contract_resource.id",
         label: `(r.resource_last_name || ', ' || r.resource_first_name)`,
         queryAdditions: getContractResourceQueryAdditions(contractId),
+        customDefinition: `
+        (SELECT COALESCE(json_agg(contres), '[]')
+        FROM (
+          SELECT
+            (r.resource_last_name || ', ' || r.resource_first_name) AS resource,
+            fy.fiscal_year,
+            cr.assignment_rate,
+            rt.resource_type as assignment_role,
+            total_invoiced.total_amount AS total_invoiced,
+            ((cr.assignment_rate * cr.hours) - amount_total.sum) AS remaining,
+            cr.id as value
+            FROM
+                data.contract_resource cr
+                JOIN data.resource r ON cr.resource_id = r.id
+                JOIN data.fiscal_year fy ON cr.fiscal = fy.id
+                JOIN data.supplier_rate sr on cr.supplier_rate_id = sr.id 
+                JOIN data.resource_type rt on sr.resource_type_id = rt.id
+                LEFT JOIN (
+                  SELECT
+                      contract_resource_id,
+                      SUM(unit_amount * rate) AS sum
+                  FROM
+                      data.invoice_detail
+                  GROUP BY
+                      contract_resource_id
+                 ) AS amount_total ON amount_total.contract_resource_id = cr.id
+                LEFT JOIN (
+                    SELECT
+                        cr.fiscal,
+                        SUM(invd.unit_amount * invd.rate) AS total_amount
+                    FROM
+                        data.invoice_detail invd
+                    JOIN data.contract_resource cr ON invd.contract_resource_id = cr.id
+                    WHERE
+                        cr.contract_id = 585
+                        AND cr.fiscal = 13
+                    GROUP BY
+                        cr.fiscal
+                ) AS total_invoiced ON cr.fiscal = total_invoiced.fiscal
+        WHERE
+            cr.contract_id = ${contractId}
+            AND cr.fiscal = 13
+          ) AS contres)`,
       },
       {
         id: "contractdeliverable",
