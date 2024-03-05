@@ -7,9 +7,8 @@ metadata:
     cronjob: postgres-cron-current-year
     template: postgres-cron-current-year-cronjob
 spec:
-  # change schedule to : "30 07 31 3 *"  (11:30pm March 31, Annually) eventually.
-  # for now we test tonight at UTC 0730 March 5 (11:30pm March 4, America/Vancouver)
-  schedule: "30 7 5 3 *"
+  # "30 07 31 3 *"  (11:30pm March 31, Annually, UTC)
+  schedule: 30 7 31 3 *
   concurrencyPolicy: Forbid
   suspend: false
   jobTemplate:
