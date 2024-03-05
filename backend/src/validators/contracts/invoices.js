@@ -71,10 +71,16 @@ const deleteOne = {
   response: getDeleteResponse(),
 };
 
+const findFiscalBySelectedRow = {
+  params: Schema.IdParam,
+  response: getResponse(S.object().prop("fiscal_id", Schema.Id)),
+};
+
 module.exports = {
   getAll,
   getOne,
   updateOne,
   addOne,
   deleteOne,
+  findFiscalBySelectedRow,
 };

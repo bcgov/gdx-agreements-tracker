@@ -26,15 +26,17 @@ const findAllByProject = (id) => {
 };
 
 /**
- * Controller to get picker options with specific contract related options.
+ * Retrieves picker options with specific contract-related options.
  *
- * @param   {int}   id The contract id.
- * @returns {Array}
+ * @param   {number} id                 - The contract ID.
+ * @param   {object} [params={}]        - Additional parameters for the query.
+ * @param   {string} [params.someParam] - An example parameter description.
+ * @returns {Array}                     An array of picker options.
  */
-const findAllByContract = (id) => {
+const findAllByContract = (id, params = {}) => {
   return knex(pickerOptions)
     .select("name", "title", "description", knex.raw(getCaseStatements()), "associated_form")
-    .unionAll(getTableLookups(false, id));
+    .unionAll(getTableLookups(false, id, params));
 };
 
 /**
@@ -52,11 +54,13 @@ const getCaseStatements = () => {
 /**
  * This is the table lookup values, which gets an array of json values for lookups of an existing table.
  *
- * @param   {int|boolean} projectId  The project id if applicable.
- * @param   {int|boolean} contractId The contract id if applicable.
+ * @param   {int|boolean} projectId          The project id if applicable.
+ * @param   {int|boolean} contractId         The contract id if applicable.
+ * @param   {object}      [params={}]        - Additional parameters for the query.
+ * @param   {string}      [params.someParam] - An example parameter description.
  * @returns {Array}
  */
-const tableLookupValues = (projectId, contractId) => {
+const tableLookupValues = (projectId, contractId, params) => {
   const pickerOptions = [
     {
       id: "ministry",
@@ -482,7 +486,7 @@ const tableLookupValues = (projectId, contractId) => {
                 ) AS total_invoiced ON cr.fiscal = total_invoiced.fiscal
         WHERE
             cr.contract_id = ${contractId}
-            AND cr.fiscal = 13
+            AND cr.fiscal = ${Number(params.fiscal_id)}
           ) AS contres)`,
       },
       {
@@ -597,9 +601,9 @@ const getProjectDeliverablesQueryAdditions = (projectId) => {
   return query;
 };
 
-const getTableLookups = (projectId, contractId) => {
+const getTableLookups = (projectId, contractId, params) => {
   const unionQueries = [];
-  tableLookupValues(projectId, contractId).forEach((lookup) => {
+  tableLookupValues(projectId, contractId, params).forEach((lookup) => {
     unionQueries.push(knex.pickerOptionSelect(lookup));
   });
   return unionQueries;

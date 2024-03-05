@@ -1,9 +1,8 @@
-import { GridColDef } from "@mui/x-data-grid";
+import { apiAxios } from "utils";
 import { dateFormatter } from "utils/formatDate";
-
-export const tableConfig = () => {
-  const defaultFlex = 3;
-  const tableColumns: GridColDef[] = [
+const defaultFlex = 3;
+export const tableConfig = {
+  tableColumns: [
     {
       field: "received_date",
       headerName: "Received Date",
@@ -23,7 +22,12 @@ export const tableConfig = () => {
     { field: "invoice_total", headerName: "Invoice Total", flex: defaultFlex },
     { field: "is_gl", headerName: "Is Gl", flex: defaultFlex },
     { field: "notes", headerName: "Notes", flex: defaultFlex },
-  ];
-
-  return { tableColumns };
+  ],
+  customSearchParams: async (rowId: number) => {
+    return await apiAxios()
+      .get(`/invoices/${rowId}/fiscal`)
+      .then((customParams) => {
+        return customParams;
+      });
+  },
 };

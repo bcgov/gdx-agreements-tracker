@@ -492,7 +492,9 @@ export interface ITableWithModalData {
 }
 export interface ITableWithModal {
   tableDataApiEndPoint: string;
-  tableConfig: unknown;
+  // todo: Need to update all table configs to be an object for this to be a good type.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tableConfig: any;
   formControls: IFormControls;
   formConfig: TFormConfig;
   tableName: string;

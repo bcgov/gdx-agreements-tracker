@@ -6,6 +6,15 @@ const invoiceDetailsTable = `${dataBaseSchemas().data}.invoice_detail`;
 const fiscalYearTable = `${dataBaseSchemas().data}.fiscal_year`;
 
 // Get all.
+const findFiscalBySelectedRow = (invoiceId) => {
+  return knex
+    .select("fy.id as fiscal_id")
+    .from(`${table} as i`)
+    .join(`${fiscalYearTable} as fy`, { "i.fiscal": "fy.id" })
+    .where("i.id", invoiceId);
+};
+
+// Get all.
 const findAllByContractId = (contractId) => {
   return knex
     .select(
@@ -58,4 +67,5 @@ module.exports = {
   updateOne,
   addOne,
   removeOne,
+  findFiscalBySelectedRow,
 };

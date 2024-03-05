@@ -10,7 +10,7 @@ const fiscalTable = `${dataBaseSchemas().data}.fiscal_year`;
 const findAllByInvoiceId = (invoiceId) => {
   return knex
     .select(
-      "*",   
+      "*",
       { resource_assignment: knex.raw("r.resource_last_name || ', ' || r.resource_first_name") },
       { rate: knex.raw("i.rate") },
       { amount: knex.raw("i.unit_amount * i.rate") },

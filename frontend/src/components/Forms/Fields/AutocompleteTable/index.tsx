@@ -61,7 +61,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
         return Object.values(option)[0] as string;
       }}
       PopperComponent={(props) => {
-        return <Popper {...props} style={{ maxWidth: "fit-content" }} placement="bottom-start" />;
+        return <Popper {...props} sx={{ maxWidth: "fit-content" }} placement="bottom-start" />;
       }}
       renderInput={(params) => {
         return (
