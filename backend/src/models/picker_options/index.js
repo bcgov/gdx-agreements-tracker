@@ -479,8 +479,8 @@ const tableLookupValues = (projectId, contractId, params) => {
                         data.invoice_detail invd
                     JOIN data.contract_resource cr ON invd.contract_resource_id = cr.id
                     WHERE
-                        cr.contract_id = 585
-                        AND cr.fiscal = 13
+                      cr.contract_id = ${contractId}
+                      AND cr.fiscal = ${Number(params.fiscal_id)}
                     GROUP BY
                         cr.fiscal
                 ) AS total_invoiced ON cr.fiscal = total_invoiced.fiscal

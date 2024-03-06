@@ -8,6 +8,7 @@ import {
   TableRow,
   TextField,
   Popper,
+  Box,
 } from "@mui/material";
 import { IAutocompleteTable, IOption } from "types";
 import { ReadField } from "components/Forms/ReadForm/ReadField";
@@ -60,9 +61,17 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
       getOptionLabel={(option) => {
         return Object.values(option)[0] as string;
       }}
-      PopperComponent={(props) => {
-        return <Popper {...props} sx={{ maxWidth: "fit-content" }} placement="bottom-start" />;
+      componentsProps={{
+        paper: {
+          sx: {
+            width: "100rem",
+            maxWidth:"fit-content"
+          },
+        },
       }}
+      // PopperComponent={(props) => {
+      //   return <Popper {...props} placement="bottom-start" />;
+      // }}
       renderInput={(params) => {
         return (
           <TextField
