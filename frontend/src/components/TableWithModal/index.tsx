@@ -5,6 +5,7 @@ import { FormRenderer } from "components/Forms/FormRenderer";
 import { GridRowParams } from "@mui/x-data-grid";
 import { useFormSubmit, useFormatTableData } from "hooks";
 import FormDialog from "components/Forms/FormDialog";
+import { useSearchParams } from "react-router-dom";
 
 /**
  * A component that renders a table with a modal dialog box.
@@ -37,6 +38,7 @@ export const TableWithModal = ({
   },
 }: ITableWithModal): JSX.Element => {
   const { handleDelete } = useFormSubmit();
+  const [, setSearchParams] = useSearchParams();
 
   const handleTableNewButton = () => {
     formControls.handleFormType("new");
@@ -48,8 +50,12 @@ export const TableWithModal = ({
     tableName,
   });
 
-  const handleRowClick = (params: GridRowParams) => {
+  const handleRowClick = async (params: GridRowParams) => {
     formControls.handleCurrentRowData(params.row);
+    if (tableConfig?.customSearchParams) {
+      const customParams = await tableConfig?.customSearchParams(params.row.id);
+      setSearchParams(customParams.data.data[0]);
+    }
   };
 
   const deleteUrl = tableData.isLoading

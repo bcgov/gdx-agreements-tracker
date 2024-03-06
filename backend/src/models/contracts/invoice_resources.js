@@ -35,7 +35,7 @@ const findById = (id) => {
         amount_remaining: knex.raw("((cr.assignment_rate * cr.hours) - amount_total.sum)"),
       },
       knex.raw(
-        "( SELECT json_build_object('value', cr.resource_id, 'label', (r.resource_last_name || ', ' || r.resource_first_name))) AS contract_resource_id"
+        "(SELECT json_build_object('resource', (r.resource_last_name || ', ' || r.resource_first_name),'value', cr.id)) AS contract_resource_id"
       ),
       { fiscal_year: "fy.fiscal_year" }
     )

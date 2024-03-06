@@ -16,6 +16,12 @@ const routes = [
     handler: controller.getOne,
   },
   {
+    method: "GET",
+    url: `/${what}/:id/fiscal`,
+    // schema: validators.findFiscalBySelectedRow,
+    handler: controller.findFiscalBySelectedRow,
+  },
+  {
     method: "PUT",
     url: `/${what}/:id`,
     schema: validators.updateOne,

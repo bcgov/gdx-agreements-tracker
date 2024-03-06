@@ -59,6 +59,14 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
       getOptionLabel={(option) => {
         return Object.values(option)[0] as string;
       }}
+      componentsProps={{
+        paper: {
+          sx: {
+            width: "100rem",
+            maxWidth: "fit-content",
+          },
+        },
+      }}
       renderInput={(params) => {
         return (
           <TextField
@@ -72,7 +80,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
         );
       }}
       renderOption={(props: object, option: IOption) => (
-        <Table>
+        <Table sx={{ overflowX: "auto", width: "100% " }}>
           {0 === pickerData?.definition.indexOf(option) && (
             <TableHead sx={{ background: "#444", display: "flex" }}>
               <TableRow>

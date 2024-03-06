@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { IPickerTableData } from "../types";
 import { useAxios } from "./useAxios";
+import { useSearchParams } from "react-router-dom";
 
 /**
  * Formats data from a database table in a way that is usable for material ui datagrid (table).
@@ -34,6 +35,13 @@ export const formatPickerOptions = (tableData: IPickerTableData) => {
 };
 
 export const usePickerValues = (projectId: number | undefined, contractId: number | undefined) => {
+  const [searchParams] = useSearchParams();
+  const params: { [key: string]: string | number } = {};
+
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
+
   const { axiosAll } = useAxios();
   let url = "picker_options";
   if (projectId) {
@@ -44,7 +52,7 @@ export const usePickerValues = (projectId: number | undefined, contractId: numbe
 
   const getTableData = async () => {
     const allPickers = await axiosAll()
-      .get(url)
+      .get(url, { params })
       .then((tableData) => {
         return formatPickerOptions(tableData);
       });
@@ -56,6 +64,7 @@ export const usePickerValues = (projectId: number | undefined, contractId: numbe
     // todo: When there is an edit and view form built, reassess these options.
     refetchOnWindowFocus: false,
     retryOnMount: false,
+    refetchOnMount: "always",
     refetchOnReconnect: false,
     retry: false,
     staleTime: Infinity,

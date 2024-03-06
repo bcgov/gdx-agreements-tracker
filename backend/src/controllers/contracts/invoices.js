@@ -39,4 +39,14 @@ controller.addOneWithContractId = async (request, reply) => {
   }
 };
 
+controller.findFiscalBySelectedRow = async (request, reply) => {
+  const invoiceId = Number(request.params.id);
+  try {
+    const result = await model.findFiscalBySelectedRow(invoiceId);
+    return result || controller.noQuery(reply, `The ${what.single} fiscal could not be found.`);
+  } catch (err) {
+    return controller.failedQuery(reply, err, what);
+  }
+};
+
 module.exports = controller;

@@ -35,7 +35,7 @@ export const InvoiceProcessing = () => {
     <>
       <TableWithModal
         tableName={"invoice"}
-        tableConfig={tableConfig()}
+        tableConfig={tableConfig}
         formControls={formControls}
         formConfig={FormConfig}
         tableDataApiEndPoint={`/contracts/${contractId}/invoices`}

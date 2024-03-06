@@ -20,7 +20,10 @@ const getOne = {
   response: getResponse(
     S.object()
       .prop("id", S.number())
-      .prop("contract_resource_id", Schema.Picker)
+      .prop(
+        "contract_resource_id",
+        S.object().prop("resource", S.string()).prop("value", S.number())
+      )
       .prop("unit_amount", S.number())
       .prop("rate", Schema.Money)
       .prop("amount_remaining", Schema.Money)
