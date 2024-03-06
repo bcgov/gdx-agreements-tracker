@@ -42,7 +42,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
         {
           value: query?.data?.data?.data?.recovery_info?.recovery_type_name,
           title: "Recovery Info",
-          width: "half",
+          width: "full",
         },
       ];
 
