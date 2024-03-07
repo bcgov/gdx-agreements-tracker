@@ -46,7 +46,7 @@ const findById = (id) => {
       knex.raw(
         "( SELECT json_build_object('value', prd.project_id, 'label', proj.project_number)) AS project_id"
       ),
-      "prd.comments",
+      { comments: knex.raw("coalesce(prd.comments, '')") },
       knex.raw(
         "(SELECT json_build_object('value', prd.fiscal, 'label', COALESCE(fy.fiscal_year, ''))) AS fiscal"
       ),
