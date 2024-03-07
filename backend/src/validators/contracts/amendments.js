@@ -7,9 +7,9 @@ const getAll = {
     S.array().items(
       S.object()
         .prop("id", S.number())
-        .prop("contract", S.string())
+        .prop("amendment_types", S.array())
         .prop("amendment_date", S.string())
-        .prop("amendment_type", S.string())
+        .prop("amendment_number", S.number())
         .prop("description", S.string())
     )
   ),
@@ -20,18 +20,32 @@ const getOne = {
   response: getResponse(
     S.object()
       .prop("id", S.number())
-      .prop("amendment_number", Schema.Picker)
+      .prop(
+        "amendment_types",
+        S.array().items(S.object().prop("label", S.string()).prop("value", S.number()))
+      )
       .prop("amendment_date", S.string())
+      .prop("amendment_number", S.number())
       .prop("description", S.string())
-      .prop("contract_id", Schema.Id)
   ),
 };
 
 const addUpdateBody = S.object()
-  .prop("amendment_number", Schema.Id)
+  .prop(
+    "amendment_types",
+    S.array().items(S.object().prop("label", S.string()).prop("value", S.number()))
+  )
+  .prop("amendment_date", Schema.Date)
+  .prop("description", S.string());
+
+const addPostBody = S.object()
+  .prop(
+    "amendment_types",
+    S.array().items(S.object().prop("label", S.string()).prop("value", S.number()))
+  )
   .prop("amendment_date", Schema.Date)
   .prop("description", S.string())
-  .prop("contract_id", Schema.Id);
+  .prop("contract_id", S.string());
 
 const updateOne = {
   params: Schema.IdParam,
@@ -40,7 +54,7 @@ const updateOne = {
 };
 
 const addOne = {
-  body: addUpdateBody.required(["contract_id", "amendment_number", "amendment_date"]),
+  body: addPostBody,
   response: getAddResponse(),
 };
 

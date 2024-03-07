@@ -1,59 +1,131 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
-
 const contractAmendmentTable = `${dataBaseSchemas().data}.contract_amendment`;
-const contractsTable = `${dataBaseSchemas().data}.contract`;
-const contractAmendmentTypeTable = `${dataBaseSchemas().data}.amendment_type`;
+const contractAmendmentTypeTable = `${dataBaseSchemas().data}.contract_amendment_amendment_type`;
 
 // Get all.
 const findAll = (contractId) => {
-  return knex
-    .columns(
-      "contract_amendment.id",
-      "contract.co_number as contract",
-      { amendment_date: knex.raw(`contract_amendment.amendment_date`) },
-      { amendment_type: "amendment_type.amendment_type_name" },
-      "contract_amendment.description"
+  return knex("data.contract_amendment as cam")
+    .select(
+      knex.raw("jsonb_agg(amt.amendment_type_name) AS amendment_types"),
+      "cam.amendment_number",
+      "cam.amendment_date",
+      "cam.description",
+      "cam.id"
     )
-    .select()
-    .from(contractAmendmentTable)
-    .leftJoin(contractsTable, { "contract_amendment.contract_id": `${contractsTable}.id` })
-    .leftJoin(contractAmendmentTypeTable, {
-      "contract_amendment.amendment_number": `${contractAmendmentTypeTable}.id`,
-    })
-    .where({ contract_id: contractId });
+    .leftJoin(
+      "data.contract_amendment_amendment_type as caat",
+      "cam.id",
+      "caat.contract_amendment_id"
+    )
+    .leftJoin("data.amendment_type as amt", "caat.amendment_type_id", "amt.id")
+    .where("cam.contract_id", contractId)
+    .groupBy("cam.amendment_number", "cam.amendment_date", "cam.description", "cam.id");
 };
 
 // Get specific one by id.
 const findById = (contractId, amendmentId) => {
-  return knex
+  return knex("data.contract_amendment as cam")
     .select(
-      "contract_amendment.id",
-      "contract_amendment.contract_id",
       knex.raw(
-        "( SELECT json_build_object('value', contract_amendment.amendment_number, 'label', amendment_type.amendment_type_name)) AS amendment_number"
+        "jsonb_agg(jsonb_build_object('value', amt.id, 'label', amt.amendment_type_name)) AS amendment_types"
       ),
-      "contract_amendment.description",
-      { amendment_date: knex.raw(`contract_amendment.amendment_date`) }
+      "cam.amendment_number",
+      "cam.amendment_date",
+      "cam.description",
+      { id: amendmentId }
     )
-    .from(contractAmendmentTable)
-    .leftJoin(contractsTable, { "contract_amendment.contract_id": `${contractsTable}.id` })
-    .leftJoin(contractAmendmentTypeTable, {
-      "contract_amendment.amendment_number": `${contractAmendmentTypeTable}.id`,
-    })
-    .where({ contract_id: contractId })
-    .where({ "contract_amendment.id": amendmentId })
+    .leftJoin(
+      "data.contract_amendment_amendment_type as caat",
+      "cam.id",
+      "caat.contract_amendment_id"
+    )
+    .leftJoin("data.amendment_type as amt", "caat.amendment_type_id", "amt.id")
+    .where("cam.contract_id", contractId)
+    .where("cam.id", amendmentId)
+    .groupBy("cam.amendment_number", "cam.amendment_date", "cam.description")
     .first();
 };
 
 // Update one.
-const updateOne = (body, id) => {
-  return knex(contractAmendmentTable).where("id", id).update(body);
+const updateOne = (updatedContractAmendment, id) => {
+  const { amendment_types, ...body } = updatedContractAmendment;
+  // Array to store promises
+  const promises = [];
+  // Delete existing records
+  promises.push(knex(contractAmendmentTypeTable).where("contract_amendment_id", id).del());
+  // Insert new records if 'types' is present
+  if (amendment_types) {
+    for (const amendment_type of amendment_types) {
+      promises.push(
+        knex(contractAmendmentTypeTable).insert({
+          contract_amendment_id: id,
+          amendment_type_id: Number(amendment_type.value),
+        })
+      );
+    }
+  }
+
+  // Update 'request' if it is present
+  if (Object.keys(body).length > 0) {
+    promises.push(knex(contractAmendmentTable).where("id", id).update(body));
+  }
+
+  // Return a promise that resolves when all promises in the array resolve
+  return Promise.all(promises);
 };
 
 // Add one.
-const addOne = (newContractAmendment) => {
-  return knex(contractAmendmentTable).insert(newContractAmendment);
+const addOne = async (newContractAmendment) => {
+  const { amendment_types, ...body } = newContractAmendment;
+  const promises = [];
+  try {
+    //Get the next amendment number for the amendments related to the passed contract_id
+    const result = await knex
+      .max("ca.amendment_number")
+      .where("ca.contract_id", newContractAmendment.contract_id)
+      .from(`${contractAmendmentTable} as ca`);
+
+    const nextAmendmentNumber = result[0].max !== null ? result[0].max + 1 : 1;
+
+    // Insert a record into the contract_amendments table
+    promises.push(
+      knex(contractAmendmentTable)
+        .insert({
+          ...body,
+          amendment_number: nextAmendmentNumber,
+        })
+        .returning("id")
+        .then((results) => {
+          if (amendment_types) {
+            for (const amendment_type of amendment_types) {
+              promises.push(
+                knex(contractAmendmentTypeTable)
+                  .insert({
+                    contract_amendment_id: results[0].id,
+                    amendment_type_id: Number(amendment_type.value),
+                  })
+                  .then((results) => {
+                    return results;
+                  })
+                  .catch((err) => {
+                    return err;
+                  })
+              );
+            }
+          }
+          return;
+        })
+    );
+
+    // Insert new records if 'types' is present
+
+    return Promise.all(promises);
+  } catch (error) {
+    // Handle error
+    console.error("Error adding contract amendment:", error);
+    throw error;
+  }
 };
 
 module.exports = {
