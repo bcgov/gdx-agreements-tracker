@@ -54,7 +54,11 @@ export const Select: FC<IPickerProps> = ({
       }}
       multiple={multiple}
       value={fieldValue}
-      renderOption={(props, option) => <RenderOption key={option?.value} option={option} />}
+      renderOption={(props: object, option: IOption) => (
+        <Box component="li" sx={{ background: option?.option_style }} {...props}>
+          {option?.label}
+        </Box>
+      )}
       renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
         <TextField
           required={required}
@@ -69,17 +73,3 @@ export const Select: FC<IPickerProps> = ({
     />
   );
 };
-
-/**
- * Renders an option for the Autocomplete component, such as a custom styling.
- *
- *
- * @param   {object}      props        - The properties passed to the component.
- * @param   {IOption}     props.option - The option to render.
- * @returns {JSX.Element}              - The rendered option.
- */
-const RenderOption: FC<{ option: IOption }> = ({ option }) => (
-  <Box component="li" sx={{ background: option?.option_style }}>
-    {option?.label}
-  </Box>
-);
