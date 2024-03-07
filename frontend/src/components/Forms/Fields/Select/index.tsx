@@ -54,18 +54,11 @@ export const Select: FC<IPickerProps> = ({
       }}
       multiple={multiple}
       value={fieldValue}
-      renderOption={(props: object, option: IOption) => {
-        return (
-          <Box
-            component="li"
-            sx={{ background: option?.option_style }}
-            {...props}
-            value={option?.value}
-          >
-            {option?.label}
-          </Box>
-        );
-      }}
+      renderOption={(props: object, option: IOption) => (
+        <Box component="li" sx={{ background: option?.option_style }} {...props}>
+          {option?.label}
+        </Box>
+      )}
       renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
         <TextField
           required={required}
