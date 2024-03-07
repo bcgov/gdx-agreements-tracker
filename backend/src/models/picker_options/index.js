@@ -202,6 +202,15 @@ const tableLookupValues = (projectId, contractId, params) => {
       value: "id",
       label: "health_name",
       queryAdditions: ``,
+      customDefinition: `(SELECT COALESCE(json_agg(healthStatusOptions), '[]')
+        FROM (
+          SELECT
+            hi.id as value,
+            hi.health_name as label,
+            CONCAT_WS('', 'rgb(',colour_red, ',',colour_green,',', colour_blue,')') AS option_style
+          FROM data.health_indicator as hi
+          ORDER BY id ASC
+          ) AS healthStatusOptions)`,
     },
     {
       id: "projectphase",
@@ -460,7 +469,7 @@ const tableLookupValues = (projectId, contractId, params) => {
                 data.contract_resource cr
                 JOIN data.resource r ON cr.resource_id = r.id
                 JOIN data.fiscal_year fy ON cr.fiscal = fy.id
-                JOIN data.supplier_rate sr on cr.supplier_rate_id = sr.id 
+                JOIN data.supplier_rate sr on cr.supplier_rate_id = sr.id
                 JOIN data.resource_type rt on sr.resource_type_id = rt.id
                 LEFT JOIN (
                   SELECT

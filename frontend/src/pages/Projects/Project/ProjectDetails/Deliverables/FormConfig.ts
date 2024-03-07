@@ -142,17 +142,17 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   const initialValues = {
-    deliverable_name: null,
+    deliverable_name: "",
     start_date: null,
     completion_date: null,
     deliverable_amount: "0",
     recoverable_amount: "0",
     is_expense: false,
-    comments: null,
+    comments: "",
     fiscal: null,
     percent_complete: null,
     deliverable_status: null,
-    health_id: null,
+    health_id: "",
     project_id: projectId,
   };
 

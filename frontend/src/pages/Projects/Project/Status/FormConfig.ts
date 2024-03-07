@@ -150,16 +150,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   ];
 
   const initialValues = {
-    identified_risk: null,
-    forecast_and_next_steps: null,
-    issues_and_decisions: null,
-    general_progress_comments: null,
-    budget_health_id: null,
+    identified_risk: "",
+    forecast_and_next_steps: "",
+    issues_and_decisions: "",
+    general_progress_comments: "",
+    budget_health_id: "",
     status_date: null,
-    schedule_health_id: null,
-    reported_by_contact_id: null,
-    health_id: null,
-    project_phase_id: null,
+    schedule_health_id: "",
+    reported_by_contact_id: "",
+    health_id: "",
+    project_phase_id: "",
     project_id: Number(projectId),
   };
 

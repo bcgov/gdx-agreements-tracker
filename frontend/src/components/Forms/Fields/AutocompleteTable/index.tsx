@@ -32,6 +32,19 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
     borderBottom: "1px solid #D3D3D3",
   };
 
+  /**
+   * Extracts a picker label from the first value of an options object.
+   * This fixes a console warning about undefined value being returned by getOptionLabel().
+   * If the value is undefined, it returns an empty string.
+   *
+   * @param   {object} option - The object from which to extract the first value.
+   * @returns {string}        The first value of the object, or an empty string if the value is undefined.
+   */
+  const extractLabelFromFirstValue = (option: IOption | string) => {
+    const [firstValue] = Object.values(option);
+    return firstValue ?? "";
+  };
+
   return !pickerData?.definition?.length ? (
     <TextField
       disabled
@@ -56,9 +69,7 @@ export const AutocompleteTable: FC<IAutocompleteTable> = ({
         onChange(selection);
       }}
       value={fieldValue}
-      getOptionLabel={(option) => {
-        return Object.values(option)[0] as string;
-      }}
+      getOptionLabel={extractLabelFromFirstValue}
       componentsProps={{
         paper: {
           sx: {
