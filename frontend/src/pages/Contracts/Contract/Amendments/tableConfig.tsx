@@ -5,14 +5,14 @@ export const tableConfig = () => {
   const defaultFlex = 3;
 
   const tableColumns: GridColDef[] = [
-    { field: "contract", headerName: "Amendment Number", flex: defaultFlex },
+    { field: "amendment_number", headerName: "Amendment Number", flex: defaultFlex },
     {
       field: "amendment_date",
       headerName: "Amendment Date",
       valueFormatter: dateFormatter,
       flex: defaultFlex,
     },
-    { field: "amendment_type", headerName: "Amendment Type", flex: defaultFlex },
+    { field: "amendment_types", headerName: "Amendment Type", flex: defaultFlex },
     { field: "description", headerName: "Description", flex: defaultFlex },
   ];
 
