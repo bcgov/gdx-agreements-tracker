@@ -51,14 +51,20 @@ const findAll = () => {
 const findById = (contractId) => {
   return knex
     .select(
+      "c.co_number",
+      "c.contract_number",
+      "c.requisition_number",
+      "c.start_date",
+      "c.end_date",
+      "c.description",
+      "c.notes",
       knex.raw(`total_fee_amount + c.total_expense_amount as max_amount`),
-      "c.*",
       knex.raw("total_fee_amount"),
       knex.raw("total_expense_amount"),
       knex.raw("( SELECT json_build_object('value', c.status, 'label', c.status)) AS status"),
       knex.raw("( SELECT json_build_object('value', c.fiscal, 'label', fy.fiscal_year)) AS fiscal"),
       knex.raw(
-        "(SELECT json_build_object('project_number', COALESCE(proj.project_number, ''),project_name, COALESCE(proj.project_name, ''), 'project_status',COALESCE(proj.project_status, ''),'value', c.project_id)) AS project_id"
+        "(SELECT json_build_object('project_number', COALESCE(proj.project_number, ''), 'project_name', COALESCE(proj.project_name, ''), 'project_status', COALESCE(proj.project_status, ''), 'value', proj.id) AS project_id)"
       ),
       knex.raw(
         "( SELECT json_build_object('value', c.contract_type, 'label', c.contract_type)) AS contract_type"

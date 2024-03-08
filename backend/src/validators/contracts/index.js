@@ -38,7 +38,7 @@ const getOne = {
           .prop("project_number", S.string())
           .prop("project_name", S.string())
           .prop("project_status", S.string())
-          .prop("value", S.number())
+          .prop("value", S.anyOf([S.number(), S.null()]))
       )
       .prop("project_name", S.string())
       .prop("contract_type", Schema.Picker)
