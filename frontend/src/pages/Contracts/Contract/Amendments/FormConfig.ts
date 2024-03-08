@@ -36,13 +36,13 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       ];
 
   const editFields: IEditField[] = [
-    // {
-    //   fieldName: "amendment_number",
-    //   fieldType: "readonly",
-    //   fieldLabel: "Amendment Number",
-    //   width: "half",
-    //   required
-    // },
+    {
+      fieldName: "amendment_number",
+      fieldType: "readonly",
+      fieldLabel: "Amendment Number",
+      width: "half",
+      required: true,
+    },
     {
       fieldName: "amendment_types",
       fieldType: "multiselect",
