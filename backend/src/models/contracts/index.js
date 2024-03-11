@@ -1,9 +1,5 @@
 const dbConnection = require("@database/databaseConnection");
-const useModel = require("../useModel");
 const { knex, dataBaseSchemas } = dbConnection();
-
-const { diffInsert } = useModel();
-
 const contractsTable = `${dataBaseSchemas().data}.contract`;
 const fiscalTable = `${dataBaseSchemas().data}.fiscal_year`;
 const suppliersTable = `${dataBaseSchemas().data}.supplier`;
@@ -14,6 +10,7 @@ const contractSubcontractorTable = `${dataBaseSchemas().data}.contract_subcontra
 const contractResourceTable = `${dataBaseSchemas().data}.contract_resource`;
 const contractDeliverableTable = `${dataBaseSchemas().data}.contract_deliverable`;
 const invoiceDetail = `${dataBaseSchemas().data}.invoice_detail`;
+const subcontractor = `${dataBaseSchemas().data}.subcontractor`;
 
 // Get all.
 const findAll = () => {
@@ -51,6 +48,7 @@ const findAll = () => {
 const findById = (contractId) => {
   return knex
     .select(
+      "c.id",
       "c.co_number",
       "c.contract_number",
       "c.requisition_number",
@@ -58,9 +56,17 @@ const findById = (contractId) => {
       "c.end_date",
       "c.description",
       "c.notes",
+      knex.raw(
+        `jsonb_agg(
+          CASE
+              WHEN sc.id IS NULL THEN '[]'::jsonb
+              ELSE jsonb_build_object('value', sc.id, 'label', sc.subcontractor_name)
+          END
+      ) AS subcontractor_id`
+      ),
       knex.raw(`total_fee_amount + c.total_expense_amount as max_amount`),
-      knex.raw("total_fee_amount"),
-      knex.raw("total_expense_amount"),
+      "c.total_fee_amount",
+      "c.total_expense_amount",
       knex.raw("( SELECT json_build_object('value', c.status, 'label', c.status)) AS status"),
       knex.raw("( SELECT json_build_object('value', c.fiscal, 'label', fy.fiscal_year)) AS fiscal"),
       knex.raw(
@@ -76,8 +82,7 @@ const findById = (contractId) => {
         "( SELECT json_build_object('value', c.procurement_method_id, 'label', pm.procurement_method)) AS procurement_method_id"
       ),
       "proj.project_name",
-      "proj.total_project_budget",
-      "port.*"
+      "proj.total_project_budget"
     )
     .from(`${contractsTable} as c`)
     .leftJoin(`${fiscalTable} as fy`, { "c.fiscal": "fy.id" })
@@ -85,7 +90,35 @@ const findById = (contractId) => {
     .leftJoin(`${portfolioTable} as port`, { "c.supplier_id": "port.id" })
     .leftJoin(`${projectTable} as proj`, { "c.project_id": "proj.id" })
     .leftJoin(`${procurementMethodTable} as pm`, { "c.procurement_method_id": "pm.id" })
+    .leftJoin(`${contractSubcontractorTable} as csc`, { "c.id": "csc.contract_id" })
+    .leftJoin(`${subcontractor} as sc`, { "csc.subcontractor_id": "sc.id" })
     .where("c.id", contractId)
+    .groupBy(
+      "c.co_number",
+      "c.contract_number",
+      "c.requisition_number",
+      "c.start_date",
+      "c.end_date",
+      "c.description",
+      "c.notes",
+      "c.total_fee_amount",
+      "c.total_expense_amount",
+      "c.status",
+      "c.fiscal",
+      "proj.project_number",
+      "proj.project_name",
+      "proj.project_status",
+      "c.contract_type",
+      "c.supplier_id",
+      "c.procurement_method_id",
+      "proj.id",
+      "port.*",
+      "s.supplier_name",
+      "pm.procurement_method",
+      "port.id",
+      "fy.fiscal_year",
+      "c.id"
+    )
     .first();
 };
 
@@ -94,69 +127,79 @@ const findByProjectId = (projectId) => {
   return knex(contractsTable).select("id", "co_number").where("project_id", projectId);
 };
 
-const addOrUpdate = (body, id) => {
-  // Begin transaction so multiple database operations can occur at the same time.
-  return knex
-    .transaction(async (trx) => {
-      const operations = [];
-      let hasSubcontractorChanges = false;
-      let rawSubcontractors = [];
-      if (body.subcontractor_id) {
-        hasSubcontractorChanges = true;
-        rawSubcontractors = body.subcontractor_id;
-        delete body.subcontractor_id;
-      }
-      // Update any other contract fields normally.
-      if (Object.keys(body).length > 0) {
-        if (null === id) {
-          return await knex(contractsTable)
-            .insert(body)
-            .returning("id")
-            .then((newId) => {
-              return newId[0].id;
-            });
-        } else {
-          operations.push(trx(contractsTable).where("id", id).update(body));
-        }
-      }
-      // Subcontractors must be handled differently as it updates contract_subcontractors, not the contract table.
-      if (hasSubcontractorChanges) {
-        // Create subcontractors array that fits diffInsert's expected structure.
-        const subcontractors = rawSubcontractors.map((sub) => {
-          return {
-            contract_id: id,
-            subcontractor_id: sub.value,
-          };
-        });
-        // Push delete and insert operations generated from diffInsert.
-        operations.push(
-          ...(await diffInsert(
-            contractSubcontractorTable,
-            subcontractors,
-            id,
-            "contract_id",
-            "subcontractor_id",
-            trx
-          ))
-        );
-        delete body.subcontractor_id;
-      }
-      // Perform all operations (subcontractors deletes, inserts, and contract updates).
-      return await Promise.all(operations);
-    })
-    .then((result) => {
-      return result;
-    });
-};
-
 // Update one.
-const updateOne = (body, id) => {
-  return addOrUpdate(body, id);
+const updateOne = (updatedContract, id) => {
+  const { subcontractor_id, ...body } = updatedContract;
+
+  // Array to store promises
+  const promises = [];
+
+  // Delete existing records
+  promises.push(knex(contractSubcontractorTable).where("contract_id", id).del());
+
+  // Insert new records if 'subcontractors' is present
+  if (subcontractor_id) {
+    for (const subcontractor of subcontractor_id) {
+      promises.push(
+        knex(contractSubcontractorTable).insert({
+          contract_id: id,
+          subcontractor_id: Number(subcontractor.value),
+        })
+      );
+    }
+  }
+
+  // Update 'request' if it is present
+  if (Object.keys(body).length > 0) {
+    promises.push(knex(contractsTable).where("id", id).update(body));
+  }
+
+  // Return a promise that resolves when all promises in the array resolve
+  return Promise.all(promises);
 };
 
 // Add one.
-const addOne = (newContract) => {
-  return addOrUpdate(newContract, null);
+const addOne = async (newContract) => {
+  const { subcontractor_id, ...body } = newContract;
+  const promises = [];
+  try {
+    // Insert a record into the contracts table
+    promises.push(
+      knex(contractsTable)
+        .insert({
+          ...body,
+        })
+        .returning("id")
+        .then((results) => {
+          if (subcontractor_id) {
+            for (const subcontractor of subcontractor_id) {
+              promises.push(
+                knex(contractSubcontractorTable)
+                  .insert({
+                    contract_id: results[0].id,
+                    subcontractor_id: Number(subcontractor.value),
+                  })
+                  .then((results) => {
+                    return results;
+                  })
+                  .catch((err) => {
+                    return err;
+                  })
+              );
+            }
+          }
+          return;
+        })
+    );
+
+    // Insert new records if 'subcontractor_id' is present
+
+    return Promise.all(promises);
+  } catch (error) {
+    // Handle error
+    console.error("Error adding contract amendment:", error);
+    throw error;
+  }
 };
 
 // Get specific one by id.
