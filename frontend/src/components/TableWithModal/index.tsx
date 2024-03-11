@@ -78,6 +78,7 @@ export const TableWithModal = ({
         handleClose={formControls.handleClose}
         deleteUrl={deleteUrl as string}
         handleDelete={handleDelete}
+        formConfig={formConfig}
       >
         <Box mt={4}>
           <FormRenderer

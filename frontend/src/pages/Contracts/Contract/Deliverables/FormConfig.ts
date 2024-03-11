@@ -146,5 +146,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const updateUrl = `/contracts/deliverables/${rowId}`;
   const deleteUrl = `/contracts/deliverables/${query}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };
+  const formTitle = "Contract Deliverables";
+
+  return {
+    readFields,
+    editFields,
+    initialValues,
+    rowsToLock,
+    postUrl,
+    updateUrl,
+    deleteUrl,
+    formTitle,
+  };
 };

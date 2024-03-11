@@ -134,5 +134,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const postUrl = `/contacts`;
   const updateUrl = `/contacts/${rowId}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
+  const formTitle = "Contacts";
+
+  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, formTitle };
 };

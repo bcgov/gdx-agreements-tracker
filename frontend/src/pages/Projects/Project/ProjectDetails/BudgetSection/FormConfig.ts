@@ -480,6 +480,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       .required("Deliverable Amount is required"),
   });
 
+  const formTitle = "Project Budget";
+
   return {
     validationSchema,
     readFields,
@@ -489,5 +491,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     postUrl,
     updateUrl,
     deleteUrl,
+    formTitle,
   };
 };

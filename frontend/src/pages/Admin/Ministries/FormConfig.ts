@@ -47,5 +47,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const postUrl = `/ministries`;
   const updateUrl = `/ministries/${rowId}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl };
+  const formTitle = "Ministries";
+
+  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, formTitle };
 };
