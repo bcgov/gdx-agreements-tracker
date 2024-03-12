@@ -96,6 +96,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const postUrl = `/amendments`;
   const updateUrl = `/amendments/${query?.data?.data?.data?.id}`;
 
+  const formTitle = "Contract Amendments";
+
   return {
     readFields,
     editFields,
@@ -104,5 +106,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     postUrl,
     updateUrl,
     validationSchema,
+    formTitle,
   };
 };

@@ -107,6 +107,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const updateUrl = `/invoices/${rowId}`;
   const deleteUrl = `/invoices/${query}`;
 
+  const formTitle = "Contract Invoice Processing";
+
   return {
     readFields,
     editFields,
@@ -116,5 +118,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     updateUrl,
     deleteUrl,
     validationSchema,
+    formTitle,
   };
 };

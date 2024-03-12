@@ -101,7 +101,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     fiscal: "",
     resource_id: "",
     supplier_rate_id: "",
-    assignment_rate: 0,
+    assignment_rate: "",
     hours: 0,
     start_date: null,
     end_date: null,
@@ -113,5 +113,16 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const updateUrl = `/contracts/resources/${rowId}`;
   const deleteUrl = `/contracts/resources/${query}`;
 
-  return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, deleteUrl };
+  const formTitle = "Contract Resources";
+
+  return {
+    readFields,
+    editFields,
+    initialValues,
+    rowsToLock,
+    postUrl,
+    updateUrl,
+    deleteUrl,
+    formTitle,
+  };
 };

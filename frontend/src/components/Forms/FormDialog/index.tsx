@@ -19,6 +19,7 @@ import { useQueryClient } from "@tanstack/react-query";
  * @param   {boolean}         open         - Whether the dialog is open or not.
  * @param   {Function}        handleClose  - The function to call when the user clicks the close button.
  * @param   {Function}        handleDelete - The function to call when the user confirms deletion.
+ * @param   {Function}        formConfig   - Returns a form configuration, including the form Title.
  * @param   {string}          deleteUrl    - The URL to call when the user confirms deletion.
  * @returns {React.ReactNode}              - The rendered component.
  */
@@ -28,6 +29,7 @@ interface FormDialogProps {
   handleClose: Function;
   handleDelete: (options: { apiUrl: string }) => Promise<void>; // Update the function signature
   deleteUrl: string;
+  formConfig: Function;
 }
 
 const FormDialog: React.FC<FormDialogProps> = ({
@@ -36,9 +38,11 @@ const FormDialog: React.FC<FormDialogProps> = ({
   handleClose,
   handleDelete,
   deleteUrl,
+  formConfig,
 }) => {
   const [openDeletePrompt, setOpenDeletePrompt] = useState(false);
   const queryClient = useQueryClient();
+  const { formTitle = "" } = formConfig();
 
   const handleDeleteResponse = async () => {
     await handleDelete({ apiUrl: deleteUrl }).then(() => {
@@ -57,6 +61,7 @@ const FormDialog: React.FC<FormDialogProps> = ({
             backgroundColor: "#e9e9e9",
           }}
         >
+          {formTitle}
           {deleteUrl && (
             <Button
               variant="contained"

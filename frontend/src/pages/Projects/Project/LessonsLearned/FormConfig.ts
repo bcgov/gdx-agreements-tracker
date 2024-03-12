@@ -87,6 +87,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     lesson: string().required("Lesson is required."),
   });
 
+  const formTitle = "Project Lessons Learned";
+
   return {
     readFields,
     editFields,
@@ -95,5 +97,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     postUrl,
     updateUrl,
     validationSchema,
+    formTitle,
   };
 };

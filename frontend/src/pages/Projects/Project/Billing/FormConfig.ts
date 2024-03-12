@@ -200,6 +200,8 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     billed_date: string().nullable().required("Billed date is required."),
   });
 
+  const formTitle = "Project Billing";
+
   return {
     validationSchema,
     readFields,
@@ -208,5 +210,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     rowsToLock,
     postUrl,
     updateUrl,
+    formTitle,
   };
 };
