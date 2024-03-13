@@ -1,5 +1,5 @@
-const controller = require("@controllers/projects/lessonsLearned");
-const validators = require("@validators/projects/lessonsLearned");
+const controller = require("@controllers/projects/lessons_learned");
+const validators = require("@validators/projects/lessons_learned");
 
 const what = "projects";
 
@@ -21,12 +21,18 @@ const routes = [
     url: `/${what}/:projectId/lessons-learned/:id`,
     schema: validators.updateOne,
     handler: controller.updateOne,
+    config: {
+      role: "PMO-Manager-Edit-Capability",
+    },
   },
   {
     method: "POST",
     url: `/lessons-learned`,
     schema: validators.addOne,
     handler: controller.addOne,
+    config: {
+      role: "PMO-Manager-Edit-Capability",
+    },
   },
 ];
 

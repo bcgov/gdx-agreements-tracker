@@ -41,7 +41,7 @@ const verifyRole = async (request, reply) => {
   const roles = await getRealmRoles(request);
 
   // Set the default role for all routes globally
-  const routeRoleRequired = request.routeConfig?.role ?? "PMO-Manager-Edit-Capability";
+  const routeRoleRequired = request.routeOptions.config.role ?? "PMO-User-Role";
 
   if (!roles.includes(routeRoleRequired)) {
     const message = `User doesn't have required role ${routeRoleRequired}`;
