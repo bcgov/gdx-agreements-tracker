@@ -36,20 +36,6 @@ const verifyJWT = async (request, reply) => {
  * @param {FastifyRequest} request The fastify request is an instance of the standard http or http2 request objects.
  * @param {FastifyReply}   reply   The fastify reply object.
  */
-// const verifyRole = async (request, reply) => {
-//   request.log.debug("preValidation: verifyRole");
-//   const roles = await getRealmRoles(request);
-
-//   // Set the default role for all routes globally
-//   const routeRoleRequired = request.routeOptions.config.role ?? "PMO-User-Role";
-
-//   if (!roles.includes(routeRoleRequired)) {
-//     const message = `User doesn't have required role ${routeRoleRequired}`;
-//     request.log.warn(message);
-//     request.log.debug(roles);
-//     reply.code(401).send({ message });
-//   }
-// };
 const verifyRole = async (request, reply) => {
   request.log.debug("preValidation: verifyRole");
   const roles = await getRealmRoles(request);
