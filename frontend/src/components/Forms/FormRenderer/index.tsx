@@ -133,8 +133,8 @@ export const FormRenderer = ({
           `This section is currently being editied by: ${lockData.data.lockedBy}.  Please contact them for an update.`
         );
       }
+      handleFormType("edit");
     });
-    handleFormType("edit");
   };
 
   if (!formData.data && formType !== "new") {
