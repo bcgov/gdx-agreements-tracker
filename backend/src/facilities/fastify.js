@@ -40,14 +40,13 @@ const verifyRole = async (request, reply) => {
   request.log.debug("preValidation: verifyRole");
   const roles = await getRealmRoles(request);
   let routeRoleRequired = "PMO-Admin-Edit-Capability";
-  if (request.method === "GET") {
+  if ("GET" === request.method) {
     // For read routes, allow everyone
     return;
   } else if (request.routeOptions.config.role) {
     // If a specific role is specified in the route config, use it
     routeRoleRequired = request.routeOptions.config.role;
   }
-  console.log("routeRoleRequired", routeRoleRequired);
   if (!roles.includes(routeRoleRequired)) {
     const message = `User doesn't have required role ${routeRoleRequired}`;
     request.log.warn(message);
