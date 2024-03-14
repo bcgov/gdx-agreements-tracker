@@ -91,9 +91,8 @@ const testRoutes = (args) => {
 
   describe.each(args)("Status 200: Access routes successfully", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.run(test.modelFunction, test.request, [
-        "PMO-Manager-Edit-Capability",
-      ]);
+      const response = await testRequester.run(test.modelFunction, test.request, ["PMO-User-Role"]);
+      console.log('response', response)
       expect(response.statusCode).toBe(200);
     });
   });
@@ -113,7 +112,7 @@ const testRoutes = (args) => {
             ...test.request,
             url: url,
           },
-          ["PMO-Manager-Edit-Capability"]
+          ["PMO-User-Role"]
         );
         expect(response.statusCode).toBe(400);
       });
@@ -124,7 +123,7 @@ const testRoutes = (args) => {
         const response = await testRequester.run(
           test.modelFunction,
           test.request,
-          ["PMO-Manager-Edit-Capability"],
+          ["PMO-User-Role"],
           null
         );
         expect(response.statusCode).toBe(404);
@@ -142,7 +141,7 @@ const testRoutes = (args) => {
   describe.each(args)("Status 500: Database/model errors", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
       const response = await testRequester.fail(test.modelFunction, test.request, [
-        "PMO-Manager-Edit-Capability",
+        "PMO-User-Role",
       ]);
       expect(response.statusCode).toBe(500);
     });
