@@ -1,8 +1,8 @@
-const model = require("@models/projects/lessonsLearned");
+const model = require("@models/projects/lessons_learned");
 const { testRoutes, routeTypes } = require("../index.js");
 
 jest.mock("@facilities/keycloak.js");
-jest.mock("@models/projects/lessonsLearned");
+jest.mock("@models/projects/lessons_learned");
 
 testRoutes([
   {
