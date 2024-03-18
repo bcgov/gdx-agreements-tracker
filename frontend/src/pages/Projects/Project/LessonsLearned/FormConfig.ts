@@ -3,8 +3,6 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { IEditField } from "types";
 import { useParams } from "react-router";
 import { object, string } from "yup";
-import keycloak from "keycloak";
-import { useAuthorization } from "hooks/useAuthorization";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -90,7 +88,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   });
 
   const formTitle = "Project Lessons Learned";
-  const canEdit = useAuthorization("PMO-Manager-Edit-Capability");
+  const authorizedToEdit = "PMO-Manager-Edit-Capability";
 
   return {
     readFields,
@@ -101,6 +99,6 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
     updateUrl,
     validationSchema,
     formTitle,
-    canEdit,
+    authorizedToEdit,
   };
 };

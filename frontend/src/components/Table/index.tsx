@@ -3,7 +3,6 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import { TableToolBar } from "./TableToolbar";
 import { useRenderTableCell } from "hooks";
-import keycloak from "keycloak";
 import { useAuthorization } from "hooks/useAuthorization";
 
 export const Table = ({
@@ -12,10 +11,11 @@ export const Table = ({
   handleRowDoubleClick,
   handleRowClick = null,
   handleTableNewButton,
-  canEdit = useAuthorization('PMO-Admin-Edit-Capability'),
+  authorizedToEdit,
 }: // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 any) => {
+  const canEdit = useAuthorization(authorizedToEdit ?? "PMO-Admin-Edit-Capability");
   const { tableColumns, initialState } = tableConfig;
 
   const DataGridStyles = {

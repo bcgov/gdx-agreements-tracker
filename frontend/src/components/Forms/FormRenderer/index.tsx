@@ -8,7 +8,6 @@ import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
 import { useFormData } from "hooks/useFormData";
 import { useNavigate } from "react-router";
-import keycloak from "keycloak";
 import { AuthorizationMessageBox } from "components/AuthorizationMessageBox";
 import { useAuthorization } from "hooks/useAuthorization";
 
@@ -36,11 +35,13 @@ export const FormRenderer = ({
   tableName,
   formConfig,
   formDataApiEndpoint,
-  canEdit = useAuthorization("PMO-Admin-Edit-Capability"),
+  authorizedToEdit,
 }: IFormRenderer): JSX.Element => {
   const navigate = useNavigate();
   const { handleUpdate, handlePost } = useFormSubmit();
   const { handleDbLock, removeLock } = useFormLock();
+
+  const canEdit = useAuthorization(authorizedToEdit ?? "PMO-Admin-Edit-Capability");
 
   const queryClient = useQueryClient();
 

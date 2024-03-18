@@ -446,7 +446,7 @@ export interface IFormRenderer {
   tableName: string;
   formConfig;
   formDataApiEndpoint: string;
-  canEdit?: boolean;
+  authorizedToEdit?: string;
 }
 export interface IDBRowlock {
   data: { data: { table: string } };
@@ -478,7 +478,7 @@ export type TFormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   postUrl: string;
   updateUrl: string;
   validationSchema?: YupSchema<{ [key]: Function }>;
-  canEdit?: boolean;
+  authorizedToEdit?: string;
 };
 
 export interface ITableWithModalData {
