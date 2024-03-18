@@ -46,9 +46,7 @@ describe("Close out notify function", () => {
 
   describe("Status 200: Access routes successfully", () => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
-      const response = await testRequester.run(test.modelFunction, test.request, [
-        "PMO-User-Role",
-      ]);
+      const response = await testRequester.run(test.modelFunction, test.request, ["PMO-User-Role"]);
       expect(response.statusCode).toBe(200);
     });
   });

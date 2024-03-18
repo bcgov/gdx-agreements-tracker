@@ -87,7 +87,6 @@ const getUserInfo = (request) => {
 const getRealmRoles = (request) => {
   const token = getBearerTokenFromRequest(request);
   const decodedToken = jwt.decode(token, { complete: true });
-  console.log('decodedToken?.payload?.client_roles', decodedToken?.payload?.client_roles)
   return decodedToken?.payload?.client_roles || [];
 };
 

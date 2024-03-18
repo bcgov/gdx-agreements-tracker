@@ -92,7 +92,6 @@ const testRoutes = (args) => {
   describe.each(args)("Status 200: Access routes successfully", (test) => {
     it(`${test.request.method} - ${test.request.url}`, async () => {
       const response = await testRequester.run(test.modelFunction, test.request, ["PMO-User-Role"]);
-      console.log('response', response)
       expect(response.statusCode).toBe(200);
     });
   });

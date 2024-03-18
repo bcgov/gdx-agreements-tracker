@@ -40,7 +40,7 @@ const verifyRole = async (request, reply) => {
   request.log.debug("preValidation: verifyRole");
   const roles = await getRealmRoles(request);
   let routeRoleRequired = request.routeOptions.config.role ?? "PMO-User-Role";
-  
+
   if (!roles.includes(routeRoleRequired)) {
     const message = `User doesn't have required role ${routeRoleRequired}`;
     request.log.warn(message);
