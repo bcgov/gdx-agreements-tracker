@@ -446,7 +446,7 @@ export interface IFormRenderer {
   tableName: string;
   formConfig;
   formDataApiEndpoint: string;
-  isReadOnly?: boolean;
+  canEdit?: boolean;
 }
 export interface IDBRowlock {
   data: { data: { table: string } };

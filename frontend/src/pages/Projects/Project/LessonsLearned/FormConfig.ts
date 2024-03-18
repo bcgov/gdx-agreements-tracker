@@ -4,6 +4,7 @@ import { IEditField } from "types";
 import { useParams } from "react-router";
 import { object, string } from "yup";
 import keycloak from "keycloak";
+import { useAuthorization } from "hooks/useAuthorization";
 
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const { projectId } = useParams();
@@ -89,7 +90,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   });
 
   const formTitle = "Project Lessons Learned";
-  const canEdit = !keycloak.tokenParsed.client_roles.includes("PMO-Manager-Edit-Capability");
+  const canEdit = useAuthorization("PMO-Manager-Edit-Capability");
 
   return {
     readFields,

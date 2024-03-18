@@ -4,6 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { TableToolBar } from "./TableToolbar";
 import { useRenderTableCell } from "hooks";
 import keycloak from "keycloak";
+import { useAuthorization } from "hooks/useAuthorization";
 
 export const Table = ({
   rows,
@@ -11,7 +12,7 @@ export const Table = ({
   handleRowDoubleClick,
   handleRowClick = null,
   handleTableNewButton,
-  isReadOnly = !keycloak.tokenParsed.client_roles.includes("PMO-Admin-Edit-Capability"),
+  canEdit = useAuthorization('PMO-Admin-Edit-Capability'),
 }: // todo: Define a good type. "Any" type temporarily permitted.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 any) => {
@@ -51,7 +52,7 @@ any) => {
           sx={DataGridStyles}
           slots={{
             toolbar: () => (
-              <TableToolBar handleTableNewButton={handleTableNewButton} isReadOnly={isReadOnly} />
+              <TableToolBar handleTableNewButton={handleTableNewButton} canEdit={!canEdit} />
             ),
             cell: useRenderTableCell,
           }}

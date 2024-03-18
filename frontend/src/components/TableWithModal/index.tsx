@@ -69,7 +69,7 @@ export const TableWithModal = ({
         handleRowDoubleClick={handleRowDoubleClick}
         handleRowClick={handleRowClick}
         handleTableNewButton={handleTableNewButton}
-        isReadOnly={canEdit}
+        canEdit={canEdit}
       />
       <FormDialog
         open={formControls.open}
@@ -84,7 +84,7 @@ export const TableWithModal = ({
             tableName={tableName}
             formConfig={formConfig}
             formDataApiEndpoint={formDataApiEndpoint}
-            isReadOnly={canEdit}
+            canEdit={canEdit}
           />
         </Box>
       </FormDialog>
