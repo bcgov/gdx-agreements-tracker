@@ -5,10 +5,10 @@ import { AuthorizationMessageBox } from "components/AuthorizationMessageBox";
 
 export const TableToolBar = ({
   handleTableNewButton,
-  isReadOnly,
+  canEdit,
 }: {
   handleTableNewButton: () => void;
-  isReadOnly: boolean;
+  canEdit: boolean;
 }) => {
   return (
     <GridToolbarContainer>
@@ -17,11 +17,11 @@ export const TableToolBar = ({
         onClick={() => {
           handleTableNewButton();
         }}
-        disabled={isReadOnly}
+        disabled={canEdit}
       >
         Add New
       </Button>
-      {isReadOnly && <AuthorizationMessageBox message={"You are not authorized to edit."} />}
+      {canEdit && <AuthorizationMessageBox message={"You are not authorized to edit."} />}
       <Box sx={{ flex: "0%" }}></Box>
       <Paper elevation={3}>
         {" "}

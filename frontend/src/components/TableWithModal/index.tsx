@@ -58,7 +58,7 @@ export const TableWithModal = ({
     }
   };
 
-  const { deleteUrl, canEdit } = formConfig(formControls.currentRowData?.id);
+  const { deleteUrl, authorizedToEdit } = formConfig(formControls.currentRowData?.id);
   return tableData.isLoading ? (
     <LinearProgress />
   ) : (
@@ -69,7 +69,7 @@ export const TableWithModal = ({
         handleRowDoubleClick={handleRowDoubleClick}
         handleRowClick={handleRowClick}
         handleTableNewButton={handleTableNewButton}
-        isReadOnly={canEdit}
+        authorizedToEdit={authorizedToEdit}
       />
       <FormDialog
         open={formControls.open}
@@ -84,7 +84,7 @@ export const TableWithModal = ({
             tableName={tableName}
             formConfig={formConfig}
             formDataApiEndpoint={formDataApiEndpoint}
-            isReadOnly={canEdit}
+            authorizedToEdit={authorizedToEdit}
           />
         </Box>
       </FormDialog>
