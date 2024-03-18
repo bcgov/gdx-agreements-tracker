@@ -8,6 +8,8 @@ import { NotificationSnackBar } from "components/NotificationSnackbar";
 import { useSnackbar } from "hooks/useSnackbar";
 import { useFormData } from "hooks/useFormData";
 import { useNavigate } from "react-router";
+import keycloak from "keycloak";
+import { AuthorizationMessageBox } from "components/AuthorizationMessageBox";
 
 /**
  * This is a functional component called `FormRenderer` that takes in several props including `formControls`, `tableName`, `formConfig`, `formDataApiEndpoint`, and `isReadOnly`.
@@ -33,11 +35,12 @@ export const FormRenderer = ({
   tableName,
   formConfig,
   formDataApiEndpoint,
-  isReadOnly,
+  isReadOnly = !keycloak.tokenParsed.client_roles.includes("PMO-Admin-Edit-Capability"),
 }: IFormRenderer): JSX.Element => {
   const navigate = useNavigate();
   const { handleUpdate, handlePost } = useFormSubmit();
   const { handleDbLock, removeLock } = useFormLock();
+
   const queryClient = useQueryClient();
 
   const formData = useFormData({
@@ -54,6 +57,7 @@ export const FormRenderer = ({
     updateUrl,
     validationSchema,
   } = formConfig(formData);
+
   /**
    * This function handles form submission for editing or posting data and updates the UI accordingly.
    *
@@ -197,6 +201,9 @@ export const FormRenderer = ({
               <Button variant="contained" onClick={handleOnChange} disabled={isReadOnly}>
                 Change Section
               </Button>
+              {isReadOnly && (
+                <AuthorizationMessageBox message={"You are not authorized to edit."} />
+              )}
             </Box>
           </Box>
           <NotificationSnackBar

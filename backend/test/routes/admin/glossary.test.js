@@ -30,7 +30,7 @@ beforeEach(() => {
 
 describe("Status 200: Access routes successfully", () => {
   it(`${request.method} - ${request.url}`, async () => {
-    getRealmRoles.mockReturnValue(["PMO-Manager-Edit-Capability"]);
+    getRealmRoles.mockReturnValue(["PMO-User-Role"]);
     app.decorateReply("markdown", () => {
       return "Success";
     });

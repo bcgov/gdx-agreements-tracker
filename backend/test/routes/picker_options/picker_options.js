@@ -3,7 +3,7 @@ const { testRoutes, routeTypes } = require("../index.js");
 
 jest.mock("@models/picker_options");
 
-const capability = ["general_read_all"];
+const capability = ["PMO-User-Role"];
 
 testRoutes([
   {

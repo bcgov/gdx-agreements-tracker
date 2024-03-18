@@ -46,7 +46,7 @@ describe("Unauthorized routes because of incorrect role", () => {
 
     expect(response.statusCode).toBe(401);
     expect(JSON.parse(response.body).data.message).toBe(
-      "User doesn't have required role PMO-Manager-Edit-Capability"
+      "User doesn't have required role PMO-User-Role"
     );
   });
 });
@@ -58,7 +58,7 @@ describe("Authorized route", () => {
   it("Returns 200", async () => {
     getBearerTokenFromRequest.mockReturnValueOnce("Bearer 234fake23543token");
     verifyToken.mockResolvedValue("");
-    getRealmRoles.mockReturnValueOnce(["PMO-Manager-Edit-Capability"]);
+    getRealmRoles.mockReturnValueOnce(["PMO-User-Role"]);
     const response = await app.inject(requestObject);
     expect(response.statusCode).toBe(200);
   });

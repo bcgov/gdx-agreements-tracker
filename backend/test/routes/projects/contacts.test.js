@@ -10,7 +10,7 @@ testRoutes([
   {
     request: { method: "GET", url: "/projects/1/contacts" },
     modelFunction: model.findAllById,
-    capabilities: ["projects_read_all"],
+    capabilities: ["PMO-User-Role"],
     type: routeTypes.General,
   },
   {
@@ -20,7 +20,7 @@ testRoutes([
       payload: {},
     },
     modelFunction: model.updateOne,
-    capabilities: ["projects_update_one"],
+    capabilities: ["PMO-User-Role"],
     type: routeTypes.General,
   },
 ]);

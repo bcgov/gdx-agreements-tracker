@@ -20,12 +20,18 @@ const routes = [
     url: `/projects/${what}/:id`,
     schema: validators.updateOne,
     handler: controller.updateOne,
+    config: {
+      role: "PMO-Manager-Edit-Capability",
+    },
   },
   {
     method: "POST",
     url: `/projects/${what}`,
     // schema: validators.addOne,
     handler: controller.addOne,
+    config: {
+      role: "PMO-Manager-Edit-Capability",
+    },
   },
 ];
 

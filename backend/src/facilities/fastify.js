@@ -39,9 +39,7 @@ const verifyJWT = async (request, reply) => {
 const verifyRole = async (request, reply) => {
   request.log.debug("preValidation: verifyRole");
   const roles = await getRealmRoles(request);
-
-  // Set the default role for all routes globally
-  const routeRoleRequired = request.routeConfig?.role ?? "PMO-Manager-Edit-Capability";
+  let routeRoleRequired = request.routeOptions.config.role ?? "PMO-User-Role";
 
   if (!roles.includes(routeRoleRequired)) {
     const message = `User doesn't have required role ${routeRoleRequired}`;
@@ -50,7 +48,6 @@ const verifyRole = async (request, reply) => {
     reply.code(401).send({ message });
   }
 };
-
 /**
  * Callback for verifyAuthentication decorator for auth.
  *
