@@ -22,8 +22,8 @@ export const useFormData = ({ url, tableName, queryParams }: IGetFormData) => {
     refetchOnReconnect: false,
     retry: false,
     staleTime: Infinity,
-    refetchOnMount: "always"
+    refetchOnMount: "always",
   });
-  
+
   return query;
 };

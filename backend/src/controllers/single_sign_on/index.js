@@ -72,5 +72,4 @@ controller.getUser = async (request, reply) => {
   return combinedData;
 };
 
-
 module.exports = controller;
