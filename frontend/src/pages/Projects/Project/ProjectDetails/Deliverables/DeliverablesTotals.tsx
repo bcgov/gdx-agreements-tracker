@@ -1,18 +1,8 @@
 import { DataGrid } from "@mui/x-data-grid";
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 import { useFormatTableData } from "hooks";
 import { useParams } from "react-router-dom";
 import { Loader } from "components";
-import { red } from "@mui/material/colors";
 import bcgovTheme from "bcgovTheme";
 
 const DataGridStyles = {
@@ -73,9 +63,12 @@ const DeliverablesTotals = (): JSX.Element => {
                         {key
                           .replace(/([A-Z])/g, " $1")
                           .replace(/_/g, " ")
-                          .replace(/\b\w/g, (str) => str.toUpperCase())}:
+                          .replace(/\b\w/g, (str) => str.toUpperCase())}
+                        :
                       </Typography>
-                      <Typography sx={{fontWeight:"bold"}} variant="subtitle2">{row[key]}</Typography>
+                      <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
+                        {row[key]}
+                      </Typography>
                     </Grid>
                   ))}
                 </Grid>

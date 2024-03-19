@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 import { IReturnValue } from "types";
 import { GridItem } from "../../FormLayout/GridItem";
-import { useNavigate } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { PercentField } from "components/Forms/Fields/PercentField";
 
@@ -64,7 +63,6 @@ export const ReadField = ({
     },
   };
 
-  const navigate = useNavigate();
   const renderer = () => {
     switch (type) {
       case "multiSelect":

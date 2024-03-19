@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { IPageHeader } from "../../../types";
-import MenuIcon from "@mui/icons-material/Menu";
 import { SignoutButton } from "../../SignoutButton";
 import { TitleContext } from "context/TitleContext";
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 const drawerWidth = 240;
 
 const appBarStyles = {
