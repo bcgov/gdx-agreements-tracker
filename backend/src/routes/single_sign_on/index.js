@@ -14,7 +14,7 @@ const routes = [
   {
     method: "GET",
     url: `/sso/user`,
-    // schema: validators.getAll,
+    schema: validators.getOne,
     handler: controller.getUser,
     config: {
       role: "PMO-Admin-Edit-Capability",

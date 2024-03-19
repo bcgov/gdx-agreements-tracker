@@ -14,6 +14,17 @@ const getAll = {
   ),
 };
 
+const getOne = {
+  response: getResponse(
+    S.object()
+      .prop("id", S.number())
+      .prop("role", S.array())
+      .prop("firstName", S.string())
+      .prop("lastName", S.string())
+      .prop("email", S.string())
+  ),
+};
+
 module.exports = {
   getAll,
 };
