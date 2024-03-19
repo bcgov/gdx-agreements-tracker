@@ -1,8 +1,19 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { useFormatTableData } from "hooks";
 import { useParams } from "react-router-dom";
 import { Loader } from "components";
+import { red } from "@mui/material/colors";
+import bcgovTheme from "bcgovTheme";
 
 const DataGridStyles = {
   //Remove cell selection border
@@ -37,6 +48,11 @@ const DeliverablesTotals = (): JSX.Element => {
     tableName: "",
   });
 
+  const headerTitleStyles = {
+    color: bcgovTheme.palette.primary.main,
+    fontWeight: "bold",
+  };
+
   return tableData.isLoading || tableDataByFiscal.isLoading ? (
     <Loader />
   ) : (
@@ -45,20 +61,21 @@ const DeliverablesTotals = (): JSX.Element => {
         {tableData?.data?.rows?.map((row: { [key: string]: string }, index: number) => {
           return (
             <Card key={index}>
-              <CardHeader title="Totals" sx={{ backgroundColor: "#ededed" }} />
+              <CardHeader
+                avatar={<Typography sx={headerTitleStyles}>Totals</Typography>}
+                sx={{ backgroundColor: "#ededed" }}
+              />
               <CardContent>
                 <Grid container spacing={2}>
                   {Object.keys(row).map((key) => (
                     <Grid item xs={12} key={key}>
-                      <Typography variant="subtitle1" component="div">
+                      <Typography variant="subtitle2">
                         {key
                           .replace(/([A-Z])/g, " $1")
                           .replace(/_/g, " ")
-                          .replace(/\b\w/g, (str) => str.toUpperCase())}
+                          .replace(/\b\w/g, (str) => str.toUpperCase())}:
                       </Typography>
-                      <Typography variant="h6" component="div">
-                        {row[key]}
-                      </Typography>
+                      <Typography sx={{fontWeight:"bold"}} variant="subtitle2">{row[key]}</Typography>
                     </Grid>
                   ))}
                 </Grid>
@@ -74,7 +91,10 @@ const DeliverablesTotals = (): JSX.Element => {
       />
       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card>
-          <CardHeader title="Totals By Fiscal" sx={{ backgroundColor: "#ededed" }} />
+          <CardHeader
+            avatar={<Typography sx={headerTitleStyles}>Totals by Fiscal</Typography>}
+            sx={{ backgroundColor: "#ededed" }}
+          />
           <DataGrid
             columnVisibilityModel={{
               id: false,

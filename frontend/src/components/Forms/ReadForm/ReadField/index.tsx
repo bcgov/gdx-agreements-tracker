@@ -137,7 +137,7 @@ export const ReadField = ({
                 <div key={value?.link /* prevent key warning in console */}>
                   <Divider />
                   <ListItem component="div" disablePadding>
-                    <ListItemButton onClick={() => navigate(value.link)}>
+                    <ListItemButton onClick={() => window.open(value.link, "_blank")}>
                       <ListItemText sx={{ color: "blue" }} primary={`${value.label}`} />
                       <ListItemIcon sx={{ color: "inherit" }}>
                         <DescriptionIcon />

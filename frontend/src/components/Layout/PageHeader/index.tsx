@@ -4,7 +4,7 @@ import { IPageHeader } from "../../../types";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SignoutButton } from "../../SignoutButton";
 import { TitleContext } from "context/TitleContext";
-
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 const drawerWidth = 240;
 
 const appBarStyles = {
@@ -25,14 +25,14 @@ export const PageHeader = ({ handleDrawerToggle }: IPageHeader) => {
       <AppBar sx={appBarStyles} role="page-header">
         <Toolbar role="page-header-toolbar">
           <IconButton
-            color="inherit"
+            color="primary"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
             role="sidebar-toggle-button"
           >
-            <MenuIcon />
+            <MenuOutlinedIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={titleStyles}>
             {title}
