@@ -41,8 +41,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       width: "half",
       fieldLabel: "Role",
       fieldName: "role",
-      fieldType: "multiselect",
-      pickerName: "contact_option",
+      fieldType: "readonly",
     },
   ];
 
