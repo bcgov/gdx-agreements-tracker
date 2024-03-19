@@ -22,7 +22,7 @@ export const Users = () => {
       formControls={formControls}
       formConfig={FormConfig}
       tableDataApiEndPoint={`/sso/users`}
-      formDataApiEndpoint={`/users/${formControls.currentRowData?.id}`}
+      formDataApiEndpoint={`/sso/user`}
     />
   );
 };
