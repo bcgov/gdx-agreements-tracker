@@ -16,15 +16,18 @@ const getAll = {
 
 const getOne = {
   response: getResponse(
-    S.object()
-      .prop("id", S.number())
-      .prop("role", S.array())
-      .prop("firstName", S.string())
-      .prop("lastName", S.string())
-      .prop("email", S.string())
+    S.object().prop(
+      "user",
+      S.object()
+        .prop("role", S.array().items(S.string()))
+        .prop("firstName", S.string())
+        .prop("lastName", S.string())
+        .prop("email", S.string())
+    )
   ),
 };
 
 module.exports = {
   getAll,
+  getOne,
 };

@@ -68,7 +68,7 @@ controller.getUser = async (request, reply) => {
     }
     return acc;
   }, {});
-
+console.log('combinedData', combinedData)
   return combinedData;
 };
 
