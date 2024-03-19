@@ -36,5 +36,39 @@ controller.getUsers = async (request, reply) => {
   );
   return [].concat(...response);
 };
+controller.getUser = async (request, reply) => {
+  // Using Axios to call api endpoint with Bearer token
+  const allRoles = await controller.api.get(
+    `/integrations/${SINGLE_SIGN_ON_INTEGRATION_ID}/${SINGLE_SIGN_ON_ENVIRONMENT}/roles`
+  );
+  const compositeRoles = allRoles.filter((roleDetails) => roleDetails.composite);
+
+  // Use Promise.all to wait for all the promises to resolve
+  const allUsers = await Promise.all(
+    compositeRoles.map(async (role) => {
+      const usersByRole = await controller.api.get(
+        `/integrations/${SINGLE_SIGN_ON_INTEGRATION_ID}/${SINGLE_SIGN_ON_ENVIRONMENT}/roles/${role.name}/users`
+      );
+      const selectedUser = usersByRole.find((user) => user.email === request.query.email);
+      if (selectedUser) {
+        selectedUser.role = role;
+        return selectedUser;
+      }
+    })
+  );
+
+  const selectedUsers = allUsers.filter((user) => user); // Filter out undefined values
+
+  const combinedData = selectedUsers.reduce((acc, obj) => {
+    const key = "user";
+    if (!acc[key]) {
+      acc[key] = { ...obj, role: [obj.role.name] };
+    } else {
+      acc[key].role.push(obj.role.name);
+    }
+    return acc;
+  }, {});
+  return combinedData;
+};
 
 module.exports = controller;

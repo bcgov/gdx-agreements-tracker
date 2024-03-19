@@ -48,6 +48,7 @@ export const FormRenderer = ({
   const formData = useFormData({
     url: formDataApiEndpoint,
     tableName,
+    queryParams: formControls?.currentRowData,
   });
 
   const {
@@ -143,7 +144,7 @@ export const FormRenderer = ({
     });
   };
 
-  if (!formData.data && formType !== "new") {
+  if (formData.isFetching && formType !== "new") {
     return <LinearProgress />;
   }
 
@@ -160,6 +161,8 @@ export const FormRenderer = ({
         }
       );
       return newInitialValues;
+    } else if (formData?.data?.data?.data?.user) {
+      return formData?.data?.data?.data?.user;
     } else {
       return formData?.data?.data?.data;
     }

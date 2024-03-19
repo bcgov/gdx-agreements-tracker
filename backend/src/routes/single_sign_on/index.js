@@ -11,6 +11,15 @@ const routes = [
       role: "PMO-Admin-Edit-Capability",
     },
   },
+  {
+    method: "GET",
+    url: `/sso/user`,
+    schema: validators.getOne,
+    handler: controller.getUser,
+    config: {
+      role: "PMO-Admin-Edit-Capability",
+    },
+  },
 ];
 
 const registerRoutes = (fastify, options, done) => {
