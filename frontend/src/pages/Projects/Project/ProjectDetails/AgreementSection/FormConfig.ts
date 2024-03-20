@@ -39,7 +39,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldLabel: "Agreement Type",
       fieldType: "select",
       width: "half",
-      tableName: "project",
+      pickerName: "project_agreement_type_option",
     },
     {
       fieldName: "agreement_signed_date",
