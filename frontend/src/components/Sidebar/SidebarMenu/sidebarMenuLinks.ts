@@ -46,6 +46,10 @@ export const sidebarMenuLinks = [
         name: "Logs",
         url: "/admin/logs",
       },
+      {
+        name: "Project Agreement Types",
+        url: "/admin/project-agreement-types",
+      },
     ],
   },
 ];

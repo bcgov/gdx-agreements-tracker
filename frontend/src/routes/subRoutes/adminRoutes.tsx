@@ -9,6 +9,7 @@ import { Resources } from "../../pages/Admin/Resources";
 import { Glossary } from "pages/Admin/Glossary";
 import { Users } from "pages/Admin/Users";
 import { Logs } from "pages/Admin/Logs";
+import { ProjectAgreementTypeOptions } from "pages/Admin/ProjectAgreementTypes";
 
 /*
  * Routes for Admin pages.
@@ -32,6 +33,11 @@ const routes = [
     <Route key="glossary" path="glossary" element={<Glossary />} />
     <Route key="users" path="users" element={<Users />} />
     <Route key="logs" path="logs" element={<Logs />} />
+    <Route
+      key="project-agreement-types"
+      path="project-agreement-types"
+      element={<ProjectAgreementTypeOptions />}
+    />
   </Route>,
 ];
 
