@@ -88,10 +88,7 @@ const addUpdateBody = S.object()
   .prop("recoverable", Schema.Enum(["Fully", "Partially", "Non-Recoverable", null]))
   .prop("recoverable_amount", S.string())
   // Agreement
-  .prop(
-    "agreement_type",
-    Schema.Enum(["Project Charter", "Other", "Partnership Agreement", "MOU", null])
-  )
+  .prop("agreement_type", S.string())
   .prop("agreement_start_date", S.anyOf([S.null(), Schema.Date]))
   .prop("agreement_signed_date", S.anyOf([S.null(), Schema.Date]))
   .prop("agreement_end_date", S.anyOf([S.null(), Schema.Date]))

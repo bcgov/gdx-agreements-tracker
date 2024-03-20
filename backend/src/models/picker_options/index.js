@@ -64,10 +64,10 @@ const tableLookupValues = (projectId, contractId, params) => {
   const pickerOptions = [
     {
       id: "project_agreement_type",
-      name: "project_agreement_type_option",
+      name: "project_agreement_types_option",
       title: "Project Agreement Type",
       description: "",
-      table: "config.project_agreement_type_options",
+      table: "config.project_agreement_types_option",
       value: "value",
       label: `label`,
       queryAdditions: ``,
