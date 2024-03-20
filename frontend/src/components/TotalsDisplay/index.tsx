@@ -21,13 +21,14 @@ export const TotalsDisplay = ({
               <Grid container spacing={2}>
                 {Object.keys(row).map((key) => (
                   <Grid item xs={6} key={key}>
-                    <Typography variant="subtitle1" component="div">
+                    <Typography variant="subtitle2">
                       {key
                         .replace(/([A-Z])/g, " $1")
                         .replace(/_/g, " ")
                         .replace(/\b\w/g, (str) => str.toUpperCase())}
+                      :
                     </Typography>
-                    <Typography variant="h6" component="div">
+                    <Typography sx={{ fontWeight: "bold" }} variant="subtitle2">
                       {row[key]}
                     </Typography>
                   </Grid>

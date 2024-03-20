@@ -5,9 +5,8 @@ import { sidebarMenuLinks } from "./sidebarMenuLinks";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 
 const StyledSidebarImageFooter = styled("img")({
-  padding: "8px 24px",
   marginTop: "auto",
-  width: "100%",
+  width: "80%",
 });
 
 const StyledSidebarHorizontalRule = styled("hr")({

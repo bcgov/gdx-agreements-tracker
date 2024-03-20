@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 import { IReturnValue } from "types";
 import { GridItem } from "../../FormLayout/GridItem";
-import { useNavigate } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { PercentField } from "components/Forms/Fields/PercentField";
 
@@ -64,7 +63,6 @@ export const ReadField = ({
     },
   };
 
-  const navigate = useNavigate();
   const renderer = () => {
     switch (type) {
       case "multiSelect":
@@ -137,7 +135,7 @@ export const ReadField = ({
                 <div key={value?.link /* prevent key warning in console */}>
                   <Divider />
                   <ListItem component="div" disablePadding>
-                    <ListItemButton onClick={() => navigate(value.link)}>
+                    <ListItemButton onClick={() => window.open(value.link, "_blank")}>
                       <ListItemText sx={{ color: "blue" }} primary={`${value.label}`} />
                       <ListItemIcon sx={{ color: "inherit" }}>
                         <DescriptionIcon />

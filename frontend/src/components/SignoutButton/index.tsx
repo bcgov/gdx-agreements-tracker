@@ -59,7 +59,6 @@ export const SignoutButton = () => {
           inputProps={{ "aria-label": "Without label" }}
         >
           <MenuItem value={"Signout"}>Signout</MenuItem>
-          <MenuItem value={"Settings"}>Settings</MenuItem>
         </Select>
       )}
     </StyledFormControl>
