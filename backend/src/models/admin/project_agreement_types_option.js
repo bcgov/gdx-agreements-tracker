@@ -1,11 +1,11 @@
 const dbConnection = require("@database/databaseConnection");
 const { knex, dataBaseSchemas } = dbConnection();
-const projectAgreementTypeOptionsTable = `${
+const projectAgreementTypesOptionTable = `${
   dataBaseSchemas().config
-}.project_agreement_type_options`;
+}.project_agreement_types_option`;
 
 const findAll = () => {
-  return knex(`${projectAgreementTypeOptionsTable} as patot`).columns(
+  return knex(`${projectAgreementTypesOptionTable} as patot`).columns(
     { label: "patot.label" },
     { value: "patot.value" },
     { id: "patot.id" }
@@ -16,19 +16,19 @@ const findAll = () => {
 const findById = (id) => {
   return knex
     .select({ label: "patot.label" }, { value: "patot.value" }, { id: "patot.id" })
-    .from(`${projectAgreementTypeOptionsTable} as patot`)
+    .from(`${projectAgreementTypesOptionTable} as patot`)
     .where("patot.id", id)
     .first();
 };
 
 // Update one.
 const updateOne = (body, id) => {
-  return knex(projectAgreementTypeOptionsTable).where("id", id).update(body);
+  return knex(projectAgreementTypesOptionTable).where("id", id).update(body);
 };
 
 // Add one.
 const addOne = (newOption) => {
-  return knex(projectAgreementTypeOptionsTable).insert(newOption);
+  return knex(projectAgreementTypesOptionTable).insert(newOption);
 };
 
 module.exports = {
