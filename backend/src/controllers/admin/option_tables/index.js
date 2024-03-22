@@ -1,5 +1,5 @@
 const model = require("@models/admin/option_tables");
-const log = require("../../facilities/logging.js")(module.filename);
+const log = require("../../../facilities/logging.js")(module.filename);
 /**
  * This is the callback for when a query fails, due to an improper syntax.
  *
