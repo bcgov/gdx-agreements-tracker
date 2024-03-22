@@ -4,17 +4,13 @@ const { knex } = dbConnection();
 const optionTablesModel = (request, id) => {
   const tableName = request.url.split("/")[1];
   const findAll = () => {
-    return knex(`${tableName} as t`).columns(
-      { label: "t.label" },
-      { value: "t.value" },
-      { id: "t.id" }
-    );
+    return knex(`${tableName} as t`).columns({ label: "t.label" }, { id: "t.id" });
   };
 
   // Get specific one by id.
   const findById = () => {
     return knex
-      .select({ label: "t.label" }, { value: "t.value" }, { id: "t.id" })
+      .select({ label: "t.label" }, { id: "t.id" })
       .from(`${tableName} as t`)
       .where("t.id", id)
       .first();
@@ -22,12 +18,14 @@ const optionTablesModel = (request, id) => {
 
   // Update one.
   const updateOne = () => {
-    return knex(tableName).where("id", id).update(request.body);
+    const { label } = request?.body;
+    return knex(tableName).where("id", id).update({ value: label, label: label });
   };
 
   // Add one.
   const addOne = () => {
-    return knex(tableName).insert(request.body);
+    const { label } = request?.body;
+    return knex(tableName).insert({ value: label, label: label });
   };
 
   return { findAll, findById, updateOne, addOne };

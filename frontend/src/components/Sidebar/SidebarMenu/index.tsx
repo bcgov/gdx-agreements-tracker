@@ -26,7 +26,7 @@ export const SidebarMenu: React.FC = () => {
     <StyledSidebarBox>
       <Box p="12px">
         <Typography variant="h6" color="primary.contrastText">
-          GDX Agreements Tracker
+          GDX Agreements Tracker``
         </Typography>
       </Box>
       <StyledSidebarHorizontalRule />
@@ -35,6 +35,7 @@ export const SidebarMenu: React.FC = () => {
           <SidebarMenuItem {...item} key={index} color={"#fff"} />
         ))}
       </List>
+
       <StyledSidebarBox p="12px">
         <StyledSidebarImageFooter role="sidebar-logo" alt="bcgov_logo" src="../gov_bc_logo.svg" />
       </StyledSidebarBox>
