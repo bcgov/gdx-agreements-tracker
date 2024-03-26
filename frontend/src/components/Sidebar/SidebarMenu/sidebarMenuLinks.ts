@@ -14,7 +14,6 @@ export const sidebarMenuLinks = [
   {
     name: "Administration Forms",
     items: [
-      
       {
         name: "Glossary",
         url: "/admin/glossary",

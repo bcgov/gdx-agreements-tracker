@@ -16,15 +16,13 @@ const optionTablesModel = (request, id) => {
       .first();
   };
 
-  // Update one.
   const updateOne = () => {
-    const { label } = request?.body;
+    const { label } = request || {};
     return knex(tableName).where("id", id).update({ value: label, label: label });
   };
 
-  // Add one.
   const addOne = () => {
-    const { label } = request?.body;
+    const { label } = request?.body || {};
     return knex(tableName).insert({ value: label, label: label });
   };
 
