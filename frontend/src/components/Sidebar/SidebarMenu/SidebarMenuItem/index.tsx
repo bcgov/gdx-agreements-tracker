@@ -4,6 +4,7 @@ import { Collapse, Divider, ListItemText, List, styled } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
+import { PickerOptionsMenu } from "../PickerOptionsMenu";
 
 export const SidebarMenuItemPropTypes = {
   name: PropTypes.string.isRequired,
@@ -57,6 +58,7 @@ export const SidebarMenuItem: React.FC<SidebarMenuItemProps> = (
         {items.map((item, index) => (
           <SidebarMenuItem {...item} key={index} color={"#000"} />
         ))}
+        <PickerOptionsMenu />
       </List>
     </StyledCollapse>
   ) : null;

@@ -19,7 +19,7 @@ const SidebarMenuItemComponent: React.FC<SidebarMenuItemComponentProps> = (
 
   // Return a LitItem with a url component
   return (
-    <ListItem component={Link} to={url}>
+    <ListItem sx={{ color: "#000" }} component={Link} to={url}>
       {children}
     </ListItem>
   );

@@ -5,29 +5,19 @@ import { IEditField } from "types";
 export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
   const readFields = !query
     ? []
-    : [
-        { width: "half", title: "Label", value: query?.data?.data?.data?.label },
-        { width: "half", title: "Value", value: query?.data?.data?.data?.value },
-      ];
+    : [{ width: "full", title: "Label", value: query?.data?.data?.data?.label }];
 
   const editFields: IEditField[] = [
     {
       fieldName: "label",
       fieldType: "singleText",
       fieldLabel: "Label",
-      width: "half",
-    },
-    {
-      fieldName: "value",
-      fieldType: "singleText",
-      fieldLabel: "Value",
-      width: "half",
+      width: "full",
     },
   ];
 
   const initialValues = {
     label: "",
-    value: "",
   };
 
   const rowId = query?.data?.data?.data?.id ?? null;

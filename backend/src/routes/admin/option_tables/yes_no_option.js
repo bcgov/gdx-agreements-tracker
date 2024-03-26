@@ -18,7 +18,7 @@ const routes = [
   {
     method: "PUT",
     url: `/${what}/:id`,
-    // schema: validators.updateOne,
+    schema: validators.updateOne,
     handler: controller.updateOne,
   },
   {
