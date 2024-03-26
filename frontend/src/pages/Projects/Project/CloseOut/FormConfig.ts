@@ -67,28 +67,28 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldLabel: "Post implementation hand-off to operation completed",
       fieldType: "select",
       width: "full",
-      tableName: "project",
+      pickerName: "yes_no_option",
     },
     {
       fieldName: "records_filed",
       fieldLabel: "Project documentation filled in accordance with records management",
       fieldType: "select",
       width: "full",
-      tableName: "project",
+      pickerName: "yes_no_option",
     },
     {
       fieldName: "contract_ev_completed",
       fieldLabel: "Contract evaluation completed if applicable",
       fieldType: "select",
       width: "full",
-      tableName: "project",
+      pickerName: "yes_no_option",
     },
     {
       fieldName: "contractor_security_terminated",
       fieldLabel: "Contractor IDIR terminated / building passes returned",
       fieldType: "select",
       width: "full",
-      tableName: "project",
+      pickerName: "yes_no_option",
     },
   ];
 

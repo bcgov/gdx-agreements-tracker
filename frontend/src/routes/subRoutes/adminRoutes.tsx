@@ -10,6 +10,7 @@ import { Glossary } from "pages/Admin/Glossary";
 import { Users } from "pages/Admin/Users";
 import { Logs } from "pages/Admin/Logs";
 import { ProjectAgreementTypeOptions } from "pages/Admin/ProjectAgreementTypes";
+import { YesNoOptions } from "pages/Admin/PickerOptions/YesNoOption";
 
 /*
  * Routes for Admin pages.
@@ -38,6 +39,7 @@ const routes = [
       path="project-agreement-types"
       element={<ProjectAgreementTypeOptions />}
     />
+    <Route key="yes-no-option" path="yes-no-option" element={<YesNoOptions />} />
   </Route>,
 ];
 

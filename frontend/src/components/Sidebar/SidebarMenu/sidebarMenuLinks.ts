@@ -50,6 +50,10 @@ export const sidebarMenuLinks = [
         name: "Project Agreement Types",
         url: "/admin/project-agreement-types",
       },
+      {
+        name: "Yes No Option",
+        url: "/admin/yes-no-option",
+      },
     ],
   },
 ];
