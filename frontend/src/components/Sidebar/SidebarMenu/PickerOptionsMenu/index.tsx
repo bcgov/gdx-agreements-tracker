@@ -13,6 +13,10 @@ export const PickerOptionsMenu = () => {
       link: "/admin/contract-status-option",
     },
     {
+      label: "Contract Type Option",
+      link: "/admin/contract-type-option",
+    },
+    {
       label: "Contacts",
       link: "/admin/contacts",
     },
