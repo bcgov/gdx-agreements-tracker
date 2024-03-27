@@ -186,7 +186,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldLabel: "Contract Type",
       fieldName: "contract_type",
       fieldType: "select",
-      tableName: "contracts",
+      pickerName: "contract_type_option",
       required: true,
     },
     {
