@@ -17,7 +17,7 @@ const optionTablesModel = (request, id) => {
   };
 
   const updateOne = () => {
-    const { label } = request || {};
+    const { label } = request?.body || {};
     return knex(tableName).where("id", id).update({ value: label, label: label });
   };
 

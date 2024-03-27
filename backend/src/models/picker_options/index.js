@@ -63,6 +63,16 @@ const getCaseStatements = () => {
 const tableLookupValues = (projectId, contractId, params) => {
   const pickerOptions = [
     {
+      id: "billing_period",
+      name: "billing_period_option",
+      title: "Billing Period Option",
+      description: "",
+      table: "config.billing_period_option",
+      value: "value",
+      label: `label`,
+      queryAdditions: ``,
+    },
+    {
       id: "yes_no",
       name: "yes_no_option",
       title: "Yes No Option",
