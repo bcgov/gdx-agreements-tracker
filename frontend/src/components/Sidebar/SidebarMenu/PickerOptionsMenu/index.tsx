@@ -4,18 +4,29 @@ import SidebarMenuItemComponent from "../SidebarMenuItem/SidebarMenuItemComponen
 
 export const PickerOptionsMenu = () => {
   const menuItems = [
-    { label: "Yes/No Option", link: "/admin/yes-no-option" },
-    {
-      label: "Project Agreement Types",
-      link: "/admin/project-agreement-types",
-    },
     {
       label: "Billing Period Option",
       link: "/admin/billing-period-option",
     },
     {
+      label: "Contract Status Option",
+      link: "/admin/contract-status-option",
+    },
+    {
       label: "Contacts",
       link: "/admin/contacts",
+    },
+    {
+      label: "Ministries / Org Name",
+      link: "/admin/ministries",
+    },
+    {
+      label: "Project Agreement Types",
+      link: "/admin/project-agreement-types",
+    },
+    {
+      label: "Resources",
+      link: "/admin/resources",
     },
     {
       label: "Suppliers",
@@ -25,14 +36,7 @@ export const PickerOptionsMenu = () => {
       label: "Subcontractors",
       link: "/admin/subcontractors",
     },
-    {
-      label: "Resources",
-      link: "/admin/resources",
-    },
-    {
-      label: "Ministries / Org Name",
-      link: "/admin/ministries",
-    },
+    { label: "Yes/No Option", link: "/admin/yes-no-option" },
   ];
 
   return (

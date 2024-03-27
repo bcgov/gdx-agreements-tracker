@@ -157,7 +157,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldType: "select",
       fieldLabel: "Status",
       width: "half",
-      tableName: "contracts",
+      pickerName: "contract_status_option",
       required: true,
     },
     {
