@@ -22,10 +22,10 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
 
   const rowId = query?.data?.data?.data?.id ?? null;
   const rowsToLock = null === rowId ? [] : [Number(rowId)];
-  const postUrl = `/yes_no_option`;
-  const updateUrl = `/yes_no_option/${rowId}`;
+  const postUrl = `/billing_period_option`;
+  const updateUrl = `/billing_period_option/${rowId}`;
 
-  const formTitle = "Yes/No Option";
+  const formTitle = "Billing Period Option";
 
   return { readFields, editFields, initialValues, rowsToLock, postUrl, updateUrl, formTitle };
 };

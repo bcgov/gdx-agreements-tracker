@@ -4,10 +4,14 @@ import SidebarMenuItemComponent from "../SidebarMenuItem/SidebarMenuItemComponen
 
 export const PickerOptionsMenu = () => {
   const menuItems = [
-    { label: "Yes No Option", link: "/admin/yes-no-option" },
+    { label: "Yes/No Option", link: "/admin/yes-no-option" },
     {
       label: "Project Agreement Types",
       link: "/admin/project-agreement-types",
+    },
+    {
+      label: "Billing Period Option",
+      link: "/admin/billing-period-option",
     },
     {
       label: "Contacts",

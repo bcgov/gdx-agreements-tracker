@@ -11,6 +11,7 @@ import { Users } from "pages/Admin/Users";
 import { Logs } from "pages/Admin/Logs";
 import { ProjectAgreementTypeOptions } from "pages/Admin/ProjectAgreementTypes";
 import { YesNoOptions } from "pages/Admin/PickerOptions/YesNoOption";
+import { BillingPeriodOption } from "pages/Admin/PickerOptions/BillingPeriodOption";
 
 /*
  * Routes for Admin pages.
@@ -40,6 +41,11 @@ const routes = [
       element={<ProjectAgreementTypeOptions />}
     />
     <Route key="yes-no-option" path="yes-no-option" element={<YesNoOptions />} />
+    <Route
+      key="billing-period-option"
+      path="billing-period-option"
+      element={<BillingPeriodOption />}
+    />
   </Route>,
 ];
 

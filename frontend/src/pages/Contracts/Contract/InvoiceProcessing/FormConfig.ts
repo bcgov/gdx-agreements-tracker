@@ -51,7 +51,7 @@ export const FormConfig = (query: UseQueryResult<AxiosResponse, unknown>) => {
       fieldLabel: "Billing Period",
       fieldName: "billing_period",
       fieldType: "select",
-      tableName: "generic",
+      pickerName: "billing_period_option",
     },
     {
       fieldName: "fiscal",
