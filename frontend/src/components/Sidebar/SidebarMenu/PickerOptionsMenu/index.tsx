@@ -29,6 +29,10 @@ export const PickerOptionsMenu = () => {
       link: "/admin/project-agreement-types",
     },
     {
+      label: "Project Status Option",
+      link: "/admin/project-status-option",
+    },
+    {
       label: "Resources",
       link: "/admin/resources",
     },
@@ -41,6 +45,8 @@ export const PickerOptionsMenu = () => {
       link: "/admin/subcontractors",
     },
     { label: "Yes/No Option", link: "/admin/yes-no-option" },
+
+
   ];
 
   return (
