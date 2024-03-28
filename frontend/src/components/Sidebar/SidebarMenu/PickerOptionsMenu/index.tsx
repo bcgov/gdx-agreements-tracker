@@ -29,6 +29,10 @@ export const PickerOptionsMenu = () => {
       link: "/admin/project-agreement-types",
     },
     {
+      label: "Project Funding Option",
+      link: "/admin/project-funding-option",
+    },
+    {
       label: "Project Status Option",
       link: "/admin/project-status-option",
     },

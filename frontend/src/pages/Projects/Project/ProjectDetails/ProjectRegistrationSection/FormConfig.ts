@@ -161,7 +161,7 @@ export const FormConfig = (query: AxiosResponse | undefined) => {
       fieldType: "select",
       fieldLabel: "Funding",
       width: "half",
-      tableName: "project",
+      pickerName: "project_funding_option",
     },
     {
       fieldName: "total_project_budget",
