@@ -14,6 +14,7 @@ import { YesNoOptions } from "pages/Admin/PickerOptions/YesNoOption";
 import { BillingPeriodOption } from "pages/Admin/PickerOptions/BillingPeriodOption";
 import { ContractStatusOption } from "pages/Admin/PickerOptions/ContractStatusOption";
 import { ContractTypeOption } from "pages/Admin/PickerOptions/ContractTypeOption";
+import { ProjectStatusOption } from "pages/Admin/PickerOptions/ProjectStatusOption";
 
 /*
  * Routes for Admin pages.
@@ -57,6 +58,11 @@ const routes = [
       key="contract-type-option"
       path="contract-type-option"
       element={<ContractTypeOption />}
+    />
+    <Route
+      key="project-status-option"
+      path="project-status-option"
+      element={<ProjectStatusOption />}
     />
   </Route>,
 ];
