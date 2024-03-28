@@ -33,6 +33,10 @@ export const PickerOptionsMenu = () => {
       link: "/admin/project-status-option",
     },
     {
+      label: "Project Type Option",
+      link: "/admin/project-type-option",
+    },
+    {
       label: "Resources",
       link: "/admin/resources",
     },

@@ -15,6 +15,7 @@ import { BillingPeriodOption } from "pages/Admin/PickerOptions/BillingPeriodOpti
 import { ContractStatusOption } from "pages/Admin/PickerOptions/ContractStatusOption";
 import { ContractTypeOption } from "pages/Admin/PickerOptions/ContractTypeOption";
 import { ProjectStatusOption } from "pages/Admin/PickerOptions/ProjectStatusOption";
+import { ProjectTypeOption } from "pages/Admin/PickerOptions/ProjectTypeOption";
 
 /*
  * Routes for Admin pages.
@@ -64,6 +65,7 @@ const routes = [
       path="project-status-option"
       element={<ProjectStatusOption />}
     />
+    <Route key="project-type-option" path="project-type-option" element={<ProjectTypeOption />} />
   </Route>,
 ];
 
