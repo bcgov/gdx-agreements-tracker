@@ -67,8 +67,11 @@ const routes = [
       element={<ProjectStatusOption />}
     />
     <Route key="project-type-option" path="project-type-option" element={<ProjectTypeOption />} />
-    <Route key="project-funding-option" path="project-funding-option" element={<ProjectFundingOption />} />
-
+    <Route
+      key="project-funding-option"
+      path="project-funding-option"
+      element={<ProjectFundingOption />}
+    />
   </Route>,
 ];
 
